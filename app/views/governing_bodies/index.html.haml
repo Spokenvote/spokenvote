@@ -1,0 +1,23 @@
+%h1 Listing governing_bodies
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Location
+    %th
+    %th
+    %th
+
+  - @governing_bodies.each do |governing_body|
+    %tr
+      %td= governing_body.name
+      %td= governing_body.description
+      %td= governing_body.location
+      %td= link_to 'Show', governing_body
+      %td= link_to 'Edit', edit_governing_body_path(governing_body)
+      %td= link_to 'Destroy', governing_body, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Governing body', new_governing_body_path

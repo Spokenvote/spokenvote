@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @governing_body.name
+%p
+  %b Description:
+  = @governing_body.description
+%p
+  %b Location:
+  = @governing_body.location
+
+= link_to 'Edit', edit_governing_body_path(@governing_body)
+\|
+= link_to 'Back', governing_bodies_path

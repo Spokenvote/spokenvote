@@ -1,0 +1,17 @@
+%h1 Listing governing_bodies_positions
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @governing_bodies_positions.each do |governing_bodies_position|
+    %tr
+      %td= link_to 'Show', governing_bodies_position
+      %td= link_to 'Edit', edit_governing_bodies_position_path(governing_bodies_position)
+      %td= link_to 'Destroy', governing_bodies_position, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Governing bodies position', new_governing_bodies_position_path

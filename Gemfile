@@ -8,6 +8,8 @@ gem 'ancestry'
 
 gem 'pg'
 gem 'prototype-rails'
+gem 'nested_form'
+gem 'version_fu'
 
 gem 'thin'
 
@@ -24,7 +26,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
 
-gem 'carrierwave'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 
 # Gems used only for assets and not required

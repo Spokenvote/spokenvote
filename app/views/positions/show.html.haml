@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Statement:
+  = @position.statement
+%p
+  %b User:
+  = @position.user_id
+%p
+  %b Parent:
+  = @position.parent_id
+
+= link_to 'Edit', edit_position_path(@position)
+\|
+= link_to 'Back', positions_path

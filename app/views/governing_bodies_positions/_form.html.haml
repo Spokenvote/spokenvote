@@ -1,0 +1,10 @@
+= form_for @governing_bodies_position do |f|
+  - if @governing_bodies_position.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@governing_bodies_position.errors.count, "error")} prohibited this governing_bodies_position from being saved:"
+      %ul
+        - @governing_bodies_position.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

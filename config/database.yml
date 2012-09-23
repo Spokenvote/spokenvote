@@ -5,13 +5,13 @@ login: &login
   password: diplomat1
 
 development:
-  database: typo_dev
+  database: spokenvote_dev
   <<: *login
 
 test:
-  database: typo_tests
+  database: spokenvote_tests
   <<: *login
 
 production:
-  database: typo_production
+  database: spokenvote_production
   <<: *login

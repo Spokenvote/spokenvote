@@ -1,0 +1,22 @@
+= form_for @position do |f|
+  - if @position.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
+      %ul
+        - @position.errors.full_messages.each do |msg|
+          %li= msg
+          
+  .field
+    = f.label :governing_id
+    = f.select :governing_id, GoverningBody.all.map{|gb| [gb.name, gb.id] }
+  .field
+    = f.label :statement
+    = f.text_field :statement
+  .field
+    = f.label :user_id
+    = f.select :user_id, User.all.map{|gb| [gb.name, gb.id] }
+  .field
+    = f.label :parent_id
+    = f.select :parent_id, Position.all.map{|gb| [gb.name, gb.id] }
+  .actions
+    = f.submit 'Save'
