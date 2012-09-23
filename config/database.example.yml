@@ -1,0 +1,42 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: spokenvote_development
+  host: 127.0.0.1
+  user: pkhadloya
+  password:
+  port: 5432
+  min_messages: warning
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: spokenvote_test
+  host: 127.0.0.1
+  user: pkhadloya
+  password:
+  port: 5432
+  min_messages: warning
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: spokenvote_development
+  host: 127.0.0.1
+  user: root
+  password:
+  port: 5432
+  min_messages: warning
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: spokenvote_staging
+  host: 127.0.0.1
+  user: pkhadloya
+  password:
+  port: 5432
+  min_messages: warning
+
+cucumber:
+  <<: *test
