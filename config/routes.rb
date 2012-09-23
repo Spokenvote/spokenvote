@@ -1,4 +1,12 @@
 Spokenvote::Application.routes.draw do
+  resources :tags
+
+  resources :votes
+
+  resources :positions
+
+  resources :governing_bodies
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
