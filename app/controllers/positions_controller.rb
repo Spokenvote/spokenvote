@@ -26,7 +26,7 @@ class PositionsController < ApplicationController
   # GET /positions/new.json
   def new
     @position = Position.new
-
+    @vote = @position.votes.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @position }
@@ -41,8 +41,8 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = Position.new(params[:position])
-
+    @position = Position.new params[:position]
+    
     respond_to do |format|
       if @position.save
         format.html { redirect_to @position, notice: 'Position was successfully created.' }

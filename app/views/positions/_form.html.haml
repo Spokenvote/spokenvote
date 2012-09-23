@@ -1,22 +1,28 @@
-= form_for @position do |f|
+Logged in as:
+= current_user.email
+  
+= nested_form_for @position do |f|
   - if @position.errors.any?
     #error_explanation
       %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
       %ul
         - @position.errors.full_messages.each do |msg|
           %li= msg
-          
+  = f.hidden_field :user_id, :value => current_user.id
   .field
-    = f.label :governing_id
+    = f.label :governing_body
     = f.select :governing_id, GoverningBody.all.map{|gb| [gb.name, gb.id] }
   .field
     = f.label :statement
-    = f.text_field :statement
-  .field
-    = f.label :user_id
-    = f.select :user_id, User.all.map{|gb| [gb.name, gb.id] }
+    = f.text_field :statement, :size => 80
   .field
     = f.label :parent_id
-    = f.select :parent_id, Position.all.map{|gb| [gb.name, gb.id] }
+    = f.select :parent_id, Position.all.map{|p| [p.statement, p.id] }
+    
+  = f.fields_for :votes do |vote_form|
+    .field
+      = vote_form.label :comment
+      = vote_form.text_area :comment
+
   .actions
     = f.submit 'Save'
