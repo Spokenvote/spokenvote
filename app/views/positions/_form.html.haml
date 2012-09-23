@@ -23,6 +23,7 @@ Logged in as:
     .field
       = vote_form.label :comment
       = vote_form.text_area :comment
+    = vote_form.hidden_field :user_id, :value => current_user.id
 
   .actions
     = f.submit 'Save'
