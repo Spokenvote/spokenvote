@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923214102) do
+ActiveRecord::Schema.define(:version => 20120924001654) do
 
   create_table "governing_bodies", :force => true do |t|
     t.string   "name"
@@ -40,10 +40,14 @@ ActiveRecord::Schema.define(:version => 20120923214102) do
     t.string   "statement"
     t.integer  "user_id"
     t.integer  "parent_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "governing_id"
+    t.integer  "votes_count",  :default => 0
+    t.string   "ancestry"
   end
+
+  add_index "positions", ["ancestry"], :name => "index_positions_on_ancestry"
 
   create_table "positions_tags", :force => true do |t|
     t.datetime "created_at", :null => false

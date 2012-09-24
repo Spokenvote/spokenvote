@@ -11,10 +11,11 @@
     %th Votes in Universe
 
   - @positions.each do |position|
+    - all_related_positions_votes_count = [position.ancestors, position.descendants, position].flatten.map(&:votes_count).sort
     %tr
       %td= position.statement
       %td= position.votes.count
-      %td
+      %td= all_related_positions_votes_count.index(position.votes_count) + 1
       %td
       %td
       %td

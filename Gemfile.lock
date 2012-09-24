@@ -170,10 +170,7 @@ DEPENDENCIES
   acts_as_list
   ancestry
   annotate
-<<<<<<< HEAD
   bootstrap-sass (~> 2.0.4.2)
-=======
->>>>>>> 37d6ca366a14a141f602d8e794350ac29a9b32db
   coffee-rails (~> 3.2.1)
   dalli
   devise
