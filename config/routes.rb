@@ -10,7 +10,7 @@ Spokenvote::Application.routes.draw do
   resources :positions
   resources :governing_bodies
 
-  root :to => 'votes#index'
+  root :to => 'positions#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
