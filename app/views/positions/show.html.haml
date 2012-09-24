@@ -1,3 +1,5 @@
+%h1 Position
+
 %p#notice= notice
 
 %p
@@ -10,13 +12,13 @@
   %b Parent:
   = @position.statement[0..20]
 
-%input{:type => 'button'} Respond!
+%button Respond!
 
 %h3 Votes
 - @position.votes.each do |vote|
   .votes
     .vote
-      %p= vote.user.email
+      %p= vote.user.email rescue 'No User'
       %p= link_to vote.comment, vote_url(vote)
       %hr
 

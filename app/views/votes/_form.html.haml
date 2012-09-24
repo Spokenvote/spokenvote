@@ -5,15 +5,14 @@
       %ul
         - @vote.errors.full_messages.each do |msg|
           %li= msg
-
+  = f.hidden_field :user_id, :value => current_user.id
+  
   .field
     = f.label :position_id
-    = f.number_field :position_id
+    = f.select :position_id, Position.all.map{|p| [p.statement, p.id] }
   .field
     = f.label :comment
     = f.text_area :comment
-  .field
-    = f.label :user_id
-    = f.number_field :user_id
+    
   .actions
     = f.submit 'Save'
