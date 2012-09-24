@@ -1,19 +1,24 @@
 %h1 Listing positions
 
-%table
+%table(border=1)
   %tr
-    %th Statement
-    %th User
-    %th Parent
-    %th
-    %th
-    %th
+    %th Position
+    %th Votes
+    %th Rank
+    %th Most popular related spokenvote
+    %th Votes
+    %th Versions
+    %th Votes in Universe
 
   - @positions.each do |position|
     %tr
       %td= position.statement
-      %td= position.user_id
-      %td= position.parent_id
+      %td= position.votes.count
+      %td
+      %td
+      %td
+      %td
+      %td
       %td= link_to 'Show', position
       %td= link_to 'Edit', edit_position_path(position)
       %td= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' }

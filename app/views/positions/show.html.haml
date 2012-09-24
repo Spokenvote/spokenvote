@@ -1,3 +1,5 @@
+%h1 Position
+
 %p#notice= notice
 
 %p
@@ -5,10 +7,20 @@
   = @position.statement
 %p
   %b User:
-  = @position.user_id
+  = @position.email rescue 'No User'
 %p
   %b Parent:
-  = @position.parent_id
+  = @position.statement[0..20]
+
+%button Respond!
+
+%h3 Votes
+- @position.votes.each do |vote|
+  .votes
+    .vote
+      %p= vote.user.email rescue 'No User'
+      %p= link_to vote.comment, vote_url(vote)
+      %hr
 
 = link_to 'Edit', edit_position_path(@position)
 \|
