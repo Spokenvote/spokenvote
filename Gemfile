@@ -42,6 +42,7 @@ end
 group :development do
   gem 'hirb'
   gem 'annotate'
+  gem 'rails-erd'
 end
 
 gem 'jquery-rails'
