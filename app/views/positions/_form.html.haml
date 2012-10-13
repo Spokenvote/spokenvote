@@ -12,22 +12,23 @@
   %fieldset
     - if @parent_position
       = @parent_position.governing_bodies.first.name
+      = hidden_field_tag :governing_id, @parent_position.governing_bodies.first.id
     - else
       = select_tag :governing_id, options_for_select(GoverningBody.all.map{|gb| [gb.name, gb.id] })
   %fieldset
-    = f.label :parent_position_statement
     - if @parent_position
+      = f.label :parent_position_statement
       = @parent_position.statement
-    - else
       = f.select :parent_id, Position.all.map{ |p| [p.statement, p.id] }
   %br
   = f.label :statement
-  = f.text_field :statement, :placeholder => @parent_position.statement
+  = f.text_field :statement, :placeholder => @parent_position.try(:statement)
 
-  = f.fields_for :votes do |vote_form|
+  = f.fields_for :votes, @vote do |vote_form|
     = vote_form.label :comment
     = vote_form.text_area :comment
     = vote_form.hidden_field :user_id, :value => current_user.id
+    = vote_form.hidden_field :position_id, :value => @position.id
 
   .actions
     = f.submit 'Save', class: 'btn btn-primary'

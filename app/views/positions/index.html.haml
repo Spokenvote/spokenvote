@@ -7,33 +7,25 @@
     %th Position
     %th Votes
     %th Rank
-    %th Most popular related spokenvote
-    %th Votes
-    %th Versions
-    %th Votes in Universe
-    %th(colspan="4") Actions
+    %th Votes in Tree
 
   - @positions.each do |position|
     - all_related_positions_votes_count = [position.ancestors, position.descendants, position].flatten.map(&:votes_count).sort
     %tr
-      %td= position.governing_bodies.first.name
-      %td= position.statement
+      %td= position.governing_bodies.first.name unless position.parent
+      %td
+        = link_to 'Improve', new_position_path(:parent_id => position), :class => 'label' 
+        = link_to 'Agree', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
+        = position.statement
       %td= position.votes.count
       %td= all_related_positions_votes_count.index(position.votes_count) + 1
-      %td
-      %td
-      %td
-      %td
-      %td= link_to 'Show', position
-      %td= link_to 'Edit', edit_position_path(position)
-      %td= link_to 'Improve', new_position_path(:parent_id => position)
-      %td= link_to 'Agree', '#', 'data-function' => 'display_comment_form'
+      %td= position.votes_in_tree
 
 %br
 #comment{:style => 'display:none;'}
   = simple_form_for Vote.new do |f|
-    = f.input :user_id, :as => :hidden
-    = f.input :position_id, :as => :hidden
+    = hidden_field_tag 'vote[user_id]', current_user.id
+    = hidden_field_tag 'vote[position_id]', ''
     = f.input :comment, placeholder: "Tell us why you agree..."
     = f.submit "Save", class: 'btn btn-primary'
 
@@ -43,4 +35,6 @@
   jQuery('[data-function=display_comment_form]').click(function(e) {
     e.preventDefault();
     jQuery('#comment').slideDown(500);
+    console.log(jQuery(this).attr('data-position_id'));
+    jQuery('#vote_position_id').val(jQuery(this).attr('data-position_id'));
   });

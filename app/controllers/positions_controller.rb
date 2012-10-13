@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
   # GET /positions
   # GET /positions.json
   def index
-    @positions = current_user.positions
+    @positions = current_user.positions.select(&:is_root?)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -44,8 +44,11 @@ class PositionsController < ApplicationController
   # POST /positions.json
   def create
     governing_body = GoverningBody.find(params[:governing_id])
+    votes = params[:position].delete :votes_attributes
     @position = governing_body.positions.create(params[:position])
-
+    
+    # TODO THIS IS HORRIBLE
+    @position.votes.create votes['0']
     respond_to do |format|
       if @position.save
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
