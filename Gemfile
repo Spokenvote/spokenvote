@@ -39,6 +39,7 @@ group :assets do
 end
 
 group :development do
+  gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
   gem 'rails-erd'
