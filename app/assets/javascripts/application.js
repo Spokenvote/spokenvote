@@ -10,8 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery_nested_form
 //= require jquery
 //= require jquery_ujs
+//= require jquery_nested_form
 //= require bootstrap
 //= require_tree .

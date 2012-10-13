@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.5'
 gem 'heroku'
 gem 'devise'
-gem 'newrelic_rpm'
 gem 'ancestry'
 gem 'bootstrap-sass', "~> 2.0.4.2"
 
@@ -43,6 +42,10 @@ group :development do
   gem 'hirb'
   gem 'annotate'
   gem 'rails-erd'
+end
+
+group :production do
+  gem 'newrelic_rpm'
 end
 
 gem 'jquery-rails'

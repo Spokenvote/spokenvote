@@ -1,6 +1,3 @@
-Logged in as:
-= current_user.email
-  
 = nested_form_for @position do |f|
   - if @position.errors.any?
     #error_explanation
@@ -8,22 +5,29 @@ Logged in as:
       %ul
         - @position.errors.full_messages.each do |msg|
           %li= msg
+
   = f.hidden_field :user_id, :value => current_user.id
-  .field
-    = f.label :governing_body
-    = f.select :governing_id, GoverningBody.all.map{|gb| [gb.name, gb.id] }
-  .field
-    = f.label :statement
-    = f.text_field :statement, :size => 80
-  .field
-    = f.label :parent_id
-    = f.select :parent_id, Position.all.map{|p| [p.statement, p.id] }
-    
+  %br
+  = f.label :governing_body
+  %fieldset
+    - if @parent_position
+      = @parent_position.governing_bodies.first.name
+    - else
+      = select_tag :governing_id, options_for_select(GoverningBody.all.map{|gb| [gb.name, gb.id] })
+  %fieldset
+    = f.label :parent_position_statement
+    - if @parent_position
+      = @parent_position.statement
+    - else
+      = f.select :parent_id, Position.all.map{ |p| [p.statement, p.id] }
+  %br
+  = f.label :statement
+  = f.text_field :statement, :placeholder => @parent_position.statement
+
   = f.fields_for :votes do |vote_form|
-    .field
-      = vote_form.label :comment
-      = vote_form.text_area :comment
+    = vote_form.label :comment
+    = vote_form.text_area :comment
     = vote_form.hidden_field :user_id, :value => current_user.id
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-primary'

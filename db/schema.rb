@@ -22,28 +22,17 @@ ActiveRecord::Schema.define(:version => 20120924001654) do
   end
 
   create_table "governing_bodies_positions", :force => true do |t|
-    t.integer  "governing_body_id"
-    t.integer  "position_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "page_versions", :force => true do |t|
-    t.integer  "vote_id"
-    t.integer  "version"
-    t.string   "position_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer "governing_body_id"
+    t.integer "position_id"
   end
 
   create_table "positions", :force => true do |t|
     t.string   "statement"
     t.integer  "user_id"
     t.integer  "parent_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "governing_id"
-    t.integer  "votes_count",  :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "votes_count", :default => 0
     t.string   "ancestry"
   end
 

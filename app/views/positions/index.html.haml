@@ -1,7 +1,9 @@
 %h1 Listing positions
+%br
 
-%table(border=1)
+%table.table
   %tr
+    %th Governing Body
     %th Position
     %th Votes
     %th Rank
@@ -9,10 +11,12 @@
     %th Votes
     %th Versions
     %th Votes in Universe
+    %th(colspan="4") Actions
 
   - @positions.each do |position|
     - all_related_positions_votes_count = [position.ancestors, position.descendants, position].flatten.map(&:votes_count).sort
     %tr
+      %td= position.governing_bodies.first.name
       %td= position.statement
       %td= position.votes.count
       %td= all_related_positions_votes_count.index(position.votes_count) + 1
@@ -22,8 +26,21 @@
       %td
       %td= link_to 'Show', position
       %td= link_to 'Edit', edit_position_path(position)
-      %td= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to 'Improve', new_position_path(:parent_id => position)
+      %td= link_to 'Agree', '#', 'data-function' => 'display_comment_form'
 
 %br
+#comment{:style => 'display:none;'}
+  = simple_form_for Vote.new do |f|
+    = f.input :user_id, :as => :hidden
+    = f.input :position_id, :as => :hidden
+    = f.input :comment, placeholder: "Tell us why you agree..."
+    = f.submit "Save", class: 'btn btn-primary'
 
 = link_to 'New Position', new_position_path
+
+:javascript
+  jQuery('[data-function=display_comment_form]').click(function(e) {
+    e.preventDefault();
+    jQuery('#comment').slideDown(500);
+  });

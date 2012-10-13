@@ -27,6 +27,7 @@ class PositionsController < ApplicationController
   # GET /positions/new.json
   def new
     @position = Position.new
+    @parent_position = Position.find(params[:parent_id]) if params[:parent_id]
     @vote = @position.votes.build
     respond_to do |format|
       format.html # new.html.erb
@@ -42,8 +43,9 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = Position.new params[:position]
-    
+    governing_body = GoverningBody.find(params[:governing_id])
+    @position = governing_body.positions.create(params[:position])
+
     respond_to do |format|
       if @position.save
         format.html { redirect_to @position, notice: 'Position was successfully created.' }

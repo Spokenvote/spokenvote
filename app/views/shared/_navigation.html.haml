@@ -8,3 +8,7 @@
     = link_to "Positions", positions_path
   %li
     = link_to "Votes", votes_path
+
+%ul.nav.pull-right
+  %li
+    = current_user.email if current_user
