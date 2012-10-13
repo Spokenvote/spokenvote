@@ -1,6 +1,6 @@
 namespace :db do
   desc "Refresh database, drop, create and migrate"
-  task :refresh => [:development_environment_only, :drop, :create, :migrate]
+  task :refresh => [:drop, :create, :migrate]
 
   desc "Prepare test database"
   task :test_prep => :environment do
