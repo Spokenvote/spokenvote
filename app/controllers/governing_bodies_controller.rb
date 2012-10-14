@@ -1,5 +1,6 @@
-
 class GoverningBodiesController < ApplicationController
+  before_filter :authenticate_user!, :except => [:show, :index]
+
   # GET /governing_bodies
   # GET /governing_bodies.json
   def index

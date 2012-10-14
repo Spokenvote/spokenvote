@@ -1,4 +1,3 @@
-
 class PositionsTagsController < ApplicationController
   # GET /positions_tags
   # GET /positions_tags.json

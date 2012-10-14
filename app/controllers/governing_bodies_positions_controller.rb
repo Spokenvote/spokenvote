@@ -1,4 +1,3 @@
-
 class GoverningBodiesPositionsController < ApplicationController
   # GET /governing_bodies_positions
   # GET /governing_bodies_positions.json
