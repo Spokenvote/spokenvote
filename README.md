@@ -1,5 +1,5 @@
 # Spokenvote
-<right>[![alt text](https://github.com/railsforcharity/spokenvote/blob/master/app/assets/images/BlueFull.png" "Spokenvote")]</right>
+![alt text](https://github.com/railsforcharity/spokenvote/blob/master/app/assets/images/BlueFull.png "Spokenvote")
 
 ## Introduction
 <center>[![Spokenvote][Logo]]</center>
