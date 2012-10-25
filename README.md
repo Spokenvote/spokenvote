@@ -44,7 +44,7 @@ Q. Who is the intended audience for the Spokenvote web application?
 A: At first small groups who need to reach consensus (e.g. non-profits); eventually envisioned to work at the national political level
 
 ## Contributing
-Please see the <a href="http://spokenvote.herokuapp.com/">here</a>">current design wireframes</a>.
+Please see the <a href="https://github.com/railsforcharity/spokenvote/downloads/">here</a>">current design wireframes</a>.
 
 Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
 
