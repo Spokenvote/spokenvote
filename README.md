@@ -1,4 +1,4 @@
-<div style="float: right"><img src="http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png" /></div>
+<img style="float:right" src="http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png"/>
 # Spokenvote
 
 ## Introduction
