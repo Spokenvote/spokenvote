@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project optimally timed to set off a forest fire of change.
+Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
 
 The central idea behind Spokenvote is to spontaneously capture people’s opinions and ideas as they naturally come up and then harness the power of crowds to turn those diverse views, opinions, and revelations into clear statements of consensus connected to large groups. Such a pivotal step is made possible by helping users organically adjust their own semantics (the way they phrased a vote), and as they make those adjustments, progress toward reaching a majority opinion together.
 
