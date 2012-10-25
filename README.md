@@ -1,4 +1,4 @@
-<img style="float:right" src="http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png"/>
+<center>![Spokenvote Logo][logo]</center>
 # Spokenvote
 
 ## Introduction
