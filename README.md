@@ -23,7 +23,7 @@ The work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com
 
 ## Environment
 
-1. Postgres is being used both in development and production (edit the database.example.yml and save as yours as database.yml)
+1. Postgres is being used both in development and production (edit the database.example.yml and save yours as database.yml)
 2. ** should we give them any guidance here on how to determine Gem Dependencies?
 
 ## License
@@ -41,7 +41,7 @@ This project is an open source project of Spokenvote.org, supported in large mea
 
 Q. Who is the intended audience for the Spokenvote web application?
 
-A: At first small groups who need to reach consensus in the normal course of business; eventually envisioned to work at the national political level
+A: At first small groups who need to reach consensus (e.g. non-profits); eventually envisioned to work at the national political level
 
 ## Contributing
 Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
