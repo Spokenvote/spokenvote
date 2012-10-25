@@ -8,8 +8,8 @@ The central idea behind Spokenvote is to spontaneously capture people’s opinio
 
 ## Features
 
-* Very fast and easy user entry of ideas to capture constructive input from a group of any size
-* Intelligent prompting to guide users toward agreement and adoption of positions where commonalities already exist
+* Fast and easy user entry of ideas to capture constructive input from a group of any size
+* Intelligent prompting to guide users toward agreement and adoption of positions by discovering where commonalities already exist
 * Simple and elegant reporting back to the group to see where consensus stands at a glance
 * Integration with Facebook and G+ to pull credentials and push user activity
 
@@ -18,34 +18,17 @@ The work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com
 ## Getting started
 
 1. Setup your development environment
-2. Setup the project
-3. Run `git submodule update --init` to grab our submodule dependencies (MobileFrontend)
+2. Create your own fork of the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote</a> code.
+3. Clone your fork onto your computer.
 
-## Environment setup
+## Environment
 
-1. Follow Steps 1 & 2 from the instructions found on the <a href="http://www.phonegap.com/start" target="_blank">PhoneGap.com Getting Started Page</a> to get all the necessary software for contributing to this project.
-
-### Checking out the source code
-
-1. Create your own fork of the <a href="https://github.com/wikimedia/WiktionaryMobile" target="_blank">Wiktionary</a> code.
-2. Clone your fork onto your computer.
-
-## Test
-
-Before you can run the tests, make sure the submodules are updated:
-```
-git submodule update --init
-```
-
-Then open up `./test/index.html` in your browser.
-
-Some browsers will not be able to load JSON using AJAX if you run
-the tests as local files (file://), so you should run them from
-a web server (http://).
+1. Postgres is being used both in development and production (edit the database.example.yml and save as yours as database.yml)
+2. ** should we give them any guidance here on how to determine Gem Dependencies?
 
 ## License
 
-You may use jquery.webfonts under the terms of either the MIT License or the GNU General
+Spokenvote is a public good project distributed under the terms of either the MIT License or the GNU General
 Public License (GPL) Version 2 or later.
 
 See GPL-LICENSE and MIT-LICENSE for details.
@@ -56,10 +39,10 @@ This project is an open source project of Spokenvote.org, supported in large mea
 
 ## FAQ
 
-Q. I can't seem to find PhoneGap 1.4.1! Where can I download it?
+Q. Who is the intended audience for the Spokenvote web application?
 
-A: Right [here][phonegap-1-4-1-download]
+A: At first small groups who need to reach consensus in the normal course of business; eventually envisioned to work at the national political level
 
 ## Contributing
-Please ensure you read STYLE_GUIDELINES before making any contribution to this project!
+Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
 
