@@ -1,5 +1,6 @@
 # Spokenvote
-                                                                                <right>[Logo]</right>
+<div align="right">[Logo]</div>
+<right>[Logo]</right>
 ## Introduction
 
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
