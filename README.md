@@ -1,5 +1,6 @@
 # Spokenvote
-<center>![alt text](https://github.com/railsforcharity/spokenvote/blob/master/app/assets/images/bluefull.png "Logo Title Text 1")</center>
+![alt text](https://github.com/railsforcharity/spokenvote/blob/master/app/assets/images/bluefull.png "Logo")
+![alt text](http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png "Spokenvote Logo")
 
 ## Introduction
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
