@@ -1,4 +1,5 @@
-<center>![Spokenvote Logo](http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png)</center># Spokenvote
+<center>![Spokenvote Logo](http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png)</center>
+# Spokenvote
 
 ## Introduction
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
@@ -23,7 +24,7 @@ The work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com
 ## Environment
 
 1. Postgres is being used both in development and production (edit the database.example.yml and save yours as database.yml)
-2. Run <a href="http://gembundler.com/">Bundler</a>in the project's root directory to install any needed gems.
+2. Run <a href="http://gembundler.com/">Bundler</a> in the project's root directory to install any needed gems.
 
 ## License
 
