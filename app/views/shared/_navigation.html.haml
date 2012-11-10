@@ -9,6 +9,13 @@
   %li
     = link_to "Votes", votes_path
 
-%ul.nav.pull-right
-  %li
-    = current_user.email if current_user
+- if user_signed_in?
+  %ul.nav.pull-right
+    %li
+      = current_user.email if current_user
+    = link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
+- else
+  %ul.nav.pull-right
+    = link_to 'Sign In', new_user_session_path, :class => 'btn btn-warning'
+    = link_to 'Sign Up', new_user_registration_path, :class => 'btn btn-success'
+
