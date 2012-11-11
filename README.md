@@ -17,13 +17,13 @@ The work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com
 
 ## Getting started
 
-1. Setup your development environment
+1. Setup your development environment.
 2. Create your own fork of the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote</a> code.
 3. Clone your fork onto your computer.
 
 ## Environment
 
-1. Postgres is being used both in development and production (edit the database.example.yml and save yours as database.yml)
+1. Postgres is being used both in development and production (edit the database.example.yml and save yours as database.yml).
 2. Run <a href="http://gembundler.com/">Bundler</a> in the project's root directory to install any needed gems.
 
 ## License

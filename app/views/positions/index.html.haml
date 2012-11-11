@@ -7,7 +7,7 @@
     %th Position
     %th Votes
     %th Rank
-    %th Votes in Tree
+    %th Votes on Topic
 
   - @positions.each do |position|
     - all_related_positions_votes_count = [position.ancestors, position.descendants, position].flatten.map(&:votes_count).sort
