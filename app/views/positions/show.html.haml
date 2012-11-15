@@ -1,29 +1,35 @@
-%h2
-  = @position.governing_bodies.first.name
-  = @position.governing_bodies.first.location
+= render partial: 'show', :locals => { :position => @position }
+%hr
+%hr
+%h1 Related Positions
+= render partial: 'show', :locals => { :position => @position }
+%hr
+= render partial: 'show', :locals => { :position => @position }
 
-%p
-  = @position.statement
+:javascript
+  $(document).ready(function () {
+      $('.more').click(function (e) {
+        var el = $(this).find('a'),
+            url = el.attr('href');
 
-=link_to 'Support', '', class: 'btn'
-=link_to 'Improve', '', class: 'btn'
+        $.ajax({
+          url: url,
+          success: function (data) {
+            el.closest('.position_container').find('.supporting_arguments .span12').append(data);
+            var decodedUrl = decodeURIComponent(url);
 
-%span= pluralize(@position.votes.count, 'vote')
+            var matches = decodedUrl.match(/(page:)(\d)(.*)/);
 
-%br
-%br
-%h3 Supporting Arguments
-.row
-  .span12
-    - @votes.each do |vote|
-      .span2
-        %p= vote.user.name || vote.user.email
-      .span9
-        %p= truncate(vote.comment, :length => 140, :omission => '...more')
-      %hr
+            if(matches) {
+              page_prefix = matches[1];
+              page_number = matches[2];
+              the_rest = matches[3];
+              newUrl = page_prefix + (parseInt(page_number) + 1) + the_rest
+              el.attr('href', window.location + '?context=' + newUrl);
+            }
+          }
+        });
 
-.row
-  .span1.offset11
-    - if @position.votes_count > 2
-      =link_to 'More...', position_path(:page_number => params[:page_number].to_i + 1)
-
+        e.preventDefault();
+      });
+  });

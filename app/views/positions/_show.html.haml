@@ -1,0 +1,26 @@
+%span.position_container
+  %h2
+    = position.governing_bodies.first.name
+    = position.governing_bodies.first.location
+
+  %p
+    = position.statement
+
+  =link_to 'Support', '', class: 'btn'
+  =link_to 'Improve', '', class: 'btn'
+
+  %span= pluralize(position.votes.count, 'vote')
+
+  %br
+  %br
+  %h3 Supporting Arguments
+  .row.supporting_arguments
+    .span12
+      - position.votes[0..1].each do |vote|
+        = render :partial => 'position_vote', :locals => { :vote => vote }
+
+  .row
+    .span1.offset11
+      - if position.votes_count > 2
+        - context = "page:#{params[:page_number].to_i}_position:#{position.id}"
+        .more=link_to 'More...', position_path(:context => context)

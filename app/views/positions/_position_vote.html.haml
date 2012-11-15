@@ -1,0 +1,4 @@
+.span2
+  %p= vote.user.name || vote.user.email
+.span9
+  %p= truncate(vote.comment, :length => 140, :omission => '...more')
