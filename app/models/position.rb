@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: positions
+#
+#  id          :integer          not null, primary key
+#  statement   :string(255)
+#  user_id     :integer
+#  parent_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  votes_count :integer          default(0)
+#  ancestry    :string(255)
+#
+
 class Position < ActiveRecord::Base
   attr_accessible :parent_id, :statement, :user_id, :votes, :votes_attributes
   

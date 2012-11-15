@@ -15,7 +15,9 @@ class PositionsController < ApplicationController
   # GET /positions/1
   # GET /positions/1.json
   def show
+    page_number = params[:page_number]
     @position = Position.find(params[:id])
+    @votes = @position.votes.limit(10 * page_number.to_i + 2)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -15,7 +15,7 @@
       %td= position.governing_bodies.first.name unless position.parent
       %td
         = link_to 'Improve', new_position_path(:parent_id => position), :class => 'label' 
-        = link_to 'Agree', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
+        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
         = position.statement
       %td= position.votes.count
       %td= all_related_positions_votes_count.index(position.votes_count) + 1

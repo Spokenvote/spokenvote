@@ -1,27 +1,29 @@
-%h1 Position
-
-%p#notice= notice
+%h2
+  = @position.governing_bodies.first.name
+  = @position.governing_bodies.first.location
 
 %p
-  %b Statement:
   = @position.statement
-%p
-  %b User:
-  = @position.email rescue 'No User'
-%p
-  %b Parent:
-  = @position.statement[0..20]
 
-%button Respond!
+=link_to 'Support', '', class: 'btn'
+=link_to 'Improve', '', class: 'btn'
 
-%h3 Votes
-- @position.votes.each do |vote|
-  .votes
-    .vote
-      %p= vote.user.email rescue 'No User'
-      %p= link_to vote.comment, vote_url(vote)
+%span= pluralize(@position.votes.count, 'vote')
+
+%br
+%br
+%h3 Supporting Arguments
+.row
+  .span12
+    - @votes.each do |vote|
+      .span2
+        %p= vote.user.name || vote.user.email
+      .span9
+        %p= truncate(vote.comment, :length => 140, :omission => '...more')
       %hr
 
-= link_to 'Edit', edit_position_path(@position)
-\|
-= link_to 'Back', positions_path
+.row
+  .span1.offset11
+    - if @position.votes_count > 2
+      =link_to 'More...', position_path(:page_number => params[:page_number].to_i + 1)
+
