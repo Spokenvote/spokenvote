@@ -1,0 +1,21 @@
+.row
+  .offset4.span4
+    .login_box
+      %h3 Sign in through one of these services:
+      = render :partial => 'devise/shared/providers'
+
+      .login_form
+        %h3 Sign in
+        %br   
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          %div
+            = f.label :email
+            = f.email_field :email
+          %div
+            = f.label :password
+            = f.password_field :password
+          - if devise_mapping.rememberable?
+            = f.check_box :remember_me
+            = f.label :remember_me
+          %div= f.submit "Sign in", :class => 'btn btn-primary'
+        = render "devise/shared/links"

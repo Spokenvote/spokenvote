@@ -20,12 +20,14 @@ gem 'jquery-tokeninput-rails'
 gem 'select2-rails', "~> 3.1.1"
 
 gem 'devise'
-gem 'devise_invitable', '~> 1.0.1'
-gem 'devise-encryptable'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 gem 'acts_as_list'
 gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'compass-rails'
 
 gem 'activerecord-reputation-system', require: 'reputation_system'
 
