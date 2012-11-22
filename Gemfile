@@ -45,6 +45,7 @@ group :development do
   gem 'hirb'
   gem 'annotate'
   gem 'rails-erd'
+  gem 'debugger'
 end
 
 group :production do
