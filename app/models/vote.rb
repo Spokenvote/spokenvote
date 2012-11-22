@@ -18,14 +18,6 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   
   validates :comment, :user_id, :position_id, :presence => true
-  validate :unique_vote
+  validates :user_id, :uniqueness => {:scope => [:user_id, :position_id], :message => "Can't vote on the same issue twice."}
 
-  private
-  	def unique_vote
-  		# debugger
-  		vote = Vote.where(:user_id => self.user_id, :position_id => self.position_id)
-  		return true if vote.size == 0
-
-  		errors.add(:base, "can't vote on the same issue twice");
-	end
 end

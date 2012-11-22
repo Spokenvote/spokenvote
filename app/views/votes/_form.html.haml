@@ -3,8 +3,8 @@
     #error_explanation
       %h2= "#{pluralize(@vote.errors.count, "error")} prohibited this vote from being saved:"
       %ul
-        - @vote.errors.full_messages.each do |msg|
-          %li= msg
+        - @vote.errors.each_with_index do |msg, i|
+          %li= msg[1]
   = f.hidden_field :user_id, :value => current_user.id
   
   .field
