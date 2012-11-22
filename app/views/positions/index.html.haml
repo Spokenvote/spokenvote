@@ -16,25 +16,12 @@
       %td
         = link_to 'Improve', new_position_path(:parent_id => position), :class => 'label' 
         = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
-        = position.statement
+        = link_to position.statement, position_path(position)
       %td= position.votes.count
       %td= all_related_positions_votes_count.index(position.votes_count) + 1
       %td= position.votes_in_tree
 
 %br
-#comment{:style => 'display:none;'}
-  = simple_form_for Vote.new do |f|
-    = hidden_field_tag 'vote[user_id]', current_user.id
-    = hidden_field_tag 'vote[position_id]', ''
-    = f.input :comment, placeholder: "Tell us why you agree..."
-    = f.submit "Save", class: 'btn btn-primary'
+= render :partial => 'shared/comment'
 
 = link_to 'New Position', new_position_path
-
-:javascript
-  jQuery('[data-function=display_comment_form]').click(function(e) {
-    e.preventDefault();
-    jQuery('#comment').slideDown(500);
-    console.log(jQuery(this).attr('data-position_id'));
-    jQuery('#vote_position_id').val(jQuery(this).attr('data-position_id'));
-  });
