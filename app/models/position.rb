@@ -36,4 +36,10 @@ class Position < ActiveRecord::Base
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
     end
   end
+
+  def related_positions
+    all_positions_in_tree = [self.root, self.root.descendants].flatten
+    all_positions_in_tree.delete(self.clone)
+    all_positions_in_tree
+  end
 end
