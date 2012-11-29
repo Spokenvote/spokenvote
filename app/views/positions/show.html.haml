@@ -7,28 +7,82 @@
 
 :javascript
   $(document).ready(function () {
-      $('.more').click(function (e) {
-        var el = $(this).find('a'),
-            url = el.attr('href');
+    $('.more').click(function (e) {
+      e.preventDefault();
 
-        $.ajax({
-          url: url,
-          success: function (data) {
-            el.closest('.position_container').find('.supporting_arguments .span12').append(data);
-            var decodedUrl = decodeURIComponent(url);
+      var el = $(this).find('a'),
+          url = el.attr('href');
 
-            var matches = decodedUrl.match(/(page:)(\d)(.*)/);
+      $.ajax({
+        url: url,
+        success: function (data) {
+          el.closest('.position_container').find('.supporting_arguments .span12').append(data);
+          var decodedUrl = decodeURIComponent(url);
 
-            if(matches) {
-              page_prefix = matches[1];
-              page_number = matches[2];
-              the_rest = matches[3];
-              newUrl = page_prefix + (parseInt(page_number) + 1) + the_rest
-              el.attr('href', window.location + '?context=' + newUrl);
-            }
+          var matches = decodedUrl.match(/(page:)(\d)(.*)/);
+
+          if(matches) {
+            page_prefix = matches[1];
+            page_number = matches[2];
+            the_rest = matches[3];
+            newUrl = page_prefix + (parseInt(page_number) + 1) + the_rest
+            el.attr('href', window.location + '?context=' + newUrl);
           }
-        });
-
-        e.preventDefault();
+        }
       });
+    });
+
+    $('.improve').click(function (e) {
+      e.preventDefault();
+
+      var el = $(this),
+          position_container = el.closest('.position_container'),
+          editableBox = position_container.find('.content_editable'),
+          improve_support_buttons = position_container.find('.improve_support_buttons'),
+          content_editable_buttons = position_container.find('.content_editable_buttons');
+
+      editableBox.attr('contenteditable', 'true');
+      improve_support_buttons.hide();
+      content_editable_buttons.show();
+    });
+
+    $('.cancel').click(function () {
+      hideContentEditable($(this));
+    });
+
+    $('.save_statement').click(function () {
+      var el = $(this),
+        position_container = el.closest('.position_container'),
+        editableBox = position_container.find('.content_editable'),
+        position_id = position_container.data('position-id'),
+        url = '/positions/' + position_id,
+        new_value = editableBox.text().trim();
+
+      console.log(el);
+
+      $.ajax({
+        url: url,
+        type: 'PUT',
+        dataType: 'json',
+        data: {
+          position: {
+            statement: new_value
+          }
+        },
+        success: function (data) {
+          hideContentEditable(el);
+        }
+      });
+    });
+
+    function hideContentEditable(el) {
+      var position_container = el.closest('.position_container'),
+          editableBox = position_container.find('.content_editable'),
+          improve_support_buttons = position_container.find('.improve_support_buttons'),
+          content_editable_buttons = position_container.find('.content_editable_buttons');
+
+      editableBox.attr('contenteditable', 'false');
+      content_editable_buttons.hide();
+      improve_support_buttons.show();
+    }
   });
