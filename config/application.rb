@@ -1,6 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -58,5 +62,15 @@ module Spokenvote
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Only generate request specs and model specs
+    config.generators do |g|
+      g.test_framework :rspec,
+        :request_specs    => true,
+        :controller_specs => false,
+        :helper_specs     => false,
+        :routing_specs    => false,
+        :view_specs       => false
+    end
   end
 end
