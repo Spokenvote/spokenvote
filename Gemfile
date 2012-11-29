@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.9'
 gem 'heroku'
 gem 'devise'
 gem 'ancestry'
 gem 'bootstrap-sass', "~> 2.0.4.2"
 
 
-gem 'pg'
+# gem 'pg'
 gem 'prototype-rails'
 gem 'nested_form'
 gem 'version_fu'
@@ -36,11 +36,11 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
   gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do
+  gem "sqlite3"
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'

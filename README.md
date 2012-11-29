@@ -18,13 +18,23 @@ The work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com
 ## Getting started
 
 1. Setup your development environment.
-2. Create your own fork of the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote</a> code.
-3. Clone your fork onto your computer.
+2. Fork the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote repo</a>.
+3. Clone your fork locally.
+4. Make your changes in small, cohesive commits and send separate pull requests for each commit you feel is ready to be added to master.
+5. Branches:
+	* If your commit includes the addition of, or significant version changes of, gems or libraries used please make it in a feature branch.
+	* If your commit is a significant new feature or rewrite of an existing feature, please make the commit in a topic branch.
+
 
 ## Environment
 
-1. Postgres is being used both in development and production (edit the database.example.yml and save yours as database.yml).
+1. Edit database.example.yml and save as database.yml; this file is in .gitignore so don't worry about checking in your version. *NOTE:* Postgres is the production database but by default SQLite3 is used in the development and test environments.
 2. Run <a href="http://gembundler.com/">Bundler</a> in the project's root directory to install any needed gems.
+3. Create and update the database by running `rake db:setup`
+
+## Rails for Charity Account
+
+Participation is managed through the task system at http://RailsForCharity.org. Please create an account for yourself on that site and either pick your work from the existing tasks or add new tasks that you'd like to work on and assign to yourself.
 
 ## License
 
