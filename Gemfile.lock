@@ -284,6 +284,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   populator
+  pg
   prototype-rails
   rack-cache
   rails (= 3.2.9)
