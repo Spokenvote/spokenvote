@@ -1,5 +1,14 @@
 class GoverningBodiesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :homepage]
+
+  def homepage
+    @governing_bodies = GoverningBody.by_name
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @governing_bodies_positions }
+    end
+  end
 
   # GET /governing_bodies
   # GET /governing_bodies.json

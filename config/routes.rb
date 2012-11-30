@@ -9,9 +9,13 @@ Spokenvote::Application.routes.draw do
   resources :tags
   resources :votes
   resources :positions
-  resources :governing_bodies
+  resources :governing_bodies do
+      collection do
+          get 'homepage'
+      end
+  end
 
-  root :to => 'positions#index'
+  root :to => 'governing_bodies#homepage'
 
   root :to => 'static_pages#home'
 
