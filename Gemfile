@@ -7,7 +7,7 @@ gem 'ancestry'
 gem 'bootstrap-sass', "~> 2.0.4.2"
 
 
-# gem 'pg'
+gem 'pg'
 gem 'prototype-rails'
 gem 'nested_form'
 gem 'version_fu'
@@ -40,7 +40,6 @@ group :assets do
 end
 
 group :development do
-  gem "sqlite3"
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
