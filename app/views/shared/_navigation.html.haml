@@ -1,4 +1,4 @@
-= link_to image_tag('bluefull.png', :height => 20) + " Spoken Vote", root_path, :class => 'brand'
+= link_to "Spoken Vote", root_path, :class => 'brand'
 %ul.nav
   %li
     = link_to('About', root_path)
@@ -9,15 +9,13 @@
   %li
     = link_to "Votes", votes_path
 
-%ul.nav.pull-right
-  %li
-    = form_tag 'navbar-search', :class => 'navbar-search' do
-      = text_field_tag 'navsearch', nil, :placeholder => 'search SpokenVote', :class => 'search-query'
-  %li.dropdown
-    = link_to_if user_signed_in?, raw(current_user.email + '<b class="caret"></b>'), '#', :remote => true, :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do
-      = link_to 'Sign In', new_user_session_path, :class => 'btn btn-warning'
-      = link_to 'Sign Up', new_user_registration_path, :class => 'btn btn-success'
-    %ul.dropdown-menu
-      %li
-        = link_to 'Log Out', destroy_user_session_path, :method => 'delete'
+- if user_signed_in?
+  %ul.nav.pull-right
+    %li
+      = current_user.email if current_user
+    = link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
+- else
+  %ul.nav.pull-right
+    = link_to 'Sign In', new_user_session_path, :class => 'btn btn-warning'
+    = link_to 'Sign Up', new_user_registration_path, :class => 'btn btn-success'
 
