@@ -13,8 +13,8 @@
 #
 
 class Position < ActiveRecord::Base
-  attr_accessible :parent_id, :statement, :user_id, :votes, :votes_attributes
-  
+  attr_accessible :parent_id, :parent, :statement, :user_id, :user, :votes, :votes_attributes
+
   # Associations
   belongs_to :user
   belongs_to :parent, :class_name => 'position', :foreign_key => 'parent_id'

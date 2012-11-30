@@ -48,6 +48,11 @@ group :development do
   gem 'debugger'
 end
 
+group :development, :test do
+  gem 'faker'
+  gem 'populator'
+end
+
 group :production do
   gem 'newrelic_rpm'
 end
