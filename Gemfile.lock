@@ -282,6 +282,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
+  pg
   populator
   pg
   prototype-rails
