@@ -2,3 +2,9 @@
 body { padding-top: 60px; }
 @import "bootstrap-responsive";
 textarea { height:100px; }
+
+.navbar .nav > li > a {
+	padding: 11px 10px 13px;
+	color: #fff;
+	&:hover { background-color:#999; }
+}
