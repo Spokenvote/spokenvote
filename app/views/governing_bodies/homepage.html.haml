@@ -1,21 +1,56 @@
-%h1.page_title Welcome to SpokenVote!
+- if current_user && user_signed_in?
+  %h1.page_title Your SpokenVote!
 
-.row
-  .span8
-    %h2
-      = link_to 'Add a Position', new_position_path, :class => 'btn pull-right'
-      Current Active Positions 
-    %table.listing
-      %tr
-        %th Name
-        %th Description
-        %th Location
-
-      - @governing_bodies.each do |governing_body|
+  .row
+    .span8
+      %h2
+        = link_to 'Add a Position', new_position_path, :class => 'btn pull-right'
+        Current Active Positions 
+      %table.listing
         %tr
-          %td= link_to governing_body.name, edit_governing_body_path(governing_body)
-          %td= governing_body.description
-          %td= governing_body.location
+          %th Name
+          %th Description
 
-  #sidebar.span4
-    %h2 Sidebar
+        - @governing_bodies.each do |governing_body|
+          %tr
+            %td= link_to governing_body.name, edit_governing_body_path(governing_body)
+            %td= governing_body.description
+
+    #sidebar.span4
+      %h2 Sidebar
+
+- else
+  %h1.page_title Welcome to SpokenVote!
+
+  .row
+    .span8
+      %h2 Current Active Positions 
+      %table.listing
+        %tr
+          %th Name
+          %th Description
+
+        - @governing_bodies.each do |governing_body|
+          %tr
+            %td= link_to governing_body.name, edit_governing_body_path(governing_body)
+            %td= governing_body.description
+
+    #sidebar.span4
+      .login_box
+        .login_form
+          %h3
+            Sign in through:
+            = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
+
+          %h3 Sign in with SpokenVote
+          = form_tag 'homepage_login' do
+            %div
+              = label_tag :email
+              = email_field_tag :email
+            %div
+              = label_tag :password
+              = password_field_tag :password
+            / - if devise_mapping.rememberable?
+            /   = check_box_tag :remember_me
+            /   = label_tag :remember_me
+            %div= submit_tag "Sign in", :class => 'btn btn-primary'

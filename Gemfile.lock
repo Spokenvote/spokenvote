@@ -262,9 +262,10 @@ DEPENDENCIES
   acts_as_list
   ancestry
   annotate
-  bootstrap-sass (~> 2.0.4.2)
+  bootstrap-sass
   capybara
   coffee-rails (~> 3.2.1)
+  compass
   compass-rails
   dalli
   debugger
@@ -284,7 +285,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   populator
-  pg
   prototype-rails
   rack-cache
   rails (= 3.2.9)
