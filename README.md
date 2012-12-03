@@ -17,7 +17,7 @@ The master instance work-in-progress instance is hosted <a href="http://spokenvo
 
 ## Getting started
 
-1. Setup your development environment.
+1. Setup your development environment. We recommend (develop and test) against ruby 1.9.3-p194 or higher.
 2. Fork the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote repo</a>.
 3. Clone your fork locally.
 4. Add the master repo as an upstream of yours (see instructions at https://help.github.com/articles/syncing-a-fork)
