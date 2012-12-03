@@ -5,26 +5,38 @@
     .span8
       %h2
         = link_to 'Add a Position', new_position_path, :class => 'btn pull-right'
-        Current Active Positions 
+        Your Active Positions 
       %table.listing
         %tr
-          %th Name
-          %th Description
+          %th Statement
+          %th Votes
 
-        - @governing_bodies.each do |governing_body|
+        - @positions.each do |pos|
           %tr
-            %td= link_to governing_body.name, edit_governing_body_path(governing_body)
-            %td= governing_body.description
+            %td= link_to pos.statement, edit_position_path(pos)
+            %td= pos.votes_count
 
-    #sidebar.span4
-      %h2 Sidebar
+    #sidebar.span4{:style => 'padding: 20px;'}
+      %h2 Logged in Sidebar
+      %div some content
 
 - else
   %h1.page_title Welcome to SpokenVote!
 
   .row
     .span8
-      %h2 Current Active Positions 
+      %h2 Active Positions 
+      %table.listing
+        %tr
+          %th Statement
+          %th Votes
+
+        - @positions.each do |pos|
+          %tr
+            %td= link_to pos.statement, edit_position_path(pos)
+            %td= pos.votes_count
+
+      %h2 Active Governing Bodies
       %table.listing
         %tr
           %th Name
@@ -43,7 +55,7 @@
             = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
 
           %h3 Sign in with SpokenVote
-          = form_tag 'homepage_login' do
+          = form_tag 'users/login' do
             %div
               = label_tag :email
               = email_field_tag :email
@@ -54,3 +66,23 @@
             /   = check_box_tag :remember_me
             /   = label_tag :remember_me
             %div= submit_tag "Sign in", :class => 'btn btn-primary'
+
+      .login_box
+        .login_form
+          %h3
+            Sign up through:
+            = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
+
+          %h3 Sign up
+          %br
+          = form_tag '/users' do
+            %div
+              = label_tag :email
+              = email_field_tag :email
+            %div
+              = label_tag :password
+              = password_field_tag :password
+            %div
+              = label_tag :password_confirmation
+              = password_field_tag :password_confirmation
+            %div= submit_tag "Sign up", :class => 'btn btn-primary'

@@ -22,6 +22,8 @@ h2 .pull-right { margin-right: 14px; margin-top: 4px; }
 
 .listing {
 	width: 100%;
+  margin-bottom: 30px;
+  &:last-child { margin-bottom: 0; }
 	th { text-align: left; }
 }
 
@@ -51,6 +53,7 @@ textarea { height:100px; }
 .navbar .nav > a, .navbar .nav > li > a {
   &, &:visited { color: #fff; }
 }
+#search-nav { margin-left: 20px; }
 
 .brand {
   img { height: 20px; }

@@ -3,6 +3,11 @@ class GoverningBodiesController < ApplicationController
 
   def homepage
     @governing_bodies = GoverningBody.by_name
+    if user_signed_in?
+      @positions = current_user.positions.all
+    else
+      @positions = Position.all # was going to use Position.roots but I only get one position that way for now
+    end
 
     respond_to do |format|
       format.html # index.html.erb
