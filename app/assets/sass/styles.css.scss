@@ -1,0 +1,97 @@
+@import "compass";
+$headingsColor: #315c99;
+$heroUnitHeadingColor: $headingsColor;
+@import "bootstrap";
+
+// Include responsive Bootstrap styles
+// @import "bootstrap-responsive";
+
+body { padding-top: 40px; padding-bottom: 40px; background-color: #eee; }
+
+.content {
+  margin: 0; /* negative indent the amount of the padding to maintain the grid system */
+  @include clearfix;
+}
+
+#mainContent { padding: 20px; }
+hr {
+    background-color: black;
+    height: 1px;
+}
+
+.hero-unit {
+  padding: 60px 40px; width: 820px;
+  p {
+    margin-top: 20px; margin-bottom: 0; color: #385173;
+    img { margin: 10px 20px 35px 0; float: left; }
+  }
+  .close { margin-top: -40px; margin-right: -20px; }
+}
+.page_title { margin-bottom: 20px; }
+
+h2 { margin-bottom: 12px; }
+
+.listing {
+  width: 100%;
+  margin-bottom: 30px;
+  @extend .table-striped;
+  @extend .table-bordered;
+  @extend .table-hover;
+  &:last-child { margin-bottom: 0; }
+  th { text-align: left; background-color: #315D99; color: #fff; font-size: 16px; }
+  th.table-title { font-size: 24px; }
+  tr:last-child th:last-child { border-left: none; }
+  th .pull-right { margin-right: 14px; }
+  th, td { padding: 6px 0 6px 10px; }
+  .vote_count { text-align: center; }
+}
+
+#sidebar {
+  @include box-shadow(0 1px 2px rgba(0,0,0,.15));
+  @include box-sizing(border-box);
+  margin-left: 60px;
+  &, .login_form { @include border-radius(6px); }
+  .login_box {
+    border: none;
+    @include border-radius(0);
+    @include box-shadow(0);
+    hr, br { display: none; }
+  }
+  .login_form { padding-bottom: 0; margin: 5px auto; }
+  h3 {
+    font-size: 18px;
+    a img { max-width: 50px; }
+  }
+}
+
+textarea { height:100px; }
+
+.navbar-inverse {
+  .navbar-inner { background: #80A0CC; color:#000; border-color: #315c99; }
+  .brand { color:#000; }
+}
+.navbar .nav > li > a {
+  padding: 11px 8px 13px;
+  &:hover { background-color:#999; }
+}
+.navbar .nav > a, .navbar .nav > li > a {
+  &, &:visited { color: #fff; font-weight: bold; }
+}
+#search-nav { margin-left: 20px; }
+
+.brand {
+  img { height: 20px; }
+}
+
+footer {
+  .container { padding: 10px 0; }
+  a { color: #fff; }
+}
+
+#main .container { background-color: #FFF; }
+.main-position { margin-bottom: 20px; }
+.main-position, .supporting_arguments {
+  h3 { margin-bottom: 10px; }
+  .position-person { margin-left: 0; }
+}
+.total_votes { margin-top: 10px; font-size: 16px; font-weight: bold; }

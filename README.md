@@ -35,7 +35,7 @@ When doing a larger piece of work, such as the following, please use a branch so
 
 ## Environment
 
-1. Edit database.example.yml and save as database.yml; this file is in .gitignore so don't worry about checking in your version. *NOTE:* Postgres is the production database but by default SQLite3 is used in the development and test environments.
+1. Edit database.example.yml and save as database.yml; this file is in .gitignore so don't worry about checking in your version. *NOTE:* Postgres is the database used in SpokenVote, you must have iit installed before taking the next step; in our experience installing through [homebrew](http://mxcl.github.com/homebrew/) is the easiest way.
 2. Run <a href="http://gembundler.com/">Bundler</a> in the project's root directory to install any needed gems.
 3. Create and update the database by running `rake db:setup`
 
