@@ -29,6 +29,7 @@ class PositionsController < ApplicationController
       page_number = params[:page_number]
       @position = Position.find(params[:id])
       @votes = @position.votes.limit(10 * page_number.to_i + 2)
+      @total_votes = @position.root.descendants.count
 
       respond_to do |format|
         format.html # show.html.haml

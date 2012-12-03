@@ -1,19 +1,21 @@
 - if current_user && user_signed_in?
   .row
-    .span8
+    .span7
       %table.listing
-        %tr
-          %th.table-title{ :colspan => '2' }
-            = link_to 'New Position', new_position_path, :class => 'btn pull-right'
-            Active Positions 
-        %tr
-          %th.vote_count Votes
-          %th Statement
-
-        - @positions.each do |pos|
+        %thead
           %tr
-            %td.vote_count= pos.votes_count
-            %td= link_to pos.statement, edit_position_path(pos)
+            %th.table-title{ :colspan => '2' }
+              = link_to 'New Position', new_position_path, :class => 'btn pull-right'
+              Active Positions 
+          %tr
+            %th.vote_count Votes
+            %th Statement
+
+        %tbody
+          - @positions.each do |pos|
+            %tr
+              %td.vote_count= pos.votes_count
+              %td= link_to pos.statement, edit_position_path(pos)
 
     #sidebar.span4{:style => 'padding: 20px;'}
       %h2 New Groups
@@ -35,6 +37,8 @@
 
 - else
   .hero-unit
+    %span.pull-right
+      = link_to raw('<i class="icon-minus-sign"></i>'), '#', :class => 'close', :title => 'Click to close this message', :rel => 'tooltip'
     %h1.page_title Welcome to SpokenVote!
     %p
       = image_tag('bluefull.png')
@@ -42,7 +46,7 @@
     %p Our homepage shows active positions and groups. You can also search or browse through the site to see how the many different ways this service can help make decision-making more effective by everyone from large organizations to small informal groups of friends or colleagues.
 
   .row
-    .span8
+    .span7
       %table.listing
         %thead
           %tr

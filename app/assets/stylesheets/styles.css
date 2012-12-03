@@ -6483,8 +6483,9 @@ a.label:hover, a.badge:hover {
 
 /* line 9, ../sass/styles.css.scss */
 body {
-  padding-top: 60px;
-  padding-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
 }
 
 /* line 11, ../sass/styles.css.scss */
@@ -6505,73 +6506,86 @@ body {
 }
 
 /* line 16, ../sass/styles.css.scss */
+#mainContent {
+  padding: 20px;
+}
+
+/* line 17, ../sass/styles.css.scss */
 hr {
   background-color: black;
   height: 1px;
 }
 
-/* line 21, ../sass/styles.css.scss */
+/* line 22, ../sass/styles.css.scss */
+.hero-unit {
+  padding: 60px 40px;
+  width: 820px;
+}
+/* line 24, ../sass/styles.css.scss */
 .hero-unit p {
   margin-top: 20px;
   margin-bottom: 0;
   color: #385173;
 }
-/* line 23, ../sass/styles.css.scss */
+/* line 26, ../sass/styles.css.scss */
 .hero-unit p img {
   margin: 10px 20px 35px 0;
   float: left;
 }
+/* line 28, ../sass/styles.css.scss */
+.hero-unit .close {
+  margin-top: -40px;
+  margin-right: -20px;
+}
 
-/* line 25, ../sass/styles.css.scss */
+/* line 30, ../sass/styles.css.scss */
 .page_title {
   margin-bottom: 20px;
 }
 
-/* line 27, ../sass/styles.css.scss */
+/* line 32, ../sass/styles.css.scss */
 h2 {
   margin-bottom: 12px;
 }
 
-/* line 28, ../sass/styles.css.scss */
-h2 .pull-right {
-  margin-right: 14px;
-  margin-top: 4px;
-}
-
-/* line 30, ../sass/styles.css.scss */
+/* line 34, ../sass/styles.css.scss */
 .listing {
   width: 100%;
   margin-bottom: 30px;
 }
-/* line 36, ../sass/styles.css.scss */
+/* line 40, ../sass/styles.css.scss */
 .listing:last-child {
   margin-bottom: 0;
 }
-/* line 37, ../sass/styles.css.scss */
+/* line 41, ../sass/styles.css.scss */
 .listing th {
   text-align: left;
   background-color: #315D99;
   color: #fff;
   font-size: 16px;
 }
-/* line 38, ../sass/styles.css.scss */
+/* line 42, ../sass/styles.css.scss */
 .listing th.table-title {
   font-size: 24px;
 }
-/* line 39, ../sass/styles.css.scss */
+/* line 43, ../sass/styles.css.scss */
 .listing tr:last-child th:last-child {
   border-left: none;
 }
-/* line 40, ../sass/styles.css.scss */
+/* line 44, ../sass/styles.css.scss */
+.listing th .pull-right {
+  margin-right: 14px;
+}
+/* line 45, ../sass/styles.css.scss */
 .listing th, .listing td {
   padding: 6px 0 6px 10px;
 }
-/* line 41, ../sass/styles.css.scss */
+/* line 46, ../sass/styles.css.scss */
 .listing .vote_count {
   text-align: center;
 }
 
-/* line 44, ../sass/styles.css.scss */
+/* line 49, ../sass/styles.css.scss */
 #sidebar {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -6579,14 +6593,15 @@ h2 .pull-right {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin-left: 60px;
 }
-/* line 47, ../sass/styles.css.scss */
+/* line 53, ../sass/styles.css.scss */
 #sidebar, #sidebar .login_form {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 48, ../sass/styles.css.scss */
+/* line 54, ../sass/styles.css.scss */
 #sidebar .login_box {
   border: none;
   -webkit-border-radius: 0;
@@ -6596,84 +6611,96 @@ h2 .pull-right {
   -moz-box-shadow: 0;
   box-shadow: 0;
 }
-/* line 52, ../sass/styles.css.scss */
+/* line 58, ../sass/styles.css.scss */
 #sidebar .login_box hr, #sidebar .login_box br {
   display: none;
 }
-/* line 54, ../sass/styles.css.scss */
+/* line 60, ../sass/styles.css.scss */
 #sidebar .login_form {
   padding-bottom: 0;
   margin: 5px auto;
 }
-/* line 55, ../sass/styles.css.scss */
+/* line 61, ../sass/styles.css.scss */
 #sidebar h3 {
   font-size: 18px;
 }
-/* line 57, ../sass/styles.css.scss */
+/* line 63, ../sass/styles.css.scss */
 #sidebar h3 a img {
   max-width: 50px;
 }
 
-/* line 61, ../sass/styles.css.scss */
+/* line 67, ../sass/styles.css.scss */
 textarea {
   height: 100px;
 }
 
-/* line 64, ../sass/styles.css.scss */
+/* line 70, ../sass/styles.css.scss */
 .navbar-inverse .navbar-inner {
   background: #80A0CC;
   color: #000;
   border-color: #315c99;
 }
-/* line 65, ../sass/styles.css.scss */
+/* line 71, ../sass/styles.css.scss */
 .navbar-inverse .brand {
   color: #000;
 }
 
-/* line 67, ../sass/styles.css.scss */
+/* line 73, ../sass/styles.css.scss */
 .navbar .nav > li > a {
   padding: 11px 8px 13px;
 }
-/* line 69, ../sass/styles.css.scss */
+/* line 75, ../sass/styles.css.scss */
 .navbar .nav > li > a:hover {
   background-color: #999;
 }
 
-/* line 72, ../sass/styles.css.scss */
+/* line 78, ../sass/styles.css.scss */
 .navbar .nav > a, .navbar .nav > a:visited, .navbar .nav > li > a, .navbar .nav > li > a:visited {
   color: #fff;
   font-weight: bold;
 }
 
-/* line 74, ../sass/styles.css.scss */
+/* line 80, ../sass/styles.css.scss */
 #search-nav {
   margin-left: 20px;
 }
 
-/* line 77, ../sass/styles.css.scss */
+/* line 83, ../sass/styles.css.scss */
 .brand img {
   height: 20px;
 }
 
-/* line 81, ../sass/styles.css.scss */
+/* line 87, ../sass/styles.css.scss */
 footer .container {
-  padding: 20px 0;
+  padding: 10px 0;
 }
-/* line 82, ../sass/styles.css.scss */
+/* line 88, ../sass/styles.css.scss */
 footer a {
   color: #fff;
 }
 
-/* line 84, ../sass/styles.css.scss */
+/* line 91, ../sass/styles.css.scss */
+#main .container {
+  background-color: #FFF;
+}
+
+/* line 92, ../sass/styles.css.scss */
 .main-position {
   margin-bottom: 20px;
 }
 
-/* line 86, ../sass/styles.css.scss */
+/* line 94, ../sass/styles.css.scss */
 .main-position h3, .supporting_arguments h3 {
   margin-bottom: 10px;
 }
-/* line 87, ../sass/styles.css.scss */
+/* line 95, ../sass/styles.css.scss */
 .main-position .position-person, .supporting_arguments .position-person {
   margin-left: 0;
+}
+
+/* line 97, ../sass/styles.css.scss */
+.total_votes {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
 }

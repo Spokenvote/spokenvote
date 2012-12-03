@@ -6,26 +6,30 @@ $heroUnitHeadingColor: $headingsColor;
 // Include responsive Bootstrap styles
 // @import "bootstrap-responsive";
 
-body { padding-top: 60px; padding-bottom: 80px; }
+body { padding-top: 40px; padding-bottom: 40px; background-color: #eee; }
 
 .content {
   margin: 0; /* negative indent the amount of the padding to maintain the grid system */
   @include clearfix;
 }
 
+#mainContent { padding: 20px; }
 hr {
     background-color: black;
     height: 1px;
 }
 
-.hero-unit p {
-  margin-top: 20px; margin-bottom: 0; color: #385173;
-  img { margin: 10px 20px 35px 0; float: left; }
+.hero-unit {
+  padding: 60px 40px; width: 820px;
+  p {
+    margin-top: 20px; margin-bottom: 0; color: #385173;
+    img { margin: 10px 20px 35px 0; float: left; }
+  }
+  .close { margin-top: -40px; margin-right: -20px; }
 }
 .page_title { margin-bottom: 20px; }
 
 h2 { margin-bottom: 12px; }
-h2 .pull-right { margin-right: 14px; margin-top: 4px; }
 
 .listing {
   width: 100%;
@@ -37,6 +41,7 @@ h2 .pull-right { margin-right: 14px; margin-top: 4px; }
   th { text-align: left; background-color: #315D99; color: #fff; font-size: 16px; }
   th.table-title { font-size: 24px; }
   tr:last-child th:last-child { border-left: none; }
+  th .pull-right { margin-right: 14px; }
   th, td { padding: 6px 0 6px 10px; }
   .vote_count { text-align: center; }
 }
@@ -44,6 +49,7 @@ h2 .pull-right { margin-right: 14px; margin-top: 4px; }
 #sidebar {
   @include box-shadow(0 1px 2px rgba(0,0,0,.15));
   @include box-sizing(border-box);
+  margin-left: 60px;
   &, .login_form { @include border-radius(6px); }
   .login_box {
     border: none;
@@ -78,9 +84,11 @@ textarea { height:100px; }
 }
 
 footer {
-  .container { padding: 20px 0; }
+  .container { padding: 10px 0; }
   a { color: #fff; }
 }
+
+#main .container { background-color: #FFF; }
 .main-position { margin-bottom: 20px; }
 .main-position, .supporting_arguments {
   h3 { margin-bottom: 10px; }

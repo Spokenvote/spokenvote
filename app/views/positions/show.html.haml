@@ -1,4 +1,4 @@
-= render partial: 'show', :locals => { :position => @position, :total_votes => @votes.count }
+= render partial: 'show', :locals => { :position => @position, :total_votes => @total_votes }
 %hr
 %h2 Related Positions
 - @position.related_positions[0..1].each do |related_position|
