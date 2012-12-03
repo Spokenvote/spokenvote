@@ -1,40 +1,57 @@
 - if current_user && user_signed_in?
-  %h1.page_title Your SpokenVote!
-
   .row
     .span8
       %h2
-        = link_to 'Add a Position', new_position_path, :class => 'btn pull-right'
+        = link_to 'New Position', new_position_path, :class => 'btn pull-right'
         Your Active Positions 
       %table.listing
         %tr
+          %th.vote_count Votes
           %th Statement
-          %th Votes
 
         - @positions.each do |pos|
           %tr
+            %td.vote_count= pos.votes_count
             %td= link_to pos.statement, edit_position_path(pos)
-            %td= pos.votes_count
 
     #sidebar.span4{:style => 'padding: 20px;'}
-      %h2 Logged in Sidebar
-      %div some content
+      %h2 New Groups
+      %div
+        - @governing_bodies.each do |governing_body|
+          = link_to governing_body.name, governing_body_path(governing_body)
+          %br
+
+      %hr
+
+      %h2 News from SV
+      %div Blog content maybe? Definitely for marketing/service info for existing users.
+
+      %hr
+
+      %h2 @SVTweets
+      %div Last few tweets from the house account
+
 
 - else
-  %h1.page_title Welcome to SpokenVote!
+  .hero-unit
+    %h1.page_title Welcome to SpokenVote!
+    %p
+      = image_tag('bluefull.png')
+      We provide a home for all kinds of groups to build consensus around their issues and questions. SpokenVote allows all participants to post new positions and support them or create alternative versions until one version emerges as the group's choice.
+    %p Our homepage shows active positions and groups but you can search or browse through the site to see how the many different ways this service can help make decision-making more effective by everyone from large organizations to small informal groups of friends or colleagues.
 
   .row
     .span8
       %h2 Active Positions 
       %table.listing
         %tr
+          %th.vote_count Votes
           %th Statement
-          %th Votes
 
         - @positions.each do |pos|
           %tr
-            %td= link_to pos.statement, edit_position_path(pos)
-            %td= pos.votes_count
+            %td.vote_count= pos.votes_count
+            %td= link_to pos.statement, position_path(pos)
 
       %h2 Active Governing Bodies
       %table.listing
@@ -44,7 +61,7 @@
 
         - @governing_bodies.each do |governing_body|
           %tr
-            %td= link_to governing_body.name, edit_governing_body_path(governing_body)
+            %td= link_to governing_body.name, governing_body_path(governing_body)
             %td= governing_body.description
 
     #sidebar.span4

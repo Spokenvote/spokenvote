@@ -1,4 +1,6 @@
 @import "compass";
+$headingsColor: #315c99;
+$heroUnitHeadingColor: $headingsColor;
 @import "bootstrap";
 
 // Include responsive Bootstrap styles
@@ -15,16 +17,21 @@ hr {
     height: 1px;
 }
 
+.hero-unit p {
+  margin-top: 20px; margin-bottom: 0;
+  img { margin: 10px 20px 35px 0; float: left; }
+}
 .page_title { margin-bottom: 20px; }
 
 h2 { margin-bottom: 12px; }
 h2 .pull-right { margin-right: 14px; margin-top: 4px; }
 
 .listing {
-	width: 100%;
+  width: 100%;
   margin-bottom: 30px;
   &:last-child { margin-bottom: 0; }
-	th { text-align: left; }
+  th { text-align: left; }
+  .vote_count { text-align: center; }
 }
 
 #sidebar {
@@ -57,4 +64,11 @@ textarea { height:100px; }
 
 .brand {
   img { height: 20px; }
+}
+
+footer .container { padding: 20px 0; }
+.main-position { margin-bottom: 20px; }
+.main-position, .supporting_arguments {
+  h3 { margin-bottom: 10px; }
+  .position-person { margin-left: 0; }
 }

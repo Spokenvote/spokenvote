@@ -13,10 +13,7 @@
     = csrf_meta_tags
     = yield(:head)
   %body
-    %header.navbar.navbar-inverse.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'shared/navigation'
+    = render 'shared/navigation'
     #main{:role => "main"}
       .container
         .content
@@ -24,4 +21,4 @@
             .span12
               = render 'shared/messages'
               = yield
-          %footer
+    = render 'shared/footer'
