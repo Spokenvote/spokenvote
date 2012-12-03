@@ -20,6 +20,11 @@
       %div
         = position.statement
 
+    - if total_votes > 0
+      .total_votes{ :title => 'Across all related positions', :rel => 'tooltip' }
+        Total Votes:
+        = total_votes.to_s
+
   .supporting_arguments
     %h3 Supporting Arguments
     .row
