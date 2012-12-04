@@ -26,7 +26,7 @@ The master instance work-in-progress instance is hosted <a href="http://spokenvo
 
 Where possible please make your changes in small, cohesive commits. Send separate pull requests for each commit you feel is ready to be added to master.
 
-When doing a larger piece of work, such as the following, please use a branch so other can more easily review it.
+When doing a larger piece of work, such as the following, please use a branch so others can more easily review it.
 
 * The commit includes the addition of, or significant version changes of, gems or libraries used
 * The commit is a significant new feature or rewrite of an existing feature
