@@ -1,0 +1,116 @@
+- if current_user && user_signed_in?
+  .row
+    .span7
+      %table.listing
+        %thead
+          %tr
+            %th.table-title{ :colspan => '2' }
+              = link_to 'New Position', new_position_path, :class => 'btn pull-right'
+              Active Positions 
+          %tr
+            %th.vote_count Votes
+            %th Statement
+
+        %tbody
+          - @positions.each do |pos|
+            %tr
+              %td.vote_count= pos.votes_count
+              %td= link_to pos.statement, edit_position_path(pos)
+
+    #sidebar.span4{:style => 'padding: 20px;'}
+      %h2 New Groups
+      %div
+        - @governing_bodies.each do |governing_body|
+          = link_to governing_body.name, governing_body_path(governing_body)
+          %br
+
+      %hr
+
+      %h2 News from SV
+      %div Blog content maybe? Definitely for marketing/service info for existing users.
+
+      %hr
+
+      %h2 @SVTweets
+      %div Last few tweets from the house account
+
+
+- else
+  .hero-unit
+    %span.pull-right
+      = link_to raw('<i class="icon-minus-sign"></i>'), '#', :class => 'close', :title => 'Click to close this message', :rel => 'tooltip'
+    %h1.page_title Welcome to SpokenVote!
+    %p
+      = image_tag('bluefull.png')
+      We provide a home for groups of all kinds to build consensus around their issues and questions. SpokenVote allows all participants to post new positions and support them or create alternative versions until one version emerges as the group's choice.
+    %p Our homepage shows active positions and groups. You can also search or browse through the site to see how the many different ways this service can help make decision-making more effective by everyone from large organizations to small informal groups of friends or colleagues.
+
+  .row
+    .span7
+      %table.listing
+        %thead
+          %tr
+            %th.table-title{ :colspan => '2' } Active Positions
+          %tr
+            %th.vote_count Votes
+            %th Statement
+
+        %tbody
+          - @positions.each do |pos|
+            %tr
+              %td.vote_count= pos.votes_count
+              %td= link_to pos.statement, position_path(pos)
+
+      %table.listing
+        %thead
+          %tr
+            %th.table-title{ :colspan => '2' } Active Governing Bodies
+          %tr
+            %th Name
+            %th Description
+
+        %tbody
+          - @governing_bodies.each do |governing_body|
+            %tr
+              %td= link_to governing_body.name, governing_body_path(governing_body)
+              %td= governing_body.description
+
+    #sidebar.span4
+      .login_box
+        .login_form
+          %h3
+            Sign in through:
+            = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
+
+          %h3 Sign in with SpokenVote
+          = form_tag 'users/login' do
+            %div
+              = label_tag :email
+              = email_field_tag :email
+            %div
+              = label_tag :password
+              = password_field_tag :password
+            / - if devise_mapping.rememberable?
+            /   = check_box_tag :remember_me
+            /   = label_tag :remember_me
+            %div= submit_tag "Sign in", :class => 'btn btn-primary'
+
+      .login_box
+        .login_form
+          %h3
+            Sign up through:
+            = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
+
+          %h3 Sign up
+          %br
+          = form_tag '/users' do
+            %div
+              = label_tag :email
+              = email_field_tag :email
+            %div
+              = label_tag :password
+              = password_field_tag :password
+            %div
+              = label_tag :password_confirmation
+              = password_field_tag :password_confirmation
+            %div= submit_tag "Sign up", :class => 'btn btn-primary'

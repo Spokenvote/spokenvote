@@ -1,33 +1,41 @@
-%span.position_container(data-position-id="#{position.id}")
-  %h2
-    = position.governing_bodies.first.name
-    = position.governing_bodies.first.location
+.position_container(data-position-id="#{position.id}")
+  .main-position
+    %h2
+      Proposed by 
+      = position.governing_bodies.first.name + ','
+      = position.governing_bodies.first.location
 
-  .content_editable
-    = position.statement
+    - if user_signed_in?
+      .content_editable
+        = position.statement
 
-  .content_editable_buttons(style="display:none")
-    = link_to 'Cancel', '#', :class => 'label cancel'
-    = link_to 'Save this improved position', '#', :class => 'label save_statement'
+      .content_editable_buttons(style="display:none")
+        = link_to 'Cancel', '#', :class => 'label cancel'
+        = link_to 'Save this improved position', '#', :class => 'label save_statement'
 
-  .improve_support_buttons
-    = link_to 'Improve', '#', :class => 'label improve'
-    = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
+      .improve_support_buttons
+        = link_to 'Improve', '#', :class => 'label improve'
+        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
+    - else
+      %div
+        = position.statement
 
-  %span= pluralize(position.votes.count, 'vote')
+    - if total_votes > 0
+      .total_votes{ :title => 'Across all related positions', :rel => 'tooltip' }
+        Total Votes:
+        = total_votes.to_s
 
-  %br
-  %br
-  %h3 Supporting Arguments
-  .row.supporting_arguments
-    .span12
-      - position.votes[0..1].each do |vote|
-        = render :partial => 'position_vote', :locals => { :vote => vote }
+  .supporting_arguments
+    %h3 Supporting Arguments
+    .row
+      .span11
+        - position.votes[0..1].each_with_index do |vote, idx|
+          = render :partial => 'position_vote', :locals => { :vote => vote, :idx => idx }
 
-  .row
-    .span1.offset11
-      - if position.votes_count > 2
-        - context = "page:#{params[:page_number].to_i}_position:#{position.id}"
-        .more=link_to 'More...', position_path(:context => context)
+      .span1
+        - if position.votes_count > 2
+          - context = "page:#{params[:page_number].to_i}_position:#{position.id}"
+          .more=link_to 'More...', position_path(:context => context)
 
-= render :partial => 'shared/comment'
+- if user_signed_in?
+  = render :partial => 'shared/comment'

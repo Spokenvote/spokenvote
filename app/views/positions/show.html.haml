@@ -1,8 +1,8 @@
-= render partial: 'show', :locals => { :position => @position }
+= render partial: 'show', :locals => { :position => @position, :total_votes => @total_votes }
 %hr
-%h1 Related Positions
+%h2 Related Positions
 - @position.related_positions[0..1].each do |related_position|
-  = render partial: 'show', :locals => { :position => related_position }
+  = render partial: 'show', :locals => { :position => related_position, :total_votes => -1 }
 
 :javascript
   $(document).ready(function () {
