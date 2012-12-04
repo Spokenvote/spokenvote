@@ -6747,3 +6747,17 @@ footer a {
 #governing_body_show td:first-child {
   font-weight: bold;
 }
+
+/* line 115, ../sass/styles.css.scss */
+#positionsListing td {
+  vertical-align: top;
+}
+/* line 116, ../sass/styles.css.scss */
+#positionsListing .position_buttons {
+  padding-right: 8px;
+  line-height: 1.8;
+}
+/* line 117, ../sass/styles.css.scss */
+#positionsListing td.position_buttons + td {
+  border-left: none;
+}

@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
   # GET /positions
   # GET /positions.json
   def index
-    @positions = Position.all #current_user.positions.select(&:is_root?)
+    @positions = Position.by_governing_body #current_user.positions.select(&:is_root?)
     
     respond_to do |format|
       format.html # index.html.erb

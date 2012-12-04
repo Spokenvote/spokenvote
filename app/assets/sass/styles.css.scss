@@ -110,3 +110,9 @@ footer {
   border-bottom: 1px solid #ddd; margin-top: 30px;
   td:first-child { font-weight: bold; }
 }
+
+#positionsListing {
+  td { vertical-align: top; }
+  .position_buttons { padding-right: 8px; line-height: 1.8; }
+  td.position_buttons + td { border-left: none; }
+}
