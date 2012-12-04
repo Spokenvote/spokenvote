@@ -1,23 +1,20 @@
-%h1 Governing Bodies
+.span11
+  %table.listing
+    %thead
+      %tr
+        %th.table-title{ :colspan => '4' }
+          = link_to 'New Governing Body', new_governing_body_path, :class => 'btn pull-right'
+          Governing Bodies
+      %tr
+        %th Name
+        %th Location
+        %th Description
+        %th
 
-%table
-  %tr
-    %th Name
-    %th Description
-    %th Location
-    %th
-    %th
-    %th
-
-  - @governing_bodies.each do |governing_body|
-    %tr
-      %td= governing_body.name
-      %td= governing_body.description
-      %td= governing_body.location
-      %td= link_to 'Show', governing_body
-      %td= link_to 'Edit', edit_governing_body_path(governing_body)
-      %td= link_to 'Destroy', governing_body, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Governing body', new_governing_body_path
+    %tbody
+      - @governing_bodies.each do |governing_body|
+        %tr
+          %td= link_to governing_body.name, edit_governing_body_path(governing_body)
+          %td= governing_body.location
+          %td= governing_body.description
+          %td= link_to 'Delete', governing_body, method: :delete, data: { confirm: 'Are you sure?' }

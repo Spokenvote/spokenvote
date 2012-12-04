@@ -16,10 +16,10 @@ gem 'thin'
 
 gem 'dalli'
 gem 'rack-cache'
+gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
 gem 'select2-rails', "~> 3.1.1"
 
-gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -27,7 +27,6 @@ gem 'acts_as_list'
 gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
-gem 'compass-rails'
 
 gem 'activerecord-reputation-system', require: 'reputation_system'
 
@@ -57,8 +56,6 @@ end
 group :production do
   gem 'newrelic_rpm'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
