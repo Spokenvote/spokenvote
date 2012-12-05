@@ -9,12 +9,18 @@
         %th Name
         %th Location
         %th Description
-        %th
+        - if user_signed_in?
+          %th
 
     %tbody
       - @governing_bodies.each do |governing_body|
         %tr
-          %td= link_to governing_body.name, edit_governing_body_path(governing_body)
+          %td
+            - if user_signed_in?
+              = link_to governing_body.name, edit_governing_body_path(governing_body)
+            - else
+              = link_to governing_body.name, governing_body_path(governing_body)
           %td= governing_body.location
           %td= governing_body.description
-          %td= link_to 'Delete', governing_body, method: :delete, data: { confirm: 'Are you sure?' }
+          - if user_signed_in?
+            %td= link_to 'Delete', governing_body, method: :delete, data: { confirm: 'Are you sure?' }

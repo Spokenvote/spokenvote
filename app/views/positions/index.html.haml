@@ -19,16 +19,20 @@
         %tr
           %td
             %strong= position.governing_bodies.first.name if position.governing_bodies.first.name != prevGB
-          %td.position_buttons
-            = link_to 'Improve', new_position_path(:parent_id => position), :class => 'btn btn-mini btn-primary'
-            %br
-            = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'btn btn-mini btn-success'
-          %td
-            = link_to position.statement, position_path(position)
+          - if user_signed_in?
+            %td.position_buttons
+              = link_to 'Improve', new_position_path(:parent_id => position), :class => 'btn btn-mini btn-primary'
+              %br
+              = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'btn btn-mini btn-success'
+            %td
+              = link_to position.statement, edit_position_path(position)
+          - else
+            %td{ :colspan => '2' }
+              = link_to position.statement, position_path(position)
           %td= position.votes.count
           %td= all_related_positions_votes_count.index(position.votes_count) + 1
           %td= position.votes_in_tree
         - prevGB = position.governing_bodies.first.name
 
-  %br
+- if user_signed_in?
   = render :partial => 'shared/comment'
