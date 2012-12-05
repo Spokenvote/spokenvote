@@ -254,7 +254,6 @@ DEPENDENCIES
   bootstrap-sass
   capybara
   coffee-rails (~> 3.2.1)
-  compass
   compass-rails
   dalli
   debugger
