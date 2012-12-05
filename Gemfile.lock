@@ -261,7 +261,6 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
-  haml
   haml-rails
   heroku
   hirb
