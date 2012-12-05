@@ -8,7 +8,6 @@ gem 'bootstrap-sass'
 
 
 gem 'pg'
-gem 'prototype-rails'
 gem 'nested_form'
 gem 'version_fu'
 
@@ -23,7 +22,6 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'acts_as_list'
 gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
@@ -45,7 +43,6 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  gem 'rails-erd'
   gem 'debugger'
 end
 
