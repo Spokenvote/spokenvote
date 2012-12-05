@@ -1,7 +1,6 @@
-%h1 Editing governing_body
+.span11
+  %h1
+    Edit Governing Body: 
+    = @governing_body.name
 
-= render 'form'
-
-= link_to 'Show', @governing_body
-\|
-= link_to 'Back', governing_bodies_path
+  = render 'form'

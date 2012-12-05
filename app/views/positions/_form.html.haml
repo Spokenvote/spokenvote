@@ -1,4 +1,4 @@
-= nested_form_for @position do |f|
+= nested_form_for @position, :html => {:class => 'form-horizontal'} do |f|
   - if @position.errors.any?
     #error_explanation
       %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
@@ -6,29 +6,37 @@
         - @position.errors.full_messages.each do |msg|
           %li= msg
 
-  = f.hidden_field :user_id, :value => current_user.id
-  %br
-  = f.label :governing_body
   %fieldset
-    - if @parent_position
-      = @parent_position.governing_bodies.first.name
-      = hidden_field_tag :governing_id, @parent_position.governing_bodies.first.id
-    - else
-      = select_tag :governing_id, options_for_select(GoverningBody.all.map{|gb| [gb.name, gb.id] })
-  %fieldset
-    - if @parent_position
-      = f.label :parent_position_statement
-      = @parent_position.statement
-      = f.select :parent_id, Position.all.map{ |p| [p.statement, p.id] }
-  %br
-  = f.label :statement
-  = f.text_field :statement, :placeholder => @parent_position.try(:statement)
+    = f.hidden_field :user_id, :value => current_user.id
+    .control-group
+      = f.label :governing_body, :class => 'control-label'
+      .controls
+        - if @parent_position
+          = @parent_position.governing_bodies.first.name
+          = hidden_field_tag :governing_id, @parent_position.governing_bodies.first.id
+        - else
+          = select_tag :governing_id, options_for_select(GoverningBody.all.map{|gb| [gb.name, gb.id] }), :class => "span4"
 
-  = f.fields_for :votes, @vote do |vote_form|
-    = vote_form.label 'Supporting Argument'
-    = vote_form.text_area :comment
-    = vote_form.hidden_field :user_id, :value => current_user.id
-    = vote_form.hidden_field :position_id, :value => @position.id
+    - if @parent_position
+      .control-group
+        = f.label :parent_position_statement, :class => 'control-label'
+        = @parent_position.statement
+        .controls
+          = f.select :parent_id, Position.all.map{ |p| [p.statement, p.id] }
 
-  .actions
-    = f.submit 'Save', class: 'btn btn-primary'
+    .control-group
+      = f.label :statement, :class => 'control-label'
+      .controls
+        = f.text_field :statement, :class => 'input-xxlarge', :placeholder => @parent_position.try(:statement)
+
+    .control-group
+      = f.label :votes, 'Supporting Arguments', :class => 'control-label'
+      = f.fields_for :votes, @vote do |vote_form|
+        .controls
+          = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args'
+          = vote_form.hidden_field :user_id, :value => current_user.id
+          = vote_form.hidden_field :position_id, :value => @position.id
+
+    .control-group
+      .controls
+        = f.submit 'Save', class: 'btn btn-primary'

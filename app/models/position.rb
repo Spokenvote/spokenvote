@@ -31,6 +31,12 @@ class Position < ActiveRecord::Base
   # Other
   has_ancestry
   
+  class << self
+    def by_governing_body
+      GoverningBody.by_name.map {|gb| gb.positions if gb.positions }.reject {|gb| gb == []}.flatten
+    end
+  end
+
   def votes_in_tree
     Rails.cache.fetch("/position/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
