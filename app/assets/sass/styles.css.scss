@@ -8,6 +8,7 @@ $heroUnitHeadingColor: $headingsColor;
 
 body { padding-top: 40px; padding-bottom: 40px; background-color: #eee; }
 
+.alert { @extend .span11; }
 .content {
   margin: 0; /* negative indent the amount of the padding to maintain the grid system */
   @include clearfix;
@@ -40,12 +41,14 @@ h2 { margin-bottom: 12px; }
   &:last-child { margin-bottom: 0; }
   th { text-align: left; background-color: #315D99; color: #fff; font-size: 16px; }
   th.table-title { font-size: 24px; }
-  tr:last-child th:last-child { border-left: none; }
+  tr:last-child th { border-left: none; }
+  tr:last-child th:first-child { border-left: 1px solid #ddd; }
   th .pull-right { margin-right: 14px; }
   th, td { padding: 6px 0 6px 10px; }
   .vote_count { text-align: center; }
 }
 
+#hpContent { margin-left: 0; }
 #sidebar {
   @include box-shadow(0 1px 2px rgba(0,0,0,.15));
   @include box-sizing(border-box);
@@ -94,4 +97,22 @@ footer {
   h3 { margin-bottom: 10px; }
   .position-person { margin-left: 0; }
 }
+#relatedPositionsTitle { border-top: 1px solid #999; padding-top: 20px; margin-top: 10px; }
 .total_votes { margin-top: 10px; font-size: 16px; font-weight: bold; }
+
+.span11 > .form-horizontal {
+  margin-top: 20px;
+  .control-group, .supporting-args { margin-bottom: 10px; }
+}
+.select2-container.span4 { margin-left: 0; }
+
+#governing_body_show {
+  border-bottom: 1px solid #ddd; margin-top: 30px;
+  td:first-child { font-weight: bold; }
+}
+
+#positionsListing {
+  td { vertical-align: top; }
+  .position_buttons { padding-right: 8px; line-height: 1.8; }
+  td.position_buttons + td { border-left: none; }
+}
