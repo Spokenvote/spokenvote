@@ -16,21 +16,25 @@ class PositionsController < ApplicationController
   # GET /positions/1.json
   def show
     context = params[:context]
+    records_limit = 10
+    page_number = 0
+    position_id = params[:id]
 
     if context
-      position_id = context.split("_")[1].split(":")[1]
       page_number = (context.split("_")[0].split(":")[1]).to_i
+      position_id = context.split("_")[1].split(":")[1]
+    end
 
-      records_limit = 10
-      position = Position.find(position_id)
-      votes = position.votes.limit(records_limit).offset(page_number * records_limit + 2)
-      render :partial => 'position_vote', :collection => votes, :as => :vote
+    @position = Position.find(position_id)
+    @offset_by = (page_number * records_limit) + 2
+    @votes = @position.votes.limit(records_limit).offset(@offset_by)
+    @total_votes = @position.root.descendants.count
+
+    @no_more = @total_votes >= @offset_by
+
+    if context
+      render :partial => 'position_vote', :collection => @votes, :as => :vote, locals: { idx: 1 }
     else
-      page_number = params[:page_number]
-      @position = Position.find(params[:id])
-      @votes = @position.votes.limit(10 * page_number.to_i + 2)
-      @total_votes = @position.root.descendants.count
-
       respond_to do |format|
         format.html # show.html.haml
         format.json { render json: @position }
