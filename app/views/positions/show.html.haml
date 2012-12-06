@@ -1,23 +1,27 @@
-= render partial: 'show', :locals => { :position => @position }
-%hr
-%hr
-%h1 Related Positions
-= render partial: 'show', :locals => { :position => @position }
-%hr
-= render partial: 'show', :locals => { :position => @position }
+.span11
+  = render partial: 'show', :locals => { :position => @position, :total_votes => @total_votes }
+
+  %h2#relatedPositionsTitle Related Positions
+  - @position.related_positions[0..1].each do |related_position|
+    = render partial: 'show', :locals => { :position => related_position, :total_votes => -1 }
 
 :javascript
   $(document).ready(function () {
-      $('.more').click(function (e) {
-        var el = $(this).find('a'),
-            url = el.attr('href');
+    $('.more').click(function (e) {
+      e.preventDefault();
 
-        $.ajax({
-          url: url,
-          success: function (data) {
-            el.closest('.position_container').find('.supporting_arguments .span12').append(data);
-            var decodedUrl = decodeURIComponent(url);
+      var el = $(this).find('a'),
+          url = el.attr('href');
 
+      $.ajax({
+        url: url,
+        success: function (data) {
+          el.closest('.position_container').find('.supporting_arguments .span11').append(data);
+          var decodedUrl = decodeURIComponent(url);
+
+          if(data.match(/hide_the_more_link/)) {
+            el.closest('.position_container').find('.more').hide();
+          } else {
             var matches = decodedUrl.match(/(page:)(\d)(.*)/);
 
             if(matches) {
@@ -28,8 +32,61 @@
               el.attr('href', window.location + '?context=' + newUrl);
             }
           }
-        });
-
-        e.preventDefault();
+        }
       });
+    });
+
+    $('.improve').click(function (e) {
+      e.preventDefault();
+
+      var el = $(this),
+          position_container = el.closest('.position_container'),
+          editableBox = position_container.find('.content_editable'),
+          improve_support_buttons = position_container.find('.improve_support_buttons'),
+          content_editable_buttons = position_container.find('.content_editable_buttons');
+
+      editableBox.attr('contenteditable', 'true');
+      improve_support_buttons.hide();
+      content_editable_buttons.show();
+    });
+
+    $('.cancel').click(function () {
+      hideContentEditable($(this));
+    });
+
+    $('.save_statement').click(function () {
+      var el = $(this),
+        position_container = el.closest('.position_container'),
+        editableBox = position_container.find('.content_editable'),
+        position_id = position_container.data('position-id'),
+        url = '/positions/' + position_id,
+        new_value = editableBox.text().trim();
+
+      console.log(el);
+
+      $.ajax({
+        url: url,
+        type: 'PUT',
+        dataType: 'json',
+        data: {
+          position: {
+            statement: new_value
+          }
+        },
+        success: function (data) {
+          hideContentEditable(el);
+        }
+      });
+    });
+
+    function hideContentEditable(el) {
+      var position_container = el.closest('.position_container'),
+          editableBox = position_container.find('.content_editable'),
+          improve_support_buttons = position_container.find('.improve_support_buttons'),
+          content_editable_buttons = position_container.find('.content_editable_buttons');
+
+      editableBox.attr('contenteditable', 'false');
+      content_editable_buttons.hide();
+      improve_support_buttons.show();
+    }
   });

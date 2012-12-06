@@ -18,4 +18,6 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   
   validates :comment, :user_id, :position_id, :presence => true
+  validates :user_id, :uniqueness => {:scope => [:user_id, :position_id], :message => "Can't vote on the same issue twice."}
+
 end

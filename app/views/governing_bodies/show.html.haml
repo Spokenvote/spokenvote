@@ -1,15 +1,13 @@
-%p#notice= notice
+.span8
+  %h1 Governing Body
 
-%p
-  %b Name:
-  = @governing_body.name
-%p
-  %b Description:
-  = @governing_body.description
-%p
-  %b Location:
-  = @governing_body.location
-
-= link_to 'Edit', edit_governing_body_path(@governing_body)
-\|
-= link_to 'Back', governing_bodies_path
+  %table#governing_body_show.table
+    %tr
+      %td Name
+      %td= @governing_body.name
+    %tr
+      %td Description
+      %td= @governing_body.description
+    %tr
+      %td Location
+      %td= @governing_body.location

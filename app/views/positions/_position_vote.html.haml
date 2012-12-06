@@ -1,4 +1,8 @@
-.span2
-  %p= vote.user.name || vote.user.email
-.span9
-  %p= truncate(vote.comment, :length => 140, :omission => '...more')
+.span2.position-person
+  = (idx + 1).to_s + ':'
+  = vote.user.name || vote.user.email
+.span8
+  = truncate(vote.comment, :length => 140, :omission => '...more')
+
+-if @no_more
+  .hide_the_more_link &nbsp;

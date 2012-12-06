@@ -1,4 +1,4 @@
-= nested_form_for @governing_body do |f|
+= nested_form_for @governing_body, :html => {:class => 'form-horizontal'} do |f|
   - if @governing_body.errors.any?
     #error_explanation
       %h2= "#{pluralize(@governing_body.errors.count, "error")} prohibited this governing_body from being saved:"
@@ -6,14 +6,19 @@
         - @governing_body.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :location
-    = f.text_field :location
-  .actions
-    = f.submit 'Save'
+  %fieldset
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name, :class => 'input-xxlarge'
+    .control-group
+      = f.label :description, :class => 'control-label'
+      .controls
+        = f.text_area :description, :class => 'input-xxlarge'
+    .control-group
+      = f.label :location, :class => 'control-label'
+      .controls
+        = f.text_field :location, :class => 'input-xxlarge'
+    .control-group
+      .controls
+        = f.submit 'Save', class: 'btn btn-primary'
