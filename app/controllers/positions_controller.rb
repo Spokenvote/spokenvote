@@ -53,6 +53,12 @@ class PositionsController < ApplicationController
   # GET /positions/1/edit
   def edit
     @position = Position.find(params[:id])
+    if @position.user_id == current_user.id and @position.votes_count
+      # can edit
+    else
+      @total_votes = @position.root.descendants.count
+      render action: 'show'
+    end
   end
 
   # POST /positions
