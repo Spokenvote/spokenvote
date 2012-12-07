@@ -1,0 +1,15 @@
+language: ruby
+
+rvm:
+  - 1.9.3
+
+branches:
+  only:
+    - master
+
+before_script:
+  - psql -c 'create database spokenvote_test;' -U postgres
+  - cp config/database.travis.yml config/database.yml
+  - rake db:test_prep
+
+bundler_args: --without development
