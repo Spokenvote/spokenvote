@@ -13,3 +13,10 @@ before_script:
   - rake db:test_prep
 
 bundler_args: --without development
+
+notifications:
+  email:
+    recipients:
+      - railsforcharity-spokenvote@googlegroups.com
+    on_success: change
+    on_failure: always
