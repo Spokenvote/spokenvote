@@ -2,7 +2,7 @@
   = form_tag '/locateHub', :html => {:class => 'form-inline'} do
     .input-append
       = label_tag 'Locate Your Hub', nil, :class => 'h1'
-      = text_field_tag 'locateHubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xlarge'
+      = text_field_tag 'locateHubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xxlarge'
       = button_tag 'Go', :class => 'btn btn-success'
 
 - if current_user && user_signed_in?

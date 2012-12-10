@@ -6555,7 +6555,7 @@ h2 {
 /* line 35, ../sass/styles.css.scss */
 #locateHub {
   background: #315c99;
-  padding: 10px 40px;
+  padding: 20px 40px 0;
   margin-bottom: 20px;
   margin-left: -20px;
 }
