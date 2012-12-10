@@ -14,6 +14,7 @@ Spokenvote::Application.routes.draw do
           get 'homepage'
       end
   end
+  match '/about' => 'pages#about'
 
   root :to => 'governing_bodies#homepage'
 
