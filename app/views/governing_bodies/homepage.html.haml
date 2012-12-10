@@ -24,7 +24,7 @@
             %td= link_to pos.statement, edit_position_path(pos)
 
   #sidebar.span4{:style => 'padding: 20px;'}
-    %h2 New Groups
+    %h2 New Hubs
     %div
       - @governing_bodies.each do |governing_body|
         = link_to governing_body.name, governing_body_path(governing_body)
