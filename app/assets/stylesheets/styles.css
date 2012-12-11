@@ -6722,68 +6722,91 @@ footer a {
   background-color: #FFF;
 }
 
-/* line 103, ../sass/styles.css.scss */
-.main-position {
+/* line 104, ../sass/styles.css.scss */
+.position_hub {
+  border-bottom: 1px solid #dddddd;
   margin-bottom: 20px;
 }
 
 /* line 105, ../sass/styles.css.scss */
+.main-position {
+  margin-bottom: 20px;
+}
+
+/* line 107, ../sass/styles.css.scss */
 .main-position h3, .supporting_arguments h3 {
   margin-bottom: 10px;
 }
-/* line 106, ../sass/styles.css.scss */
+/* line 108, ../sass/styles.css.scss */
 .main-position .position-person, .supporting_arguments .position-person {
   margin-left: 0;
 }
 
-/* line 108, ../sass/styles.css.scss */
+/* line 110, ../sass/styles.css.scss */
+.position_statement {
+  font-size: 176%;
+}
+
+/* line 111, ../sass/styles.css.scss */
 #relatedPositionsTitle {
   border-top: 1px solid #999;
   padding-top: 20px;
   margin-top: 10px;
 }
 
-/* line 109, ../sass/styles.css.scss */
+/* line 112, ../sass/styles.css.scss */
+.related_supporting {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+/* line 113, ../sass/styles.css.scss */
+.related_supporting.last {
+  border-bottom: none;
+}
+
+/* line 114, ../sass/styles.css.scss */
 .total_votes {
   margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
 }
 
-/* line 111, ../sass/styles.css.scss */
+/* line 116, ../sass/styles.css.scss */
 .span11 > .form-horizontal, .alert > .form-horizontal {
   margin-top: 20px;
 }
-/* line 113, ../sass/styles.css.scss */
+/* line 118, ../sass/styles.css.scss */
 .span11 > .form-horizontal .control-group, .alert > .form-horizontal .control-group, .span11 > .form-horizontal .supporting-args, .alert > .form-horizontal .supporting-args {
   margin-bottom: 10px;
 }
 
-/* line 115, ../sass/styles.css.scss */
+/* line 120, ../sass/styles.css.scss */
 .select2-container.span4 {
   margin-left: 0;
 }
 
-/* line 117, ../sass/styles.css.scss */
+/* line 122, ../sass/styles.css.scss */
 #governing_body_show {
   border-bottom: 1px solid #ddd;
   margin-top: 30px;
 }
-/* line 119, ../sass/styles.css.scss */
+/* line 124, ../sass/styles.css.scss */
 #governing_body_show td:first-child {
   font-weight: bold;
 }
 
-/* line 123, ../sass/styles.css.scss */
+/* line 128, ../sass/styles.css.scss */
 #positionsListing td {
   vertical-align: top;
 }
-/* line 124, ../sass/styles.css.scss */
+/* line 129, ../sass/styles.css.scss */
 #positionsListing .position_buttons {
   padding-right: 8px;
   line-height: 1.8;
 }
-/* line 125, ../sass/styles.css.scss */
+/* line 130, ../sass/styles.css.scss */
 #positionsListing td.position_buttons + td {
   border-left: none;
 }
