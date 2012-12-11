@@ -25,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       user.authentications.create(:provider => provider, :uid => uid) if !authentication # Regular signed up user, allow him this omniauth signup also
       flash.notice = 'Signed in successfully!'
-      sign_in_and_redirect user
+      custom_sign_in_and_redirect user
     end
   end
 
@@ -38,6 +38,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def custom_sign_in_and_redirect(resource)
     scope = Devise::Mapping.find_scope!(resource)
     sign_in(scope, resource, {})
-    redirect_to root_path
+    redirect_to user_positions_path(resource)
   end
 end
