@@ -2,7 +2,11 @@ Spokenvote::Application.routes.draw do
 
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks" }
-  resources :users
+
+  root :to => 'governing_bodies#homepage'
+  resources :users do
+    resources :positions, only: [:index]
+  end
 
   resources :positions_tags
   resources :governing_bodies_positions
@@ -10,16 +14,12 @@ Spokenvote::Application.routes.draw do
   resources :votes
   resources :positions
   resources :governing_bodies do
-      collection do
-          get 'homepage'
-      end
+    collection do
+      get 'homepage'
+    end
   end
+
   match '/about' => 'pages#about'
-
-  root :to => 'governing_bodies#homepage'
-
-  root :to => 'static_pages#home'
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

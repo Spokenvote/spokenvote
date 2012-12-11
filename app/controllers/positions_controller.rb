@@ -4,8 +4,13 @@ class PositionsController < ApplicationController
   # GET /positions
   # GET /positions.json
   def index
-    @positions = Position.by_governing_body #current_user.positions.select(&:is_root?)
-    
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @positions = user.positions
+    else
+      @positions = Position.by_governing_body
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @positions }
