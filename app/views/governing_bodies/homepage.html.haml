@@ -1,3 +1,10 @@
+#locateHub.span11
+  = form_tag '/locateHub', :html => {:class => 'form-inline'} do
+    .input-append
+      = label_tag 'Locate Your Hub', nil, :class => 'h1'
+      = text_field_tag 'locateHubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xxlarge'
+      = button_tag 'Go', :class => 'btn btn-success'
+
 - if current_user && user_signed_in?
   #hpContent.span7
     %table.listing
@@ -17,7 +24,7 @@
             %td= link_to pos.statement, edit_position_path(pos)
 
   #sidebar.span4{:style => 'padding: 20px;'}
-    %h2 New Groups
+    %h2 New Hubs
     %div
       - @governing_bodies.each do |governing_body|
         = link_to governing_body.name, governing_body_path(governing_body)
@@ -41,9 +48,23 @@
     %p
       = image_tag('bluefull.png')
       We provide a home for groups of all kinds to build consensus around their issues and questions. SpokenVote allows all participants to post new positions and support them or create alternative versions until one version emerges as the group's choice.
-    %p Our homepage shows active positions and groups. You can also search or browse through the site to see how the many different ways this service can help make decision-making more effective by everyone from large organizations to small informal groups of friends or colleagues.
+      = link_to 'More...', '/about', :class => 'more'
 
   #hpContent.span7
+    %table.listing
+      %thead
+        %tr
+          %th.table-title{ :colspan => '2' } Active Hubs
+        %tr
+          %th Name
+          %th Description
+
+      %tbody
+        - @governing_bodies.each do |governing_body|
+          %tr
+            %td= link_to governing_body.name, governing_body_path(governing_body)
+            %td= governing_body.description
+
     %table.listing
       %thead
         %tr
@@ -57,20 +78,6 @@
           %tr
             %td.vote_count= pos.votes_count
             %td= link_to pos.statement, position_path(pos)
-
-    %table.listing
-      %thead
-        %tr
-          %th.table-title{ :colspan => '2' } Active Governing Bodies
-        %tr
-          %th Name
-          %th Description
-
-      %tbody
-        - @governing_bodies.each do |governing_body|
-          %tr
-            %td= link_to governing_body.name, governing_body_path(governing_body)
-            %td= governing_body.description
 
   #sidebar.span4
     .login_box
