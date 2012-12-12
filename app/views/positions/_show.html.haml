@@ -20,13 +20,13 @@
     - else
       .position_statement
         = position.statement
+
       = position_title(total_votes, position.user.name)
 
     - if total_votes > 0
-      .total_votes
-        %span{ :title => 'Across all related positions', :rel => 'tooltip' }
-          Total Votes:
-          = total_votes.to_s
+      %p
+        %span.label.label-large.label-success
+          = total_votes.to_s + ' Total Votes'
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
     %h3 Supporting Arguments
