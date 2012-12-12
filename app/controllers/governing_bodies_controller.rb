@@ -3,11 +3,8 @@ class GoverningBodiesController < ApplicationController
 
   def homepage
     @governing_bodies = GoverningBody.by_name
-    if user_signed_in?
-      @positions = current_user.positions.all
-    else
-      @positions = Position.all # was going to use Position.roots but I only get one position that way for now
-    end
+    @positions = Position.order('votes_count DESC').joins(:governing_bodies).order('name')
+    @user_positions = current_user.positions.order('votes_count DESC').joins(:governing_bodies).order('name') if current_user
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,7 +15,7 @@ class GoverningBodiesController < ApplicationController
   # GET /governing_bodies
   # GET /governing_bodies.json
   def index
-    @governing_bodies = GoverningBody.all
+    @governing_bodies = GoverningBody.by_position_count
 
     respond_to do |format|
       format.html # index.html.erb

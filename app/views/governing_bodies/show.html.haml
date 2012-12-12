@@ -1,13 +1,15 @@
 .span8
-  %h1 Governing Body
-
-  %table#governing_body_show.table
-    %tr
-      %td Name
-      %td= @governing_body.name
-    %tr
-      %td Description
-      %td= @governing_body.description
-    %tr
-      %td Location
-      %td= @governing_body.location
+  %table.listing
+    %thead
+      %tr
+        %th.table-title{ :colspan => '3' }
+          = link_to 'New Hub', new_governing_body_path, :class => 'btn btn-mini pull-right'
+          = 'Hub: ' + @governing_body.name 
+    %tbody
+      - @governing_body.positions.limit(10).each do |pos|
+        %tr
+          %td= pos.user.name
+          %td
+            = items_count_badge(pos.votes_count)
+            .pos_statement= link_to pos.statement, position_path(pos)
+          %td= pos.created_at.to_formatted_s(:month_day_year)
