@@ -14,6 +14,7 @@ Spokenvote::Application.routes.draw do
   resources :votes
   resources :positions
   resources :governing_bodies do
+    resources :positions, only: [:show, :edit]
     collection do
       get 'homepage'
     end

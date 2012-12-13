@@ -1,8 +1,15 @@
-#locateHub.span11
-  = form_tag '/locateHub', :html => {:class => 'form-inline'} do
-    .input-append
-      = label_tag 'Locate Your Hub', nil, :class => 'h1'
-      = text_field_tag 'locateHubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xxlarge'
+.span11
+  %h1
+    Influence a group, impact the world.
+    %span Voting redefined.
+  #locateHub
+    = form_tag '/locateHub', :html => {:class => 'form-inline'} do
+      = text_field_tag 'hubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xlarge'
+      = text_field_tag 'citySearch', nil, :placeholder => 'enter city', :class => 'input'
+      = text_field_tag 'stateSearch', nil, :placeholder => 'enter a state', :class => 'input-small'
+      = text_field_tag 'countrySearch', nil, :placeholder => 'enter a country', :class => 'input-small'
+      = text_field_tag 'globalSearch', nil, :placeholder => 'search the globe', :class => 'input-small'
+      %br
       = button_tag 'Go', :class => 'btn btn-success'
 
 - if current_user && user_signed_in?
@@ -11,17 +18,33 @@
       %thead
         %tr
           %th.table-title{ :colspan => '2' }
-            = link_to 'New Position', new_position_path, :class => 'btn pull-right'
-            Active Positions 
+            = link_to 'New Position', new_position_path, :class => 'btn btn-mini pull-right'
+            My Positions 
+
+      %tbody
+        - @user_positions.each do |pos|
+          %tr
+            %td{ :width => '35%' }
+              = pos.governing_bodies.first.name
+            %td
+              = items_count_badge(pos.votes_count, 'Total Votes')
+              .pos_statement= link_to pos.statement, edit_position_path(pos)
+
+    %table.listing
+      %thead
         %tr
-          %th.vote_count Votes
-          %th Statement
+          %th.table-title{ :colspan => '2' } Active Positions 
 
       %tbody
         - @positions.each do |pos|
           %tr
-            %td.vote_count= pos.votes_count
-            %td= link_to pos.statement, edit_position_path(pos)
+            %td{ :width => '35%' }
+              = 'In ' + pos.governing_bodies.first.name
+              %br
+              = 'By ' + pos.user.name
+            %td
+              = items_count_badge(pos.votes_count, 'Total Votes')
+              .pos_statement= link_to pos.statement, edit_position_path(pos)
 
   #sidebar.span4{:style => 'padding: 20px;'}
     %h2 New Hubs
@@ -37,7 +60,7 @@
 
     %hr
 
-    %h2 @SVTweets
+    %h2 @SpokenVote Tweets
     %div Last few tweets from the house account
 
 - else
@@ -54,30 +77,38 @@
     %table.listing
       %thead
         %tr
-          %th.table-title{ :colspan => '2' } Active Hubs
-        %tr
-          %th Name
-          %th Description
-
-      %tbody
-        - @governing_bodies.each do |governing_body|
-          %tr
-            %td= link_to governing_body.name, governing_body_path(governing_body)
-            %td= governing_body.description
-
-    %table.listing
-      %thead
-        %tr
           %th.table-title{ :colspan => '2' } Active Positions
         %tr
-          %th.vote_count Votes
+          %th Submitter/Hub
           %th Statement
 
       %tbody
         - @positions.each do |pos|
           %tr
-            %td.vote_count= pos.votes_count
-            %td= link_to pos.statement, position_path(pos)
+            %td
+              = pos.governing_bodies.first.name + '/'
+              = pos.user.name
+            %td
+              = items_count_badge(pos.votes_count, 'Total Votes')
+              .pos_statement= link_to pos.statement, position_path(pos)
+
+    %table.listing
+      %thead
+        %tr
+          %th.table-title{ :colspan => '2' } Active Hubs
+        %tr
+          %th Hub
+          %th Most Active Position
+
+      %tbody
+        - @governing_bodies.each do |governing_body|
+          %tr
+            %td= link_to governing_body.name, governing_body_path(governing_body)
+            %td
+              - if governing_body.positions.count > 0
+                = link_to governing_body.positions.order(:votes_count).first.statement, governing_body_position_path(governing_body, governing_body.positions.order(:votes_count).first)
+              - else
+                %em No positions yet
 
   #sidebar.span4
     .login_box

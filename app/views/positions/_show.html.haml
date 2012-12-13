@@ -1,13 +1,14 @@
+- if total_votes > 0
+  .position_hub
+    %h3= 'Hub: ' + position.governing_bodies.first.name
+
 .position_container(data-position-id="#{position.id}")
   .main-position
-    %h2
-      Proposed by 
-      = position.governing_bodies.first.name + ','
-      = position.governing_bodies.first.location
-
     - if user_signed_in?
-      .content_editable
+      .content_editable.position_statement
         = position.statement
+        
+      = position_title(total_votes, position.user.name)
 
       .content_editable_buttons(style="display:none")
         = link_to 'Cancel', '#', :class => 'label cancel'
@@ -17,16 +18,17 @@
         = link_to 'Improve', '#', :class => 'label improve'
         = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
     - else
-      %div
+      .position_statement
         = position.statement
 
-    - if total_votes > 0
-      .total_votes
-        %span{ :title => 'Across all related positions', :rel => 'tooltip' }
-          Total Votes:
-          = total_votes.to_s
+      = position_title(total_votes, position.user.name)
 
-  .supporting_arguments
+    - if total_votes > 0
+      %p
+        %span.label.label-large.label-success
+          = total_votes.to_s + ' Total Votes'
+
+  .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
     %h3 Supporting Arguments
     .row
       .span11

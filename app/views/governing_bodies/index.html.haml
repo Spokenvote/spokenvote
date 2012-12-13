@@ -2,25 +2,28 @@
   %table.listing
     %thead
       %tr
-        %th.table-title{ :colspan => '4' }
-          = link_to 'New Governing Body', new_governing_body_path, :class => 'btn pull-right'
-          Governing Bodies
+        %th.table-title{ :colspan => '2' }
+          = link_to 'New Hub', new_governing_body_path, :class => 'btn btn-mini pull-right'
+          Hubs
       %tr
         %th Name
-        %th Location
-        %th Description
-        - if user_signed_in?
-          %th
+        %th Most Active Position
 
     %tbody
       - @governing_bodies.each do |governing_body|
         %tr
           %td
-            - if user_signed_in?
-              = link_to governing_body.name, edit_governing_body_path(governing_body)
-            - else
+            - if governing_body.positions.count > 0
               = link_to governing_body.name, governing_body_path(governing_body)
-          %td= governing_body.location
-          %td= governing_body.description
-          - if user_signed_in?
-            %td= link_to 'Delete', governing_body, method: :delete, data: { confirm: 'Are you sure?' }
+              = items_count_badge(governing_body.positions.count, 'Total Positions')
+            - else
+              = governing_body.name
+            %br
+            = governing_body.location
+          %td
+            - if governing_body.positions.count > 0
+              - first_pos = governing_body.positions.order(:votes_count).first
+              = items_count_badge(first_pos.votes_count, 'Total Votes')
+              = link_to first_pos.statement, governing_body_position_path(governing_body, first_pos)
+            - else
+              %em No positions yet
