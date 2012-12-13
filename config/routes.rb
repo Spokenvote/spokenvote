@@ -3,17 +3,17 @@ Spokenvote::Application.routes.draw do
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
-  root :to => 'governing_bodies#homepage'
+  root :to => 'hubs#homepage'
   resources :users do
     resources :positions, only: [:index]
   end
 
   resources :positions_tags
-  resources :governing_bodies_positions
+  resources :hubs_positions
   resources :tags
   resources :votes
   resources :positions
-  resources :governing_bodies do
+  resources :hubs do
     resources :positions, only: [:show, :edit]
     collection do
       get 'homepage'

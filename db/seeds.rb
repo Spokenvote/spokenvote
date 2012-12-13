@@ -5,7 +5,7 @@ begin
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
   geos = ['Mountain View','San Antonio','California','Texas','USA']
   5.times do
-    gbodies << GoverningBody.create({name: hubs[i], description: Faker::Lorem.sentence, location: geos[i]})
+    gbodies << Hub.create({name: hubs[i], description: Faker::Lorem.sentence, location: geos[i]})
     i += 1
   end
 
@@ -24,7 +24,7 @@ begin
   end
 
   Position.all.each do |position|
-    position.governing_bodies << gbodies.sample
+    position.hubs << gbodies.sample
   end
 
 rescue

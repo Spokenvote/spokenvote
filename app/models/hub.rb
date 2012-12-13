@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: governing_bodies
+# Table name: hubs
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-class GoverningBody < ActiveRecord::Base
+class Hub < ActiveRecord::Base
   attr_accessible :description, :location, :name
   has_and_belongs_to_many :positions
   
@@ -20,7 +20,7 @@ class GoverningBody < ActiveRecord::Base
     end
     
     def by_position_count
-      GoverningBody.joins(:positions).select("governing_bodies.id, governing_bodies.name, governing_bodies.location, count(positions.id) as positions_count").order("positions_count DESC").group('governing_bodies.id')
+      Hub.joins(:positions).select("hubs.id, hubs.name, hubs.location, count(positions.id) as positions_count").order("positions_count DESC").group('hubs.id')
     end
   end
 end

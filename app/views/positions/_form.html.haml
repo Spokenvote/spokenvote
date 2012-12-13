@@ -9,13 +9,13 @@
   %fieldset
     = f.hidden_field :user_id, :value => current_user.id
     .control-group
-      = f.label :governing_body, :class => 'control-label'
+      = f.label :hub, :class => 'control-label'
       .controls
         - if @parent_position
-          = @parent_position.governing_bodies.first.name
-          = hidden_field_tag :governing_id, @parent_position.governing_bodies.first.id
+          = @parent_position.hubs.first.name
+          = hidden_field_tag :hub_id, @parent_position.hubs.first.id
         - else
-          = select_tag :governing_id, options_for_select(GoverningBody.all.map{|gb| [gb.name, gb.id] }), :class => "span4"
+          = select_tag :hub_id, options_for_select(Hub.all.map{|gb| [gb.name, gb.id] }), :class => "span4"
 
     - if @parent_position
       .control-group

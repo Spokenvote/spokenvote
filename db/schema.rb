@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114224732) do
+ActiveRecord::Schema.define(:version => 20121213033417) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20121114224732) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "governing_bodies", :force => true do |t|
+  create_table "hubs", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "location"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20121114224732) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "governing_bodies_positions", :force => true do |t|
-    t.integer "governing_body_id"
+  create_table "hubs_positions", :force => true do |t|
+    t.integer "hub_id"
     t.integer "position_id"
   end
 

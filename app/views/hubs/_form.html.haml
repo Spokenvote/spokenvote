@@ -1,9 +1,9 @@
-= nested_form_for @governing_body, :html => {:class => 'form-horizontal'} do |f|
-  - if @governing_body.errors.any?
+= nested_form_for @hub, :html => {:class => 'form-horizontal'} do |f|
+  - if @hub.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@governing_body.errors.count, "error")} prohibited this governing_body from being saved:"
+      %h2= "#{pluralize(@hub.errors.count, "error")} prohibited this hub from being saved:"
       %ul
-        - @governing_body.errors.full_messages.each do |msg|
+        - @hub.errors.full_messages.each do |msg|
           %li= msg
 
   %fieldset

@@ -3,10 +3,10 @@
     %thead
       %tr
         %th.table-title{ :colspan => '3' }
-          = link_to 'New Hub', new_governing_body_path, :class => 'btn btn-mini pull-right'
-          = 'Hub: ' + @governing_body.name 
+          = link_to 'New Hub', new_hub_path, :class => 'btn btn-mini pull-right'
+          = 'Hub: ' + @hub.name
     %tbody
-      - @governing_body.positions.limit(10).each do |pos|
+      - @hub.positions.limit(10).each do |pos|
         %tr
           %td= pos.user.name
           %td

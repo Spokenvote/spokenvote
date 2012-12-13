@@ -6,7 +6,7 @@
           = link_to 'New Position', new_position_path, :class => 'pull-right btn'
           Positions
       %tr
-        %th Governing Body
+        %th Hub
         %th{ :colspan => '2'} Position
         %th Votes
         %th Rank
@@ -18,7 +18,7 @@
         - all_related_positions_votes_count = [position.ancestors, position.descendants, position].flatten.map(&:votes_count).sort
         %tr
           %td
-            %strong= position.governing_bodies.first.name if position.governing_bodies.first.name != prevGB
+            %strong= position.hubs.first.name if position.hubs.first.name != prevGB
           - if user_signed_in?
             %td.position_buttons
               = link_to 'Improve', new_position_path(:parent_id => position), :class => 'btn btn-mini btn-primary'
@@ -32,7 +32,7 @@
           %td= position.votes.count
           %td= all_related_positions_votes_count.index(position.votes_count) + 1
           %td= position.votes_in_tree
-        - prevGB = position.governing_bodies.first.name
+        - prevGB = position.hubs.first.name
 
 - if user_signed_in?
   = render :partial => 'shared/comment'
