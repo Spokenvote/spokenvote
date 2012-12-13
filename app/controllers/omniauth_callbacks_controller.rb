@@ -2,14 +2,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def all
     auth = request.env["omniauth.auth"]
-    provider, uid, name, email, avatar_url = auth.provider, auth.uid, auth.info.name, auth.info.email, auth.info.image
+    provider, uid, name, email, avatar_url, token  = auth.provider, auth.uid, auth.info.name, auth.info.email, auth.info.image, auth.credentials.token
 
     user = User.find_by_email(email)
     authentication = Authentication.find_by_provider_and_uid(provider, uid)
 
     if user.nil?
       user = User.new(:email => email)
-      user.authentications.build(:provider => provider, :uid => uid)
+      user.authentications.build(:provider => provider, :uid => uid, :token => token)
       #user.skip_confirmation!
 
       if user.save!
@@ -23,7 +23,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       # TODO: Verify that the authentication record belongs to this user only
 
-      user.authentications.create(:provider => provider, :uid => uid) if !authentication # Regular signed up user, allow him this omniauth signup also
+      user.authentications.create(:provider => provider, :uid => uid, :token => token) if !authentication # Regular signed up user, allow him this omniauth signup also
       flash.notice = 'Signed in successfully!'
       custom_sign_in_and_redirect user
     end
