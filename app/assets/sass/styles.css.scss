@@ -14,6 +14,8 @@ body { padding-top: 40px; padding-bottom: 40px; background-color: #eee; }
   @include clearfix;
 }
 
+.label-large { font-size: 16px; padding: 5px 8px 6px; margin-top: 10px; border: 1px solid #dddddd; @include border-radius(6px); }
+
 #mainContent { padding: 20px; }
 hr {
     background-color: black;
@@ -48,19 +50,22 @@ h2 { margin-bottom: 12px; }
   @extend .table-hover;
   &:last-child { margin-bottom: 0; }
   th { text-align: left; background-color: #315D99; color: #fff; font-size: 16px; }
-  th.table-title { font-size: 24px; }
+  th.table-title { font-size: 24px; line-height: 20px; }
   tr:last-child th { border-left: none; }
   tr:last-child th:first-child { border-left: 1px solid #ddd; }
   th .pull-right { margin-right: 14px; }
   th, td { padding: 6px 0 6px 10px; }
+  td:last-child { padding-right: 10px; }
   .vote_count { text-align: center; }
+  .badge { @extend .pull-left; width: auto; margin-top: 4px; margin-right: 10px; }
+  .pos_statement { @extend .pull-left; width: 80%; margin-left: 10px; }
 }
 
 #hpContent { margin-left: 0; }
 #sidebar {
   @include box-shadow(0 1px 2px rgba(0,0,0,.15));
   @include box-sizing(border-box);
-  margin-left: 60px;
+  margin-left: 60px; background-color: #e4e4e4;
   &, .login_form { @include border-radius(6px); }
   .login_box {
     border: none;
@@ -99,13 +104,29 @@ footer {
   a { color: #fff; }
 }
 
-#main .container { background-color: #FFF; }
-.main-position { margin-bottom: 20px; }
+#main {
+  .container { background-color: #FFF; }
+}
+
+[contenteditable="true"] {
+  padding: 10px; outline: 2px dashed #CCC;
+}
+[contenteditable="true"]:hover {
+  outline: 2px dashed #0090D2;
+}
+
+.position_hub { border-bottom: 1px solid #dddddd; margin-bottom: 20px; }
+.main-position {
+  margin-bottom: 20px;
+  h4 { font-style: italic; padding-left: 10px; padding-bottom: 10px; color: #999999; }
+}
 .main-position, .supporting_arguments {
   h3 { margin-bottom: 10px; }
   .position-person { margin-left: 0; }
 }
+.position_statement{ font-size: 176%; margin-bottom: 10px; }
 #relatedPositionsTitle { border-top: 1px solid #999; padding-top: 20px; margin-top: 10px; }
+.related_supporting { border-bottom: 1px solid #dddddd; padding-bottom: 10px; margin-bottom: 10px; }
 .total_votes { margin-top: 10px; font-size: 16px; font-weight: bold; }
 
 .span11 > .form-horizontal {

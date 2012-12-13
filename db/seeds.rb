@@ -1,8 +1,12 @@
 begin
 
   gbodies = []
+  i = 0
+  hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
+  geos = ['Mountain View','San Antonio','California','Texas','USA']
   5.times do
-    gbodies << GoverningBody.create({name: Faker::Company.name, description: Faker::Lorem.sentence, location: "#{Faker::Address.city} #{Faker::Address.state_abbr}"})
+    gbodies << GoverningBody.create({name: hubs[i], description: Faker::Lorem.sentence, location: geos[i]})
+    i += 1
   end
 
   users = []

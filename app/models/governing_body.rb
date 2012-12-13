@@ -18,5 +18,9 @@ class GoverningBody < ActiveRecord::Base
     def by_name
       order(:name)
     end
+    
+    def by_position_count
+      GoverningBody.joins(:positions).select("governing_bodies.id, governing_bodies.name, governing_bodies.location, count(positions.id) as positions_count").order("positions_count DESC").group('governing_bodies.id')
+    end
   end
 end

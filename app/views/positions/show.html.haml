@@ -2,7 +2,7 @@
   = render partial: 'show', :locals => { :position => @position, :total_votes => @total_votes }
 
   %h2#relatedPositionsTitle Related Positions
-  - @position.related_positions[0..1].each do |related_position|
+  - @position.related_positions[0..1].each_with_index do |related_position|
     = render partial: 'show', :locals => { :position => related_position, :total_votes => -1 }
 
 :javascript

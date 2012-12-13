@@ -45,6 +45,8 @@ group :development do
   gem 'hirb'
   gem 'annotate'
   gem 'debugger'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development, :test do
