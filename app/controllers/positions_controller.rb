@@ -8,7 +8,7 @@ class PositionsController < ApplicationController
       user = User.find(params[:user_id])
       @positions = user.positions
     else
-      @positions = Position.by_governing_body
+      @positions = Position.by_hub
     end
 
     respond_to do |format|
@@ -73,9 +73,9 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    governing_body = GoverningBody.find(params[:governing_id])
+    hub = Hub.find(params[:hub_id])
     votes = params[:position].delete :votes_attributes
-    @position = governing_body.positions.create(params[:position])
+    @position = hub.positions.create(params[:position])
     
     # TODO THIS IS HORRIBLE
     @position.votes.create votes['0']

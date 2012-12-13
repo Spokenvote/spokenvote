@@ -1,0 +1,29 @@
+.span11
+  %table.listing
+    %thead
+      %tr
+        %th.table-title{ :colspan => '2' }
+          = link_to 'New Hub', new_hub_path, :class => 'btn btn-mini pull-right'
+          Hubs
+      %tr
+        %th Name
+        %th Most Active Position
+
+    %tbody
+      - @hubs.each do |hub|
+        %tr
+          %td
+            - if hub.positions.count > 0
+              = link_to hub.name, hub_path(hub)
+              = items_count_badge(hub.positions.count, 'Total Positions')
+            - else
+              = hub.name
+            %br
+            = hub.location
+          %td
+            - if hub.positions.count > 0
+              - first_pos = hub.positions.order(:votes_count).first
+              = items_count_badge(first_pos.votes_count, 'Total Votes')
+              = link_to first_pos.statement, hub_position_path(hub, first_pos)
+            - else
+              %em No positions yet

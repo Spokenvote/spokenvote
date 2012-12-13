@@ -1,0 +1,2 @@
+module HubsPositionsHelper
+end

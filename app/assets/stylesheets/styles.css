@@ -6788,12 +6788,12 @@ footer a {
 }
 
 /* line 122, ../sass/styles.css.scss */
-#governing_body_show {
+#hub_show {
   border-bottom: 1px solid #ddd;
   margin-top: 30px;
 }
 /* line 124, ../sass/styles.css.scss */
-#governing_body_show td:first-child {
+#hub_show td:first-child {
   font-weight: bold;
 }
 

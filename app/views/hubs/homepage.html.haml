@@ -25,7 +25,7 @@
         - @user_positions.each do |pos|
           %tr
             %td{ :width => '35%' }
-              = pos.governing_bodies.first.name
+              = pos.hubs.first.name
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
               .pos_statement= link_to pos.statement, edit_position_path(pos)
@@ -39,9 +39,9 @@
         - @positions.each do |pos|
           %tr
             %td{ :width => '35%' }
-              = 'In ' + pos.governing_bodies.first.name
+              = 'In ' + pos.hubs.first.name
               %br
-              = 'By ' + pos.user.name
+              = 'By ' + pos.user.name.to_s
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
               .pos_statement= link_to pos.statement, edit_position_path(pos)
@@ -49,8 +49,8 @@
   #sidebar.span4{:style => 'padding: 20px;'}
     %h2 New Hubs
     %div
-      - @governing_bodies.each do |governing_body|
-        = link_to governing_body.name, governing_body_path(governing_body)
+      - @hubs.each do |hub|
+        = link_to hub.name, hub_path(hub)
         %br
 
     %hr
@@ -86,7 +86,7 @@
         - @positions.each do |pos|
           %tr
             %td
-              = pos.governing_bodies.first.name + '/'
+              = pos.hubs.first.name + '/'
               = pos.user.name
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
@@ -101,12 +101,12 @@
           %th Most Active Position
 
       %tbody
-        - @governing_bodies.each do |governing_body|
+        - @hubs.each do |hub|
           %tr
-            %td= link_to governing_body.name, governing_body_path(governing_body)
+            %td= link_to hub.name, hub_path(hub)
             %td
-              - if governing_body.positions.count > 0
-                = link_to governing_body.positions.order(:votes_count).first.statement, governing_body_position_path(governing_body, governing_body.positions.order(:votes_count).first)
+              - if hub.positions.count > 0
+                = link_to hub.positions.order(:votes_count).first.statement, hub_position_path(hub, hub.positions.order(:votes_count).first)
               - else
                 %em No positions yet
 

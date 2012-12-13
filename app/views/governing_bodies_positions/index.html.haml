@@ -1,4 +1,4 @@
-%h1 Listing governing_bodies_positions
+%h1 Listing hubs_positions
 
 %table
   %tr
@@ -6,12 +6,12 @@
     %th
     %th
 
-  - @governing_bodies_positions.each do |governing_bodies_position|
+  - @hubs_positions.each do |hubs_position|
     %tr
-      %td= link_to 'Show', governing_bodies_position
-      %td= link_to 'Edit', edit_governing_bodies_position_path(governing_bodies_position)
-      %td= link_to 'Destroy', governing_bodies_position, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to 'Show', hubs_position
+      %td= link_to 'Edit', edit_hubs_position_path(hubs_position)
+      %td= link_to 'Destroy', hubs_position, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Governing bodies position', new_governing_bodies_position_path
+= link_to 'New Governing bodies position', new_hubs_position_path
