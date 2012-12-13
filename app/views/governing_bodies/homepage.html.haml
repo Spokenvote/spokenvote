@@ -1,8 +1,15 @@
-#locateHub.span11
-  = form_tag '/locateHub', :html => {:class => 'form-inline'} do
-    .input-append
-      = label_tag 'Locate Your Hub', nil, :class => 'h1'
-      = text_field_tag 'locateHubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xxlarge'
+.span11
+  %h1
+    Influence a group, impact the world.
+    %span Voting redefined.
+  #locateHub
+    = form_tag '/locateHub', :html => {:class => 'form-inline'} do
+      = text_field_tag 'hubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xlarge'
+      = text_field_tag 'citySearch', nil, :placeholder => 'enter city', :class => 'input'
+      = text_field_tag 'stateSearch', nil, :placeholder => 'enter a state', :class => 'input-small'
+      = text_field_tag 'countrySearch', nil, :placeholder => 'enter a country', :class => 'input-small'
+      = text_field_tag 'globalSearch', nil, :placeholder => 'search the globe', :class => 'input-small'
+      %br
       = button_tag 'Go', :class => 'btn btn-success'
 
 - if current_user && user_signed_in?
