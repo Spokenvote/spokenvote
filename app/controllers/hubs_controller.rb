@@ -15,7 +15,7 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    @hubs = Hub.by_proposal_count
+    @hubs = Hub.all#Hub.by_proposal_count
 
     respond_to do |format|
       format.html # index.html.erb
