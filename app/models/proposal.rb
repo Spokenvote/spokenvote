@@ -33,7 +33,7 @@ class Proposal < ActiveRecord::Base
   
   class << self
     def by_hub
-      Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
+      Proposal.all#Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
     end
   end
 

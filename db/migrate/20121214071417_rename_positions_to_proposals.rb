@@ -1,5 +1,5 @@
 class RenamePositionsToProposals < ActiveRecord::Migration
   def change
-    rename_table :positions, :proposals
+    rename_table :proposals, :proposals
   end
 end
