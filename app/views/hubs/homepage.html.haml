@@ -19,32 +19,32 @@
         %tr
           %th.table-title{ :colspan => '2' }
             = link_to 'New Proposal', new_proposal_path, :class => 'btn btn-mini pull-right'
-            My Proposals 
+            My Proposals
 
       %tbody
-        - @user_proposals.each do |pos|
+        - @user_proposals.each do |proposal|
           %tr
             %td{ :width => '35%' }
-              = pos.hubs.first.name
+              = proposal.hubs.first.name
             %td
-              = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, edit_proposal_path(pos)
+              = items_count_badge(proposal.votes_count, 'Total Votes')
+              .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
 
     %table.listing
       %thead
         %tr
-          %th.table-title{ :colspan => '2' } Active Proposals 
+          %th.table-title{ :colspan => '2' } Active Proposals
 
       %tbody
-        - @proposals.each do |pos|
+        - @proposals.each do |proposal|
           %tr
             %td{ :width => '35%' }
-              = 'In ' + pos.hubs.first.name
+              = 'In ' + proposal.hubs.first.name
               %br
-              = 'By ' + pos.user.name.to_s
+              = 'By ' + proposal.user.name.to_s
             %td
-              = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, edit_proposal_path(pos)
+              = items_count_badge(proposal.votes_count, 'Total Votes')
+              .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
 
   #sidebar.span4{:style => 'padding: 20px;'}
     %h2 New Hubs
@@ -83,14 +83,14 @@
           %th Statement
 
       %tbody
-        - @proposals.each do |pos|
+        - @proposals.each do |proposal|
           %tr
             %td
-              = pos.hubs.first.name + '/'
-              = pos.user.name
+              = proposal.hubs.first.name + '/'
+              = proposal.user.name
             %td
-              = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, proposal_path(pos)
+              = items_count_badge(proposal.votes_count, 'Total Votes')
+              .pos_statement= link_to proposal.statement, proposal_path(proposal)
 
     %table.listing
       %thead
