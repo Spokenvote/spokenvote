@@ -4,7 +4,7 @@ class HubsController < ApplicationController
   def homepage
     @hubs = Hub.by_name
     @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
-    @user_proposals = current_user.proposals.order('votes_count DESC').joins(:hubs).order('name') if current_user
+    @user_proposals = current_user.proposals.order('votes_count DESC')#.joins(:hubs).order('name') if current_user
 
     respond_to do |format|
       format.html # index.html.erb
