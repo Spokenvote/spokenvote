@@ -39,7 +39,7 @@
         - @proposals.each do |proposal|
           %tr
             %td{ :width => '35%' }
-              = 'In ' + proposal.hubs.first.name
+              = 'In ' #+ proposal.hubs.first.name
               %br
               = 'By ' + proposal.user.name.to_s
             %td
