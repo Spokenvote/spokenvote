@@ -8,17 +8,9 @@ Spokenvote::Application.routes.draw do
     resources :proposals, only: [:index]
   end
 
-  resources :positions_tags
-  resources :hubs_positions
-  resources :tags
   resources :votes
   resources :proposals
-  resources :hubs do
-    resources :proposals, only: [:show, :edit]
-    collection do
-      get 'homepage'
-    end
-  end
+  resources :hubs
 
   match '/about' => 'pages#about'
 
