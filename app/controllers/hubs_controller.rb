@@ -3,19 +3,19 @@ class HubsController < ApplicationController
 
   def homepage
     @hubs = Hub.by_name
-    @positions = Position.order('votes_count DESC').joins(:hubs).order('name')
-    @user_positions = current_user.positions.order('votes_count DESC').joins(:hubs).order('name') if current_user
+    @proposals = Proposal.order('votes_count DESC').joins(:hubs).order('name')
+    @user_proposals = current_user.proposals.order('votes_count DESC').joins(:hubs).order('name') if current_user
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hubs_positions }
+      format.json { render json: @user_proposals }
     end
   end
 
   # GET /hubs
   # GET /hubs.json
   def index
-    @hubs = Hub.by_position_count
+    @hubs = Hub.by_proposal_count
 
     respond_to do |format|
       format.html # index.html.erb

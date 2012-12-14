@@ -1,5 +1,4 @@
 begin
-
   gbodies = []
   i = 0
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
@@ -15,18 +14,18 @@ begin
   end
 
   10.times do
-    Position.create({statement: Faker::Lorem.sentence, user: users.sample, parent: Position.all.sample})
+    Proposal.create({statement: Faker::Lorem.sentence, user: users.sample, parent: Proposal.all.sample})
   end
 
-  positions = Position.all
+  proposals = Proposal.all
   40.times do
-    Vote.create({position: positions.sample, user: users.sample, comment: Faker::Lorem.sentence})
+    Vote.create({proposal: proposals.sample, user: users.sample, comment: Faker::Lorem.sentence})
   end
 
-  Position.all.each do |position|
-    position.hubs << gbodies.sample
+  Proposal.all.each do |proposal|
+    proposal.hubs << gbodies.sample
   end
-
 rescue
-  rake db:reset # Recreate tables from migrations
+  Rake::Task["db:reset"].execute # Recreate tables from migrations
+  raise $!
 end

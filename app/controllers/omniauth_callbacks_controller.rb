@@ -38,6 +38,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def custom_sign_in_and_redirect(resource)
     scope = Devise::Mapping.find_scope!(resource)
     sign_in(scope, resource, {})
-    redirect_to user_positions_path(resource)
+    redirect_to user_proposals_path(resource)
   end
 end

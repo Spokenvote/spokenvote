@@ -1,9 +1,9 @@
 .span11
-  = render partial: 'show', :locals => { :position => @position, :total_votes => @total_votes }
+  = render partial: 'show', :locals => { :proposal => @proposal, :total_votes => @total_votes }
 
-  %h2#relatedPositionsTitle Related Positions
-  - @position.related_positions[0..1].each_with_index do |related_position|
-    = render partial: 'show', :locals => { :position => related_position, :total_votes => -1 }
+  %h2#relatedProposalsTitle Related Proposals
+  - @proposal.related_proposals[0..1].each_with_index do |related_proposal|
+    = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
 
 :javascript
   $(document).ready(function () {
@@ -16,11 +16,11 @@
       $.ajax({
         url: url,
         success: function (data) {
-          el.closest('.position_container').find('.supporting_arguments .span11').append(data);
+          el.closest('.proposal_container').find('.supporting_arguments .span11').append(data);
           var decodedUrl = decodeURIComponent(url);
 
           if(data.match(/hide_the_more_link/)) {
-            el.closest('.position_container').find('.more').hide();
+            el.closest('.proposal_container').find('.more').hide();
           } else {
             var matches = decodedUrl.match(/(page:)(\d)(.*)/);
 
@@ -40,10 +40,10 @@
       e.preventDefault();
 
       var el = $(this),
-          position_container = el.closest('.position_container'),
-          editableBox = position_container.find('.content_editable'),
-          improve_support_buttons = position_container.find('.improve_support_buttons'),
-          content_editable_buttons = position_container.find('.content_editable_buttons');
+          proposal_container = el.closest('.proposal_container'),
+          editableBox = proposal_container.find('.content_editable'),
+          improve_support_buttons = proposal_container.find('.improve_support_buttons'),
+          content_editable_buttons = proposal_container.find('.content_editable_buttons');
 
       editableBox.attr('contenteditable', 'true');
       improve_support_buttons.hide();
@@ -56,10 +56,10 @@
 
     $('.save_statement').click(function () {
       var el = $(this),
-        position_container = el.closest('.position_container'),
-        editableBox = position_container.find('.content_editable'),
-        position_id = position_container.data('position-id'),
-        url = '/positions/' + position_id,
+        proposal_container = el.closest('.proposal_container'),
+        editableBox = proposal_container.find('.content_editable'),
+        proposal_id = proposal_container.data('proposal-id'),
+        url = '/proposals/' + proposal_id,
         new_value = editableBox.text().trim();
 
       console.log(el);
@@ -69,7 +69,7 @@
         type: 'PUT',
         dataType: 'json',
         data: {
-          position: {
+          proposal: {
             statement: new_value
           }
         },
@@ -80,10 +80,10 @@
     });
 
     function hideContentEditable(el) {
-      var position_container = el.closest('.position_container'),
-          editableBox = position_container.find('.content_editable'),
-          improve_support_buttons = position_container.find('.improve_support_buttons'),
-          content_editable_buttons = position_container.find('.content_editable_buttons');
+      var proposal_container = el.closest('.proposal_container'),
+          editableBox = proposal_container.find('.content_editable'),
+          improve_support_buttons = proposal_container.find('.improve_support_buttons'),
+          content_editable_buttons = proposal_container.find('.content_editable_buttons');
 
       editableBox.attr('contenteditable', 'false');
       content_editable_buttons.hide();

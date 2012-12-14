@@ -1,7 +1,7 @@
 #comment{:style => 'display:none;'}
   = simple_form_for Vote.new do |f|
     = hidden_field_tag 'vote[user_id]', current_user.id
-    = hidden_field_tag 'vote[position_id]', ''
+    = hidden_field_tag 'vote[proposal_id]', ''
     = f.input :comment, placeholder: "Tell us why you agree..."
     = f.submit "Save", class: 'btn btn-primary'
 
@@ -9,5 +9,5 @@
   jQuery('[data-function=display_comment_form]').click(function(e) {
     e.preventDefault();
     jQuery('#comment').slideDown(500);
-    jQuery('#vote_position_id').val(jQuery(this).attr('data-position_id'));
+    jQuery('#vote_proposal_id').val(jQuery(this).attr('data-proposal_id'));
   });

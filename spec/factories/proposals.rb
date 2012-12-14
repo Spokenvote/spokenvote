@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :position do
+  factory :proposal do
   end
 end

@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th Position
+    %th Proposal
     %th Comment
     %th User
     %th
@@ -11,7 +11,7 @@
 
   - @votes.each do |vote|
     %tr
-      %td= vote.position_id
+      %td= vote.proposal_id
       %td= vote.comment
       %td= vote.user_id
       %td= link_to 'Show', vote

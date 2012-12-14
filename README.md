@@ -9,7 +9,7 @@ The central idea behind Spokenvote is to spontaneously capture people’s opinio
 ## Features
 
 * Fast and easy user entry of ideas to capture constructive input from a group of any size
-* Intelligent prompting to guide users toward agreement and adoption of positions by discovering where commonalities already exist
+* Intelligent prompting to guide users toward agreement and adoption of proposals by discovering where commonalities already exist
 * Simple and elegant reporting back to the group to see where consensus stands at a glance
 * Integration with Facebook and G+ to pull credentials and push user activity
 
