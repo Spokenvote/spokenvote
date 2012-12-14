@@ -5,16 +5,16 @@ Spokenvote::Application.routes.draw do
 
   root :to => 'hubs#homepage'
   resources :users do
-    resources :positions, only: [:index]
+    resources :proposals, only: [:index]
   end
 
   resources :positions_tags
   resources :hubs_positions
   resources :tags
   resources :votes
-  resources :positions
+  resources :proposals
   resources :hubs do
-    resources :positions, only: [:show, :edit]
+    resources :proposals, only: [:show, :edit]
     collection do
       get 'homepage'
     end

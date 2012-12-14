@@ -1,27 +1,27 @@
 - if total_votes > 0
-  .position_hub
-    %h3= 'Hub: ' + position.hubs.first.name
+  .proposal_hub
+    %h3= 'Hub: ' + proposal.hubs.first.name
 
-.position_container(data-position-id="#{position.id}")
-  .main-position
+.proposal_container(data-proposal-id="#{proposal.id}")
+  .main-proposal
     - if user_signed_in?
-      .content_editable.position_statement
-        = position.statement
+      .content_editable.proposal_statement
+        = proposal.statement
         
-      = position_title(total_votes, position.user.name)
+      = proposal_title(total_votes, proposal.user.name)
 
       .content_editable_buttons(style="display:none")
         = link_to 'Cancel', '#', :class => 'label cancel'
-        = link_to 'Save this improved position', '#', :class => 'label save_statement'
+        = link_to 'Save this improved proposal', '#', :class => 'label save_statement'
 
       .improve_support_buttons
         = link_to 'Improve', '#', :class => 'label improve'
-        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-position_id' => position.id, :class => 'label'
+        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'label'
     - else
-      .position_statement
-        = position.statement
+      .proposal_statement
+        = proposal.statement
 
-      = position_title(total_votes, position.user.name)
+      = proposal_title(total_votes, proposal.user.name)
 
     - if total_votes > 0
       %p
@@ -32,13 +32,13 @@
     %h3 Supporting Arguments
     .row
       .span11
-        - position.votes[0..1].each_with_index do |vote, idx|
-          = render :partial => 'position_vote', :locals => { :vote => vote, :idx => idx }
+        - proposal.votes[0..1].each_with_index do |vote, idx|
+          = render :partial => 'proposal_vote', :locals => { :vote => vote, :idx => idx }
 
       .span1
-        - if position.votes_count > 2
-          - context = "page:#{params[:page_number].to_i}_position:#{position.id}"
-          .more=link_to 'More...', position_path(:context => context)
+        - if proposal.votes_count > 2
+          - context = "page:#{params[:page_number].to_i}_proposal:#{proposal.id}"
+          .more=link_to 'More...', proposal_path(:context => context)
 
 - if user_signed_in?
   = render :partial => 'shared/comment'

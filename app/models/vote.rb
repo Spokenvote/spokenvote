@@ -3,7 +3,7 @@
 # Table name: votes
 #
 #  id          :integer          not null, primary key
-#  position_id :integer
+#  proposal_id :integer
 #  comment     :text
 #  user_id     :integer
 #  created_at  :datetime         not null
@@ -11,13 +11,13 @@
 #
 
 class Vote < ActiveRecord::Base
-  attr_accessible :comment, :user, :position, :user_id, :position_id
+  attr_accessible :comment, :user, :proposal, :user_id, :proposal_id
 
   # Associations
-  belongs_to :position, :counter_cache => true
+  belongs_to :proposal, :counter_cache => true
   belongs_to :user
   
-  validates :comment, :user_id, :position_id, :presence => true
-  validates :user_id, :uniqueness => {:scope => [:user_id, :position_id], :message => "Can't vote on the same issue twice."}
+  validates :comment, :user_id, :proposal_id, :presence => true
+  validates :user_id, :uniqueness => {:scope => [:user_id, :proposal_id], :message => "Can't vote on the same issue twice."}
 
 end

@@ -12,15 +12,15 @@
 
 class Hub < ActiveRecord::Base
   attr_accessible :description, :location, :name
-  has_and_belongs_to_many :positions
+  has_and_belongs_to_many :proposals
   
   class << self
     def by_name
       order(:name)
     end
     
-    def by_position_count
-      Hub.joins(:positions).select("hubs.id, hubs.name, hubs.location, count(positions.id) as positions_count").order("positions_count DESC").group('hubs.id')
+    def by_proposal_count
+      Hub.joins(:proposals).select("hubs.id, hubs.name, hubs.location, count(proposals.id) as proposals_count").order("proposals_count DESC").group('hubs.id')
     end
   end
 end

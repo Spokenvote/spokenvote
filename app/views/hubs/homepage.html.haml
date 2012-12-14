@@ -18,25 +18,25 @@
       %thead
         %tr
           %th.table-title{ :colspan => '2' }
-            = link_to 'New Position', new_position_path, :class => 'btn btn-mini pull-right'
-            My Positions 
+            = link_to 'New Proposal', new_proposal_path, :class => 'btn btn-mini pull-right'
+            My Proposals 
 
       %tbody
-        - @user_positions.each do |pos|
+        - @user_proposals.each do |pos|
           %tr
             %td{ :width => '35%' }
               = pos.hubs.first.name
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, edit_position_path(pos)
+              .pos_statement= link_to pos.statement, edit_proposal_path(pos)
 
     %table.listing
       %thead
         %tr
-          %th.table-title{ :colspan => '2' } Active Positions 
+          %th.table-title{ :colspan => '2' } Active Proposals 
 
       %tbody
-        - @positions.each do |pos|
+        - @proposals.each do |pos|
           %tr
             %td{ :width => '35%' }
               = 'In ' + pos.hubs.first.name
@@ -44,7 +44,7 @@
               = 'By ' + pos.user.name.to_s
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, edit_position_path(pos)
+              .pos_statement= link_to pos.statement, edit_proposal_path(pos)
 
   #sidebar.span4{:style => 'padding: 20px;'}
     %h2 New Hubs
@@ -70,27 +70,27 @@
     %h1.page_title Welcome to SpokenVote!
     %p
       = image_tag('bluefull.png')
-      We provide a home for groups of all kinds to build consensus around their issues and questions. SpokenVote allows all participants to post new positions and support them or create alternative versions until one version emerges as the group's choice.
+      We provide a home for groups of all kinds to build consensus around their issues and questions. SpokenVote allows all participants to post new proposals and support them or create alternative versions until one version emerges as the group's choice.
       = link_to 'More...', '/about', :class => 'more'
 
   #hpContent.span7
     %table.listing
       %thead
         %tr
-          %th.table-title{ :colspan => '2' } Active Positions
+          %th.table-title{ :colspan => '2' } Active Proposals
         %tr
           %th Submitter/Hub
           %th Statement
 
       %tbody
-        - @positions.each do |pos|
+        - @proposals.each do |pos|
           %tr
             %td
               = pos.hubs.first.name + '/'
               = pos.user.name
             %td
               = items_count_badge(pos.votes_count, 'Total Votes')
-              .pos_statement= link_to pos.statement, position_path(pos)
+              .pos_statement= link_to pos.statement, proposal_path(pos)
 
     %table.listing
       %thead
@@ -98,17 +98,17 @@
           %th.table-title{ :colspan => '2' } Active Hubs
         %tr
           %th Hub
-          %th Most Active Position
+          %th Most Active Proposal
 
       %tbody
         - @hubs.each do |hub|
           %tr
             %td= link_to hub.name, hub_path(hub)
             %td
-              - if hub.positions.count > 0
-                = link_to hub.positions.order(:votes_count).first.statement, hub_position_path(hub, hub.positions.order(:votes_count).first)
+              - if hub.proposals.count > 0
+                = link_to hub.proposals.order(:votes_count).first.statement, hub_proposal_path(hub, hub.proposals.order(:votes_count).first)
               - else
-                %em No positions yet
+                %em No proposals yet
 
   #sidebar.span4
     .login_box

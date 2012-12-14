@@ -8,8 +8,8 @@
   = f.hidden_field :user_id, :value => current_user.id
   
   .field
-    = f.label :position_id
-    = f.select :position_id, Position.all.map{|p| [p.statement, p.id] }
+    = f.label :proposal_id
+    = f.select :proposal_id, Proposal.all.map{|p| [p.statement, p.id] }
   .field
     = f.label :comment
     = f.text_area :comment

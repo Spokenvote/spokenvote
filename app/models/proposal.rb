@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: positions
+# Table name: proposals
 #
 #  id          :integer          not null, primary key
 #  statement   :string(255)
@@ -12,12 +12,12 @@
 #  ancestry    :string(255)
 #
 
-class Position < ActiveRecord::Base
+class Proposal < ActiveRecord::Base
   attr_accessible :parent_id, :parent, :statement, :user_id, :user, :votes, :votes_attributes
 
   # Associations
   belongs_to :user
-  belongs_to :parent, :class_name => 'position', :foreign_key => 'parent_id'
+  belongs_to :parent, :class_name => 'Proposal', :foreign_key => 'parent_id'
   has_many :votes
   has_and_belongs_to_many :hubs
   has_and_belongs_to_many :tags
@@ -33,19 +33,19 @@ class Position < ActiveRecord::Base
   
   class << self
     def by_hub
-      Hub.by_name.map {|gb| gb.positions if gb.positions }.reject {|gb| gb == []}.flatten
+      Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
     end
   end
 
   def votes_in_tree
-    Rails.cache.fetch("/position/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
+    Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
     end
   end
 
-  def related_positions
-    all_positions_in_tree = [self.root, self.root.descendants].flatten
-    all_positions_in_tree.delete(self.clone)
-    all_positions_in_tree
+  def related_proposals
+    all_proposals_in_tree = [self.root, self.root.descendants].flatten
+    all_proposals_in_tree.delete(self.clone)
+    all_proposals_in_tree
   end
 end

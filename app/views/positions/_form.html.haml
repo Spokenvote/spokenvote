@@ -1,9 +1,9 @@
-= nested_form_for @position, :html => {:class => 'form-horizontal'} do |f|
-  - if @position.errors.any?
+= nested_form_for @proposal, :html => {:class => 'form-horizontal'} do |f|
+  - if @proposal.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
+      %h2= "#{pluralize(@proposal.errors.count, "error")} prohibited this proposal from being saved:"
       %ul
-        - @position.errors.full_messages.each do |msg|
+        - @proposal.errors.full_messages.each do |msg|
           %li= msg
 
   %fieldset
@@ -11,23 +11,23 @@
     .control-group
       = f.label :hub, :class => 'control-label'
       .controls
-        - if @parent_position
-          = @parent_position.hubs.first.name
-          = hidden_field_tag :hub_id, @parent_position.hubs.first.id
+        - if @parent_proposal
+          = @parent_proposal.hubs.first.name
+          = hidden_field_tag :hub_id, @parent_proposal.hubs.first.id
         - else
           = select_tag :hub_id, options_for_select(Hub.all.map{|gb| [gb.name, gb.id] }), :class => "span4"
 
-    - if @parent_position
+    - if @parent_proposal
       .control-group
-        = f.label :parent_position_statement, :class => 'control-label'
-        = @parent_position.statement
+        = f.label :parent_proposal_statement, :class => 'control-label'
+        = @parent_proposal.statement
         .controls
-          = f.select :parent_id, Position.all.map{ |p| [p.statement, p.id] }
+          = f.select :parent_id, Proposal.all.map{ |p| [p.statement, p.id] }
 
     .control-group
       = f.label :statement, :class => 'control-label'
       .controls
-        = f.text_field :statement, :class => 'input-xxlarge', :placeholder => @parent_position.try(:statement)
+        = f.text_field :statement, :class => 'input-xxlarge', :placeholder => @parent_proposal.try(:statement)
 
     .control-group
       = f.label :votes, 'Supporting Arguments', :class => 'control-label'
@@ -35,7 +35,7 @@
         .controls
           = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args'
           = vote_form.hidden_field :user_id, :value => current_user.id
-          = vote_form.hidden_field :position_id, :value => @position.id
+          = vote_form.hidden_field :proposal_id, :value => @proposal.id
 
     .control-group
       .controls

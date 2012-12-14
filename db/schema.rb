@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213043812) do
+ActiveRecord::Schema.define(:version => 20121214074619) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,7 +35,12 @@ ActiveRecord::Schema.define(:version => 20121213043812) do
     t.integer "position_id"
   end
 
-  create_table "positions", :force => true do |t|
+  create_table "positions_tags", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "proposals", :force => true do |t|
     t.string   "statement"
     t.integer  "user_id"
     t.integer  "parent_id"
@@ -45,12 +50,7 @@ ActiveRecord::Schema.define(:version => 20121213043812) do
     t.string   "ancestry"
   end
 
-  add_index "positions", ["ancestry"], :name => "index_positions_on_ancestry"
-
-  create_table "positions_tags", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "proposals", ["ancestry"], :name => "index_positions_on_ancestry"
 
   create_table "tags", :force => true do |t|
     t.string   "label"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20121213043812) do
   end
 
   create_table "votes", :force => true do |t|
-    t.integer  "position_id"
+    t.integer  "proposal_id"
     t.text     "comment"
     t.integer  "user_id"
     t.datetime "created_at",  :null => false

@@ -6,10 +6,10 @@
           = link_to 'New Hub', new_hub_path, :class => 'btn btn-mini pull-right'
           = 'Hub: ' + @hub.name
     %tbody
-      - @hub.positions.limit(10).each do |pos|
+      - @hub.proposals.limit(10).each do |pos|
         %tr
           %td= pos.user.name
           %td
             = items_count_badge(pos.votes_count)
-            .pos_statement= link_to pos.statement, position_path(pos)
+            .pos_statement= link_to pos.statement, proposal_path(pos)
           %td= pos.created_at.to_formatted_s(:month_day_year)
