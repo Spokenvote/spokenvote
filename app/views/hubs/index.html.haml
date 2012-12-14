@@ -13,17 +13,19 @@
       - @hubs.each do |hub|
         %tr
           %td
-            - if hub.proposals.count > 0
-              = link_to hub.name, hub_path(hub)
-              = items_count_badge(hub.proposals.count, 'Total Proposals')
-            - else
-              = hub.name
+            =hub.name
+            -#- if hub.proposals.count > 0
+            -#  = link_to hub.name, hub_path(hub)
+            -#  = items_count_badge(hub.proposals.count, 'Total Proposals')
+            -#- else
+            -#  = hub.name
             %br
             = hub.location
           %td
-            - if hub.proposals.count > 0
-              - first_pos = hub.proposals.order(:votes_count).first
-              = items_count_badge(first_pos.votes_count, 'Total Votes')
-              = link_to first_pos.statement, hub_proposal_path(hub, first_pos)
-            - else
-              %em No proposals yet
+            10
+            -#- if hub.proposals.count > 0
+            -#  - first_pos = hub.proposals.order(:votes_count).first
+            -#  = items_count_badge(first_pos.votes_count, 'Total Votes')
+            -#  = link_to first_pos.statement, hub_proposal_path(hub, first_pos)
+            -#- else
+            -#  %em No proposals yet
