@@ -18,7 +18,7 @@
         - all_related_proposals_votes_count = [proposal.ancestors, proposal.descendants, proposal].flatten.map(&:votes_count).sort
         %tr
           %td
-            %strong= proposal.hubs.first.name if proposal.hubs.first.name != prevGB
+            -#%strong= proposal.hubs.first.name if proposal.hubs.first.name != prevGB
           - if user_signed_in?
             %td.proposal_buttons
               = link_to 'Improve', new_proposal_path(:parent_id => proposal), :class => 'btn btn-mini btn-primary'
@@ -32,7 +32,7 @@
           %td= proposal.votes.count
           %td= all_related_proposals_votes_count.index(proposal.votes_count) + 1
           %td= proposal.votes_in_tree
-        - prevGB = proposal.hubs.first.name
+        -#- prevGB = proposal.hubs.first.name
 
 - if user_signed_in?
   = render :partial => 'shared/comment'
