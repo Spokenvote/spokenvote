@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214074619) do
+ActiveRecord::Schema.define(:version => 20121214075248) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -30,16 +30,6 @@ ActiveRecord::Schema.define(:version => 20121214074619) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "hubs_positions", :force => true do |t|
-    t.integer "hub_id"
-    t.integer "position_id"
-  end
-
-  create_table "positions_tags", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "proposals", :force => true do |t|
     t.string   "statement"
     t.integer  "user_id"
@@ -51,13 +41,6 @@ ActiveRecord::Schema.define(:version => 20121214074619) do
   end
 
   add_index "proposals", ["ancestry"], :name => "index_positions_on_ancestry"
-
-  create_table "tags", :force => true do |t|
-    t.string   "label"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -77,14 +60,6 @@ ActiveRecord::Schema.define(:version => 20121214074619) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "vote_versions", :force => true do |t|
-    t.integer  "vote_id"
-    t.integer  "version"
-    t.string   "position_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
 
   create_table "votes", :force => true do |t|
     t.integer  "proposal_id"
