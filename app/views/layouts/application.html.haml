@@ -1,12 +1,12 @@
 !!!
 %html
   %head
-    %meta{:charset => "utf-8"}
-    %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
     %title= content_for?(:title) ? yield(:title) : "Spokenvote"
-    %meta{:content => "", :name => "description"}
-    %meta{:content => "", :name => "author"}
+    %meta(content="" name="description")
+    %meta(content="" name="author")
     = favicon_link_tag
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
@@ -14,7 +14,7 @@
     = yield(:head)
   %body
     = render 'shared/navigation'
-    #main{:role => "main"}
+    #main(role="main")
       .container
         .content
           .row
