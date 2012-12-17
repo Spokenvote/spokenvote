@@ -1,5 +1,5 @@
 class AddVotesCountToPositions < ActiveRecord::Migration
   def change
-    add_column :proposals, :votes_count, :integer, :default => 0
+    add_column :positions, :votes_count, :integer, :default => 0
   end
 end
