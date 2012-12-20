@@ -17,7 +17,9 @@ class Vote < ActiveRecord::Base
   # Associations
   belongs_to :proposal, :counter_cache => true
   belongs_to :user
-  
+  belongs_to :hub
+  belongs_to :location
+
   validates :comment, :user_id, :proposal_id, :presence => true
   validates :user_id, :uniqueness => {:scope => [:user_id, :proposal_id], :message => "Can't vote on the same issue twice."}
 
