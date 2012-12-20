@@ -12,7 +12,9 @@
 
 class Hub < ActiveRecord::Base
   attr_accessible :description, :location, :name
-  has_and_belongs_to_many :proposals
+
+  has_many :votes
+  has_many :proposals, :through => :votes
   
   class << self
     def by_name

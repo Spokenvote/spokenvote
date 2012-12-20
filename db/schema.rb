@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214080916) do
+ActiveRecord::Schema.define(:version => 20121220040803) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20121214080916) do
   create_table "hubs", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "location"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20121214080916) do
     t.datetime "updated_at",                 :null => false
     t.integer  "votes_count", :default => 0
     t.string   "ancestry"
+    t.integer  "created_by"
   end
 
   add_index "proposals", ["ancestry"], :name => "index_positions_on_ancestry"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20121214080916) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "location_id"
+    t.integer  "hub_id"
   end
 
 end
