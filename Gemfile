@@ -16,11 +16,11 @@ gem 'jquery-tokeninput-rails'
 gem 'select2-rails', "~> 3.1.1"
 
 # UI/Forms
-gem 'bootstrap-sass'
 gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'compass-rails'
+gem 'compass_twitter_bootstrap'
 
 # Authentication
 gem 'omniauth'
