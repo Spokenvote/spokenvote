@@ -4,7 +4,7 @@ begin
   geos = ['Mountain View','San Antonio','California','Texas','USA']
 
   5.times do
-    hubs << Hub.create({name: hubs[i], description: Faker::Lorem.sentence, location: geos[i]})
+    hubs << Hub.create({name: hubs[i], description: Faker::Lorem.sentence})
     i += 1
   end
 
