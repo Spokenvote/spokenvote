@@ -40,7 +40,6 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.7.0)
     binding_of_caller (0.6.8)
-    bootstrap-sass (2.0.4.2)
     builder (3.0.4)
     capybara (2.0.1)
       mime-types (>= 1.16)
@@ -67,6 +66,8 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    compass_twitter_bootstrap (2.0.3)
+      compass
     daemons (1.1.9)
     dalli (2.5.0)
     debugger (1.2.2)
@@ -258,10 +259,10 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
-  bootstrap-sass
   capybara
   coffee-rails (~> 3.2.1)
   compass-rails
+  compass_twitter_bootstrap
   dalli
   debugger
   devise
