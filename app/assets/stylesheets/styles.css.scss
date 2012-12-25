@@ -56,7 +56,10 @@ hr {
 }
 
 .page_title {
-  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  span { color: #ff0000; }
 }
 
 h2 {
@@ -65,11 +68,18 @@ h2 {
 
 #locateHub {
   background: #315c99;
-  padding: 20px 40px 0;
+  padding: 20px 20px 10px;
   margin-bottom: 20px;
-  margin-left: -20px;
+  margin-left: 60px;
+  @include border-radius(10px);
+  overflow: auto;
+  form { padding-left: 20px; }
 }
-
+//#hubSearch { margin-left: 20px;}
+#fillMyLocation {
+  margin-top: 10px;
+  .btn { margin-right: 20px; }
+}
 .h1 {
   @extend h1;
 }

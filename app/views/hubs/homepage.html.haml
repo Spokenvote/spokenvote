@@ -1,16 +1,22 @@
-.span11
-  %h1
-    Influence a group, impact the world.
-    %span Voting redefined.
-  #locateHub
+%section.span11
+  .page_title
+    %h1
+      Influence a group, impact the world.
+      %span Voting redefined.
+    %h4
+      Browse proposals, support one or branch your own. Participate in real decisions.
+      = link_to 'More...', '/about', :class => 'more'
+  
+  #locateHub.span9
     = form_tag '/locateHub', :html => {:class => 'form-inline'} do
-      = text_field_tag 'hubSearch', nil, :placeholder => 'enter a group or location', :class => 'input-xlarge'
-      = text_field_tag 'citySearch', nil, :placeholder => 'enter city', :class => 'input'
-      = text_field_tag 'stateSearch', nil, :placeholder => 'enter a state', :class => 'input-small'
-      = text_field_tag 'countrySearch', nil, :placeholder => 'enter a country', :class => 'input-small'
-      = text_field_tag 'globalSearch', nil, :placeholder => 'search the globe', :class => 'input-small'
-      %br
-      = button_tag 'Go', :class => 'btn btn-success'
+      = text_field_tag 'hubSearch', nil, :placeholder => 'enter a group or topic', :class => 'span3'
+      = text_field_tag 'citySearch', nil, :placeholder => 'enter city', :class => 'span3'
+      = text_field_tag 'stateSearch', nil, :placeholder => 'enter a state', :class => 'span1'
+      = text_field_tag 'countrySearch', nil, :placeholder => 'enter a country', :class => 'span1'
+      = text_field_tag 'globalSearch', nil, :placeholder => 'global', :class => 'span1'
+      #fillMyLocation
+        = button_tag 'Go', :class => 'btn btn-success btn-large pull-right'
+        = link_to 'Fill in my existing location', '#', class: 'btn btn-primary pull-right'
 
 - if current_user && user_signed_in?
   #hpContent.span7
@@ -64,14 +70,6 @@
     %div Last few tweets from the house account
 
 - else
-  #hpHero.hero-unit
-    %span.pull-right
-      = link_to raw('<i class="icon-minus-sign"></i>'), '#', :id => 'closeHero', :class => 'close', :title => 'Click to close this message', :rel => 'tooltip', :data => {:dismiss => '#hpHero'}
-    %h1.page_title Welcome to SpokenVote!
-    %p
-      = image_tag('bluefull.png')
-      We provide a home for groups of all kinds to build consensus around their issues and questions. SpokenVote allows all participants to post new proposals and support them or create alternative versions until one version emerges as the group's choice.
-      = link_to 'More...', '/about', :class => 'more'
 
   #hpContent.span7
     %table.listing
