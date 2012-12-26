@@ -12,7 +12,7 @@
 #
 
 class Vote < ActiveRecord::Base
-  attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :hub_id
+  attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :hub_id, :hub
 
   # Associations
   belongs_to :proposal, :counter_cache => true
