@@ -6,7 +6,6 @@ $heroUnitHeadingColor: $headingsColor;
 
 body {
   padding-top: 40px;
-  padding-bottom: 40px;
   background-color: #eee;
 }
 
@@ -59,6 +58,7 @@ hr {
   margin-top: 50px;
   margin-bottom: 50px;
   text-align: center;
+  .searched & { @extend .hide; }
   span { color: #ff0000; }
 }
 
@@ -78,7 +78,8 @@ h2 {
 //#hubSearch { margin-left: 20px;}
 #fillMyLocation {
   margin-top: 10px;
-  .btn { margin-right: 20px; }
+  .btn-success { margin-right: 20px; }
+  .btn-primary { margin-top: 6px; margin-right: 50px; }
 }
 .h1 {
   @extend h1;
@@ -98,6 +99,10 @@ h2 {
   button {
     margin-top: 3px;
   }
+}
+
+#searchResults {
+  @extend .span11; margin-left: 0;
 }
 
 .listing {

@@ -1,0 +1,19 @@
+%table.listing
+  %thead
+    %tr
+      %th.table-title{ colspan: '2' }
+        - if canCreate
+          = link_to 'New Proposal', new_proposal_path, class: 'btn btn-mini pull-right'
+        = tableTitle
+
+  %tbody
+    - proposals.each do |proposal|
+      %tr
+        %td{ width: '35%' }
+          - if showHub
+            = 'In ' #+ proposal.hubs.first.name
+            %br
+          = 'By ' + proposal.user.name.to_s
+        %td
+          = items_count_badge(proposal.votes_count, 'Total Votes')
+          .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
