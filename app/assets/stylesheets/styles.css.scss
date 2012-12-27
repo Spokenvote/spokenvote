@@ -5,8 +5,7 @@ $heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 40px; padding-bottom: 40px;
   background-color: #eee;
 }
 
@@ -56,7 +55,11 @@ hr {
 }
 
 .page_title {
-  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  .searched & { @extend .hide; }
+  span { color: #ff0000; }
 }
 
 h2 {
@@ -65,11 +68,19 @@ h2 {
 
 #locateHub {
   background: #315c99;
-  padding: 20px 40px 0;
+  padding: 20px 20px 10px;
   margin-bottom: 20px;
-  margin-left: -20px;
+  margin-left: 60px;
+  @include border-radius(10px);
+  overflow: auto;
+  form { padding-left: 20px; }
 }
-
+//#hubSearch { margin-left: 20px;}
+#fillMyLocation {
+  margin-top: 10px;
+  .btn-success { margin-right: 20px; }
+  .btn-primary { margin-top: 6px; margin-right: 50px; }
+}
 .h1 {
   @extend h1;
 }
@@ -89,6 +100,11 @@ h2 {
     margin-top: 3px;
   }
 }
+
+#searchResults {
+  @extend .span11; margin-left: 0;
+}
+#hpContent { @extend .span11; margin-left: 20px; }
 
 .listing {
   width: 100%;
@@ -138,10 +154,6 @@ h2 {
     width: 80%;
     margin-left: 10px;
   }
-}
-
-#hpContent {
-  margin-left: 0;
 }
 
 #sidebar {
