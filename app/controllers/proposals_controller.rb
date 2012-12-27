@@ -62,20 +62,15 @@ class ProposalsController < ApplicationController
   # GET /proposals/1/edit
   def edit
     @proposal = Proposal.find(params[:id])
-    if @proposal.user_id == current_user.id and @proposal.votes_count
-      # can edit
-    else
-      @total_votes = @proposal.root.descendants.count
-      render action: 'show'
-    end
+    @total_votes = @proposal.root.descendants.count
+    render action: 'show'
   end
 
   # POST /proposals
   # POST /proposals.json
   def create
-    hub = Hub.find(params[:hub_id])
     votes = params[:proposal].delete :votes_attributes
-    @proposal = hub.proposals.create(params[:proposal])
+    @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE
     @proposal.votes.create votes['0']

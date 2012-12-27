@@ -22,7 +22,7 @@ class Proposal < ActiveRecord::Base
   has_many :hubs, :through => :votes
   has_and_belongs_to_many :tags
 
-  accepts_nested_attributes_for :votes, :reject_if => :all_blank
+  accepts_nested_attributes_for :votes#, :reject_if => :all_blank
 
   # Validations
   validates :user_id, :presence => true

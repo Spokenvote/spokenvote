@@ -2,7 +2,7 @@
   = render partial: 'show', :locals => { :proposal => @proposal, :total_votes => @total_votes }
 
   %h2#relatedProposalsTitle Related Proposals
-  - @proposal.related_proposals[0..1].each_with_index do |related_proposal|
+  - @proposal.related_proposals.each_with_index do |related_proposal|
     = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
 
 :javascript
