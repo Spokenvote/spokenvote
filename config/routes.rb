@@ -10,7 +10,9 @@ Spokenvote::Application.routes.draw do
 
   resources :votes
   resources :proposals
-  resources :hubs
+  resources :hubs do
+    resources :proposals
+  end
 
   match '/about' => 'pages#about'
 

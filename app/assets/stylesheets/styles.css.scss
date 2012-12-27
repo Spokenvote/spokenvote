@@ -73,12 +73,12 @@ h2 {
   margin-left: 60px;
   @include border-radius(10px);
   overflow: auto;
-  form { padding-left: 20px; }
+  form { padding-left: 30px; }
 }
 //#hubSearch { margin-left: 20px;}
 #fillMyLocation {
   margin-top: 10px;
-  .btn-success { margin-right: 20px; }
+  .btn-success { margin-right: 34px; }
   .btn-primary { margin-top: 6px; margin-right: 50px; }
 }
 .h1 {
@@ -156,7 +156,7 @@ h2 {
 }
 
 #hpContent {
-  margin-left: 0;
+  @extend .span11; margin-left: 20px;
 }
 
 #sidebar {
