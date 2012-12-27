@@ -2,7 +2,7 @@
   %thead
     %tr
       %th.table-title{ colspan: '2' }
-        - if canCreate
+        - if user_signed_in?
           = link_to 'New Proposal', new_proposal_path, class: 'btn btn-mini pull-right'
         = tableTitle
 
@@ -11,7 +11,7 @@
       %tr
         %td{ width: '35%' }
           - if showHub
-            = 'In ' #+ proposal.hubs.first.name
+            = 'In ' + proposal.hubs.first.name
             %br
           = 'By ' + proposal.user.name.to_s
         %td

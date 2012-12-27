@@ -20,41 +20,12 @@
 
   - if @searched != 'clear' and @searched != ''
     #searchResults
-      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, canCreate: user_signed_in?, showHub: false, tableTitle: @searched + ' Proposals' }
+      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, tableTitle: @searched + ' Proposals' }
   
 - if current_user && user_signed_in?
-  #hpContent.span7
-    %table.listing
-      %thead
-        %tr
-          %th.table-title{ :colspan => '2' }
-            = link_to 'New Proposal', new_proposal_path, :class => 'btn btn-mini pull-right'
-            My Proposals
-
-      %tbody
-        - @user_proposals.each do |proposal|
-          %tr
-            %td{ :width => '35%' }
-              = proposal.hubs.first.name
-            %td
-              = items_count_badge(proposal.votes_count, 'Total Votes')
-              .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
-
-    %table.listing
-      %thead
-        %tr
-          %th.table-title{ :colspan => '2' } Active Proposals
-
-      %tbody
-        - @proposals.each do |proposal|
-          %tr
-            %td{ :width => '35%' }
-              = 'In ' #+ proposal.hubs.first.name
-              %br
-              = 'By ' + proposal.user.name.to_s
-            %td
-              = items_count_badge(proposal.votes_count, 'Total Votes')
-              .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
+  #hpContent
+    = render partial: 'shared/proposals_table', locals: { proposals: @user_proposals, showHub: true, tableTitle: 'My Proposals' }
+    = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: true, tableTitle: 'Active Proposals' }
 
   #sidebar.span4.hide{:style => 'padding: 20px;'}
     %h2 New Hubs
@@ -78,9 +49,13 @@
     %table.listing
       %thead
         %tr
-          %th.table-title{ :colspan => '2' } Active Hubs
+          %th.table-title{ :colspan => '2' }
+            %span#hubSorter.btn-group.pull-right
+              = link_to 'Active', '#', class: 'btn active'
+              = link_to 'New', '#', class: 'btn'
+            Hubs
         %tr
-          %th Hub
+          %th Name
           %th Most Active Proposal
 
       %tbody

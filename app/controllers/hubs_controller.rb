@@ -12,7 +12,7 @@ class HubsController < ApplicationController
     #   @searched = params[:hub]
     #   @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
     else
-      @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
+      @proposals = Proposal.order('votes_count DESC').limit(5)
     end
     @hubs = Hub.by_name
     @user_proposals = current_user.proposals.order('votes_count DESC') if current_user
