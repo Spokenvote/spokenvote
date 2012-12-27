@@ -18,8 +18,9 @@ begin
   end
 
   proposals = Proposal.all
+  hubs = Hub.all
   40.times do
-    Vote.create({proposal: proposals.sample, user: users.sample, comment: Faker::Lorem.sentence})
+    Vote.create({proposal: proposals.sample, hub: hubs.sample, user: users.sample, comment: Faker::Lorem.sentence})
   end
 
   #Proposal.all.each do |proposal|

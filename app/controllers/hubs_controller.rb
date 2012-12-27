@@ -2,12 +2,23 @@ class HubsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index, :homepage]
 
   def homepage
-    @hubs = Hub.by_name
-    @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
+    @searched = ''
+    if params[:hub]
+      @hubs = Hub.where({name: params[:hub]})
+      @searched = params[:hub]
+      @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
+    # elsif params[:city]
+    #   @hubs = Hub.where({name: params[:hub]})
+    #   @searched = params[:hub]
+    #   @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
+    else
+      @hubs = Hub.by_name
+      @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
+    end
     @user_proposals = current_user.proposals.order('votes_count DESC') if current_user #.joins(:hubs).order('name') if current_user
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @user_proposals }
     end
   end
@@ -15,7 +26,13 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    @hubs = Hub.all#Hub.by_proposal_count
+    if params[:hub]
+      @hubs = Hub.where({name: params[:hub]})
+    # elsif params[:city]
+    #   @hubs = Hub.where({name: params[:hub]})
+    else
+      @hubs = Hub.all#Hub.by_proposal_count
+    end
 
     respond_to do |format|
       format.html # index.html.erb
