@@ -17,13 +17,15 @@
       = f.fields_for :votes, @vote do |vote_form|
         = vote_form.label :hub, :class => 'control-label'
         .controls
-          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] }), :class => "span4"
+          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] })
 
         .clearfix
 
-        .controls
+        %br
+        .control-group
           = vote_form.label :votes, 'Supporting Arguments', :class => 'control-label'
-          = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args'
+          .controls
+            = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args'
           = vote_form.hidden_field :user_id, :value => current_user.id
 
     .control-group
