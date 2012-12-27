@@ -5,7 +5,7 @@ $heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
 body {
-  padding-top: 40px;
+  padding-top: 40px; padding-bottom: 40px;
   background-color: #eee;
 }
 
@@ -104,6 +104,7 @@ h2 {
 #searchResults {
   @extend .span11; margin-left: 0;
 }
+#hpContent { @extend .span11; margin-left: 20px; }
 
 .listing {
   width: 100%;
@@ -153,10 +154,6 @@ h2 {
     width: 80%;
     margin-left: 10px;
   }
-}
-
-#hpContent {
-  margin-left: 0;
 }
 
 #sidebar {
