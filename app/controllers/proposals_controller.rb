@@ -73,9 +73,8 @@ class ProposalsController < ApplicationController
   # POST /proposals
   # POST /proposals.json
   def create
-    hub = Hub.find(params[:hub_id])
     votes = params[:proposal].delete :votes_attributes
-    @proposal = hub.proposals.create(params[:proposal])
+    @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE
     @proposal.votes.create votes['0']
