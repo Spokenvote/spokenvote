@@ -19,6 +19,7 @@ gem 'select2-rails', "~> 3.1.1"
 gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'compass'
 gem 'compass-rails'
 gem 'compass_twitter_bootstrap'
 
