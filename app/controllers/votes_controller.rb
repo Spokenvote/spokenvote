@@ -27,7 +27,7 @@ class VotesController < ApplicationController
   # GET /votes/new.json
   def new
     @vote = Vote.new
-
+    @vote.ip_address = request.remote_ip
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @vote }

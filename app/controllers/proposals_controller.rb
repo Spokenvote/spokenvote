@@ -73,7 +73,7 @@ class ProposalsController < ApplicationController
     @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE
-    @proposal.votes.create votes['0']
+    @proposal.votes.create votes['0'].merge(ip_address:request.remote_ip)
     respond_to do |format|
       if @proposal.save
         format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
