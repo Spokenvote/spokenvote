@@ -14,7 +14,8 @@ Spokenvote::Application.routes.draw do
     resources :proposals
   end
 
-  match '/about' => 'pages#about'
+  match 'about' => 'pages#about'
+  match 'help' => 'pages#help'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

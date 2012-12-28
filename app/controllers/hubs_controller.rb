@@ -8,9 +8,11 @@ class HubsController < ApplicationController
       @searched = params[:hub]
       @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
     # elsif params[:city]
-    #   @hubs = Hub.where({name: params[:hub]})
-    #   @searched = params[:hub]
-    #   @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
+    #   @search_hubs = Hub.where({location: params[:city]})
+    #   @searched = params[:city]
+    #   @proposals = ... matching Proposals query
+    # elseif <other searchable things>
+    #   ...
     else
       @proposals = Proposal.order('votes_count DESC').limit(5)
     end

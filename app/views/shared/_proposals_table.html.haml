@@ -1,19 +1,28 @@
-%table.listing
+%table.listing.listing-proposals
   %thead
     %tr
-      %th.table-title{ colspan: '2' }
-        - if user_signed_in?
-          = link_to 'New Proposal', new_proposal_path, class: 'btn btn-mini pull-right'
-        = tableTitle
+      %th
+        %span#hubSorter.btn-group
+          = link_to 'Active', '#', class: "btn #{searched ? 'active': ''}"
+          = link_to 'New', '#', class: 'btn'
+          - if user_signed_in?
+            = link_to 'My Votes', '#', class: "btn #{searched ? '': 'active'}"
+      %th.count-column
+        Branches
+      %th.count-column
+        Votes
 
   %tbody
     - proposals.each do |proposal|
       %tr
-        %td{ width: '35%' }
-          - if showHub
-            = 'In ' + proposal.hubs.first.name
-            %br
-          = 'By ' + proposal.user.name.to_s
         %td
-          = items_count_badge(proposal.votes_count, 'Total Votes')
           .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
+        %td.count-column
+          = proposal.root.related_proposals.count
+        %td.count-column
+          = proposal.votes_count
+#proposalNotFound
+  .span7 &nbsp;
+  .span4
+    Don't see the topic you're looking for? 
+    = link_to 'Make it', new_proposal_path

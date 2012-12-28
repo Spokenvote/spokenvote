@@ -67,19 +67,20 @@ h2 {
 }
 
 #locateHub {
-  background: #315c99;
-  padding: 20px 20px 10px;
+  background: #80A0CC;
+  padding: 10px 0;
   margin-bottom: 20px;
-  margin-left: 60px;
+  margin-left: 80px;
+  border: 2px solid #315c99;
   @include border-radius(10px);
   overflow: auto;
-  form { padding-left: 30px; }
+  form { margin: 0 auto 20px; width: 652px; }
 }
 //#hubSearch { margin-left: 20px;}
 #fillMyLocation {
-  margin-top: 10px;
-  .btn-success { margin-right: 34px; }
-  .btn-primary { margin-top: 6px; margin-right: 50px; }
+  a, button { font-weight: bold; @extend .pull-right; }
+//  .btn-success { margin-right: 14px; }
+  #fillLocation { margin-right: 20px; text-decoration: underline; margin-top: 8px; color: darkblue; }
 }
 .h1 {
   @extend h1;
@@ -153,8 +154,12 @@ h2 {
     width: 80%;
     margin-left: 10px;
   }
+  .count-column { text-align: center; }
 }
-
+.listing-proposals {
+  margin-bottom: 0px;
+}
+#proposalNotFound div:last-child { background-color: #e4e4e4; padding: 4px 0; text-align: center; margin-left: 0; }
 #hpContent {
   @extend .span11; margin-left: 20px;
 }

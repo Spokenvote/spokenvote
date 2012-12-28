@@ -5,106 +5,13 @@
       %span Voting redefined.
     %h4
       Browse proposals, support one or branch your own. Participate in real decisions.
-      = link_to 'More...', '/about', :class => 'more'
+      = link_to 'More...', '/about', class: 'more'
   
-  #locateHub.span9
-    = form_tag '/locateHub', :html => {:class => 'form-inline'} do
-      = text_field_tag 'hubSearch', @searched != '' ? @searched : nil, :placeholder => 'enter a group or topic', :class => 'span3'
-      = text_field_tag 'citySearch', nil, :placeholder => 'enter city', :class => 'span3'
-      = text_field_tag 'stateSearch', nil, :placeholder => 'enter a state', :class => 'span1'
-      = text_field_tag 'countrySearch', nil, :placeholder => 'enter a country', :class => 'span1'
-      = text_field_tag 'globalSearch', nil, :placeholder => 'global', :class => 'span1'
-      #fillMyLocation
-        = button_tag 'Go', :class => 'btn btn-success btn-large pull-right'
-        = link_to 'Fill in my existing location', '#', class: 'btn btn-primary pull-right'
+  = render partial: 'shared/locateHub'
 
-  - if @searched != 'clear' and @searched != ''
+  - if @searched != '' or user_signed_in?
     #searchResults
-      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, tableTitle: @searched + ' Proposals' }
+      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
   
-- if current_user && user_signed_in?
-  #hpContent
-    = render partial: 'shared/proposals_table', locals: { proposals: @user_proposals, showHub: true, tableTitle: 'My Proposals' }
-    = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: true, tableTitle: 'Active Proposals' }
-
-  #sidebar.span4.hide{:style => 'padding: 20px;'}
-    %h2 New Hubs
-    %div
-      - @hubs.each do |hub|
-        = link_to hub.name, hub_path(hub)
-        %br
-
-    %hr
-
-    %h2 News from SV
-    %div Blog content maybe? Definitely for marketing/service info for existing users.
-
-    %hr
-
-    %h2 @SpokenVote Tweets
-    %div Last few tweets from the house account
-
-- else
-  #hpContent
-    %table.listing
-      %thead
-        %tr
-          %th.table-title{ :colspan => '2' }
-            %span#hubSorter.btn-group.pull-right
-              = link_to 'Active', '#', class: 'btn active'
-              = link_to 'New', '#', class: 'btn'
-            Hubs
-        %tr
-          %th Name
-          %th Most Active Proposal
-
-      %tbody
-        - @hubs.each do |hub|
-          %tr
-            %td= link_to hub.name, hub_path(hub)
-            %td
-              - if hub.proposals.count > 0
-                = items_count_badge(hub.proposals.order(:votes_count).first.votes_count, 'Total Votes')
-                = link_to hub.proposals.order(:votes_count).first.statement, hub_proposal_path(hub, hub.proposals.order(:votes_count).first)
-              - else
-                %em No proposals yet
-
-  #sidebar.span4.hide
-    .login_box
-      .login_form
-        %h3
-          Sign in through:
-          = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
-
-        %h3 Sign in with SpokenVote
-        = form_tag 'users/login' do
-          %div
-            = label_tag :email
-            = email_field_tag :email
-          %div
-            = label_tag :password
-            = password_field_tag :password
-          / - if devise_mapping.rememberable?
-          /   = check_box_tag :remember_me
-          /   = label_tag :remember_me
-          %div= submit_tag "Sign in", :class => 'btn btn-primary'
-
-    .login_box
-      .login_form
-        %h3
-          Sign up through:
-          = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
-
-        %h3 Sign up
-        %br
-        = form_tag '/users' do
-          %div
-            = label_tag :email
-            = email_field_tag :email
-          %div
-            = label_tag :password
-            = password_field_tag :password
-          %div
-            = label_tag :password_confirmation
-            = password_field_tag :password_confirmation
-          %div= submit_tag "Sign up", :class => 'btn btn-primary'
+#hpContent
+  = render partial: 'shared/hubs_table'

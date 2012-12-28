@@ -2,19 +2,21 @@
   %nav.navbar-inner
     .container
 
-      = link_to image_tag('bluefull.png') + " Spoken Vote", root_path, :class => 'brand'
+      = link_to image_tag('bluefull.png') + ' Spoken Vote', root_path, :class => 'brand'
       %ul#main-nav.nav
         %li
-          = link_to('About', '/about')
+          = link_to 'Hubs', hubs_path
         %li
-          = link_to "Hubs", hubs_path
+          = link_to 'Proposals', proposals_path
         %li
-          = link_to "Proposals", proposals_path
+          = link_to 'Votes', votes_path
         %li
-          = link_to "Votes", votes_path
-        %li#search-nav
-          = form_tag 'navbar-search', :class => 'navbar-search' do
-            = text_field_tag 'navsearch', nil, :placeholder => 'search SpokenVote', :class => 'search-query'
+          = link_to 'About', about_path
+        %li
+          = link_to 'Help', help_path
+        / %li#search-nav.hide
+        /   = form_tag 'navbar-search', :class => 'navbar-search' do
+        /     = text_field_tag 'navsearch', nil, :placeholder => 'search SpokenVote', :class => 'search-query'
 
       %ul.nav.pull-right
         - if current_user && user_signed_in?
