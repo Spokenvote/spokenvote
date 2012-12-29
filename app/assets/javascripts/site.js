@@ -7,7 +7,7 @@ var hider = function(e) {
 var setPageHeight = function() {
   var vp = new Viewport(), vph = vp.height;
   if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-    $('section.span11').height(vph - 100);
+    $('section.span11').height(vph);
   } else {
     if(vph > $('#mainContent').height()) {
       $('#mainContent').height(vph - 120);

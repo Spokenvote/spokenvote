@@ -1,30 +1,6 @@
 class HubsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index, :homepage]
 
-  def homepage
-    @searched = ''
-    if params[:hub]
-      @search_hubs = Hub.where({name: params[:hub]})
-      @searched = params[:hub]
-      @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
-    # elsif params[:city]
-    #   @search_hubs = Hub.where({location: params[:city]})
-    #   @searched = params[:city]
-    #   @proposals = ... matching Proposals query
-    # elseif <other searchable things>
-    #   ...
-    else
-      @proposals = Proposal.order('votes_count DESC').limit(5)
-    end
-    @hubs = Hub.by_name
-    @user_proposals = current_user.proposals.order('votes_count DESC') if current_user
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @user_proposals }
-    end
-  end
-
   # GET /hubs
   # GET /hubs.json
   def index

@@ -26,9 +26,7 @@ body {
   @include border-radius(6px);
 }
 
-#mainContent {
-  padding: 20px;
-}
+#mainContent { padding: 20px; }
 
 hr {
   background-color: black;
@@ -62,9 +60,7 @@ hr {
   span { color: #ff0000; }
 }
 
-h2 {
-  margin-bottom: 12px;
-}
+h2 { margin-bottom: 12px; }
 
 #locateHub {
   background: #80A0CC;
@@ -76,79 +72,36 @@ h2 {
   overflow: auto;
   form { margin: 0 auto 20px; width: 652px; }
 }
-//#hubSearch { margin-left: 20px;}
-#fillMyLocation {
-  a, button { font-weight: bold; @extend .pull-right; }
-//  .btn-success { margin-right: 14px; }
-  #fillLocation { margin-right: 20px; text-decoration: underline; margin-top: 8px; color: darkblue; }
-}
+
 .h1 {
   @extend h1;
 }
 
-.input-append {
-  .h1 {
-    display: inline;
-    margin-right: 20px;
-    font-size: 36px;
-    letter-spacing: -0.05em;
-    color: #ffffff;
-  }
-  input, button {
-    vertical-align: text-bottom;
-  }
-  button {
-    margin-top: 3px;
-  }
-}
-
-#searchResults {
-  @extend .span11; margin-left: 0;
-}
-
 .listing {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  @extend .table;
   @extend .table-striped;
   @extend .table-bordered;
   @extend .table-hover;
-  &:last-child {
-    margin-bottom: 0;
-  }
+  @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
     background-color: #315D99;
     color: #fff;
     font-size: 16px;
+    border-top: none;
   }
   th.table-title {
     font-size: 24px;
     line-height: 20px;
   }
-  tr:last-child th {
-    border-left: none;
-  }
-  tr:last-child th:first-child {
-    border-left: 1px solid #ddd;
-  }
-  th .pull-right {
-    margin-right: 14px;
-  }
-  th, td {
-    padding: 6px 0 6px 10px;
-  }
-  td:last-child {
-    padding-right: 10px;
-  }
-  .vote_count {
-    text-align: center;
-  }
-  .badge {
-    @extend .pull-left;
-    width: auto;
-    margin-top: 4px;
-    margin-right: 10px;
-  }
+  tr:last-child th { border-left: none; }
+  tr:last-child th:first-child { border-left: 1px solid #ddd; }
+  th .pull-right { margin-right: 14px; }
+  th, td { padding: 6px 0 6px 10px; }
+  tbody:last-child tr:last-child td:first-child { border-bottom-left-radius: 0; }
+  tbody:last-child tr:last-child td:last-child { border-bottom-right-radius: 0; }
   .pos_statement {
     @extend .pull-left;
     width: 80%;
@@ -158,8 +111,10 @@ h2 {
 }
 .listing-proposals {
   margin-bottom: 0px;
+  .proposal_buttons { width: 114px; }
+  td.proposal_buttons + td { border-left: none; }
 }
-#proposalNotFound div:last-child { background-color: #e4e4e4; padding: 4px 0; text-align: center; margin-left: 0; }
+#proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
 #hpContent {
   @extend .span11; margin-left: 20px;
 }
@@ -205,6 +160,12 @@ textarea {
   .brand {
     color: #000;
   }
+  form {
+    display: inline-block;
+    input, .btn { vertical-align: baseline; margin-right: 0; }
+  }
+  .input, .input-append { margin-top: 0; }
+  .input-append .btn { margin-left: -4px; font-variant: small-caps; }
 }
 
 .navbar .nav > li > a {
@@ -221,14 +182,8 @@ textarea {
   }
 }
 
-#search-nav {
-  margin-left: 20px;
-}
-
 .brand {
-  img {
-    height: 20px;
-  }
+  img { height: 20px; }
 }
 
 footer {
@@ -318,18 +273,5 @@ footer {
   margin-top: 30px;
   td:first-child {
     font-weight: bold;
-  }
-}
-
-#proposalsListing {
-  td {
-    vertical-align: top;
-  }
-  .proposal_buttons {
-    padding-right: 8px;
-    line-height: 1.8;
-  }
-  td.proposal_buttons + td {
-    border-left: none;
   }
 }
