@@ -9,9 +9,7 @@ body {
   background-color: #eee;
 }
 
-.alert {
-  @extend .span11;
-}
+.alert { @extend .span11; }
 
 .content {
   margin: 0; /* negative indent the amount of the padding to maintain the grid system */
@@ -73,9 +71,7 @@ h2 { margin-bottom: 12px; }
   form { margin: 0 auto 20px; width: 652px; }
 }
 
-.h1 {
-  @extend h1;
-}
+.h1 { @extend h1; }
 
 .listing {
   width: 100%;
@@ -115,25 +111,19 @@ h2 { margin-bottom: 12px; }
   td.proposal_buttons + td { border-left: none; }
 }
 #proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
-#hpContent {
-  @extend .span11; margin-left: 20px;
-}
+#hpContent { @extend .span11; margin-left: 20px; }
 
 #sidebar {
   @include box-shadow(0 1px 2px rgba(0, 0, 0, .15));
   @include box-sizing(border-box);
   margin-left: 60px;
   background-color: #e4e4e4;
-  &, .login_form {
-    @include border-radius(6px);
-  }
+  &, .login_form { @include border-radius(6px); }
   .login_box {
     border: none;
     @include border-radius(0);
     @include box-shadow(0);
-    hr, br {
-      display: none;
-    }
+    hr, br { display: none; }
   }
   .login_form {
     padding-bottom: 0;
@@ -147,9 +137,7 @@ h2 { margin-bottom: 12px; }
   }
 }
 
-textarea {
-  height: 100px;
-}
+textarea { height: 100px; }
 
 .navbar-inverse {
   .navbar-inner {
@@ -157,9 +145,7 @@ textarea {
     color: #000;
     border-color: #315c99;
   }
-  .brand {
-    color: #000;
-  }
+  .brand { color: #000; }
   form {
     display: inline-block;
     input, .btn { vertical-align: baseline; margin-right: 0; }
@@ -170,9 +156,7 @@ textarea {
 
 .navbar .nav > li > a {
   padding: 11px 8px 13px;
-  &:hover {
-    background-color: #999;
-  }
+  &:hover { background-color: #999; }
 }
 
 .navbar .nav > a, .navbar .nav > li > a {
@@ -187,18 +171,12 @@ textarea {
 }
 
 footer {
-  .container {
-    padding: 10px 0;
-  }
-  a {
-    color: #fff;
-  }
+  .container { padding: 10px 0; }
+  a { color: #fff; }
 }
 
 #main {
-  .container {
-    background-color: #FFF;
-  }
+  .container { background-color: #FFF; }
 }
 
 [contenteditable="true"] {
@@ -206,9 +184,7 @@ footer {
   outline: 2px dashed #CCC;
 }
 
-[contenteditable="true"]:hover {
-  outline: 2px dashed #0090D2;
-}
+[contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .proposal_hub {
   border-bottom: 1px solid #dddddd;
@@ -226,12 +202,8 @@ footer {
 }
 
 .main-proposal, .supporting_arguments {
-  h3 {
-    margin-bottom: 10px;
-  }
-  .proposal-person {
-    margin-left: 0;
-  }
+  h3 { margin-bottom: 10px; }
+  .proposal-person { margin-left: 0; }
 }
 
 .proposal_statement {
@@ -259,19 +231,13 @@ footer {
 
 .span11 > .form-horizontal {
   margin-top: 20px;
-  .control-group, .supporting-args {
-    margin-bottom: 10px;
-  }
+  .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.select2-container.span4 {
-  margin-left: 0;
-}
+.select2-container.span4 { margin-left: 0; }
 
 #hub_show {
   border-bottom: 1px solid #ddd;
   margin-top: 30px;
-  td:first-child {
-    font-weight: bold;
-  }
+  td:first-child { font-weight: bold; }
 }
