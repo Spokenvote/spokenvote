@@ -59,9 +59,12 @@ module Spokenvote
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.assets.precompile += ['application.scss.css', 'application.js']
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.assets.initialize_on_precompile = false
 
     # Only generate request specs and model specs
     config.generators do |g|

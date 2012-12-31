@@ -3,16 +3,19 @@ Spokenvote::Application.routes.draw do
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
-  root :to => 'hubs#homepage'
+  root :to => 'proposals#index'
   resources :users do
     resources :proposals, only: [:index]
   end
 
   resources :votes
   resources :proposals
-  resources :hubs
+  resources :hubs do
+    resources :proposals
+  end
 
-  match '/about' => 'pages#about'
+  match 'about' => 'pages#about'
+  match 'help' => 'pages#help'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

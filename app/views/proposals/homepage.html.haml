@@ -1,4 +1,4 @@
-%section.span11{ class: @searched != '' || @sortTitle != '' ? 'searched' : 'clear' }
+%section.span11{ class: @searched != '' ? 'searched' : 'clear' }
   .page_title
     %h1
       Influence a group, impact the world.
@@ -7,9 +7,11 @@
       Browse proposals, support one or branch your own. Participate in real decisions.
       = link_to 'More...', '/about', class: 'more'
   
+  = render partial: 'shared/locateHub'
+
   - if @searched != '' or user_signed_in?
     #searchResults
       = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
   
-/ #hpContent
-/   = render partial: 'shared/hubs_table'
+#hpContent
+  = render partial: 'shared/hubs_table'

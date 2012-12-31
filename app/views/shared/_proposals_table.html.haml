@@ -1,19 +1,30 @@
-%table.listing
+%table.listing.listing-proposals
   %thead
     %tr
-      %th.table-title{ colspan: '2' }
-        - if canCreate
-          = link_to 'New Proposal', new_proposal_path, class: 'btn btn-mini pull-right'
-        = tableTitle
+      %th.table-title{ colspan: '6' }= @sortTitle + 'Proposals'
+    %tr
+      %th{ colspan: '2' }
+        %span#hubSorter.btn-group
+          = link_to 'Active', proposals_path(filter: 'active'), class: "btn #{searched || @sortTitle == 'Active ' ? 'active': ''}"
+          = link_to 'New', proposals_path(filter: 'new'), class: "btn #{@sortTitle == 'New ' ? 'active' : ''}"
+          - if user_signed_in?
+            = link_to 'My Votes', proposals_path(user_id: current_user.id), class: "btn #{@sortTitle == 'My ' ? 'active': ''}"
+      %th.count-column Added
+      %th.count-column{ width: '12%'} Rank
+      %th.count-column Votes
+      %th.count-column{ width: '12%'} Branches
 
   %tbody
     - proposals.each do |proposal|
+      - all_related_proposals_votes_count = [proposal.ancestors, proposal.descendants, proposal].flatten.map(&:votes_count).sort
       %tr
-        %td{ width: '35%' }
-          - if showHub
-            = 'In ' #+ proposal.hubs.first.name
-            %br
-          = 'By ' + proposal.user.name.to_s
-        %td
-          = items_count_badge(proposal.votes_count, 'Total Votes')
-          .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
+        %td{ colspan: '2' }= link_to proposal.statement, proposal_path(proposal)
+        %td.count-column= proposal.created_at.to_s(:month_day_year)
+        %td.count-column= all_related_proposals_votes_count.index(proposal.votes_count) + 1
+        %td.count-column= raw(proposal.votes_count.to_s + ' &ndash; ' + proposal.votes_in_tree.to_s)
+        %td.count-column= proposal.root.related_proposals.count
+#proposalNotFound
+  .span7 &nbsp;
+  .span4
+    Don't see the topic you're looking for? 
+    = link_to 'Make it', new_proposal_path

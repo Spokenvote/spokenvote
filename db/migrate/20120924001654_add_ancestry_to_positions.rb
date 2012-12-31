@@ -1,6 +1,6 @@
 class AddAncestryToPositions < ActiveRecord::Migration
   def change
-    add_column :positions, :ancestry, :string
-    add_index :positions, :ancestry
+    add_column :proposals, :ancestry, :string
+    add_index :proposals, :ancestry
   end
 end
