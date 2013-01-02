@@ -1,38 +1,15 @@
-.span11
-  %table#proposalsListing.listing
-    %thead
-      %tr
-        %th.table-title{ :colspan => '6' }
-          = link_to 'New Proposal', new_proposal_path, :class => 'pull-right btn'
-          Positions
-      %tr
-        %th Hub
-        %th{ :colspan => '2'} Proposal
-        %th Votes
-        %th Rank
-        %th Topic Votes
-
-    %tbody
-      - prevGB = ''
-      - @proposals.each do |proposal|
-        - all_related_proposals_votes_count = [proposal.ancestors, proposal.descendants, proposal].flatten.map(&:votes_count).sort
-        %tr
-          %td
-            -#%strong= proposal.hubs.first.name if proposal.hubs.first.name != prevGB
-          - if user_signed_in?
-            %td.proposal_buttons
-              = link_to 'Improve', new_proposal_path(:parent_id => proposal), :class => 'btn btn-mini btn-primary'
-              %br
-              = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'btn btn-mini btn-success'
-            %td
-              = link_to proposal.statement, edit_proposal_path(proposal)
-          - else
-            %td{ :colspan => '2' }
-              = link_to proposal.statement, proposal_path(proposal)
-          %td= proposal.votes.count
-          %td= all_related_proposals_votes_count.index(proposal.votes_count) + 1
-          %td= proposal.votes_in_tree
-        -#- prevGB = proposal.hubs.first.name
-
-- if user_signed_in?
-  = render :partial => 'shared/comment'
+%section.span11{ class: @searched != '' || @sortTitle != '' ? 'searched' : 'clear' }
+  .page_title
+    %h1
+      Influence a group, impact the world.
+      %span Voting redefined.
+    %h4
+      Browse proposals, support one or branch your own. Participate in real decisions.
+      = link_to 'More...', '/about', class: 'more'
+  
+  - if @searched != '' or user_signed_in?
+    #searchResults
+      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
+  
+/ #hpContent
+/   = render partial: 'shared/hubs_table'
