@@ -1,21 +1,28 @@
-.row
-  .offset4.span4
-    .login_box
-      %h3 Sign in through Facebook:
-      = render :partial => 'devise/shared/providers'
+.content_page
+  .login_providers
+    %h2 Sign in with a Service
+    .content_div
+      = link_to image_tag('icons/providers/images/facebook_64.png'), user_omniauth_authorize_path(:facebook)
+      %br
+      %label Facebook
 
-      .login_form
-        %h3 Sign in
-        %br   
-        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-          %div
-            = f.label :email
-            = f.email_field :email
-          %div
-            = f.label :password
-            = f.password_field :password
-          - if devise_mapping.rememberable?
-            = f.check_box :remember_me
-            = f.label :remember_me
-          %div= f.submit "Sign in", :class => 'btn btn-primary'
-        = render "devise/shared/links"
+    .hr
+
+  .login_form
+    %h2 Sign in with SpokenVote
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name) ) do |f|
+      .control-group
+        = f.label :email, class: 'control-label'
+        .controls
+          = f.email_field :email
+      .control-group
+        = f.label :password, class: 'control-label'
+        .controls
+          = f.password_field :password
+      - if devise_mapping.rememberable?
+        .control-group
+          .controls
+            %label.checkbox
+              = f.check_box :remember_me
+              Remember me
+            = f.submit "Sign in", :class => 'btn btn-primary'

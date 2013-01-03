@@ -2,4 +2,14 @@
   @extend .span11; margin-left: 20px;
   h2 { margin-top: 20px; }
   .content_div { margin-bottom: 20px; }
+  .login_providers, .login_form {
+    @extend .span5; @extend .offset3; clear: both;
+    h2 { margin-bottom: 20px; }
+    label { font-weight: bold; }
+    input.btn, .hr { margin-top: 20px; }
+    .hr { @extend .span4; }
+  }
+  .login_providers { margin-bottom: 20px; }
+  .login_form {
+  }
 }

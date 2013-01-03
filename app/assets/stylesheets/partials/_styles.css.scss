@@ -26,9 +26,10 @@ body {
 
 #mainContent { padding: 20px; }
 
-hr {
-  background-color: black;
-  height: 1px;
+.hr {
+  background-color: #80A0CC;
+  overflow: auto;
+  border: 2px solid #80A0CC;
 }
 
 .hero-unit {
