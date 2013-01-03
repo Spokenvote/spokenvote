@@ -9,10 +9,10 @@
         %li
           = link_to 'Help', help_path
       = form_tag 'navbar-search', class: 'navbar-form form-inline' do
-        = text_field_tag 'hubSearch', @searched, placeholder: 'group or topic', class: 'input span2'
+        = text_field_tag 'hubSearch', @searched, placeholder: 'Enter a group or topic', class: 'input span3'
         .input-append
           = text_field_tag 'locationSearch', nil, placeholder: 'A location', class: 'input span2 pull-right'
-          = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location'}
+          = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom'}, title: 'Location Search'
         = button_tag 'Search', class: 'btn btn-danger'
 
       %ul.nav.pull-right
