@@ -1,0 +1,31 @@
+.navbar-inverse {
+  .navbar-inner {
+    background: #80A0CC;
+    color: #000;
+    border-color: #315c99;
+  }
+  .brand { color: #000; }
+  form {
+    display: inline-block;
+    input, .btn { vertical-align: baseline; margin-right: 0; }
+  }
+  .input, .input-append { margin-top: 0; }
+  .input-append .btn { margin-left: -4px; font-variant: small-caps; }
+}
+
+.navbar .nav > li > a {
+  padding: 11px 8px 13px;
+  &:hover { background-color: #999; }
+}
+
+.navbar .nav > a, .navbar .nav > li > a {
+  &, &:visited {
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+.brand {
+  img { height: 20px; }
+}
+

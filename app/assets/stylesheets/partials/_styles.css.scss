@@ -4,18 +4,37 @@ $headingsColor: #315c99;
 $heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
+// structural styles
 body {
   padding-top: 40px;
   background-color: #eee;
 }
 
-.alert { @extend .span11; }
+footer {
+  .container { padding: 10px 0; }
+  a { color: #fff; }
+}
 
+#main {
+  .container { background-color: #FFF; }
+}
+
+#mainContent { padding: 20px; }
 .content {
   margin: 0; /* negative indent the amount of the padding to maintain the grid system */
   @include clearfix;
 }
 
+.span11 > .form-horizontal {
+  margin-top: 20px;
+  .control-group, .supporting-args { margin-bottom: 10px; }
+}
+
+.alert { @extend .span11; }
+
+// end Structural
+
+// General elements
 .label-large {
   font-size: 16px;
   padding: 5px 8px 6px;
@@ -24,31 +43,10 @@ body {
   @include border-radius(6px);
 }
 
-#mainContent { padding: 20px; }
-
 .hr {
   background-color: #80A0CC;
   overflow: auto;
   border: 2px solid #80A0CC;
-}
-
-.hero-unit {
-  padding: 40px;
-  width: 820px;
-  overflow: auto;
-  p {
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: #385173;
-    img {
-      margin: 10px 20px 10px 0;
-      float: left;
-    }
-  }
-  .close {
-    margin-top: -20px;
-    margin-right: -20px;
-  }
 }
 
 .page_title {
@@ -61,20 +59,7 @@ body {
 
 h2 { margin-bottom: 12px; }
 
-#locateHub {
-  background: #80A0CC;
-  padding: 10px 0;
-  margin-bottom: 20px;
-  margin-left: 80px;
-  border: 2px solid #315c99;
-  @include border-radius(10px);
-  overflow: auto;
-  form { margin: 0 auto 20px; width: 652px; }
-}
-
-.h1 { @extend h1; }
-
-.listing {
+.listing { // commonly used table styles
   width: 100%;
   margin-bottom: 0;
   @extend .table;
@@ -106,6 +91,22 @@ h2 { margin-bottom: 12px; }
   }
   .count-column { text-align: center; }
 }
+
+textarea { height: 100px; }
+
+.popover-content * { white-space: normal; } // fixes wordwrap issue
+
+[contenteditable="true"] {
+  padding: 10px;
+  outline: 2px dashed #CCC;
+}
+[contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
+
+.select2-container.span4 { margin-left: 0; }
+
+// end General elements
+
+// Proposal-related
 .listing-proposals {
   margin-bottom: 0px;
   .proposal_buttons { width: 114px; }
@@ -113,80 +114,6 @@ h2 { margin-bottom: 12px; }
 }
 #proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
 #hpContent { @extend .span11; margin-left: 20px; }
-
-#sidebar {
-  @include box-shadow(0 1px 2px rgba(0, 0, 0, .15));
-  @include box-sizing(border-box);
-  margin-left: 60px;
-  background-color: #e4e4e4;
-  &, .login_form { @include border-radius(6px); }
-  .login_box {
-    border: none;
-    @include border-radius(0);
-    @include box-shadow(0);
-    hr, br { display: none; }
-  }
-  .login_form {
-    padding-bottom: 0;
-    margin: 5px auto;
-  }
-  h3 {
-    font-size: 18px;
-    a img {
-      max-width: 50px;
-    }
-  }
-}
-
-textarea { height: 100px; }
-
-.navbar-inverse {
-  .navbar-inner {
-    background: #80A0CC;
-    color: #000;
-    border-color: #315c99;
-  }
-  .brand { color: #000; }
-  form {
-    display: inline-block;
-    input, .btn { vertical-align: baseline; margin-right: 0; }
-  }
-  .input, .input-append { margin-top: 0; }
-  .input-append .btn { margin-left: -4px; font-variant: small-caps; }
-}
-
-.navbar .nav > li > a {
-  padding: 11px 8px 13px;
-  &:hover { background-color: #999; }
-}
-
-.navbar .nav > a, .navbar .nav > li > a {
-  &, &:visited {
-    color: #fff;
-    font-weight: bold;
-  }
-}
-
-.brand {
-  img { height: 20px; }
-}
-
-.popover-content * { white-space: normal; }
-footer {
-  .container { padding: 10px 0; }
-  a { color: #fff; }
-}
-
-#main {
-  .container { background-color: #FFF; }
-}
-
-[contenteditable="true"] {
-  padding: 10px;
-  outline: 2px dashed #CCC;
-}
-
-[contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .proposal_hub {
   border-bottom: 1px solid #dddddd;
@@ -230,18 +157,8 @@ footer {
   font-size: 16px;
   font-weight: bold;
 }
+// end Proposal-related
 
-.span11 > .form-horizontal {
-  margin-top: 20px;
-  .control-group, .supporting-args { margin-bottom: 10px; }
-}
-
-.select2-container.span4 { margin-left: 0; }
-
-#hub_show {
-  border-bottom: 1px solid #ddd;
-  margin-top: 30px;
-  td:first-child { font-weight: bold; }
-}
-
+// Partial imports
+@import 'partials/navigation';
 @import 'partials/content_pages';
