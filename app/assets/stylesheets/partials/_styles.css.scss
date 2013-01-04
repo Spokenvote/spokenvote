@@ -7,10 +7,13 @@ $heroUnitHeadingColor: $headingsColor;
 // structural styles
 body {
   padding-top: 40px;
-  @include background(linear-gradient(#eee 55%, #ccc 75%, #fff));
+  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
 }
 
 footer {
+  &.navbar { margin-bottom: 0; }
+  .navbar-inner { @include border-radius(0); }
   .container { padding: 10px 0; }
   a { color: #fff; }
 }
@@ -35,14 +38,16 @@ footer {
 // end Structural
 
 // General elements
+h1.form-horizontal { padding-left: 160px; }
+
 .label-large {
   font-size: 16px;
   padding: 5px 8px 6px;
-  margin-top: 10px;
   border: 1px solid #dddddd;
-  @include border-radius(6px);
 }
+.label-flat { border-radius: 0; }
 
+.btn-bold { font-weight: bold; }
 .hr {
   background-color: #80A0CC;
   overflow: auto;
@@ -115,11 +120,6 @@ textarea { height: 100px; }
 #proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
-.proposal_hub {
-  border-bottom: 1px solid #dddddd;
-  margin-bottom: 20px;
-}
-
 .main-proposal {
   margin-bottom: 20px;
   h4 {
@@ -135,15 +135,11 @@ textarea { height: 100px; }
   .proposal-person { margin-left: 0; }
 }
 
+.proposal_container { margin: 20px 0; }
+
 .proposal_statement {
   font-size: 176%;
   margin-bottom: 10px;
-}
-
-#relatedProposalsTitle {
-  border-top: 1px solid #999;
-  padding-top: 20px;
-  margin-top: 10px;
 }
 
 .related_supporting {
@@ -152,10 +148,10 @@ textarea { height: 100px; }
   margin-bottom: 10px;
 }
 
-.total_votes {
+.improve_support_buttons :last-child { margin-left: 10px; }
+#totalVoteLabel {
   margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
+  padding-top: 4px;
 }
 // end Proposal-related
 

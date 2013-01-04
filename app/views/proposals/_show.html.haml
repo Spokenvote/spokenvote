@@ -1,6 +1,9 @@
-- if total_votes > 0
-  .proposal_hub
-    %h3= 'Hub: ' #+ proposal.hubs.first.name
+.proposal_hub
+  %h3
+    Topic:
+    = proposal.hubs.first.name
+    &ndash; Location: &lt;LOCATION NOT IN SCHEMA&gt;
+    / = proposal.votes.first.location.name
 
 .proposal_container(data-proposal-id="#{proposal.id}")
   .main-proposal
@@ -24,8 +27,8 @@
       = proposal_title(total_votes, proposal.user.name)
 
     - if total_votes > 0
-      %p
-        %span.label.label-large.label-success
+      #totalVoteLabel
+        %span.label.label-large.label-success.label-flat
           = total_votes.to_s + ' Total Votes'
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
