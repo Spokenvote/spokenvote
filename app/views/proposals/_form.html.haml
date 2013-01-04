@@ -11,23 +11,27 @@
     .control-group
       = f.label :statement, :class => 'control-label'
       .controls
-        = f.text_field :statement, :class => 'input-xxlarge'
+        = f.text_field :statement, :class => 'input-xxlarge', placeholder: 'Enter only the statement of your proposal'
 
-    .control-group
-      = f.fields_for :votes, @vote do |vote_form|
-        = vote_form.label :hub, :class => 'control-label'
+    = f.fields_for :votes, @vote do |vote_form|
+      .control-group
+        = vote_form.label :topic, :class => 'control-label'
         .controls
           = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] })
+          %span.help-block Please choose the word or phrase that best captures this proposal.
 
-        .clearfix
+      .control-group
+        = vote_form.label :location, :class => 'control-label'
+        .controls.locationSelector
+          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] }), { include_blank: true }
+          %span.help-block Please select the most inclusive location appropriate for this proposal.
 
-        %br
-        .control-group
-          = vote_form.label :votes, 'Supporting Arguments', :class => 'control-label'
-          .controls
-            = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args'
-          = vote_form.hidden_field :user_id, :value => current_user.id
+      .control-group
+        = vote_form.label :votes, 'Supporting Arguments', :class => 'control-label'
+        .controls
+          = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args', placeholder: 'Enter your explanation and reasons why others should support your proposal'
+        = vote_form.hidden_field :user_id, :value => current_user.id
 
     .control-group
       .controls
-        = f.submit 'Save', class: 'btn btn-primary'
+        = f.submit controller.action_name == 'new' ? 'Create' : 'Update', class: 'btn btn-primary btn-large btn-bold'

@@ -1,5 +1,7 @@
-.span11
+.content_page
   = render partial: 'show', :locals => { :proposal => @proposal, :total_votes => @total_votes }
+
+  .hr
 
   %h2#relatedProposalsTitle Related Proposals
   - @proposal.related_proposals.each_with_index do |related_proposal|
