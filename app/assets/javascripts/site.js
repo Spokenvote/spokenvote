@@ -17,6 +17,7 @@ var setPageHeight = function() {
 
 $(function() {
   $('[rel=tooltip]').tooltip();
+  $('[rel=popover]').popover();
   $('#closeHero').click(hider);
   $('select').select2();
   $('.related_supporting').last().css('border-bottom', 'none')
