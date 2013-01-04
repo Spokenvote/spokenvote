@@ -7,7 +7,7 @@ $heroUnitHeadingColor: $headingsColor;
 // structural styles
 body {
   padding-top: 40px;
-  background-color: #eee;
+  @include background(linear-gradient(#eee 55%, #ccc 75%, #fff));
 }
 
 footer {
@@ -16,7 +16,7 @@ footer {
 }
 
 #main {
-  .container { background-color: #FFF; }
+  .container { background-color: #fff; }
 }
 
 #mainContent { padding: 20px; }
