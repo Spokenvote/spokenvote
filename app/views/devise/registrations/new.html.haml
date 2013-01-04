@@ -1,25 +1,27 @@
-.row
-  .offset4.span4
-    .login_box
-      %h3 Sign up through Facebook:
-      = render :partial => 'devise/shared/providers'
+.content_page
+  .login_providers
+    %h2 Sign up through a Service
+    .content_div
+      = link_to image_tag('icons/providers/images/facebook_64.png'), user_omniauth_authorize_path(:facebook)
+      %br
+      %label Facebook
 
-      .login_form
-        %h3 Sign up
-        %br
-        = form_for resource, :as => resource_name, :url => registration_path(resource_name) do |f|
-          = devise_error_messages!
-          -#%div
-          -#  = f.label :name
-          -#  = f.text_field :name
-          %div
-            = f.label :email
-            = f.email_field :email
-          %div
-            = f.label :password
-            = f.password_field :password
-          %div
-            = f.label :password_confirmation
-            = f.password_field :password_confirmation
-          %div= f.submit "Sign up", :class => 'btn btn-primary'
-        = render "devise/shared/links"
+    .hr
+
+  .login_form
+    %h2 Sign up with SpokenVote
+    = form_for resource, :as => resource_name, :url => registration_path(resource_name) do |f|
+      = devise_error_messages!
+      .control-group
+        = f.label :email, class: 'control-label'
+        .controls
+          = f.email_field :email
+      .control-group
+        = f.label :password, class: 'control-label'
+        .controls
+          = f.password_field :password
+      .control-group
+        = f.label :password_confirmation, class: 'control-label'
+        .controls
+          = f.password_field :password_confirmation
+        = f.submit "Join", :class => 'btn btn-primary'
