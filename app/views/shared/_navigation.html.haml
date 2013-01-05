@@ -1,8 +1,7 @@
 %header.navbar.navbar-inverse.navbar-fixed-top
   %nav.navbar-inner
     .container
-
-      = link_to image_tag('bluefull.png') + ' Spoken Vote', root_path, class: 'brand'
+      = link_to image_tag('bluefull.png') + ' SpokenVote', root_path, class: 'brand'
       %ul#main-nav.nav
         %li
           = link_to 'About', about_path
@@ -13,7 +12,7 @@
         .input-append
           = text_field_tag 'locationSearch', nil, placeholder: 'A location', class: 'input span2 pull-right'
           = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom'}, title: 'Location Search'
-        = button_tag 'Search', class: 'btn btn-danger'
+        = button_tag 'Search', class: 'btn btn-danger btn-bold'
 
       %ul.nav.pull-right
         - if current_user && user_signed_in?
@@ -24,5 +23,5 @@
               %li= link_to 'Settings', edit_user_registration_path(current_user)
               %li= link_to 'Log Out', destroy_user_session_path, method: 'delete'
         - else
-          = link_to 'Sign In', new_user_session_path, class: 'btn btn-info'
-          = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary'
+          = link_to 'Sign In', new_user_session_path, class: 'btn btn-info btn-bold'
+          = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary btn-bold'
