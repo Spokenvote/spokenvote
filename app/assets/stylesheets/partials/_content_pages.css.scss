@@ -2,8 +2,8 @@
   @extend .span11; margin-left: 20px;
   h2 { margin-top: 20px; }
   .content_div { margin-bottom: 20px; }
+  label { font-weight: bold; }
   .profile_form, .login_providers, .login_form {
-    label { font-weight: bold; }
     input.btn, .hr { margin-top: 20px; }
   }
   .login_providers, .login_form {
