@@ -13,12 +13,13 @@ begin
     users << User.create({name: Faker::Name.name, email: Faker::Internet.email, password: 'abc123', password_confirmation: 'abc123'})
   end
 
+  hubs = Hub.all
   10.times do
-    Proposal.create({statement: Faker::Lorem.sentence, user: users.sample, parent: Proposal.all.sample})
+    proposal = Proposal.create({statement: Faker::Lorem.sentence, user: users.sample, parent: Proposal.all.sample})
+    Vote.create({proposal: proposal, hub: hubs.sample, user: users.sample, comment: Faker::Lorem.sentence})
   end
 
   proposals = Proposal.all
-  hubs = Hub.all
   40.times do
     Vote.create({proposal: proposals.sample, hub: hubs.sample, user: users.sample, comment: Faker::Lorem.sentence})
   end
