@@ -7,7 +7,7 @@
     - if user_signed_in?
       .content_editable.proposal_statement
         = proposal.statement
-        
+
       = proposal_title(total_votes, proposal.user.name)
 
       .content_editable_buttons(style="display:none")
@@ -15,8 +15,8 @@
         = link_to 'Save this improved proposal', '#', :class => 'label save_statement'
 
       .improve_support_buttons
-        = link_to 'Improve', '#', :class => 'label improve'
-        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'label'
+        = link_to 'Improve', '#', :class => 'btn btn-warning improve'
+        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'btn btn-info support'
     - else
       .proposal_statement
         = proposal.statement
@@ -39,6 +39,3 @@
         - if proposal.votes_count > 2
           - context = "page:#{params[:page_number].to_i}_proposal:#{proposal.id}"
           .more=link_to 'More...', proposal_path(:context => context)
-
-- if user_signed_in?
-  = render :partial => 'shared/comment'

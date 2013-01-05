@@ -1,10 +1,21 @@
 .navbar-inverse {
   .navbar-inner {
-    background: #80A0CC;
     color: #000;
     border-color: #315c99;
   }
-  .brand { color: #000; }
+  //font-family: 'Offside', cursive;
+  //font-family: 'Megrim', cursive;
+  //font-family: 'Audiowide', cursive;
+  .brand {
+    color: #315d99;
+//    font-weight: 700; font-family: 'Megrim'; letter-spacing: -1px;
+    margin-left: -14px;
+    padding-top: 6px;
+    &.audiowide { font-family: 'Audiowide'; letter-spacing: -2px; }
+    &.megrim { font-family: 'Megrim'; letter-spacing: -1px; }
+    &.offside { font-family: 'Offside'; letter-spacing: -2px; }
+    img { vertical-align: bottom; height: 24px; }
+  }
   form {
     display: inline-block;
     input, .btn { vertical-align: baseline; margin-right: 0; }
@@ -12,17 +23,35 @@
   .input, .input-append { margin-top: 0; }
   .input-append .btn { margin-left: -4px; font-variant: small-caps; }
 }
-
-.navbar .nav > li > a {
-  padding: 11px 8px 13px;
-  &:hover { background-color: #999; }
+header .navbar-inner {
+  border-bottom: 1px solid;
+  @include background(linear-gradient(#e97e3b, scale-lightness(#e97e3b, 20)));
 }
 
-.navbar .nav > a, .navbar .nav > li > a {
-  &, &:visited {
-    color: #fff;
-    font-weight: bold;
+.brand {
+  font-weight: 700 !important; font-family: 'Megrim'; letter-spacing: -1px;
+}
+footer {
+  &.navbar { margin-bottom: 0; }
+  .navbar-inner {
+    border-top: 1px solid;
+    @include background(linear-gradient(scale-lightness(#e97e3b, 20), #e97e3b));
+    @include border-radius(0);
+    text-align: center;
+    .container { width: 940px; }
+    .brand {
+      padding: 0;
+      margin-left: 0; margin-right: 0;
+      display: inline;
+      float: none;
+      font-size: 14px;
+    }
   }
+}
+
+.navbar .nav > li > a {
+  padding: 11px 8px 13px; color: #fff; font-weight: bold;
+  &:hover { background-color: #999; }
 }
 
 .brand {
