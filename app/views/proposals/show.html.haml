@@ -9,7 +9,7 @@
 
 :javascript
   $(document).ready(function () {
-    $('.more').click(function (e) {
+    $('.more').on('click', function (e) {
       e.preventDefault();
 
       var el = $(this).find('a'),
@@ -38,7 +38,7 @@
       });
     });
 
-    $('.improve').click(function (e) {
+    $('.improve').on('click', function (e) {
       e.preventDefault();
 
       var el = $(this),
@@ -48,15 +48,23 @@
           content_editable_buttons = proposal_container.find('.content_editable_buttons');
 
       editableBox.attr('contenteditable', 'true');
+      proposal_container.find('.proposal_fields').toggle();
+      proposal_container.find('.proposal_form').addClass('active');
       improve_support_buttons.hide();
       content_editable_buttons.show();
     });
 
-    $('.cancel').click(function () {
+    $('.cancel').on('click', function (e) {
+      e.preventDefault();
       hideContentEditable($(this));
     });
+    
+    $('.support').on('click', function(e) {
+      e.preventDefault();
+      // NEEDS CODE
+    });
 
-    $('.save_statement').click(function () {
+    $('.save_statement').on('click', function () {
       var el = $(this),
         proposal_container = el.closest('.proposal_container'),
         editableBox = proposal_container.find('.content_editable'),
@@ -88,6 +96,8 @@
           content_editable_buttons = proposal_container.find('.content_editable_buttons');
 
       editableBox.attr('contenteditable', 'false');
+      proposal_container.find('.proposal_fields').toggle();
+      proposal_container.find('.proposal_form').removeClass('active');
       content_editable_buttons.hide();
       improve_support_buttons.show();
     }
