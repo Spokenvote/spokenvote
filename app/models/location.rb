@@ -12,7 +12,10 @@
 #
 
 class Location < ActiveRecord::Base
-  attr_accessible :ancestry, :name, :parent_id, :type
+  has_many :votes
+  attr_accessible :ancestry, :name, :parent_id, :type_id
+  validates :type_id, min: 1, max: ::TYPES.length
+  validates :type_id, :name, presence: true
 
   TYPES = {
     country: 1,
@@ -21,4 +24,5 @@ class Location < ActiveRecord::Base
     county: 4,
     postal: 5
   }
+  
 end

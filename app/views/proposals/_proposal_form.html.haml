@@ -1,0 +1,18 @@
+.proposal_form
+  %h3 Edit the proposal to make it your own
+  .content_editable.proposal_statement
+    = proposal.statement
+  .proposal_fields.hide
+    %label.first Hub
+    = text_field_tag :proposal_hub, proposal.hubs.first.name, class: 'input-xxlarge'
+    %br
+    = render partial: 'shared/location_form', locals: { location: proposal.votes.first.location }
+
+  .content_editable_buttons(style="display:none")
+    = link_to 'Cancel', '#', :class => 'btn cancel'
+    = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
+
+.clear.improve_support_buttons
+  = proposal_title(total_votes, proposal.user.name)
+  = link_to 'Improve', '#', :class => 'btn btn-warning improve'
+  = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'btn btn-info support'

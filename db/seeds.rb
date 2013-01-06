@@ -1,8 +1,13 @@
 begin
   i = 0
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
-  geos = ['Mountain View','San Antonio','California','Texas','USA']
-
+  
+  usa = Location.create({type_id: 1, name: 'USA'})
+  ca = Location.create({type_id: 2, name: 'CA', parent_id: usa.id})
+  tx = Location.create({type_id: 2, name: 'TX', parent_id: usa.id})
+  mv = Location.create({type_id: 3, name: 'Mountain View', parent_id: ca.id})
+  sa = Location.create({type_id: 3, name: 'San Antonio', parent_id: tx.id})
+  
   5.times do
     hubs << Hub.create({name: hubs[i], description: Faker::Lorem.sentence})
     i += 1
@@ -21,7 +26,7 @@ begin
 
   proposals = Proposal.all
   40.times do
-    Vote.create({proposal: proposals.sample, hub: hubs.sample, user: users.sample, comment: Faker::Lorem.sentence})
+    Vote.create({proposal: proposals.sample, hub: hubs.sample, user: users.sample, location: Location.all.sample, comment: Faker::Lorem.sentence})
   end
 
   #Proposal.all.each do |proposal|

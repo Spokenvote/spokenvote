@@ -1,25 +1,15 @@
 .proposal_hub
   %h3
-    Topic:
+    Hub:
     = proposal.hubs.first.name
-    &ndash; Location: &lt;LOCATION NOT IN SCHEMA&gt;
-    / = proposal.votes.first.location.name
+    &ndash;
+    = proposal.votes.first.location.name
 
 .proposal_container(data-proposal-id="#{proposal.id}")
   .main-proposal
     - if user_signed_in?
-      .content_editable.proposal_statement
-        = proposal.statement
+      = render partial: 'proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
-      = proposal_title(total_votes, proposal.user.name)
-
-      .content_editable_buttons(style="display:none")
-        = link_to 'Cancel', '#', :class => 'label cancel'
-        = link_to 'Save this improved proposal', '#', :class => 'label save_statement'
-
-      .improve_support_buttons
-        = link_to 'Improve', '#', :class => 'btn btn-warning improve'
-        = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'btn btn-info support'
     - else
       .proposal_statement
         = proposal.statement
@@ -27,7 +17,7 @@
       = proposal_title(total_votes, proposal.user.name)
 
     - if total_votes > 0
-      #totalVoteLabel
+      #totalVoteLabel.clear
         %span.label.label-large.label-success.label-flat
           = total_votes.to_s + ' Total Votes'
 
