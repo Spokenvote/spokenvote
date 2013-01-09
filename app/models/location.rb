@@ -14,6 +14,9 @@
 class Location < ActiveRecord::Base
   attr_accessible :ancestry, :name, :parent_id, :type
 
+  # Associations
+  has_many :hubs
+
   TYPES = {
     country: 1,
     state: 2,

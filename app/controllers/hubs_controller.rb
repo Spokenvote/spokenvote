@@ -4,7 +4,7 @@ class HubsController < ApplicationController
   def homepage
     @searched = ''
     if params[:hub]
-      @hubs = Hub.where({name: params[:hub]})
+      @hubs = Hub.where({group: params[:hub]})
       @searched = params[:hub]
       @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
     # elsif params[:city]
@@ -12,7 +12,7 @@ class HubsController < ApplicationController
     #   @searched = params[:hub]
     #   @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
     else
-      @hubs = Hub.by_name
+      @hubs = Hub.by_group
       @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
     end
     @user_proposals = current_user.proposals.order('votes_count DESC') if current_user #.joins(:hubs).order('name') if current_user
@@ -27,7 +27,7 @@ class HubsController < ApplicationController
   # GET /hubs.json
   def index
     if params[:hub]
-      @hubs = Hub.where({name: params[:hub]})
+      @hubs = Hub.where({group: params[:hub]})
     # elsif params[:city]
     #   @hubs = Hub.where({name: params[:hub]})
     else
