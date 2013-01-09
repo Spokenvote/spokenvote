@@ -60,6 +60,7 @@ end
 group :test do
   gem 'capybara'
   gem 'faker'
+  gem 'database_cleaner'
 end
 
 group :production do
