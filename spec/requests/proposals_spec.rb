@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Positions" do
-  describe "GET /proposals" do
-    it "test access to proposals, works without a signed in user" do
+describe "Proposals" do
+  describe "access proposals" do
+    it "allows access to proposals with a signed in user" do
       get proposals_path
       response.status.should be(200)
     end

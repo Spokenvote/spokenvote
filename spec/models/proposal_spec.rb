@@ -10,6 +10,7 @@
 #  updated_at  :datetime         not null
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
+#  created_by  :integer
 #
 
 require 'spec_helper'
