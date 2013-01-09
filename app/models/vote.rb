@@ -8,7 +8,8 @@
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  location_id :integer
+#  hub_id      :integer
+#  ip_address  :string(255)
 #
 
 class Vote < ActiveRecord::Base
