@@ -3,10 +3,11 @@
 # Table name: hubs
 #
 #  id          :integer          not null, primary key
-#  name        :string(255)
+#  group       :string(255)
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  location_id :integer
 #
 
 class Hub < ActiveRecord::Base
