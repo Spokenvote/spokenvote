@@ -1,6 +1,6 @@
 #locateHub.span9
   = form_tag '/locateHub', html: {class: 'form-inline'} do
-    = text_field_tag 'hubSearch', @searched, :placeholder => 'enter a group or topic', :class => 'span4'
+    = text_field_tag 'hubSearch', @searched, :placeholder => 'enter a group', :class => 'span4'
     = text_field_tag 'citySearch', nil, :placeholder => 'city', :class => 'span3'
     = text_field_tag 'stateSearch', nil, :placeholder => 'state', :class => 'span1'
     = text_field_tag 'countrySearch', nil, :placeholder => 'country', :class => 'span1'

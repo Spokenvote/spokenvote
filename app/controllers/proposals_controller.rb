@@ -4,36 +4,41 @@ class ProposalsController < ApplicationController
   # GET /proposals
   # GET /proposals.json
   def index
-    @searched = ''
-    @sortTitle = ''
-    if params[:filter]
-      if params[:filter] == 'active'
-      @proposals = Proposal.order('votes_count DESC')
-      elsif params[:filter] == 'new'
-      @proposals = Proposal.order('created_at DESC')
+    @searched = @sortTitle = ''
+    @proposals = []
+    filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
+
+    if filter
+      if filter == 'active'
+        @proposals = Proposal.order('votes_count DESC')
+      elsif filter == 'new'
+        @proposals = Proposal.order('created_at DESC')
       end
-      @sortTitle = params[:filter].titlecase + ' '
-    elsif params[:hub]
-      @search_hubs = Hub.where({group: params[:hub]})
-      @searched = params[:hub]
-      @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
+      @sortTitle = filter.titlecase + ' '
+    elsif hub
+      @search_hubs = Hub.by_group_name(hub)
+      unless @search_hubs.empty?
+        @searched = hub
+        @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
+      end
     # elsif params[:city]
     #   @search_hubs = Hub.where({location: params[:city]})
     #   @searched = params[:city]
     #   @proposals = ... matching Proposals query
     # elseif <other searchable things>
     #   ...
-    elsif user_signed_in? || params[:user_id]
-      user = User.find(params[:user_id] || current_user.id)
+    elsif user_signed_in? || user_id
+      user = User.find(user_id || current_user.id)
       @proposals = user.proposals
       @sortTitle = 'My '
     else
       @proposals = Proposal.order('votes_count DESC')
     end
+
     @hubs = Hub.by_group
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @proposals }
     end
   end

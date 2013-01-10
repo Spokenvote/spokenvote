@@ -17,13 +17,13 @@
       .control-group
         = vote_form.label :topic, :class => 'control-label'
         .controls
-          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] })
+          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] })
           %span.help-block Please choose the word or phrase that best captures this proposal.
 
       .control-group
         = vote_form.label :location, :class => 'control-label'
         .controls.locationSelector
-          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.name, h.id] }), { include_blank: true }
+          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] }), { include_blank: true }
           %span.help-block Please select the most inclusive location appropriate for this proposal.
 
       .control-group
