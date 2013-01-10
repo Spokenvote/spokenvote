@@ -38,6 +38,7 @@ footer {
 // end Structural
 
 // General elements
+.clear { clear: both; }
 h1.form-horizontal { padding-left: 160px; }
 
 .label-large {
@@ -103,7 +104,8 @@ textarea { height: 100px; }
 
 [contenteditable="true"] {
   padding: 10px;
-  outline: 2px dashed #CCC;
+  outline: 2px dashed #000;
+  background: #fff;
 }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
@@ -129,6 +131,12 @@ textarea { height: 100px; }
     color: #999999;
   }
 }
+.proposal_form.active, .support_form.active {
+  background: #ddd;
+  padding: 10px;
+  border: 1px solid #999;
+  h3 { font-size: 24px; color: #ff0000; }
+}
 
 .main-proposal, .supporting_arguments {
   h3 { margin-bottom: 10px; }
@@ -140,8 +148,18 @@ textarea { height: 100px; }
 .proposal_statement {
   font-size: 176%;
   margin-bottom: 10px;
+  .active & { width: 97%; }
 }
 
+.proposal_fields {
+  label {
+    @include inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 17px;
+  }
+  label.first { margin-left: 0; }
+}
 .related_supporting {
   border-bottom: 1px solid #dddddd;
   padding-bottom: 10px;

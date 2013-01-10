@@ -48,15 +48,28 @@
           content_editable_buttons = proposal_container.find('.content_editable_buttons');
 
       editableBox.attr('contenteditable', 'true');
+      proposal_container.find('.improve_form').removeClass('hide').addClass('active');
+      proposal_container.find('.proposal_statement').toggle();
       improve_support_buttons.hide();
       content_editable_buttons.show();
     });
 
-    $('.cancel').click(function () {
+    $('.cancel').on('click', function (e) {
+      e.preventDefault();
       hideContentEditable($(this));
     });
+    
+    $('.support').on('click', function(e) {
+      e.preventDefault();
+      var el = $(this),
+          proposal_container = el.closest('.proposal_container'),
+          improve_support_buttons = proposal_container.find('.improve_support_buttons');
 
-    $('.save_statement').click(function () {
+      proposal_container.find('.support_form').removeClass('hide').addClass('active');
+      improve_support_buttons.hide();
+    });
+
+    $('.save_statement').on('click', function () {
       var el = $(this),
         proposal_container = el.closest('.proposal_container'),
         editableBox = proposal_container.find('.content_editable'),
@@ -82,13 +95,15 @@
     });
 
     function hideContentEditable(el) {
-      var proposal_container = el.closest('.proposal_container'),
+      var proposal_container = el.closest('.active'),
           editableBox = proposal_container.find('.content_editable'),
-          improve_support_buttons = proposal_container.find('.improve_support_buttons'),
-          content_editable_buttons = proposal_container.find('.content_editable_buttons');
+          improve_support_buttons = proposal_container.parent().find('.improve_support_buttons')
 
-      editableBox.attr('contenteditable', 'false');
-      content_editable_buttons.hide();
+      if (editableBox.length > 0) {
+        editableBox.attr('contenteditable', 'false');
+        proposal_container.parent().find('.proposal_statement').toggle();
+      }
+      proposal_container.removeClass('active').addClass('hide');
       improve_support_buttons.show();
     }
   });
