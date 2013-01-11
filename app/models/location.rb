@@ -12,7 +12,7 @@
 #
 
 class Location < ActiveRecord::Base
-  attr_accessible :ancestry, :name, :parent_id, :type
+  attr_accessible :ancestry, :name, :parent_id, :type_id
 
   # Associations
   has_many :hubs

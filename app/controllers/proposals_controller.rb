@@ -9,11 +9,8 @@ class ProposalsController < ApplicationController
     filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
 
     if filter
-      if filter == 'active'
-        @proposals = Proposal.order('votes_count DESC')
-      elsif filter == 'new'
-        @proposals = Proposal.order('created_at DESC')
-      end
+      ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
+      @proposals = Proposal.roots.order(ordering)
       @sortTitle = filter.titlecase + ' '
     elsif hub
       @search_hubs = Hub.by_group_name(hub)

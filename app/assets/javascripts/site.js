@@ -1,7 +1,5 @@
-var hider = function(e) {
-  e.preventDefault();
-  var target = $(this).data('dismiss');
-  $(target).addClass('hide');
+var successMessage = function(msg) {
+  $('.content_page').prepend('<div class="alert alert-success no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
 }
 
 var setPageHeight = function() {
@@ -25,7 +23,6 @@ var pageEffects = function() {
 $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
-  $('#closeHero').click(hider);
   $('select').select2({width: '200px'});
   $('.locationSelector select').select2({placeholder: 'Select Location', width: '200px'});
   $('.related_supporting').last().css('border-bottom', 'none');

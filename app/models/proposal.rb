@@ -18,20 +18,22 @@ class Proposal < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  belongs_to :parent, :class_name => 'Proposal', :foreign_key => 'parent_id'
-  has_many :votes
-  has_many :hubs, :through => :votes
+  has_many :votes, inverse_of: :proposal
+  has_many :hubs, through: :votes
 
-  accepts_nested_attributes_for :votes, :reject_if => :all_blank
+  accepts_nested_attributes_for :votes, reject_if: :all_blank
 
   # Validations
-  validates :user_id, :presence => true
-  validates :statement, :presence => true
+  validates :user, :statement, presence: true
 
   # Other
   has_ancestry
   
   class << self
+    def roots
+      where({:ancestry => nil})
+    end
+
     def by_hub
       Proposal.all#Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
     end
