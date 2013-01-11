@@ -2,9 +2,7 @@
 
 FactoryGirl.define do
   factory :location do
-    name "MyString"
-    type 1
-    parent_id 1
-    ancestry "MyString"
+    name "USA"
+    type_id 1
   end
 end

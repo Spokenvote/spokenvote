@@ -24,9 +24,9 @@ describe "Votes" do
 
       click_link "Support"
       fill_in "vote_comment", with: Faker::Lorem.sentence
-      expect { click_button "Save" }.to change(Vote, :count).by(1)
+      expect { click_link "Vote for this proposal" }.to change(Vote, :count).by(1)
 
-      page.should have_content("Vote was successfully created.")
+      page.should have_content("Vote was successfully created")
     end
   end
 end

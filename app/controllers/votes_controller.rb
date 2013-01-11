@@ -43,11 +43,12 @@ class VotesController < ApplicationController
   # POST /votes.json
   def create
     @vote = Vote.new(params[:vote])
+    @vote.ip_address = request.remote_ip
 
     respond_to do |format|
       if @vote.save
         format.html { redirect_to :back, notice: 'Vote was successfully created.' }
-        format.json { render json: @vote, status: :created, location: @vote }
+        format.json { render json: @vote.as_json(methods: :user_name), status: :created }
       else
         format.html { render action: "new" }
         format.json { render json: @vote.errors, status: :unprocessable_entity }

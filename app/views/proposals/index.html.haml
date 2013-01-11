@@ -8,7 +8,7 @@
       Browse proposals, support one or branch your own. Participate in real decisions.
       = link_to 'More...', '/about', class: 'more'
   
-  - if @searched != '' or user_signed_in?
+  - if @sortTitle != '' or @searched != '' or user_signed_in?
     #searchResults
       = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
   
