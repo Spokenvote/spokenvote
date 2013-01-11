@@ -4,13 +4,13 @@
   %h3 Edit the proposal to make it your own
   .content_editable
     = proposal.statement
-  .proposal_fields
+  .proposal_fields.hide
     %label.first Hub
-    = text_field_tag :proposal_hub, proposal.hubs.first.group, class: 'input-xxlarge'
+    = text_field_tag :proposal_hub, proposal.hubs.first.group_name, class: 'input-xxlarge'
     %br
     = render partial: 'shared/location_form', locals: { location: proposal.hubs.first.location }
 
-  .content_editable_buttons
+  .proposal_form_buttons
     .pull-right= link_to 'Retarget Proposal', '#', class: 'btn btn-info retarget_proposal'
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
@@ -19,11 +19,11 @@
   %h3 Tell us why you're supporting this proposal
   .vote_comment
     = text_field_tag :vote_comment, nil, class: 'input-xxlarge'
-  .content_editable_buttons
+  .proposal_form_buttons
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Vote for this proposal', '#', :class => 'btn btn-primary save_vote'
 
 .clear.improve_support_buttons
   = proposal_title(total_votes, proposal.user.name)
+  = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
   = link_to 'Improve', '#', :class => 'btn btn-warning improve'
-  = link_to 'Support', '#', 'data-function' => 'display_comment_form', 'data-proposal_id' => proposal.id, :class => 'btn btn-info support'

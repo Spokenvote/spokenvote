@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110032648) do
+ActiveRecord::Schema.define(:version => 20130110232949) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20130110032648) do
   end
 
   create_table "hubs", :force => true do |t|
-    t.string   "group"
+    t.string   "group_name"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(:version => 20130110032648) do
   create_table "proposals", :force => true do |t|
     t.string   "statement"
     t.integer  "user_id"
-    t.integer  "parent_id"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.integer  "votes_count", :default => 0

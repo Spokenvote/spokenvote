@@ -136,6 +136,7 @@ textarea { height: 100px; }
   padding: 10px;
   border: 1px solid #999;
   h3 { font-size: 24px; color: #ff0000; }
+  .proposal_form_buttons { margin-top: 10px; }
 }
 
 .main-proposal, .supporting_arguments {
@@ -152,6 +153,7 @@ textarea { height: 100px; }
 }
 
 .proposal_fields {
+  margin-top: 10px;
   label {
     @include inline-block;
     font-size: 16px;
@@ -166,7 +168,7 @@ textarea { height: 100px; }
   margin-bottom: 10px;
 }
 
-#totalVoteLabel { margin-top: 10px; }
+#totalVoteLabel { margin-top: 20px; }
 // end Proposal-related
 
 // Partial imports

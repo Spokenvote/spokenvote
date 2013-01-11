@@ -1,11 +1,11 @@
 .proposal_hub
   %h3
-    Topic:
-    = proposal.hubs.first.group
-    &ndash; Location: 
+    Group:
+    = proposal.hubs.first.group_name
+    &ndash; Location:
     = proposal.hubs.first.location.name
 
-.proposal_container(data-proposal-id="#{proposal.id}")
+.proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hubs.first.id}}
   .main-proposal
     - if user_signed_in?
       = render partial: 'proposal_form', locals: {proposal: proposal, total_votes: total_votes}

@@ -1,8 +1,3 @@
-var hider = function(e) {
-  e.preventDefault();
-  var target = $(this).data('dismiss');
-  $(target).addClass('hide');
-}
 
 var setPageHeight = function() {
   var vp = new Viewport(), vph = vp.height;
@@ -25,7 +20,6 @@ var pageEffects = function() {
 $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
-  $('#closeHero').click(hider);
   $('select').select2({width: '200px'});
   $('.locationSelector select').select2({placeholder: 'Select Location', width: '200px'});
   $('.related_supporting').last().css('border-bottom', 'none');

@@ -32,6 +32,10 @@ class Proposal < ActiveRecord::Base
   has_ancestry
   
   class << self
+    def roots
+      where({:ancestry => nil})
+    end
+
     def by_hub
       Proposal.all#Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
     end
