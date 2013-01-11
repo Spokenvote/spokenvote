@@ -16,9 +16,11 @@ class Hub < ActiveRecord::Base
   # Associations
   belongs_to :location
   has_many :votes
-  has_many :proposals, :through => :votes
+  has_many :proposals, through: :votes
 
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
+  
+  validates :location, :group_name, presence: true
 
   class << self
     def by_group

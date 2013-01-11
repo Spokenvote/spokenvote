@@ -1,3 +1,6 @@
+var successMessage = function(msg) {
+  $('.content_page').prepend('<div class="alert alert-success no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+}
 
 var setPageHeight = function() {
   var vp = new Viewport(), vph = vp.height;

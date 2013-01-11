@@ -118,6 +118,7 @@ var saveVote = function(e) {
       console.log('in support callback')
       hideContentEditable(el);
       updateSupport(proposal_container, data);
+      successMessage('Vote was successfully created');
     }).
     error(function(data) {
       console.log('in saveVote error function:' + data.responseText);

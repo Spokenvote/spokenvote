@@ -25,13 +25,13 @@ describe Vote do
   it "requires a vote to have a proposal" do
     vote.proposal = nil
     vote.should_not be_valid
-    vote.should have(1).error_on(:proposal_id)
+    vote.should have(1).error_on(:proposal)
   end
 
   it "requires a vote to have a user" do
     vote.user = nil
     vote.should_not be_valid
-    vote.should have(1).error_on(:user_id)
+    vote.should have(1).error_on(:user)
   end
 
   it "requires a vote to have a comment" do
