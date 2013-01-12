@@ -141,7 +141,12 @@ textarea { height: 100px; }
 
 .main-proposal, .supporting_arguments {
   h3 { margin-bottom: 10px; }
-  .proposal-person { margin-left: 0; }
+  .proposal-person {
+    @extend .clear;
+    margin-left: 0;
+    margin-bottom: 6px;
+    img { @include border-radius(3px); }
+  }
 }
 
 .proposal_container { margin: 20px 0; }

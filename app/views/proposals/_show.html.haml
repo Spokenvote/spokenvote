@@ -25,10 +25,8 @@
     %h3 Supporting Arguments
     .row
       .span11
-        - proposal.votes[0..1].each_with_index do |vote, idx|
-          = render :partial => 'proposal_vote', :locals => { :vote => vote, :idx => idx }
+        = render :partial => 'proposal_vote', :collection => proposal.votes.limit(2), :as => :vote
 
       .span1
         - if proposal.votes_count > 2
-          - context = "page:#{params[:page_number].to_i}_proposal:#{proposal.id}"
-          .more=link_to 'More...', proposal_path(:context => context)
+          .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})

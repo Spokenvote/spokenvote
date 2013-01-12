@@ -15,4 +15,5 @@
 //= require jquery_nested_form
 //= require select2
 //= require bootstrap-all
+//= require holder
 //= require_tree .

@@ -1,5 +1,13 @@
+var createAlert = function(msg, style) {
+  $('.content_page').prepend('<div class="alert alert-' + style + ' no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+}
+
 var successMessage = function(msg) {
-  $('.content_page').prepend('<div class="alert alert-success no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  createAlert(msg, 'success');
+}
+
+var errorMessage = function(msg) {
+  createAlert(msg, 'error');
 }
 
 var setPageHeight = function() {

@@ -24,12 +24,12 @@ var showMore = function(e) {
     url: url,
     success: function(data) {
       el.closest('.proposal_container').find('.supporting_arguments .span11').append(data);
-      var decodedUrl = decodeURIComponent(url);
+      Holder.run(); // updates the placeholder images
 
       if (data.match(/hide_the_more_link/)) {
         el.closest('.proposal_container').find('.more').hide();
       } else {
-        var matches = decodedUrl.match(/(page:)(\d)(.*)/);
+        var matches = decodeURIComponent(url).match(/(page:)(\d)(.*)/);
 
         if (matches) {
           page_prefix = matches[1];
