@@ -40,16 +40,8 @@ var showMore = function(e) {
   });
 }
 
-var newImprovement = function(e) {
-  e.preventDefault();
-  
-  if ($('#user-dropdown-menu').length === 0) {
-    if (!loginInterrupt()) {
-      return;
-    }
-  }
-
-  var el = $(this),
+var showImprovement = function(self) {
+  var el = $(self),
     proposal_container = el.closest('.proposal_container'),
     editableBox = proposal_container.find('.content_editable'),
     improve_support_buttons = proposal_container.find('.improve_support_buttons'),
@@ -61,6 +53,20 @@ var newImprovement = function(e) {
   proposal_container.find('.proposal_statement').toggle();
   improve_support_buttons.hide();
   proposal_form_buttons.show();
+}
+
+var newImprovement = function(e) {
+  e.preventDefault();
+  
+  // not logged in?
+  if ($('#user-dropdown-menu').length === 0) {
+    if (!loginInterrupt(showImprovement, this)) {
+      return;
+    }
+  } else {
+    showImprovement(this);
+  }
+
 }
 
 var saveImprovement = function() {
@@ -88,22 +94,27 @@ var saveImprovement = function() {
   });
 }
 
-var newSupport = function(e) {
-  e.preventDefault();
-
-  if ($('#user-dropdown-menu').length === 0) {
-    if (!loginInterrupt()) {
-      return;
-    }
-  }
-
-  var el = $(this),
+var showSupport = function(self) {
+  var el = $(self),
     proposal_container = el.closest('.proposal_container'),
     improve_support_buttons = proposal_container.find('.improve_support_buttons');
 
   proposal_container.find('.support_form').removeClass('hide').addClass('active');
   proposal_container.find('.vote_comment input').val('');
   improve_support_buttons.hide();
+
+}
+
+var newSupport = function(e) {
+  e.preventDefault();
+
+  if ($('#user-dropdown-menu').length === 0) {
+    if (!loginInterrupt(showSupport, this)) {
+      return;
+    }
+  } else {
+    showImprovement(this);
+  }
 }
 
 var updateSupport = function(proposal_container, data) {
