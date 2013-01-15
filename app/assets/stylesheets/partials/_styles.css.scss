@@ -99,7 +99,7 @@ h2 { margin-bottom: 12px; }
 }
 
 textarea { height: 100px; }
-
+.full-width { width: 99%; }
 .popover-content * { white-space: normal; } // fixes wordwrap issue
 
 [contenteditable="true"] {
@@ -110,7 +110,12 @@ textarea { height: 100px; }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .select2-container.span4 { margin-left: 0; }
+.user-avatar { float: left; width: 35px; }
 
+.modal-header {
+  @include border-top-radius(6px);
+  background-color: #eee;
+}
 // end General elements
 
 // Proposal-related
@@ -132,6 +137,7 @@ textarea { height: 100px; }
   }
 }
 .proposal_form.active, .support_form.active {
+  @extend .clear;
   background: #ddd;
   padding: 10px;
   border: 1px solid #999;

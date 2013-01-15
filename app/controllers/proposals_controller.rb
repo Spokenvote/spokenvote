@@ -27,7 +27,7 @@ class ProposalsController < ApplicationController
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
       @proposals = user.proposals
-      @sortTitle = 'My '
+      @sortTitle = user_id.presence ? user.name + "'s " : 'My '
     else
       @proposals = Proposal.order('votes_count DESC')
     end

@@ -14,4 +14,16 @@ module ApplicationHelper
       content_tag(:div, items, :class => badge_class, :title => title_text, :rel => 'tooltip')
     end
   end
+
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
 end

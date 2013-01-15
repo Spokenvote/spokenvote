@@ -1,17 +1,17 @@
 var hideContentEditable = function(el) {
-  var proposal_container = el.closest('.active'),
-    editableBox = proposal_container.find('.content_editable'),
-    improve_support_buttons = proposal_container.parent().find('.improve_support_buttons')
+  var activeForm = el.closest('.active'),
+    editableBox = activeForm.find('.content_editable'),
+    improve_support_buttons = activeForm.parents('.proposal_container').find('.improve_support_buttons')
 
   if (editableBox.length > 0) {
     // restored saves original value
     editableBox.attr('contenteditable', 'false').html(editableBox.data('original'));
-    proposal_container.parent().find('.proposal_statement').toggle();
-    if (!proposal_container.find('.proposal_fields').hasClass('hide')) {
-      proposal_container.find('.proposal_fields').addClass('hide');
+    activeForm.parent().find('.proposal_statement').toggle();
+    if (!activeForm.find('.proposal_fields').hasClass('hide')) {
+      activeForm.find('.proposal_fields').addClass('hide');
     }
   }
-  proposal_container.removeClass('active').addClass('hide');
+  activeForm.removeClass('active').addClass('hide');
   improve_support_buttons.show();
 }
 
@@ -20,24 +20,21 @@ var showMore = function(e) {
   var el = $(this).find('a'),
     url = el.attr('href');
 
-  $.ajax({
-    url: url,
-    success: function(data) {
-      el.closest('.proposal_container').find('.supporting_arguments .span11').append(data);
-      Holder.run(); // updates the placeholder images
+  $.get(url, function(data) {
+    el.closest('.proposal_container').find('.supporting_arguments_list').append(data);
+    Holder.run(); // updates the placeholder images
 
-      if (data.match(/hide_the_more_link/)) {
-        el.closest('.proposal_container').find('.more').hide();
-      } else {
-        var matches = decodeURIComponent(url).match(/(page:)(\d)(.*)/);
+    if (data.match(/hide_the_more_link/)) {
+      el.closest('.proposal_container').find('.more').hide();
+    } else {
+      var matches = decodeURIComponent(url).match(/(page:)(\d)(.*)/);
 
-        if (matches) {
-          page_prefix = matches[1];
-          page_number = matches[2];
-          the_rest = matches[3];
-          newUrl = page_prefix + (parseInt(page_number) + 1) + the_rest
-          el.attr('href', window.location + '?context=' + newUrl);
-        }
+      if (matches) {
+        page_prefix = matches[1];
+        page_number = matches[2];
+        the_rest = matches[3];
+        newUrl = page_prefix + (parseInt(page_number) + 1) + the_rest
+        el.attr('href', window.location + '?context=' + newUrl);
       }
     }
   });
@@ -45,6 +42,12 @@ var showMore = function(e) {
 
 var newImprovement = function(e) {
   e.preventDefault();
+  
+  if ($('#user-dropdown-menu').length === 0) {
+    if (!loginInterrupt()) {
+      return;
+    }
+  }
 
   var el = $(this),
     proposal_container = el.closest('.proposal_container'),
@@ -87,6 +90,13 @@ var saveImprovement = function() {
 
 var newSupport = function(e) {
   e.preventDefault();
+
+  if ($('#user-dropdown-menu').length === 0) {
+    if (!loginInterrupt()) {
+      return;
+    }
+  }
+
   var el = $(this),
     proposal_container = el.closest('.proposal_container'),
     improve_support_buttons = proposal_container.find('.improve_support_buttons');
@@ -142,4 +152,5 @@ $(document).ready(function() {
   $('.support').on('click', newSupport);
   $('.save_statement').on('click', saveImprovement);
   $('.save_vote').on('click', saveVote);
+  updateSearchFields({hub: $('.proposal_hub').text().trim().split(' &ndash; ')});
 });

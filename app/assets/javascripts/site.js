@@ -28,6 +28,40 @@ var pageEffects = function() {
   setPageHeight();
 }
 
+var updateSearchFields = function(options) {
+  if (options.hub.length > 0) {
+    $('#hub').val(options.hub[0]);
+    $('#location').val(options.hub[1]);
+  }
+}
+
+var redrawLoggedInNav = function() {
+  var newNav = '';
+  $.get('/user_nav', function(data) {
+    if (data.success) {
+      $('header.navbar').remove();
+      $('body').prepend(data.content);
+    }
+  })
+}
+
+var loginInterrupt = function() {
+  $('#loginModal').modal();
+  $('.login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+    if(data.success) {
+      // process success case
+      $('#loginModal').modal('toggle');
+      redrawLoggedInNav(data.user);
+      return true
+    } else {
+      // let the user know they failed authentication
+      errorMessage('We could not sign you in with the supplied name and password');
+      return false;
+    }
+  });
+  return false;
+}
+
 $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
