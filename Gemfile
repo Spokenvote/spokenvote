@@ -34,6 +34,7 @@ gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'faker'
+gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
