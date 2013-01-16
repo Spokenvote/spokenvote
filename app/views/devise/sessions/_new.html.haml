@@ -1,0 +1,27 @@
+.login_providers
+  %h2 Sign in with a Service
+  .content_div
+    = link_to image_tag('icons/providers/images/facebook_64.png'), user_omniauth_authorize_path(:facebook)
+    %br
+    %label Facebook
+
+  .hr
+
+.login_form
+  %h2 Sign in with SpokenVote
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: isModal ) do |f|
+    .control-group
+      = f.label :email, class: 'control-label'
+      .controls
+        = f.email_field :email
+    .control-group
+      = f.label :password, class: 'control-label'
+      .controls
+        = f.password_field :password
+    - if devise_mapping.rememberable?
+      .control-group
+        .controls
+          %label.checkbox
+            = f.check_box :remember_me
+            Remember me
+          = f.submit "Sign In", :class => 'btn btn-primary btn-bold'

@@ -1,0 +1,8 @@
+#loginModal.modal.hide
+  .modal-header
+    .pull-right= link_to raw('&times;'), '#', class: 'close', data: {dismiss: 'modal'}
+    %h3 Please Sign In or Join First
+  .modal-body
+    = render partial: '/devise/sessions/new', locals: {isModal: true}
+  .modal-footer
+    = link_to 'Join Us', new_user_registration_path, class: 'btn btn-info btn-bold'

@@ -1,20 +1,20 @@
-.proposal_hub
-  %h3
-    Group:
-    = proposal.hubs.first.group_name
-    &ndash; Location:
-    = proposal.hubs.first.location.name
+- if total_votes > 0
+  .proposal_hub
+    %h2
+      = proposal.hubs.first.group_name
+      &ndash;
+      = proposal.hubs.first.location.name
 
 .proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hubs.first.id}}
   .main-proposal
-    - if user_signed_in?
-      = render partial: 'proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+    / - if user_signed_in?
+    = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
-    - else
-      .proposal_statement
-        = proposal.statement
+    / - else
+    /   .proposal_statement
+    /     = proposal.statement
 
-      = proposal_title(total_votes, proposal.user.name)
+    = proposal_title(total_votes, proposal.user.name)
 
     - if total_votes > 0
       #totalVoteLabel.clear
@@ -24,11 +24,10 @@
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
     %h3 Supporting Arguments
     .row
-      .span11
-        - proposal.votes[0..1].each_with_index do |vote, idx|
-          = render :partial => 'proposal_vote', :locals => { :vote => vote, :idx => idx }
+      .supporting_arguments_list.span11
+        = render :partial => 'proposal_vote', :collection => proposal.votes.limit(2), :as => :vote
 
       .span1
         - if proposal.votes_count > 2
-          - context = "page:#{params[:page_number].to_i}_proposal:#{proposal.id}"
-          .more=link_to 'More...', proposal_path(:context => context)
+          .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})
+        = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}

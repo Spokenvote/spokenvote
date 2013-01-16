@@ -2,14 +2,19 @@
   @extend .span11; margin-left: 20px;
   h2 { margin-top: 20px; }
   .content_div { margin-bottom: 20px; }
+  .login_providers, .login_form {
+    @extend .span5; @extend .offset3; clear: both;
+    .hr { @extend .span4; }
+  }
+}
+
+.content_page, .modal {
   label { font-weight: bold; }
   .profile_form, .login_providers, .login_form {
     input.btn, .hr { margin-top: 20px; }
   }
   .login_providers, .login_form {
-    @extend .span5; @extend .offset3; clear: both;
     h2 { margin-bottom: 20px; }
-    .hr { @extend .span4; }
   }
   .login_providers { margin-bottom: 20px; }
 }
