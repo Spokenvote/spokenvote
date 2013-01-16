@@ -33,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
+gem 'faker'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -54,13 +55,11 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'populator'
 end
 
 group :test do
   gem 'capybara'
-  gem 'faker'
   gem 'database_cleaner'
 end
 
