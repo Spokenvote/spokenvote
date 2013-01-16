@@ -113,7 +113,7 @@ var newSupport = function(e) {
       return;
     }
   } else {
-    showImprovement(this);
+    showSupport(this);
   }
 }
 

@@ -30,5 +30,4 @@
       .span1
         - if proposal.votes_count > 2
           .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})
-      - if user_signed_in?
         = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
