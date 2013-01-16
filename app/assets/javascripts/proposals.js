@@ -163,5 +163,5 @@ $(document).ready(function() {
   $('.support').on('click', newSupport);
   $('.save_statement').on('click', saveImprovement);
   $('.save_vote').on('click', saveVote);
-  updateSearchFields({hub: $('.proposal_hub').text().trim().split(' &ndash; ')});
+  updateSearchFields({hub: $('.proposal_hub').text().trim().replace(/\n/g, '').split('    –    ')});
 });

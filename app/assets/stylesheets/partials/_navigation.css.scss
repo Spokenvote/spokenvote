@@ -1,4 +1,4 @@
-.navbar-inverse {
+.navbar-inverse .navbar-inner {
   .navbar-inner {
     color: #000;
     border-color: #315c99;
@@ -20,10 +20,11 @@
     display: inline-block;
     input, .btn { vertical-align: baseline; margin-right: 0; }
   }
-  .input, .input-append { margin-top: 0; }
+  .input { margin-top: 0; }
+  .input-append { margin-top: -2px; }
   .input-append .btn { margin-left: -4px; font-variant: small-caps; }
 }
-header .navbar-inner {
+header.navbar-inverse .navbar-inner {
   border-bottom: 1px solid;
   @include background(linear-gradient(#e97e3b, scale-lightness(#e97e3b, 20)));
 }
@@ -31,7 +32,7 @@ header .navbar-inner {
 .brand {
   font-weight: 700 !important; font-family: 'Megrim'; letter-spacing: -1px;
 }
-footer {
+footer.navbar-inverse {
   &.navbar { margin-bottom: 0; }
   .navbar-inner {
     border-top: 1px solid;
