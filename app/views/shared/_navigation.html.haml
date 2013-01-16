@@ -6,7 +6,7 @@
       = form_tag proposals_path, class: 'navbar-form form-inline', method: 'get' do
         = text_field_tag 'hub', @searched, placeholder: 'Enter a group', class: 'input span3'
         .input-append
-          = text_field_tag 'location', nil, placeholder: 'A location', class: 'input span2 pull-right'
+          = text_field_tag 'location', nil, placeholder: 'A location', class: 'input span2'
           = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom'}, title: 'Location Search'
         = button_tag 'Search', class: 'btn btn-danger btn-bold'
 
