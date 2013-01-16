@@ -27,7 +27,7 @@ class ProposalsController < ApplicationController
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
       @proposals = user.proposals
-      @sortTitle = 'My '
+      @sortTitle = user_id.presence ? user.name + "'s " : 'My '
     else
       @proposals = Proposal.order('votes_count DESC')
     end
@@ -43,25 +43,18 @@ class ProposalsController < ApplicationController
   # GET /proposals/1
   # GET /proposals/1.json
   def show
-    context = params[:context]
     records_limit = 10
-    page_number = 0
-    proposal_id = params[:id]
-
-    if context
-      page_number = (context.split("_")[0].split(":")[1]).to_i
-      proposal_id = context.split("_")[1].split(":")[1]
-    end
+    page_number = (params[:page].presence || 0).to_i
+    proposal_id = (params[:proposal].presence || params[:id]).to_i
 
     @proposal = Proposal.find(proposal_id)
-    @offset_by = (page_number * records_limit) + 2
-    @votes = @proposal.votes.limit(records_limit).offset(@offset_by)
-    @total_votes = @proposal.root.descendants.count
+    @total_votes = @proposal.votes_in_tree
 
-    @no_more = @total_votes >= @offset_by
-
-    if context
-      render :partial => 'proposal_vote', :collection => @votes, :as => :vote, locals: { idx: 1 }
+    if params[:proposal].presence
+      offset_by = (page_number * records_limit) + 2
+      @votes = @proposal.votes.offset(offset_by).limit(records_limit)
+      @no_more = @votes.count <= (offset_by + records_limit)
+      render :partial => 'proposal_vote', :collection => @votes, :as => :vote
     else
       respond_to do |format|
         format.html # show.html.haml

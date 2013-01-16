@@ -52,6 +52,7 @@ footer {
 .navbar .nav > li > a {
   padding: 11px 8px 13px; color: #fff; font-weight: bold;
   &:hover { background-color: #999; }
+  &.btn { padding: 4px 10px 4px; }
 }
 
 .brand {

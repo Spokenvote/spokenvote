@@ -1,5 +1,13 @@
+var createAlert = function(msg, style) {
+  $('.content_page').prepend('<div class="alert alert-' + style + ' no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+}
+
 var successMessage = function(msg) {
-  $('.content_page').prepend('<div class="alert alert-success no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  createAlert(msg, 'success');
+}
+
+var errorMessage = function(msg) {
+  createAlert(msg, 'error');
 }
 
 var setPageHeight = function() {
@@ -18,6 +26,43 @@ var pageEffects = function() {
     $('body').addClass('long');
   }
   setPageHeight();
+}
+
+var updateSearchFields = function(options) {
+  if (options.hub.length > 0) {
+    $('#hub').val(options.hub[0]);
+    $('#location').val(options.hub[1]);
+  }
+}
+
+var redrawLoggedInNav = function() {
+  var newNav = '';
+  $.get('/user_nav', function(data) {
+    if (data.success) {
+      $('header.navbar').remove();
+      $('body').prepend(data.content);
+    }
+  })
+}
+
+var loginInterrupt = function(callback, elem) {
+  $('#loginModal').modal();
+  $('.login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+    if(data.success) {
+      // process success case
+      $('#loginModal').modal('toggle');
+      redrawLoggedInNav(data.user);
+      if (callback) {
+        callback(elem);
+      }
+      return true
+    } else {
+      // let the user know they failed authentication
+      errorMessage('We could not sign you in with the supplied name and password');
+      return false;
+    }
+  });
+  return false;
 }
 
 $(function() {
