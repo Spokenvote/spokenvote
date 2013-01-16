@@ -25,6 +25,9 @@ var pageEffects = function() {
   if ($('body').height() > 1200) {
     $('body').addClass('long');
   }
+  if ($('.content_page #new_user').length > 0) {
+    $('#user_email').focus();
+  }
   setPageHeight();
 }
 
