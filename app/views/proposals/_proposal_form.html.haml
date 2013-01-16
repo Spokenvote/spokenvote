@@ -3,7 +3,7 @@
 .proposal_form.improve_form.hide
   %h3 Edit the proposal to make it your own
   .content_editable
-    = proposal.statement
+    = text_field_tag :proposal_statement, proposal.statement
   .proposal_fields.hide
     %label.first Hub
     = text_field_tag :proposal_hub, proposal.hubs.first.group_name, class: 'input-xxlarge'

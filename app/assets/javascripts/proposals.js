@@ -65,24 +65,28 @@ var saveImprovement = function() {
     proposal_container = el.closest('.proposal_container'),
     editableBox = proposal_container.find('.content_editable'),
     proposal_id = proposal_container.data('proposal-id'),
-    url = '/proposals/' + proposal_id,
+    url = '/proposals',
     new_value = editableBox.text().trim();
+    
+    new_proposal = $.ajax({url: '/proposals/new.json', type: 'GET'});
+    // new_proposal.statement = new_value;
 
-  console.log(el);
+  console.log(new_proposal);
 
-  $.ajax({
-    url: url,
-    type: 'PUT',
-    dataType: 'json',
-    data: {
-      proposal: {
-        statement: new_value
-      }
-    },
-    success: function(data) {
-      hideContentEditable(el);
-    }
-  });
+  // $.ajax({
+  //   url: url,
+  //   type: 'POST',
+  //   dataType: 'json',
+  //   data: {
+  //     proposal: new_proposal
+  //     // {
+  //     //   statement: new_value
+  //     // }
+  //   },
+  //   success: function(data) {
+  //     hideContentEditable(el);
+  //   }
+  // });
 }
 
 var newSupport = function(e) {
