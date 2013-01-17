@@ -1,0 +1,9 @@
+.row
+  .span11
+    .proposal_form.support_form.span8.hide
+      %h3 Tell us why you're supporting this proposal
+      .vote_comment
+        = text_area_tag :vote_comment, nil, class: 'full-width'
+      .proposal_form_buttons
+        = link_to 'Cancel', '#', :class => 'btn cancel'
+        = link_to 'Vote for this proposal', '#', :class => 'btn btn-primary save_vote'

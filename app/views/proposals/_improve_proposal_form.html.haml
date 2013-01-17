@@ -3,7 +3,10 @@
 .proposal_form.improve_form.hide
   %h3 Edit the proposal to make it your own
   .content_editable
-    = text_field_tag :proposal_statement, proposal.statement
+    = proposal.statement
+  %br
+  %label.first Why should others support your proposal
+  = text_area_tag :vote_comment, nil, class: 'full-width'
   .proposal_fields.hide
     %label.first Hub
     = text_field_tag :proposal_hub, proposal.hubs.first.group_name, class: 'input-xxlarge'
@@ -15,15 +18,7 @@
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
 
-.proposal_form.support_form.hide
-  %h3 Tell us why you're supporting this proposal
-  .vote_comment
-    = text_field_tag :vote_comment, nil, class: 'input-xxlarge'
-  .proposal_form_buttons
-    = link_to 'Cancel', '#', :class => 'btn cancel'
-    = link_to 'Vote for this proposal', '#', :class => 'btn btn-primary save_vote'
-
-.clear.improve_support_buttons
+.improve_support_buttons.clear
   = proposal_title(total_votes, proposal.user.name)
   = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
   = link_to 'Improve', '#', :class => 'btn btn-warning improve'
