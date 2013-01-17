@@ -60,6 +60,7 @@ h1.form-horizontal { padding-left: 160px; }
   margin-bottom: 50px;
   text-align: center;
   .searched & { @extend .hide; }
+  h1 { font-size: 32px; color: #315D99; }
   span { color: #ff0000; }
 }
 

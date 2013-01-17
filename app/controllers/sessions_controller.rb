@@ -11,6 +11,8 @@ class SessionsController < Devise::SessionsController
     sign_in(scope, resource) unless warden.user(scope) == resource
     if referrer != '/users/login'
       render json: {success: true, redirect: stored_location_for(scope) || after_sign_in_path_for(resource)}
+    else
+      redirect_to root_url, notice: t('devise.sessions.signed_in')
     end
   end
 
