@@ -100,7 +100,7 @@ var showSupport = function(self) {
     improve_support_buttons = proposal_container.find('.improve_support_buttons');
 
   proposal_container.find('.support_form').removeClass('hide').addClass('active');
-  proposal_container.find('.vote_comment input').val('');
+  proposal_container.find('.vote_comment textarea').val('').focus();
   improve_support_buttons.hide();
 
 }

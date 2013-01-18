@@ -3,7 +3,7 @@
     %h2
       = proposal.hubs.first.group_name
       &ndash;
-      = proposal.hubs.first.location.name
+      = proposal.hubs.first.formatted_location
 
 .proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hubs.first.id}}
   .main-proposal

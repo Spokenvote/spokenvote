@@ -8,10 +8,11 @@
   %label.first Why should others support your proposal
   = text_area_tag :vote_comment, nil, class: 'full-width'
   .proposal_fields.hide
-    %label.first Hub
+    %label.first.span1 Hub
     = text_field_tag :proposal_hub, proposal.hubs.first.group_name, class: 'input-xxlarge'
     %br
-    = render partial: 'shared/location_form', locals: { location: proposal.hubs.first.location }
+    %label.first.span1 Location
+    = text_field_tag :proposal_location, proposal.hubs.first.formatted_location, class: 'input-xxlarge gpSearchBox'
 
   .proposal_form_buttons
     .pull-right= link_to 'Retarget Proposal', '#', class: 'btn btn-info retarget_proposal'

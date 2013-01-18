@@ -4,11 +4,11 @@
       = link_to image_tag('bluefull.png') + ' SpokenVote', root_path, class: 'brand'
 
       %ul#main-nav.nav
-      = form_tag proposals_path, class: 'navbar-form form-inline', method: 'get' do
-        = text_field_tag 'hub', session[:hub] || @searched, placeholder: 'Enter a group', class: 'input span3'
+      = form_tag search_proposals_path, class: 'navbar-form form-inline' do
+        = text_field_tag 'hub', nil, placeholder: 'Enter a group', class: 'input span3', data: {value: session[:hub_name] || @sortTitle}
 
         .input-append
-          = text_field_tag 'location', nil, placeholder: 'A location', class: 'input span2'
+          = text_field_tag 'location', nil, placeholder: 'A location', class: 'input span2 gpSearchBox', data: {value: session[:hub_location]}
 
           = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom'}, title: 'Location Search'
         = button_tag 'Search', class: 'btn btn-danger btn-bold'

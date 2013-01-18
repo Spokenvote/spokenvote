@@ -9,7 +9,11 @@ Spokenvote::Application.routes.draw do
   end
 
   resources :votes
-  resources :proposals
+  resources :proposals do
+    collection do
+      post 'search'
+    end
+  end
   resources :hubs do
     resources :proposals
   end

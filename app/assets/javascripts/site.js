@@ -21,6 +21,15 @@ var setPageHeight = function() {
   }
 }
 
+var fillNavSearch = function() {
+  $('#hub, #location').each(function() {
+    var self = $(this);
+    if (self.data('value') != '') {
+      self.val(self.data('value'));
+    }
+  });
+}
+
 var pageEffects = function() {
   if ($('body').height() > 1200) {
     $('body').addClass('long');
@@ -29,6 +38,7 @@ var pageEffects = function() {
     $('#user_email').focus();
   }
   setPageHeight();
+  fillNavSearch();
 }
 
 var updateSearchFields = function(options) {
@@ -68,6 +78,25 @@ var loginInterrupt = function(callback, elem) {
   return false;
 }
 
+var gpSearch = function (elem) {
+  var defaultBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(-33.8902, 151.1759),
+    new google.maps.LatLng(-33.8474, 151.2631));
+
+  var options = {
+    bounds: defaultBounds,
+    types: ['(regions)']
+  };
+
+  autocomplete = new google.maps.places.Autocomplete(elem, options);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place = autocomplete.getPlace();
+    // console.log(place.id);
+    $(elem).val(place.id);
+  });
+}
+
 $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
@@ -75,4 +104,7 @@ $(function() {
   $('.locationSelector select').select2({placeholder: 'Select Location', width: '200px'});
   $('.related_supporting').last().css('border-bottom', 'none');
   pageEffects();
+  $('.gpSearchBox').each(function() {
+    gpSearch(this);
+  })
 })
