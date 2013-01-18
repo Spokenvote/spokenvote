@@ -1,7 +1,8 @@
+google_location_ids = %w(752c002d0a7710fd65b066e2682a4ab38ef27202 25eeb97f0613345cf03cc355c8661335efe47c76 bb51f066ff3fd0b033db94b4e6172da84b8ae111 1c98f21583c7da8621b600ba06ba7bbd543306a6 7eae6a016a9c6f58e2044573fb8f14227b6e1f96 fc25f53dc68175f2a945e6ff45cb650fbbcf7616)
+
 begin
   i = 0
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
-  # geos = ['Mountain View','San Antonio','California','Texas','USA']
 
   p 'Creating Locations'
   usa = Location.create({type_id: 1, name: 'USA'})
@@ -12,7 +13,7 @@ begin
 
   p 'Creating Hubs'
   5.times do
-    hubs << Hub.create({group_name: hubs[i], description: Faker::Lorem.sentence, location_id: Location.all.sample.id})
+    hubs << Hub.create({ group_name: hubs[i], description: Faker::Lorem.sentence, google_location_id: google_location_ids.sample })
     i += 1
   end
 
@@ -34,6 +35,7 @@ begin
     'Parent proposal 6',
     'Parent proposal 7'
     ].reverse!
+
   proposals = []
   i = 1
   p 'Creating Proposals'

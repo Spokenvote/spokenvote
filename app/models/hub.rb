@@ -2,26 +2,26 @@
 #
 # Table name: hubs
 #
-#  id          :integer          not null, primary key
-#  group_name  :string(255)
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  location_id :integer
+#  id                 :integer          not null, primary key
+#  group_name         :string(255)
+#  description        :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  google_location_id :string(255)
+#  formatted_location :string(255)
 #
 
 class Hub < ActiveRecord::Base
-  attr_accessible :description, :location, :location_id, :group_name
+  attr_accessible :description, :google_location_id, :group_name, :formatted_location
 
   # Associations
-  belongs_to :location
   has_many :votes
   has_many :proposals, through: :votes
 
   # Named Scopes
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
   
-  validates :location, :group_name, presence: true
+  validates :group_name, presence: true
 
   class << self
     def by_group

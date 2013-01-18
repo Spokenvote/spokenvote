@@ -10,4 +10,10 @@ $(document).ready(function () {
   };
 
   autocomplete = new google.maps.places.Autocomplete(searchbox, options);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place = autocomplete.getPlace();
+    // console.log(place.id);
+    $('#hub_google_location_id').val(place.id);
+  });
 });
