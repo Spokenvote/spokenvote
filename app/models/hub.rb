@@ -18,6 +18,7 @@ class Hub < ActiveRecord::Base
   has_many :votes
   has_many :proposals, through: :votes
 
+  # Named Scopes
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
   
   validates :location, :group_name, presence: true

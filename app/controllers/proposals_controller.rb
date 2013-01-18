@@ -13,9 +13,9 @@ class ProposalsController < ApplicationController
       @proposals = Proposal.roots.order(ordering)
       @sortTitle = filter.titlecase + ' '
     elsif hub
+      session[:hub] = hub
       @search_hubs = Hub.by_group_name(hub)
       unless @search_hubs.empty?
-        @searched = hub
         @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
       end
     # elsif params[:city]
@@ -31,8 +31,6 @@ class ProposalsController < ApplicationController
     else
       @proposals = Proposal.order('votes_count DESC')
     end
-
-    @hubs = Hub.by_group
 
     respond_to do |format|
       format.html

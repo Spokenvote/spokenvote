@@ -21,8 +21,12 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :hub
 
+  # Validations
   validates :comment, :user, :proposal, presence: true
-  validates :user_id, uniqueness: {scope: [:user_id, :proposal_id], message: "Can't vote on the same issue twice."}
+  validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "Can't vote on the same issue twice." }
+
+  # Named Scopes
+  scope :by_hub, lambda { |group_id| where("LOWER(group_name) = ?", group_name.downcase) }
 
   def before_validation
     existing = Vote.where({user_id: self.user_id, proposal_id: self.proposal_id}).first
