@@ -11,6 +11,8 @@
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide'
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
+    %script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places")
+
     = csrf_meta_tags
     = yield(:head)
   %body

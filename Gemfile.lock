@@ -70,7 +70,7 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    compass_twitter_bootstrap (2.0.3)
+    compass_twitter_bootstrap (2.2.2.1)
       compass
     daemons (1.1.9)
     dalli (2.6.0)

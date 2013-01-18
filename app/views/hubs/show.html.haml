@@ -4,7 +4,7 @@
       %tr
         %th.table-title{ :colspan => '3' }
           = link_to 'New Hub', new_hub_path, :class => 'btn btn-mini pull-right'
-          = 'Hub: ' + @hub.name
+          = 'Hub: ' + @hub.group_name
     %tbody
       - @hub.proposals.limit(10).each do |pos|
         %tr

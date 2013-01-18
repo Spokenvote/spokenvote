@@ -12,9 +12,10 @@
       .controls
         = f.text_field :group_name, :class => 'input-xxlarge'
     .control-group
-      = f.label :description, :class => 'control-label'
+      = f.label :location, :class => 'control-label'
       .controls
-        = f.text_area :description, :class => 'input-xxlarge'
+        = f.text_field :formatted_location, :class => 'input-xxlarge', :id => 'google_places_search_text_field'
+        = f.hidden_field :google_location_id
     .control-group
       .controls
         = f.submit 'Save', class: 'btn btn-primary'
