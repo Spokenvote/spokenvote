@@ -1,3 +1,12 @@
+google_location_ids = {
+  '752c002d0a7710fd65b066e2682a4ab38ef27202' => 'Solapur, Maharashtra, India',
+  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
+  'bbed5b2bad3c2586cbc6d78367bc8b310650b650' => 'Sydney Olympic Park, New South Wales, Australia',
+  'c4dade27abe23bb0599f5da69fe603a7991b8d44' => 'Manila, Metro Manila, Philippines',
+  'c0bab7b67cebe08089292c8bb83ac4d61aca99c0' => 'San Antonio de Padua, Buenos Aires, Argentina',
+  'fc25f53dc68175f2a945e6ff45cb650fbbcf7616' => 'Frankfurt, Germany'
+}
+
 begin
   i = 0
   # hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
@@ -13,7 +22,13 @@ begin
 
   p 'Creating Hubs'
   5.times do
-    hubs << Hub.create({group_name: hubs[i], description: Faker::Lorem.sentence, location_id: Location.all.sample.id})
+    google_location_id = google_location_ids.keys.sample
+    hubs << Hub.create({
+      group_name: hubs[i],
+      description: Faker::Lorem.sentence,
+      google_location_id: google_location_id,
+      formatted_location: google_location_ids[google_location_id]
+    })
     i += 1
   end
 
@@ -35,7 +50,8 @@ begin
     'Parent proposal 5',
     'Parent proposal 6',
     'Parent proposal 7'
-    ].reverse!
+  ].reverse!
+
   proposals = []
   i = 1
   p 'Creating Proposals'
@@ -56,13 +72,16 @@ begin
     i += 1
   end
 
-  votes =[]    # is this my local array to refer back to?
   p 'Creating Votes'
   40.times do
     target_proposal = proposals.sample
-    voter = users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
-    Vote.create({proposal: target_proposal, hub: hubs.sample, user: voter, comment: Faker::Lorem.sentence})
-  # Vote.create({proposal: proposals.sample, hub: hubs.sample, user: users.sample, comment: Faker::Lorem.sentence})
+    voter = users.sample #users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
+    Vote.create({
+      proposal: target_proposal,
+      hub: hubs.sample,
+      user: voter,
+      comment: Faker::Lorem.sentence
+    })
   end
 rescue
   Rake::Task["db:reset"].execute # Recreate tables from migrations
