@@ -64,6 +64,7 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     votes = params[:proposal].delete :votes_attributes
+    parent = Proposal.find(params[:parent_id])
     @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE

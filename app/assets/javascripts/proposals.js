@@ -74,23 +74,33 @@ var saveImprovement = function() {
     proposal_container = el.closest('.proposal_container'),
     editableBox = proposal_container.find('.content_editable'),
     proposal_id = proposal_container.data('proposal-id'),
-    url = '/proposals/' + proposal_id,
-    new_value = editableBox.text().trim();
-
-  console.log(el);
-
-  $.ajax({
-    url: url,
-    type: 'PUT',
-    dataType: 'json',
-    data: {
+    url = '/proposals.json',
+    statement = editableBox.text().trim(),
+    proposal_location = $('#proposal_location').val(),
+    proposal_hub = $('#proposal_hub').val(),
+    comment = $('#vote_comment').val(),
+    // this is not a good way to have user on hand but acceptable to me for first pass
+    user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
+    hub_id = proposal_container.data('hub_id'),
+    proposal_hub = $('#proposal_hub').val(),
+    proposal_location = $('#proposal_location').val()
+    proposal = {
       proposal: {
-        statement: new_value
+        statement: statement,
+        user_id: user_id,
+        parent_id: proposal_id,
+        proposal_hub: proposal_hub,
+        proposal_location: proposal_location,
+        votes_attributes: {user_id: user_id, comment: comment, hub_id: hub_id}
       }
-    },
-    success: function(data) {
-      hideContentEditable(el);
-    }
+    };
+  
+  $.post(url, proposal).success(function(data) {
+    hideContentEditable(el);
+    successMessage('Your improved proposal was posted');
+  })
+  .error(function(data) {
+    errorMessage(data.responseText);
   });
 }
 
@@ -135,8 +145,6 @@ var saveVote = function(e) {
   
   $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment, user_id: user_id, hub_id: hub_id}})
     .success(function(data) {
-      // did we create new vote?
-      console.log('in support callback')
       hideContentEditable(el);
       updateSupport(proposal_container, data);
       successMessage('Vote was successfully created');
