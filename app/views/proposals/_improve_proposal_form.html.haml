@@ -1,5 +1,8 @@
 .proposal_statement
-  = proposal.statement
+  %h3= proposal.statement
+  %h4= 'From ' + proposal.user.name + ':'
+  .supporting_statement= proposal.supporting_statement
+
 .proposal_form.improve_form.hide
   %h3 Edit the proposal to make it your own
   .content_editable
@@ -19,7 +22,6 @@
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
 
-.improve_support_buttons.clear
-  = proposal_title(total_votes, proposal.user.name)
+.improve_support_buttons.btn-group.clear
   = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
   = link_to 'Improve', '#', :class => 'btn btn-warning improve'

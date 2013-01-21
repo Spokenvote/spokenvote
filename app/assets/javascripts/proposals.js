@@ -109,7 +109,7 @@ var showSupport = function(self) {
     proposal_container = el.closest('.proposal_container'),
     improve_support_buttons = proposal_container.find('.improve_support_buttons');
 
-  proposal_container.find('.support_form').removeClass('hide').addClass('active');
+  proposal_container.find('.support_container').removeClass('hide').addClass('active');
   proposal_container.find('.vote_comment textarea').val('').focus();
   improve_support_buttons.hide();
 

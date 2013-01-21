@@ -13,7 +13,7 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :user_id, :user, :votes, :votes_attributes
+  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes
 
   # Associations
   belongs_to :user
@@ -48,5 +48,13 @@ class Proposal < ActiveRecord::Base
     all_proposals_in_tree = [self.root, self.root.descendants].flatten
     all_proposals_in_tree.delete(self.clone)
     all_proposals_in_tree
+  end
+  
+  def supporting_statement
+    votes.where({user_id: self.user_id}).first.comment
+  end
+  
+  def supporting_votes
+    votes.where("user_id != ?", self.user_id)
   end
 end
