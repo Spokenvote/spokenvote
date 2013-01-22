@@ -141,9 +141,6 @@ textarea { height: 100px; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
 .main-proposal {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
 }
 .support_container {
   @extend .no-gutter;
@@ -215,6 +212,9 @@ textarea { height: 100px; }
   margin-top: 20px;
 }
 .related_supporting {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
   border-bottom: 1px solid #dddddd;
   padding-bottom: 10px;
   margin-bottom: 10px;
