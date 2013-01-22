@@ -19,7 +19,7 @@ class Vote < ActiveRecord::Base
   # Associations
   belongs_to :proposal, counter_cache: true, inverse_of: :votes
   belongs_to :user
-  belongs_to :hub
+  belongs_to :hub, ThroughAssociation: :proposal   # Replaces # belongs_to :hub
 
   # Validations
   validates :comment, :user, :proposal, presence: true
