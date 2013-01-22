@@ -13,7 +13,7 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :user_id, :user, :votes, :votes_attributes
+  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes
 
   # Associations
   belongs_to :user
@@ -44,9 +44,24 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  def related_proposals
+  def related_proposals(related_sort_by = 'votes_count DESC')
     all_proposals_in_tree = [self.root, self.root.descendants].flatten
     all_proposals_in_tree.delete(self.clone)
-    all_proposals_in_tree
+    # TODO Please determine if this is the right way to get sorting done
+    if related_sort_by == 'created_at DESC'
+      all_proposals_in_tree.sort! {|p1, p2| p2.created_at <=> p1.created_at}
+    elsif related_sort_by == 'created_at DESC'
+      all_proposals_in_tree.sort! {|p1, p2| p1.created_at <=> p2.created_at}
+    else
+      all_proposals_in_tree.sort! {|p1, p2| p1.votes_count <=> p2.votes_count}
+    end
+  end
+  
+  def supporting_statement
+    votes.where({user_id: self.user_id}).first.comment
+  end
+  
+  def supporting_votes
+    votes.where("user_id != ?", self.user_id)
   end
 end
