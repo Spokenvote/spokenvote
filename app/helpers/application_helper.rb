@@ -14,6 +14,14 @@ module ApplicationHelper
       content_tag(:div, items, :class => badge_class, :title => title_text, :rel => 'tooltip')
     end
   end
+  
+  def current_user_link
+    if user_signed_in?
+      link_to current_user.name || current_user.email, proposals_path(user_id: current_user.id)
+    else
+      content_tag(:span, 'Unknown')
+    end
+  end
 
   def resource_name
     :user

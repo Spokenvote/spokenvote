@@ -101,7 +101,7 @@ h2 { margin-bottom: 12px; }
 
 textarea { height: 100px; }
 .full-width { width: 99%; }
-.popover-content * { white-space: normal; } // fixes wordwrap issue
+.popover-content * { white-space: normal; font-size: 13px; } // fixes wordwrap, input-append 0x issues
 
 [contenteditable="true"] {
   padding: 10px;
@@ -119,7 +119,19 @@ textarea { height: 100px; }
 }
 // end General elements
 
+// Partial imports
+@import 'partials/navigation';
+@import 'partials/content_pages';
+
 // Proposal-related
+.proposal_hub {
+  h2 {
+    margin-top: 0;
+    color: #315D99;
+    font-family: Futura;
+    letter-spacing: -2px;
+  }
+}
 .listing-proposals {
   margin-bottom: 0px;
   .proposal_buttons { width: 114px; }
@@ -129,32 +141,42 @@ textarea { height: 100px; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
 .main-proposal {
-  margin-bottom: 20px;
-  h4 {
-    font-style: italic;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    color: #999999;
-  }
 }
-.proposal_form.active, .support_form.active {
-  @extend .clear;
+.support_container {
   @extend .no-gutter;
   background: #ddd;
   padding: 10px;
-  border: 1px solid #999;
+  margin-bottom: 20px;
+  h3 { line-height: normal; margin-top: 0; }
+}
+.improve_form, .support_form {
   h3 { font-size: 24px; color: #ff0000; }
   .proposal_form_buttons { margin-top: 10px; }
+}
+
+.improve_form {
+  background: #ddd;
+  padding: 10px;
+  border: 1px solid #999;
 }
 
 .main-proposal, .supporting_arguments {
   h3 { margin-bottom: 10px; }
   .proposal-person {
-    @extend .clear;
     margin-left: 0;
     margin-bottom: 6px;
     img { @include border-radius(3px); }
   }
+}
+
+.improve_support_buttons { margin-left: 20px; }
+.supporting_arguments {
+  h3 span {
+    font-size: 80%;
+    font-weight: normal;
+    color: #999;
+  }
+  .proposal-person { @extend .clear; }
 }
 
 .proposal_container { margin: 20px 0; }
@@ -163,27 +185,49 @@ textarea { height: 100px; }
   font-size: 176%;
   margin-bottom: 10px;
   .active & { width: 97%; }
+  h4 {
+    font-style: italic;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    color: #999999;
+  }
 }
+.supporting_statement { font-size: 16px; }
 
 .proposal_fields {
   margin-top: 10px;
   label {
     @include inline-block;
     font-size: 16px;
-    margin-right: 10px;
+    margin-right: 20px;
     margin-left: 17px;
   }
-  label.first { margin-left: 0; }
+  label.first { margin-left: 0; padding-top: 8px; }
+}
+
+#relatedProposalsTitle {
+  font-size: 28px;
+  color: #315c99;
+  margin-top: 20px;
 }
 .related_supporting {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
   border-bottom: 1px solid #dddddd;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
 
-#totalVoteLabel { margin-top: 20px; }
-// end Proposal-related
+#relatedSorter {
+  @extend .pull-right;
+  margin-top: 10px;
+}
 
-// Partial imports
-@import 'partials/navigation';
-@import 'partials/content_pages';
+#totalVoteLabel {
+  @extend .pull-right;
+  margin-top: -20px;
+  .label {@extend .label-large; @extend .label-success; @extend .label-flat;}
+}
+// end Proposal-related
