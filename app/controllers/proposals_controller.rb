@@ -13,9 +13,9 @@ class ProposalsController < ApplicationController
       @proposals = Proposal.roots.order(ordering)
       @sortTitle = filter.titlecase + ' '
     elsif hub
+      session[:hub] = hub
       @search_hubs = Hub.by_group_name(hub)
       unless @search_hubs.empty?
-        @searched = hub
         @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
       end
     # elsif params[:city]
@@ -27,12 +27,10 @@ class ProposalsController < ApplicationController
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
       @proposals = user.proposals
-      @sortTitle = user_id.presence ? user.name + "'s " : 'My '
+      @sortTitle = user_id.presence ? (user.name || user.email) + "'s " : 'My '
     else
       @proposals = Proposal.order('votes_count DESC')
     end
-
-    @hubs = Hub.by_group
 
     respond_to do |format|
       format.html

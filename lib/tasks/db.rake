@@ -5,7 +5,7 @@ namespace :db do
   desc "Prepare test database"
   task :test_prep => :environment do
     Rake::Task['db:migrate'].invoke
-    Rake::Task['test:prepare'].invoke
+    Rake::Task['db:test:prepare'].invoke
   end
 
   desc "Raise an error unless the Rails.env is development"
