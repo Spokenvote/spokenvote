@@ -48,12 +48,15 @@ var updateSearchFields = function(options) {
   }
 }
 
-var redrawLoggedInNav = function() {
+var redrawLoggedInNav = function(callback, elem) {
   var newNav = '';
   $.get('/user_nav', function(data) {
     if (data.success) {
       $('header.navbar').remove();
       $('body').prepend(data.content);
+      if (callback) {
+        callback(elem);
+      }
     }
   })
 }
@@ -62,15 +65,10 @@ var loginInterrupt = function(callback, elem) {
   $('#loginModal').modal();
   $('.login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
     if(data.success) {
-      // process success case
       $('#loginModal').modal('toggle');
-      redrawLoggedInNav(data.user);
-      if (callback) {
-        callback(elem);
-      }
+      redrawLoggedInNav(callback, elem);
       return true
     } else {
-      // let the user know they failed authentication
       errorMessage('We could not sign you in with the supplied name and password');
       return false;
     }

@@ -2,9 +2,9 @@
   .proposal-person.span3
     .user-avatar
       %img{data: {src: "holder.js/30x30/social/text:currUser"}}
-    = link_to current_user.name || current_user.email, proposals_path(user_id: current_user.id)
-    %br
-    = Date.today.to_s(:month_day_year)
+    = current_user_link
+    .supported_date
+      = Date.today.to_s(:month_day_year)
   .proposal_form.support_form.span7
     %h3 Tell us why you're supporting this proposal
     .vote_comment

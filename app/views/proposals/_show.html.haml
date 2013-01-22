@@ -11,6 +11,16 @@
 
 .proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hubs.first.id}}
   .main-proposal
+    .proposal_statement
+      %h3= proposal.statement
+    .proposal-person.span3{data: {vote_number: 1}}
+      .user-avatar
+        %img{data: {src: "holder.js/30x30/social/text:avatar"}}
+      = link_to proposal.user.name, proposals_path(user_id: proposal.user.id)
+      .supported_date
+        = proposal.created_at.to_s(:month_day_year)
+    .supporting_statement.span7= proposal.supporting_statement
+
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}

@@ -107,8 +107,12 @@ var saveImprovement = function() {
 var showSupport = function(self) {
   var el = $(self),
     proposal_container = el.closest('.proposal_container'),
-    improve_support_buttons = proposal_container.find('.improve_support_buttons');
+    improve_support_buttons = proposal_container.find('.improve_support_buttons'),
+    proposal_person = $('.support_container').find('.proposal-person'),
+    user_id = $('#user-dropdown-menu').data('email'),
+    user_name = $('#user-dropdown-menu').text();
 
+  proposal_person.find('span').replaceWith('<a href="/users/'+ user_id + '/proposals">' + user_name + '</a>');
   proposal_container.find('.support_container').removeClass('hide').addClass('active');
   proposal_container.find('.vote_comment textarea').val('').focus();
   improve_support_buttons.hide();
