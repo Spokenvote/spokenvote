@@ -24,7 +24,5 @@
           %li
             = render partial: 'shared/user_nav'
         - else
-          %li
-            = link_to 'Sign In', new_user_session_path, class: 'btn btn-info btn-bold'
-          %li
-            = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary btn-bold'
+          = link_to 'Sign In', new_user_session_path, class: 'btn btn-info btn-bold'
+          = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary btn-bold'
