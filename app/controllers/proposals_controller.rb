@@ -126,7 +126,7 @@ class ProposalsController < ApplicationController
       session[:hub_name] = @search_hubs.first.group_name
       session[:hub_location] = @search_hubs.first.formatted_location
       unless @search_hubs.empty?
-        @proposals = Proposal.includes(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).order('proposals.votes_count DESC')
+        @proposals = Proposal.includes(:hub).where({:hub => {:id => @search_hubs.first.id}}).order('proposals.votes_count DESC')
       end
     # elsif params[:city]
     #   @search_hubs = Hub.where({location: params[:city]})

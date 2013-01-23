@@ -56,6 +56,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'populator'
+  gem 'rspec'
+  gem 'spork'
 end
 
 group :test do
