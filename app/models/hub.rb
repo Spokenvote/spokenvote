@@ -15,7 +15,7 @@ class Hub < ActiveRecord::Base
   attr_accessible :description, :google_location_id, :group_name, :formatted_location
 
   # Associations
-  has_many :votes
+  has_many :votes, through: :proposals
   has_many :proposals  # replaces # has_many :proposals, through: :votes
 
   # Named Scopes
