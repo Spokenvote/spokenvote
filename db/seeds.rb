@@ -62,14 +62,17 @@ begin
       usr_id = users.reject {|u| u.id == parent.user_id}.sample.id
       hb_id = parent.hub.id
       vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
-      #vote = {hub_id: parent.hub.id, user_id: usr_id, comment: Faker::Lorem.sentence}
       proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
     else
       stt = statements.pop
       usr_id = users.sample.id
       hb_id = hubs.sample.id
-      vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
-      #vote = {hub_id: hb_id, user_id: usr_id, comment: Faker::Lorem.sentence}
+      fake_comment = ''
+      3.times do
+        fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+      end
+      fake_comment = fake_comment.html_safe
+      vote = {user_id: usr_id, comment: fake_comment}
       proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
     end
     i += 1
@@ -79,11 +82,20 @@ begin
   40.times do
     target_proposal = proposals.sample
     voter = users.sample #users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
+    fake_comment = ''
+    if voter.id.odd?
+      fake_comment = Faker::Lorem.paragraph
+    else
+      2.times do
+        fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+      end
+      fake_comment = fake_comment.html_safe
+    end
     Vote.create({
       proposal: target_proposal,
       #hub: hubs.sample,
       user: voter,
-      comment: Faker::Lorem.sentence
+      comment: fake_comment
     })
   end
 rescue
