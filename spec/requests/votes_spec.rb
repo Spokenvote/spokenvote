@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe "Votes" do
   describe "access votes" do
-    it "allows access with a signed in user" do
-      sign_in_as_a_valid_user
-      get votes_path
-      response.status.should be(200)
-    end
+    # *** Waiting for Voting functionality to return, what which time all of the below can be uncommented ***
+
+    # it "allows access with a signed in user" do
+    #   sign_in_as_a_valid_user
+    #   get votes_path
+    #   response.status.should be(200)
+    # end
 
     it "denies access without a signed in user" do
       get votes_path
