@@ -61,16 +61,16 @@ begin
       stt = 'Branch 2 of ' + parent.statement
       usr_id = users.reject {|u| u.id == parent.user_id}.sample.id
       hb_id = parent.hub.id
+      vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
       #vote = {hub_id: parent.hub.id, user_id: usr_id, comment: Faker::Lorem.sentence}
-      proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id})
-      #proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hubid, votes_attributes: [vote]})
+      proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
     else
       stt = statements.pop
       usr_id = users.sample.id
       hb_id = hubs.sample.id
-      #vote = {hub_id: hubid, user_id: usr_id, comment: Faker::Lorem.sentence}
-      proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id})
-      #proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hubid, votes_attributes: [vote]})
+      vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
+      #vote = {hub_id: hb_id, user_id: usr_id, comment: Faker::Lorem.sentence}
+      proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
     end
     i += 1
   end

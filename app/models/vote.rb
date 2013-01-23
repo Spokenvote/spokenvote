@@ -14,7 +14,7 @@
 
 class Vote < ActiveRecord::Base
   # define_model_callbacks :validation, :only => :before
-  attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :hub_id, :hub, :ip_address
+  attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :hub, :ip_address
 
   # Associations
   belongs_to :proposal, counter_cache: true, inverse_of: :votes
