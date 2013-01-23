@@ -7,10 +7,10 @@
   = text_area_tag :vote_comment, nil, class: 'full-width'
   .proposal_fields.hide
     %label.first.span1 Hub
-    = text_field_tag :proposal_hub, proposal.hubs.first.group_name, class: 'input-xxlarge'
+    = text_field_tag :proposal_hub, proposal.hub.group_name, class: 'input-xxlarge'
     %br
     %label.first.span1 Location
-    = text_field_tag :proposal_location, proposal.hubs.first.formatted_location, class: 'input-xxlarge gpSearchBox'
+    = text_field_tag :proposal_location, proposal.hub.formatted_location, class: 'input-xxlarge gpSearchBox'
 
   .proposal_form_buttons
     .pull-right= link_to 'Retarget Proposal', '#', class: 'btn btn-info retarget_proposal'

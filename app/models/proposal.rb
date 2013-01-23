@@ -13,12 +13,12 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes
+  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes, :hub_id
 
   # Associations
   belongs_to :user
+  belongs_to :hub    # replaces #  has_many :hubs, through: :votes
   has_many :votes, inverse_of: :proposal
-  has_many :hubs, through: :votes
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
 

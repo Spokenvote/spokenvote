@@ -35,7 +35,7 @@
         - @user_proposals.each do |proposal|
           %tr
             %td{ :width => '35%' }
-              = proposal.hubs.first.name
+              = proposal.hub.name
             %td
               = items_count_badge(proposal.votes_count, 'Total Votes')
               .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
