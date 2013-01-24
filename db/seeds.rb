@@ -62,14 +62,12 @@ begin
       usr_id = users.reject {|u| u.id == parent.user_id}.sample.id
       hb_id = parent.hub.id
       vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
-      #vote = {hub_id: parent.hub.id, user_id: usr_id, comment: Faker::Lorem.sentence}
       proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
     else
       stt = statements.pop
       usr_id = users.sample.id
       hb_id = hubs.sample.id
       vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
-      #vote = {hub_id: hb_id, user_id: usr_id, comment: Faker::Lorem.sentence}
       proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
     end
     i += 1
@@ -78,7 +76,8 @@ begin
   p 'Creating Votes'
   40.times do
     target_proposal = proposals.sample
-    voter = users.sample #users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
+    voter = users.sample
+    #voter = users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
     Vote.create({
       proposal: target_proposal,
       #hub: hubs.sample,
