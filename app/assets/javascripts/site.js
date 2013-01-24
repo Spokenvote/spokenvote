@@ -121,8 +121,8 @@ $(function() {
     formatSelection: function (item) {
       return item.group_name
     },
-    formatNoMatches: function () {
-      return 'No matches. ' + '<a href="/hubs/new">Create one</a>'
+    formatNoMatches: function (term) {
+      return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>'
     }
   });
 
