@@ -13,19 +13,19 @@
       .controls
         = f.text_field :statement, :class => 'input-xxlarge', placeholder: 'Enter only the statement of your proposal'
 
+    .control-group
+      = f.label :topic, :class => 'control-label'
+      .controls
+        = f.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] })
+        %span.help-block Please choose the word or phrase that best captures this proposal.
+
+    -#.control-group
+    -#  = vote_form.label :location, :class => 'control-label'
+    -#  .controls.locationSelector
+    -#    = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] }), { include_blank: true }
+    -#    %span.help-block Please select the most inclusive location appropriate for this proposal.
+
     = f.fields_for :votes, @vote do |vote_form|
-      .control-group
-        = vote_form.label :topic, :class => 'control-label'
-        .controls
-          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] })
-          %span.help-block Please choose the word or phrase that best captures this proposal.
-
-      .control-group
-        = vote_form.label :location, :class => 'control-label'
-        .controls.locationSelector
-          = vote_form.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name, h.id] }), { include_blank: true }
-          %span.help-block Please select the most inclusive location appropriate for this proposal.
-
       .control-group
         = vote_form.label :votes, 'Supporting Arguments', :class => 'control-label'
         .controls
