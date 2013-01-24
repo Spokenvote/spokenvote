@@ -4,13 +4,14 @@
       = link_to image_tag('bluefull.png') + ' SpokenVote', root_path, class: 'brand'
 
       %ul#main-nav.nav
-      = form_tag proposals_path, class: 'navbar-form form-inline', method: 'get' do
-        = text_field_tag 'hub', session[:hub] || @searched, placeholder: 'Enter a group', class: 'input span3'
+      = form_tag search_proposals_path, class: 'navbar-form form-inline' do
+        = text_field_tag 'hub_filter', nil, placeholder: 'Enter a group', class: 'input span3', data: { value: session[:hub_filter], source: hubs_path }
 
         .input-append
-          = text_field_tag 'location', nil, placeholder: 'A location', class: 'input span2'
+          = text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span2 gpSearchBox', 'data-value_field' => '#google_location_id_filter', data: { value: session[:location_filter] }
+          = hidden_field_tag :google_location_id_filter
 
-          = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom'}, title: 'Location Search'
+          = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom', title: 'Location Search'}
         = button_tag 'Search', class: 'btn btn-danger btn-bold'
 
       %ul.nav.pull-right
@@ -24,7 +25,5 @@
           %li
             = render partial: 'shared/user_nav'
         - else
-          %li
-            = link_to 'Sign In', new_user_session_path, class: 'btn btn-info btn-bold'
-          %li
-            = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary btn-bold'
+          = link_to 'Sign In', new_user_session_path, class: 'btn btn-info btn-bold'
+          = link_to 'Join Us!', new_user_registration_path, class: 'btn btn-primary btn-bold'

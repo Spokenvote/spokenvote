@@ -1,41 +1,21 @@
 class ProposalsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :search]
+  before_filter :requested_proposals, :only => [:index, :search]
 
   # GET /proposals
   # GET /proposals.json
   def index
-    @searched = @sortTitle = ''
-    @proposals = []
-    filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
-
-    if filter
-      ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
-      @proposals = Proposal.roots.order(ordering)
-      @sortTitle = filter.titlecase + ' '
-    elsif hub
-      session[:hub] = hub
-      @search_hubs = Hub.by_group_name(hub)
-      unless @search_hubs.empty?
-        @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @search_hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
-      end
-    # elsif params[:city]
-    #   @search_hubs = Hub.where({location: params[:city]})
-    #   @searched = params[:city]
-    #   @proposals = ... matching Proposals query
-    # elseif <other searchable things>
-    #   ...
-    elsif user_signed_in? || user_id
-      user = User.find(user_id || current_user.id)
-      @proposals = user.proposals
-      @sortTitle = user_id.presence ? (user.name || user.email) + "'s " : 'My '
-    else
-      @proposals = Proposal.order('votes_count DESC')
-    end
 
     respond_to do |format|
       format.html
       format.json { render json: @proposals }
     end
+  end
+  
+  # POST /proposals/search
+  # POST /proposals/search.json
+  def search
+    render action: :index
   end
 
   # GET /proposals/1
@@ -84,6 +64,7 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     votes = params[:proposal].delete :votes_attributes
+    parent = Proposal.find(params[:parent_id])
     @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE
@@ -124,6 +105,41 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to proposals_url }
       format.json { head :no_content }
+    end
+  end
+  
+  private
+  def requested_proposals
+    @searched = @sortTitle = ''
+    @proposals = []
+    filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
+
+    session[:hub_search] = nil
+    session[:hub_location] = nil
+    if filter
+      ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
+      @proposals = Proposal.roots.order(ordering)
+      @sortTitle = filter.titlecase + ' '
+    elsif hub
+      @search_hubs = Hub.by_group_name(hub)
+      @sortTitle = @search_hubs.first.group_name + ' '
+      session[:hub_search] = @search_hubs.first.group_name
+      session[:hub_location] = @search_hubs.first.formatted_location
+      unless @search_hubs.empty?
+        @proposals = Proposal.includes(:hub).where({ :hubs => { :id => @search_hubs.first.id } } ).order('proposals.votes_count DESC')
+      end
+    # elsif params[:city]
+    #   @search_hubs = Hub.where({location: params[:city]})
+    #   @searched = params[:city]
+    #   @proposals = ... matching Proposals query
+    # elseif <other searchable things>
+    #   ...
+    elsif user_signed_in? || user_id
+      user = User.find(user_id || current_user.id)
+      @proposals = user.proposals
+      @sortTitle = user_id.presence ? (user.name || user.email) + "'s " : 'My '
+    else
+      @proposals = Proposal.order('votes_count DESC')
     end
   end
 end

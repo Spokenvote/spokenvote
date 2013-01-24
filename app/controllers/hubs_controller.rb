@@ -1,37 +1,19 @@
 class HubsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index, :homepage]
 
-  def homepage
-    @searched = ''
-    if params[:hub]
-      @hubs = Hub.where({group: params[:hub]})
-      @searched = params[:hub]
-      @proposals = Proposal.joins(:hubs).where({:hubs => {:id => @hubs.first.id}}).uniq(:ancestry).order('votes_count DESC')
-    # elsif params[:city]
-    #   @hubs = Hub.where({name: params[:hub]})
-    #   @searched = params[:hub]
-    #   @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
-    else
-      @hubs = Hub.by_group
-      @proposals = Proposal.order('votes_count DESC')#.joins(:hubs).order('name')
-    end
-    @user_proposals = current_user.proposals.order('votes_count DESC') if current_user #.joins(:hubs).order('name') if current_user
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @user_proposals }
-    end
-  end
-
   # GET /hubs
   # GET /hubs.json
   def index
-    if params[:hub]
-      @hubs = Hub.where({group: params[:hub]})
-    # elsif params[:city]
-    #   @hubs = Hub.where({name: params[:hub]})
+    hub_filter, google_location_id_filter = params[:hub_filter], params[:google_location_id_filter]
+
+    if hub_filter
+      @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
     else
-      @hubs = Hub.all#Hub.by_proposal_count
+      @hubs = Hub.all
+    end
+
+    if google_location_id_filter
+      @hubs.where(:google_location_id, google_location_id_filter)
     end
 
     respond_to do |format|

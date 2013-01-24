@@ -1,9 +1,14 @@
-.row
-  .span11
-    .proposal_form.support_form.span8.hide
-      %h3 Tell us why you're supporting this proposal
-      .vote_comment
-        = text_area_tag :vote_comment, nil, class: 'full-width'
-      .proposal_form_buttons
-        = link_to 'Cancel', '#', :class => 'btn cancel'
-        = link_to 'Vote for this proposal', '#', :class => 'btn btn-primary save_vote'
+.support_container.span11.hide
+  .proposal-person.span3
+    .user-avatar
+      %img{data: {src: "holder.js/30x30/social/text:currUser"}}
+    = current_user_link
+    .supported_date
+      = Date.today.to_s(:month_day_year)
+  .proposal_form.support_form.span7
+    %h3 Tell us why you're supporting this proposal
+    .vote_comment
+      = text_area_tag :vote_comment, nil, class: 'full-width'
+    .proposal_form_buttons
+      = link_to 'Cancel', '#', :class => 'btn cancel'
+      = link_to 'Vote for this proposal', '#', :class => 'btn btn-primary save_vote'

@@ -15,13 +15,13 @@ class Hub < ActiveRecord::Base
   attr_accessible :description, :google_location_id, :group_name, :formatted_location
 
   # Associations
-  has_many :votes
-  has_many :proposals, through: :votes
+  has_many :votes, through: :proposals
+  has_many :proposals
 
   # Named Scopes
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
   
-  validates :group_name, presence: true
+  validates :group_name, :google_location_id, :formatted_location, presence: true
 
   class << self
     def by_group

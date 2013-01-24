@@ -13,7 +13,7 @@ gem 'rack-cache'
 # Javascript
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
-gem 'select2-rails', "~> 3.1.1"
+gem 'select2-rails'
 
 # UI/Forms
 gem 'nested_form'
@@ -22,7 +22,6 @@ gem 'simple_form'
 gem 'compass'
 gem 'compass-rails'
 gem 'compass_twitter_bootstrap'
-gem 'carmen-rails'
 
 # Authentication
 gem 'omniauth'
@@ -57,6 +56,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'populator'
+  gem 'rspec'
+  gem 'spork'
 end
 
 group :test do
