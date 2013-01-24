@@ -140,8 +140,7 @@ textarea { height: 100px; }
 #proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
-.main-proposal {
-}
+.main-proposal { overflow: auto; }
 .support_container {
   @extend .no-gutter;
   background: #ddd;
