@@ -21,7 +21,7 @@ class Hub < ActiveRecord::Base
   # Named Scopes
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
   
-  validates :group_name, presence: true
+  validates :group_name, :google_location_id, :formatted_location, presence: true
 
   class << self
     def by_group

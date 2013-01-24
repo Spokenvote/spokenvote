@@ -4,10 +4,16 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    if params[:q]
-      @hubs = Hub.where('group_name ilike ?', "%#{params[:q]}%")
+    hub_filter, google_location_id_filter = params[:hub_filter], params[:google_location_id_filter]
+
+    if hub_filter
+      @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
     else
       @hubs = Hub.all
+    end
+
+    if google_location_id_filter
+      @hubs.where(:google_location_id, google_location_id_filter)
     end
 
     respond_to do |format|

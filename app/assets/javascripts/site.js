@@ -79,19 +79,21 @@ var loginInterrupt = function(callback, elem) {
 var gpSearch = function (elem) {
   var defaultBounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(-33.8902, 151.1759),
-    new google.maps.LatLng(-33.8474, 151.2631));
+    new google.maps.LatLng(-33.8474, 151.2631)
+  );
 
   var options = {
     bounds: defaultBounds,
     types: ['(regions)']
   };
 
-  autocomplete = new google.maps.places.Autocomplete(elem, options);
+  var autocomplete = new google.maps.places.Autocomplete(elem, options);
 
   google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    var place = autocomplete.getPlace();
-    // console.log(place.id);
-    $(elem).val(place.id);
+    var place = autocomplete.getPlace(),
+        value_field = $(elem).data('value_field');
+    console.log(place.id);
+    $(value_field).val(place.id);
   });
 }
 
@@ -99,14 +101,17 @@ $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
   $('select').select2({width: '200px'});
-  $("#hub_search").select2({
+  var location_filter = $('#location_filter').val()
+
+  $("#hub_filter").select2({
     minimumInputLength: 1,
     ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
       url: '/hubs',
       dataType: 'json',
-      data: function(term, page) { return { q: term } },
+      data: function(term, page) {
+        return { hub_filter: term, google_location_id_filter: $("#google_location_id_filter").val() }
+      },
       results: function(data, page) {
-        console.log(data);
         return { results: data }
       }
     },
@@ -123,6 +128,7 @@ $(function() {
 
   $('.related_supporting').last().css('border-bottom', 'none');
   pageEffects();
+
   $('.gpSearchBox').each(function() {
     gpSearch(this);
   })
