@@ -190,7 +190,10 @@ textarea { height: 100px; }
   div:last-child { margin-bottom: 0; }
 }
 
-.proposal_container { margin: 20px 0; }
+.proposal_container {
+  margin: 20px 0;
+  overflow: auto;
+}
 
 .proposal_statement {
   font-size: 176%;

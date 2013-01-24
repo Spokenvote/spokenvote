@@ -29,7 +29,7 @@ class ProposalsController < ApplicationController
     @total_votes = @proposal.votes_in_tree
 
     if params[:proposal].presence
-      offset_by = (page_number * records_limit) + 2
+      offset_by = (page_number * records_limit) + 3
       @votes = @proposal.votes.offset(offset_by).limit(records_limit)
       @no_more = @votes.count <= (offset_by + records_limit)
       @isXhr = true

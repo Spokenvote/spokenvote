@@ -9,17 +9,7 @@ google_location_ids = {
 
 begin
   i = 0
-  # hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Solar Power']
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Palo Alto School District','NSCA Youth Soccer League']
-  # geos = ['Mountain View','San Antonio','California','Texas','USA']
-
-  p 'Creating Locations'
-  usa = Location.create({type_id: 1, name: 'USA'})
-  ca = Location.create({type_id: 2, name: 'CA', parent_id: usa.id})
-  tx = Location.create({type_id: 2, name: 'TX', parent_id: usa.id})
-  mv = Location.create({type_id: 3, name: 'Mountain View', parent_id: ca.id})
-  sa = Location.create({type_id: 3, name: 'San Antonio', parent_id: tx.id})
-
   p 'Creating Hubs'
   5.times do
     google_location_id = google_location_ids.keys.sample
