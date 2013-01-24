@@ -37,6 +37,9 @@ class HubsController < ApplicationController
   # GET /hubs/new.json
   def new
     @hub = Hub.new
+    if params[:requested_group].presence
+      @hub.group_name = params[:requested_group]
+    end
 
     respond_to do |format|
       format.html # new.html.erb
