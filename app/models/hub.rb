@@ -16,7 +16,7 @@ class Hub < ActiveRecord::Base
 
   # Associations
   has_many :votes, through: :proposals
-  has_many :proposals  # replaces # has_many :proposals, through: :votes
+  has_many :proposals
 
   # Named Scopes
   scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }

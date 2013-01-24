@@ -10,6 +10,7 @@
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
 #  created_by  :integer
+#  hub_id      :integer
 #
 
 require 'spec_helper'

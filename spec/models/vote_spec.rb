@@ -8,7 +8,6 @@
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  hub_id      :integer
 #  ip_address  :string(255)
 #
 

@@ -10,14 +10,15 @@
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
 #  created_by  :integer
+#  hub_id      :integer
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes, :hub_id
+  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes, :hub_id, :hub
 
   # Associations
   belongs_to :user
-  belongs_to :hub    # replaces #  has_many :hubs, through: :votes
+  belongs_to :hub
   has_many :votes, inverse_of: :proposal
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
