@@ -26,6 +26,7 @@ class Vote < ActiveRecord::Base
   ## Named Scopes
   #scope :by_hub, lambda { |group_id| where("LOWER(group_name) = ?", group_name.downcase) }
 
+  # TODO This doesn't do the job, need help please
   def before_validation
     existing = Vote.where({user_id: self.user_id, proposal_id: self.proposal_id}).first
     if existing

@@ -133,8 +133,9 @@ var newSupport = function(e) {
 
 var updateSupport = function(proposal_container, data) {
   var sa = proposal_container.find('.supporting_arguments .span11'),
-      newSA = '<div class="span2 proposal-person">3: ' + data.user_name + '</div><div class="span8">' + data.comment.substr(0,140) + (data.commentlength > 140 ? '...more' : '') + '</div><div class="hide_the_more_link">&nbsp;</div>';
+      newSA = '<div class="row support_row"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>';
   sa.append(newSA);
+  Holder.run(); // updates the placeholder images
 }
 
 var saveVote = function(e) {
@@ -142,12 +143,12 @@ var saveVote = function(e) {
   var el = $(this),
     proposal_container = el.closest('.proposal_container'),
     proposal_id = proposal_container.data('proposal_id'),
-    comment = proposal_container.find('.vote_comment input').val(),
+    comment = proposal_container.find('.vote_comment textarea').val(),
     // this is not a good way to have user on hand but acceptable to me for first pass
     user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
     hub_id = proposal_container.data('hub_id');
   
-  $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment, user_id: user_id, hub_id: hub_id}})
+  $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment, user_id: user_id}})
     .success(function(data) {
       hideContentEditable(el);
       updateSupport(proposal_container, data);

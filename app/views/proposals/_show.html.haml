@@ -4,9 +4,9 @@
       %span.label
         = total_votes.to_s + ' Total Votes'
     %h2
-      = proposal.hub.group_name  # replaces #  = proposal.hubs.first.group_name
+      = proposal.hub.group_name
       &ndash;
-      = proposal.hub.formatted_location  # replaces #  = proposal.hub.first.formatted_location
+      = proposal.hub.formatted_location
 
 
 .proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hub.id}}
@@ -19,19 +19,22 @@
       = link_to proposal.user.name, proposals_path(user_id: proposal.user.id)
       .supported_date
         = proposal.created_at.to_s(:month_day_year)
-    .supporting_statement.span7= proposal.supporting_statement
+      .improve_support_buttons.btn-group
+        = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
+        = link_to 'Improve', '#', :class => 'btn btn-warning improve'
+    .supporting_statement.span7= raw proposal.supporting_statement
 
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
-  - if proposal.supporting_votes.count > 1
-    .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
-      %h3
-        Supporters
-        %span= '(' + proposal.votes.count.to_s + ' votes)'
-      .row
-        .supporting_arguments_list.span11
-          = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
-          = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
+  .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
+    - hasSupport = proposal.supporting_votes.count > 1
+    %h3{class: hasSupport ? '' : 'hide' }
+      Supporters
+      %span= '(' + proposal.votes.count.to_s + ' votes)'
+    .row
+      .supporting_arguments_list.span11
+        = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+        = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
         .span1
           - if proposal.votes_count > 2

@@ -140,8 +140,7 @@ textarea { height: 100px; }
 #proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
-.main-proposal {
-}
+.main-proposal { overflow: auto; }
 .support_container {
   @extend .no-gutter;
   background: #ddd;
@@ -169,7 +168,7 @@ textarea { height: 100px; }
   }
 }
 
-.improve_support_buttons { margin-left: 20px; }
+.improve_support_buttons { margin-top: 20px; }
 .supporting_arguments {
   h3 span {
     font-size: 80%;
@@ -177,9 +176,23 @@ textarea { height: 100px; }
     color: #999;
   }
   .proposal-person { @extend .clear; }
+  .support_row {
+    @extend .no-gutter;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  .support_row.first { border-top: none; padding-top: 0; }
+}
+.supporting_statement, .support_comment {
+  div { margin-bottom: 10px; }
+  div:last-child { margin-bottom: 0; }
 }
 
-.proposal_container { margin: 20px 0; }
+.proposal_container {
+  margin: 20px 0;
+  overflow: auto;
+}
 
 .proposal_statement {
   font-size: 176%;
@@ -212,9 +225,7 @@ textarea { height: 100px; }
   margin-top: 20px;
 }
 .related_supporting {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+  clear: both;
   border-bottom: 1px solid #dddddd;
   padding-bottom: 10px;
   margin-bottom: 10px;

@@ -1,4 +1,4 @@
-.proposal_form.improve_form.hide
+.proposal_form.improve_form.clear.hide
   %h3 Edit the proposal to make it your own
   .content_editable
     = proposal.statement
@@ -16,8 +16,3 @@
     .pull-right= link_to 'Retarget Proposal', '#', class: 'btn btn-info retarget_proposal'
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
-
-.row.clear
-  .improve_support_buttons.btn-group
-    = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
-    = link_to 'Improve', '#', :class => 'btn btn-warning improve'
