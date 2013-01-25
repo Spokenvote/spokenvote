@@ -115,7 +115,7 @@ class ProposalsController < ApplicationController
     @proposals = []
     filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
 
-    session[:hub_search] = nil
+    session[:hub_filter] = nil
     session[:hub_location] = nil
     if filter
       ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
@@ -124,7 +124,7 @@ class ProposalsController < ApplicationController
     elsif hub
       @search_hubs = Hub.by_group_name(hub)
       @sortTitle = @search_hubs.first.group_name + ' '
-      session[:hub_search] = @search_hubs.first.group_name
+      session[:hub_filter] = @search_hubs.first.group_name
       session[:hub_location] = @search_hubs.first.formatted_location
       unless @search_hubs.empty?
         @proposals = Proposal.includes(:hub).where({ :hubs => { :id => @search_hubs.first.id } } ).order('proposals.votes_count DESC')
