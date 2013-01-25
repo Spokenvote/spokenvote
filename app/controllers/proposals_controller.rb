@@ -57,6 +57,7 @@ class ProposalsController < ApplicationController
   # GET /proposals/1/edit
   def edit
     @proposal = Proposal.find(params[:id])
+    # TODO does it count votes or proposals?
     @total_votes = @proposal.root.descendants.count
     render action: 'show'
   end
