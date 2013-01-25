@@ -101,7 +101,6 @@ $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
   $('select').select2({width: '200px'});
-  var location_filter = $('#location_filter').val()
 
   $("#hub_filter").select2({
     minimumInputLength: 1,
