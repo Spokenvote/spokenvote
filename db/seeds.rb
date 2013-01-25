@@ -71,8 +71,7 @@ begin
   p 'Creating Votes'
   40.times do
     target_proposal = proposals.sample
-    voter = users.sample
-    #voter = users.reject {|u| target_proposal.children.map{ |c| c.votes.find_by_user_id(u.id)} != nil}.sample.id
+    voter = users.reject{|u| [target_proposal.root, target_proposal.root.descendants].flatten.map{ |c| c.votes.find_by_user_id(u.id)}.any? }.sample
     fake_comment = ''
     if voter.id.odd?
       fake_comment = Faker::Lorem.paragraph
