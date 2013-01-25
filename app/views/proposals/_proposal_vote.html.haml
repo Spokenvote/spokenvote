@@ -1,11 +1,14 @@
-.proposal-person.span3{data: {vote_number: vote_counter+1}}
-  .user-avatar
-    %img{data: {src: "holder.js/30x30/#{vote_counter.even? ? 'industrial' : 'social'}/text:avatar"}}
-  = link_to vote.user.name || vote.user.email, proposals_path(user_id: vote.user.id)
-  .supported_date
-    = vote.created_at.to_s(:month_day_year)
-.span8
-  = truncate(vote.comment, :length => 140, :omission => '...more')
+- first_class = (@isXhr or vote_counter > 0) ? '' : 'first'
+.row.support_row{class: first_class}
+  .proposal-person.span3{data: {vote_number: vote_counter+1}}
+    .user-avatar
+      %img{data: {src: "holder.js/30x30/#{vote_counter.even? ? 'industrial' : 'social'}/text:avatar"}}
+    = link_to vote.user.name || vote.user.email, proposals_path(user_id: vote.user.id)
+    .supported_date
+      = vote.created_at.to_s(:month_day_year)
+  .support_comment.span8
+    / = truncate(vote.comment, :length => 140, :omission => '...more')
+    = raw vote.comment
 
--if @no_more
-  .hide_the_more_link &nbsp;
+  -if @no_more
+    .hide_the_more_link &nbsp;
