@@ -58,7 +58,7 @@ var redrawLoggedInNav = function(callback, elem) {
         callback(elem);
       }
     }
-  })
+  });
 }
 
 var loginInterrupt = function(callback, elem) {
@@ -97,14 +97,20 @@ var gpSearch = function (elem) {
   });
 }
 
-$(function() {
-  $('[rel=tooltip]').tooltip();
-  $('[rel=popover]').popover();
-  $('select').select2({width: '200px'});
+// helper for repetitive hub_filter select2 options
+var getHubName = function(item) {
+  return item.group_name;
+}
 
+var configureHubFilter = function() {
   $("#hub_filter").select2({
     minimumInputLength: 1,
-    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+    placeholder: 'Enter a group',
+    width: '220px',
+    initSelection: function(element, callback) {
+      callback({id: $('#hub_filter').data('id'), text: $('#hub_filter').data('value') });
+    },
+    ajax: {
       url: '/hubs',
       dataType: 'json',
       data: function(term, page) {
@@ -114,21 +120,37 @@ $(function() {
         return { results: data }
       }
     },
-    formatResult: function (item) {
-      return item.group_name
-    },
-    formatSelection: function (item) {
-      return item.group_name
-    },
+    formatResult: getHubName,
+    formatSelection: getHubName,
+    id: getHubName,
     formatNoMatches: function (term) {
-      return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>'
+      return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
     }
   });
+}
+
+var validateNavbarSearch = function(e) {
+  var locationLength = $('#location_filter').val().length > 0;
+  if (locationLength) {
+    if ($('#hub_filter').val().length === 0) {
+      errorMessage('Please enter a group name, search only by location is not supported at this time');
+      $('#hub_filter').focus();
+      return false;
+    }
+  }
+}
+
+$(function() {
+  $('[rel=tooltip]').tooltip();
+  $('[rel=popover]').popover();
+  $('select').select2({width: '200px'});
+  configureHubFilter();
+  $('#navbarSearch').on('submit', validateNavbarSearch);
 
   $('.related_supporting').last().css('border-bottom', 'none');
   pageEffects();
 
   $('.gpSearchBox').each(function() {
     gpSearch(this);
-  })
-})
+  });
+});

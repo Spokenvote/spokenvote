@@ -114,7 +114,7 @@ class ProposalsController < ApplicationController
   def requested_proposals
     @searched = @sortTitle = ''
     @proposals = []
-    filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
+    filter, hub, hub_filter, location_filter, user_id = params[:filter], params[:hub], params[:hub_filter], params[:location_filter], params[:user_id]
 
     session[:hub_filter] = nil
     session[:hub_location] = nil
@@ -123,18 +123,31 @@ class ProposalsController < ApplicationController
       @proposals = Proposal.roots.order(ordering)
       @sortTitle = filter.titlecase + ' '
     elsif hub
-      @search_hubs = Hub.by_group_name(hub)
-      @sortTitle = @search_hubs.first.group_name + ' '
-      session[:hub_filter] = @search_hubs.first.group_name
-      session[:hub_location] = @search_hubs.first.formatted_location
-      unless @search_hubs.empty?
-        @proposals = Proposal.includes(:hub).where({ :hubs => { :id => @search_hubs.first.id } } ).order('proposals.votes_count DESC')
+      search_hub = Hub.by_group_name(hub).first
+      @sortTitle = search_hub.group_name + ' '
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      unless search_hubs.empty?
+        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
       end
-    # elsif params[:city]
-    #   @search_hubs = Hub.where({location: params[:city]})
-    #   @searched = params[:city]
-    #   @proposals = ... matching Proposals query
-    # elseif <other searchable things>
+    elsif hub_filter
+      # NOTE What if more than one group with this group_name???
+      # NOTE For now, location alone is not valid, must also specify group
+      # So specifying location disambiguates between hubs with same group_name
+      if location_filter != ''
+        search_hub = Hub.by_location(location_filter).by_group_name(hub_filter).first
+        @sortTitle = search_hub.group_name + ', ' + location_filter + ' '
+      else
+        search_hub = Hub.by_group_name(hub_filter).first
+        @sortTitle = search_hub.group_name + ' '
+      end
+      session[:hub_id] = search_hub.id
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      if search_hub
+        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
+      end
+      # elseif <other searchable things>
     #   ...
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
