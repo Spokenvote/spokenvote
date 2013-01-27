@@ -107,9 +107,6 @@ var configureHubFilter = function() {
     minimumInputLength: 1,
     placeholder: 'Enter a group',
     width: '220px',
-    initSelection: function(element, callback) {
-      callback({id: $('#hub_filter').data('id'), text: $('#hub_filter').data('value') });
-    },
     ajax: {
       url: '/hubs',
       dataType: 'json',

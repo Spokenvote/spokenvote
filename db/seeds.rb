@@ -72,21 +72,25 @@ begin
   40.times do
     target_proposal = proposals.sample
     voter = users.reject{|u| [target_proposal.root, target_proposal.root.descendants].flatten.map{ |c| c.votes.find_by_user_id(u.id)}.any? }.sample
-    fake_comment = ''
-    if voter.id.odd?
-      fake_comment = Faker::Lorem.paragraph
-    else
-      2.times do
-        fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+    if voter
+      fake_comment = ''
+      if voter.id.odd?
+        fake_comment = Faker::Lorem.paragraph
+      else
+        2.times do
+          fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+        end
+        fake_comment = fake_comment.html_safe
       end
-      fake_comment = fake_comment.html_safe
+      Vote.create({
+        proposal: target_proposal,
+        #hub: hubs.sample,
+        user: voter,
+        comment: fake_comment
+      })
+    else
+      p 'Could not get a voter'
     end
-    Vote.create({
-      proposal: target_proposal,
-      #hub: hubs.sample,
-      user: voter,
-      comment: fake_comment
-    })
   end
 rescue
   Rake::Task["db:reset"].execute # Recreate tables from migrations
