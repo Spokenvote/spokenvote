@@ -66,7 +66,12 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     votes = params[:proposal].delete :votes_attributes
-    parent = Proposal.find(params[:parent_id])
+    # This seems to have been changed to handle an improvement to a proposal, not a new proposal.
+    # A new proposal has no parent id.  Perhaps improvements should be handled in a separate controller?
+    
+    # Commenting this because it is unused and makes creation of new proposals fail.
+    # parent = Proposal.find(params[:parent_id])
+
     @proposal = current_user.proposals.create(params[:proposal])
     
     # TODO THIS IS HORRIBLE
