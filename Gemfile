@@ -13,7 +13,7 @@ gem 'rack-cache'
 # Javascript
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
-gem 'select2-rails', "~> 3.1.1"
+gem 'select2-rails'
 
 # UI/Forms
 gem 'nested_form'

@@ -13,7 +13,7 @@
       - @hubs.each do |hub|
         %tr
           %td
-            =hub.name
+            =hub.group_name
             -#- if hub.proposals.count > 0
             -#  = link_to hub.name, hub_path(hub)
             -#  = items_count_badge(hub.proposals.count, 'Total Proposals')

@@ -99,7 +99,28 @@ $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
   $('select').select2({width: '200px'});
-  $('.locationSelector select').select2({placeholder: 'Select Location', width: '200px'});
+  $("#hub_search").select2({
+    minimumInputLength: 1,
+    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+      url: '/hubs',
+      dataType: 'json',
+      data: function(term, page) { return { q: term } },
+      results: function(data, page) {
+        console.log(data);
+        return { results: data }
+      }
+    },
+    formatResult: function (item) {
+      return item.group_name
+    },
+    formatSelection: function (item) {
+      return item.group_name
+    },
+    formatNoMatches: function () {
+      return 'No matches. ' + '<a href="/hubs/new">Create one</a>'
+    }
+  });
+
   $('.related_supporting').last().css('border-bottom', 'none');
   pageEffects();
   $('.gpSearchBox').each(function() {

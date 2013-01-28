@@ -4,12 +4,10 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    if params[:hub]
-      @hubs = Hub.where({group: params[:hub]})
-    # elsif params[:city]
-    #   @hubs = Hub.where({name: params[:hub]})
+    if params[:q]
+      @hubs = Hub.where('group_name ilike ?', "%#{params[:q]}%")
     else
-      @hubs = Hub.all#Hub.by_proposal_count
+      @hubs = Hub.all
     end
 
     respond_to do |format|
