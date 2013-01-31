@@ -5,10 +5,10 @@
 
       %ul#main-nav.nav
       = form_tag search_proposals_path, class: 'navbar-form form-inline' do
-        = text_field_tag 'hub_filter', nil, placeholder: 'Enter a group', class: 'input span3', data: { value: session[:hub_filter], source: hubs_path }
+        = text_field_tag 'hub_name', nil, placeholder: 'Enter a group', class: 'input span3', data: { value: session[:hub_filter], source: hubs_path }
 
         .input-append
-          = text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span2 gpSearchBox', 'data-value_field' => '#google_location_id_filter', data: { value: session[:location_filter] }
+          = text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span2 gpSearchBox', 'data-value_field' => '#google_location_id_filter', data: { value: session[:hub_location] }
           = hidden_field_tag :google_location_id_filter
 
           = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom', title: 'Location Search'}
