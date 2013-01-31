@@ -108,6 +108,7 @@ var configureHubFilter = function(groupname_elem, select_width) {
     minimumInputLength: 1,
     placeholder: 'Enter a group',
     width: select_width,
+    allowClear: true,
 
     ajax: {
       url: '/hubs',
@@ -132,7 +133,23 @@ var configureHubFilter = function(groupname_elem, select_width) {
   });
   if (groupname_elem === '#hub_filter') {
     $(groupname_elem).select2('focus');
+    $(groupname_elem).on('change', function(e) {
+      // user clicked the 'x' to clear the groupname selection
+      // so clear location as well
+      if (this.value === '') {
+        $('#location_id_filter, #location_filter').val('');
+      }
+    });
   }
+  $('#location_filter').on('hover focus', function(e) {
+    if (this.value !== '') {
+      $('#clear-location').removeClass('hide').on('click', function(e) {
+        $('#location_filter').val('');
+        $(this).addClass('hide');
+      });
+    }
+  });
+  
 }
 
 var validateNavbarSearch = function(e) {
