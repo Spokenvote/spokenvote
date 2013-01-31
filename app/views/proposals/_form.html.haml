@@ -6,6 +6,8 @@
         - @proposal.errors.full_messages.each do |msg|
           %li= msg
 
+      %h3= "#{session[:hub_filter]} AT #{session[:hub_location]}"
+
   %fieldset
     = f.hidden_field :user_id, :value => current_user.id
     .control-group
@@ -13,10 +15,6 @@
       .controls
         = f.text_field :statement, :class => 'input-xxlarge', placeholder: 'Enter only the statement of your proposal'
 
-    .control-group
-      = f.label :group, :class => 'control-label'
-      .controls
-        = f.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name + ' AT ' + h.formatted_location, h.id] })
         %span.help-block Please choose the word or phrase that best captures this proposal.
 
     = f.fields_for :votes, @vote do |vote_form|
