@@ -5,7 +5,6 @@ class ProposalsController < ApplicationController
   # GET /proposals
   # GET /proposals.json
   def index
-
     respond_to do |format|
       format.html
       format.json { render json: @proposals }
@@ -158,7 +157,7 @@ private
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
       @proposals = user.proposals
-      @sortTitle = user_id.presence ? (user.name || user.email) + "'s " : 'My '
+      @sortTitle = user_id.presence ? (user.name || user.username) + "'s " : 'My '
     else
       @proposals = Proposal.order('votes_count DESC')
     end
