@@ -9,6 +9,7 @@
 
         .input-append
           = text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span3 gpSearchBox', 'data-value_field' => '#location_id_filter', data: { value: session[:location_filter] }
+          %i#clear-location.icon-remove-circle.hide
           = hidden_field_tag :location_id_filter
 
           / = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom', title: 'Location Search'}
