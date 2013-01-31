@@ -130,6 +130,9 @@ var configureHubFilter = function(groupname_elem, select_width) {
       return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
     }
   });
+  if (groupname_elem === '#hub_filter') {
+    $(groupname_elem).select2('focus');
+  }
 }
 
 var validateNavbarSearch = function(e) {
