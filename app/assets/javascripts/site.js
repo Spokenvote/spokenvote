@@ -61,7 +61,7 @@ var redrawLoggedInNav = function(callback, elem) {
   });
 }
 
-var loginInterrupt = function(callback, elem) {
+var loginInterrupt = function(elem, callback) {
   $('#loginModal').modal();
   $('.login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
     if(data.success) {
@@ -146,9 +146,22 @@ var validateNavbarSearch = function(e) {
   }
 }
 
+var reloadHome = function() {
+  if ($('#homepage').length === 0) {
+    e.preventDefault();
+  } else {
+    window.location.replace('/');
+  }
+}
+
+var navLogin = function(e) {
+  loginInterrupt(this, reloadHome);
+}
+
 $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
+  $('#navLogin').on('click', navLogin);
   $('select').select2({width: '200px'});
   configureHubFilter('#hub_filter', '220px');
   $('#navbarSearch').on('submit', validateNavbarSearch);

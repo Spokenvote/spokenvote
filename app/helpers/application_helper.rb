@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def fb_button
+  	content_tag(:span, '', class: "fb-button-left") +
+  	content_tag(:span, content_tag(:strong, 'Log in') + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
+  	content_tag(:span, '', class: "fb-button-right")
+  end
+
   def items_count_badge(items, title_text = '')
     badge_class = 'badge'
     if items.between?(3,5)
