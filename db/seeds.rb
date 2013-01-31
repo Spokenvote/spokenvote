@@ -58,9 +58,11 @@ begin
       usr_id = users.sample.id
       hb_id = hubs.sample.id
       fake_comment = ''
+
       3.times do
         fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
       end
+
       fake_comment = fake_comment.html_safe
       vote = {user_id: usr_id, comment: fake_comment}
       proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
@@ -73,20 +75,26 @@ begin
     target_proposal = proposals.sample
     voter = users.reject{|u| [target_proposal.root, target_proposal.root.descendants].flatten.map{ |c| c.votes.find_by_user_id(u.id)}.any? }.sample
     fake_comment = ''
-    if voter.id.odd?
-      fake_comment = Faker::Lorem.paragraph
-    else
-      2.times do
-        fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+
+    if voter
+      if voter.id.odd?
+        fake_comment = Faker::Lorem.paragraph
+      else
+        2.times do
+          fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+        end
+        fake_comment = fake_comment.html_safe
       end
-      fake_comment = fake_comment.html_safe
+
+      Vote.create({
+        proposal: target_proposal,
+        #hub: hubs.sample,
+        user: voter,
+        comment: fake_comment
+      })
+    else
+      p 'Voter not found'
     end
-    Vote.create({
-      proposal: target_proposal,
-      #hub: hubs.sample,
-      user: voter,
-      comment: fake_comment
-    })
   end
 rescue
   Rake::Task["db:reset"].execute # Recreate tables from migrations
