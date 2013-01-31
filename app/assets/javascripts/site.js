@@ -1,4 +1,4 @@
-var createAlert = function(msg, style) {
+var createAlert = function (msg, style) {
   $('.content_page').prepend('<div class="alert alert-' + style + ' no-gutter"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
 }
 
@@ -158,5 +158,11 @@ $(function() {
 
   $('.gpSearchBox').each(function() {
     gpSearch(this);
+  });
+
+  // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
+  // This fixes the issue with navbar dropdowns not acting on clicks
+  $('a.dropdown-toggle, .dropdown-menu a').on('touchstart', function(e) {
+    e.stopPropagation();
   });
 });
