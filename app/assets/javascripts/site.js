@@ -114,12 +114,15 @@ $(function() {
         return { results: data }
       }
     },
+
     formatResult: function (item) {
-      return item.group_name
+      return item.full_hub
     },
+
     formatSelection: function (item) {
-      return item.group_name
+      return item.full_hub
     },
+
     formatNoMatches: function (term) {
       return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>'
     }

@@ -16,7 +16,7 @@
     .control-group
       = f.label :group, :class => 'control-label'
       .controls
-        = f.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name + ' AT ' + h.formatted_location, h.id] }), :class => 'hubSelector'
+        = f.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name + ' - ' + h.formatted_location, h.id] }), :class => 'hubSelector'
         %span.help-block Please choose the word or phrase that best captures this proposal.
 
     = f.fields_for :votes, @vote do |vote_form|

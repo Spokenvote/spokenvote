@@ -18,7 +18,7 @@ class HubsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hubs }
+      format.json { render json: @hubs.to_json(:methods => :full_hub) }
     end
   end
 
