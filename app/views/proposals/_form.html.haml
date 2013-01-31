@@ -16,8 +16,12 @@
     .control-group
       = f.label :group, :class => 'control-label'
       .controls
-        = f.select :hub_id, options_for_select(Hub.all.map{|h| [h.group_name + ' AT ' + h.formatted_location, h.id] }), :class => 'hubSelector'
-        %span.help-block Please choose the word or phrase that best captures this proposal.
+        = hidden_field_tag :group_name, nil, placeholder: 'Please choose the word or phrase that best captures this proposal'
+
+    .control-group
+      = f.label :location, :class => 'control-label'
+      .controls
+        = f.text_field :location, nil, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
 
     = f.fields_for :votes, @vote do |vote_form|
       .control-group

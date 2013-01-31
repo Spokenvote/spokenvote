@@ -92,7 +92,6 @@ var gpSearch = function (elem) {
   google.maps.event.addListener(autocomplete, 'place_changed', function() {
     var place = autocomplete.getPlace(),
         value_field = $(elem).data('value_field');
-    console.log(place.id);
     $(value_field).val(place.id);
   });
 }
@@ -102,11 +101,11 @@ var getHubName = function(item) {
   return item.group_name;
 }
 
-var configureHubFilter = function() {
-  $("#hub_filter").select2({
+var configureHubFilter = function(groupname_elem, select_width) {
+  $(groupname_elem).select2({
     minimumInputLength: 1,
     placeholder: 'Enter a group',
-    width: '220px',
+    width: select_width,
     ajax: {
       url: '/hubs',
       dataType: 'json',
@@ -141,7 +140,7 @@ $(function() {
   $('[rel=tooltip]').tooltip();
   $('[rel=popover]').popover();
   $('select').select2({width: '200px'});
-  configureHubFilter();
+  configureHubFilter('#hub_filter', '220px');
   $('#navbarSearch').on('submit', validateNavbarSearch);
 
   $('.related_supporting').last().css('border-bottom', 'none');
