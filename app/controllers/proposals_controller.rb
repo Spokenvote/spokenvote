@@ -115,7 +115,8 @@ class ProposalsController < ApplicationController
     end
   end
   
-  private
+private
+
   def requested_proposals
     @searched = @sortTitle = ''
     @proposals = []
