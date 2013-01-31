@@ -20,9 +20,9 @@
           = hidden_field_tag :group_name, nil, placeholder: 'Please choose the word or phrase that best captures this proposal'
 
       .control-group
-        = hub_form.label :google_location_id, :class => 'control-label'
+        = hub_form.label :location_id, :class => 'control-label'
         .controls
-          = hub_form.text_field :google_location_id, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
+          = hub_form.text_field :location_id, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
 
     = f.fields_for :votes, @vote do |vote_form|
       .control-group

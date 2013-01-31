@@ -123,6 +123,7 @@ private
 
     session[:hub_filter] = nil
     session[:hub_location] = nil
+
     if filter
       ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
       @proposals = Proposal.roots.order(ordering)
@@ -152,8 +153,6 @@ private
       if search_hub
         @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
       end
-      # elseif <other searchable things>
-    #   ...
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
       @proposals = user.proposals

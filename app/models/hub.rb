@@ -7,18 +7,18 @@
 #  description        :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  google_location_id :string(255)
+#  location_id :string(255)
 #  formatted_location :string(255)
 #
 
 class Hub < ActiveRecord::Base
-  attr_accessible :description, :google_location_id, :group_name, :formatted_location, :full_hub
+  attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub
 
   # Associations
   has_many :votes, through: :proposals
   has_many :proposals
 
-  validates :group_name, :google_location_id, :formatted_location, presence: true
+  validates :group_name, :location_id, :formatted_location, presence: true
 
   class << self
     def by_group

@@ -1,4 +1,4 @@
-google_location_ids = {
+location_ids = {
   '752c002d0a7710fd65b066e2682a4ab38ef27202' => 'Solapur, Maharashtra, India',
   'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
   'bbed5b2bad3c2586cbc6d78367bc8b310650b650' => 'Sydney Olympic Park, New South Wales, Australia',
@@ -12,12 +12,12 @@ begin
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Palo Alto School District','NSCA Youth Soccer League']
   p 'Creating Hubs'
   5.times do
-    google_location_id = google_location_ids.keys.sample
+    location_id = location_ids.keys.sample
     hubs << Hub.create({
       group_name: hubs[i],
       description: Faker::Lorem.sentence,
-      google_location_id: google_location_id,
-      formatted_location: google_location_ids[google_location_id]
+      location_id: location_id,
+      formatted_location: location_ids[location_id]
     })
     i += 1
   end

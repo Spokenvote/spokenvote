@@ -99,7 +99,7 @@ var gpSearch = function (elem) {
 // helper for repetitive hub_filter select2 options
 var getHubName = function(item) {
   $('#location_filter').val(item.formatted_location);
-  $('#google_location_id_filter').val(item.google_location_id).closest('form').submit();
+  $('#location_id_filter').val(item.location_id)//.closest('form').submit();
   return item.group_name;
 }
 
@@ -113,7 +113,7 @@ var configureHubFilter = function(groupname_elem, select_width) {
       url: '/hubs',
       dataType: 'json',
       data: function(term, page) {
-        return { hub_filter: term, google_location_id_filter: $("#google_location_id_filter").val() }
+        return { hub_filter: term, location_id_filter: $("#location_id_filter").val() }
       },
       results: function(data, page) {
         return { results: data }

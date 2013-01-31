@@ -4,14 +4,14 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    hub_filter, google_location_id_filter = params[:hub_filter], params[:google_location_id_filter]
+    hub_filter, location_id_filter = params[:hub_filter], params[:location_id_filter]
 
-    if hub_filter.presence && google_location_id_filter.presence
-      @hubs = Hub.where('group_name ilike ? AND google_location_id = ?', "%#{hub_filter}%", google_location_id_filter)
+    if hub_filter.presence && location_id_filter.presence
+      @hubs = Hub.where('group_name ilike ? AND location_id = ?', "%#{hub_filter}%", location_id_filter)
     elsif hub_filter.presence
       @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
-    elsif google_location_id_filter.presence
-      @hubs = Hub.where('google_location_id = ?', google_location_id_filter)
+    elsif location_id_filter.presence
+      @hubs = Hub.where('location_id = ?', location_id_filter)
     else
       @hubs = Hub.all
     end
