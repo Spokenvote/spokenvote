@@ -58,7 +58,7 @@ var redrawLoggedInNav = function(callback, elem) {
         callback(elem);
       }
     }
-  })
+  });
 }
 
 var loginInterrupt = function(callback, elem) {
@@ -92,19 +92,24 @@ var gpSearch = function (elem) {
   google.maps.event.addListener(autocomplete, 'place_changed', function() {
     var place = autocomplete.getPlace(),
         value_field = $(elem).data('value_field');
-    console.log(place.id);
     $(value_field).val(place.id);
   });
 }
 
-$(function() {
-  $('[rel=tooltip]').tooltip();
-  $('[rel=popover]').popover();
-  $('select').select2({width: '200px'});
+// helper for repetitive hub_filter select2 options
+var getHubName = function(item) {
+  $('#location_filter').val(item.formatted_location);
+  $('#google_location_id_filter').val(item.google_location_id);
+  return item.group_name;
+}
 
-  $("#hub_filter").select2({
+var configureHubFilter = function(groupname_elem, select_width) {
+  $(groupname_elem).select2({
     minimumInputLength: 1,
-    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+    placeholder: 'Enter a group',
+    width: select_width,
+
+    ajax: {
       url: '/hubs',
       dataType: 'json',
       data: function(term, page) {
@@ -115,23 +120,40 @@ $(function() {
       }
     },
 
-    formatResult: function (item) {
-      return item.full_hub
+    formatResult: function(item) {
+      return item.full_hub;
     },
 
-    formatSelection: function (item) {
-      return item.full_hub
-    },
+    formatSelection: getHubName,
 
     formatNoMatches: function (term) {
-      return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>'
+      return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
     }
   });
+}
+
+var validateNavbarSearch = function(e) {
+  var locationLength = $('#location_filter').val().length > 0;
+  if (locationLength) {
+    if ($('#hub_filter').val().length === 0) {
+      errorMessage('Please enter a group name, search only by location is not supported at this time');
+      $('#hub_filter').focus();
+      return false;
+    }
+  }
+}
+
+$(function() {
+  $('[rel=tooltip]').tooltip();
+  $('[rel=popover]').popover();
+  $('select').select2({width: '200px'});
+  configureHubFilter('#hub_filter', '220px');
+  $('#navbarSearch').on('submit', validateNavbarSearch);
 
   $('.related_supporting').last().css('border-bottom', 'none');
   pageEffects();
 
   $('.gpSearchBox').each(function() {
     gpSearch(this);
-  })
-})
+  });
+});

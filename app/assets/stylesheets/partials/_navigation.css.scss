@@ -61,7 +61,8 @@ footer.navbar-inverse {
 }
 
 #s2id_hub_filter {
-  padding: 5px 6px;
+  padding: 5px 0 0;
   a { padding: 1px 4px; }
 }
-.pac-container { z-index: 10000 !important; }
+.select2-drop-active, .pac-container { z-index: 10000 !important; }
+#location_filter { @include border-radius(4px); }

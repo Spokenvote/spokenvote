@@ -18,14 +18,20 @@ class Hub < ActiveRecord::Base
   has_many :votes, through: :proposals
   has_many :proposals
 
-  # Named Scopes
-  scope :by_group_name, lambda { |group_name| where("LOWER(group_name) = ?", group_name.downcase) }
-  
   validates :group_name, :google_location_id, :formatted_location, presence: true
 
   class << self
     def by_group
       order(:group)
+    end
+    
+    # No named scopes, they're going away ;)
+    def by_group_name(target_group)
+      where("LOWER(group_name) = ?", target_group.downcase)
+    end
+
+    def by_location(target_location)
+      where("LOWER(formatted_location) = ?", target_location.downcase)
     end
 
     def by_proposal_count

@@ -168,7 +168,10 @@ textarea { height: 100px; }
   }
 }
 
-.improve_support_buttons { margin-top: 20px; }
+.improve_support_buttons {
+  margin-top: 20px;
+  .btn { @extend .btn-mini; font-size: 12px; }
+}
 .supporting_arguments {
   h3 span {
     font-size: 80%;
