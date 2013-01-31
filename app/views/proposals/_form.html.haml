@@ -13,15 +13,16 @@
       .controls
         = f.text_field :statement, :class => 'input-xxlarge', placeholder: 'Enter only the statement of your proposal'
 
-    .control-group
-      = f.label :group, :class => 'control-label'
-      .controls
-        = hidden_field_tag :group_name, nil, placeholder: 'Please choose the word or phrase that best captures this proposal'
+    = f.fields_for :hub, @proposal.hub do |hub_form|
+      .control-group
+        = hub_form.label :group_name, :class => 'control-label'
+        .controls
+          = hidden_field_tag :group_name, nil, placeholder: 'Please choose the word or phrase that best captures this proposal'
 
-    .control-group
-      = f.label :location, :class => 'control-label'
-      .controls
-        = f.text_field :location, nil, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
+      .control-group
+        = hub_form.label :google_location_id, :class => 'control-label'
+        .controls
+          = hub_form.text_field :google_location_id, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
 
     = f.fields_for :votes, @vote do |vote_form|
       .control-group
