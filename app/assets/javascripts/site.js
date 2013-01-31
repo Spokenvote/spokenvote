@@ -99,7 +99,7 @@ var gpSearch = function (elem) {
 // helper for repetitive hub_filter select2 options
 var getHubName = function(item) {
   $('#location_filter').val(item.formatted_location);
-  $('#google_location_id_filter').val(item.google_location_id);
+  $('#google_location_id_filter').val(item.google_location_id).closest('form').submit();
   return item.group_name;
 }
 
