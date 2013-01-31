@@ -12,7 +12,7 @@
 #
 
 class Hub < ActiveRecord::Base
-  attr_accessible :description, :google_location_id, :group_name, :formatted_location
+  attr_accessible :description, :google_location_id, :group_name, :formatted_location, :full_hub
 
   # Associations
   has_many :votes, through: :proposals
@@ -37,5 +37,9 @@ class Hub < ActiveRecord::Base
     def by_proposal_count
       Hub.joins(:proposals).select("hubs.id, hubs.group_name, count(proposals.id) as proposals_count").order("proposals_count DESC").group('hubs.id')
     end
+  end
+
+  def full_hub
+    self.group_name + ' - ' + self.formatted_location
   end
 end

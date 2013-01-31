@@ -106,6 +106,7 @@ var configureHubFilter = function(groupname_elem, select_width) {
     minimumInputLength: 1,
     placeholder: 'Enter a group',
     width: select_width,
+
     ajax: {
       url: '/hubs',
       dataType: 'json',
@@ -116,9 +117,11 @@ var configureHubFilter = function(groupname_elem, select_width) {
         return { results: data }
       }
     },
+
     formatResult: getHubName,
     formatSelection: getHubName,
     id: getHubName,
+
     formatNoMatches: function (term) {
       return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
     }

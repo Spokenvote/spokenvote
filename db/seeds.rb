@@ -58,9 +58,11 @@ begin
       usr_id = users.sample.id
       hb_id = hubs.sample.id
       fake_comment = ''
+
       3.times do
         fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
       end
+
       fake_comment = fake_comment.html_safe
       vote = {user_id: usr_id, comment: fake_comment}
       proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
@@ -82,6 +84,7 @@ begin
         end
         fake_comment = fake_comment.html_safe
       end
+
       Vote.create({
         proposal: target_proposal,
         #hub: hubs.sample,
@@ -89,7 +92,7 @@ begin
         comment: fake_comment
       })
     else
-      p 'Could not get a voter'
+      p 'Voter not found'
     end
   end
 rescue

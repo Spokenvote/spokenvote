@@ -65,3 +65,4 @@ footer.navbar-inverse {
   a { padding: 1px 4px; }
 }
 .select2-drop-active, .pac-container { z-index: 10000 !important; }
+#location_filter { @include border-radius(4px); }
