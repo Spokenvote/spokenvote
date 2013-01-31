@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123164640) do
+ActiveRecord::Schema.define(:version => 20130131072529) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20130123164640) do
     t.text     "description"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.string   "google_location_id"
+    t.string   "location_id"
     t.string   "formatted_location"
   end
 

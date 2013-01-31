@@ -66,42 +66,55 @@ var newImprovement = function(e) {
   } else {
     showImprovement(this);
   }
-
 }
 
 var saveImprovement = function() {
   var el = $(this),
     proposal_container = el.closest('.proposal_container'),
     editableBox = proposal_container.find('.content_editable'),
-    proposal_id = proposal_container.data('proposal-id'),
-    url = '/proposals.json',
+    proposal_id = proposal_container.data('proposal_id'),
     statement = editableBox.text().trim(),
     proposal_location = $('#proposal_location').val(),
-    proposal_hub = $('#proposal_hub').val(),
+    proposal_hub = $('#proposal_group_name').val(),
     comment = $('#vote_comment').val(),
     // this is not a good way to have user on hand but acceptable to me for first pass
-    user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
-    hub_id = proposal_container.data('hub_id'),
-    proposal_hub = $('#proposal_hub').val(),
-    proposal_location = $('#proposal_location').val()
-    proposal = {
+    user_id = $('#user_menu').find('.dropdown-toggle').data('email')
+    proposal_data = {
       proposal: {
         statement: statement,
         user_id: user_id,
-        parent_id: proposal_id,
-        proposal_hub: proposal_hub,
-        proposal_location: proposal_location,
-        votes_attributes: {user_id: user_id, comment: comment, hub_id: hub_id}
+        votes_attributes: {user_id: user_id, comment: comment}
       }
     };
   
-  $.post(url, proposal).success(function(data) {
+  if (proposal_container.find('.save_statement').html() === 'Reuse this proposal') {
+    proposal_data.proposal.proposal_hub = proposal_hub;
+    proposal_data.proposal.proposal_location = proposal_location;
+  } else {
+    proposal_data.proposal.parent_id = proposal_id;
+  }
+  $.post('/proposals', proposal_data).success(function(data) {
     hideContentEditable(el);
-    successMessage('Your improved proposal was posted');
   })
   .error(function(data) {
     errorMessage(data.responseText);
   });
+}
+
+var reuseProposal = function(e) {
+  e.preventDefault();
+  
+  // not logged in?
+  if ($('#user-dropdown-menu').length === 0) {
+    if (!loginInterrupt(showImprovement, this)) {
+      return;
+    }
+  } else {
+    $('.save_statement').html('Reuse this proposal')
+    configureHubFilter('#proposal_group_name', '544px');
+    $(this).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
+    showImprovement(this);
+  }
 }
 
 var showSupport = function(self) {
@@ -165,6 +178,7 @@ var saveVote = function(e) {
 $(document).ready(function() {
   $('.more').click(showMore);
   $('.improve').click(newImprovement);
+  $('.reuse').click(reuseProposal);
   $('.cancel').on('click', function(e) {
     e.preventDefault();
     hideContentEditable($(this));
@@ -177,4 +191,7 @@ $(document).ready(function() {
   $('.save_statement').on('click', saveImprovement);
   $('.save_vote').on('click', saveVote);
   updateSearchFields({hub: $('.proposal_hub').text().trim().replace(/\n/g, '').split('    –    ')});
+  if ($('#new_proposal').length > 0) {
+    configureHubFilter('#group_name', '544px');
+  }
 });

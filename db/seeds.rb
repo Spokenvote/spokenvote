@@ -1,4 +1,4 @@
-google_location_ids = {
+location_ids = {
   '752c002d0a7710fd65b066e2682a4ab38ef27202' => 'Solapur, Maharashtra, India',
   'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
   'bbed5b2bad3c2586cbc6d78367bc8b310650b650' => 'Sydney Olympic Park, New South Wales, Australia',
@@ -12,12 +12,12 @@ begin
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Palo Alto School District','NSCA Youth Soccer League']
   p 'Creating Hubs'
   5.times do
-    google_location_id = google_location_ids.keys.sample
+    location_id = location_ids.keys.sample
     hubs << Hub.create({
       group_name: hubs[i],
       description: Faker::Lorem.sentence,
-      google_location_id: google_location_id,
-      formatted_location: google_location_ids[google_location_id]
+      location_id: location_id,
+      formatted_location: location_ids[location_id]
     })
     i += 1
   end
@@ -58,9 +58,11 @@ begin
       usr_id = users.sample.id
       hb_id = hubs.sample.id
       fake_comment = ''
+
       3.times do
         fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
       end
+
       fake_comment = fake_comment.html_safe
       vote = {user_id: usr_id, comment: fake_comment}
       proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
@@ -72,21 +74,26 @@ begin
   40.times do
     target_proposal = proposals.sample
     voter = users.reject{|u| [target_proposal.root, target_proposal.root.descendants].flatten.map{ |c| c.votes.find_by_user_id(u.id)}.any? }.sample
-    fake_comment = ''
-    if voter.id.odd?
-      fake_comment = Faker::Lorem.paragraph
-    else
-      2.times do
-        fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+    if voter
+      fake_comment = ''
+      if voter.id.odd?
+        fake_comment = Faker::Lorem.paragraph
+      else
+        2.times do
+          fake_comment += '<div>' + Faker::Lorem.paragraph + '</div>'
+        end
+        fake_comment = fake_comment.html_safe
       end
-      fake_comment = fake_comment.html_safe
+
+      Vote.create({
+        proposal: target_proposal,
+        #hub: hubs.sample,
+        user: voter,
+        comment: fake_comment
+      })
+    else
+      p 'Voter not found'
     end
-    Vote.create({
-      proposal: target_proposal,
-      #hub: hubs.sample,
-      user: voter,
-      comment: fake_comment
-    })
   end
 rescue
   Rake::Task["db:reset"].execute # Recreate tables from migrations

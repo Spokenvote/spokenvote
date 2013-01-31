@@ -22,6 +22,7 @@
       .improve_support_buttons.btn-group
         = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
         = link_to 'Improve', '#', :class => 'btn btn-warning improve'
+        = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
     .supporting_statement.span7= raw proposal.supporting_statement
 
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}

@@ -33,7 +33,10 @@ class User < ActiveRecord::Base
   has_many :votes
 
   def password_required?
-      (authentications.empty? || !password.blank?) && super
+    (authentications.empty? || !password.blank?) && super
   end
 
+  def username
+    self.email.split('@').first
+  end
 end
