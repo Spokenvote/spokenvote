@@ -98,6 +98,8 @@ var gpSearch = function (elem) {
 
 // helper for repetitive hub_filter select2 options
 var getHubName = function(item) {
+  $('#location_filter').val(item.formatted_location);
+  $('#google_location_id_filter').val(item.google_location_id);
   return item.group_name;
 }
 
@@ -118,9 +120,11 @@ var configureHubFilter = function(groupname_elem, select_width) {
       }
     },
 
-    formatResult: getHubName,
+    formatResult: function(item) {
+      return item.full_hub;
+    },
+
     formatSelection: getHubName,
-    id: getHubName,
 
     formatNoMatches: function (term) {
       return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';

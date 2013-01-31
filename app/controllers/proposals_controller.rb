@@ -141,10 +141,10 @@ private
       # NOTE For now, location alone is not valid, must also specify group
       # So specifying location disambiguates between hubs with same group_name
       if location_filter != ''
-        search_hub = Hub.by_location(location_filter).by_group_name(hub_filter).first
+        search_hub = Hub.by_location(location_filter).where({id: hub_filter}).first
         @sortTitle = search_hub.group_name + ', ' + location_filter + ' '
       else
-        search_hub = Hub.by_group_name(hub_filter).first
+        search_hub = Hub.where({id: hub_filter}).first
         @sortTitle = search_hub.group_name + ' '
       end
       session[:hub_id] = search_hub.id
