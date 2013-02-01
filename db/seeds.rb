@@ -1,6 +1,6 @@
 location_ids = {
-  '752c002d0a7710fd65b066e2682a4ab38ef27202' => 'Solapur, Maharashtra, India',
   'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
+  '752c002d0a7710fd65b066e2682a4ab38ef27202' => 'Solapur, Maharashtra, India',
   'bbed5b2bad3c2586cbc6d78367bc8b310650b650' => 'Sydney Olympic Park, New South Wales, Australia',
   'c4dade27abe23bb0599f5da69fe603a7991b8d44' => 'Manila, Metro Manila, Philippines',
   'c0bab7b67cebe08089292c8bb83ac4d61aca99c0' => 'San Antonio de Padua, Buenos Aires, Argentina',
@@ -9,14 +9,16 @@ location_ids = {
 
 begin
   i = 0
-  hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','NHL','Palo Alto School District','NSCA Youth Soccer League']
+  hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','All of','San Antonio de Padua School District','German Youth Soccer League']
   p 'Creating Hubs'
   5.times do
-    location_id = location_ids.keys.sample
+    #location_id = location_ids.keys.sample
+    location_id = location_ids[i]
     hubs << Hub.create({
       group_name: hubs[i],
       description: Faker::Lorem.sentence,
       location_id: location_id,
+      #location_id: location_ids[i],
       formatted_location: location_ids[location_id]
     })
     i += 1
