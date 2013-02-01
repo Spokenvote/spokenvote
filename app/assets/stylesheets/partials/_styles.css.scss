@@ -117,6 +117,9 @@ textarea { height: 100px; }
   @include border-top-radius(6px);
   background-color: #eee;
 }
+.modal-backdrop{
+  background: #000 !important;
+}
 // end General elements
 
 // Login elements

@@ -178,6 +178,9 @@ window.app = {};
   }
 
   var navLogin = function(e) {
+    if (this.id === 'navJoin') {
+      
+    }
     app.loginInterrupt(this, reloadHome);
   }
 
@@ -185,6 +188,7 @@ window.app = {};
     $('[rel=tooltip]').tooltip();
     $('[rel=popover]').popover();
     $('#navLogin').on('click', navLogin);
+    $('#navJoin').on('click', navLogin);
     $('select').select2({width: '200px'});
     app.configureHubFilter('#hub_filter', '220px');
     $('#navbarSearch').on('submit', validateNavbarSearch);
