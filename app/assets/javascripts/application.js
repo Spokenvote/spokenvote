@@ -14,8 +14,14 @@
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require select2
-//= require bootstrap-all
+//= require bootstrap-transition
+//= require bootstrap-alert
+//= require bootstrap-button
+//= require bootstrap-dropdown
 //= require bootstrap-modal
 //= require bootstrap-modalmanager
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-typeahead
 //= require holder
 //= require_tree .
