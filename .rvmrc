@@ -1,3 +1,2 @@
 # Spokenvote Dev's should set up their own settings here
-# rvm 1.9.3@spokenvote
-
+rvm 1.9.3@spokenvote
