@@ -11,9 +11,9 @@ begin
   i = 0
   hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','All of','San Antonio de Padua School District','German Youth Soccer League']
   p 'Creating Hubs'
-  5.times do
+  6.times do
     #location_id = location_ids.keys.sample
-    location_id = location_ids[i]
+    location_id = location_ids.keys[i]
     hubs << Hub.create({
       group_name: hubs[i],
       description: Faker::Lorem.sentence,
@@ -29,7 +29,7 @@ begin
   # let's create a standard known user for simplicity sake
   users << User.create({name: 'Voter1', email: 'voter1@example.com', password: 'abc123', password_confirmation: 'abc123'})
   # 10 vs. 5 Users, because we're adding logic to reject double voting
-  10.times do
+  20.times do
     users << User.create({name: Faker::Name.name, email: Faker::Internet.email, password: 'abc123', password_confirmation: 'abc123'})
   end
 
@@ -97,7 +97,7 @@ begin
       p 'Voter not found'
     end
   end
-rescue
-  Rake::Task["db:reset"].execute # Recreate tables from migrations
-  raise $!
+#rescue
+#  Rake::Task["db:reset"].execute # Recreate tables from migrations
+#  raise $!
 end
