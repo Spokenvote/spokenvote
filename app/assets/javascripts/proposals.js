@@ -60,7 +60,7 @@ var newImprovement = function(e) {
   
   // not logged in?
   if ($('#user-dropdown-menu').length === 0) {
-    if (!loginInterrupt(showImprovement, this)) {
+    if (!loginInterrupt(this, showImprovement)) {
       return;
     }
   } else {
@@ -106,7 +106,7 @@ var reuseProposal = function(e) {
   
   // not logged in?
   if ($('#user-dropdown-menu').length === 0) {
-    if (!loginInterrupt(showImprovement, this)) {
+    if (!loginInterrupt(this, showImprovement)) {
       return;
     }
   } else {
@@ -136,7 +136,7 @@ var newSupport = function(e) {
   e.preventDefault();
 
   if ($('#user-dropdown-menu').length === 0) {
-    if (!loginInterrupt(showSupport, this)) {
+    if (!loginInterrupt(this, showSupport)) {
       return;
     }
   } else {
