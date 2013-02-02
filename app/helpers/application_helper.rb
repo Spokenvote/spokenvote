@@ -1,7 +1,7 @@
 module ApplicationHelper
-  def fb_button
+  def fb_button(btn_text)
   	content_tag(:span, '', class: "fb-button-left") +
-  	content_tag(:span, content_tag(:strong, 'Log in') + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
+  	content_tag(:span, content_tag(:strong, btn_text) + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
   	content_tag(:span, '', class: "fb-button-right")
   end
 
@@ -36,7 +36,7 @@ module ApplicationHelper
   def resource
     @resource ||= User.new
   end
- 
+  
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
