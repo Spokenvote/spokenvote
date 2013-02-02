@@ -10,6 +10,7 @@
       %ul.dropdown-menu
         %li= link_to 'Newest', proposal_path(@proposal.id, sortBy: 'created_at DESC')
         %li= link_to 'Oldest', proposal_path(@proposal.id, sortBy: 'created_at ASC')
+
   #relatedProposalsTitle Related Proposals
   - @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
     = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
