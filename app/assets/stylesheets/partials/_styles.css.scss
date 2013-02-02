@@ -118,7 +118,7 @@ textarea { height: 100px; }
   background-color: #eee;
 }
 .modal-backdrop{
-  background: #000 !important;
+  background-color: #000 !important;
 }
 // end General elements
 
@@ -128,16 +128,16 @@ textarea { height: 100px; }
   background-color: #DFDFDF; padding-top: 1px;
   form { margin: 0; }
   .control-group { margin-left: 15px; margin-bottom: 0; }
-  [type="email"], [type="password"] { width: 355px; }
+  [type="text"], [type="email"], [type="password"] { width: 355px; }
   label { font-weight: normal; }
   .btn { margin-bottom: 10px; }
-  #forgotLink, .btn { margin-left: 21px; }
+  #forgotLink, #loginModal & .btn { margin-left: 21px; }
   #forgotLink {
     padding-bottom: 10px;
     a, a:visited { color: #ADADAD; text-decoration: underline; }
   }
 }
-#loginModal {
+#loginModal, #registrationModal {
   .modal-body {
     @include background(linear-gradient(center top , #FFFFFF, #F5F5F5) repeat scroll 0 0 transparent);
     @include box-shadow(0 0 3px #FFFFFF inset, 0 2px 2px -2px rgba(0, 0, 0, 0.2));
