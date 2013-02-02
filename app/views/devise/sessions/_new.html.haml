@@ -19,5 +19,7 @@
           %label.checkbox
             = f.check_box :remember_me
             Remember me next time
-          #forgotLink= link_to 'Forgot password?', '#'
+          - if devise_mapping.recoverable? && controller_name != 'passwords'
+            #forgotLink
+              = link_to "Forgot your password?", new_password_path(resource_name)
           = f.submit "Sign In", :class => 'btn btn-primary btn-bold'
