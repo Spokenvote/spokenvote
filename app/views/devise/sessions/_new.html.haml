@@ -1,27 +1,23 @@
 .login_providers
-  %h2 Sign in with a Service
   .content_div
-    = link_to image_tag('icons/providers/images/facebook_64.png'), user_omniauth_authorize_path(:facebook)
-    %br
-    %label Facebook
+    .fb-button-container-centered
+      = link_to fb_button, "https://www.facebook.com/dialog/oauth?client_id=138566025676&amp;redirect_uri=https%3A%2F%2Fwww.airbnb.com%2Fauthenticate&amp;scope=email%2Cuser_birthday%2Cuser_likes%2Cuser_education_history%2Cuser_hometown%2Cuser_interests%2Cuser_activities%2Cuser_location", data: {redirect_uri: "https://www.airbnb.com/authenticate", populate_uri: ""}, class: "fb-button "
 
-  .hr
+%h3.or-separator or
 
 .login_form
-  %h2 Sign in with SpokenVote
   = form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: isModal ) do |f|
     .control-group
-      = f.label :email, class: 'control-label'
       .controls
-        = f.email_field :email
+        = f.email_field :email, placeholder: 'Email address'
     .control-group
-      = f.label :password, class: 'control-label'
       .controls
-        = f.password_field :password
+        = f.password_field :password, placeholder: 'Password'
     - if devise_mapping.rememberable?
       .control-group
         .controls
           %label.checkbox
             = f.check_box :remember_me
-            Remember me
+            Remember me next time
+          #forgotLink= link_to 'Forgot password?', '#'
           = f.submit "Sign In", :class => 'btn btn-primary btn-bold'
