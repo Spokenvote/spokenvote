@@ -167,12 +167,16 @@
       .success(function(data) {
         hideContentEditable(el);
         updateSupport(proposal_container, data);
-        app.successMessage('Vote was successfully created');
+        app.successMessage('Your vote was successfully casted for this proposal');
       }).
       error(function(data) {
-        console.log('in saveVote error function:' + data.responseText);
-        if (data.responseText.indexOf("Can't vote on the same issue twice") > -1) {
-          alert('You can only vote once on a proposal');
+        var responseText = data.responseText,
+            msg = $.parseJSON(data.responseText);
+
+        console.log('in saveVote error function:' + responseText);
+
+        if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
+          alert(msg.user_id);
         }
       });
   }
