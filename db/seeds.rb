@@ -34,14 +34,16 @@ begin
   end
 
   hubs = Hub.all
+
+  proposal_text = "It should be ill-legal to drive the wrong way down a one-way street if you have a lantern attached to the front of your automobile."
   statements = [
-    'Parent proposal 1',
-    'Parent proposal 2',
-    'Parent proposal 3',
-    'Parent proposal 4',
-    'Parent proposal 5',
-    'Parent proposal 6',
-    'Parent proposal 7'
+    "Parent #{proposal_text} 1",
+    "Parent #{proposal_text} 2",
+    "Parent #{proposal_text} 3",
+    "Parent #{proposal_text} 4",
+    "Parent #{proposal_text} 5",
+    "Parent #{proposal_text} 6",
+    "Parent #{proposal_text} 7",
   ].reverse!
 
   proposals = []
