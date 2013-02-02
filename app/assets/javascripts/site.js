@@ -25,7 +25,7 @@ window.app = {};
         redrawLoggedInNav({callback: callback, elem: elem});
         return true
       } else {
-        app.errorMessage('We could not sign you in with the supplied name and password');
+        createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
         return false;
       }
     });
@@ -85,6 +85,10 @@ window.app = {};
 
   var createAlert = function (msg, style) {
     $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
+  var createModalAlert = function (msg, style, modalElem) {
+    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   var setPageHeight = function() {
@@ -184,7 +188,7 @@ window.app = {};
 
   var navReg = function(e) {
     // If user was on login modal and clicked Join...
-    if (!($('#loginModal').hasClass('in'))) {
+    if ($('#loginModal').hasClass('in')) {
       $('#loginModal').modal('hide');
       $('.login_form').off('ajax:success');
     }
