@@ -1,0 +1,30 @@
+#registrationModal.modal.hide{data: {width: '400px'}}
+  .modal-header
+    .pull-right= link_to raw('&times;'), '#', class: 'close', data: {dismiss: 'modal'}
+    %h3 Join SpokenVote
+  .modal-body
+    .login_providers
+      .content_div
+        .fb-button-container-centered
+          = link_to fb_button('Connect'), user_omniauth_authorize_path(:facebook), class: "fb-button"
+
+    %h3.or-separator or
+
+    .login_form
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), remote: true ) do |f|
+        .control-group
+          .controls
+            = f.text_field :name, placeholder: 'Name'
+        .control-group
+          .controls
+            = f.email_field :email, placeholder: 'Email address'
+        .control-group
+          .controls
+            = f.password_field :password, placeholder: 'Password'
+        .control-group
+          .controls
+            = f.password_field :password_confirmation, placeholder: 'Confirm password'
+        .control-group
+          .controls
+            = f.submit "Join SpokenVote", :class => 'btn btn-primary btn-bold'
+  .modal-footer

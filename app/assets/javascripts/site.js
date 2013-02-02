@@ -19,13 +19,13 @@ window.app = {};
 
   app.loginInterrupt = function(elem, callback) {
     $('#loginModal').modal();
-    $('.login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+    $('#loginModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
       if(data.success) {
         $('#loginModal').modal('toggle');
-        redrawLoggedInNav(callback, elem);
+        redrawLoggedInNav({callback: callback, elem: elem});
         return true
       } else {
-        app.errorMessage('We could not sign you in with the supplied name and password');
+        createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
         return false;
       }
     });
@@ -87,6 +87,10 @@ window.app = {};
     $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
+  var createModalAlert = function (msg, style, modalElem) {
+    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
   var setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
     if ($('section.clear').length > 0 || $('section.searched').length > 0) {
@@ -118,14 +122,15 @@ window.app = {};
     fillNavSearch();
   }
 
-  var redrawLoggedInNav = function(callback, elem) {
+  var redrawLoggedInNav = function(options) {
+    options = options || {}
     var newNav = '';
     $.get('/user_nav', function(data) {
       if (data.success) {
         $('header.navbar').remove();
         $('body').prepend(data.content);
-        if (callback) {
-          callback(elem);
+        if (options.callback) {
+          options.callback(options.elem);
         }
       }
     });
@@ -181,10 +186,29 @@ window.app = {};
     app.loginInterrupt(this, reloadHome);
   }
 
+  var navReg = function(e) {
+    // If user was on login modal and clicked Join...
+    if ($('#loginModal').hasClass('in')) {
+      $('#loginModal').modal('hide');
+      $('.login_form').off('ajax:success');
+    }
+    $('#registrationModal').modal();
+    $('#registrationModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+      if(status === 'success') {
+        window.location.assign('/');
+      } else {
+        app.errorMessage('We could not register you');
+        return false;
+      }
+    });
+    return false;
+  }
+
   $(function() {
     $('[rel=tooltip]').tooltip();
     $('[rel=popover]').popover();
     $('#navLogin').on('click', navLogin);
+    $('#navJoin, #loginReg').on('click', navReg);
     $('select').select2({width: '200px'});
     app.configureHubFilter('#hub_filter', '220px');
     $('#navbarSearch').on('submit', validateNavbarSearch);
