@@ -9,7 +9,6 @@
       %h3= "#{session[:hub_filter]} AT #{session[:hub_location]}"
 
   %fieldset
-    = f.hidden_field :user_id, :value => current_user.id
     .control-group
       = f.label :statement, :class => 'control-label'
       .controls
@@ -19,19 +18,22 @@
       .control-group
         = hub_form.label :group_name, :class => 'control-label'
         .controls
-          = hidden_field_tag :group_name, nil, placeholder: 'Please choose the word or phrase that best captures this proposal'
+          = hub_form.text_field :group_name, placeholder: 'Please choose the word or phrase that best captures this proposal'
 
       .control-group
         = hub_form.label :location_id, :class => 'control-label'
         .controls
-          = hub_form.text_field :location_id, class: 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
+          = hub_form.text_field :formatted_location, :name => '', :class => 'input-xxlarge gpSearchBox',
+            'data-value_field' => '#proposal_hub_location_id', placeholder: 'Please enter the geography to which this proposal applies'
+          -#  Setting the name to nil as we do not need the formatted_location string for creating a proposal.
+          -#  The location_id is sufficient to derive a unique location.
+          = hub_form.hidden_field :location_id
 
-    = f.fields_for :votes, @vote do |vote_form|
+    = f.fields_for :vote, @vote do |vote_form|
       .control-group
-        = vote_form.label :votes, 'Supporting Arguments', :class => 'control-label'
+        = vote_form.label :vote, 'Supporting Arguments', :class => 'control-label'
         .controls
           = vote_form.text_area :comment, :class => 'input-xxlarge supporting-args', placeholder: 'Enter your explanation and reasons why others should support your proposal'
-        = vote_form.hidden_field :user_id, :value => current_user.id
 
     .control-group
       .controls
