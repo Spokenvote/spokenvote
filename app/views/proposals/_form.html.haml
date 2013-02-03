@@ -6,6 +6,8 @@
         - @proposal.errors.full_messages.each do |msg|
           %li= msg
 
+      %h3= "#{session[:hub_filter]} AT #{session[:hub_location]}"
+
   %fieldset
     .control-group
       = f.label :statement, :class => 'control-label'

@@ -14,6 +14,20 @@ class ProposalsController < ApplicationController
   # POST /proposals/search
   # POST /proposals/search.json
   def search
+    if params[:location_filter] && params[:hub_filter]
+      # Put "location_filter"=>"Mountain View, CA" and "hub_filter"=>"1" into session
+      session[:hub_filter] = params[:hub_name]
+      session[:hub_location] = params[:location_filter]
+
+      hub = Hub.includes(:proposals).where(group_name: params[:hub_name], formatted_location: params[:location_filter])
+
+      unless hub.empty?
+        @proposals = hub.proposals.where(ancestry: nil).order('votes_count DESC')
+      else
+        @proposals = []
+      end
+    end
+    
     render action: :index
   end
 
