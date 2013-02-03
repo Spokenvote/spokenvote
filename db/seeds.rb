@@ -5,10 +5,8 @@ location_ids = {
   'c4dade27abe23bb0599f5da69fe603a7991b8d44' => 'Manila, Metro Manila, Philippines',
   'c0bab7b67cebe08089292c8bb83ac4d61aca99c0' => 'San Antonio de Padua, Buenos Aires, Argentina',
   'fc25f53dc68175f2a945e6ff45cb650fbbcf7616' => 'Frankfurt, Germany',
-  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
-  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
-  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
-  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA'
+  'b1d8ca6107f2d9df6773645a527630bff56d3478' => 'Burlingame, CA'
+
 }
 
 begin
@@ -19,12 +17,10 @@ begin
           'All of',
           'San Antonio de Padua School District',
           'German Youth Soccer League',
-          'Mountain View School Board',
-          'PRSA',
-          'All of',
-          'Silicon Valley Community Foundation']
+          'PRSA Burlingame',]
+
   p 'Creating Hubs'
-  6.times do
+  10.times do
     #location_id = location_ids.keys.sample
     location_id = location_ids.keys[i]
     hubs << Hub.create({
