@@ -4,12 +4,25 @@ location_ids = {
   'bbed5b2bad3c2586cbc6d78367bc8b310650b650' => 'Sydney Olympic Park, New South Wales, Australia',
   'c4dade27abe23bb0599f5da69fe603a7991b8d44' => 'Manila, Metro Manila, Philippines',
   'c0bab7b67cebe08089292c8bb83ac4d61aca99c0' => 'San Antonio de Padua, Buenos Aires, Argentina',
-  'fc25f53dc68175f2a945e6ff45cb650fbbcf7616' => 'Frankfurt, Germany'
+  'fc25f53dc68175f2a945e6ff45cb650fbbcf7616' => 'Frankfurt, Germany',
+  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
+  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
+  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA',
+  'bb51f066ff3fd0b033db94b4e6172da84b8ae111' => 'Mountain View, CA'
 }
 
 begin
   i = 0
-  hubs = ['Hacker Dojo','Marriage Equality','Net Neutrality','All of','San Antonio de Padua School District','German Youth Soccer League']
+  hubs = ['Hacker Dojo',
+          'Marriage Equality',
+          'Net Neutrality',
+          'All of',
+          'San Antonio de Padua School District',
+          'German Youth Soccer League',
+          'Mountain View School Board',
+          'PRSA',
+          'All of',
+          'Silicon Valley Community Foundation']
   p 'Creating Hubs'
   6.times do
     #location_id = location_ids.keys.sample
@@ -28,8 +41,7 @@ begin
   p 'Creating Users'
   # let's create a standard known user for simplicity sake
   users << User.create({name: 'Voter1', email: 'voter1@example.com', password: 'abc123', password_confirmation: 'abc123'})
-  # 10 vs. 5 Users, because we're adding logic to reject double voting
-  20.times do
+  40.times do
     users << User.create({name: Faker::Name.name, email: Faker::Internet.email, password: 'abc123', password_confirmation: 'abc123'})
   end
 
@@ -44,12 +56,15 @@ begin
     "Parent #{proposal_text} 5",
     "Parent #{proposal_text} 6",
     "Parent #{proposal_text} 7",
+    "Parent #{proposal_text} 8",
+    "Parent #{proposal_text} 9",
+    "Parent #{proposal_text} 10"
   ].reverse!
 
   proposals = []
   i = 1
   p 'Creating Proposals'
-  10.times do
+  20.times do
     if i.even?
       parent = proposals.last
       stt = 'Branch 2 of ' + parent.statement
