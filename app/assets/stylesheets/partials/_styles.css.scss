@@ -199,7 +199,6 @@ textarea { height: 100px; }
   background: #ddd;
   padding: 10px;
   margin-bottom: 20px;
-  @include border-radius(5px);
   h3 { line-height: normal; margin-top: 0; }
 }
 .improve_form, .support_form {

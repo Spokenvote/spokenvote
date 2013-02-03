@@ -131,7 +131,6 @@
     proposal_container.find('.support_container').removeClass('hide').addClass('active');
     proposal_container.find('.vote_comment textarea').val('').focus();
     improve_support_buttons.hide();
-
   }
 
   var newSupport = function(e) {
