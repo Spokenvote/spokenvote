@@ -14,30 +14,23 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes, :hub_id, :hub
+  attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub, :votes, :votes_attributes
 
   # Associations
   belongs_to :user
   belongs_to :hub
-  has_many :votes, inverse_of: :proposal
+  has_many :votes
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
 
   # Validations
   validates :user, :statement, presence: true
 
+  # Scopes
+  scope :roots, where(:ancestry, nil)
+
   # Other
   has_ancestry
-  
-  class << self
-    def roots
-      where({:ancestry => nil})
-    end
-
-    def by_hub
-      Proposal.all#Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
-    end
-  end
 
   def votes_in_tree
     Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
@@ -59,7 +52,7 @@ class Proposal < ActiveRecord::Base
   end
   
   def supporting_statement
-    votes.where({user_id: self.user_id}).first.comment
+    votes.where(user_id: self.user_id).first.comment
   end
   
   def supporting_votes
