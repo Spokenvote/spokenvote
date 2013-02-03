@@ -167,7 +167,7 @@
       .success(function(data) {
         hideContentEditable(el);
         updateSupport(proposal_container, data);
-        app.successMessage('Your vote was successfully casted for this proposal');
+        app.successMessage('Thanks. Your vote has been counted!');
       }).
       error(function(data) {
         var responseText = data.responseText,

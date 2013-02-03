@@ -60,6 +60,7 @@ window.app = {};
         return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
       }
     });
+
     if (groupname_elem === '#hub_filter') {
       $(groupname_elem).select2('focus');
       $(groupname_elem).on('change', function(e) {
@@ -70,6 +71,7 @@ window.app = {};
         }
       });
     }
+
     $('#location_filter').on('hover focus', function(e) {
       if (this.value !== '') {
         $('#clear-location').removeClass('hide').on('click', function(e) {
@@ -160,6 +162,9 @@ window.app = {};
   var getHubName = function(item) {
     $('#location_filter').val(item.formatted_location);
     $('#location_id_filter').val(item.location_id)//.closest('form').submit();
+
+    $('#proposal_hub_location_id').val(item.location_id);
+    $('#proposal_hub_formatted_location').val(item.formatted_location);
     return item.group_name;
   }
 
@@ -211,6 +216,7 @@ window.app = {};
     $('#navJoin, #loginReg').on('click', navReg);
     $('select').select2({width: '200px'});
     app.configureHubFilter('#hub_filter', '220px');
+    app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', validateNavbarSearch);
 
     $('.related_supporting').last().css('border-bottom', 'none');
