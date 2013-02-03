@@ -170,10 +170,35 @@ textarea { height: 100px; }
 // content_pages elements
 .content_page {
   @extend .span11; margin-left: 20px;
+  h1 { margin-bottom: 45px; font-size: 40px; color: #315D99; }
+  h2 { margin-top: 20px; color: #555; }
+  h3 { margin-bottom: 20px; font-size: 20px; color: #9d261d; }
+  h4 { color: #555; }
+  .content_div { margin-bottom: 20px; }
+  .content_div_half { margin-bottom: 16px; }
+  .content_div_1_5 { margin-bottom: 30px; }
+  label { font-weight: bold; }
+}
+
+.content_page_centered {
+  @extend .span11; margin-left: 0px; text-align: center;
+  h1 { margin-bottom: 45px; font-size: 40px; color: #315D99; }
+  h2 { margin-top: 20px; color: #555; }
+  h3 { margin-bottom: 20px; font-size: 25px; color: #555; }
+  h4 { color: #555; }
+  .content_div { margin-bottom: 20px; }
+  .content_div_half { margin-bottom: 16px; }
+  .content_div_1_5 { margin-bottom: 30px; }
+  label { font-weight: bold; }
+}
+
+.content_page_title {
+  @extend .span11; margin-left: 20px;
   h2 { margin-top: 20px; }
   .content_div { margin-bottom: 20px; }
   label { font-weight: bold; }
 }
+
 // end content_pages elements
 
 // Proposal-related
