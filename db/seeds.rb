@@ -6,18 +6,18 @@ location_ids = {
   'c0bab7b67cebe08089292c8bb83ac4d61aca99c0' => 'San Antonio de Padua, Buenos Aires, Argentina',
   'fc25f53dc68175f2a945e6ff45cb650fbbcf7616' => 'Frankfurt, Germany',
   'b1d8ca6107f2d9df6773645a527630bff56d3478' => 'Burlingame, CA'
-
 }
 
 begin
   i = 0
   hubs = ['Hacker Dojo',
-          'Marriage Equality',
-          'Net Neutrality',
-          'All of',
-          'San Antonio de Padua School District',
-          'German Youth Soccer League',
-          'PRSA Burlingame',]
+    'Marriage Equality',
+    'Net Neutrality',
+    'All of',
+    'San Antonio de Padua School District',
+    'German Youth Soccer League',
+    'PRSA Burlingame'
+  ]
 
   p 'Creating Hubs'
   10.times do
@@ -43,18 +43,17 @@ begin
 
   hubs = Hub.all
 
-  proposal_text = "It should be ill-legal to drive the wrong way down a one-way street if you have a lantern attached to the front of your automobile."
   statements = [
-    "Parent #{proposal_text} 1",
-    "Parent #{proposal_text} 2",
-    "Parent #{proposal_text} 3",
-    "Parent #{proposal_text} 4",
-    "Parent #{proposal_text} 5",
-    "Parent #{proposal_text} 6",
-    "Parent #{proposal_text} 7",
-    "Parent #{proposal_text} 8",
-    "Parent #{proposal_text} 9",
-    "Parent #{proposal_text} 10"
+    "Parent proposal 1",
+    "Parent proposal 2",
+    "Parent proposal 3",
+    "Parent proposal 4",
+    "Parent proposal 5",
+    "Parent proposal 6",
+    "Parent proposal 7",
+    "Parent proposal 8",
+    "Parent proposal 9",
+    "Parent proposal 10"
   ].reverse!
 
   proposals = []
@@ -66,8 +65,8 @@ begin
       stt = 'Branch 2 of ' + parent.statement
       usr_id = users.reject {|u| u.id == parent.user_id}.sample.id
       hb_id = parent.hub.id
-      vote = {user_id: usr_id, comment: Faker::Lorem.sentence}
-      proposals << Proposal.create({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
+      vote = { user_id: usr_id, comment: Faker::Lorem.sentence }
+      proposals << Proposal.create!({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
     else
       stt = statements.pop
       usr_id = users.sample.id
@@ -80,7 +79,7 @@ begin
 
       fake_comment = fake_comment.html_safe
       vote = {user_id: usr_id, comment: fake_comment}
-      proposals << Proposal.create({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
+      proposals << Proposal.create!({statement: stt, user_id: usr_id, hub_id: hb_id, votes_attributes: [vote]})
     end
     i += 1
   end
