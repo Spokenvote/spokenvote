@@ -14,17 +14,15 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
-                  :vote, :vote_attributes, :votes, :votes_attributes
+  attr_accessible :statement, :parent, :parent_id, :supporting_statement, :user_id, :user,
+                  :votes, :votes_attributes, :hub
 
   # Associations
   belongs_to :user
   belongs_to :hub
-  has_many :votes
-  has_one :vote
+  has_many :votes, inverse_of: :proposal
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
-  accepts_nested_attributes_for :vote, reject_if: :all_blank
 
   # Validations
   validates :user, :statement, presence: true

@@ -160,6 +160,7 @@ window.app = {};
     $('#location_filter').val(item.formatted_location);
     $('#location_id_filter').val(item.location_id)//.closest('form').submit();
 
+    $('#proposal_hub_group_name').val(item.group_name);
     $('#proposal_hub_location_id').val(item.location_id);
     $('#proposal_hub_formatted_location').val(item.formatted_location);
     return item.group_name;
@@ -212,8 +213,10 @@ window.app = {};
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
     $('select').select2({width: '200px'});
+
     app.configureHubFilter('#hub_filter', '220px');
-    app.configureHubFilter('#proposal_hub_group_name', '220px');
+    app.configureHubFilter('#proposal_hub_group_id', '220px');
+
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
 
     $('.related_supporting').last().css('border-bottom', 'none');
@@ -229,5 +232,4 @@ window.app = {};
       e.stopPropagation();
     });
   });
-
 })();

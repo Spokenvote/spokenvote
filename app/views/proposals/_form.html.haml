@@ -16,7 +16,8 @@
       .control-group
         = hub_form.label :group_name, :class => 'control-label'
         .controls
-          = hub_form.text_field :group_name, placeholder: 'Please choose the word or phrase that best captures this proposal'
+          = hub_form.text_field :group_id, placeholder: 'Please choose the word or phrase that best captures this proposal'
+          = hub_form.hidden_field :group_name
 
       .control-group
         = hub_form.label :location_id, :class => 'control-label'
@@ -27,7 +28,7 @@
           -#  The location_id is sufficient to derive a unique location.
           = hub_form.hidden_field :location_id
 
-    = f.fields_for :vote, @vote do |vote_form|
+    = f.fields_for :votes, @vote do |vote_form|
       .control-group
         = vote_form.label :vote, 'Supporting Arguments', :class => 'control-label'
         .controls

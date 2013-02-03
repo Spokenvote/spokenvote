@@ -64,24 +64,23 @@ class ProposalsController < ApplicationController
   # POST /proposals
   # POST /proposals.json
   def create
-    votes = params[:proposal].delete :votes_attributes
-    # This seems to have been changed to handle an improvement to a proposal, not a new proposal.
-    # A new proposal has no parent id.  Perhaps improvements should be handled in a separate controller?
-    
-    # Commenting this because it is unused and makes creation of new proposals fail.
-    # parent = Proposal.find(params[:parent_id])
-
-    @proposal = current_user.proposals.create(params[:proposal])
-    
-    # TODO THIS IS HORRIBLE
-    @proposal.votes.create votes['0'].merge(ip_address:request.remote_ip)
     respond_to do |format|
-      if @proposal.save
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
-        format.json { render json: @proposal, status: :created, location: @proposal }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
+      begin
+        proposal_attrs = params[:proposal]
+        hub_attrs = proposal_attrs.delete :hub
+        hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
+        votes = proposal_attrs.delete :votes_attributes
+        vote_attrs = votes["0"].merge(ip_address: request.remote_ip)
+
+        Proposal.transaction do
+          @proposal = current_user.proposals.create!(proposal_attrs.merge(hub: hub))
+          @proposal.votes.create!(vote_attrs.merge(user: current_user))
+        end
+
+        format.html { redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.' }
+      rescue
+        Rails.logger.info $!.message
+        format.html { redirect_to :back, notice: 'Failed to create the proposal' }
       end
     end
   end
