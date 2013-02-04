@@ -146,7 +146,7 @@
       $.ajax({
         url: '/proposals/'+proposal_id,
         type: 'DELETE',
-        data: {proposal: {proposal_id: proposal_id}}
+        data: {proposal: {id: proposal_id}}
       })
       .success(function(data) {
         window.location.assign('/proposals');

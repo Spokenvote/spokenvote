@@ -108,7 +108,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
 
-    redirect_to proposals_url
+    redirect_to action: :index, status: 200
   end
   
 private

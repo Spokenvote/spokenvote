@@ -20,7 +20,7 @@
       .supported_date
         = proposal.created_at.to_s(:month_day_year)
       .improve_support_buttons.btn-group
-        - if proposal.user_id == current_user.id && proposal.votes_count == 1
+        - if current_user && proposal.user_id == current_user.id && proposal.votes_count == 1
           = link_to 'Edit', '#', :class => 'btn btn-primary btn-bold edit'
           = link_to 'Delete', '#', :class => 'btn btn-danger delete'
         - else

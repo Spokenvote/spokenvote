@@ -15,7 +15,7 @@
 
 class Proposal < ActiveRecord::Base
   attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
-                  :vote, :vote_attributes, :votes, :votes_attributes
+                  :vote, :vote_attributes, :votes, :votes_attributes, :parent
 
   # Associations
   belongs_to :user
