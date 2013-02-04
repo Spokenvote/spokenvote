@@ -61,6 +61,12 @@ class ProposalsController < ApplicationController
     render action: 'show'
   end
 
+  # Get /proposals/i/isEditable
+  def isEditable
+    proposal = Proposal.find(params[:id])
+    render json: { editable: proposal.editable?(current_user) }
+  end
+
   # POST /proposals
   # POST /proposals.json
   def create

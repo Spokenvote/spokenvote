@@ -61,4 +61,8 @@ class Proposal < ActiveRecord::Base
   def supporting_votes
     votes.where("user_id != ?", self.user_id)
   end
+  
+  def editable?(current_user)
+    current_user && votes_count < 2 && user_id == current_user.id
+  end
 end

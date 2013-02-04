@@ -45,6 +45,7 @@
   var showImprovement = function(self) {
     var el = $(self),
       proposal_container = el.closest('.proposal_container'),
+      proposal_id = proposal_container.data('proposal_id'),
       editableBox = proposal_container.find('.content_editable'),
       improve_support_buttons = proposal_container.find('.improve_support_buttons'),
       proposal_form_buttons = proposal_container.find('.proposal_form_buttons');
@@ -56,8 +57,20 @@
       app.configureHubFilter('#proposal_group_name', '544px');
       $(self).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
     } else if ($(self).hasClass('edit')) {
-      $('.save_statement').html('Save Edit');
-      $('.improve_form').addClass('edit_proposal_form').removeClass('.improve_form');
+      // reconfirm that this is still editable
+      $.get('/proposals/'+proposal_id+'/isEditable.json')
+      .done(function(data) {
+        if (data.editable) {
+          $('.save_statement').html('Save Edit');
+          $('.improve_form').addClass('edit_proposal_form').removeClass('.improve_form');
+        } else {
+          hideContentEditable(el);
+          var improve_support_buttons = proposal_container.find('.improve_support_buttons');
+          improve_support_buttons.find('.edit').removeClass('edit').addClass('support').text('Support');
+          improve_support_buttons.find('.delete').removeClass('delete btn-danger').addClass('improve btn-warning').text('Improve');
+          app.errorMessage('After you loaded this page, new votes came in and made the proposal uneditable');
+        }
+      });
     }
     // first bit save original value so we can restore on cancel
     editableBox.data('original', editableBox.html().trim()).attr('contenteditable', 'true');
@@ -138,23 +151,35 @@
     var proposal_container = $(this).closest('.proposal_container')
     proposal_id = proposal_container.data('proposal_id');
 
-    $('#confirmationModalQuestion').html('Are you sure you want to delete this Proposal?');
-    $('#confirmationModalExplanation').html('Please note that deleting a proposal is permanent and cannot be undone');
-    $('#confirmationModal').modal('show');
-    $('#confirmationModalYes').on('click', function(e) {
-      e.preventDefault();
-      $.ajax({
-        url: '/proposals/'+proposal_id,
-        type: 'DELETE',
-        data: {proposal: {id: proposal_id}}
-      })
-      .success(function(data) {
-        window.location.assign('/proposals');
-      }).
-      fail(function(data) {
-        alert('This proposal could not be deleted');
-        $(this).parents('.modal').modal('hide');
-      });
+    // reconfirm that this is still deletable
+    $.get('/proposals/'+proposal_id+'isEditable.json')
+    .done(function(data) {
+      if (data.editable) {
+        $('#confirmationModalQuestion').html('Are you sure you want to delete this Proposal?');
+        $('#confirmationModalExplanation').html('Please note that deleting a proposal is permanent and cannot be undone');
+        $('#confirmationModal').modal('show');
+        $('#confirmationModalYes').on('click', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: '/proposals/'+proposal_id,
+            type: 'DELETE',
+            data: {proposal: {id: proposal_id}}
+          })
+          .success(function(data) {
+            window.location.assign('/proposals');
+          }).
+          fail(function(data) {
+            alert('This proposal could not be deleted');
+            $(this).parents('.modal').modal('hide');
+          });
+        });
+      }
+    } else {
+      hideContentEditable(el);
+      var improve_support_buttons = proposal_container.find('.improve_support_buttons');
+      improve_support_buttons.find('.edit').removeClass('edit').addClass('support').text('Support');
+      improve_support_buttons.find('.delete').removeClass('delete btn-danger').addClass('improve btn-warning').text('Improve');
+      app.errorMessage('After you loaded this page, new votes came in and made the proposal uneditable');
     });
   }
 
