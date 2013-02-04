@@ -49,6 +49,16 @@
       improve_support_buttons = proposal_container.find('.improve_support_buttons'),
       proposal_form_buttons = proposal_container.find('.proposal_form_buttons');
 
+    // Are we in Improve, Reuse or Edit?
+    if ($(self).hasClass('reuse')) {
+      $('.save_statement').html('Reuse this proposal');
+      $('.improve_form').addClass('reuse_proposal_form').removeClass('.improve_form');
+      app.configureHubFilter('#proposal_group_name', '544px');
+      $(self).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
+    } else if ($(self).hasClass('edit')) {
+      $('.save_statement').html('Save Edit');
+      $('.improve_form').addClass('edit_proposal_form').removeClass('.improve_form');
+    }
     // first bit save original value so we can restore on cancel
     editableBox.data('original', editableBox.html().trim()).attr('contenteditable', 'true');
     proposal_container.find('.improve_form').removeClass('hide').addClass('active');
@@ -63,10 +73,11 @@
     // not logged in?
     if ($('#user-dropdown-menu').length === 0) {
       if (!app.loginInterrupt(this, showImprovement)) {
-        return;
+        return false;
       }
     } else {
       showImprovement(this);
+      return false;
     }
   }
 
@@ -80,7 +91,7 @@
       proposal_hub = $('#proposal_group_name').val(),
       comment = $('#vote_comment').val(),
       // this is not a good way to have user on hand but acceptable to me for first pass
-      user_id = $('#user_menu').find('.dropdown-toggle').data('email')
+      user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
       proposal_data = {
         proposal: {
           statement: statement,
@@ -89,34 +100,62 @@
         }
       };
 
-    if (proposal_container.find('.save_statement').html() === 'Reuse this proposal') {
-      proposal_data.proposal.proposal_hub = proposal_hub;
-      proposal_data.proposal.proposal_location = proposal_location;
+    if (proposal_container.find('.edit_proposal_form').length > 0) {
+      proposal_data.proposal.id = proposal_id
+      proposal_data.proposal.votes_attributes.id = proposal_container.find('.supporting_statement').data('vote_id');
+      $.ajax({
+        url: '/proposals/'+proposal_id+'.json',
+        type: 'PUT',
+        data: proposal_data
+      })
+      .done(function(data) {
+        hideContentEditable(el);
+        proposal_container.find('.proposal_statement h3').html(data.statement);
+        proposal_container.find('.supporting_statement').html(data.supporting_statement);
+      })
+      .fail(function(data) {
+        app.errorMessage(data.responseText);
+      });
     } else {
-      proposal_data.proposal.parent_id = proposal_id;
+      if (proposal_container.find('.reuse_proposal_form').length > 0) {
+        proposal_data.proposal.proposal_hub = proposal_hub;
+        proposal_data.proposal.proposal_location = proposal_location;
+      } else {
+        proposal_data.proposal.parent_id = proposal_id;
+      }
+      $.post('/proposals', proposal_data)
+      .done(function(data) {
+        hideContentEditable(el);
+      })
+      .fail(function(data) {
+        app.errorMessage(data.responseText);
+      });
     }
-    $.post('/proposals', proposal_data).success(function(data) {
-      hideContentEditable(el);
-    })
-    .error(function(data) {
-      app.errorMessage(data.responseText);
-    });
   }
 
-  var reuseProposal = function(e) {
+  var deleteProposal = function(e) {
     e.preventDefault();
+    var proposal_container = $(this).closest('.proposal_container')
+    proposal_id = proposal_container.data('proposal_id');
 
-    // not logged in?
-    if ($('#user-dropdown-menu').length === 0) {
-      if (!app.loginInterrupt(this, showImprovement)) {
-        return;
-      }
-    } else {
-      $('.save_statement').html('Reuse this proposal')
-      app.configureHubFilter('#proposal_group_name', '544px');
-      $(this).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
-      showImprovement(this);
-    }
+    $('#confirmationModalQuestion').html('Are you sure you want to delete this Proposal?');
+    $('#confirmationModalExplanation').html('Please note that deleting a proposal is permanent and cannot be undone');
+    $('#confirmationModal').modal('show');
+    $('#confirmationModalYes').on('click', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/proposals/'+proposal_id,
+        type: 'DELETE',
+        data: {proposal: {proposal_id: proposal_id}}
+      })
+      .success(function(data) {
+        window.location.assign('/proposals');
+      }).
+      fail(function(data) {
+        alert('This proposal could not be deleted');
+        $(this).parents('.modal').modal('hide');
+      });
+    });
   }
 
   var showSupport = function(self) {
@@ -173,8 +212,6 @@
         var responseText = data.responseText,
             msg = $.parseJSON(data.responseText);
 
-        console.log('in saveVote error function:' + responseText);
-
         if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
           alert(msg.user_id);
         }
@@ -183,19 +220,15 @@
 
   $(document).ready(function() {
     $('.more').click(showMore);
-    $('.improve').click(newImprovement);
-    $('.reuse').click(reuseProposal);
+    $('.improve, .edit, .reuse').click(newImprovement);
+    $('.delete').click(deleteProposal);
+    $('.support').on('click', newSupport);
+    $('.save_statement').on('click', saveImprovement);
+    $('.save_vote').on('click', saveVote);
     $('.cancel').on('click', function(e) {
       e.preventDefault();
       hideContentEditable($(this));
     });
-    $('.retarget_proposal').on('click', function(e) {
-      e.preventDefault();
-      $(this).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
-    });
-    $('.support').on('click', newSupport);
-    $('.save_statement').on('click', saveImprovement);
-    $('.save_vote').on('click', saveVote);
     app.updateSearchFields({hub: $('.proposal_hub').text().trim().replace(/\n/g, '').split('    –    ')});
     if ($('#new_proposal').length > 0) {
       app.configureHubFilter('#group_name', '544px');

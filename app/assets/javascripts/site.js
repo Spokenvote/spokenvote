@@ -218,6 +218,10 @@ window.app = {};
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', validateNavbarSearch);
+    $('#confirmationModalNo').on('click', function(e) {
+      e.preventDefault();
+      $(this).parents('.modal').modal('hide');
+    });
 
     $('.related_supporting').last().css('border-bottom', 'none');
     pageEffects();
