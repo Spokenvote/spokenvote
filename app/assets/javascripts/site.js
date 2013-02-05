@@ -33,6 +33,7 @@ window.app = {};
   }
 
   app.configureHubFilter = function(groupname_elem, select_width) {
+    var location_input = $(groupname_elem).data('locationInput');
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -43,7 +44,7 @@ window.app = {};
         url: '/hubs',
         dataType: 'json',
         data: function(term, page) {
-          return { hub_filter: term, location_id_filter: $("#location_id_filter").val() }
+          return { hub_filter: term, location_id_filter: $(location_input).val() }
         },
         results: function(data, page) {
           return { results: data }
@@ -72,10 +73,10 @@ window.app = {};
       });
     }
 
-    $('#location_filter').on('hover focus', function(e) {
+    $(location_input).on('hover focus', function(e) {
       if (this.value !== '') {
-        $('#clear-location').removeClass('hide').on('click', function(e) {
-          $('#location_filter').val('');
+        $('.clear-location').removeClass('hide').on('click', function(e) {
+          $(location_input).val('');
           $(this).addClass('hide');
         });
       }

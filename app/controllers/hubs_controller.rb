@@ -7,7 +7,7 @@ class HubsController < ApplicationController
     hub_filter, location_id_filter = params[:hub_filter], params[:location_id_filter]
 
     if hub_filter.presence && location_id_filter.presence
-      @hubs = Hub.where('group_name ilike ? AND location_id = ?', "%#{hub_filter}%", location_id_filter)
+      @hubs = Hub.where('group_name ilike ? AND formatted_location = ?', "%#{hub_filter}%", location_id_filter)
     elsif hub_filter.presence
       @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
     elsif location_id_filter.presence
