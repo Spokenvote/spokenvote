@@ -195,7 +195,6 @@
     proposal_container.find('.support_container').removeClass('hide').addClass('active');
     proposal_container.find('.vote_comment textarea').val('').focus();
     improve_support_buttons.hide();
-
   }
 
   var newSupport = function(e) {
@@ -211,7 +210,7 @@
   }
 
   var updateSupport = function(proposal_container, data) {
-    var sa = proposal_container.find('.supporting_arguments .span11'),
+    var sa = proposal_container.find('.supporting_arguments .support_row:last-of-type'),
         newSA = '<div class="row support_row"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>';
     sa.append(newSA);
     Holder.run(); // updates the placeholder images
@@ -224,10 +223,9 @@
       proposal_id = proposal_container.data('proposal_id'),
       comment = proposal_container.find('.vote_comment textarea').val(),
       // this is not a good way to have user on hand but acceptable to me for first pass
-      user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
       hub_id = proposal_container.data('hub_id');
     
-    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment, user_id: user_id}})
+    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment}})
       .success(function(data) {
         hideContentEditable(el);
         updateSupport(proposal_container, data);
@@ -238,7 +236,7 @@
             msg = $.parseJSON(data.responseText);
 
         if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
-          alert(msg.user_id);
+          app.errorMessage(msg.user_id);
         }
       });
   }

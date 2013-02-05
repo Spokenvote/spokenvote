@@ -59,6 +59,7 @@ group :development, :test do
   gem 'populator'
   gem 'rspec'
   gem 'spork'
+  gem 'shoulda-matchers'
 end
 
 group :test do
