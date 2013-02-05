@@ -212,10 +212,13 @@
   }
 
   var updateSupport = function(proposal_container, data) {
-    var sa = proposal_container.find('.supporting_arguments .support_row:last-of-type'),
-        newSA = '<div class="row support_row"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>';
+    var existing_votes = proposal_container.find('.supporting_arguments .support_row:last-of-type').length > 0,
+        sa = existing_votes ? proposal_container.find('.supporting_arguments .support_row:last-of-type') : proposal_container.find('.supporting_arguments'),
+        newSA = '<div class="row support_row' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>';
     sa.append(newSA);
     Holder.run(); // updates the placeholder images
+    proposal_container.find('.supporting_arguments h3').removeClass('hide');
+    proposal_container.find('.supporting_arguments .support_row').removeClass('hide');
   }
 
   var saveVote = function(e) {
