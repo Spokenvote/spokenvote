@@ -186,7 +186,7 @@ window.app = {};
   }
 
   app.navLogin = function(e) {
-    app.loginInterrupt(this, reloadHome);
+    app.loginInterrupt(this, app.reloadHome);
   }
 
   app.navReg = function(e) {
