@@ -51,12 +51,12 @@
       proposal_form_buttons = proposal_container.find('.proposal_form_buttons');
 
     // Are we in Improve, Reuse or Edit?
-    if ($(self).hasClass('reuse')) {
+    if (el.hasClass('reuse')) {
       $('.save_statement').html('Reuse this proposal');
       $('.improve_form').addClass('reuse_proposal_form').removeClass('.improve_form');
       app.configureHubFilter('#proposal_group_name', '544px');
-      $(self).closest('.proposal_container').find('.proposal_fields').removeClass('hide');
-    } else if ($(self).hasClass('edit')) {
+      el.closest('.proposal_container').find('.proposal_fields').removeClass('hide');
+    } else if (el.hasClass('edit')) {
       // reconfirm that this is still editable
       $.get('/proposals/'+proposal_id+'/isEditable.json')
       .done(function(data) {
@@ -148,11 +148,13 @@
 
   var deleteProposal = function(e) {
     e.preventDefault();
-    var proposal_container = $(this).closest('.proposal_container')
-    proposal_id = proposal_container.data('proposal_id');
+    var el = $(this),
+        proposal_container = $(this).closest('.proposal_container'),
+        proposal_id = proposal_container.data('proposal_id'),
+        improve_support_buttons;
 
     // reconfirm that this is still deletable
-    $.get('/proposals/'+proposal_id+'isEditable.json')
+    $.get('/proposals/'+proposal_id+'/isEditable.json')
     .done(function(data) {
       if (data.editable) {
         $('#confirmationModalQuestion').html('Are you sure you want to delete this Proposal?');
@@ -167,19 +169,19 @@
           })
           .success(function(data) {
             window.location.assign('/proposals');
-          }).
-          fail(function(data) {
+          })
+          .fail(function(data) {
             alert('This proposal could not be deleted');
             $(this).parents('.modal').modal('hide');
           });
         });
+      } else {
+        hideContentEditable(el);
+        improve_support_buttons = proposal_container.find('.improve_support_buttons');
+        improve_support_buttons.find('.edit').removeClass('edit').addClass('support').text('Support');
+        improve_support_buttons.find('.delete').removeClass('delete btn-danger').addClass('improve btn-warning').text('Improve');
+        app.errorMessage('After you loaded this page, new votes came in and made the proposal uneditable');
       }
-    } else {
-      hideContentEditable(el);
-      var improve_support_buttons = proposal_container.find('.improve_support_buttons');
-      improve_support_buttons.find('.edit').removeClass('edit').addClass('support').text('Support');
-      improve_support_buttons.find('.delete').removeClass('delete btn-danger').addClass('improve btn-warning').text('Improve');
-      app.errorMessage('After you loaded this page, new votes came in and made the proposal uneditable');
     });
   }
 
