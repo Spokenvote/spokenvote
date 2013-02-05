@@ -22,7 +22,7 @@
         %td.count-column= proposal.created_at.to_s(:month_day_year)
         %td.count-column= all_related_proposals_votes_count.index(proposal.votes_count) + 1
         %td.count-column= raw(proposal.votes_count.to_s + ' &ndash; ' + proposal.votes_in_tree.to_s)
-        %td.count-column= proposal.root.related_proposals.count
+        %td.count-column= proposal.root.related_proposals.count + 1
 #proposalNotFound
   .span7 &nbsp;
   .span4

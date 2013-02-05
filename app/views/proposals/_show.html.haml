@@ -32,7 +32,7 @@
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
-    - hasSupport = proposal.supporting_votes.count > 1
+    - hasSupport = proposal.supporting_votes.count > 0
     %h3{class: hasSupport ? '' : 'hide' }
       Supporters
       %span= '(' + proposal.votes.count.to_s + ' votes)'
@@ -42,5 +42,5 @@
         = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
         .span1
-          - if proposal.votes_count > 2
+          - if proposal.votes_count > 3
             .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})
