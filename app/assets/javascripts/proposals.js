@@ -131,7 +131,6 @@
     proposal_container.find('.support_container').removeClass('hide').addClass('active');
     proposal_container.find('.vote_comment textarea').val('').focus();
     improve_support_buttons.hide();
-
   }
 
   var newSupport = function(e) {
@@ -160,10 +159,9 @@
       proposal_id = proposal_container.data('proposal_id'),
       comment = proposal_container.find('.vote_comment textarea').val(),
       // this is not a good way to have user on hand but acceptable to me for first pass
-      user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
       hub_id = proposal_container.data('hub_id');
     
-    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment, user_id: user_id}})
+    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment}})
       .success(function(data) {
         hideContentEditable(el);
         updateSupport(proposal_container, data);
@@ -176,7 +174,7 @@
         console.log('in saveVote error function:' + responseText);
 
         if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
-          alert(msg.user_id);
+          app.errorMessage(msg.user_id);
         }
       });
   }
