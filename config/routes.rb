@@ -10,6 +10,9 @@ Spokenvote::Application.routes.draw do
 
   resources :votes
   resources :proposals do
+    member do
+      get 'isEditable'
+    end
     collection do
       post 'search'
     end

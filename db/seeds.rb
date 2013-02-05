@@ -59,6 +59,10 @@ begin
   proposals = []
   i = 1
   p 'Creating Proposals'
+  # Special proposal which explicitly has no other votes and accordingly not added to proposals array
+  voter1 = User.where({email: 'voter1@example.com'}).first
+  sp = Proposal.create!({statement: 'No Votes Proposal', user_id: voter1.id, hub_id: hubs.sample.id, votes_attributes: [{user_id: voter1.id, comment: 'Because I want to test with this one'}]})
+  p 'Create special vote, id: ' + sp.id.to_s
   20.times do
     if i.even?
       parent = proposals.last
