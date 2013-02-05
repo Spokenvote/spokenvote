@@ -12,7 +12,7 @@
         %li= link_to 'Oldest', proposal_path(@proposal.id, sortBy: 'created_at ASC')
 
   #relatedProposalsTitle Related Proposals
-  - if !@proposal.related_proposals
+  - if @proposal.related_proposals
     - @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
       = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
   - else
