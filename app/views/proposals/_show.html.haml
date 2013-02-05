@@ -8,6 +8,7 @@
       &ndash;
       = proposal.hub.formatted_location
 
+
 .proposal_container{data: {proposal_id: proposal.id, hub_id: proposal.hub.id}}
   .main-proposal
     .proposal_statement
@@ -19,11 +20,27 @@
       .supported_date
         = proposal.created_at.to_s(:month_day_year)
       .improve_support_buttons.btn-group
-        = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
-        = link_to 'Improve', '#', :class => 'btn btn-warning improve'
-        -#= link_to 'Reuse', '#', :class => 'btn btn-info reuse'
-    .supporting_statement.span7= raw proposal.supporting_statement
+        - if current_user && proposal.editable?(current_user)
+          = link_to 'Edit', '#', :class => 'btn btn-primary btn-bold edit'
+          = link_to 'Delete', '#', :class => 'btn btn-danger delete'
+        - else
+          = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
+          = link_to 'Improve', '#', :class => 'btn btn-warning improve'
+        = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
+    .supporting_statement.span7{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
 
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
-  = render :partial => 'supporting_arguments', locals: {proposal: proposal, total_votes: total_votes}
+  .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
+    - hasSupport = proposal.supporting_votes.count > 1
+    %h3{class: hasSupport ? '' : 'hide' }
+      Supporters
+      %span= '(' + proposal.votes.count.to_s + ' votes)'
+    .row
+      .supporting_arguments_list.span11
+        = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+        = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
+
+        .span1
+          - if proposal.votes_count > 2
+            .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})

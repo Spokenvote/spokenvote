@@ -61,6 +61,12 @@ class ProposalsController < ApplicationController
     render action: 'show'
   end
 
+  # Get /proposals/i/isEditable
+  def isEditable
+    proposal = Proposal.find(params[:id])
+    render json: { editable: proposal.editable?(current_user) }
+  end
+
   # POST /proposals
   # POST /proposals.json
   def create
@@ -89,11 +95,11 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
-
+    
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
         format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @proposal.to_json(methods: 'supporting_statement'), status: :ok }
       else
         format.html { render action: "edit" }
         format.json { render json: @proposal.errors, status: :unprocessable_entity }
@@ -107,10 +113,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
 
-    respond_to do |format|
-      format.html { redirect_to proposals_url }
-      format.json { head :no_content }
-    end
+    redirect_to action: :index, status: 200
   end
   
 private

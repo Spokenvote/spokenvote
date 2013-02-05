@@ -14,8 +14,8 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :statement, :parent, :parent_id, :supporting_statement, :user_id, :user,
-                  :votes, :votes_attributes, :hub
+  attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
+                  :vote, :vote_attributes, :votes, :votes_attributes, :parent
 
   # Associations
   belongs_to :user
@@ -58,5 +58,9 @@ class Proposal < ActiveRecord::Base
   
   def supporting_votes
     votes.where("user_id != ?", self.user_id)
+  end
+  
+  def editable?(current_user)
+    current_user && votes_count < 2 && user_id == current_user.id
   end
 end

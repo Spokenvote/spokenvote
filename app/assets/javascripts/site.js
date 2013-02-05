@@ -216,9 +216,12 @@ window.app = {};
     $('select').select2({width: '200px'});
 
     app.configureHubFilter('#hub_filter', '220px');
-    app.configureHubFilter('#proposal_hub_group_id', '220px');
-
+    app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
+    $('#confirmationModalNo').on('click', function(e) {
+      e.preventDefault();
+      $(this).parents('.modal').modal('hide');
+    });
 
     $('.related_supporting').last().css('border-bottom', 'none');
     app.pageEffects();
