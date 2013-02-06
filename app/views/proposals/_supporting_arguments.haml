@@ -9,5 +9,5 @@
       = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
       .span1
-        - if proposal.votes_count > 2
+        - if proposal.votes_count > 3
           .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})

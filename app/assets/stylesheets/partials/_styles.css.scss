@@ -121,6 +121,8 @@ textarea { height: 100px; }
 .modal-backdrop{
   background-color: #000 !important;
 }
+
+#confirmationModalQuestion { margin: 20px 0; font-weight: bold; }
 // end General elements
 
 // Login elements
@@ -176,6 +178,28 @@ textarea { height: 100px; }
 }
 // end content_pages elements
 
+
+// static_pages elements
+.static_page  {
+  @extend .span11; margin-left: 20px;
+  h1 { margin-bottom: 45px; font-size: 40px; color: #315D99; }
+  h2 { margin-top: 30px; color:  #555; }
+  h3 { margin-bottom: 20px; font-size: 20px; }
+  h4 { color: #555; }
+  .content_offset {margin-left: 40px;}
+  .content_offset li {padding-bottom: 16px; font-size: 20px; font-weight: bold;}
+  .centered {text-align: center;}
+  .pull-right {}
+  .attention_red {color: #9d261d; }
+  .content_div { margin-bottom: 20px; }
+  .content_div_half { margin-bottom: 16px; }
+  .content_div_1_5 { margin-bottom: 30px; }
+  label { font-weight: bold; }
+}
+// end static_pages elements
+
+
+
 // Proposal-related
 .proposal_hub {
   h2 {
@@ -199,7 +223,6 @@ textarea { height: 100px; }
   background: #ddd;
   padding: 10px;
   margin-bottom: 20px;
-  @include border-radius(5px);
   h3 { line-height: normal; margin-top: 0; }
 }
 .improve_form, .support_form {
@@ -245,12 +268,10 @@ textarea { height: 100px; }
   div { margin-bottom: 10px; }
   div:last-child { margin-bottom: 0; }
 }
-
 .proposal_container {
   margin: 20px 0;
   overflow: auto;
 }
-
 .proposal_statement {
   font-size: 176%;
   margin-bottom: 10px;
@@ -264,7 +285,6 @@ textarea { height: 100px; }
   }
 }
 .supporting_statement { font-size: 16px; }
-
 .proposal_fields {
   margin-top: 10px;
   label {
@@ -275,7 +295,7 @@ textarea { height: 100px; }
   }
   label.first { margin-left: 0; padding-top: 8px; }
 }
-
+.supporting_arguments_list { overflow: hidden; }
 #relatedProposalsTitle {
   font-size: 28px;
   color: #315c99;

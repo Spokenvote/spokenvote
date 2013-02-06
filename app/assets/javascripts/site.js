@@ -3,11 +3,11 @@ window.app = {};
 (function () {
 
   app.successMessage = function(msg) {
-    createAlert(msg, 'success');
+    app.createAlert(msg, 'success');
   }
 
   app.errorMessage = function(msg) {
-    createAlert(msg, 'error');
+    app.createAlert(msg, 'error');
   }
 
   app.updateSearchFields = function(options) {
@@ -22,10 +22,10 @@ window.app = {};
     $('#loginModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
       if(data.success) {
         $('#loginModal').modal('toggle');
-        redrawLoggedInNav({callback: callback, elem: elem});
+        app.redrawLoggedInNav({callback: callback, elem: elem});
         return true
       } else {
-        createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
+        app.createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
         return false;
       }
     });
@@ -33,6 +33,7 @@ window.app = {};
   }
 
   app.configureHubFilter = function(groupname_elem, select_width) {
+    var location_input = $(groupname_elem).data('locationInput');
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -43,7 +44,7 @@ window.app = {};
         url: '/hubs',
         dataType: 'json',
         data: function(term, page) {
-          return { hub_filter: term, location_id_filter: $("#location_id_filter").val() }
+          return { hub_filter: term, location_id_filter: $(location_input).val() }
         },
         results: function(data, page) {
           return { results: data }
@@ -54,7 +55,7 @@ window.app = {};
         return item.full_hub;
       },
 
-      formatSelection: getHubName,
+      formatSelection: app.getHubName,
 
       formatNoMatches: function (term) {
         return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
@@ -72,28 +73,25 @@ window.app = {};
       });
     }
 
-    $('#location_filter').on('hover focus', function(e) {
+    $(location_input).on('hover focus', function(e) {
       if (this.value !== '') {
-        $('#clear-location').removeClass('hide').on('click', function(e) {
-          $('#location_filter').val('');
+        $('.clear-location').removeClass('hide').on('click', function(e) {
+          $(location_input).val('');
           $(this).addClass('hide');
         });
       }
     });
-    
   }
 
-  // --
-
-  var createAlert = function (msg, style) {
+  app.createAlert = function (msg, style) {
     $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
-  var createModalAlert = function (msg, style, modalElem) {
+  app.createModalAlert = function (msg, style, modalElem) {
     $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
-  var setPageHeight = function() {
+  app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
     if ($('section.clear').length > 0 || $('section.searched').length > 0) {
       $('section.span11').height(vph - 122);
@@ -104,7 +102,7 @@ window.app = {};
     }
   }
 
-  var fillNavSearch = function() {
+  app.fillNavSearch = function() {
     $('#hub, #location').each(function() {
       var self = $(this);
       if (self.data('value') != '') {
@@ -113,18 +111,18 @@ window.app = {};
     });
   }
 
-  var pageEffects = function() {
+  app.pageEffects = function() {
     if ($('body').height() > 1200) {
       $('body').addClass('long');
     }
     if ($('.content_page #new_user').length > 0) {
       $('#user_email').focus();
     }
-    setPageHeight();
-    fillNavSearch();
+    app.setPageHeight();
+    app.fillNavSearch();
   }
 
-  var redrawLoggedInNav = function(options) {
+  app.redrawLoggedInNav = function(options) {
     options = options || {}
     var newNav = '';
     $.get('/user_nav', function(data) {
@@ -138,7 +136,7 @@ window.app = {};
     });
   }
 
-  var gpSearch = function (elem) {
+  app.gpSearch = function (elem) {
     var defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(-33.8902, 151.1759),
       new google.maps.LatLng(-33.8474, 151.2631)
@@ -159,16 +157,17 @@ window.app = {};
   }
 
   // helper for repetitive hub_filter select2 options
-  var getHubName = function(item) {
+  app.getHubName = function(item) {
     $('#location_filter').val(item.formatted_location);
     $('#location_id_filter').val(item.location_id)//.closest('form').submit();
 
+    $('#proposal_hub_group_name').val(item.group_name);
     $('#proposal_hub_location_id').val(item.location_id);
     $('#proposal_hub_formatted_location').val(item.formatted_location);
     return item.group_name;
   }
 
-  var validateNavbarSearch = function(e) {
+  app.validateNavbarSearch = function(e) {
     var locationLength = $('#location_filter').val().length > 0;
     if (locationLength) {
       if ($('#hub_filter').val().length === 0) {
@@ -179,7 +178,7 @@ window.app = {};
     }
   }
 
-  var reloadHome = function() {
+  app.reloadHome = function() {
     if ($('#homepage').length === 0) {
       e.preventDefault();
     } else {
@@ -187,11 +186,11 @@ window.app = {};
     }
   }
 
-  var navLogin = function(e) {
-    app.loginInterrupt(this, reloadHome);
+  app.navLogin = function(e) {
+    app.loginInterrupt(this, app.reloadHome);
   }
 
-  var navReg = function(e) {
+  app.navReg = function(e) {
     // If user was on login modal and clicked Join...
     if ($('#loginModal').hasClass('in')) {
       $('#loginModal').modal('hide');
@@ -212,18 +211,23 @@ window.app = {};
   $(function() {
     $('[rel=tooltip]').tooltip();
     $('[rel=popover]').popover();
-    $('#navLogin').on('click', navLogin);
-    $('#navJoin, #loginReg').on('click', navReg);
+    $('#navLogin').on('click', app.navLogin);
+    $('#navJoin, #loginReg').on('click', app.navReg);
     $('select').select2({width: '200px'});
+
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
-    $('#navbarSearch').on('submit', validateNavbarSearch);
+    $('#navbarSearch').on('submit', app.validateNavbarSearch);
+    $('#confirmationModalNo').on('click', function(e) {
+      e.preventDefault();
+      $(this).parents('.modal').modal('hide');
+    });
 
     $('.related_supporting').last().css('border-bottom', 'none');
-    pageEffects();
+    app.pageEffects();
 
     $('.gpSearchBox').each(function() {
-      gpSearch(this);
+      app.gpSearch(this);
     });
 
     // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
@@ -232,5 +236,4 @@ window.app = {};
       e.stopPropagation();
     });
   });
-
 })();

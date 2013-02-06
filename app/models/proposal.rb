@@ -14,17 +14,15 @@
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent, :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
-                  :vote, :vote_attributes, :votes, :votes_attributes
+  attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
+                  :vote, :vote_attributes, :votes, :votes_attributes, :parent
 
   # Associations
   belongs_to :user
   belongs_to :hub
-  has_many :votes
-  has_one :vote
+  has_many :votes, inverse_of: :proposal
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
-  accepts_nested_attributes_for :vote, reject_if: :all_blank
 
   # Validations
   validates :user, :statement, presence: true
@@ -60,5 +58,9 @@ class Proposal < ActiveRecord::Base
   
   def supporting_votes
     votes.where("user_id != ?", self.user_id)
+  end
+  
+  def editable?(current_user)
+    current_user && votes_count < 2 && user_id == current_user.id
   end
 end
