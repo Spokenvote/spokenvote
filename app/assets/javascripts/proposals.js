@@ -138,12 +138,13 @@
       }
       $.post('/proposals', proposal_data)
       .done(function(data) {
-        hideContentEditable(el);
+        window.location.assign('/proposals/'+proposal_id);
       })
       .fail(function(data) {
         app.errorMessage(data.responseText);
       });
     }
+    return false;
   }
 
   var deleteProposal = function(e) {
