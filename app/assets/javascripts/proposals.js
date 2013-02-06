@@ -216,15 +216,16 @@
         sa = proposal_container.find('.supporting_arguments_list'),
         srs = sa.find('.support_row').detach(),
         sform = sa.find('.support_container').detach(),
-        newSA = $('<div class="row support_row' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
+        newSA = $('<div class="row support_row first' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
         newSupports = [sform];
 
+    newSupports.push(newSA);
     if (existing_votes) {
       srs.each(function() {
+        $(this).removeClass('first');
         newSupports.push(this);
       });
     }
-    newSupports.push(newSA);
     sa.prepend(newSupports);
     Holder.run(); // updates the placeholder images
     if (!existing_votes) { // only unhide these when new vote is only Supporting vote
