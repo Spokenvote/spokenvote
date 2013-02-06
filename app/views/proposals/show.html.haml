@@ -12,5 +12,8 @@
         %li= link_to 'Oldest', proposal_path(@proposal.id, sortBy: 'created_at ASC')
 
   #relatedProposalsTitle Related Proposals
-  - @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
-    = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
+  - if @proposal.related_proposals
+    - @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
+      = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
+  - else
+    %h3 There are no related proposals yet.
