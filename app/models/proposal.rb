@@ -57,7 +57,7 @@ class Proposal < ActiveRecord::Base
   end
   
   def supporting_votes
-    votes.where("user_id != ?", self.user_id)
+    votes.where("user_id != ?", self.user_id).order("created_at DESC")
   end
   
   def editable?(current_user)
