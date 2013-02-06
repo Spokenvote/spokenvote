@@ -138,6 +138,7 @@
       }
       $.post('/proposals', proposal_data)
       .done(function(data) {
+        // Always need to reload page
         window.location.assign('/proposals/'+proposal_id);
       })
       .fail(function(data) {

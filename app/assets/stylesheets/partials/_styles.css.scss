@@ -24,7 +24,7 @@ footer {
 
 #mainContent { padding: 20px; }
 .content {
-  margin: 0; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0;
   @include clearfix;
 }
 

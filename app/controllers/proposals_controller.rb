@@ -71,6 +71,7 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     if params[:proposal][:parent_id].present?
+      # Improve
       parent = Proposal.where({id: params[:proposal][:parent_id]}).first
       params[:proposal].delete :parent_id
       params[:proposal][:parent] = parent
@@ -78,6 +79,7 @@ class ProposalsController < ApplicationController
       params[:proposal][:votes_attributes][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes] = [params[:proposal][:votes_attributes]]
     else
+      # New
       hub_attrs = params[:proposal].delete :hub
       hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
       params[:proposal][:hub_id] = hub.id

@@ -26,7 +26,7 @@
         - else
           = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
           = link_to 'Improve', '#', :class => 'btn btn-warning improve'
-        / = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
+        / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
     .supporting_statement.span7{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
 
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
