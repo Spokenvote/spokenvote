@@ -79,7 +79,7 @@ class ProposalsController < ApplicationController
       params[:proposal][:votes_attributes][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes] = [params[:proposal][:votes_attributes]]
     else
-      # New
+      # New Proposal with Existing Hub
       hub_attrs = params[:proposal].delete :hub
       hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
       params[:proposal][:hub_id] = hub.id
@@ -87,10 +87,11 @@ class ProposalsController < ApplicationController
       params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
     end
 
-    if @proposal = current_user.proposals.create!(params[:proposal])
+    @proposal = current_user.proposals.create(params[:proposal])
+
+    unless @proposal.new_record?
       redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.'
     else
-      Rails.logger.info $!.message
       redirect_to :back, notice: 'Failed to create the proposal'
     end
   end
