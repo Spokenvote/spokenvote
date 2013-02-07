@@ -19,6 +19,7 @@ class Hub < ActiveRecord::Base
   has_many :proposals
 
   validates :group_name, :location_id, :formatted_location, presence: true
+  validates :group_name, uniqueness: {scope: :formatted_location}
 
   class << self
     def by_group
