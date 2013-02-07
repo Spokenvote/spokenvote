@@ -37,6 +37,6 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.email.split('@').first
+    self.name || self.email.split('@').first
   end
 end
