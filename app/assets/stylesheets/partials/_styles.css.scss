@@ -24,7 +24,7 @@ footer {
 
 #mainContent { padding: 20px; }
 .content {
-  margin: 0; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0;
   @include clearfix;
 }
 
@@ -33,7 +33,7 @@ footer {
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { width: 810px; margin-left: 60px; }
+.alert { width: 810px; margin-left: 20px; }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural

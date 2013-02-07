@@ -61,7 +61,7 @@ class ProposalsController < ApplicationController
     render action: 'show'
   end
 
-  # Get /proposals/i/isEditable
+  # Get /proposals/:id/isEditable
   def isEditable
     proposal = Proposal.find(params[:id])
     render json: { editable: proposal.editable?(current_user) }
@@ -70,24 +70,28 @@ class ProposalsController < ApplicationController
   # POST /proposals
   # POST /proposals.json
   def create
-    respond_to do |format|
-      begin
-        proposal_attrs = params[:proposal]
-        hub_attrs = proposal_attrs.delete :hub
-        hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
-        votes = proposal_attrs.delete :votes_attributes
-        vote_attrs = votes["0"].merge(ip_address: request.remote_ip)
+    if params[:proposal][:parent_id].present?
+      # Improve
+      parent = Proposal.where({id: params[:proposal][:parent_id]}).first
+      params[:proposal].delete :parent_id
+      params[:proposal][:parent] = parent
+      params[:proposal][:hub_id] = parent.hub.id
+      params[:proposal][:votes_attributes][:ip_address] = request.remote_ip
+      params[:proposal][:votes_attributes] = [params[:proposal][:votes_attributes]]
+    else
+      # New
+      hub_attrs = params[:proposal].delete :hub
+      hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
+      params[:proposal][:hub_id] = hub.id
+      params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
+      params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
+    end
 
-        Proposal.transaction do
-          @proposal = current_user.proposals.create!(proposal_attrs.merge(hub: hub))
-          @proposal.votes.create!(vote_attrs.merge(user: current_user))
-        end
-
-        format.html { redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.' }
-      rescue
-        Rails.logger.info $!.message
-        format.html { redirect_to :back, notice: 'Failed to create the proposal' }
-      end
+    if @proposal = current_user.proposals.create!(params[:proposal])
+      redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.'
+    else
+      Rails.logger.info $!.message
+      redirect_to :back, notice: 'Failed to create the proposal'
     end
   end
 
