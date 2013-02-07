@@ -8,7 +8,6 @@ $heroUnitHeadingColor: $headingsColor;
 body {
   padding-top: 40px;
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
-  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
 }
 
 footer {
@@ -24,8 +23,9 @@ footer {
 
 #mainContent { padding: 20px; }
 .content {
-  margin: 0; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0;
   @include clearfix;
+  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
 }
 
 .span11 > .form-horizontal {
@@ -33,7 +33,7 @@ footer {
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { width: 810px; margin-left: 60px; }
+.alert { width: 810px; margin-left: 20px; }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural

@@ -18,13 +18,12 @@
       .control-group
         = hub_form.label :group_name, :class => 'control-label'
         .controls
-          = hub_form.text_field :group_id, placeholder: 'Please choose the word or phrase that best captures this proposal'
-          = hub_form.hidden_field :group_name
+          = hub_form.hidden_field :group_name, placeholder: 'Please choose the word or phrase that best captures this proposal', data: {location_input: '#proposal_hub_formatted_location', location_id: '#location_id'}
 
       .control-group
         = hub_form.label :location_id, :class => 'control-label'
         .controls
-          = hub_form.text_field :formatted_location, :name => '', :class => 'input-xxlarge gpSearchBox', data: {value_field: '#proposal_hub_location_id'}, placeholder: 'Please enter the geography to which this proposal applies'
+          = hub_form.text_field :formatted_location, :name => '', :class => 'input-xxlarge gpSearchBox', placeholder: 'Please enter the geography to which this proposal applies'
           %i.clear-location.icon-remove-circle.hide
           -#  Setting the name to nil as we do not need the formatted_location string for creating a proposal.
           -#  The location_id is sufficient to derive a unique location.
