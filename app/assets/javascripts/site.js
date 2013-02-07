@@ -33,7 +33,8 @@ window.app = {};
   }
 
   app.configureHubFilter = function(groupname_elem, select_width) {
-    var location_input = $(groupname_elem).data('locationInput');
+    var location_input = $(groupname_elem).data('locationInput'),
+        location_id = $(groupname_elem).data('locationId');
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -55,7 +56,12 @@ window.app = {};
         return item.full_hub;
       },
 
-      formatSelection: app.getHubName,
+      formatSelection: function(item) {
+        $(location_input).val(item.formatted_location);
+        $(location_id).val(item.location_id)//.closest('form').submit();
+        $(groupname_elem).val(item.group_name);
+        return item.group_name;
+      },
 
       formatNoMatches: function (term) {
         return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
@@ -154,17 +160,6 @@ window.app = {};
           value_field = $(elem).data('value_field');
       $(value_field).val(place.id);
     });
-  }
-
-  // helper for repetitive hub_filter select2 options
-  app.getHubName = function(item) {
-    $('#location_filter').val(item.formatted_location);
-    $('#location_id_filter').val(item.location_id)//.closest('form').submit();
-
-    $('#proposal_hub_group_name').val(item.group_name);
-    $('#proposal_hub_location_id').val(item.location_id);
-    $('#proposal_hub_formatted_location').val(item.formatted_location);
-    return item.group_name;
   }
 
   app.validateNavbarSearch = function(e) {
