@@ -40,7 +40,7 @@ The typical work flow for this is:
 5. git commit -am "commit message"
 6. git push origin new-branch-name
 7. git checkout master
-8. In your browser go to your repo and create the pull request **(Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
+8. In your browser go to your repo and create the pull request (Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
 
 **Tests are always a welcome inclusion!**
 
