@@ -163,7 +163,13 @@ window.app = {};
   }
 
   app.validateNavbarSearch = function(e) {
-    var locationLength = $('#location_filter').val().length > 0;
+    var locationLength = $('#location_filter').val().length > 0,
+        group_length = $('#hub_filter').val().length > 0;
+
+    if (!locationLength && !group_length) {
+      app.errorMessage('Please enter a group name and location to find.');
+      return false;
+    }
     if (locationLength) {
       if ($('#hub_filter').val().length === 0) {
         app.errorMessage('Please enter a group name, search only by location is not supported at this time');
