@@ -26,10 +26,21 @@ The master instance work-in-progress instance is hosted <a href="http://spokenvo
 
 Where possible please make your changes in small, cohesive commits. Send separate pull requests for each commit you feel is ready to be added to master.
 
-When doing a larger piece of work, such as the following, please use a branch so others can more easily review it.
+When doing a larger piece of work, such as the following, please use a feature/topic branch so others can more easily review it.
 
 * The commit includes the addition of, or significant version changes of, gems or libraries used
 * The commit is a significant new feature or rewrite of an existing feature
+
+The typical work flow for this is:
+
+1. git checkout master (unless you're already on master)
+2. git checkout -b new-branch-name
+3. ... write your code ...
+4. git add ... files ... (if necessary)
+5. git commit -am "commit message"
+6. git push origin new-branch-name
+7. git checkout master
+8. In your browser go to your repo and create the pull request **(Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
 
 **Tests are always a welcome inclusion!**
 
