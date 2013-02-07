@@ -193,9 +193,9 @@
       improve_support_buttons = proposal_container.find('.improve_support_buttons'),
       proposal_person = $('.support_container').find('.proposal-person'),
       user_id = $('#user-dropdown-menu').data('email'),
-      user_name = $('#user-dropdown-menu').text();
+      username = $('#user-dropdown-menu').text();
 
-    proposal_person.find('span').replaceWith('<a href="/users/'+ user_id + '/proposals">' + user_name + '</a>');
+    proposal_person.find('span').replaceWith('<a href="/users/'+ user_id + '/proposals">' + username + '</a>');
     proposal_container.find('.support_container').removeClass('hide').addClass('active');
     proposal_container.find('.vote_comment textarea').val('').focus();
     improve_support_buttons.hide();
@@ -218,7 +218,7 @@
         sa = proposal_container.find('.supporting_arguments_list'),
         srs = sa.find('.support_row').detach(),
         sform = sa.find('.support_container').detach(),
-        newSA = $('<div class="row support_row first' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.user_name + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
+        newSA = $('<div class="row support_row first' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.username + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
         newSupports = [sform];
 
     newSupports.push(newSA);

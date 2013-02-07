@@ -23,15 +23,14 @@ class Vote < ActiveRecord::Base
   validates :comment, :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
 
+  # Delegations
+  delegate :username, :to => :user
+
   # TODO This doesn't do the job, need help please
   def before_validation
     existing = Vote.where({user_id: self.user_id, proposal_id: self.proposal_id}).first
     if existing
       existing.destroy
     end
-  end
-
-  def user_name
-    user.name
   end
 end
