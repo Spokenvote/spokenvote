@@ -10,7 +10,7 @@
     .control-group
       = f.label :group, :class => 'control-label'
       .controls
-        = f.text_field :group_name, :class => 'input-xxlarge'
+        = f.text_field :group_name, :class => 'input-xxlarge', data: {location_input: '#formatted_location', location_id: '#location_id'}
     .control-group
       = f.label :location, :class => 'control-label'
       .controls
