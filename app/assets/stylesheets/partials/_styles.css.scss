@@ -8,7 +8,6 @@ $heroUnitHeadingColor: $headingsColor;
 body {
   padding-top: 40px;
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
-  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
 }
 
 footer {
@@ -26,6 +25,7 @@ footer {
 .content {
   margin: 0;
   @include clearfix;
+  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
 }
 
 .span11 > .form-horizontal {
