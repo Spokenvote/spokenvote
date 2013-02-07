@@ -7,8 +7,9 @@ $heroUnitHeadingColor: $headingsColor;
 // structural styles
 body {
   padding-top: 40px;
-  @include background(linear-gradient(#ddd, #eee 45%, #fff));
-  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
+  @include background(image-url('paper_3.png') repeat left top);
+//  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+//  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
 }
 
 footer {
