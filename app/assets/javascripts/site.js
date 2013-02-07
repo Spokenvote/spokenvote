@@ -90,7 +90,7 @@ window.app = {};
   }
 
   app.createAlert = function (msg, style) {
-    $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   app.createModalAlert = function (msg, style, modalElem) {

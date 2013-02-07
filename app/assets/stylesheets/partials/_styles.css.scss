@@ -21,7 +21,7 @@ footer {
   .container { background-color: #fff; }
 }
 
-#mainContent { padding: 20px; }
+#mainContent { padding: 20px 20px 20px 40px; }
 .content {
   margin: 0;
   @include clearfix;
@@ -33,7 +33,7 @@ footer {
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { width: 810px; margin-left: 20px; }
+.alert { margin-left: 20px; }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural
