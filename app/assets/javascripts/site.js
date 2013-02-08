@@ -100,7 +100,7 @@ window.app = {};
   app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
     if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-      $('section.span11').height(vph - 122);
+      $('section.span11').height(vph - 2);
     } else {
       if(vph > $('#mainContent').height()) {
         $('#mainContent').height(vph - 120);
@@ -205,9 +205,13 @@ window.app = {};
 
   $(function() {
     $('[rel=tooltip]').tooltip();
-    $('[rel=popover]').popover();
+    $('[rel=popover]').popover({trigger: 'hover'});
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
+    $('.shares').on('click', 'a', function(e) {
+      e.preventDefault();
+      window.open($(this).attr('href'));
+    })
     $('select').select2({width: '200px'});
 
     app.configureHubFilter('#hub_filter', '220px');

@@ -26,7 +26,7 @@
           = f.password_field :current_password, hint: "we need your current password to confirm your changes", required: true
       .control-group
         .controls
-          = f.submit "Update", class: 'btn btn-primary'
+          = f.button raw('Update <i class="icon-ok"></i>'), class: 'btn btn-primary btn-bold'
           
     .hr
 

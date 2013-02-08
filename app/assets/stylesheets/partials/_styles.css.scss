@@ -11,29 +11,32 @@ body {
 }
 
 footer {
-  &.navbar { margin-bottom: 0; }
+  &.navbar { margin-bottom: 0; margin-top: 2px; }
   .navbar-inner { @include border-radius(0); }
   .container { padding: 10px 0; }
   a { color: #fff; }
 }
 
 #main {
-  .container { background-color: #fff; }
+  overflow: visible;
+  .content {
+    overflow: auto;
+    background-color: #fff; 
+    @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+  }
 }
 
-#mainContent { padding: 20px 20px 20px 40px; }
+#mainContent { padding: 20px 20px 20px 40px; margin-bottom: 20px; }
 .content {
   margin: 0;
   @include clearfix;
-  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
 }
-
 .span11 > .form-horizontal {
   margin-top: 20px;
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { margin-left: 20px; }
+.alert { margin-left: 20px; @include border-radius(0); }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural
@@ -112,7 +115,7 @@ textarea { height: 100px; }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .select2-container.span4 { margin-left: 0; }
-.user-avatar { float: left; width: 35px; }
+.user-avatar { float: left; width: 45px; }
 
 .modal-header {
   @include border-top-radius(6px);
@@ -246,7 +249,7 @@ textarea { height: 100px; }
 }
 
 .improve_support_buttons {
-  margin-top: 20px;
+  display: inline;
   .btn { @extend .btn-mini; font-size: 12px; }
 }
 .supporting_arguments {
@@ -256,13 +259,17 @@ textarea { height: 100px; }
     color: #999;
   }
   .proposal-person { @extend .clear; }
+  .supported_date {
+    @include inline-block;
+    .shares { display: block; margin-top: 4px; }
+  }
   .support_row {
     @extend .no-gutter;
-    margin-top: 10px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    &.last { border-bottom: none;}
   }
-  .support_row.first { border-top: none; padding-top: 0; }
 }
 .supporting_statement, .support_comment {
   div { margin-bottom: 10px; }
@@ -285,6 +292,8 @@ textarea { height: 100px; }
   }
 }
 .supporting_statement { font-size: 16px; }
+.supported_date { margin-bottom: 10px; }
+.shares  .btn { @extend .btn-mini; @extend .btn-success; }
 .proposal_fields {
   margin-top: 10px;
   label {
