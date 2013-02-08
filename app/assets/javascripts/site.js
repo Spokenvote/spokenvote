@@ -63,8 +63,18 @@ window.app = {};
         return item.group_name;
       },
 
-      formatNoMatches: function (term) {
-        return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      formatNoMatches: function(term) {
+        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      // },
+      // 
+      // TODO: This doesn't work, need help
+      // See example at http://ivaynberg.github.com/select2/#events
+      // createSearchChoice: function(term, data) {
+      //   if ($(data).filter(function() { 
+      //     return this.group_name.localeCompare(term) === 0;
+      //   }).length === 0) {
+      //     return {hub_filter: term, location_id_filter: ''};
+      //   }
       }
     });
 
@@ -157,7 +167,7 @@ window.app = {};
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace(),
-          value_field = $(elem).data('value_field');
+          value_field = $(elem).data('valueField');
       $(value_field).val(place.id);
     });
   }
@@ -208,6 +218,26 @@ window.app = {};
     });
     return false;
   }
+  
+  app.navCreateHub = function(e) {
+    e.preventDefault();
+    $('#s2id_hub_filter').select2('close');
+    var searchTerm = e.target.href.split('=')[1];
+    $('#hubModal').find('#hub_group_name').val(searchTerm);
+    $('#hubModal').modal();
+  }
+  
+  app.saveNewHub = function(e) {
+    e.preventDefault();
+    $.post('/hubs', $('#new_hub').serialize(), function(data) {
+      if (data.success) {
+        $('#hubModal').modal('toggle');
+        successMessage('Your hub was created');
+      } else {
+        alert('Could not create this hub: ' + data.errors);
+      }
+    })
+  }
 
   $(function() {
     $('[rel=tooltip]').tooltip();
@@ -215,10 +245,13 @@ window.app = {};
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
     $('select').select2({width: '200px'});
+    $('#hubModalSave').on('click', app.saveNewHub);
 
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
+    $('.select2-results').on('click', '#navCreateHub', app.navCreateHub);
+
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
       $(this).parents('.modal').modal('hide');

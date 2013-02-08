@@ -1,0 +1,17 @@
+#hubModal.modal.hide{data: {width: '400px'}}
+  .modal-header
+    .pull-right= link_to raw('&times;'), '#', class: 'close', data: {dismiss: 'modal'}
+    %h3 Create a new Group
+  .modal-body
+    = form_for Hub.new, data: {remote: true} do |f|
+      %fieldset
+        .control-group
+          .controls
+            = f.text_field :group_name, :class => 'input-xlarge', data: {location_input: '#formatted_location', location_id: '#location_id'}, placeholder: 'Enter the Name'
+        .control-group
+          .controls
+            = f.text_field :formatted_location, :class => 'input-xlarge gpSearchBox', data: {value_field: '#hub_location_id'}, placeholder: 'Enter the Location'
+            = f.hidden_field :location_id
+        .control-group
+          .controls
+            = f.button raw('Save <i class="icon-ok"></i>'), class: 'btn btn-primary', id: 'hubModalSave'
