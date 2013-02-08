@@ -2,7 +2,7 @@
   .proposal_hub
     #totalVoteLabel
       %span.label
-        = total_votes.to_s + ' Total Votes'
+        = total_votes.to_s + ' Votes on ' + (proposal.related_proposals.count + 1).to_s + ' Proposals'
     %h2
       = proposal.hub.group_name
       &ndash;
