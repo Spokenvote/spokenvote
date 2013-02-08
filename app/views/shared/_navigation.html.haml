@@ -13,7 +13,7 @@
           = hidden_field_tag :location_id_filter
 
           / = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom', title: 'Location Search'}
-        = button_tag 'Search', class: 'btn btn-danger btn-bold'
+        = button_tag raw('<i class="icon-search"></i>'), class: 'btn btn-danger btn-bold', title: 'Search Hubs', rel: 'tooltip', data: {placement: 'bottom'}
 
       %ul.nav.pull-right
         %li.dropdown

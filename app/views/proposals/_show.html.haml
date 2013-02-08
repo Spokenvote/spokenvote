@@ -19,14 +19,16 @@
       = link_to proposal.user.name, proposals_path(user_id: proposal.user.id)
       .supported_date
         = proposal.created_at.to_s(:month_day_year)
-      .improve_support_buttons.btn-group
-        - if current_user && proposal.editable?(current_user)
-          = link_to 'Edit', '#', :class => 'btn btn-primary btn-bold edit'
-          = link_to 'Delete', '#', :class => 'btn btn-danger delete'
-        - else
-          = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
-          = link_to 'Improve', '#', :class => 'btn btn-warning improve'
-        / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
+      .improve_support_buttons
+        .btn-group
+          - if current_user && proposal.editable?(current_user)
+          = link_to raw('<i class="icon-pencil"></i>'), '#', :class => 'btn btn-primary btn-bold edit', rel: 'popover', data: {title: 'Edit your proposal', content: 'Before any other votes are made for your proposal you may edit it.'}
+            = link_to raw('<i class="icon-trash"></i>'), '#', :class => 'btn btn-danger delete', rel: 'popover', data: {title: 'Delete your proposal', content: 'You may delete your proposal before any other votes are made for it.'}
+          - else
+            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-primary btn-bold support', rel: 'popover', data: {title: 'Support', content: 'Vote for this proposal'}
+            = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
+          / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
+      = render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
     .supporting_statement.span7{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
 
     = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
@@ -41,6 +43,5 @@
         = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
         = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
-        .span1
-          - if proposal.votes_count > 3
-            .more=link_to 'More...', proposal_path({page: 0, proposal: proposal.id})
+        - if proposal.votes_count > 3
+          .more.pull-right=link_to 'More Supporters', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'

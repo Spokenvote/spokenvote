@@ -21,8 +21,9 @@
       .container
         .content
           .row
-            #mainContent.span12
+            #alertContainer
               = render 'shared/messages'
+            #mainContent
               = yield
     = render 'shared/footer'
     = render partial: '/shared/loginModal'
