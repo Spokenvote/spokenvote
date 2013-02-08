@@ -90,7 +90,7 @@ window.app = {};
   }
 
   app.createAlert = function (msg, style) {
-    $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   app.createModalAlert = function (msg, style, modalElem) {
@@ -100,10 +100,10 @@ window.app = {};
   app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
     if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-      $('section.span11').height(vph - 122);
+      $('#mainContent').height(vph - 142);
     } else {
-      if(vph > $('#mainContent').height()) {
-        $('#mainContent').height(vph - 120);
+      if (vph > $('#mainContent').height()) {
+        $('#mainContent').height(vph - 140);
       }
     }
   }
@@ -118,9 +118,6 @@ window.app = {};
   }
 
   app.pageEffects = function() {
-    if ($('body').height() > 1200) {
-      $('body').addClass('long');
-    }
     if ($('.content_page #new_user').length > 0) {
       $('#user_email').focus();
     }
@@ -211,9 +208,13 @@ window.app = {};
 
   $(function() {
     $('[rel=tooltip]').tooltip();
-    $('[rel=popover]').popover();
+    $('[rel=popover]').popover({trigger: 'hover'});
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
+    $('.shares').on('click', 'a', function(e) {
+      e.preventDefault();
+      window.open($(this).attr('href'));
+    })
     $('select').select2({width: '200px'});
 
     app.configureHubFilter('#hub_filter', '220px');
