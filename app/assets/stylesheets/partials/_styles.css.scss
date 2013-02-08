@@ -36,7 +36,7 @@ footer {
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { margin-left: 20px; @include border-radius(0); }
+.alert { margin-left: 20px; @include border-radius(0); text-align: center; }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural
