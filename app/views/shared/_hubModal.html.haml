@@ -12,6 +12,6 @@
           .controls
             = f.text_field :formatted_location, :class => 'input-xlarge gpSearchBox', data: {value_field: '#hub_location_id'}, placeholder: 'Enter the Location'
             = f.hidden_field :location_id
-        .control-group
-          .controls
-            = f.button raw('Save <i class="icon-ok"></i>'), class: 'btn btn-primary', id: 'hubModalSave'
+
+  .modal-footer
+    = link_to raw('Save <i class="icon-ok"></i>'), '#', class: 'btn btn-primary', id: 'hubModalSave'
