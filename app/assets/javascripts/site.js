@@ -34,9 +34,7 @@ window.app = {};
 
   app.configureHubFilter = function(groupname_elem, select_width) {
     var location_input = $(groupname_elem).data('locationInput'),
-        location_id = $(groupname_elem).data('locationId'),
-        selected_hub = $(groupname_elem).data('selectedHub');
-
+        location_id = $(groupname_elem).data('locationId');
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -65,10 +63,19 @@ window.app = {};
         return item.group_name;
       },
 
-      formatNoMatches: function (term) {
-        return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      formatNoMatches: function(term) {
+        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
       },
-      
+
+      // TODO: This doesn't work, need help
+      // See example at http://ivaynberg.github.com/select2/#events
+      // createSearchChoice: function(term, data) {
+      //   if ($(data).filter(function() { 
+      //     return this.group_name.localeCompare(term) === 0;
+      //   }).length === 0) {
+      //     return {hub_filter: term, location_id_filter: ''};
+      //   }
+
       initSelection: function (element, callback) {
         callback(selected_hub);
       }
@@ -160,8 +167,14 @@ window.app = {};
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace(),
-          value_field = $(elem).data('value_field');
+          value_field = $(elem).data('valueField');
       $(value_field).val(place.id);
+      if (elem.id === 'location_filter') {
+        // this was a navbar search, preload the hub modal location field
+        // TODO figure out how to do this in app.navCreateHub() instead
+        $('#hub_formatted_location').val(place.formatted_address);
+        $('#hub_location_id').val(place.id);
+      }
     });
   }
 
@@ -211,6 +224,27 @@ window.app = {};
     });
     return false;
   }
+  
+  app.navCreateHub = function(e) {
+    e.preventDefault();
+    $('#s2id_hub_filter').select2('close');
+    var searchGroup = decodeURIComponent(e.target.href.split('=')[1]);
+
+    $('#hubModal').find('#hub_group_name').val(searchGroup);
+    $('#hubModal').modal();
+  }
+  
+  app.saveNewHub = function(e) {
+    e.preventDefault();
+    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
+      if (data.id === 'undefined') {
+        alert('Could not create this hub: ' + data.errors);
+      } else {
+        $('#hubModal').modal('toggle');
+        app.successMessage('Your hub was created');
+      }
+    })
+  }
 
   $(function() {
     $('[rel=tooltip]').tooltip();
@@ -222,10 +256,13 @@ window.app = {};
       window.open($(this).attr('href'));
     })
     $('select').select2({width: '200px'});
+    $('#hubModalSave').on('click', app.saveNewHub);
 
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
+    $('.select2-results').on('click', '#navCreateHub', app.navCreateHub);
+
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
       $(this).parents('.modal').modal('hide');
