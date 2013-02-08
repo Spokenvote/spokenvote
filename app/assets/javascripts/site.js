@@ -65,8 +65,8 @@ window.app = {};
 
       formatNoMatches: function(term) {
         return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
-      // },
-      // 
+      },
+
       // TODO: This doesn't work, need help
       // See example at http://ivaynberg.github.com/select2/#events
       // createSearchChoice: function(term, data) {
@@ -75,6 +75,9 @@ window.app = {};
       //   }).length === 0) {
       //     return {hub_filter: term, location_id_filter: ''};
       //   }
+
+      initSelection: function (element, callback) {
+        callback(selected_hub);
       }
     });
 
