@@ -34,7 +34,9 @@ window.app = {};
 
   app.configureHubFilter = function(groupname_elem, select_width) {
     var location_input = $(groupname_elem).data('locationInput'),
-        location_id = $(groupname_elem).data('locationId');
+        location_id = $(groupname_elem).data('locationId'),
+        selected_hub = $(groupname_elem).data('selectedHub');
+
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -65,6 +67,10 @@ window.app = {};
 
       formatNoMatches: function (term) {
         return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      },
+      
+      initSelection: function (element, callback) {
+        callback(selected_hub);
       }
     });
 
