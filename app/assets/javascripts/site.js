@@ -10,6 +10,11 @@ window.app = {};
     app.createAlert(msg, 'error');
   }
 
+  app.closeAlert = function(e) {
+    if ($('.alert').length === 0) { return; }
+    $('.alert').alert('close');
+  }
+
   app.updateSearchFields = function(options) {
     if (options.hub.length > 0) {
       $('#hub').val(options.hub[0]);
@@ -215,6 +220,7 @@ window.app = {};
   $(function() {
     $('[rel=tooltip]').tooltip();
     $('[rel=popover]').popover({trigger: 'hover'});
+    $('body').on('click', app.closeAlert);
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
     $('.shares').on('click', 'a', function(e) {
@@ -223,8 +229,6 @@ window.app = {};
     })
     $('select').select2({width: '200px'});
 
-    app.configureHubFilter('#hub_filter', '220px');
-    app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
@@ -233,6 +237,9 @@ window.app = {};
 
     $('.related_supporting').last().css('border-bottom', 'none');
     app.pageEffects();
+
+    app.configureHubFilter('#hub_filter', '220px');
+    app.configureHubFilter('#proposal_hub_group_name', '220px');
 
     $('.gpSearchBox').each(function() {
       app.gpSearch(this);

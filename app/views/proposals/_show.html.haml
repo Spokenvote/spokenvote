@@ -44,4 +44,4 @@
         = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
         - if proposal.votes_count > 3
-          .more.pull-right=link_to 'More Supporters', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
+          .more=link_to 'More', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
