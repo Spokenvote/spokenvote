@@ -325,7 +325,7 @@ textarea { height: 100px; }
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -20px;
+  margin-top: -20px; margin-right: -40px; // flush right on #mainContent
   .label {@extend .label-large; @extend .label-success; @extend .label-flat;}
 }
 // end Proposal-related
