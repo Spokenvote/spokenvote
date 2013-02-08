@@ -64,7 +64,7 @@ window.app = {};
       },
 
       formatNoMatches: function(term) {
-        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '&requested_location=' + $(location_input).val() + '">Create one</a>';
+        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
       // },
       // 
       // TODO: This doesn't work, need help
@@ -166,6 +166,12 @@ window.app = {};
       var place = autocomplete.getPlace(),
           value_field = $(elem).data('valueField');
       $(value_field).val(place.id);
+      if (elem.id === 'location_filter') {
+        // this was a navbar search, preload the hub modal location field
+        // TODO figure out how to do this in app.navCreateHub() instead
+        $('#hub_formatted_location').val(place.formatted_address);
+        $('#hub_location_id').val(place.id);
+      }
     });
   }
 
@@ -219,11 +225,9 @@ window.app = {};
   app.navCreateHub = function(e) {
     e.preventDefault();
     $('#s2id_hub_filter').select2('close');
-    var terms = e.target.href.split('?')[1].split('&'),
-        searchGroup = decodeURIComponent(terms[0].split('=')[1]),
-        searchLocation = decodeURIComponent(terms[1].split('=')[1]);
+    var searchGroup = decodeURIComponent(e.target.href.split('=')[1]);
+
     $('#hubModal').find('#hub_group_name').val(searchGroup);
-    $('#hubModal').find('#hub_formatted_location').val(searchLocation);
     $('#hubModal').modal();
   }
   
