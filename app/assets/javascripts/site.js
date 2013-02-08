@@ -64,7 +64,7 @@ window.app = {};
       },
 
       formatNoMatches: function(term) {
-        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
+        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '&requested_location=' + $(location_input).val() + '">Create one</a>';
       // },
       // 
       // TODO: This doesn't work, need help
@@ -219,19 +219,22 @@ window.app = {};
   app.navCreateHub = function(e) {
     e.preventDefault();
     $('#s2id_hub_filter').select2('close');
-    var searchTerm = e.target.href.split('=')[1];
-    $('#hubModal').find('#hub_group_name').val(searchTerm);
+    var terms = e.target.href.split('?')[1].split('&'),
+        searchGroup = decodeURIComponent(terms[0].split('=')[1]),
+        searchLocation = decodeURIComponent(terms[1].split('=')[1]);
+    $('#hubModal').find('#hub_group_name').val(searchGroup);
+    $('#hubModal').find('#hub_formatted_location').val(searchLocation);
     $('#hubModal').modal();
   }
   
   app.saveNewHub = function(e) {
     e.preventDefault();
-    $.post('/hubs', $('#new_hub').serialize(), function(data) {
-      if (data.success) {
-        $('#hubModal').modal('toggle');
-        successMessage('Your hub was created');
-      } else {
+    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
+      if (data.id === 'undefined') {
         alert('Could not create this hub: ' + data.errors);
+      } else {
+        $('#hubModal').modal('toggle');
+        app.successMessage('Your hub was created');
       }
     })
   }
