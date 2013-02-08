@@ -9,7 +9,7 @@
           = link_to 'New', proposals_path(filter: 'new'), class: "btn #{@sortTitle == 'New ' ? 'active' : ''}"
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(user_id: current_user.id), class: "btn #{@sortTitle == 'My ' ? 'active': ''}"
-      %th.count-column Added
+      %th.count-column{ width: '10%'} Added
       %th.count-column{ width: '10%'} Votes
       %th.count-column{ width: '12%'} Branches
 

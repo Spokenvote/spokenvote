@@ -105,6 +105,7 @@ h2 { margin-bottom: 12px; }
 
 textarea { height: 100px; }
 .full-width { width: 99%; }
+.popover { z-index: 12001; }
 .popover-content * { white-space: normal; font-size: 13px; } // fixes wordwrap, input-append 0x issues
 
 [contenteditable="true"] {
@@ -217,10 +218,10 @@ textarea { height: 100px; }
   .proposal_buttons { width: 114px; }
   td.proposal_buttons + td { border-left: none; }
 }
-#proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
+#proposalNotFound div { margin-left: 0; }
+#proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; padding: 3px 10px; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
-.main-proposal { overflow: auto; }
 .support_container {
   @extend .no-gutter;
   background: #ddd;

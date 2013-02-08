@@ -99,12 +99,8 @@ window.app = {};
 
   app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
-    if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-      $('section.span11').height(vph - 2);
-    } else {
-      if(vph > $('#mainContent').height()) {
-        $('#mainContent').height(vph - 120);
-      }
+    if (!($('section.clear').length > 0 || $('section.searched').length > 0) && (vph > $('#mainContent').height())) {
+      $('#mainContent').height(vph - 140);
     }
   }
 
@@ -118,9 +114,6 @@ window.app = {};
   }
 
   app.pageEffects = function() {
-    if ($('body').height() > 1200) {
-      $('body').addClass('long');
-    }
     if ($('.content_page #new_user').length > 0) {
       $('#user_email').focus();
     }
