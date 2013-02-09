@@ -2,6 +2,14 @@ window.app = {};
 
 (function () {
 
+  app.createAlert = function (msg, style) {
+    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
+  app.createModalAlert = function (msg, style, modalElem) {
+    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
   app.successMessage = function(msg) {
     app.createAlert(msg, 'success');
   }
@@ -105,14 +113,6 @@ window.app = {};
         });
       }
     });
-  }
-
-  app.createAlert = function (msg, style) {
-    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
-  }
-
-  app.createModalAlert = function (msg, style, modalElem) {
-    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   app.setPageHeight = function() {
@@ -243,10 +243,10 @@ window.app = {};
     e.preventDefault();
     $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
       if (data.id === 'undefined') {
-        alert('Could not create this hub: ' + data.errors);
+        alert('Could not create this group: ' + data.errors);
       } else {
         $('#hubModal').modal('toggle');
-        app.successMessage('Your hub was created');
+        app.successMessage('Your group was created');
       }
     })
   }
