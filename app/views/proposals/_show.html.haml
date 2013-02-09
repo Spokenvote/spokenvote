@@ -2,7 +2,7 @@
   .proposal_hub
     #totalVoteLabel
       %span.label
-        = total_votes.to_s + ' Total Votes'
+        = total_votes.to_s + ' Votes on ' + (proposal.related_proposals.count + 1).to_s + ' Proposals'
     %h2
       = proposal.hub.group_name
       &ndash;
@@ -44,4 +44,4 @@
         = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
         - if proposal.votes_count > 3
-          .more.pull-right=link_to 'More Supporters', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
+          .more=link_to 'More', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
