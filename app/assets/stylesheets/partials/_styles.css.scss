@@ -26,7 +26,11 @@ footer {
   }
 }
 
-#mainContent { padding: 20px 20px 20px 40px; margin-bottom: 20px; }
+#mainContent {
+  padding: 20px 20px 20px 40px;
+  margin-bottom: 20px;
+  position: relative;
+}
 .content {
   margin: 0;
   @include clearfix;
@@ -127,6 +131,10 @@ textarea { height: 100px; }
 }
 
 #confirmationModalQuestion { margin: 20px 0; font-weight: bold; }
+
+.alert-special {
+  position: absolute; top: 0; left: 0; width: 93%;
+}
 // end General elements
 
 // Login elements

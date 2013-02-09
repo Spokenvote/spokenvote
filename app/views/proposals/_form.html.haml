@@ -1,11 +1,10 @@
-= nested_form_for @proposal, :html => {:class => 'form-horizontal'} do |f|
-  - if @proposal.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@proposal.errors.count, "error")} prohibited this proposal from being saved:"
-      %ul
-        - @proposal.errors.full_messages.each do |msg|
-          %li= msg
+- if @proposal.errors.any?
+  - errMsg = @proposal.errors.full_messages.map {|msg| msg}.join
+  .alert.alert-error.alert-special
+    %a.close{"data-dismiss" => "alert"} &#215;
+    = errMsg
 
+= nested_form_for @proposal, :html => {:class => 'form-horizontal'} do |f|
   %fieldset
     .control-group
       = f.label :statement, :class => 'control-label'
