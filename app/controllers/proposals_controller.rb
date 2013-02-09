@@ -1,6 +1,4 @@
 class ProposalsController < ApplicationController
-  include ApplicationHelper
-
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :requested_proposals, :only => [:index, :search]
 
@@ -28,8 +26,6 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
-
-    set_selected_hub
 
     if params[:proposal].presence
       offset_by = (page_number * records_limit) + 3
@@ -144,8 +140,11 @@ private
       @sortTitle = search_hub.group_name + ' '
 
       if search_hub
-        session[:search_hub] = search_hub
-        @proposals = Proposal.roots.order('proposals.votes_count DESC')
+        @selected_hub_id = session[:hub_id] = search_hub.id
+        session[:hub_filter] = search_hub.group_name
+        session[:hub_location] = search_hub.formatted_location
+        @selected_hub = search_hub.to_json(:methods => :full_hub)
+        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
       end
     elsif params[:hub_filter]
       hub_filter = params[:hub_filter]
@@ -160,9 +159,13 @@ private
         @sortTitle = search_hub.group_name + ' '
       end
       
+      @selected_hub_id = session[:hub_id] = search_hub.id
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      @selected_hub = search_hub.to_json(:methods => :full_hub)
+
       if search_hub
-        session[:search_hub] = search_hub
-        @proposals = Proposal.roots.order('proposals.votes_count DESC')
+        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
       end
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
@@ -171,11 +174,5 @@ private
     else
       @proposals = Proposal.order('votes_count DESC')
     end
-    
-    set_selected_hub
-
-    if session[:search_hub] && session[:search_hub][:id]
-      @proposals = @proposals.where(hub_id: session[:search_hub][:id])
-    end      
   end
 end

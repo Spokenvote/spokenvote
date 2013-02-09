@@ -10,7 +10,7 @@
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(user_id: current_user.id), class: "btn #{@sortTitle == 'My ' ? 'active': ''}"
       %th.count-column{ width: '10%'} Added
-      %th.count-column{ width: '14%', title: 'Branch count in parentheses', rel: 'tooltip'} Votes
+      %th.count-column{ width: '14%', title: 'Total votes :: Proposal count', rel: 'tooltip'} Activity
       / %th.count-column{ width: '12%'} Branches
 
   %tbody
@@ -20,8 +20,7 @@
         %td{ colspan: '2' }= link_to proposal.statement, proposal_path(proposal)
         %td{ width: '20%'}= link_to proposal.user.username, proposals_path(user_id: proposal.user.id)
         %td.count-column= proposal.created_at.to_s(:month_day_year)
-        - branches = proposal.root.related_proposals.count > 0 ? ' (' + (proposal.root.related_proposals.count+1).to_s + ')' : ''
-        %td.count-column= raw(proposal.votes_count.to_s + ' of ' + proposal.votes_in_tree.to_s) + branches
+        %td.count-column= proposal.votes_in_tree.to_s + ' :: ' + (proposal.root.related_proposals.count+1).to_s
         / %td.count-column= proposal.root.related_proposals.count + 1
 #proposalNotFound
   .span7 &nbsp;
