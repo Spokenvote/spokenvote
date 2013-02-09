@@ -2,12 +2,25 @@ window.app = {};
 
 (function () {
 
+  app.createAlert = function (msg, style) {
+    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
+  app.createModalAlert = function (msg, style, modalElem) {
+    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+  }
+
   app.successMessage = function(msg) {
     app.createAlert(msg, 'success');
   }
 
   app.errorMessage = function(msg) {
     app.createAlert(msg, 'error');
+  }
+
+  app.closeAlert = function(e) {
+    if ($('.alert').length === 0) { return; }
+    $('.alert').alert('close');
   }
 
   app.updateSearchFields = function(options) {
@@ -34,7 +47,9 @@ window.app = {};
 
   app.configureHubFilter = function(groupname_elem, select_width) {
     var location_input = $(groupname_elem).data('locationInput'),
-        location_id = $(groupname_elem).data('locationId');
+        location_id = $(groupname_elem).data('locationId'),
+        selected_hub = $(groupname_elem).data('selectedHub');
+
     $(groupname_elem).select2({
       minimumInputLength: 1,
       placeholder: 'Enter a group',
@@ -100,14 +115,6 @@ window.app = {};
         });
       }
     });
-  }
-
-  app.createAlert = function (msg, style) {
-    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
-  }
-
-  app.createModalAlert = function (msg, style, modalElem) {
-    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   app.setPageHeight = function() {
@@ -238,10 +245,10 @@ window.app = {};
     e.preventDefault();
     $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
       if (data.id === 'undefined') {
-        alert('Could not create this hub: ' + data.errors);
+        alert('Could not create this group: ' + data.errors);
       } else {
         $('#hubModal').modal('toggle');
-        app.successMessage('Your hub was created');
+        app.successMessage('Your group was created');
       }
     })
   }
@@ -249,6 +256,7 @@ window.app = {};
   $(function() {
     $('[rel=tooltip]').tooltip();
     $('[rel=popover]').popover({trigger: 'hover'});
+    $('body').on('click', app.closeAlert);
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
     $('.shares').on('click', 'a', function(e) {
@@ -258,8 +266,6 @@ window.app = {};
     $('select').select2({width: '200px'});
     $('#hubModalSave').on('click', app.saveNewHub);
 
-    app.configureHubFilter('#hub_filter', '220px');
-    app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
     $('.select2-results').on('click', '#navCreateHub', app.navCreateHub);
 
@@ -270,6 +276,9 @@ window.app = {};
 
     $('.related_supporting').last().css('border-bottom', 'none');
     app.pageEffects();
+
+    app.configureHubFilter('#hub_filter', '220px');
+    app.configureHubFilter('#proposal_hub_group_name', '220px');
 
     $('.gpSearchBox').each(function() {
       app.gpSearch(this);
