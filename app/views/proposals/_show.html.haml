@@ -14,11 +14,8 @@
     .proposal_statement
       %h3= proposal.statement
     .proposal-person.span3{data: {vote_number: 1}}
-      .user-avatar
-        %img{data: {src: "holder.js/30x30/social/text:avatar"}}
-      = link_to proposal.user.name, proposals_path(user_id: proposal.user.id)
-      .supported_date
-        = proposal.created_at.to_s(:month_day_year)
+      = render :partial => 'user_avatar', locals: { user: proposal.user, created_at: proposal.created_at }
+
       .improve_support_buttons
         .btn-group
           - if current_user && proposal.editable?(current_user)
@@ -40,7 +37,8 @@
       %span= '(' + proposal.votes.count.to_s + ' votes)'
     .row
       .supporting_arguments_list.span11
-        = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+        - if current_user
+          = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
         = render partial: 'proposal_vote', collection: proposal.supporting_votes.limit(2), as: :vote
 
         - if proposal.votes_count > 3

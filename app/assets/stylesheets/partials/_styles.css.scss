@@ -116,7 +116,10 @@ textarea { height: 100px; }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .select2-container.span4 { margin-left: 0; }
-.user-avatar { float: left; width: 45px; }
+.user-avatar {
+  float: left;
+  margin-right: 10px;
+}
 
 .modal-header {
   @include border-top-radius(6px);
