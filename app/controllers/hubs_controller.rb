@@ -60,7 +60,7 @@ class HubsController < ApplicationController
     respond_to do |format|
       if @hub.save
         format.html { redirect_to @hub, notice: 'Hub was successfully created.' }
-        format.json { render json: @hub, status: :created, location: @hub }
+        format.json { render json: @hub, status: :ok }
       else
         format.html { render action: "new" }
         format.json { render json: @hub.errors, status: :unprocessable_entity }

@@ -63,8 +63,21 @@ window.app = {};
         return item.group_name;
       },
 
-      formatNoMatches: function (term) {
-        return 'No matches. ' + '<a href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      formatNoMatches: function(term) {
+        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
+      },
+
+      // TODO: This doesn't work, need help
+      // See example at http://ivaynberg.github.com/select2/#events
+      // createSearchChoice: function(term, data) {
+      //   if ($(data).filter(function() { 
+      //     return this.group_name.localeCompare(term) === 0;
+      //   }).length === 0) {
+      //     return {hub_filter: term, location_id_filter: ''};
+      //   }
+
+      initSelection: function (element, callback) {
+        callback(selected_hub);
       }
     });
 
@@ -90,7 +103,7 @@ window.app = {};
   }
 
   app.createAlert = function (msg, style) {
-    $('#main').find('.content .row').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
   }
 
   app.createModalAlert = function (msg, style, modalElem) {
@@ -100,10 +113,10 @@ window.app = {};
   app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
     if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-      $('section.span11').height(vph - 122);
+      $('#mainContent').height(vph - 142);
     } else {
-      if(vph > $('#mainContent').height()) {
-        $('#mainContent').height(vph - 120);
+      if (vph > $('#mainContent').height()) {
+        $('#mainContent').height(vph - 140);
       }
     }
   }
@@ -118,9 +131,6 @@ window.app = {};
   }
 
   app.pageEffects = function() {
-    if ($('body').height() > 1200) {
-      $('body').addClass('long');
-    }
     if ($('.content_page #new_user').length > 0) {
       $('#user_email').focus();
     }
@@ -157,8 +167,14 @@ window.app = {};
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace(),
-          value_field = $(elem).data('value_field');
+          value_field = $(elem).data('valueField');
       $(value_field).val(place.id);
+      if (elem.id === 'location_filter') {
+        // this was a navbar search, preload the hub modal location field
+        // TODO figure out how to do this in app.navCreateHub() instead
+        $('#hub_formatted_location').val(place.formatted_address);
+        $('#hub_location_id').val(place.id);
+      }
     });
   }
 
@@ -208,17 +224,45 @@ window.app = {};
     });
     return false;
   }
+  
+  app.navCreateHub = function(e) {
+    e.preventDefault();
+    $('#s2id_hub_filter').select2('close');
+    var searchGroup = decodeURIComponent(e.target.href.split('=')[1]);
+
+    $('#hubModal').find('#hub_group_name').val(searchGroup);
+    $('#hubModal').modal();
+  }
+  
+  app.saveNewHub = function(e) {
+    e.preventDefault();
+    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
+      if (data.id === 'undefined') {
+        alert('Could not create this hub: ' + data.errors);
+      } else {
+        $('#hubModal').modal('toggle');
+        app.successMessage('Your hub was created');
+      }
+    })
+  }
 
   $(function() {
     $('[rel=tooltip]').tooltip();
-    $('[rel=popover]').popover();
+    $('[rel=popover]').popover({trigger: 'hover'});
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
+    $('.shares').on('click', 'a', function(e) {
+      e.preventDefault();
+      window.open($(this).attr('href'));
+    })
     $('select').select2({width: '200px'});
+    $('#hubModalSave').on('click', app.saveNewHub);
 
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
+    $('.select2-results').on('click', '#navCreateHub', app.navCreateHub);
+
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
       $(this).parents('.modal').modal('hide');

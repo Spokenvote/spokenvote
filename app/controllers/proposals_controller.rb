@@ -1,4 +1,6 @@
 class ProposalsController < ApplicationController
+  include ApplicationHelper
+
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :requested_proposals, :only => [:index, :search]
 
@@ -26,6 +28,8 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
+
+    set_selected_hub
 
     if params[:proposal].presence
       offset_by = (page_number * records_limit) + 3
@@ -126,39 +130,39 @@ private
   def requested_proposals
     @searched = @sortTitle = ''
     @proposals = []
-    filter, hub, hub_filter, location_filter, user_id = params[:filter], params[:hub], params[:hub_filter], params[:location_filter], params[:user_id]
 
-    session[:hub_filter] = nil
-    session[:hub_location] = nil
+    user_id = params[:user_id]
 
-    if filter
+    if params[:filter]
+      filter = params[:filter]
       ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
       @proposals = Proposal.roots.order(ordering)
       @sortTitle = filter.titlecase + ' '
-    elsif hub
+    elsif params[:hub]
+      hub = params[:hub]
       search_hub = Hub.by_group_name(hub).first
       @sortTitle = search_hub.group_name + ' '
-      session[:hub_filter] = search_hub.group_name
-      session[:hub_location] = search_hub.formatted_location
-      unless search_hubs.empty?
-        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
+
+      if search_hub
+        session[:search_hub] = search_hub
+        @proposals = Proposal.roots.order('proposals.votes_count DESC')
       end
-    elsif hub_filter
-      # NOTE What if more than one group with this group_name???
+    elsif params[:hub_filter]
+      hub_filter = params[:hub_filter]
+      # NOTE What if more than one hub with this group_name???
       # NOTE For now, location alone is not valid, must also specify group
       # So specifying location disambiguates between hubs with same group_name
-      if location_filter != ''
-        search_hub = Hub.by_location(location_filter).where({group_name: hub_filter}).first
-        @sortTitle = search_hub.group_name + ', ' + location_filter + ' '
+      if params[:location_filter] != ''
+        search_hub = Hub.by_location(params[:location_filter]).where({group_name: hub_filter}).first
+        @sortTitle = search_hub.group_name + ', ' + params[:location_filter] + ' '
       else
         search_hub = Hub.where({id: hub_filter}).first
         @sortTitle = search_hub.group_name + ' '
       end
-      session[:hub_id] = search_hub.id
-      session[:hub_filter] = search_hub.group_name
-      session[:hub_location] = search_hub.formatted_location
+      
       if search_hub
-        @proposals = Proposal.where({hub_id: search_hub.id}).order('proposals.votes_count DESC')
+        session[:search_hub] = search_hub
+        @proposals = Proposal.roots.order('proposals.votes_count DESC')
       end
     elsif user_signed_in? || user_id
       user = User.find(user_id || current_user.id)
@@ -167,5 +171,11 @@ private
     else
       @proposals = Proposal.order('votes_count DESC')
     end
+    
+    set_selected_hub
+
+    if session[:search_hub] && session[:search_hub][:id]
+      @proposals = @proposals.where(hub_id: session[:search_hub][:id])
+    end      
   end
 end

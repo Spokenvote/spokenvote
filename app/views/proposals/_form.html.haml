@@ -35,4 +35,4 @@
 
     .control-group
       .controls
-        = f.submit controller.action_name == 'new' ? 'Create' : 'Update', class: 'btn btn-primary btn-large btn-bold'
+        = f.button raw((controller.action_name == 'new' ? 'Create' : 'Update') + ' <i class="icon-ok"></i>'), class: 'btn btn-primary btn-bold'
