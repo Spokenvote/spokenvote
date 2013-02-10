@@ -1,10 +1,8 @@
 .support_container.span11.hide
   .proposal-person.span3
-    .user-avatar
-      %img{data: {src: "holder.js/30x30/social/text:currUser"}}
-    = current_user_link
-    .supported_date
-      = Date.today.to_s(:month_day_year)
+    = render :partial => 'user_avatar', locals: { user: current_user, created_at: Date.today }
+    = render partial: 'shared/socialButtons', locals: { blockType: "I'm supporting " }
+
   .proposal_form.support_form.span7
     %h3 Tell us why you're supporting this proposal
     .vote_comment

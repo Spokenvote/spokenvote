@@ -30,6 +30,9 @@ class Proposal < ActiveRecord::Base
   # Scopes
   scope :roots, where(:ancestry, nil)
 
+  # Delegations
+  delegate :username, :to => :user
+
   # Other
   has_ancestry
 
