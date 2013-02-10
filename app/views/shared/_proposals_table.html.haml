@@ -9,10 +9,9 @@
           = link_to 'New', proposals_path(filter: 'new'), class: "btn #{@filter == 'new' ? 'active' : ''}"
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
-      %th.count-column Added
-      %th.count-column{ width: '12%'} Rank
-      %th.count-column Votes
-      %th.count-column{ width: '12%'} Branches
+      %th.count-column{ width: '10%'} Added
+      %th.count-column{ width: '14%', title: 'Total votes :: Proposal count', rel: 'tooltip'} Activity
+      / %th.count-column{ width: '12%'} Branches
 
   %tbody
     - proposals.each do |proposal|
