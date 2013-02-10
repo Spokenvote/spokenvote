@@ -40,12 +40,19 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  def get_selected_hub
+    session[:search_hub] ? session[:search_hub].to_json(:methods => :full_hub) : nil
+  end
+  
+  def get_selected_hub_id
+    (session[:search_hub] && session[:search_hub][:id]) ? session[:search_hub][:id] : nil
+  end
   
   def set_selected_hub
     if session[:search_hub] && session[:search_hub][:id]
       @selected_hub_id = session[:search_hub][:id]
       @selected_hub = session[:search_hub].to_json(:methods => :full_hub)
-      logger.info { "@selected_hub is #{@selected_hub}" }
     end
   end
 end
