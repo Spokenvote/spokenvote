@@ -1,13 +1,8 @@
 - first_class = (@isXhr or vote_counter > 0) ? 'last' : 'first'
 .row.support_row{class: first_class}
   .proposal-person.span3{data: {vote_number: vote_counter+1}}
-    .user-avatar
-      %img{data: {src: "holder.js/30x30/#{vote_counter.even? ? 'industrial' : 'social'}/text:avatar"}}
-    .supported_date
-      = link_to vote.username, proposals_path(user_id: vote.user.id)
-      %br
-      = vote.created_at.to_s(:month_day_year)
-      = render partial: 'shared/socialButtons', locals: {blockType: "I'm supporting "}
+    = render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
+
   .support_comment.span8
     / = truncate(vote.comment, :length => 140, :omission => '...more')
     = raw vote.comment

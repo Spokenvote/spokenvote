@@ -1,0 +1,11 @@
+.user-avatar
+  - if !user.authentications.empty?
+    = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
+  - elsif defined? vote_counter
+    %img{data: {src: "holder.js/30x30/#{vote_counter.even? ? 'industrial' : 'social'}/text:avatar"}}
+  - else
+    %img{data: {src: "holder.js/30x30/industrial/text:avatar"}}
+.supported_date
+  = link_to user.username, proposals_path(user_id: user)
+  %br
+  = created_at.to_s(:month_day_year)
