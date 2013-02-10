@@ -120,7 +120,10 @@ textarea { height: 100px; }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .select2-container.span4 { margin-left: 0; }
-.user-avatar { float: left; width: 45px; }
+.user-avatar {
+  float: left;
+  margin-right: 10px;
+}
 
 .modal-header {
   @include border-top-radius(6px);
@@ -333,7 +336,7 @@ textarea { height: 100px; }
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -20px;
+  margin-top: -20px; margin-right: -40px; // flush right on #mainContent
   .label {@extend .label-large; @extend .label-success; @extend .label-flat;}
 }
 // end Proposal-related

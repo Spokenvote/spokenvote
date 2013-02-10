@@ -261,6 +261,24 @@
       });
   }
 
+  var openNewProposal = function(na) {
+    window.location.assign('/proposals/new');
+  }
+
+  var newProposal = function(e) {
+    e.preventDefault();
+    
+    // not logged in?
+    if ($('#user-dropdown-menu').length === 0) {
+      if (!app.loginInterrupt(this, openNewProposal)) {
+        return false;
+      }
+    } else {
+      openNewProposal(this);
+      return false;
+    }
+  }
+
   $(document).ready(function() {
     $('.more').click(showMore);
     $('.improve, .edit, .reuse').click(newImprovement);
@@ -272,6 +290,7 @@
       e.preventDefault();
       hideContentEditable($(this));
     });
+    $('#makeProposalLink').on('click', newProposal)
     app.updateSearchFields({hub: $('.proposal_hub').text().trim().replace(/\n/g, '').split('    –    ')});
     if ($('#new_proposal').length > 0) {
       app.configureHubFilter('#group_name', '544px');

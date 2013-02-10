@@ -1,6 +1,5 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
-
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :requested_proposals, :only => [:index, :search]
 
@@ -28,7 +27,7 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
-
+    
     set_selected_hub
 
     if params[:proposal].presence
@@ -131,13 +130,26 @@ private
     @searched = @sortTitle = ''
     @proposals = []
 
-    user_id = params[:user_id]
+    # Change the filter, use from session when searching, or clear it
+    if params[:filter]
+      @filter = session[:filter] = params[:filter]
+    elsif (params[:hub] || params[:hub_filter]) && session[:filter]
+      @filter = session[:filter]
+    else
+      @filter = session[:filter] = 'active'
+    end
 
     if params[:filter]
-      filter = params[:filter]
-      ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
-      @proposals = Proposal.roots.order(ordering)
-      @sortTitle = filter.titlecase + ' '
+      if @filter == 'new' 
+        @proposals = Proposal.roots
+        @sortTitle = 'New '
+      elsif @filter == 'active'
+        @proposals = Proposal.roots
+        @sortTitle = 'Active '
+      elsif @filter == 'my_votes'
+        @proposals = current_user.proposals.roots
+        @sortTitle = (current_user.name || current_user.username) + "'s "
+      end
     elsif params[:hub]
       hub = params[:hub]
       search_hub = Hub.by_group_name(hub).first
@@ -145,7 +157,7 @@ private
 
       if search_hub
         session[:search_hub] = search_hub
-        @proposals = Proposal.roots.order('proposals.votes_count DESC')
+        @proposals = Proposal.roots
       end
     elsif params[:hub_filter]
       hub_filter = params[:hub_filter]
@@ -157,25 +169,38 @@ private
         @sortTitle = search_hub.group_name + ', ' + params[:location_filter] + ' '
       else
         search_hub = Hub.where({id: hub_filter}).first
-        @sortTitle = search_hub.group_name + ' '
+        @sortTitle = search_hub ? search_hub.group_name + ' ' : ''          
       end
       
+      @selected_hub_id = session[:hub_id] = search_hub.id
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      @selected_hub = search_hub.to_json(:methods => :full_hub)
+
       if search_hub
         session[:search_hub] = search_hub
-        @proposals = Proposal.roots.order('proposals.votes_count DESC')
-      end
-    elsif user_signed_in? || user_id
-      user = User.find(user_id || current_user.id)
-      @proposals = user.proposals
-      @sortTitle = user_id.presence ? (user.name || user.username) + "'s " : 'My '
-    else
-      @proposals = Proposal.order('votes_count DESC')
-    end
-    
-    set_selected_hub
 
-    if session[:search_hub] && session[:search_hub][:id]
-      @proposals = @proposals.where(hub_id: session[:search_hub][:id])
-    end      
+        @proposals = Proposal.roots
+      end
+    elsif user_signed_in?
+      session[:search_hub] = nil      
+      @proposals = current_user.proposals.roots
+      @sortTitle = (current_user.name || current_user.username) + "'s "
+    else
+      session[:search_hub] = nil      
+      @proposals = Proposal.roots
+    end
+
+    unless @proposals.empty?    
+      if session[:search_hub] && session[:search_hub][:id]
+        @proposals = @proposals.where(hub_id: session[:search_hub][:id])
+      end
+
+      if session[:filter] && session[:filter] == 'new'
+        @proposals = @proposals.order('created_at DESC')
+      else
+        @proposals = @proposals.order('votes_count DESC')
+      end
+    end
   end
 end

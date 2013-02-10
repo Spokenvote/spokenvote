@@ -70,7 +70,7 @@ begin
       usr_id = users.reject {|u| u.id == parent.user_id}.sample.id
       hb_id = parent.hub.id
       vote = { user_id: usr_id, comment: Faker::Lorem.sentence }
-      proposals << Proposal.create!({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]})
+      proposals << Proposal.create!({statement: stt, user_id: usr_id, parent: parent, hub_id: hb_id, votes_attributes: [vote]}) rescue 'Failed to create proposal'
     else
       stt = statements.pop
       usr_id = users.sample.id
