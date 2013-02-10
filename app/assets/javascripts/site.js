@@ -79,7 +79,9 @@ window.app = {};
       },
 
       formatNoMatches: function(term) {
-        return 'No matches. ' + '<a id="navCreateHub" href="/hubs/new?requested_group=' + term + '">Create one</a>';
+        // see https://github.com/ivaynberg/select2/issues/448
+        // this onclick inline handler is not my idea of a good solution but it works for now.
+        return 'No matches. <a id="navCreateHub" onclick="app.navCreateHub()" href="#">Create one</a>';
       },
 
       // TODO: This doesn't work, need help
@@ -233,9 +235,9 @@ window.app = {};
   }
   
   app.navCreateHub = function(e) {
-    e.preventDefault();
+    // e.preventDefault();
+    var searchGroup = $('.select2-input').val();
     $('#s2id_hub_filter').select2('close');
-    var searchGroup = decodeURIComponent(e.target.href.split('=')[1]);
 
     $('#hubModal').find('#hub_group_name').val(searchGroup);
     $('#hubModal').modal();
@@ -267,7 +269,6 @@ window.app = {};
     $('#hubModalSave').on('click', app.saveNewHub);
 
     $('#navbarSearch').on('submit', app.validateNavbarSearch);
-    $('.select2-results').on('click', '#navCreateHub', app.navCreateHub);
 
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
@@ -279,6 +280,7 @@ window.app = {};
 
     app.configureHubFilter('#hub_filter', '220px');
     app.configureHubFilter('#proposal_hub_group_name', '220px');
+    // $(document).on('click', '#navCreateHub', app.navCreateHub);
 
     $('.gpSearchBox').each(function() {
       app.gpSearch(this);
