@@ -26,9 +26,11 @@
             = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
           / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
       = render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
-    .supporting_statement.span7{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
+    - unless proposal.votes.empty?
+      .supporting_statement.span7{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
 
-    = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+    - unless proposal.votes.empty?
+      = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
     - hasSupport = proposal.supporting_votes.count > 0
