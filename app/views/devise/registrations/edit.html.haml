@@ -1,9 +1,15 @@
+- if resource.errors.any?
+  - errMsg = resource.errors.full_messages.include?("Current password can't be blank") ? 'to update email or password you must enter your current password' : resource.errors.full_messages.map {|msg| msg}.join
+  .alert.alert-error.alert-special
+    %a.close{"data-dismiss" => "alert"} &#215;
+    Your profile couldn't be updated;
+    = errMsg
+
 .content_page
-  %h2 Your SpokenVote Profile
+  %h1.form-horizontal Your SpokenVote Profile
 
   .profile_form
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal' }) do |f|
-      = devise_error_messages!
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
       .control-group
         = f.label :name, class: 'control-label'
         .controls
@@ -23,7 +29,7 @@
       .control-group
         = f.label :current_password, class: 'control-label'
         .controls
-          = f.password_field :current_password, hint: "we need your current password to confirm your changes", required: true
+          = f.password_field :current_password, hint: "we need your current password to confirm your changes"
       .control-group
         .controls
           = f.button raw('Update <i class="icon-ok"></i>'), class: 'btn btn-primary btn-bold'
