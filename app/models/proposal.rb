@@ -9,7 +9,7 @@
 #  updated_at  :datetime         not null
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
-#  created_by  :integer
+#  created_by  :integer          # Not being used, should be deleted. We are using user_id instead.
 #  hub_id      :integer
 #
 

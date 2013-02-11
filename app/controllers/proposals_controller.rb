@@ -74,11 +74,12 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     if params[:proposal][:parent_id].present?
-      # Improve
-      parent = Proposal.where({id: params[:proposal][:parent_id]}).first
+      # Improve Proposal with Existing Hub
+      parent = Proposal.find(params[:proposal][:parent_id])
       params[:proposal].delete :parent_id
       params[:proposal][:parent] = parent
       params[:proposal][:hub_id] = parent.hub.id
+      params[:proposal][:votes_attributes][:user] = current_user
       params[:proposal][:votes_attributes][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes] = [params[:proposal][:votes_attributes]]
     else
