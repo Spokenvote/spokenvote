@@ -74,13 +74,14 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     if params[:proposal][:parent_id].present?
-      # Improve
-      parent = Proposal.where({id: params[:proposal][:parent_id]}).first
+      # Improve Proposal with Existing Hub
+      parent = Proposal.find(params[:proposal][:parent_id])
       params[:proposal].delete :parent_id
       params[:proposal][:parent] = parent
       params[:proposal][:hub_id] = parent.hub.id
-      params[:proposal][:votes_attributes][:ip_address] = request.remote_ip
-      params[:proposal][:votes_attributes] = [params[:proposal][:votes_attributes]]
+      votes_attributes = params[:proposal].delete :votes_attributes
+      @proposal = current_user.proposals.create(params[:proposal])
+      @proposal.move_vote_to_self(current_user, votes_attributes)
     else
       # New Proposal with Existing Hub
       hub_attrs = params[:proposal].delete :hub
@@ -88,9 +89,8 @@ class ProposalsController < ApplicationController
       params[:proposal][:hub_id] = hub.id
       params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
+      @proposal = current_user.proposals.create(params[:proposal])
     end
-
-    @proposal = current_user.proposals.create(params[:proposal])
 
     unless @proposal.new_record?
       redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.'

@@ -108,8 +108,7 @@
       proposal_data = {
         proposal: {
           statement: statement,
-          user_id: user_id,
-          votes_attributes: {user_id: user_id, comment: comment}
+          votes_attributes: {comment: comment}
         }
       };
 
@@ -117,7 +116,7 @@
       proposal_data.proposal.id = proposal_id
       proposal_data.proposal.votes_attributes.id = proposal_container.find('.supporting_statement').data('vote_id');
       $.ajax({
-        url: '/proposals/'+proposal_id+'.json',
+        url: '/proposals/' + proposal_id + '.json',
         type: 'PUT',
         data: proposal_data
       })
@@ -129,6 +128,7 @@
       .fail(function(data) {
         app.errorMessage(data.responseText);
       });
+
     } else {
       if (proposal_container.find('.reuse_proposal_form').length > 0) {
         proposal_data.proposal.proposal_hub = proposal_hub;
@@ -136,10 +136,11 @@
       } else {
         proposal_data.proposal.parent_id = proposal_id;
       }
+
       $.post('/proposals', proposal_data)
       .done(function(data) {
         // Always need to reload page
-        window.location.assign('/proposals/'+proposal_id);
+        window.location.assign('/proposals/' + proposal_id);
       })
       .fail(function(data) {
         app.errorMessage(data.responseText);
@@ -165,7 +166,7 @@
         $('#confirmationModalYes').on('click', function(e) {
           e.preventDefault();
           $.ajax({
-            url: '/proposals/'+proposal_id,
+            url: '/proposals/' + proposal_id,
             type: 'DELETE',
             data: {proposal: {id: proposal_id}}
           })

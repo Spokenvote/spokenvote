@@ -9,7 +9,7 @@
 #  updated_at  :datetime         not null
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
-#  created_by  :integer
+#  created_by  :integer          # Not being used, should be deleted. We are using user_id instead.
 #  hub_id      :integer
 #
 
@@ -45,13 +45,11 @@ class Proposal < ActiveRecord::Base
   def related_proposals(related_sort_by = 'votes_count DESC')
     all_proposals_in_tree = [self.root, self.root.descendants].flatten
     all_proposals_in_tree.delete(self.clone)
-    # TODO Please determine if this is the right way to get sorting done
+
     if related_sort_by == 'created_at DESC'
-      all_proposals_in_tree.sort! {|p1, p2| p2.created_at <=> p1.created_at}
-    elsif related_sort_by == 'created_at DESC'
-      all_proposals_in_tree.sort! {|p1, p2| p1.created_at <=> p2.created_at}
+      all_proposals_in_tree.sort! { |p1, p2| p2.created_at <=> p1.created_at }
     else
-      all_proposals_in_tree.sort! {|p1, p2| p1.votes_count <=> p2.votes_count}
+      all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     end
   end
   
@@ -65,5 +63,25 @@ class Proposal < ActiveRecord::Base
   
   def editable?(current_user)
     current_user && votes_count < 2 && user_id == current_user.id
+  end
+
+  def find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
+    proposals = a_proposal_in_tree.related_proposals
+    related_votes = proposals.map(&:votes).flatten
+    related_votes.each do |vote|
+      return vote if vote.user == user
+    end
+    nil
+  end
+
+  def move_vote_to_self(user, vote_attributes)
+    if vote = find_related_vote_in_tree_for_user(self, user)
+      vote.ip_address = vote_attributes[:ip_address]
+      vote.comment = vote_attributes[:comment]
+      vote.proposal = self
+      vote.save
+    else
+      user.votes.create({ proposal: self }.merge(vote_attributes))
+    end
   end
 end
