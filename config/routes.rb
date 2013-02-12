@@ -8,7 +8,6 @@ Spokenvote::Application.routes.draw do
     resources :proposals, only: [:index]
   end
 
-  resources :votes #:only => []
   resources :proposals do
     member do
       get 'isEditable'
@@ -18,8 +17,11 @@ Spokenvote::Application.routes.draw do
     end
   end
 
+  resources :votes, :only => [:index]
+
   resources :hubs do
     resources :proposals
+
   end
 
   match 'about' => 'pages#about'
