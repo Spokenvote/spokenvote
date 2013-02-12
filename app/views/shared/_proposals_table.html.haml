@@ -1,7 +1,7 @@
 %table.listing.listing-proposals
   %thead
     %tr
-      %th.table-title{ colspan: '5' }= @sortTitle + 'Topics'
+      %th.table-title{ colspan: '6' }= @sortTitle + 'Topics'
     %tr
       %th{ colspan: '3' }
         %span#hubSorter.btn-group
@@ -10,8 +10,8 @@
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
       %th.count-column{ width: '10%'} Added
-      %th.count-column{ width: '14%', title: 'Total votes :: Proposal count', rel: 'tooltip'} Activity
-      / %th.count-column{ width: '12%'} Branches
+      %th.count-column{ width: '12%'} Proposals
+      %th.count-column{ width: '10%'} Votes
 
   %tbody
     - proposals.each do |proposal|
@@ -20,8 +20,9 @@
         %td{ colspan: '2' }= link_to proposal.statement, proposal_path(proposal)
         %td{ width: '20%'}= link_to proposal.user.username, proposals_path(user_id: proposal.user.id)
         %td.count-column= proposal.created_at.to_s(:month_day_year)
-        %td.count-column= proposal.votes_in_tree.to_s + ' :: ' + (proposal.root.related_proposals.count+1).to_s
-        / %td.count-column= proposal.root.related_proposals.count + 1
+        %td.count-column= proposal.root.related_proposals.count + 1
+        %td.count-column= proposal.votes_in_tree.to_s
+
 #proposalNotFound
   .span7 &nbsp;
   .span4
