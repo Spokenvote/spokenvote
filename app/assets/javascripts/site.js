@@ -274,6 +274,9 @@ window.app = {};
       e.preventDefault();
       $(this).parents('.modal').modal('hide');
     });
+    $('.btn-disabled').on('click', function(e) {
+      return false;
+    })
 
     $('.related_supporting').last().css('border-bottom', 'none');
     app.pageEffects();

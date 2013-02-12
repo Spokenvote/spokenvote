@@ -22,6 +22,7 @@
             = link_to raw('<i class="icon-pencil"></i>'), '#', :class => 'btn btn-primary btn-bold edit', rel: 'popover', data: {title: 'Edit your proposal', content: 'Before any other votes are made for your proposal you may edit it.'}
             = link_to raw('<i class="icon-trash"></i>'), '#', :class => 'btn btn-danger delete', rel: 'popover', data: {title: 'Delete your proposal', content: 'You may delete your proposal before any other votes are made for it.'}
           - elsif current_user_voteable?(proposal)
+            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-disabled', disabled: true, rel: 'tooltip', title: 'No voting for your<br>own Proposal', data: {html: true}
             = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
           - else
             = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-primary btn-bold support', rel: 'popover', data: {title: 'Support', content: 'Vote for this proposal'}
