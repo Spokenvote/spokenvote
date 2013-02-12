@@ -27,9 +27,6 @@ class Proposal < ActiveRecord::Base
   # Validations
   validates :user, :statement, presence: true
 
-  # Scopes
-  scope :roots, where(:ancestry, nil)
-
   # Delegations
   delegate :username, :to => :user
 
@@ -63,25 +60,5 @@ class Proposal < ActiveRecord::Base
   
   def editable?(current_user)
     current_user && votes_count < 2 && user_id == current_user.id
-  end
-
-  def find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
-    proposals = a_proposal_in_tree.related_proposals
-    related_votes = proposals.map(&:votes).flatten
-    related_votes.each do |vote|
-      return vote if vote.user == user
-    end
-    nil
-  end
-
-  def move_vote_to_self(user, vote_attributes)
-    if vote = find_related_vote_in_tree_for_user(self, user)
-      vote.ip_address = vote_attributes[:ip_address]
-      vote.comment = vote_attributes[:comment]
-      vote.proposal = self
-      vote.save
-    else
-      user.votes.create({ proposal: self }.merge(vote_attributes))
-    end
   end
 end

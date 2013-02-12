@@ -25,4 +25,25 @@ class Vote < ActiveRecord::Base
 
   # Delegations
   delegate :username, :to => :user
+
+  def self.find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
+    proposals = a_proposal_in_tree.related_proposals
+    related_votes = proposals.map(&:votes).flatten
+    related_votes.each do |vote|
+      return vote if vote.user == user
+    end
+    nil
+  end
+
+  def self.move_user_vote_to_proposal(proposal, user, vote_attributes)
+    if vote = find_related_vote_in_tree_for_user(proposal, user)
+      vote.ip_address = vote_attributes[:ip_address]
+      vote.comment = vote_attributes[:comment]
+      vote.proposal = proposal
+    else
+      vote = user.votes.build({ proposal: proposal }.merge(vote_attributes))
+    end
+    status = vote.save
+    return status, vote
+  end
 end
