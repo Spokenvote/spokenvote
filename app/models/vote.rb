@@ -40,9 +40,10 @@ class Vote < ActiveRecord::Base
       vote.ip_address = vote_attributes[:ip_address]
       vote.comment = vote_attributes[:comment]
       vote.proposal = proposal
-      vote.save
     else
-      user.votes.create({ proposal: proposal }.merge(vote_attributes))
+      vote = user.votes.build({ proposal: proposal }.merge(vote_attributes))
     end
+    status = vote.save
+    return status, vote
   end
 end
