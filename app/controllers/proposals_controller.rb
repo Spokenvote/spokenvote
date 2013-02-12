@@ -81,7 +81,7 @@ class ProposalsController < ApplicationController
       params[:proposal][:hub_id] = parent.hub.id
       votes_attributes = params[:proposal].delete :votes_attributes
       @proposal = current_user.proposals.create(params[:proposal])
-      @proposal.move_vote_to_self(current_user, votes_attributes)
+      Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
     else
       # New Proposal with Existing Hub
       hub_attrs = params[:proposal].delete :hub
