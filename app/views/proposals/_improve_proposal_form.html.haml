@@ -1,23 +1,18 @@
-.proposal_form.improve_form.hide
+.proposal_form.improve_form.clear.hide
   %h3 Edit the proposal to make it your own
   .content_editable
     = proposal.statement
   %br
   %label.first Why should others support your proposal
-  = text_area_tag :vote_comment, nil, class: 'full-width'
+  = text_area_tag :vote_comment, proposal.supporting_statement, class: 'full-width'
   .proposal_fields.hide
     %label.first.span1 Hub
-    = text_field_tag :proposal_hub, proposal.hub.group_name, class: 'input-xxlarge'
-    %br
-    %label.first.span1 Location
-    = text_field_tag :proposal_location, proposal.hub.formatted_location, class: 'input-xxlarge gpSearchBox'
+    = hidden_field_tag :proposal_group_name, nil, data: {location_input: '#proposal_location', location_id: '#proposal_location_id'}
+    .clear
+      %label.first.span1 Location
+      = text_field_tag :proposal_location, proposal.hub.formatted_location, class: 'input-xxlarge gpSearchBox'
+      = hidden_field_tag :proposal_location_id, proposal.hub.location_id
 
   .proposal_form_buttons
-    .pull-right= link_to 'Retarget Proposal', '#', class: 'btn btn-info retarget_proposal'
     = link_to 'Cancel', '#', :class => 'btn cancel'
     = link_to 'Save this improved proposal', '#', :class => 'btn btn-primary save_statement'
-
-.row.clear
-  .improve_support_buttons.btn-group
-    = link_to 'Support', '#', :class => 'btn btn-primary btn-bold support'
-    = link_to 'Improve', '#', :class => 'btn btn-warning improve'

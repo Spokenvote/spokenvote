@@ -9,12 +9,13 @@
 #  updated_at  :datetime         not null
 #  votes_count :integer          default(0)
 #  ancestry    :string(255)
-#  created_by  :integer
+#  created_by  :integer          # Not being used, should be deleted. We are using user_id instead.
 #  hub_id      :integer
 #
 
 class Proposal < ActiveRecord::Base
-  attr_accessible :parent_id, :parent, :statement, :supporting_statement, :user_id, :user, :votes, :votes_attributes, :supporting_votes, :hub_id, :hub
+  attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
+                  :vote, :vote_attributes, :votes, :votes_attributes, :parent
 
   # Associations
   belongs_to :user
@@ -26,18 +27,11 @@ class Proposal < ActiveRecord::Base
   # Validations
   validates :user, :statement, presence: true
 
+  # Delegations
+  delegate :username, :to => :user
+
   # Other
   has_ancestry
-  
-  class << self
-    def roots
-      where({:ancestry => nil})
-    end
-
-    def by_hub
-      Proposal.all#Hub.by_name.map {|gb| gb.proposals if gb.proposals }.reject {|gb| gb == []}.flatten
-    end
-  end
 
   def votes_in_tree
     Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
@@ -48,21 +42,23 @@ class Proposal < ActiveRecord::Base
   def related_proposals(related_sort_by = 'votes_count DESC')
     all_proposals_in_tree = [self.root, self.root.descendants].flatten
     all_proposals_in_tree.delete(self.clone)
-    # TODO Please determine if this is the right way to get sorting done
+
     if related_sort_by == 'created_at DESC'
-      all_proposals_in_tree.sort! {|p1, p2| p2.created_at <=> p1.created_at}
-    elsif related_sort_by == 'created_at DESC'
-      all_proposals_in_tree.sort! {|p1, p2| p1.created_at <=> p2.created_at}
+      all_proposals_in_tree.sort! { |p1, p2| p2.created_at <=> p1.created_at }
     else
-      all_proposals_in_tree.sort! {|p1, p2| p1.votes_count <=> p2.votes_count}
+      all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     end
   end
   
   def supporting_statement
-    votes.where({user_id: self.user_id}).first.comment
+    votes.where(user_id: self.user_id).first.comment
   end
   
   def supporting_votes
-    votes.where("user_id != ?", self.user_id)
+    votes.where("user_id != ?", self.user_id).order("created_at DESC")
+  end
+  
+  def editable?(current_user)
+    current_user && votes_count < 2 && user_id == current_user.id
   end
 end

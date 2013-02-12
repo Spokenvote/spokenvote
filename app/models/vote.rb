@@ -21,19 +21,29 @@ class Vote < ActiveRecord::Base
 
   # Validations
   validates :comment, :user, :proposal, presence: true
-  validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "Can't vote on the same issue twice." }
+  validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
 
-  ## Named Scopes
-  #scope :by_hub, lambda { |group_id| where("LOWER(group_name) = ?", group_name.downcase) }
+  # Delegations
+  delegate :username, :to => :user
 
-  def before_validation
-    existing = Vote.where({user_id: self.user_id, proposal_id: self.proposal_id}).first
-    if existing
-      existing.destroy
+  def self.find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
+    proposals = a_proposal_in_tree.related_proposals
+    related_votes = proposals.map(&:votes).flatten
+    related_votes.each do |vote|
+      return vote if vote.user == user
     end
+    nil
   end
 
-  def user_name
-    user.name
+  def self.move_user_vote_to_proposal(proposal, user, vote_attributes)
+    if vote = find_related_vote_in_tree_for_user(proposal, user)
+      vote.ip_address = vote_attributes[:ip_address]
+      vote.comment = vote_attributes[:comment]
+      vote.proposal = proposal
+    else
+      vote = user.votes.build({ proposal: proposal }.merge(vote_attributes))
+    end
+    status = vote.save
+    return status, vote
   end
 end

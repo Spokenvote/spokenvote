@@ -51,7 +51,7 @@
             %td{ :width => '35%' }
               = 'In ' #+ proposal.hubs.first.name
               %br
-              = 'By ' + proposal.user.name.to_s
+              = 'By ' + proposal.username
             %td
               = items_count_badge(proposal.votes_count, 'Total Votes')
               .pos_statement= link_to proposal.statement, edit_proposal_path(proposal)
@@ -90,7 +90,7 @@
 /             %td
 /               Hub Name for this Proposal
 /               -#= proposal.hubs.first.name + '/'
-/               = proposal.user.name
+/               = proposal.username
 /             %td
 /               = items_count_badge(proposal.votes_count, 'Total Votes')
 /               .pos_statement= link_to proposal.statement, proposal_path(proposal)

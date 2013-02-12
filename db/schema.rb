@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123164640) do
+ActiveRecord::Schema.define(:version => 20130206054900) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -27,18 +27,11 @@ ActiveRecord::Schema.define(:version => 20130123164640) do
     t.text     "description"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.string   "google_location_id"
+    t.string   "location_id"
     t.string   "formatted_location"
   end
 
-  create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.integer  "type_id"
-    t.integer  "parent_id"
-    t.string   "ancestry"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "hubs", ["formatted_location", "group_name"], :name => "index_hubs_on_formatted_location_and_group_name", :unique => true
 
   create_table "proposals", :force => true do |t|
     t.string   "statement"

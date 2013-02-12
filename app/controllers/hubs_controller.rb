@@ -4,21 +4,21 @@ class HubsController < ApplicationController
   # GET /hubs
   # GET /hubs.json
   def index
-    hub_filter, google_location_id_filter = params[:hub_filter], params[:google_location_id_filter]
+    hub_filter, location_id_filter = params[:hub_filter], params[:location_id_filter]
 
-    if hub_filter
+    if hub_filter.presence && location_id_filter.presence
+      @hubs = Hub.where('group_name ilike ? AND formatted_location = ?', "%#{hub_filter}%", location_id_filter)
+    elsif hub_filter.presence
       @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
+    elsif location_id_filter.presence
+      @hubs = Hub.where('location_id = ?', location_id_filter)
     else
       @hubs = Hub.all
     end
 
-    if google_location_id_filter
-      @hubs.where(:google_location_id, google_location_id_filter)
-    end
-
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hubs }
+      format.json { render json: @hubs.to_json(:methods => :full_hub) }
     end
   end
 
@@ -37,6 +37,9 @@ class HubsController < ApplicationController
   # GET /hubs/new.json
   def new
     @hub = Hub.new
+    if params[:requested_group].presence
+      @hub.group_name = params[:requested_group]
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -57,7 +60,7 @@ class HubsController < ApplicationController
     respond_to do |format|
       if @hub.save
         format.html { redirect_to @hub, notice: 'Hub was successfully created.' }
-        format.json { render json: @hub, status: :created, location: @hub }
+        format.json { render json: @hub, status: :ok }
       else
         format.html { render action: "new" }
         format.json { render json: @hub.errors, status: :unprocessable_entity }

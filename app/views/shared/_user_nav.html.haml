@@ -1,7 +1,7 @@
 %li#user_menu.dropdown
   / the data-email attribute is not a good way to have user on hand but acceptable to me for first pass
-  = link_to raw(current_user.email.split('@').first + '<b class="caret"></b>'), '#', remote: true, id: 'user-dropdown-menu', class: 'dropdown-toggle', data: {toggle: 'dropdown', email: current_user.id}
+  = link_to raw(current_user.username + '<b class="caret"></b>'), '#', remote: true, id: 'user-dropdown-menu', class: 'dropdown-toggle', data: {toggle: 'dropdown', email: current_user.id}
   %ul.dropdown-menu
     %li= link_to 'My Proposals', proposals_path(user_id: current_user.id)
     %li= link_to 'Settings', edit_user_registration_path(current_user)
-    %li= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
+    %li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'

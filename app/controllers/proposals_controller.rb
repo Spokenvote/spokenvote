@@ -1,11 +1,11 @@
 class ProposalsController < ApplicationController
+  include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :requested_proposals, :only => [:index, :search]
 
   # GET /proposals
   # GET /proposals.json
   def index
-
     respond_to do |format|
       format.html
       format.json { render json: @proposals }
@@ -27,11 +27,14 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
+    
+    set_selected_hub
 
     if params[:proposal].presence
-      offset_by = (page_number * records_limit) + 2
+      offset_by = (page_number * records_limit) + 3
       @votes = @proposal.votes.offset(offset_by).limit(records_limit)
       @no_more = @votes.count <= (offset_by + records_limit)
+      @isXhr = true
       render :partial => 'proposal_vote', :collection => @votes, :as => :vote
     else
       respond_to do |format|
@@ -56,27 +59,43 @@ class ProposalsController < ApplicationController
   # GET /proposals/1/edit
   def edit
     @proposal = Proposal.find(params[:id])
+    # TODO does it count votes or proposals?
     @total_votes = @proposal.root.descendants.count
     render action: 'show'
+  end
+
+  # Get /proposals/:id/isEditable
+  def isEditable
+    proposal = Proposal.find(params[:id])
+    render json: { editable: proposal.editable?(current_user) }
   end
 
   # POST /proposals
   # POST /proposals.json
   def create
-    votes = params[:proposal].delete :votes_attributes
-    parent = Proposal.find(params[:parent_id])
-    @proposal = current_user.proposals.create(params[:proposal])
-    
-    # TODO THIS IS HORRIBLE
-    @proposal.votes.create votes['0'].merge(ip_address:request.remote_ip)
-    respond_to do |format|
-      if @proposal.save
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
-        format.json { render json: @proposal, status: :created, location: @proposal }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
-      end
+    if params[:proposal][:parent_id].present?
+      # Improve Proposal with Existing Hub
+      parent = Proposal.find(params[:proposal][:parent_id])
+      params[:proposal].delete :parent_id
+      params[:proposal][:parent] = parent
+      params[:proposal][:hub_id] = parent.hub.id
+      votes_attributes = params[:proposal].delete :votes_attributes
+      @proposal = current_user.proposals.create(params[:proposal])
+      Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
+    else
+      # New Proposal with Existing Hub
+      hub_attrs = params[:proposal].delete :hub
+      hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
+      params[:proposal][:hub_id] = hub.id
+      params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
+      params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
+      @proposal = current_user.proposals.create(params[:proposal])
+    end
+
+    unless @proposal.new_record?
+      redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.'
+    else
+      redirect_to :back, notice: 'Failed to create the proposal'
     end
   end
 
@@ -84,11 +103,11 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
-
+    
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
         format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @proposal.to_json(methods: 'supporting_statement'), status: :ok }
       else
         format.html { render action: "edit" }
         format.json { render json: @proposal.errors, status: :unprocessable_entity }
@@ -102,44 +121,86 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
 
-    respond_to do |format|
-      format.html { redirect_to proposals_url }
-      format.json { head :no_content }
-    end
+    redirect_to action: :index, status: 200
   end
   
-  private
+private
+
   def requested_proposals
     @searched = @sortTitle = ''
     @proposals = []
-    filter, hub, location, user_id = params[:filter], params[:hub], params[:location], params[:user_id]
 
-    session[:hub_search] = nil
-    session[:hub_location] = nil
-    if filter
-      ordering = filter == 'active' ? 'votes_count DESC' : 'created_at DESC'
-      @proposals = Proposal.roots.order(ordering)
-      @sortTitle = filter.titlecase + ' '
-    elsif hub
-      @search_hubs = Hub.by_group_name(hub)
-      @sortTitle = @search_hubs.first.group_name + ' '
-      session[:hub_search] = @search_hubs.first.group_name
-      session[:hub_location] = @search_hubs.first.formatted_location
-      unless @search_hubs.empty?
-        @proposals = Proposal.includes(:hub).where({ :hubs => { :id => @search_hubs.first.id } } ).order('proposals.votes_count DESC')
-      end
-    # elsif params[:city]
-    #   @search_hubs = Hub.where({location: params[:city]})
-    #   @searched = params[:city]
-    #   @proposals = ... matching Proposals query
-    # elseif <other searchable things>
-    #   ...
-    elsif user_signed_in? || user_id
-      user = User.find(user_id || current_user.id)
-      @proposals = user.proposals
-      @sortTitle = user_id.presence ? (user.name || user.email) + "'s " : 'My '
+    # Change the filter, use from session when searching, or clear it
+    if params[:filter]
+      @filter = session[:filter] = params[:filter]
+    elsif (params[:hub] || params[:hub_filter]) && session[:filter]
+      @filter = session[:filter]
     else
-      @proposals = Proposal.order('votes_count DESC')
+      @filter = session[:filter] = 'active'
+    end
+
+    if params[:filter]
+      if @filter == 'new' 
+        @proposals = Proposal.roots
+        @sortTitle = 'New '
+      elsif @filter == 'active'
+        @proposals = Proposal.roots
+        @sortTitle = 'Active '
+      elsif @filter == 'my_votes'
+        @proposals = current_user.proposals.roots
+        @sortTitle = (current_user.name || current_user.username) + "'s "
+      end
+    elsif params[:hub]
+      hub = params[:hub]
+      search_hub = Hub.by_group_name(hub).first
+      @sortTitle = search_hub.group_name + ' '
+
+      if search_hub
+        session[:search_hub] = search_hub
+        @proposals = Proposal.roots
+      end
+    elsif params[:hub_filter]
+      hub_filter = params[:hub_filter]
+      # NOTE What if more than one hub with this group_name???
+      # NOTE For now, location alone is not valid, must also specify group
+      # So specifying location disambiguates between hubs with same group_name
+      if params[:location_filter] != ''
+        search_hub = Hub.by_location(params[:location_filter]).where({group_name: hub_filter}).first
+        @sortTitle = search_hub.group_name + ', ' + params[:location_filter] + ' '
+      else
+        search_hub = Hub.where({id: hub_filter}).first
+        @sortTitle = search_hub ? search_hub.group_name + ' ' : ''          
+      end
+      
+      @selected_hub_id = session[:hub_id] = search_hub.id
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      @selected_hub = search_hub.to_json(:methods => :full_hub)
+
+      if search_hub
+        session[:search_hub] = search_hub
+
+        @proposals = Proposal.roots
+      end
+    elsif user_signed_in?
+      session[:search_hub] = nil      
+      @proposals = current_user.proposals.roots
+      @sortTitle = (current_user.name || current_user.username) + "'s "
+    else
+      session[:search_hub] = nil      
+      @proposals = Proposal.roots
+    end
+
+    unless @proposals.empty?    
+      if session[:search_hub] && session[:search_hub][:id]
+        @proposals = @proposals.where(hub_id: session[:search_hub][:id])
+      end
+
+      if session[:filter] && session[:filter] == 'new'
+        @proposals = @proposals.order('created_at DESC')
+      else
+        @proposals = @proposals.order('votes_count DESC')
+      end
     end
   end
 end

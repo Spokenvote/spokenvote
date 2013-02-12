@@ -27,6 +27,7 @@
 header.navbar-inverse .navbar-inner {
   border-bottom: 1px solid;
   @include background(linear-gradient(#e97e3b, scale-lightness(#e97e3b, 20)));
+  .nav li.dropdown > .dropdown-toggle .caret { border-top-color: #fff; border-bottom-color: #fff; }
 }
 
 .brand {
@@ -60,4 +61,10 @@ footer.navbar-inverse {
   img { height: 20px; }
 }
 
-.pac-container { z-index: 10000 !important; }
+#s2id_hub_filter {
+  padding: 5px 0 0;
+  a { padding: 1px 4px; }
+}
+.select2-drop-active, .pac-container { z-index: 10000 !important; width: 520px !important; }
+#location_filter { @include border-radius(4px); }
+.clear-location { position: relative; right: 20px; font-size: 12px; z-index: 10001; opacity: 0.5; }

@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def fb_button(btn_text)
+  	content_tag(:span, '', class: "fb-button-left") +
+  	content_tag(:span, content_tag(:strong, btn_text) + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
+  	content_tag(:span, '', class: "fb-button-right")
+  end
+
   def items_count_badge(items, title_text = '')
     badge_class = 'badge'
     if items.between?(3,5)
@@ -17,7 +23,7 @@ module ApplicationHelper
   
   def current_user_link
     if user_signed_in?
-      link_to current_user.name || current_user.email, proposals_path(user_id: current_user.id)
+      link_to current_user.username || current_user.email, proposals_path(user_id: current_user.id)
     else
       content_tag(:span, 'Unknown')
     end
@@ -30,8 +36,23 @@ module ApplicationHelper
   def resource
     @resource ||= User.new
   end
- 
+  
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def get_selected_hub
+    session[:search_hub] ? session[:search_hub].to_json(:methods => :full_hub) : nil
+  end
+  
+  def get_selected_hub_id
+    (session[:search_hub] && session[:search_hub][:id]) ? session[:search_hub][:id] : nil
+  end
+  
+  def set_selected_hub
+    if session[:search_hub] && session[:search_hub][:id]
+      @selected_hub_id = session[:search_hub][:id]
+      @selected_hub = session[:search_hub].to_json(:methods => :full_hub)
+    end
   end
 end

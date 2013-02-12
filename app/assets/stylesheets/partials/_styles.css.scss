@@ -8,32 +8,40 @@ $heroUnitHeadingColor: $headingsColor;
 body {
   padding-top: 40px;
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
-  &.long { @include background(linear-gradient(#eee 15%, #80A0CC 30%, #ddd 35%, #eee 55%, #ccc 75%, #80A0CC 90%, #fff)); }
 }
 
 footer {
-  &.navbar { margin-bottom: 0; }
+  &.navbar { margin-bottom: 0; margin-top: 2px; }
   .navbar-inner { @include border-radius(0); }
   .container { padding: 10px 0; }
   a { color: #fff; }
 }
 
 #main {
-  .container { background-color: #fff; }
+  overflow: visible;
+  .content {
+    overflow: auto;
+    background-color: #fff; 
+    @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+  }
 }
 
-#mainContent { padding: 20px; }
+#mainContent {
+  padding: 20px 20px 20px 40px;
+  margin-bottom: 20px;
+  position: relative;
+}
 .content {
-  margin: 0; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0;
   @include clearfix;
 }
-
 .span11 > .form-horizontal {
   margin-top: 20px;
   .control-group, .supporting-args { margin-bottom: 10px; }
 }
 
-.alert { width: 810px; margin-left: 20px; }
+.alert { margin-left: 20px; @include border-radius(0); text-align: center; }
+.modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
 // end Structural
 
@@ -101,6 +109,7 @@ h2 { margin-bottom: 12px; }
 
 textarea { height: 100px; }
 .full-width { width: 99%; }
+.popover { z-index: 12001; }
 .popover-content * { white-space: normal; font-size: 13px; } // fixes wordwrap, input-append 0x issues
 
 [contenteditable="true"] {
@@ -111,17 +120,100 @@ textarea { height: 100px; }
 [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
 .select2-container.span4 { margin-left: 0; }
-.user-avatar { float: left; width: 35px; }
+.user-avatar {
+  float: left;
+  margin-right: 10px;
+}
 
 .modal-header {
   @include border-top-radius(6px);
   background-color: #eee;
 }
+.modal-backdrop{
+  background-color: #000 !important;
+}
+
+#confirmationModalQuestion { margin: 20px 0; font-weight: bold; }
+
+.alert-special {
+  position: absolute; top: 0; left: 0; width: 93%;
+}
 // end General elements
+
+// Login elements
+.login_providers { margin-bottom: 20px; }
+.login_form {
+  background-color: #DFDFDF; padding-top: 1px;
+  form { margin: 0; }
+  .control-group { margin-left: 15px; margin-bottom: 0; }
+  [type="text"], [type="email"], [type="password"] { width: 355px; }
+  label { font-weight: normal; }
+  .btn { margin-bottom: 10px; }
+  #forgotLink, #loginModal & .btn { margin-left: 21px; }
+  #forgotLink {
+    padding-bottom: 10px;
+    a, a:visited { color: #ADADAD; text-decoration: underline; }
+  }
+}
+#loginModal, #registrationModal {
+  .modal-body {
+    @include background(linear-gradient(center top , #FFFFFF, #F5F5F5) repeat scroll 0 0 transparent);
+    @include box-shadow(0 0 3px #FFFFFF inset, 0 2px 2px -2px rgba(0, 0, 0, 0.2));
+    padding: 0;
+  }
+  h3.or-separator {
+    background: image-url("or-bubble-sep.png") no-repeat scroll left bottom transparent; margin: 0;
+    color: #959595; font-size: 1.8em; letter-spacing: 1px; line-height: 1.6em; position: relative; text-align: center;
+  }
+}
+
+.fb-button-container-centered {
+  padding: 20px 20px 0; text-align: center;
+  .fb-button {
+    @include inline-block; float: none; margin-bottom: 5px; margin-right: 5px;
+    left: auto; border: 0 none !important; @include border-radius(4px); padding: 0; position: relative; text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
+    strong {font-weight: bolder;}
+  }
+  .fb-button-left, .fb-button-center, .fb-button-right {@include background(image-url("fb-button-sprite.png") no-repeat scroll left top transparent); float: left; height: 40px; display: block;}
+  .fb-button-left {width: 40px; }
+  .fb-button-center {width: 252px; text-align: center; background-color: #6385BA; background-position: left -40px; background-repeat: repeat-x; color: #FFFFFF; font-size: 16px; line-height: 40px; padding: 0 5px 0 8px;}
+  .fb-button-right {background-position: 100% -80px; width: 6px;}
+}
+// end Login elements
 
 // Partial imports
 @import 'partials/navigation';
-@import 'partials/content_pages';
+
+// content_pages elements
+.content_page {
+  @extend .span11; margin-left: 20px;
+  h2 { margin-top: 20px; }
+  .content_div { margin-bottom: 20px; }
+  label { font-weight: bold; }
+}
+// end content_pages elements
+
+
+// static_pages elements
+.static_page  {
+  @extend .span11; margin-left: 20px;
+  h1 { margin-bottom: 45px; font-size: 40px; color: #315D99; }
+  h2 { margin-top: 30px; color:  #555; }
+  h3 { margin-bottom: 20px; font-size: 20px; }
+  h4 { color: #555; }
+  .content_offset {margin-left: 40px;}
+  .content_offset li {padding-bottom: 16px; font-size: 20px; font-weight: bold;}
+  .centered {text-align: center;}
+  .pull-right {}
+  .attention_red {color: #9d261d; }
+  .content_div { margin-bottom: 20px; }
+  .content_div_half { margin-bottom: 16px; }
+  .content_div_1_5 { margin-bottom: 30px; }
+  label { font-weight: bold; }
+}
+// end static_pages elements
+
+
 
 // Proposal-related
 .proposal_hub {
@@ -137,11 +229,10 @@ textarea { height: 100px; }
   .proposal_buttons { width: 114px; }
   td.proposal_buttons + td { border-left: none; }
 }
-#proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; margin-left: 0; }
+#proposalNotFound div { margin-left: 0; }
+#proposalNotFound div:last-child { background-color: #e4e4e4; text-align: center; padding: 3px 10px; }
 #hpContent { @extend .span11; margin-left: 20px; }
 
-.main-proposal {
-}
 .support_container {
   @extend .no-gutter;
   background: #ddd;
@@ -169,7 +260,10 @@ textarea { height: 100px; }
   }
 }
 
-.improve_support_buttons { margin-left: 20px; }
+.improve_support_buttons {
+  display: inline;
+  .btn { @extend .btn-mini; font-size: 12px; }
+}
 .supporting_arguments {
   h3 span {
     font-size: 80%;
@@ -177,10 +271,26 @@ textarea { height: 100px; }
     color: #999;
   }
   .proposal-person { @extend .clear; }
+  .supported_date {
+    @include inline-block;
+    .shares { display: block; margin-top: 4px; }
+  }
+  .support_row {
+    @extend .no-gutter;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+//    &.last { border-bottom: none;}
+  }
 }
-
-.proposal_container { margin: 20px 0; }
-
+.supporting_statement, .support_comment {
+  div { margin-bottom: 10px; }
+  div:last-child { margin-bottom: 0; }
+}
+.proposal_container {
+  margin: 20px 0;
+  overflow: visible;
+}
 .proposal_statement {
   font-size: 176%;
   margin-bottom: 10px;
@@ -194,7 +304,8 @@ textarea { height: 100px; }
   }
 }
 .supporting_statement { font-size: 16px; }
-
+.supported_date { margin-bottom: 10px; }
+.shares  .btn { @extend .btn-mini; @extend .btn-success; }
 .proposal_fields {
   margin-top: 10px;
   label {
@@ -205,16 +316,14 @@ textarea { height: 100px; }
   }
   label.first { margin-left: 0; padding-top: 8px; }
 }
-
+.supporting_arguments_list { overflow: hidden; }
 #relatedProposalsTitle {
   font-size: 28px;
   color: #315c99;
   margin-top: 20px;
 }
 .related_supporting {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+  clear: both;
   border-bottom: 1px solid #dddddd;
   padding-bottom: 10px;
   margin-bottom: 10px;
@@ -227,7 +336,7 @@ textarea { height: 100px; }
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -20px;
+  margin-top: -20px; margin-right: -40px; // flush right on #mainContent
   .label {@extend .label-large; @extend .label-success; @extend .label-flat;}
 }
 // end Proposal-related

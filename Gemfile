@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Infrastructure
 # gem 'heroku'
@@ -50,6 +50,7 @@ group :development do
   gem 'debugger'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :development, :test do
@@ -58,6 +59,7 @@ group :development, :test do
   gem 'populator'
   gem 'rspec'
   gem 'spork'
+  gem 'shoulda-matchers'
 end
 
 group :test do

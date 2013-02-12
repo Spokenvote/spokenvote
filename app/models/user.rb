@@ -28,12 +28,17 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
   # attr_accessible :title, :body
-  has_many :authentications
-  has_many :proposals
-  has_many :votes
+
+  # Associations
+  has_many :authentications, dependent: :destroy
+  has_many :proposals, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   def password_required?
-      (authentications.empty? || !password.blank?) && super
+    (authentications.empty? || !password.blank?) && super
   end
 
+  def username
+    self.name.presence || self.email.split('@').first.titlecase
+  end
 end
