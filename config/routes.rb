@@ -8,7 +8,6 @@ Spokenvote::Application.routes.draw do
     resources :proposals, only: [:index]
   end
 
-  resources :votes
   resources :proposals do
     member do
       get 'isEditable'
@@ -17,15 +16,20 @@ Spokenvote::Application.routes.draw do
       post 'search'
     end
   end
-  resources :hubs do
+
+  resources :votes, only: [:create]
+
+  resources :hubs, only: [:create, :index] do
     resources :proposals
+
   end
 
   match 'about' => 'pages#about'
-  match 'help' => 'pages#help'
-  match 'developers' => 'pages#developers'
-  match 'dev' => 'pages#developers'
   match 'user_nav' => 'pages#user_nav'
+
+  #match 'help' => 'pages#help'
+  #match 'developers' => 'pages#developers'
+  #match 'dev' => 'pages#developers'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
