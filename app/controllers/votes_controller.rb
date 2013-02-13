@@ -46,7 +46,7 @@ class VotesController < ApplicationController
 
     votes_attributes = {
       ip_address: request.remote_ip,
-      comment: params[:vote][:comment],
+      comment: params[:vote][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>'),
       proposal: proposal
     }
 
@@ -67,6 +67,7 @@ class VotesController < ApplicationController
   # PUT /votes/1.json
   def update
     @vote = Vote.find(params[:id])
+    params[:vote][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
 
     respond_to do |format|
       if @vote.update_attributes(params[:vote])
