@@ -26,8 +26,7 @@ Spokenvote::Application.routes.draw do
 
   match 'about' => 'pages#about'
   match 'user_nav' => 'pages#user_nav'
-  #match "/stories" => redirect("/posts")
-  #match "/votes/*other" => redirect("/proposals")
+
   #match 'help' => 'pages#help'
   #match 'developers' => 'pages#developers'
   #match 'dev' => 'pages#developers'
