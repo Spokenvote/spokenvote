@@ -102,7 +102,7 @@
       statement = editableBox.text().trim(),
       proposal_location = $('#proposal_location').val(),
       proposal_hub = $('#proposal_group_name').val(),
-      comment = $('#vote_comment').val(),
+      comment = proposal_container.find('#supporting_statement').val(),
       // this is not a good way to have user on hand but acceptable to me for first pass
       user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
       proposal_data = {

@@ -79,6 +79,7 @@ class ProposalsController < ApplicationController
       params[:proposal].delete :parent_id
       params[:proposal][:parent] = parent
       params[:proposal][:hub_id] = parent.hub.id
+      params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
       votes_attributes = params[:proposal].delete :votes_attributes
       @proposal = current_user.proposals.create(params[:proposal])
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
@@ -87,6 +88,7 @@ class ProposalsController < ApplicationController
       hub_attrs = params[:proposal].delete :hub
       hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
       params[:proposal][:hub_id] = hub.id
+      params[:proposal][:votes_attributes].first[1][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
       params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
       @proposal = current_user.proposals.create(params[:proposal])
@@ -103,6 +105,7 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
+    params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
     
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
