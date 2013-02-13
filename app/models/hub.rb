@@ -12,7 +12,7 @@
 #
 
 class Hub < ActiveRecord::Base
-  attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub
+  attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub, :short_hub
 
   # Associations
   has_many :votes, through: :proposals
@@ -42,5 +42,20 @@ class Hub < ActiveRecord::Base
 
   def full_hub
     self.group_name + ' - ' + self.formatted_location
+  end
+  
+  def short_hub
+    if self.group_name == 'All of'
+      split = self.formatted_location.split(',')
+      if split.count > 2
+        ret = split[0] + ', ' +split[2]
+      else
+        ret = self.formatted_location
+      end
+      ret = self.group_name + ' - ' + ret
+    else
+      ret = self.group_name
+    end
+    return ret
   end
 end

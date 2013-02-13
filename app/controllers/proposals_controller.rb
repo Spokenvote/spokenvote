@@ -152,11 +152,17 @@ private
       end
     elsif params[:hub]
       hub = params[:hub]
-      search_hub = Hub.by_group_name(hub).first
+      search_hub = Hub.where(id: hub).first
       @sortTitle = search_hub.group_name + ' '
+
+      @selected_hub_id = session[:hub_id] = search_hub.id
+      session[:hub_filter] = search_hub.group_name
+      session[:hub_location] = search_hub.formatted_location
+      @selected_hub = search_hub.to_json(:methods => :full_hub)
 
       if search_hub
         session[:search_hub] = search_hub
+
         @proposals = Proposal.roots
       end
     elsif params[:hub_filter]
@@ -201,7 +207,7 @@ private
       end
 
       if session[:filter] && session[:filter] == 'new'
-        @proposals = @proposals.order('created_at DESC')
+        @proposals = @proposals.order('updated_at DESC')
       else
         @proposals = @proposals.order('votes_count DESC')
       end
