@@ -1,21 +1,19 @@
-# == Schema Information
-#
-# Table name: proposals
-#
-#  id          :integer          not null, primary key
-#  statement   :string(255)
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  votes_count :integer          default(0)
-#  ancestry    :string(255)
-#  created_by  :integer
-#  hub_id      :integer
-#
-
 require 'spec_helper'
 
 describe Proposal do
-  it "should work" do
-  end
+  let(:proposal) { FactoryGirl.build(:proposal)}
+  let(:proposal_with_improvement) { FactoryGirl.build(:proposal_with_improvment) }
+
+  # it "counts the votes in a simple tree" do
+  #   proposal.votes_in_tree.should == 1
+  # end
+
+  # it "counts the votes if the proposal has an improvement" do
+  #   proposal_with_improvement.votes_in_tree.should == 2
+  # end
+
+  # it "has the correct related proposals" do
+  #   proposal.save
+  #   proposal.related_proposals.size.should == 2
+  # end
 end

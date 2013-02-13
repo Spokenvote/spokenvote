@@ -22,4 +22,4 @@ describe "Proposals" do
 #       # page.should have_content("Related proposal was successfully created")
 #     end
 #   end
-# end
+end
