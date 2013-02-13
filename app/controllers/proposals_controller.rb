@@ -7,8 +7,17 @@ class ProposalsController < ApplicationController
   # GET /proposals.json
   def index
     respond_to do |format|
-      format.html
-      format.json { render json: @proposals }
+      if @proposals.any?
+        format.html
+        format.json { render json: @proposals }
+      else
+        format.html {
+          proposal = Proposal.find(request.referrer.split('/').last)
+          session[:error] = @no_proposals[:error]
+          redirect_to proposal_path(proposal)
+        }
+        format.json { render json: @no_proposals, status: :unprocessable_entity }
+      end
     end
   end
   
@@ -24,6 +33,10 @@ class ProposalsController < ApplicationController
     records_limit = 10
     page_number = (params[:page].presence || 0).to_i
     proposal_id = (params[:proposal].presence || params[:id]).to_i
+    if session[:error].present?
+      flash[:error] = session[:error]
+      session[:error] = nil
+    end
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
@@ -152,8 +165,8 @@ private
       end
     elsif params[:hub]
       hub = params[:hub]
-      search_hub = Hub.by_group_name(hub).first
-      @sortTitle = search_hub.group_name + ' '
+      search_hub = Hub.where(id: hub).first
+      @sortTitle = search_hub.short_hub + ' '
 
       if search_hub
         session[:search_hub] = search_hub
@@ -166,7 +179,7 @@ private
       # So specifying location disambiguates between hubs with same group_name
       if params[:location_filter] != ''
         search_hub = Hub.by_location(params[:location_filter]).where({group_name: hub_filter}).first
-        @sortTitle = search_hub.group_name + ', ' + params[:location_filter] + ' '
+        @sortTitle = search_hub.short_hub + ' '
       else
         search_hub = Hub.where({id: hub_filter}).first
         @sortTitle = search_hub ? search_hub.group_name + ' ' : ''          
@@ -185,7 +198,9 @@ private
     elsif params[:user_id]
       session[:search_hub] = nil      
       @proposals = User.where({id: params[:user_id]}).first.proposals.roots
-      @sortTitle = @proposals.first.user.username + "'s "
+      if proposals_check?
+        @sortTitle = @proposals.first.user.username + "'s "
+      end
     elsif user_signed_in?
       session[:search_hub] = nil      
       @proposals = current_user.proposals.roots
@@ -195,7 +210,7 @@ private
       @proposals = Proposal.roots
     end
 
-    unless @proposals.empty?    
+    if @proposals.any?
       if session[:search_hub] && session[:search_hub][:id]
         @proposals = @proposals.where(hub_id: session[:search_hub][:id])
       end
@@ -205,6 +220,14 @@ private
       else
         @proposals = @proposals.order('votes_count DESC')
       end
+    else
+      @no_proposals = {error: 'No matching Topics were found'}
     end
+  end
+  
+  def proposals_check?
+    # Made this a separate method in case we want to use it in more places, which seems likely,
+    # and if a better conditional test is preferred
+    @proposals.any?
   end
 end
