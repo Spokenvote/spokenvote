@@ -188,6 +188,10 @@ private
 
         @proposals = Proposal.roots
       end
+    elsif params[:user_id]
+      session[:search_hub] = nil      
+      @proposals = User.where({id: params[:user_id]}).first.proposals.roots
+      @sortTitle = @proposals.first.user.username + "'s "
     elsif user_signed_in?
       session[:search_hub] = nil      
       @proposals = current_user.proposals.roots
