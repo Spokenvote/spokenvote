@@ -62,4 +62,5 @@ module ApplicationHelper
       @selected_hub = session[:search_hub].to_json(:methods => :full_hub)
     end
   end
+
 end
