@@ -4,7 +4,7 @@
     = proposal.statement
   %br
   %label.first Why should others support your proposal
-  = text_area_tag :vote_comment, proposal.supporting_statement, class: 'full-width'
+  = text_area_tag :supporting_statement, proposal.supporting_statement, class: 'full-width'
   .proposal_fields.hide
     %label.first.span1 Hub
     = hidden_field_tag :proposal_group_name, nil, data: {location_input: '#proposal_location', location_id: '#proposal_location_id'}
