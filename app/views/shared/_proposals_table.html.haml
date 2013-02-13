@@ -9,8 +9,9 @@
           = link_to 'New', proposals_path(filter: 'new'), class: "btn #{@filter == 'new' ? 'active' : ''}"
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
-      %th.count-column{ width: '10%'} Added
-      %th.count-column{ width: '12%'} Proposals
+      %th{ width: '18%'} Group
+      %th.count-column{ width: '10%'} Updated
+      / %th.count-column{ width: '12%'} Proposals
       %th.count-column{ width: '10%'} Votes
 
   %tbody
@@ -19,8 +20,9 @@
       %tr
         %td{ colspan: '2' }= link_to proposal.statement, proposal_path(proposal)
         %td{ width: '20%'}= link_to proposal.user.username, proposals_path(user_id: proposal.user.id)
-        %td.count-column= proposal.created_at.to_s(:month_day_year)
-        %td.count-column= proposal.root.related_proposals.count + 1
+        %td= link_to proposal_list_name(proposal), proposals_path(hub: proposal.hub)
+        %td.count-column= proposal.updated_at.to_s(:month_day_year)
+        / %td.count-column= proposal.root.related_proposals.count + 1
         %td.count-column= proposal.votes_in_tree.to_s
 
 #proposalNotFound
