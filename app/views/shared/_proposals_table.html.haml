@@ -1,28 +1,28 @@
 %table.listing.listing-proposals
   %thead
     %tr
-      %th.table-title{ colspan: '6' }= @sortTitle + 'Topics'
+      %th.table-title{ colspan: '5' }= @sortTitle + 'Topics'
     %tr
-      %th{ colspan: '3' }
+      %th{ width: '42%' }
         %span#hubSorter.btn-group
           = link_to 'Active', proposals_path(filter: 'active'), class: "btn #{@filter == 'active' ? 'active': ''}"
           = link_to 'New', proposals_path(filter: 'new'), class: "btn #{@filter == 'new' ? 'active' : ''}"
           - if user_signed_in?
             = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
-      %th{ width: '18%'} Group
+      %th{ width: '30%' } Group
       %th.count-column{ width: '10%'} Updated
-      / %th.count-column{ width: '12%'} Proposals
-      %th.count-column{ width: '10%'} Votes
+      %th.count-column{ width: '10%'} Proposals
+      %th.count-column{ width: '8%'} Votes
 
   %tbody
     - proposals.each do |proposal|
       - all_related_proposals_votes_count = [proposal.ancestors, proposal.descendants, proposal].flatten.map(&:votes_count).sort
       %tr
-        %td{ colspan: '2' }= link_to proposal.statement, proposal_path(proposal)
-        %td{ width: '20%'}= link_to proposal.user.username, proposals_path(user_id: proposal.user.id)
-        %td= link_to proposal_list_name(proposal), proposals_path(hub: proposal.hub)
+        %td= link_to proposal.statement, proposal_path(proposal)
+        / %td{ width: '20%'}= link_to proposal.user.username, proposals_path(user_id: proposal.user.id)
+        %td= link_to proposal.hub.short_hub, proposals_path(hub: proposal.hub)
         %td.count-column= proposal.updated_at.to_s(:month_day_year)
-        / %td.count-column= proposal.root.related_proposals.count + 1
+        %td.count-column= proposal.root.related_proposals.count + 1
         %td.count-column= proposal.votes_in_tree.to_s
 
 #proposalNotFound

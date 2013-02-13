@@ -63,7 +63,4 @@ module ApplicationHelper
     end
   end
 
-  def proposal_list_name(proposal)
-    return proposal.hub.group_name == 'All of' ? proposal.hub.group_name + ' - ' + proposal.hub.formatted_location : proposal.hub.group_name
-  end
 end
