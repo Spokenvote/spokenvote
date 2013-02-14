@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'compass'
 gem 'compass-rails'
 gem 'compass_twitter_bootstrap'
+gem 'activeadmin'
 
 # Authentication
 gem 'omniauth'
