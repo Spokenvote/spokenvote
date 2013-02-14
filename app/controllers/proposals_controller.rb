@@ -46,8 +46,8 @@ class ProposalsController < ApplicationController
     set_selected_hub
 
     if params[:proposal].presence
-      offset_by = (page_number * records_limit) + 3
-      @votes = @proposal.votes.offset(offset_by).limit(records_limit)
+      offset_by = (page_number * records_limit) + 2
+      @votes = @proposal.votes.order('created_at DESC').offset(offset_by).limit(records_limit)
       @no_more = @votes.count <= (offset_by + records_limit)
       @isXhr = true
       render :partial => 'proposal_vote', :collection => @votes, :as => :vote
