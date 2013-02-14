@@ -12,9 +12,11 @@ class ProposalsController < ApplicationController
         format.json { render json: @proposals }
       else
         format.html {
-          proposal = Proposal.find(request.referrer.split('/').last)
-          session[:error] = @no_proposals[:error]
-          redirect_to proposal_path(proposal)
+          if request.referrer.split('/').last.present?
+            proposal = Proposal.find(proposal)
+            session[:error] = @no_proposals[:error]
+            redirect_to proposal_path(proposal)
+          end
         }
         format.json { render json: @no_proposals, status: :unprocessable_entity }
       end
