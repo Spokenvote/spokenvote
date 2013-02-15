@@ -1,0 +1,1 @@
+DEFAULT_AVATAR_URL = "http://spokenvote.org/assets/images/icons/sv-30.png"

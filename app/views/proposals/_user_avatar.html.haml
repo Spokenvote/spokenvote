@@ -2,9 +2,8 @@
   - if !user.authentications.empty?
     = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
   -else
-    - default_url = "http://spokenvote.org/assets/sv-30.png"
     - gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-    = image_tag "http://gravatar.com/avatar/#{gravatar_id}.png?s=30&d=#{default_url}"
+    = image_tag "http://gravatar.com/avatar/#{gravatar_id}.png?s=30&d=#{DEFAULT_AVATAR_URL}"
 
 .supported_date
   = link_to user.username, proposals_path(user_id: user)
