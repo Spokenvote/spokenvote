@@ -4,4 +4,6 @@
   %ul.dropdown-menu
     %li= link_to 'My Proposals', proposals_path(user_id: current_user.id)
     %li= link_to 'Settings', edit_user_registration_path(current_user)
+    - if current_user.is_admin?
+      %li= link_to 'Admin', admin_dashboard_path
     %li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
