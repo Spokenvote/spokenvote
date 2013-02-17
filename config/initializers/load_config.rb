@@ -1,1 +1,1 @@
-DEFAULT_AVATAR_URL = "http://spokenvote.org/assets/images/icons/sv-30.png"
+DEFAULT_AVATAR_URL = "http://spokenvote.org/assets/sv-30.png"
