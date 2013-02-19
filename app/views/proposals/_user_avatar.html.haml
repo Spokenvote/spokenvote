@@ -1,10 +1,10 @@
 .user-avatar
   - if !user.authentications.empty?
     = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
-  - elsif defined? vote_counter
-    %img{data: {src: "holder.js/30x30/#{vote_counter.even? ? 'industrial' : 'social'}/text:avatar"}}
-  - else
-    %img{data: {src: "holder.js/30x30/industrial/text:avatar"}}
+  -else
+    - gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+    = image_tag "http://gravatar.com/avatar/#{gravatar_id}.png?s=30&d=#{DEFAULT_AVATAR_URL}"
+
 .supported_date
   = link_to user.username, proposals_path(user_id: user)
   %br

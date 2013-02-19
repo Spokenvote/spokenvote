@@ -12,7 +12,7 @@ class ProposalsController < ApplicationController
         format.json { render json: @proposals }
       else
         format.html {
-          if request.referrer.split('/').last.is_a? Integer
+          if request.referrer.to_s.split('/').last.is_a? Integer
             proposal = Proposal.find(proposal)
             session[:error] = @no_proposals[:error]
             redirect_to proposal_path(proposal)
