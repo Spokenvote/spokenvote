@@ -33,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
+gem "airbrake"
 
 # Gems used only for assets and not required
 # in production environments by default.
