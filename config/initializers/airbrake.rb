@@ -1,3 +1,3 @@
 Airbrake.configure do |config|
-  config.api_key = AIRBREAK_KEY
+  config.api_key = AIRBRAKE_API_KEY
 end
