@@ -12,4 +12,10 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 //= require holder
-//= require_tree ./application/
+//= require backbone_application/vendor/underscore
+//= require backbone_application/vendor/backbone
+//= require backbone_application/vendor/backbone.layoutmanager
+//= require backbone_application/vendor/handlebars
+//= require backbone_application/app
+//= require backbone_application/router
+//= require_tree ./backbone_application/modules/
