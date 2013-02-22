@@ -1,11 +1,54 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :search]
-  before_filter :requested_proposals, :only => [:index, :search]
 
   # GET /proposals
   # GET /proposals.json
   def index
+    @searched = ''
+    @proposals = []
+
+    # Change the filter if needed and let the view see it
+    session[:filter] = params[:filter] if params[:filter]
+    session[:filter] = 'active' unless session[:filter]
+    @filter = session[:filter]
+
+    if params[:filter]
+      @proposals = @filter == 'my_votes' ? voted_proposals(current_user) : Proposal.roots
+    elsif params[:hub]
+      search_hub = Hub.find(params[:hub])
+
+      if search_hub
+        session[:search_hub] = search_hub
+        @selected_hub_id = search_hub.id
+        @selected_hub = search_hub.to_json(:methods => :full_hub)
+        @proposals = Proposal.roots.where(hub_id: search_hub.id)
+      end
+    elsif params[:user_id]
+      session[:search_hub] = nil      
+      user = User.find params[:user_id]
+      @proposals = voted_proposals(user)
+      @filter = session[:filter] = 'my_votes'
+    elsif user_signed_in?
+      session[:search_hub] = nil
+      @proposals = voted_proposals(current_user)
+
+      if @proposals.empty?
+        @filter = session[:filter] = 'active'
+        @proposals = Proposal.roots
+      else
+        @filter = session[:filter] = 'my_votes'
+      end
+    else
+      session[:search_hub] = nil      
+      @filter = session[:filter] = 'active'
+      @proposals = Proposal.roots
+    end
+
+    @proposals = order_by_filter @proposals
+    
+    @sortTitle = title_by_filter_and_hub    
+
     respond_to do |format|
       if @proposals.any?
         format.html
@@ -26,6 +69,34 @@ class ProposalsController < ApplicationController
   # POST /proposals/search
   # POST /proposals/search.json
   def search
+    @searched = ''
+    @proposals = []
+
+    @filter = session[:filter]
+
+    if params[:hub_filter]
+      hub_filter = params[:hub_filter]
+
+      if params[:location_filter] != ''
+        search_hub = Hub.by_location(params[:location_filter]).where(group_name: hub_filter).first
+      else
+        search_hub = Hub.where(group_name: hub_filter).first
+      end
+
+      if search_hub
+        session[:search_hub] = search_hub
+        @selected_hub_id = search_hub.id
+        @selected_hub = search_hub.to_json(:methods => :full_hub)
+
+        @proposals = @filter == 'my_votes' ? voted_proposals(current_user) : Proposal.roots
+        @proposals = order_by_filter @proposals.where(hub_id: search_hub.id)
+      else
+        session[:search_hub] = nil
+      end
+    end
+
+    @sortTitle = title_by_filter_and_hub
+
     render action: :index
   end
 
@@ -148,103 +219,39 @@ class ProposalsController < ApplicationController
     redirect_to action: :index, status: 200
   end
   
-private
+  private
 
-  def requested_proposals
-    @searched = @sortTitle = ''
-    @proposals = []
+  def voted_proposals user
+    proposal_ids = user.votes.collect {|vote| vote.proposal_id}
+    Proposal.where(id: proposal_ids)
+  end
 
-    # Change the filter, use from session when searching, or clear it
-    if params[:filter]
-      @filter = session[:filter] = params[:filter]
-    elsif (params[:hub] || params[:hub_filter]) && session[:filter]
-      @filter = session[:filter]
-    else
-      @filter = session[:filter] = 'active'
-    end
-
-    if params[:filter]
-      if @filter == 'new' 
-        @proposals = Proposal.roots
-        @sortTitle = 'New '
-      elsif @filter == 'active'
-        @proposals = Proposal.roots
-        @sortTitle = 'Active '
-      elsif @filter == 'my_votes'
-        @proposals = current_user.proposals.roots
-        @sortTitle = (current_user.name || current_user.username) + "'s "
-      end
-    elsif params[:hub]
-      hub = params[:hub]
-      search_hub = Hub.where(id: hub).first
-      @sortTitle = search_hub.short_hub + ' '
-
-      @selected_hub_id = session[:hub_id] = search_hub.id
-      session[:hub_filter] = search_hub.group_name
-      session[:hub_location] = search_hub.formatted_location
-      @selected_hub = search_hub.to_json(:methods => :full_hub)
-
-      if search_hub
-        session[:search_hub] = search_hub
-
-        @proposals = Proposal.roots
-      end
-    elsif params[:hub_filter]
-      hub_filter = params[:hub_filter]
-      # NOTE What if more than one hub with this group_name???
-      # NOTE For now, location alone is not valid, must also specify group
-      # So specifying location disambiguates between hubs with same group_name
-      if params[:location_filter] != ''
-        search_hub = Hub.by_location(params[:location_filter]).where({group_name: hub_filter}).first
-        @sortTitle = search_hub.short_hub + ' '
-      else
-        search_hub = Hub.where({id: hub_filter}).first
-        @sortTitle = search_hub ? search_hub.group_name + ' ' : ''          
-      end
-      
-      @selected_hub_id = session[:hub_id] = search_hub.id
-      session[:hub_filter] = search_hub.group_name
-      session[:hub_location] = search_hub.formatted_location
-      @selected_hub = search_hub.to_json(:methods => :full_hub)
-
-      if search_hub
-        session[:search_hub] = search_hub
-
-        @proposals = Proposal.roots
-      end
-    elsif params[:user_id]
-      session[:search_hub] = nil      
-      @proposals = User.where({id: params[:user_id]}).first.proposals.roots
-      if proposals_check?
-        @sortTitle = @proposals.first.user.username + "'s "
-      end
-    elsif user_signed_in?
-      session[:search_hub] = nil      
-      @proposals = current_user.proposals.roots
-      @sortTitle = (current_user.name || current_user.username) + "'s "
-    else
-      session[:search_hub] = nil      
-      @proposals = Proposal.roots
-    end
-
-    if @proposals.any?
-      if session[:search_hub] && session[:search_hub][:id]
-        @proposals = @proposals.where(hub_id: session[:search_hub][:id])
-      end
-
+  def order_by_filter proposals
+    if proposals.any?
       if session[:filter] && session[:filter] == 'new'
-        @proposals = @proposals.order('updated_at DESC')
+        return proposals.order('updated_at DESC')
       else
-        @proposals = @proposals.order('votes_count DESC')
+        return proposals.order('votes_count DESC')
       end
-    else
-      @no_proposals = {error: 'No matching Topics were found'}
     end
   end
-  
-  def proposals_check?
-    # Made this a separate method in case we want to use it in more places, which seems likely,
-    # and if a better conditional test is preferred
-    @proposals.any?
+
+  def title_by_filter_and_hub 
+    title = ''
+
+    if session[:filter] == 'new' 
+      title += 'New Topics'
+    elsif session[:filter] == 'my_votes'
+      user = params[:user_id] ? User.find(params[:user_id]) : current_user
+      title += "#{user.username}'s Votes"
+    else
+      title = 'Active Topics'
+    end
+    
+    if session[:search_hub]
+      title += " - #{session[:search_hub].short_hub} - #{session[:search_hub].formatted_location}"
+    end
+
+    title
   end
 end
