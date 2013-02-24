@@ -25,7 +25,7 @@ class ProposalsController < ApplicationController
         @proposals = Proposal.roots.where(hub_id: search_hub.id)
       end
     elsif params[:user_id]
-      session[:search_hub] = nil      
+      session[:search_hub] = nil
       user = User.find params[:user_id]
       @proposals = voted_proposals(user)
       @filter = session[:filter] = 'my_votes'
@@ -40,19 +40,19 @@ class ProposalsController < ApplicationController
         @filter = session[:filter] = 'my_votes'
       end
     else
-      session[:search_hub] = nil      
+      session[:search_hub] = nil
       @filter = session[:filter] = 'active'
       @proposals = Proposal.roots
     end
 
     @proposals = order_by_filter @proposals
-    
-    @sortTitle = title_by_filter_and_hub    
+
+    @sortTitle = title_by_filter_and_hub
 
     respond_to do |format|
       if @proposals.any?
         format.html
-        format.json { render json: @proposals }
+        format.json
       else
         format.html {
           if request.referrer.to_s.split('/').last.is_a? Integer
@@ -65,7 +65,7 @@ class ProposalsController < ApplicationController
       end
     end
   end
-  
+
   # POST /proposals/search
   # POST /proposals/search.json
   def search
@@ -113,7 +113,7 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(proposal_id)
     @total_votes = @proposal.votes_in_tree
-    
+
     set_selected_hub
 
     if params[:proposal].presence
@@ -198,7 +198,7 @@ class ProposalsController < ApplicationController
     if params[:proposal][:votes_attributes][:comment].match(/\n/)
       params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
     end
-    
+
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
         format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
@@ -218,7 +218,7 @@ class ProposalsController < ApplicationController
 
     redirect_to action: :index, status: 200
   end
-  
+
   private
 
   def voted_proposals user
@@ -236,10 +236,10 @@ class ProposalsController < ApplicationController
     end
   end
 
-  def title_by_filter_and_hub 
+  def title_by_filter_and_hub
     title = ''
 
-    if session[:filter] == 'new' 
+    if session[:filter] == 'new'
       title += 'New Topics'
     elsif session[:filter] == 'my_votes'
       user = params[:user_id] ? User.find(params[:user_id]) : current_user
@@ -247,7 +247,7 @@ class ProposalsController < ApplicationController
     else
       title = 'Active Topics'
     end
-    
+
     if session[:search_hub]
       title += " - #{session[:search_hub].short_hub} - #{session[:search_hub].formatted_location}"
     end

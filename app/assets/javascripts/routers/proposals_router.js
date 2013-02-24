@@ -1,7 +1,6 @@
 Spokenvote.Routers.Proposals = Backbone.Router.extend({
   routes: {
-    '': 'index',
-    'proposals/:id': 'show'
+    '': 'index'
   },
 
   index: function() {
@@ -10,8 +9,4 @@ Spokenvote.Routers.Proposals = Backbone.Router.extend({
     collection.on('reset', view.render.bind(view));
     collection.fetch();
   },
-
-  show: function(id) {
-    alert("Entry #{id}");
-  }
 });
