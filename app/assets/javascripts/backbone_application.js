@@ -17,6 +17,7 @@
 //= require backbone
 //= require backbone.layoutmanager
 //= require handlebars.runtime
+//= require site
 //= require spokenvote
 //= require_tree ../templates
 //= require_tree ./models
