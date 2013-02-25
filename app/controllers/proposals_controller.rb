@@ -234,6 +234,8 @@ class ProposalsController < ApplicationController
         return proposals.order('votes_count DESC')
       end
     end
+    
+    proposals
   end
 
   def title_by_filter_and_hub
