@@ -1,4 +1,4 @@
-Spokenvote.Views.ProposalsIndex = Backbone.View.extend({
+app.Views.ProposalsIndex = Backbone.View.extend({
 
   template: JST['proposals/index'],
 

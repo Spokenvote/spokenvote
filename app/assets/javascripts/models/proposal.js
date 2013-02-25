@@ -1,3 +1,3 @@
-Spokenvote.Models.Proposal = Backbone.Model.extend({
+app.Models.Proposal = Backbone.Model.extend({
 
 });
