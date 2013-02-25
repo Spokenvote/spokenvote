@@ -44,9 +44,8 @@ class ProposalsController < ApplicationController
       @filter = session[:filter] = 'active'
       @proposals = Proposal.roots
     end
-logger.info { "GGGGGG" }
+
     @proposals = order_by_filter @proposals
-    logger.info { "GGGGGG" }
     
     @sortTitle = title_by_filter_and_hub    
 
@@ -229,7 +228,6 @@ logger.info { "GGGGGG" }
 
   def order_by_filter proposals
     if proposals.any?
-      logger.info { "session[:filter] is #{session[:filter]}" }
       if session[:filter] && session[:filter] == 'new'
         return proposals.order('updated_at DESC')
       else
