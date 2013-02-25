@@ -1,4 +1,4 @@
-Spokenvote.Collections.Proposals = Backbone.Collection.extend({
+app.Collections.Proposals = Backbone.Collection.extend({
   url: '/proposals',
-  model: Spokenvote.Models.Proposal
+  model: app.Models.Proposal
 });

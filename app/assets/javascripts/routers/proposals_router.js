@@ -1,12 +1,12 @@
-Spokenvote.Routers.Proposals = Backbone.Router.extend({
+app.Routers.Proposals = Backbone.Router.extend({
   routes: {
     '': 'index'
   },
 
   index: function() {
-    var collection = new Spokenvote.Collections.Proposals();
-    var view = new Spokenvote.Views.ProposalsIndex({ collection: collection });
+    var collection = new app.Collections.Proposals();
+    var view = new app.Views.ProposalsIndex({ collection: collection });
     collection.fetch();
-    $('#mainContent').append(view.render().el);
+    $('#mainContent').html(view.render().el);
   }
 });
