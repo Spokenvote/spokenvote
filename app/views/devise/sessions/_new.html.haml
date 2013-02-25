@@ -9,7 +9,7 @@
   = form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: isModal ) do |f|
     .control-group
       .controls
-        = f.email_field :email, placeholder: 'Email address'
+        = f.email_field :email, placeholder: 'Email address', value: cookies['_spokenvote_email']
     .control-group
       .controls
         = f.password_field :password, placeholder: 'Password'
