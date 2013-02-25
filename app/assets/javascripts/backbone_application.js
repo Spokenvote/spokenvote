@@ -12,6 +12,7 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 //= require holder
+//= require viewport.min
 //= require underscore
 //= require backbone
 //= require backbone.layoutmanager

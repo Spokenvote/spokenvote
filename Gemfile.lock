@@ -209,6 +209,8 @@ GEM
       activerecord (~> 3.0)
     polyglot (0.3.3)
     populator (1.0.0)
+    rabl (0.8.0)
+      activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -344,6 +346,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   populator
+  rabl
   rack-cache
   rails (= 3.2.12)
   rspec
