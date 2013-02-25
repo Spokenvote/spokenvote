@@ -12,37 +12,21 @@
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "backbone_application"
     %script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places")
-    = csrf_meta_tags
-    :css
-      * {
-        margin: 0;
-      }
-      html, body {
-        height: 100%;
-      }
-      .wrapper {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        margin: 0 auto -4em;
-      }
-      footer, .push {
-        height: 4em;
-      }
 
+    = csrf_meta_tags
+    = yield(:head)
   %body
-    .wrapper
-      = render 'shared/navigation'
-      #main(role="main")
-        .container
-          .content
-            .row
-              #alertContainer
-                /= render 'shared/messages'
-              #mainContent
-      .push
+    = render 'shared/navigation'
+    #main(role="main")
+      .container
+        .content
+          .row
+            #alertContainer
+              = render 'shared/messages'
+            #mainContent
+
     = render 'shared/footer'
-    /= render partial: '/shared/loginModal'
-    /= render partial: '/shared/registrationModal'
-    /= render partial: '/shared/confirmationModal'
-    /= render partial: '/shared/hubModal'
+    = render partial: 'shared/loginModal'
+    = render partial: 'shared/registrationModal'
+    = render partial: 'shared/confirmationModal'
+    = render partial: 'shared/hubModal'
