@@ -6,7 +6,7 @@ Spokenvote.Routers.Proposals = Backbone.Router.extend({
   index: function() {
     var collection = new Spokenvote.Collections.Proposals();
     var view = new Spokenvote.Views.ProposalsIndex({ collection: collection });
-    collection.on('reset', view.render.bind(view));
     collection.fetch();
-  },
+    $('#mainContent').append(view.render().el);
+  }
 });
