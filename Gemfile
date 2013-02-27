@@ -34,7 +34,6 @@ gem 'omniauth-google-oauth2'
 gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
-gem "airbrake"
 gem 'rabl'
 
 # Gems used only for assets and not required
@@ -71,6 +70,7 @@ group :test do
   gem 'database_cleaner'
 end
 
-group :production do
+group :production, :staging do
   gem 'newrelic_rpm', '3.5.5.38'
+  gem "airbrake"
 end
