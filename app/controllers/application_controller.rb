@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :render_proper_layout
+  layout :render_proper_layout
 
   def render_proper_layout
     if params[:bb]
-      self.class.layout 'backbone_application'
-      return false
+      'backbone_application'
     else
-      self.class.layout 'application'
+      'application'
     end
   end
 
