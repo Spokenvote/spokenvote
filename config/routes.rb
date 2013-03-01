@@ -23,7 +23,6 @@ Spokenvote::Application.routes.draw do
 
   resources :hubs, only: [:create, :index] do
     resources :proposals
-
   end
 
   match 'about' => 'pages#about'

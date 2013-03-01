@@ -14,6 +14,7 @@ gem 'rack-cache'
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
 gem 'select2-rails'
+gem 'backbone-on-rails'
 
 # UI/Forms
 gem 'nested_form'
@@ -33,6 +34,7 @@ gem 'omniauth-google-oauth2'
 gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
+gem 'rabl'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,6 +42,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'handlebars_assets'
 end
 
 group :development do
@@ -67,6 +70,7 @@ group :test do
   gem 'database_cleaner'
 end
 
-group :production do
+group :production, :staging do
   gem 'newrelic_rpm', '3.5.5.38'
+  gem "airbrake"
 end

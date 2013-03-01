@@ -12,4 +12,6 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 //= require holder
-//= require_tree ./application/
+//= require viewport.min
+//= require site
+//= require proposals
