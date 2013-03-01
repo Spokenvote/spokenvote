@@ -45,6 +45,17 @@ class ProposalsController < ApplicationController
       @proposals = Proposal.roots
     end
 
+    if session[:search_hub]
+      begin
+        search_hub = Hub.find session[:search_hub].id
+        @selected_hub_id = search_hub.id
+        @selected_hub = search_hub.to_json(:methods => :full_hub)
+        @proposals = @proposals.where(hub_id: search_hub.id)
+      rescue Exception => exception
+        logger.info { "The search hub in the session wasn't found in the database." }
+      end
+    end
+
     @proposals = order_by_filter @proposals
 
     @sortTitle = title_by_filter_and_hub
