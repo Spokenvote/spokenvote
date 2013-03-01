@@ -118,7 +118,8 @@ class ProposalsController < ApplicationController
 
     if params[:proposal].presence
       offset_by = (page_number * records_limit) + 2
-      @votes = @proposal.votes.order('created_at DESC').offset(offset_by).limit(records_limit)
+      non_creating_voters = Vote.arel_table[:user_id].not_in(@proposal.user_id)
+      @votes = @proposal.votes.order('created_at DESC').offset(offset_by).limit(records_limit).where(non_creating_voters)
       @no_more = @votes.count <= (offset_by + records_limit)
       @isXhr = true
       render :partial => 'proposal_vote', :collection => @votes, :as => :vote
