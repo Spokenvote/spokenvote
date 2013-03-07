@@ -189,7 +189,7 @@ class ProposalsController < ApplicationController
       # New Proposal with Existing Hub
       hub_attrs = params[:proposal].delete :hub
       hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
-      params[:proposal][:hub_id] = hub.id
+      params[:proposal][:hub_id] = hub.id unless hub.nil?
       if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
         params[:proposal][:votes_attributes].first[1][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
       end
