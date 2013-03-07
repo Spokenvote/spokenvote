@@ -25,7 +25,7 @@ class Proposal < ActiveRecord::Base
   accepts_nested_attributes_for :votes, reject_if: :all_blank
 
   # Validations
-  validates :user, :statement, presence: true
+  validates :user, :statement, :hub, presence: true
 
   # Delegations
   delegate :username, :to => :user
