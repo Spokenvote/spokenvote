@@ -1,1 +1,1 @@
-DEFAULT_AVATAR_URL = '/assets/icons/sv-30.png'
+DEFAULT_AVATAR_URL = 'assets/icons/sv-30.png'
