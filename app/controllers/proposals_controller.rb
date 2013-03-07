@@ -127,7 +127,7 @@ class ProposalsController < ApplicationController
 
     set_selected_hub
 
-    @default_image = get_default_gravatar_image
+    @default_image = get_default_avatar_image
 
     if params[:proposal].presence
       offset_by = (page_number * records_limit) + 2

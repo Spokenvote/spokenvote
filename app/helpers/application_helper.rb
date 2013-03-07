@@ -63,7 +63,7 @@ module ApplicationHelper
     end
   end
 
-  def get_default_gravatar_image
+  def get_default_avatar_image
     if request.host == 'localhost'
       'http://www.spokenvote.com' + DEFAULT_AVATAR_URL
     else
