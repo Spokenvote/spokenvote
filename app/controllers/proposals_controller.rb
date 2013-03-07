@@ -127,6 +127,8 @@ class ProposalsController < ApplicationController
 
     set_selected_hub
 
+    @default_image = get_default_gravatar_image
+
     if params[:proposal].presence
       offset_by = (page_number * records_limit) + 2
       non_creating_voters = Vote.arel_table[:user_id].not_in(@proposal.user_id)

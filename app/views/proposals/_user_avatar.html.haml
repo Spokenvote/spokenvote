@@ -3,7 +3,7 @@
     = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
   -else
     - gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-    = image_tag "http://gravatar.com/avatar/#{gravatar_id}.png?s=30&d=#{DEFAULT_AVATAR_URL}"
+    = image_tag "http://gravatar.com/avatar/#{gravatar_id}.png?s=30&d=#{@default_image}"
 
 .supported_date
   = link_to user.username, proposals_path(user_id: user)

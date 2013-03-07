@@ -63,4 +63,11 @@ module ApplicationHelper
     end
   end
 
+  def get_default_gravatar_image
+    if request.host == 'localhost'
+      'http://www.spokenvote.com' + DEFAULT_AVATAR_URL
+    else
+      request.protocol + request.raw_host_with_port + DEFAULT_AVATAR_URL
+    end    
+  end
 end
