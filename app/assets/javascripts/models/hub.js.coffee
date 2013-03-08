@@ -1,0 +1,1 @@
+app.Models.Hub = Backbone.Model.extend({})
