@@ -5,11 +5,11 @@
     </div>
     <div class="modal-body">
         {{#hubs}}
-        <form accept-charset="UTF-8" action="/hubs" class="new_hub" id="new_hub" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="lEHiLxakB7szMwAZ+pWJe7gCmP1ef0zDLC1YpI6nyMA="></div>
+        <form accept-charset="UTF-8" action="/hubs" class="new_hub" id="new_hub" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden"></div>
             <fieldset>
                 <div class="control-group">
                     <div class="controls">
-                        <input class="input-xlarge" {{hub_group_name}} placeholder="Enter the Name" size="30" type="text">
+                        <input class="input-xlarge" {{group_name}} placeholder="Enter the Name" size="30" type="text">
                     </div>
                 </div>
                 <div class="control-group">

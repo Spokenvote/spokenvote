@@ -1,7 +1,5 @@
-app.Views.Hubs = Backbone.View.extend(
+class app.Views.Hubs extends Backbone.View(
   template: JST["hubs/new"]
-#  events:
-#    "click #hubSorter a": "fetchProposalsWithParams"
 
   initialize: ->
     @model.on "reset", @render.bind(this)
