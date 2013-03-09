@@ -8,6 +8,11 @@ $.extend(app, {
     new app.Routers.Proposals();
     Backbone.history.start({ pushState: true });
   }
+  initialize: function () {
+    new app.Routers.Hubs();
+    Backbone.history.start({ pushState: true });
+  }
+
 });
 
 

@@ -286,7 +286,7 @@ window.app = {};
     // $(document).on('click', '#navCreateHub', app.navCreateHub);
 
     $('.gpSearchBox').each(function() {
-      app.gpSearch(this);
+//      app.gpSearch(this);
     });
 
     // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
