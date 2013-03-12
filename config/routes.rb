@@ -26,6 +26,10 @@ Spokenvote::Application.routes.draw do
     resources :proposals
   end
 
+  scope "api" do
+    resources :hubs
+  end
+
   match 'about' => 'pages#about'
   match 'user_nav' => 'pages#user_nav'
 

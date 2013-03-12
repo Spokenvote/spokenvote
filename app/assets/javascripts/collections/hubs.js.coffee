@@ -1,4 +1,3 @@
-app.Collections.Hubs = Backbone.Collection.extend(
-  url: "/hubs"
+class app.Collections.Hubs extends Backbone.Collection
+  url: "/api/hubs"
   model: app.Models.Hub
-)
