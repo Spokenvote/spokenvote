@@ -6,7 +6,7 @@ $.extend app,
   initialize: ->
     new app.Routers.Proposals()
     new app.Routers.Hubs()
-    Backbone.history.start pushState: true
+    Backbone.history.start() #pushState: true .. seems to interfere with /#hubs rout
 
 $(document).ready ->
   app.setPageHeight()

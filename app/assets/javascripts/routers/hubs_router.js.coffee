@@ -1,23 +1,29 @@
 class app.Routers.Hubs extends Backbone.Router
   routes:
-#    'hubs/': 'index'
-#    '/hub/new/': 'build'
+    'hubs': 'index'
     'hubs/:id': 'show'
+    '/hubs/new/': 'new'
+
+  initialize: ->
+    @collection = new app.Collections.Hubs()
+    @collection.fetch()
 
   index: ->
-    collection = new app.Collections.Hubs()
-    view = new app.Views.Hubs(collection: collection)
-    collection.fetch()
+#    collection = new app.Collections.Hubs()
+    view = new app.Views.HubsIndex(collection: @collection)
+    $('#mainContent').html(view.render().el)
+
+#    collection.fetch()
 #    $('#hubModal').find('#hub_group_name').val(searchGroup);
 #    $('#hubModal').modal();
-    $("#mainContent").html view.render().el
+#    $("#mainContent").html view.render().el
 
   show: (id) ->
     view = new app.Views.Hubs()
-    $('#container').html(view.render().el)
+    $('#mainContent').html(view.render().el)
 
-  build: ->
-    view = new app.Views.Hubs()
-    $('#modal-body').html(view.render().el)
+  new: ->
+    view = new app.Views.HubsNew(collection: @collection)
+    $('#mainContent').html(view.render().el)
 
 

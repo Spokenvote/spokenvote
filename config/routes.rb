@@ -7,6 +7,7 @@ Spokenvote::Application.routes.draw do
 
   #root :to => 'proposals#index'
   root :to => 'proposals#index', :defaults => { :bb => "1" }
+
   resources :users do
     resources :proposals, only: [:index]
   end
@@ -20,15 +21,26 @@ Spokenvote::Application.routes.draw do
     end
   end
 
+  #resources :hubs do
+  #  member do
+  #    get 'isEditable'
+  #  end
+  #  collection do
+  #    post 'search'
+  #  end
+  #end
+
   resources :votes, only: [:create]
 
-  resources :hubs, only: [:create, :index] do
-    resources :proposals
-  end
+  #resources :hubs, only: [:create, :index] do
+  #  resources :proposals
+  #end
 
   scope "api" do
     resources :hubs
   end
+
+  #, :defaults => { :bb => "1" }
 
   match 'about' => 'pages#about'
   match 'user_nav' => 'pages#user_nav'

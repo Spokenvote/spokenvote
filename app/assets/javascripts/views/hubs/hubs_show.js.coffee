@@ -1,12 +1,12 @@
 class app.Views.Hubs extends Backbone.View
   template: JST['hubs/show']
 
-#  initialize: ->
-#    @model.on "reset", @render.bind(this)
+  initialize: ->
+    @collection.on "reset", @render, this
 
   render: ->
 #    @($el).html(@template(hubs: @model.toJSON()))
-    @$el.html @template(proposals: "stuff here")
+    @$el.html @template(hubs: @collection)
     this
 #  $(@el).html(@template(hubs: "stuff here"))
 
