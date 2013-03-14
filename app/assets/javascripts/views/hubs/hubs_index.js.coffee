@@ -3,6 +3,10 @@ class app.Views.HubsIndex extends Backbone.View
 
   events:
     'submit #new_entry': 'createEntry'
+#
+#  bindings:
+#    '#new_entry_name': 'group_name'
+#    '#new_location_name': 'formatted_location'
 
   initialize: ->
     @collection.on "reset", @render, this
@@ -14,5 +18,5 @@ class app.Views.HubsIndex extends Backbone.View
 
   createEntry: (event) ->
     event.preventDefault()
-    @collection.create group_name: $('#new_entry_name').val
-    @collection.create formatted_location: $('#new_location_name').val
+    @collection.create group_name: $('#new_entry_name').val()
+    @collection.create formatted_location: $('#new_location_name').val()

@@ -8,7 +8,7 @@ class app.Views.HubsNew extends Backbone.View
     @collection.on "reset", @render, this
 
   render: ->
-    @$el.html @template(hubs: @collection)
+    @$el.html @template(hubs: @collection.toJSON())
     this
 
   createEntry: (event) ->

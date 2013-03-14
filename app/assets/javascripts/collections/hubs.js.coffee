@@ -1,3 +1,3 @@
 class app.Collections.Hubs extends Backbone.Collection
-  url: "/api/hubs"
+  url: "/hubs"
   model: app.Models.Hub

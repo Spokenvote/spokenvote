@@ -1,30 +1,14 @@
-<h1>New shows .. {{hubs.length}}</h1>
+<div id="mainContent">
 
-<div class="modal hide in" data-width="400px" id="hubModal" style="display: block; margin-top: -123.19999998807907px; width: 400px; margin-left: -200.19999998807907px;" aria-hidden="false" tabindex="-1">
-    <div class="modal-header">
-        <div class="pull-right"><a href="#" class="close" data-dismiss="modal">×</a></div>
-        <h3>Create a new Group</h3>
-    </div>
-    <div class="modal-body">
+    <form id="new_entry">
+        <input type="text" name="group_name" id="new_entry_name">
+        <input type="text" name="formatted_location" id="new_location_name">
+        <input type="submit" value="Add">
+    </form>
+    <h1>Index shows .. {{hubs.length}}</h1>
+    <ul>
         {{#hubs}}
-        <form accept-charset="UTF-8" action="/hubs" class="new_hub" id="new_hub" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden"></div>
-            <fieldset>
-                <div class="control-group">
-                    <div class="controls">
-                        <input class="input-xlarge" {{group_name}} placeholder="Enter the Name" size="30" type="text">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <input class="input-xlarge gpSearchBox" {{formatted_location}} placeholder="Enter the Location" size="30" type="text" autocomplete="off">
-                        <input {{hub_location_id}} type="hidden">
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+            <li>{{group}}</li>
         {{/hubs}}
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn btn-primary" id="hubModalSave">Save <i class="icon-ok"></i></a>
-    </div>
+    </ul>
 </div>

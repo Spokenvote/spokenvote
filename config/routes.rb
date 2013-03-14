@@ -32,13 +32,13 @@ Spokenvote::Application.routes.draw do
 
   resources :votes, only: [:create]
 
-  #resources :hubs, only: [:create, :index] do
-  #  resources :proposals
-  #end
-
-  scope "api" do
-    resources :hubs
+  resources :hubs, only: [:create, :index] do
+    resources :proposals
   end
+
+  #scope "api" do
+  #  resources :hubs
+  #end
 
   #, :defaults => { :bb => "1" }
 
