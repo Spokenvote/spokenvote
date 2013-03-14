@@ -1,0 +1,14 @@
+<div id="mainContent">
+
+    <form id="new_entry">
+        <input type="text" name="group_name" id="new_entry_name">
+        <input type="text" name="formatted_location" id="new_location_name">
+        <input type="submit" value="Add">
+    </form>
+    <h1>Index shows .. {{hubs.length}}</h1>
+    <ul>
+        {{#hubs}}
+            <li>{{group}}</li>
+        {{/hubs}}
+    </ul>
+</div>
