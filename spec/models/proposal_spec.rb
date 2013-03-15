@@ -1,19 +1,36 @@
 require 'spec_helper'
 
 describe Proposal do
-  let(:proposal) { FactoryGirl.build(:proposal)}
-  let(:proposal_with_improvement) { FactoryGirl.build(:proposal_with_improvment) }
+  before(:each) do
+    @user_attr = {
+      :name => Faker.name,
+      :email => Faker::Internet.email,
+      :password => "secret",
+      :password_confirmation => "secret",
+    }
+    @hub_attr = {
+      :group_name => Faker.name,
+      :description => Faker::Lorem.paragraph
+    }
+    @attr = {
+      :statement => Faker::Lorem.sentence,
+      :user => User.new(@user_attr),
+      :hub => Hub.new(@hub_attr)
+    }
+  end
 
-  # it "counts the votes in a simple tree" do
-  #   proposal.votes_in_tree.should == 1
-  # end
+  it "should require a statement" do
+    no_statement_proposal = Proposal.new(@attr.merge(:statement => ""))
+    no_statement_proposal.should_not be_valid
+  end
 
-  # it "counts the votes if the proposal has an improvement" do
-  #   proposal_with_improvement.votes_in_tree.should == 2
-  # end
+  it "should require a user" do
+    no_user_proposal = Proposal.new(@attr.merge(:user => nil))
+    no_user_proposal.should_not be_valid
+  end
 
-  # it "has the correct related proposals" do
-  #   proposal.save
-  #   proposal.related_proposals.size.should == 2
-  # end
+  it "should require a hub" do
+    no_hub_proposal = Proposal.new(@attr.merge(:hub => nil))
+    no_hub_proposal.should_not be_valid
+  end
 end

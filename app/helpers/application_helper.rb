@@ -28,6 +28,13 @@ module ApplicationHelper
       content_tag(:span, 'Unknown')
     end
   end
+  
+  def current_user_voteable?(proposal)
+    if current_user && current_user.id == proposal.user_id
+      cu_votes = proposal.votes.count {|v| v.user_id == current_user.id}
+    end
+    return cu_votes.present?
+  end
 
   def resource_name
     :user
@@ -54,5 +61,10 @@ module ApplicationHelper
       @selected_hub_id = session[:search_hub][:id]
       @selected_hub = session[:search_hub].to_json(:methods => :full_hub)
     end
+  end
+
+  def get_default_avatar_image
+    the_root_url = request.host == 'localhost' ? 'http://www.spokenvote.com/' : root_url    
+    the_root_url + DEFAULT_AVATAR_URL
   end
 end

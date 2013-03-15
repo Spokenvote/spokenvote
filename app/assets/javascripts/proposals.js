@@ -102,7 +102,7 @@
       statement = editableBox.text().trim(),
       proposal_location = $('#proposal_location').val(),
       proposal_hub = $('#proposal_group_name').val(),
-      comment = $('#vote_comment').val(),
+      comment = proposal_container.find('#supporting_statement').val(),
       // this is not a good way to have user on hand but acceptable to me for first pass
       user_id = $('#user_menu').find('.dropdown-toggle').data('email'),
       proposal_data = {
@@ -219,7 +219,7 @@
         sa = proposal_container.find('.supporting_arguments_list'),
         srs = sa.find('.support_row').detach(),
         sform = sa.find('.support_container').detach(),
-        newSA = $('<div class="row support_row first' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><a href="/proposals?user_id=' + data.user_id + '">' + data.username + '</a><div class="supported_date">' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
+        newSA = $('<div class="row support_row first' + (existing_votes ? '' : ' first') + '"><div class="proposal-person span3" data-vote_number=""><div class="user-avatar"><img data-src="holder.js/30x30/social/text:avatar" alt="avatar" style="width: 30px; height: 30px;"></div><div class="supported_date"><a href="/proposals?user_id=' + data.user_id + '">' + data.username + '</a><br>' + new Date().toLocaleDateString() + '</div></div><div class="support_comment span8">' + data.comment + '</div></div>'),
         newSupports = [sform];
 
     newSupports.push(newSA);

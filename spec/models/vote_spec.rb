@@ -1,19 +1,4 @@
-# == Schema Information
-#
-# Table name: votes
-#
-#  id          :integer          not null, primary key
-#  proposal_id :integer
-#  comment     :text
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  ip_address  :string(255)
-#
-
 require 'spec_helper'
-
-# *** Waiting for Voting functionality to return, what which time all of the below can be uncommented ***
 
 describe Vote do
  let(:vote) { FactoryGirl.build(:vote) }
@@ -43,7 +28,11 @@ describe Vote do
 
  it "does not allow a user to vote for the same proposal twice" do
    vote.save
+   p vote
+   p vote.proposal
+   p vote.user
    second_vote = FactoryGirl.build(:vote, proposal_id: vote.proposal.id, user_id: vote.user.id)
+   p second_vote
    second_vote.should_not be_valid
    second_vote.errors_on(:user_id).should include("Can't vote on the same issue twice.")
  end

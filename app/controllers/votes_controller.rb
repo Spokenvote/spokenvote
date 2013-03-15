@@ -43,6 +43,9 @@ class VotesController < ApplicationController
   # POST /votes.json
   def create
     proposal = Proposal.find(params[:vote][:proposal_id])
+    if params[:vote][:comment].match(/\n/)
+      params[:vote][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+    end
 
     votes_attributes = {
       ip_address: request.remote_ip,
@@ -67,6 +70,9 @@ class VotesController < ApplicationController
   # PUT /votes/1.json
   def update
     @vote = Vote.find(params[:id])
+    if params[:vote][:comment].match(/\n/)
+      params[:vote][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+    end
 
     respond_to do |format|
       if @vote.update_attributes(params[:vote])
