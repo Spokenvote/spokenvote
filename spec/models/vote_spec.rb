@@ -28,12 +28,7 @@ describe Vote do
 
  it "does not allow a user to vote for the same proposal twice" do
    vote.save
-   p vote
-   p vote.proposal
-   p vote.user
-   second_vote = FactoryGirl.build(:vote, proposal_id: vote.proposal.id, user_id: vote.user.id)
-   p second_vote
-   second_vote.should_not be_valid
-   second_vote.errors_on(:user_id).should include("Can't vote on the same issue twice.")
+   second_vote = FactoryGirl.build(:vote, user:vote.user)
+   second_vote.errors_on(:user_id).should include("You can only vote once on a proposal")
  end
 end
