@@ -87,7 +87,7 @@ window.app = {};
       // TODO: This doesn't work, need help
       // See example at http://ivaynberg.github.com/select2/#events
       // createSearchChoice: function(term, data) {
-      //   if ($(data).filter(function() { 
+      //   if ($(data).filter(function() {
       //     return this.group_name.localeCompare(term) === 0;
       //   }).length === 0) {
       //     return {hub_filter: term, location_id_filter: ''};
@@ -233,7 +233,7 @@ window.app = {};
     });
     return false;
   }
-  
+
   app.navCreateHub = function(e) {
     // e.preventDefault();
     var searchGroup = $('.select2-input').val();
@@ -242,7 +242,7 @@ window.app = {};
     $('#hubModal').find('#hub_group_name').val(searchGroup);
     $('#hubModal').modal();
   }
-  
+
   app.saveNewHub = function(e) {
     e.preventDefault();
     $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
@@ -286,7 +286,7 @@ window.app = {};
     // $(document).on('click', '#navCreateHub', app.navCreateHub);
 
     $('.gpSearchBox').each(function() {
-      app.gpSearch(this);
+//      app.gpSearch(this);
     });
 
     // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
