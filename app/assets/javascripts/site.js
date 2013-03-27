@@ -242,18 +242,19 @@ window.app = {};
     $('#hubModal').find('#hub_group_name').val(searchGroup);
     $('#hubModal').modal();
   }
-  
-  app.saveNewHub = function(e) {
-    e.preventDefault();
-    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
-      if (data.id === 'undefined') {
-        alert('Could not create this group: ' + data.errors);
-      } else {
-        $('#hubModal').modal('toggle');
-        app.successMessage('Your group was created');
-      }
-    })
-  }
+
+//  TODO: Move this logic to an Angular controller at some point?
+//  app.saveNewHub = function(e) {
+//    e.preventDefault();
+//    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
+//      if (data.id === 'undefined') {
+//        alert('Could not create this group: ' + data.errors);
+//      } else {
+//        $('#hubModal').modal('toggle');
+//        app.successMessage('Your group was created');
+//      }
+//    })
+//  }
 
   $(function() {
     $('[rel=tooltip]').tooltip();

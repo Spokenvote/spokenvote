@@ -15,3 +15,9 @@
 //= require viewport.min
 //= require site
 //= require proposals
+//= require angular
+//= require angular-resource
+//= require angular-ui
+//= require_tree ./angular
+
+
