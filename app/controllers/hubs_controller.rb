@@ -1,5 +1,6 @@
 class HubsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index, :homepage]
+  #TODO Temporarily disabled until we have Authentication working with Angular
+  #before_filter :authenticate_user!, :except => [:show, :index, :homepage]
 
   # GET /hubs
   # GET /hubs.json
