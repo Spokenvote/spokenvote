@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 
 # Infrastructure
-# gem 'heroku'
 gem 'devise'
 gem 'pg'
 gem 'thin'
@@ -43,6 +42,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'handlebars_assets'
+  gem 'angularjs-rails'
 end
 
 group :development do
@@ -53,6 +53,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem "angular-rails"
 end
 
 group :development, :test do
