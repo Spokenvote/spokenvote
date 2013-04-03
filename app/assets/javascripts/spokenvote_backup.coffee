@@ -4,21 +4,21 @@ window.app = {}
 # TODO *** JS CONVERTED TO COFFEESCRIPT FOR EASIER READING AND REFERENCE *** ... Will over the coming months be refactored into assets/javascripts/angular directories and then depreciated
 
 # MOVED LOGIC TO ALERTS SERVICES
-#  app.createAlert = (msg, style) ->
-#    $("#alertContainer").before "<div class=\"alert alert-" + style + "\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" + msg + "</div>"
-#
-#  app.createModalAlert = (msg, style, modalElem) ->
-#    $(modalElem).find(".modal-body div").first().prepend "<div class=\"alert alert-" + style + "\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" + msg + "</div>"
-#
-#  app.successMessage = (msg) ->
-#    app.createAlert msg, "success"
-#
-#  app.errorMessage = (msg) ->
-#    app.createAlert msg, "error"
-#
-#  app.closeAlert = (e) ->
-#    return  if $(".alert").length is 0
-#    $(".alert").alert "close"
+  app.createAlert = (msg, style) ->
+    $("#alertContainer").before "<div class=\"alert alert-" + style + "\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" + msg + "</div>"
+
+  app.createModalAlert = (msg, style, modalElem) ->
+    $(modalElem).find(".modal-body div").first().prepend "<div class=\"alert alert-" + style + "\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" + msg + "</div>"
+
+  app.successMessage = (msg) ->
+    app.createAlert msg, "success"
+
+  app.errorMessage = (msg) ->
+    app.createAlert msg, "error"
+
+  app.closeAlert = (e) ->
+    return  if $(".alert").length is 0
+    $(".alert").alert "close"
 
   app.updateSearchFields = (options) ->
     if options.hub.length > 0
