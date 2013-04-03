@@ -8,7 +8,7 @@
         .row
           #alertContainer
             %ul
-              {{addhub_result}}
+              %span {{addhub_result}}
               %span(ng-repeat="(key, values) in jsonErrors")
                 %li(ng-repeat="value in values")
                   {{key | capitalize}} {{value}}
@@ -19,8 +19,9 @@
           .controls
             %input(id='hub_group_name' type='text' class='input-xlarge' placeholder='Enter your the Name' ng-model="newHub.group_name")
           .controls
-            %input(googleplace id='hub_formatted_location' class='input-xlarge gpSearchBox' placeholder="Enter the Group's Location" data-ng-model='newHub.formatted_location' data-value_field='#hub_location_id')
-        .control-group
-          .modal-footer
-            .controls
-              %button(type="submit" value="Submit" class='btn btn-primary btn-bold') Angular Add Hub <i class="icon-ok"></i>
+            %input(googleplace id='hub_formatted_location' type='text' class='input-xlarge gpSearchBox' placeholder="Enter the Group's Location" data-ng-model='newHub.formatted_location' data-value_field='#hub_location_id')
+  .modal-footer
+    %fieldset
+      .control-group
+        .controls
+          %button(ng-click="addHub()" class='btn btn-primary btn-bold') Angular Add Hub <i class="icon-ok"></i>

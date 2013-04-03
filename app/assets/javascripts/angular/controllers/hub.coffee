@@ -7,11 +7,11 @@ angularApp.controller "HubCtrl", ($scope, Hub, HubFilter) ->
       $scope.newHub.location_id = $scope.selectedLocation.id
       hub = Hub.save($scope.newHub
       ,  (response, status, headers, config) ->
-        $scope.alertclass = 'alert alert-#success'
+        $scope.alertclass = 'ngalert alert-success'
         $scope.addhub_result = "The " + hub.group_name + " group was created."
       ,  (response, status, headers, config) ->
-        $scope.alertclass = 'alert alert-#error'
+        $scope.alertclass = 'ngalert alert-error'
         $scope.jsonErrors = response.data)
     else
-      $scope.alertclass = 'alert alert-#error'
+      $scope.alertclass = 'ngalert alert-error'
       $scope.addhub_result = "Please select a Location for your Group"
