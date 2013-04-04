@@ -34,6 +34,8 @@ gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
+gem 'execjs'
+gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -49,7 +51,9 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  gem 'debugger'
+  # use debugger from github HEAD to avoid issue with newest version of Ruby
+  # see: https://github.com/cldwalker/debugger/issues/64
+  gem 'debugger-ruby_core_source', github: 'cldwalker/debugger-ruby_core_source'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'

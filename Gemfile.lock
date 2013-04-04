@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/cldwalker/debugger-ruby_core_source.git
+  revision: 4961548ae4351225ab58d51d303ea18cca2ffc9e
+  specs:
+    debugger-ruby_core_source (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -171,6 +177,7 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    libv8 (3.11.8.13)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -244,6 +251,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    ref (1.0.2)
     responders (0.9.3)
       railties (~> 3.1)
     rest-client (1.6.7)
@@ -297,6 +305,9 @@ GEM
       rest-client (>= 1.4.0, < 1.7.0)
       sequel (~> 3.20.0)
       sinatra (~> 1.0.0)
+    therubyracer (0.11.4)
+      libv8 (~> 3.11.8.12)
+      ref
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -338,8 +349,9 @@ DEPENDENCIES
   compass_twitter_bootstrap
   dalli
   database_cleaner
-  debugger
+  debugger-ruby_core_source!
   devise
+  execjs
   factory_girl_rails
   faker
   haml-rails
@@ -366,6 +378,7 @@ DEPENDENCIES
   simple_form
   spork
   taps
+  therubyracer
   thin
   uglifier (>= 1.0.3)
   version_fu
