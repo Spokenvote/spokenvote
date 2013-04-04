@@ -1,4 +1,4 @@
-- if total_votes > 0
+- unless related
   .proposal_hub
     #totalVoteLabel
       %span.label
@@ -36,7 +36,11 @@
       = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
   .supporting_arguments{:class => (total_votes < 0 ? 'related_supporting' : '')}
+    - pct = 100.0*(proposal.votes.count.to_f/total_votes)
     - hasSupport = proposal.supporting_votes.count > 0
+    - unless total_votes <= 0
+      %span{:id => "big-percent"}= sprintf('%d%%',pct.round)
+
     %h3{class: hasSupport ? '' : 'hide' }
       Supporters
       %span= '(' + proposal.votes.count.to_s + ' votes)'

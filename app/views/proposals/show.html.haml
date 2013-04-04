@@ -1,5 +1,5 @@
 .content_page
-  = render partial: 'show', locals: { proposal: @proposal, total_votes: @total_votes }
+  = render partial: 'show', locals: { proposal: @proposal, total_votes: @total_votes, :related => false }
 
   .hr
 
@@ -15,6 +15,6 @@
   #relatedProposalsTitle Related Proposals
   - if @proposal.related_proposals.count > 0
     - @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
-      = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => -1 }
+      = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => @total_votes, :related => true }
   - else
     %h3 There are no related proposals yet.
