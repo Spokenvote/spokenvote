@@ -81,7 +81,8 @@ window.app = {};
       formatNoMatches: function(term) {
         // see https://github.com/ivaynberg/select2/issues/448
         // this onclick inline handler is not my idea of a good solution but it works for now.
-        return 'No matches. <a id="navCreateHub" onclick="app.navCreateHub()" href="#">Create one</a>';
+        return 'No matches. <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">Create one</a>';
+        // TODO The reference above to "angularApp.navCreateHub()" is a departure point to Angular
       },
 
       // TODO: This doesn't work, need help
@@ -161,6 +162,27 @@ window.app = {};
     });
   }
 
+//  TODO: Delete: Logic has been moved to Angular Hub Controller
+//  app.navCreateHub = function(e) {
+//    // e.preventDefault();
+//    var searchGroup = $('.select2-input').val();
+//    $('#s2id_hub_filter').select2('close');
+//
+//    $('#hubModal').find('#hub_group_name').val(searchGroup);
+//    $('#hubModal').modal();
+//  }
+//  app.saveNewHub = function(e) {
+//    e.preventDefault();
+//    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
+//      if (data.id === 'undefined') {
+//        alert('Could not create this group: ' + data.errors);
+//      } else {
+//        $('#hubModal').modal('toggle');
+//        app.successMessage('Your group was created');
+//      }
+//    })
+//  }
+
   app.gpSearch = function (elem) {
     var defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(-33.8902, 151.1759),
@@ -175,15 +197,15 @@ window.app = {};
     var autocomplete = new google.maps.places.Autocomplete(elem, options);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      var place = autocomplete.getPlace(),
+        // TODO Delete: Add Hub modal logic has been moved to Angular
+        //if (elem.id === 'location_filter') {
+        // this was a navbar search, preload the hub modal location field
+        // $('#hub_formatted_location').val(place.formatted_address);
+        // $('#hub_location_id').val(place.id);
+        //}
+        var place = autocomplete.getPlace(),
           value_field = $(elem).data('valueField');
       $(value_field).val(place.id);
-      if (elem.id === 'location_filter') {
-        // this was a navbar search, preload the hub modal location field
-        // TODO figure out how to do this in app.navCreateHub() instead
-        $('#hub_formatted_location').val(place.formatted_address);
-        $('#hub_location_id').val(place.id);
-      }
     });
   }
 
@@ -232,27 +254,6 @@ window.app = {};
       }
     });
     return false;
-  }
-  
-  app.navCreateHub = function(e) {
-    // e.preventDefault();
-    var searchGroup = $('.select2-input').val();
-    $('#s2id_hub_filter').select2('close');
-
-    $('#hubModal').find('#hub_group_name').val(searchGroup);
-    $('#hubModal').modal();
-  }
-  
-  app.saveNewHub = function(e) {
-    e.preventDefault();
-    $.post('/hubs.json', $('#new_hub').serialize(), function(data) {
-      if (data.id === 'undefined') {
-        alert('Could not create this group: ' + data.errors);
-      } else {
-        $('#hubModal').modal('toggle');
-        app.successMessage('Your group was created');
-      }
-    })
   }
 
   $(function() {

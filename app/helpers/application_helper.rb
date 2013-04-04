@@ -63,4 +63,8 @@ module ApplicationHelper
     end
   end
 
+  def get_default_avatar_image
+    the_root_url = request.host == 'localhost' ? 'http://www.spokenvote.com/' : root_url    
+    the_root_url + DEFAULT_AVATAR_URL
+  end
 end

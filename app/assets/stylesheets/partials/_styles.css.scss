@@ -48,6 +48,17 @@ footer {
 }
 .modal .alert { width: auto; margin-left: 0; }
 .no-gutter { margin-left: 0; }
+
+.ngalert {
+  margin-top: 12px;
+  margin-left: 0px;
+  margin-bottom: 6px;
+  @include border-radius(0);
+  text-align: center;
+}
+.modal .ngalert { width: auto; margin-left: 0; }
+.no-gutter { margin-left: 0; }
+
 // end Structural
 
 // General elements
@@ -136,6 +147,12 @@ textarea { height: 100px; }
 }
 .modal-backdrop{
   background-color: #000 !important;
+}
+
+.modal-body{
+  background-color: #DFDFDF; padding-top: 20px;
+  form { margin: 0; }
+  .control-group { margin-left: 15px; margin-bottom: 0; }
 }
 
 #confirmationModalQuestion { margin: 20px 0; font-weight: bold; }

@@ -1,17 +1,27 @@
-#hubModal.modal.hide{data: {width: '400px'}}
+#hubModal.modal.hide(data-width='400px' ng-controller ="HubCtrl")
   .modal-header
     .pull-right= link_to raw('&times;'), '#', class: 'close', data: {dismiss: 'modal'}
     %h3 Create a new Group
+    .container(ng-class="alertclass")
+      %a.close(data-dismiss="alert") &#215;
+      .content
+        .row
+          #alertContainer
+            %ul
+              %span {{addhub_result}}
+              %span(ng-repeat="(key, values) in jsonErrors")
+                %li(ng-repeat="value in values")
+                  {{key | capitalize}} {{value}}
   .modal-body
-    = form_for Hub.new, data: {remote: true} do |f|
+    %form(ng-submit="addHub()")
       %fieldset
         .control-group
           .controls
-            = f.text_field :group_name, :class => 'input-xlarge', data: {location_input: '#formatted_location', location_id: '#location_id'}, placeholder: 'Enter the Name'
-        .control-group
+            %input(id='hub_group_name' type='text' class='input-xlarge' placeholder='Enter your the Name' ng-model="newHub.group_name")
           .controls
-            = f.text_field :formatted_location, :class => 'input-xlarge gpSearchBox', data: {value_field: '#hub_location_id'}, placeholder: 'Enter the Location'
-            = f.hidden_field :location_id
-
+            %input(googleplace id='hub_formatted_location' type='text' class='input-xlarge gpSearchBox' placeholder="Enter the Group's Location" data-ng-model='newHub.formatted_location' data-value_field='#hub_location_id')
   .modal-footer
-    = link_to raw('Save <i class="icon-ok"></i>'), '#', class: 'btn btn-primary', id: 'hubModalSave'
+    %fieldset
+      .control-group
+        .controls
+          %button(ng-click="addHub()" class='btn btn-primary btn-bold') Angular Add Hub <i class="icon-ok"></i>
