@@ -6,7 +6,7 @@ angularApp.config ["$httpProvider", ($httpProvider) ->
 angularApp.config ($routeProvider) ->
   $routeProvider
     .when('/'
-      templateUrl: "app.html"
+      templateUrl: "templates/app.html"
       controller: "SpokenvoteCtrl")
     .when('/hungry'
       template: "<h1>Getting tired of pizza. Switching to Fruit!</h1>")
