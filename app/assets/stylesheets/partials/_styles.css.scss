@@ -361,4 +361,11 @@ textarea { height: 100px; }
   margin-top: -20px; margin-right: -40px; // flush right on #mainContent
   .label {@extend .label-large; @extend .label-success; @extend .label-flat;}
 }
+
+#big-percent {
+  font-size: 24pt;
+  font-weight: bold;
+  color: #325c99;
+  float: right;
+}
 // end Proposal-related
