@@ -191,7 +191,7 @@ class ProposalsController < ApplicationController
       hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
       params[:proposal][:hub_id] = hub.id unless hub.nil?
       if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
-        params[:proposal][:votes_attributes].first[1][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+        params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
       end
       params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
       params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
