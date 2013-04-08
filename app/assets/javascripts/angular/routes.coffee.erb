@@ -1,7 +1,24 @@
-#@angular.module('Spokenvote', [Hub, HubFilter]).config(['$routeProvider', '$locationProvider' ,
-#($routeProvider, $locationProvider) ->
-#  $routeProvider.when('/',
-#    controller: 'ProposalsController'
-#    templateUrl: "<%= asset_path('proposals/app.html.haml') %>"
-#  )
-#])
+angular.module('Spokenvote').config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
+
+  $routeProvider
+  .when '/',
+    templateUrl: "<%= asset_path('index.html.haml') %>",
+    controller: 'SpokenvoteCtrl'
+
+  .when '/app',
+    templateUrl: "<%= asset_path('app.html') %>",
+    controller: 'SpokenvoteCtrl'
+
+#  .when '/',
+#    templateUrl: "<%= asset_path('/app/views/proposals/index.html.haml') %>",
+#    controller: 'SpokenvoteCtrl'
+
+  .when '/hungry',
+    template: '<h1>Getting tired of pizza. Switching to Fruit!</h1>'
+
+  .otherwise
+    template: '<h1>Sorry, Angular does not have that route :(</h1>'
+
+  # enabling html5Mode
+#  $locationProvider.html5Mode true
+]
