@@ -1,6 +1,8 @@
 angularApp.controller "HubsCtrl", ($scope, Hub) ->
   $scope.hubs = Hub.query()
 
+  $scope.modal = {content: 'Hello Modal', saved: false};
+
   $scope.addHub = ->
     if $scope.selectedLocation?
       $scope.newHub.formatted_location = $scope.selectedLocation.formatted_address
