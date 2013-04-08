@@ -1,4 +1,4 @@
-angularApp.controller "HubCtrl", ($scope, Hub, HubFilter) ->
+angularApp.controller "HubsCtrl", ($scope, Hub) ->
   $scope.hubs = Hub.query()
 
   $scope.addHub = ->
