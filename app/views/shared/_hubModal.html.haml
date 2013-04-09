@@ -2,7 +2,7 @@
   .modal-header
     .pull-right= link_to raw('&times;'), '#', class: 'close', data: {dismiss: 'modal'}
     %h3 Create a new Group
-    .container(ng-class="alertclass")
+    .container(ng-class="alertclass" ng-show='addhub_alert')
       %a.close(data-dismiss="alert") &#215;
       .content
         .row
@@ -20,8 +20,11 @@
             %input(id='hub_group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model="newHub.group_name")
           .controls
             %input(googleplace id='hub_formatted_location' type='text' class='input-xlarge gpSearchBox' placeholder="Enter the Group's Location" data-ng-model='newHub.formatted_location' data-value_field='#hub_location_id')
+            %h4     {{selectedLocation.formatted_address}}
   .modal-footer
     %fieldset
       .control-group
         .controls
-          %button(ng-click="addHub();modal.saved=true;dismiss()" class='btn btn-primary btn-bold') Angular Add Hub <i class="icon-ok"></i>
+          %button(ng-click="addHub()" class='btn btn-primary btn-bold' ng-hide='modal.saved') Angular Add Hub <i class="icon-ok"></i>
+          %button(ng-click="clearHub()" class='btn btn-primary btn-bold' data-dismiss='modal' ng-show='modal.saved') Ok <i class="icon-ok"></i>
+

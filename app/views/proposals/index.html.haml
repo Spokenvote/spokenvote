@@ -1,18 +1,16 @@
--#%section#homepage.span11{ class: @searched != '' || @sortTitle != '' ? 'searched' : 'clear' }
--#  .page_title
--#    %h1.brand SpokenVote
--#    %h1
--#      Influence a group, impact the world.
--#      %span Voting redefined.
--#    %h4
--#      Browse proposals, support one or branch your own. Participate in real decisions.
--#      = link_to 'More...', about_path
--#
--#  - if @sortTitle != '' or @searched != '' or user_signed_in?
--#    #searchResults
--#      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
--#
--#/ #hpContent
--#/   = render partial: 'shared/hubs_table'
+%section#homepage.span11{ class: @searched != '' || @sortTitle != '' ? 'searched' : 'clear' }
+  .page_title
+    %h1.brand SpokenVote
+    %h1
+      Influence a group, impact the world.
+      %span Voting redefined.
+    %h4
+      Browse proposals, support one or branch your own. Participate in real decisions.
+      = link_to 'More...', about_path
 
-Old Rails Proposals View
+  - if @sortTitle != '' or @searched != '' or user_signed_in?
+    #searchResults
+      = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
+
+/ #hpContent
+/   = render partial: 'shared/hubs_table'
