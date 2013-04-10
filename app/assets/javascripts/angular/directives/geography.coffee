@@ -11,3 +11,5 @@ angularApp.directive "googleplace", ->
     autocomplete = new google.maps.places.Autocomplete(element[0], options)
     google.maps.event.addListener autocomplete, "place_changed", ->
       scope.selectedLocation = autocomplete.getPlace()
+      scope.$apply ->
+        scope.updateModel()
