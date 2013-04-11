@@ -27,6 +27,7 @@ Spokenvote::Application.routes.draw do
 
   match 'about' => 'pages#about'
   match 'user_nav' => 'pages#user_nav'
+  get 'currentuser' => 'users#currentuser'
 
   #match 'help' => 'pages#help'
   #match 'developers' => 'pages#developers'
