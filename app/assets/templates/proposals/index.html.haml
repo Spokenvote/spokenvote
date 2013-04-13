@@ -1,17 +1,20 @@
 %section#homepage.span11{ class: @searched != '' || @sortTitle != '' ? 'searched' : 'clear' }
   - if @sortTitle != '' or @searched != '' or user_signed_in?
     #searchResults
-      %table.listing.listing-proposals
+      %table.listing.listing-proposals(ng-controller ='ProposalsCtrl')
         %thead
+          %h3
           %tr
             %th.table-title{ colspan: '5' }= @sortTitle
           %tr
             %th{ width: '42%' }
-              %span#hubSorter.btn-group
-                %a(href='/proposals?filter=active' class='btn' ng-class="{{$routeParams.filter}}") Active
-                %a(href='/proposals?filter=new' class='btn') New
+              %span#hubSorter.btn-group(ng-model="filter" bs-buttons-radio)
+                %button(ng-href='/proposals?filter=' type="button" ng-click="setFilter('Active')" class='btn' value="active" ng-class="btntest") Active
+                %button(ng-href='/proposals?filter=new' type="button" ng-click="setFilter('new')" class='btn' value="new") New
+                %button(ng-href='/proposals?filter=my_votes' type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes") My Votes
+                -#%a(href='/proposals?filter=new' class='btn active') New
                 -#- if user_signed_in?
-                %a(href='/proposals?filter=my_votes' class='btn') My Votes
+                -#%a(href='/proposals?filter=my_votes' class='btn') My Votes
                 -#  = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
             %th{ width: '30%' } Group
             %th.count-column{ width: '10%'} Updated
