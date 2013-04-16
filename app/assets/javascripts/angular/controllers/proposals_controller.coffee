@@ -1,14 +1,13 @@
 angularApp.controller "ProposalsCtrl", ($scope, $routeParams, Proposal) ->
-  $scope.proposals = Proposal.query({
-    filter: $scope.filter
-  })
+  $scope.filterSelection = 'active'
+  $scope.proposals = Proposal.query
+    filter: $scope.filterSelection
+
 
   $scope.index = ->
 
-  $scope.setFilter = (filterSelecton) ->
-    $scope.proposals = Proposal.query({
-      filter: filterSelecton
-    })
-    console.log($scope.filter)
+  $scope.setFilter = (filterSelection) ->
+    $scope.proposals = Proposal.query
+      filter: filterSelection
 
-  $scope.setClass = 'btn active'
+#  $scope.setClass = 'btn active'
