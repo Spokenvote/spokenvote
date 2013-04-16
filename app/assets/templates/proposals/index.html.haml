@@ -4,13 +4,13 @@
       %table.listing.listing-proposals(ng-controller ='ProposalsCtrl')
         %thead
           %tr
-            %th.table-title{ colspan: '5' }= @sortTitle
+            %th.table-title{ colspan: '5' } {{filterSelection}}
           %tr
             %th{ width: '42%' }
               %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
-                %button(ng-href='/proposals?filter=' type="button" ng-click="setFilter('Active')" class='btn' value="active" ng-class="btntest") Active
-                %button(ng-href='/proposals?filter=new' type="button" ng-click="setFilter('new')" class='btn' value="new") New
-                %button(ng-href='/proposals?filter=my_votes' type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes") My Votes
+                %button(ng-href='/proposals?filter=' type="button" ng-click="setFilter('Active')" class='btn' value="Active" ng-class="btntest") <i class="icon-star"></i> Active
+                %button(ng-href='/proposals?filter=new' type="button" ng-click="setFilter('new')" class='btn' value="New") <i class="icon-fire"></i> New
+                %button(ng-href='/proposals?filter=my_votes' type="button" ng-click="setFilter('my_votes')" class='btn' value="My Votes") <i class="icon-heart"></i>  My Votes
                 -#%a(href='/proposals?filter=new' class='btn active') New
                 -#- if user_signed_in?
                 -#%a(href='/proposals?filter=my_votes' class='btn') My Votes
