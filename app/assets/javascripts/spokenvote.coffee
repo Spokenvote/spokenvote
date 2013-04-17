@@ -1,4 +1,4 @@
-@angularApp = angular.module("Spokenvote", ["ngResource",'$strap.directives'])
+@angularApp = angular.module("Spokenvote", ["ngResource", '$strap.directives', 'ui'])
 
 angularApp.config ["$httpProvider", ($httpProvider) ->
   $httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
