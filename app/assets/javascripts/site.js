@@ -88,7 +88,7 @@ window.app = {};
       // TODO: This doesn't work, need help
       // See example at http://ivaynberg.github.com/select2/#events
       // createSearchChoice: function(term, data) {
-      //   if ($(data).filter(function() { 
+      //   if ($(data).filter(function() {
       //     return this.group_name.localeCompare(term) === 0;
       //   }).length === 0) {
       //     return {hub_filter: term, location_id_filter: ''};
@@ -183,31 +183,32 @@ window.app = {};
 //    })
 //  }
 
-  app.gpSearch = function (elem) {
-    var defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(-33.8902, 151.1759),
-      new google.maps.LatLng(-33.8474, 151.2631)
-    );
-
-    var options = {
-      bounds: defaultBounds,
-      types: ['(regions)']
-    };
-
-    var autocomplete = new google.maps.places.Autocomplete(elem, options);
-
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        // TODO Delete: Add Hub modal logic has been moved to Angular
-        //if (elem.id === 'location_filter') {
-        // this was a navbar search, preload the hub modal location field
-        // $('#hub_formatted_location').val(place.formatted_address);
-        // $('#hub_location_id').val(place.id);
-        //}
-        var place = autocomplete.getPlace(),
-          value_field = $(elem).data('valueField');
-      $(value_field).val(place.id);
-    });
-  }
+    // TODO Delete: Logic has been moved to Angular
+//  app.gpSearch = function (elem) {
+//    var defaultBounds = new google.maps.LatLngBounds(
+//      new google.maps.LatLng(-33.8902, 151.1759),
+//      new google.maps.LatLng(-33.8474, 151.2631)
+//    );
+//
+//    var options = {
+//      bounds: defaultBounds,
+//      types: ['(regions)']
+//    };
+//
+//    var autocomplete = new google.maps.places.Autocomplete(elem, options);
+//
+//    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+//        // TODO Delete: Add Hub modal logic has been moved to Angular
+//        //if (elem.id === 'location_filter') {
+//        // this was a navbar search, preload the hub modal location field
+//        // $('#hub_formatted_location').val(place.formatted_address);
+//        // $('#hub_location_id').val(place.id);
+//        //}
+//        var place = autocomplete.getPlace(),
+//          value_field = $(elem).data('valueField');
+//      $(value_field).val(place.id);
+//    });
+//  }
 
   app.validateNavbarSearch = function(e) {
     var locationLength = $('#location_filter').val().length > 0,
@@ -286,9 +287,9 @@ window.app = {};
     app.configureHubFilter('#proposal_hub_group_name', '220px');
     // $(document).on('click', '#navCreateHub', app.navCreateHub);
 
-    $('.gpSearchBox').each(function() {
-      app.gpSearch(this);
-    });
+//    $('.gpSearchBox').each(function() {
+//      app.gpSearch(this);
+//    });
 
     // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
     // This fixes the issue with navbar dropdowns not acting on clicks
