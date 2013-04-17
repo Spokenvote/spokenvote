@@ -17,7 +17,7 @@ angular.module('Spokenvote').config ['$routeProvider', '$locationProvider', ($ro
     templateUrl: "/hubs"
 
   # Proposals
-  .when '/proposals',
+  .when '/proposals/',
     templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
     controller: 'ProposalsCtrl'
 
