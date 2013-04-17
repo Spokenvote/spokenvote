@@ -4,12 +4,10 @@ angular.module('Spokenvote').config ['$routeProvider', '$locationProvider', ($ro
 
   $routeProvider
   .when '/',
-    templateUrl: "/"
-
-  .when '/angular',
     templateUrl: "<%= asset_path('landing.html.haml') %>",
     controller: 'SpokenvoteCtrl'
 
+  # Hubs
   .when '/newgroup',
     controller: 'HubsCtrl',
     resolve:
@@ -18,12 +16,13 @@ angular.module('Spokenvote').config ['$routeProvider', '$locationProvider', ($ro
   .when '/hubs',
     templateUrl: "/hubs"
 
-  .when '/hungry',
-    template: '<h1>Getting tired of pizza. Switching to Fruit!</h1>'
+  # Proposals
+  .when '/proposals/',
+    templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
+    controller: 'ProposalsCtrl'
 
   .otherwise
     template: '<h3>Angular does not have that route :( , but Rails might :)</h3>'
-#    redirectTo: '/'
 
-#  $locationProvider.html5Mode true    #  enabling html5Mode
+  $locationProvider.html5Mode true    #  enabling html5Mode
 ]

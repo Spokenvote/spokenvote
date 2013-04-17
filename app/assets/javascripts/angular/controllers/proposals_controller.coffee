@@ -1,4 +1,9 @@
-angularApp.controller "ProposalsCtrl", ($scope, Proposal) ->
-  $scope.proposals = Proposal.query()
+angularApp.controller "ProposalsCtrl", ($scope, $routeParams, $location, Proposal) ->
+  $scope.filterSelection = $routeParams.filter
+  $scope.proposals = Proposal.query
+    filter: $scope.filterSelection
 
-  $scope.index = ->
+  $scope.setFilter = (filterSelected) ->
+    $location.search('filter', filterSelected)
+
+
