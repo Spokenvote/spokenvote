@@ -8,11 +8,11 @@
 
       %ul#main-nav.nav
       = form_tag search_proposals_path, id: 'navbarSearch', class: 'navbar-form form-inline' do
-        %hidden_field_tag(ui-select2="hubFilterSelect2" data-ng-model="hubFilter.group_name")
+        %hidden_field_tag(id='hub_filter' ui-select2="hubFilterSelect2" ng-model="hubFilter")
         -#= hidden_field_tag :ag_hub_filter, @selected_hub_id, data: {location_input: '#location_filter', location_id: '#location_id_filter', selected_hub: @selected_hub}
 
         .input-append
-          %input(googleplace id='location_filter' type='text' class='input span3' placeholder="A location" data-ng-model='hubFilter.formatted_location')
+          %input(googleplace id='location_filter' type='text' class='input span3' placeholder="A location" ng-model='hubFilter.formatted_location')
           -#= text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span3 gpSearchBox', data: {value_field: '#location_id_filter'}
           -#%i.clear-location.icon-remove-circle.hide
           -#= hidden_field_tag :location_id_filter

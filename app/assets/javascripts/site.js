@@ -45,80 +45,81 @@ window.app = {};
     return false;
   }
 
-  app.configureHubFilter = function(groupname_elem, select_width) {
-    var location_input = $(groupname_elem).data('locationInput'),
-        location_id = $(groupname_elem).data('locationId'),
-        selected_hub = $(groupname_elem).data('selectedHub');
+        // TODO Delete: Logic has been moved to Angular
+//  app.configureHubFilter = function(groupname_elem, select_width) {
+//    var location_input = $(groupname_elem).data('locationInput'),
+//        location_id = $(groupname_elem).data('locationId'),
+//        selected_hub = $(groupname_elem).data('selectedHub');
 
-    $(groupname_elem).select2({
-      minimumInputLength: 1,
-      placeholder: 'Enter a group',
-      width: select_width,
-      allowClear: true,
+//    $(groupname_elem).select2({
+//      minimumInputLength: 1,
+//      placeholder: 'Enter a group',
+//      width: select_width,
+//      allowClear: true,
+//
+//      ajax: {
+//        url: '/hubs',
+//        dataType: 'json',
+//        data: function(term, page) {
+//          return { hub_filter: term, location_id_filter: $(location_input).val() }
+//        },
+//        results: function(data, page) {
+//          return { results: data }
+//        }
+//      },
+//
+//      formatResult: function(item) {
+//        return item.full_hub;
+//      },
+//
+//      formatSelection: function(item) {
+//        $(location_input).val(item.formatted_location);
+//        $(location_id).val(item.location_id)//.closest('form').submit();
+//        $(groupname_elem).val(item.group_name);
+//        return item.group_name;
+//      },
+//
+//      formatNoMatches: function(term) {
+//        // see https://github.com/ivaynberg/select2/issues/448
+//        // this onclick inline handler is not my idea of a good solution but it works for now.
+//        return 'No matches. <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">Create one</a>';
+//        // TODO The reference above to "angularApp.navCreateHub()" is a departure point to Angular
+//      },
+//
+//      // TODO: This doesn't work, need help
+//      // See example at http://ivaynberg.github.com/select2/#events
+//      // createSearchChoice: function(term, data) {
+//      //   if ($(data).filter(function() {
+//      //     return this.group_name.localeCompare(term) === 0;
+//      //   }).length === 0) {
+//      //     return {hub_filter: term, location_id_filter: ''};
+//      //   }
+//
+//      initSelection: function (element, callback) {
+//        callback(selected_hub);
+//      }
+//    });
 
-      ajax: {
-        url: '/hubs',
-        dataType: 'json',
-        data: function(term, page) {
-          return { hub_filter: term, location_id_filter: $(location_input).val() }
-        },
-        results: function(data, page) {
-          return { results: data }
-        }
-      },
+//    if (groupname_elem === '#hub_filter') {
+//      $(groupname_elem).select2('focus');
+//      $(groupname_elem).on('change', function(e) {
+//        // user clicked the 'x' to clear the groupname selection
+//        // so clear location as well
+//        if (this.value === '') {
+//          $('#location_id_filter, #location_filter').val('');
+//        }
+//      });
+//    }
 
-      formatResult: function(item) {
-        return item.full_hub;
-      },
-
-      formatSelection: function(item) {
-        $(location_input).val(item.formatted_location);
-        $(location_id).val(item.location_id)//.closest('form').submit();
-        $(groupname_elem).val(item.group_name);
-        return item.group_name;
-      },
-
-      formatNoMatches: function(term) {
-        // see https://github.com/ivaynberg/select2/issues/448
-        // this onclick inline handler is not my idea of a good solution but it works for now.
-        return 'No matches. <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">Create one</a>';
-        // TODO The reference above to "angularApp.navCreateHub()" is a departure point to Angular
-      },
-
-      // TODO: This doesn't work, need help
-      // See example at http://ivaynberg.github.com/select2/#events
-      // createSearchChoice: function(term, data) {
-      //   if ($(data).filter(function() {
-      //     return this.group_name.localeCompare(term) === 0;
-      //   }).length === 0) {
-      //     return {hub_filter: term, location_id_filter: ''};
-      //   }
-
-      initSelection: function (element, callback) {
-        callback(selected_hub);
-      }
-    });
-
-    if (groupname_elem === '#hub_filter') {
-      $(groupname_elem).select2('focus');
-      $(groupname_elem).on('change', function(e) {
-        // user clicked the 'x' to clear the groupname selection
-        // so clear location as well
-        if (this.value === '') {
-          $('#location_id_filter, #location_filter').val('');
-        }
-      });
-    }
-
-    $(location_input).on('hover focus', function(e) {
-      if (this.value !== '') {
-        $('.clear-location').removeClass('hide').on('click', function(e) {
-          $(location_input).val('');
-          $(this).addClass('hide');
-        });
-      }
-    });
-  }
+//    $(location_input).on('hover focus', function(e) {
+//      if (this.value !== '') {
+//        $('.clear-location').removeClass('hide').on('click', function(e) {
+//          $(location_input).val('');
+//          $(this).addClass('hide');
+//        });
+//      }
+//    });
+//  }
 
   app.setPageHeight = function() {
     var vp = new Viewport(), vph = vp.height;
@@ -283,8 +284,8 @@ window.app = {};
     $('.related_supporting').last().css('border-bottom', 'none');
     app.pageEffects();
 
-    app.configureHubFilter('#hub_filter', '220px');
-    app.configureHubFilter('#proposal_hub_group_name', '220px');
+//    app.configureHubFilter('#hub_filter', '220px');
+//    app.configureHubFilter('#proposal_hub_group_name', '220px');
     // $(document).on('click', '#navCreateHub', app.navCreateHub);
 
 //    $('.gpSearchBox').each(function() {
