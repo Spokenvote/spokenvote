@@ -4,14 +4,16 @@ angularApp.config ["$httpProvider", ($httpProvider) ->
   $httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 ]
 
-angularApp.controller "SpokenvoteCtrl", ($scope) ->
+angularApp.controller "SpokenvoteCtrl", ($scope, HubSelected, Proposal, HubProposals, Test) ->
+  $scope.proposals = HubProposals
   $scope.model =
     message: "You have reached the Angular Route Provider :)"
+  $scope.test = Test
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
-    placeholder: "Enter a group"
-    width: 230
+    placeholder: " Begin typing to find your Group or Location ..."
+    width: '525px'
     allowClear: true
     ajax:
       url: "/hubs"
@@ -30,7 +32,14 @@ angularApp.controller "SpokenvoteCtrl", ($scope) ->
 #        $(location_input).val item.formatted_location
 #        $(location_id).val item.location_id #.closest('form').submit();
 #        $(groupname_elem).val item.group_name
-      item.group_name
+      HubSelected.id = item.id
+      $scope.proposals = Proposal.query
+        hub: HubSelected.id
+      console.log("$scope.proposals spCtrl: " + $scope.proposals)
+      angular.extend(HubProposals, $scope.proposals)
+      $scope.testproposals = HubProposals
+      item.full_hub
+
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
@@ -39,6 +48,12 @@ angularApp.controller "SpokenvoteCtrl", ($scope) ->
 
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
+
+
+  $scope.submitHubSearch = ->
+    HubProposals = Proposal.query
+      hub: HubSelected.id
+    $scope.proposals = HubProposals
 
   $scope.updateModel = ->
     $scope.hubFilter.formatted_location = $scope.selectedLocation.formatted_address
