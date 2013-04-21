@@ -35,9 +35,12 @@ angularApp.controller "SpokenvoteCtrl", ($scope, HubSelected, Proposal, HubPropo
       HubSelected.id = item.id
       $scope.proposals = Proposal.query
         hub: HubSelected.id
-      console.log("$scope.proposals spCtrl: " + $scope.proposals)
-      angular.extend(HubProposals, $scope.proposals)
+      console.log($scope.proposals)
+      HubProposals = $scope.proposals
+      #      angular.extend(HubProposals, $scope.proposals)
       $scope.testproposals = HubProposals
+      console.log(HubProposals)
+      debuggerdebugger
       item.full_hub
 
 
