@@ -1,0 +1,30 @@
+setupApp = (routeProvider, locationProvider, httpProvider) ->
+  httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  locationProvider.html5Mode true
+
+  routeProvider
+    .when '/',
+      templateUrl: "<%= asset_path('landing.html.haml') %>"
+      controller: 'DashboardCtrl'
+
+    .when '/newgroup', #Hubs, so why not /newhub?
+      controller: 'HubsCtrl'
+      resolve:
+        loadModal: -> angular.element("#hubModal").modal("show")
+
+    .when '/hubs',
+      templateUrl: "/hubs"
+
+    .when '/proposals/',
+      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
+      controller: 'ProposalsCtrl'
+
+    .when '/proposals/filter/:status',
+      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
+      controller: 'ProposalsCtrl'
+
+    .otherwise
+      template: '<h3>Whoops, page not found</h3>'
+
+setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
+window.angularApp = angular.module('Spokenvote', ["ngResource", '$strap.directives', 'ui']).config(setupApp)

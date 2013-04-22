@@ -13,6 +13,3 @@ angularApp.directive "googleplace", ->
       scope.selectedLocation = autocomplete.getPlace()
       scope.$apply ->
         scope.updateModel()
-
-
-
