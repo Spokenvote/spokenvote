@@ -1,10 +1,4 @@
-@angularApp = angular.module("Spokenvote", ["ngResource", '$strap.directives', 'ui'])
-
-angularApp.config ["$httpProvider", ($httpProvider) ->
-  $httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
-]
-
-angularApp.controller "SpokenvoteCtrl", ($scope, HubSelected, Proposal, HubProposals, Test) ->
+DashboardCtrl = ($scope, HubSelected, Proposal, HubProposals, Test) ->
   $scope.proposals = HubProposals
   $scope.model =
     message: "You have reached the Angular Route Provider :)"
@@ -69,3 +63,6 @@ angularApp.controller "SpokenvoteCtrl", ($scope, HubSelected, Proposal, HubPropo
     angular.element("#hubModal").modal "show"
     # TODO This passing of $socpe.searchGroupTerm feels like a hack; let's pass it as an argument
     angular.element("#hubModal").find("#hub_group_name").val $scope.searchGroupTerm
+
+DashboardCtrl.$inject = ['$scope', 'HubSelected', 'Proposal', 'HubProposals', 'Test']
+angularApp.controller 'DashboardCtrl', DashboardCtrl

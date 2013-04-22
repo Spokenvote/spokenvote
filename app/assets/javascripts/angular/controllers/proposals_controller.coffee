@@ -1,4 +1,4 @@
-angularApp.controller "ProposalsCtrl", ($scope, $routeParams, $location, Proposal, HubSelected, HubProposals, Test) ->
+ProposalsCtrl = ($scope, $routeParams, $location, Proposal, HubSelected, HubProposals, Test) ->
   $scope.searchSelection = HubSelected         #TODO Remove
   $scope.filterSelection = $routeParams.filter
   angular.extend($scope.proposals, HubProposals)
@@ -9,3 +9,6 @@ angularApp.controller "ProposalsCtrl", ($scope, $routeParams, $location, Proposa
 
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
+
+ProposalsCtrl.$inject = ['$scope', '$routeParams', '$location', 'Proposal', 'HubSelected', 'HubProposals', 'Test']
+angularApp.controller 'ProposalsCtrl', ProposalsCtrl

@@ -19,5 +19,5 @@
 //= require angular-resource
 //= require angular-ui
 //= require angular-strap
-//= require spokenvote
+//= require ./angular/spokenvote
 //= require_tree ./angular
