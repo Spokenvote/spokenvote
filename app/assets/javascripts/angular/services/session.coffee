@@ -11,5 +11,3 @@ angularApp.factory "HubProposals", (Proposal) ->
 
 angularApp.factory "Test", ->
   data: "Objects bound across scopes"
-
-

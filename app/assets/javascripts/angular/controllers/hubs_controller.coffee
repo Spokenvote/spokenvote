@@ -1,4 +1,4 @@
-angularApp.controller "HubsCtrl", ($scope, Hub) ->
+HubsCtrl = ($scope, Hub) ->
   $scope.modal = {content: 'Hello Modal', saved: false};    # part of angular-strap concept
 
   $scope.addHub = ->
@@ -39,3 +39,6 @@ angularApp.controller "HubsCtrl", ($scope, Hub) ->
   $scope.updateModel = ->
     $scope.newHub.formatted_location = $scope.selectedLocation.formatted_address
     $scope.newHub.location_id = $scope.selectedLocation.id
+
+HubsCtrl.$inject = ['$scope', 'Hub']
+angularApp.controller 'HubsCtrl', HubsCtrl
