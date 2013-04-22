@@ -1,5 +1,4 @@
 class HubsController < ApplicationController
-  #TODO Temporarily disabled until we have Authentication working with Angular
   before_filter :authenticate_user!, :except => [:show, :index, :homepage]
 
   # GET /hubs
@@ -10,7 +9,7 @@ class HubsController < ApplicationController
     if hub_filter.presence && location_id_filter.presence
       @hubs = Hub.where('group_name ilike ? AND formatted_location = ?', "%#{hub_filter}%", location_id_filter)
     elsif hub_filter.presence
-      @hubs = Hub.where('group_name ilike ?', "%#{hub_filter}%")
+      @hubs = Hub.where('formatted_location ilike ? or group_name ilike ?', "%#{hub_filter}%", "%#{hub_filter}%")
     elsif location_id_filter.presence
       @hubs = Hub.where('location_id = ?', location_id_filter)
     else

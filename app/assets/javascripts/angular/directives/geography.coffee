@@ -1,5 +1,5 @@
 angularApp.directive "googleplace", ->
-  require: "ngModel"
+#  require: "ngModel"
   link: (scope, element, attrs, model) ->
     defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(72.501722, -172.617188)
@@ -13,3 +13,6 @@ angularApp.directive "googleplace", ->
       scope.selectedLocation = autocomplete.getPlace()
       scope.$apply ->
         scope.updateModel()
+
+
+

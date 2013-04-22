@@ -4,7 +4,7 @@
       %table.listing.listing-proposals
         %thead
           %tr
-            %th.table-title{ colspan: '5' } {{filterSelection|inflector:humanize}}
+            %th.table-title{ colspan: '5' } {{filterSelection|inflector:humanize}}    {{searchSelection.id}}
           %tr
             %th{ width: '42%' }
               %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
@@ -20,7 +20,7 @@
             %th.count-column{ width: '10%'} Proposals
             %th.count-column{ width: '8%'} Votes
 
-        %tbody
+        %tbody(ng-model="proposals" )
           %tr(ng-repeat="proposal in proposals")
             %td
               %a(href="/proposals/{{proposal.id}}") {{ proposal.statement }}
@@ -29,6 +29,11 @@
             %td.count-column {{ proposal.updated_at }}
             %td.count-column {{ proposal.related_proposals_count }}
             %td.count-column {{ proposal.votes_in_tree }}
+
+      #proposalNotFound
+        .span7 &nbsp;
+        .span4
+          %input(ng-model="ptest.data" )
 
       #proposalNotFound
         .span7 &nbsp;
