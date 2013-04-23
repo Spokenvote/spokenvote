@@ -7,38 +7,9 @@
 
       %ul#main-nav.nav
         %hidden_field_tag(id='hub_filter' ui-select2="hubFilterSelect2" ng-model="hubFilter" )
-        %input(ng-model="test.data" )
-        -#%button(ng-click='submitHubSearch()' class='btn btn-danger btn-bold') ng <i class="icon-search"></i>
-        %ul( ng-repeat="testproposal in testproposals")
+        %button(ng-click='submitHubSearch()' class='btn btn-danger btn-bold') Push <i class="icon-search"></i>
+        -#%ul( ng-repeat="testproposal in testproposals")
           %li {{ testproposal.statement }}
-        -#%ul(ng-repeat="proposal in proposals")
-        -#  %li {{ proposal.statement }}
-
-      -#= form_tag search_proposals_path, id: 'navbarSearch', class: 'navbar-form form-inline' do
-        -#= hidden_field_tag :hub_filter, @selected_hub_id, data: {location_input: '#location_filter', location_id: '#location_id_filter', selected_hub: @selected_hub}
-
-        -#.input-append
-          %input(googleplace id='location_filter' type='text' class='input span3' placeholder="A location" ng-model='hubFilter.formatted_location')
-          -#%input(placepredictions id='location_pred' type='text' class='input span3' placeholder="predict" ng-model='hubFilter.predict')
-          -#= text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span3 gpSearchBox', data: {value_field: '#location_id_filter'}
-          -#%i.clear-location.icon-remove-circle.hide
-          -#= hidden_field_tag :location_id_filter
-
-        = button_tag raw('<i class="icon-search"></i>'), class: 'btn btn-danger btn-bold', title: 'Search Hubs', rel: 'tooltip', data: {placement: 'bottom'}
-
-
-      -#
-      -#%ul#main-nav.nav
-      -#= form_tag search_proposals_path, id: 'navbarSearch', class: 'navbar-form form-inline' do
-      -#  = hidden_field_tag :hub_filter, @selected_hub_id, data: {location_input: '#location_filter', location_id: '#location_id_filter', selected_hub: @selected_hub}
-      -#
-      -#  .input-append
-      -#    = text_field_tag 'location_filter', nil, placeholder: 'A location', class: 'input span3 gpSearchBox', data: {value_field: '#location_id_filter'}
-      -#    %i.clear-location.icon-remove-circle.hide
-      -#    = hidden_field_tag :location_id_filter
-      -#
-      -#    / = link_to 'fill', '#', class: 'btn', id: 'fillLocation', rel: 'popover', data: {content: 'Fill the location search with your current, detected location', trigger: 'hover', placement: 'bottom', title: 'Location Search'}
-      -#  = button_tag raw('<i class="icon-search"></i>'), class: 'btn btn-danger btn-bold', title: 'Search Hubs', rel: 'tooltip', data: {placement: 'bottom'}
 
       %ul.nav.pull-right
         %li.dropdown
