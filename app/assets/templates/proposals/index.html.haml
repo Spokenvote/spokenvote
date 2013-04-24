@@ -4,17 +4,18 @@
       %table.listing.listing-proposals
         %thead
           %tr
-            %th.table-title{ colspan: '5' } {{filterSelection|inflector:humanize}}    {{searchSelection.id}}
+            %th.table-title{ colspan: '5' } {{filterSelection|inflector:humanize}} Proposals for {{hubSelection.group_name}}
           %tr
             %th{ width: '42%' }
               %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
                 %button(type="button" ng-click="setFilter('active')" class='btn' value="active") <i class="icon-star"></i> Active
                 %button(type="button" ng-click="setFilter('new')" class='btn' value="new") <i class="icon-fire"></i> New
                 %button(type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes") <i class="icon-heart"></i>  My Votes
-                -#%a(href='/proposals?filter=new' class='btn active') New
+
                 -#- if user_signed_in?
                 -#%a(href='/proposals?filter=my_votes' class='btn') My Votes
                 -#  = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
+
             %th{ width: '30%' } Group
             %th.count-column{ width: '10%'} Updated
             %th.count-column{ width: '10%'} Proposals
@@ -33,14 +34,6 @@
       #proposalNotFound
         .span7 &nbsp;
         .span4
-          %input(ng-model="ptest.data" )
-
-      #proposalNotFound
-        .span7 &nbsp;
-        .span4
           Don't see the topic you're looking for?
           %a(id='makeProposalLink' href='/proposals/new') Make it
--#
--#/ #hpContent
--#/   = render partial: 'shared/hubs_table'
--#
+
