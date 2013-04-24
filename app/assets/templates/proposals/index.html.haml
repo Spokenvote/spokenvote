@@ -11,8 +11,6 @@
                 %button(type="button" ng-click="setFilter('active')" class='btn' value="active") <i class="icon-star"></i> Active
                 %button(type="button" ng-click="setFilter('new')" class='btn' value="new") <i class="icon-fire"></i> New
                 %button(type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes") <i class="icon-heart"></i>  My Votes
-              %span
-                %button(ng-click='submitHubSearch()' class='btn btn-danger btn-bold') Push <i class="icon-search"></i>
 
                 -#- if user_signed_in?
                 -#%a(href='/proposals?filter=my_votes' class='btn') My Votes

@@ -7,7 +7,7 @@
 
       %ul#main-nav.nav
         %hidden_field_tag(id='hub_filter' ui-select2="hubFilterSelect2" ng-model="hubFilter" )
-        %button(ng-click='submitHubSearch()' class='btn btn-danger btn-bold') Push <i class="icon-search"></i>
+        -#%button(ng-click='submitHubSearch()' class='btn btn-danger btn-bold') Push <i class="icon-search"></i>
         -#%ul( ng-repeat="testproposal in testproposals")
           %li {{ testproposal.statement }}
 
