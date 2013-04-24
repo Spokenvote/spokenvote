@@ -1,5 +1,6 @@
-DashboardCtrl = ($scope, HubSelected, Proposal, HubProposals, HubProposalsServ) ->
-  $scope.searchSelection = HubSelected
+DashboardCtrl = ($scope, $location, HubSelected, Proposal, HubProposals, HubProposalsServ) ->
+#  $scope.filterSelection = $routeParams.hub
+  hubSelected = HubSelected
   $scope.model =
     message: "You have reached the Angular Route Provider :)"
 
@@ -21,10 +22,12 @@ DashboardCtrl = ($scope, HubSelected, Proposal, HubProposals, HubProposalsServ) 
       item.full_hub
 
     formatSelection: (item) ->
-      HubSelected.id = item.id
-      HubSelected.group_name = item.group_name
+      hubSelected.id = item.id
+      hubSelected.group_name = item.group_name
+      console.log(hubSelected.group_name)
       $scope.hubProposals = Proposal.query
-        hub: HubSelected.id
+        hub: hubSelected.id
+#      $location.search('hub', hubSelected.id)
       item.full_hub
 
     formatNoMatches: (term) ->
@@ -35,16 +38,16 @@ DashboardCtrl = ($scope, HubSelected, Proposal, HubProposals, HubProposalsServ) 
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
 
-  submitHubSearch = ->
-    angular.copy($scope.hubProposals, HubProposals)
-
   angularApp.navCreateHub = ->
     angular.element("#s2id_hub_filter").select2 "close"
     angular.element("#hubModal").modal "show"
     # TODO This passing of $socpe.searchGroupTerm feels like a hack; let's pass it as an argument
     angular.element("#hubModal").find("#hub_group_name").val $scope.searchGroupTerm
 
+  submitHubSearch = ->
+    angular.copy($scope.hubProposals, HubProposals)
+
   $scope.$watch('hubProposals', submitHubSearch, true)
 
-DashboardCtrl.$inject = ['$scope', 'HubSelected', 'Proposal', 'HubProposals']
+DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', 'Proposal', 'HubProposals']
 angularApp.controller 'DashboardCtrl', DashboardCtrl

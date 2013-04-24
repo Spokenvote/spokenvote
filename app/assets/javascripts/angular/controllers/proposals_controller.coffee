@@ -1,16 +1,16 @@
 ProposalsCtrl = ($scope, $routeParams, $location, Proposal, HubSelected, HubProposals) ->
   $scope.filterSelection = $routeParams.filter
-  $scope.searchSelection = HubSelected
+  $scope.hubSelection = HubSelected
   $scope.proposals = HubProposals
   $scope.hubProposals = Proposal.query
-    filter: $scope.filterSelection
+    filter: $routeParams.filter
+    hub: $routeParams.search
 
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
 
   submitHubSearch = ->
     angular.copy($scope.hubProposals, HubProposals)
-    console.log(HubProposals)
 
   $scope.$watch('hubProposals', submitHubSearch, true)
 
