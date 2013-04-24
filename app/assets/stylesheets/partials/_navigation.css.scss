@@ -65,6 +65,7 @@ footer.navbar-inverse {
   padding: 5px 0 0;
   a { padding: 1px 4px; }
 }
-.select2-drop-active, .pac-container { z-index: 10000 !important; width: 520px !important; }
+// disalbed because we want the drop to natively just match the search box
+//.select2-drop-active, .pac-container { z-index: 10000 !important; width: 505px !important; }
 #location_filter { @include border-radius(4px); }
 .clear-location { position: relative; right: 20px; font-size: 12px; z-index: 10001; opacity: 0.5; }

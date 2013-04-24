@@ -211,22 +211,22 @@ window.app = {};
 //    });
 //  }
 
-  app.validateNavbarSearch = function(e) {
-    var locationLength = $('#location_filter').val().length > 0,
-        group_length = $('#hub_filter').val().length > 0;
-
-    if (!locationLength && !group_length) {
-      app.errorMessage('Please enter a group name and location to find.');
-      return false;
-    }
-    if (locationLength) {
-      if ($('#hub_filter').val().length === 0) {
-        app.errorMessage('Please enter a group name, search only by location is not supported at this time');
-        $('#hub_filter').focus();
-        return false;
-      }
-    }
-  }
+//  app.validateNavbarSearch = function(e) {
+//    var locationLength = $('#location_filter').val().length > 0,
+//        group_length = $('#hub_filter').val().length > 0;
+//
+//    if (!locationLength && !group_length) {
+//      app.errorMessage('Please enter a group name and location to find.');
+//      return false;
+//    }
+//    if (locationLength) {
+//      if ($('#hub_filter').val().length === 0) {
+//        app.errorMessage('Please enter a group name, search only by location is not supported at this time');
+//        $('#hub_filter').focus();
+//        return false;
+//      }
+//    }
+//  }
 
   app.reloadHome = function() {
     if ($('#homepage').length === 0) {
@@ -271,7 +271,7 @@ window.app = {};
     $('select').select2({width: '200px'});
     $('#hubModalSave').on('click', app.saveNewHub);
 
-    $('#navbarSearch').on('submit', app.validateNavbarSearch);
+//    $('#navbarSearch').on('submit', app.validateNavbarSearch);
 
     $('#confirmationModalNo').on('click', function(e) {
       e.preventDefault();
