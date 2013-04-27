@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  around_filter :render_layout_if_html
 
-  layout :render_proper_layout
-
-  def render_proper_layout
-    if params[:bb]
-      'backbone_application'
+  def render_layout_if_html
+    if request.format.json?
+      yield
     else
-      'application'
+      render layout: 'application', nothing: true
     end
   end
 

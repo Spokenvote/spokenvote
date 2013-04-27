@@ -7,3 +7,18 @@ angularApp.factory "HubSelected", ->
 
 angularApp.factory "HubProposals", ->
   []
+
+#angularApp.factory "HubProposals", ($resource, $routeParams, Proposal) ->
+#  hubProposals = Proposal.query
+#    filter: $routeParams.filter
+#    hub: $routeParams.search
+#  hubProposals
+
+# Serices with passing params look like this?
+#angularApp.factory "HubProposals", ($resource, $routeParams, Proposal) ->
+#  hubProposals = (input) ->
+#    Proposal.query
+#      filter: $routeParams.filter
+#      hub: $routeParams.search
+#    hubProposals
+

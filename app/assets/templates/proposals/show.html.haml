@@ -1,0 +1,97 @@
+.content_page
+  -#%ng-include(src="'/assets/proposals/_show.html.haml'")
+  -#= render partial: 'show', locals: { proposal: @proposal, total_votes: @total_votes, :related => false }
+
+  .proposal_hub
+    #totalVoteLabel
+      %span.label
+        -# TODO Terms need pluralization
+        {{ proposal.votes_in_tree }} Votes on {{proposal.related_proposals_count + 1}} Proposals
+
+    %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
+  .proposal_container
+
+    .main-proposal
+      %div(id='big-percent') {{ proposal.votes_percentage }}
+
+      .proposal_statement
+        %h3 {{ proposal.statement }}
+      -#.proposal-person.span3{data: {vote_number: 1}}
+        = render :partial => 'user_avatar', locals: { user: proposal.user, created_at: proposal.created_at }
+
+      -#.improve_support_buttons
+        .btn-group
+          - if current_user && proposal.editable?(current_user)
+            = link_to raw('<i class="icon-pencil"></i>'), '#', :class => 'btn btn-primary btn-bold edit', rel: 'popover', data: {title: 'Edit your proposal', content: 'Before any other votes are made for your proposal you may edit it.'}
+            = link_to raw('<i class="icon-trash"></i>'), '#', :class => 'btn btn-danger delete', rel: 'popover', data: {title: 'Delete your proposal', content: 'You may delete your proposal before any other votes are made for it.'}
+          - elsif current_user_voteable?(proposal)
+            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-disabled', disabled: true, rel: 'tooltip', title: 'No voting for your<br>own Proposal', data: {html: true}
+            = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
+          - else
+            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-primary btn-bold support', rel: 'popover', data: {title: 'Support', content: 'Vote for this proposal'}
+            = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
+          / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
+
+      -#= render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
+
+    -#- unless proposal.votes.empty?
+    -#.supporting_statement.span7(="proposal.votes.comment in proposal.votes.comments" )
+      -#{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
+
+    -#- unless proposal.votes.empty?
+      = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+
+    .supporting_arguments
+      -#{:class => (total_votes < 0 ? 'related_supporting' : '')}
+      -#- hasSupport = proposal.supporting_votes.count > 0
+      %h3
+        Supporters
+        %span ({{proposal.votes_count}} votes)
+      .row
+        .supporting_arguments_list.span11
+          -#- if current_user
+          -#  = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
+          -#- first_class = (@isXhr or vote_counter > 0) ? 'last' : 'first'
+          .row.support_row{class: 'first'}
+            -#.proposal-person.span3{data: {vote_number: vote_counter+1}}
+            -#  = render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
+
+            .support_comment.span8
+              / = truncate(vote.comment, :length => 140, :omission => '...more')
+              %ul(ng-repeat="(key, value) in proposal.votes")
+                {{ value.vote.comment }}
+
+            -#-if @no_more
+              .hide_the_more_link &nbsp;
+
+          -#- if proposal.votes_count > 3
+            .more=link_to 'More', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
+
+  .hr
+
+  -##relatedSorter(ng-showaaa="proposal.related_proposals_count")
+  -#  .btn-group
+  -#    %a(href="proposal_path(@proposal.id)" class='btn') Highest Ranked
+  -#    %a(href="proposal_path(@proposal.id)" class='btn dropdown-toggle' data-toggle='dropdown')
+  -#      %span(class='caret')
+  -#    %ul.dropdown-menu
+  -#      %li
+  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at DESC')") Newest
+  -#      %li
+  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at ASC')") Oldest
+
+  #relatedProposalsTitle Related Proposals
+
+  .proposal_container(ng-show="proposal.related_proposals_count > 0")
+    .main-proposal
+      %div(id='big-percent') {{ proposal.votes_percentage }}
+
+      .proposal_statement
+        %ul(ng-repeat="(key, value) in proposal.proposals")
+          {{ value.proposal.statement }}
+
+  -#- if @proposal.related_proposals.count > 0
+    -#- @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
+      = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => @total_votes, :related => true }
+
+  %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
