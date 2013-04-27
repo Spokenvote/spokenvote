@@ -61,4 +61,12 @@ class Proposal < ActiveRecord::Base
   def editable?(current_user)
     current_user && votes_count < 2 && user_id == current_user.id
   end
+
+  def has_support?
+    self.supporting_votes.count > 0
+  end
+
+  def votes_percentage
+    sprintf('%d%%', (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round)
+  end
 end

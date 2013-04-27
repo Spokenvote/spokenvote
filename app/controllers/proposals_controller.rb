@@ -1,4 +1,5 @@
 class ProposalsController < ApplicationController
+  respond_to :json
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :search]
 
@@ -57,21 +58,12 @@ class ProposalsController < ApplicationController
     end
 
     @proposals = order_by_filter @proposals
-
     @sortTitle = title_by_filter_and_hub
 
     respond_to do |format|
       if @proposals.any?
-        format.html
         format.json
       else
-        format.html {
-          if request.referrer.to_s.split('/').last.is_a? Integer
-            proposal = Proposal.find(proposal)
-            session[:error] = @no_proposals[:error]
-            redirect_to proposal_path(proposal)
-          end
-        }
         format.json { render json: @no_proposals, status: :unprocessable_entity }
       end
     end
@@ -123,8 +115,6 @@ class ProposalsController < ApplicationController
     end
 
     @proposal = Proposal.find(proposal_id)
-    @total_votes = @proposal.votes_in_tree
-
     set_selected_hub
 
     @default_image = get_default_avatar_image
@@ -136,11 +126,6 @@ class ProposalsController < ApplicationController
       @no_more = @votes.count <= (offset_by + records_limit)
       @isXhr = true
       render :partial => 'proposal_vote', :collection => @votes, :as => :vote
-    else
-      respond_to do |format|
-        format.html # show.html.haml
-        format.json { render json: @proposal }
-      end
     end
   end
 
@@ -151,7 +136,6 @@ class ProposalsController < ApplicationController
     @parent_proposal = Proposal.find(params[:parent_id]) if params[:parent_id]
     @vote = @proposal.votes.build
     respond_to do |format|
-      format.html # new.html.erb
       format.json { render json: @proposal }
     end
   end
@@ -215,10 +199,8 @@ class ProposalsController < ApplicationController
 
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
         format.json { render json: @proposal.to_json(methods: 'supporting_statement'), status: :ok }
       else
-        format.html { render action: "edit" }
         format.json { render json: @proposal.errors, status: :unprocessable_entity }
       end
     end
