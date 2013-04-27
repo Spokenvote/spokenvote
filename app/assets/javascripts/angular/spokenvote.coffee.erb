@@ -15,13 +15,13 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
     .when '/hubs',
       templateUrl: "/hubs"
 
-    .when '/proposals/',
+    .when '/proposals',
       templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
       controller: 'ProposalsCtrl'
 
-#    .when '/proposals/filter/:status',
-#      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
-#      controller: 'ProposalsCtrl'
+    .when '/proposals/:id',
+      templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
+      controller: 'ProposalsShowCtrl'
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
