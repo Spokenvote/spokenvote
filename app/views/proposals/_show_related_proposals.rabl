@@ -1,5 +1,4 @@
 object @proposal
-
 attributes :id, :statement, :user_id, :created_at, :votes_count, :ancestry, :created_by, :hub_id, :votes_in_tree, :votes_percentage
 
 node :has_support do |proposal|
@@ -8,10 +7,6 @@ end
 
 node :related_proposals_count do |proposal|
   proposal.related_proposals.count
-end
-
-node :related_proposals do |proposal|
-  partial('proposals/_show_related_proposals', object: proposal.related_proposals)
 end
 
 child :user do
