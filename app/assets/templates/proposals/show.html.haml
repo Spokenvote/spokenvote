@@ -43,23 +43,34 @@
 
     .supporting_arguments
       -#{:class => (total_votes < 0 ? 'related_supporting' : '')}
-      -#- hasSupport = proposal.supporting_votes.count > 0
-      %h3
+      %h3(ng-show='proposal.has_support')
         Supporters
         %span ({{proposal.votes_count}} votes)
       .row
-        .supporting_arguments_list.span11
+        .supporting_arguments_list.span11(ng-repeat="(key, value) in proposal.votes")
           -#- if current_user
           -#  = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
           -#- first_class = (@isXhr or vote_counter > 0) ? 'last' : 'first'
           .row.support_row{class: 'first'}
-            -#.proposal-person.span3{data: {vote_number: vote_counter+1}}
-            -#  = render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
+            .proposal-person.span3
+              .user-avatar
+                -#- if !user.authentications.empty?
+                  = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
+                -#-else
+                  - gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+                = image_tag "http://gravatar.com/avatar/#{'gravatar_id'}.png?s=30&d=#{@default_image}"
+
+              .supported_date
+                %a(ng-href="user_id:{{ value.vote.user_id }}")  {{ value.vote.username }}
+                -#= link_to user.username, proposals_path(user_id: user)
+                %br
+                {{ value.vote.created_at | date:'mediumDate' }}
+              -# {data: {vote_number: vote_counter+1}}
+              -#= render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
 
             .support_comment.span8
               / = truncate(vote.comment, :length => 140, :omission => '...more')
-              %ul(ng-repeat="(key, value) in proposal.votes")
-                {{ value.vote.comment }}
+              {{ value.vote.comment }}
 
             -#-if @no_more
               .hide_the_more_link &nbsp;
@@ -82,16 +93,29 @@
 
   #relatedProposalsTitle Related Proposals
 
-  .proposal_container(ng-show="proposal.related_proposals_count > 0")
+  .proposal_container(ng-repeat="(key, value) in proposal.related_proposals" ng-show="proposal.related_proposals_count > 0")
     .main-proposal
-      %div(id='big-percent') {{ proposal.votes_percentage }}
+      .div(ng-show='value.has_support')
+        %span(id='big-percent') {{ value.votes_percentage }}
+        %h3 {{ value.statement }}
+        .supporting_arguments
+          %h3
+            Supporters
+            %span ({{ value.votes_count }} votes)
+          .row
+            .supporting_arguments_list.span11(ng-repeat="(key, value) in value.votes")
+              .row.support_row{class: 'first'}
+                .proposal-person.span3
+                  .user-avatar
+                    = image_tag "http://gravatar.com/avatar/#{'gravatar_id'}.png?s=30&d=#{@default_image}"
 
-      .proposal_statement
-        %ul(ng-repeat="(key, value) in proposal.proposals")
-          {{ value.proposal.statement }}
+                  .supported_date
+                    %a(ng-href="user_id:{{ value.user_id }}")  {{ value.username }}
+                    -#= link_to user.username, proposals_path(user_id: user)
+                    %br
+                    {{ value.created_at | date:'mediumDate' }}
 
-  -#- if @proposal.related_proposals.count > 0
-    -#- @proposal.related_proposals(@related_sort_by).each_with_index do |related_proposal|
-      = render partial: 'show', :locals => { :proposal => related_proposal, :total_votes => @total_votes, :related => true }
+                .support_comment.span8
+                  {{ value.comment }}
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
