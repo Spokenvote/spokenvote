@@ -17,14 +17,20 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
 
     .when '/proposals',
       templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
-      controller: 'ProposalsCtrl'
+      controller: 'ProposalListCtrl'
+      resolve:
+        proposals: (MultiProposalLoader) ->
+            MultiProposalLoader()
 
-    .when '/proposals/:id',
+    .when '/proposals/:proposalId',
       templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
-      controller: 'ProposalsShowCtrl'
+      controller: 'ProposalViewCtrl'
+      resolve:
+        proposal: (ProposalLoader) ->
+          ProposalLoader()
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
 setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
-window.angularApp = angular.module('Spokenvote', ["ngResource", '$strap.directives', 'ui']).config(setupApp)
+window.angularApp = angular.module('spokenvote', ['spokenvote.services', '$strap.directives', 'ui']).config(setupApp)

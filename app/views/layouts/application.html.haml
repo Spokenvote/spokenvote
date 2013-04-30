@@ -1,5 +1,5 @@
 !!!
-%html(ng-app="Spokenvote")
+%html(ng-app="spokenvote")
   %head
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
@@ -11,6 +11,8 @@
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide'
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
+    -#Trying to use the Google CDN, but not quite getting load order right
+    -#%script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
     %script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places")
 
     = csrf_meta_tags
