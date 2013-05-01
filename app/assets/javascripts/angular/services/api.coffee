@@ -1,4 +1,4 @@
-services = angular.module('spokenvote.services', ['ngResource'])
+services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
 
 services.factory "Hub", ($resource) ->
   $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
