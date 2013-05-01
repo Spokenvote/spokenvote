@@ -6,15 +6,15 @@ services.factory "Hub", ($resource) ->
 services.factory 'Proposal', ($resource) ->
   $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
 
-services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
+services.factory 'MultiProposalLoader', (Proposal, $route, $q, $routeParams) ->
   ->
     delay = $q.defer()
     Proposal.query
       filter: $route.current.params.filter
       hub: $route.current.params.hub
-    , ((proposals) ->
+    , (proposals) ->
       delay.resolve proposals
-    ), ->
+    , ->
       delay.reject 'Unable to fetch proposals ' + '$route.current.params.proposalId'
     delay.promise
 
@@ -26,9 +26,9 @@ services.factory 'ProposalLoader', (Proposal, $route, $q) ->
     delay = $q.defer()
     Proposal.get
       id: $route.current.params.proposalId
-    , ((proposal) ->
+    , (proposal) ->
       delay.resolve proposal
-    ), ->
+    , ->
       delay.reject 'Unable to fetch proposal ' + $route.current.params.proposalId
     delay.promise
 

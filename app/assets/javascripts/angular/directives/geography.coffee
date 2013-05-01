@@ -1,4 +1,4 @@
-angularApp.directive 'googleplace', ->
+angularApp.directive 'svGooglePlace', ->
 #  require: "ngModel"
   link: (scope, element, attrs, model) ->
     defaultBounds = new google.maps.LatLngBounds(

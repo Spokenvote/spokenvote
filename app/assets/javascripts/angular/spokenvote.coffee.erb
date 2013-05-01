@@ -7,7 +7,8 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'DashboardCtrl'
 
-    .when '/newgroup', #Hubs, so why not /newhub?
+    .when '/newgroup',
+#      templateUrl: "<%= asset_path('hubs/new.html.haml') %>"
       controller: 'HubsCtrl'
       resolve:
         loadModal: -> angular.element("#hubModal").modal("show")
