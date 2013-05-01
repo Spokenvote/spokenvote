@@ -1,24 +1,11 @@
-angularApp.factory "HubFilter", ->
-  group_name: "No Group has yet been specified"
+services = angular.module('spokenvote.services')
 
-angularApp.factory "HubSelected", ->
+services.factory "HubSelected", ->
   group_name: "All Groups"
   id: "No id yet"
 
-angularApp.factory "HubProposals", ->
-  []
+services.factory "SpokenvoteCookies", ($cookies) ->
+  $cookies.SpokenvoteSession = "Setting a value6"
+  sessionCookie: $cookies.SpokenvoteSession
 
-#angularApp.factory "HubProposals", ($resource, $routeParams, Proposal) ->
-#  hubProposals = Proposal.query
-#    filter: $routeParams.filter
-#    hub: $routeParams.search
-#  hubProposals
-
-# Serices with passing params look like this?
-#angularApp.factory "HubProposals", ($resource, $routeParams, Proposal) ->
-#  hubProposals = (input) ->
-#    Proposal.query
-#      filter: $routeParams.filter
-#      hub: $routeParams.search
-#    hubProposals
-
+services.factory.$inject = [ '$cookies' ]
