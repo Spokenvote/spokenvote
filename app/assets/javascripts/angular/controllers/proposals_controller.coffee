@@ -1,31 +1,18 @@
-ProposalsCtrl = ($scope, $routeParams, $location, Proposal, HubSelected, HubProposals) ->
-  $scope.filterSelection = $routeParams.filter
+ProposalListCtrl = ($scope, $routeParams, $location, proposals, HubSelected, SpokenvoteCookies) ->
   $scope.hubSelection = HubSelected
-  $scope.proposals = HubProposals
-
-  Proposal.get(id: $routeParams.id)
-
-  $scope.hubProposals = Proposal.query
-    filter: $routeParams.filter
-    hub: $routeParams.search
+  $scope.filterSelection = $routeParams.filter
+  $scope.proposals = proposals
+  $scope.spokenvoteSession = SpokenvoteCookies
+  console.log($scope.spokenvoteSession.sessionCookie)
 
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
 
-  submitHubSearch = ->
-    angular.copy($scope.hubProposals, HubProposals)
+ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'HubSelected', 'SpokenvoteCookies']
+angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
-  $scope.$watch('hubProposals', submitHubSearch, true)
+ProposalViewCtrl = ($scope, $location, proposal) ->
+  $scope.proposal = proposal
 
-ProposalsCtrl.$inject = ['$scope', '$routeParams', '$location', 'Proposal', 'HubSelected', 'HubProposals']
-angularApp.controller 'ProposalsCtrl', ProposalsCtrl
-
-ProposalsShowCtrl = ($scope, $routeParams, $location, Proposal) ->
-  $scope.proposal = Proposal.get
-    id: $routeParams.id
-  , (proposal) ->
-      console.log(proposal.votes)
-#      $scope.proposal = proposal
-
-ProposalsShowCtrl.$inject = ['$scope', '$routeParams', '$location', 'Proposal']
-angularApp.controller 'ProposalsShowCtrl', ProposalsShowCtrl
+ProposalViewCtrl.$inject = ['$scope', '$location', 'proposal']
+angularApp.controller 'ProposalViewCtrl', ProposalViewCtrl
