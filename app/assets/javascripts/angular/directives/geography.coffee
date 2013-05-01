@@ -1,4 +1,6 @@
-angularApp.directive 'svGooglePlace', ->
+directives = angular.module('spokenvote.directives', [])
+
+directives.directive 'svGooglePlace', ->
 #  require: "ngModel"
   link: (scope, element, attrs, model) ->
     defaultBounds = new google.maps.LatLngBounds(
@@ -13,3 +15,7 @@ angularApp.directive 'svGooglePlace', ->
       scope.selectedLocation = autocomplete.getPlace()
       scope.$apply ->
         scope.updateModel()
+
+
+directives.factory.$inject = [ ]
+# TODO check with Wagner here, as I'm not sure I'm doing these injects correctly.

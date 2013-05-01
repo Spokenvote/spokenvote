@@ -6,12 +6,12 @@ services.factory "Hub", ($resource) ->
 services.factory 'Proposal', ($resource) ->
   $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
 
-services.factory 'MultiProposalLoader', (Proposal, $route, $q, $routeParams) ->
+services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
     Proposal.query
-      filter: $route.current.params.filter
       hub: $route.current.params.hub
+      filter: $route.current.params.filter
     , (proposals) ->
       delay.resolve proposals
     , ->

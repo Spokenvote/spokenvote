@@ -34,4 +34,4 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       template: '<h3>Whoops, page not found</h3>'
 
 setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
-window.angularApp = angular.module('spokenvote', ['spokenvote.services', '$strap.directives', 'ui']).config(setupApp)
+window.angularApp = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(setupApp)

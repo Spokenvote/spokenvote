@@ -22,7 +22,6 @@ angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
 ProposalViewCtrl = ($scope, $location, proposal) ->
   $scope.proposal = proposal
-  console.log(proposal)
 
 ProposalViewCtrl.$inject = ['$scope', '$location', 'proposal']
 angularApp.controller 'ProposalViewCtrl', ProposalViewCtrl
