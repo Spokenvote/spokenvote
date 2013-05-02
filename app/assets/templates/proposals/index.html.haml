@@ -10,11 +10,7 @@
               %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
                 %button(type="button" ng-click="setFilter('active')" class='btn' value="active") <i class="icon-star"></i> Active
                 %button(type="button" ng-click="setFilter('new')" class='btn' value="new") <i class="icon-fire"></i> New
-                %button(type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes") <i class="icon-heart"></i> My Votes
-
-                -#- if user_signed_in?
-                -#%a(href='/proposals?filter=my_votes' class='btn') My Votes
-                -#  = link_to 'My Votes', proposals_path(filter: 'my_votes'), class: "btn #{@filter == 'my_votes' ? 'active': ''}"
+                %button(type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes" ng-Disabled="!currentUser.id") <i class="icon-heart"></i> My Votes
 
             %th{ width: '30%' } Group
             %th.count-column{ width: '10%' } Updated
