@@ -1,5 +1,18 @@
 services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
 
+services.factory "CurrentUser", ($resource) ->
+  $resource("/currentuser")
+
+services.factory 'CurrentUserLoader', (CurrentUser, $route, $q) ->
+  ->
+    delay = $q.defer()
+    CurrentUser.get {}
+    , (current_user) ->
+      delay.resolve current_user
+    , ->
+      delay.reject 'Unable to fetch current user '
+    delay.promise
+
 services.factory "Hub", ($resource) ->
   $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
 
@@ -18,8 +31,8 @@ services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
       delay.reject 'Unable to fetch proposals ' + '$route.current.params.proposalId'
     delay.promise
 
-services.factory.$inject = [ 'Proposal', '$route', '$q' ]
-# TODO check with Wagner here, as I'm not sure I'm doing these injects correctly.
+# Individtually like this?
+#services.factory.$inject = [ 'Proposal', '$route', '$q' ]
 
 services.factory 'ProposalLoader', (Proposal, $route, $q) ->
   ->
@@ -32,5 +45,7 @@ services.factory 'ProposalLoader', (Proposal, $route, $q) ->
       delay.reject 'Unable to fetch proposal ' + $route.current.params.proposalId
     delay.promise
 
-services.factory.$inject = [ 'Proposal', '$route', '$q' ]
+# or like this?
+services.factory.$inject = [ 'CurrentUser', 'Proposal', '$route', '$q' ]
+
 # TODO check with Wagner here, as I'm not sure I'm doing these injects correctly.
