@@ -54,6 +54,7 @@ class Proposal < ActiveRecord::Base
     votes.where(user_id: self.user_id).first.comment
   end
   
+  #TODO should be named "additional_supporting_votes?"
   def supporting_votes
     votes.where("user_id != ?", self.user_id).order("created_at DESC")
   end
@@ -63,7 +64,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def has_support?
-    self.supporting_votes.count > 0
+    self.votes.any?
   end
 
   def votes_percentage

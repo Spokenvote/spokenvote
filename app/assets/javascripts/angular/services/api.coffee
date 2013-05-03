@@ -1,4 +1,4 @@
-services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+services = angular.module('spokenvote.services')
 
 services.factory "CurrentUser", ($resource) ->
   $resource("/currentuser")
@@ -10,7 +10,7 @@ services.factory 'CurrentUserLoader', (CurrentUser, $route, $q) ->
     , (current_user) ->
       delay.resolve current_user
     , ->
-      delay.reject 'Unable to fetch current user '
+      delay.reject 'Unable to locate a current user '
     delay.promise
 
 services.factory "Hub", ($resource) ->
@@ -28,7 +28,7 @@ services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
     , (proposals) ->
       delay.resolve proposals
     , ->
-      delay.reject 'Unable to fetch proposals ' + '$route.current.params.proposalId'
+      delay.reject 'Unable to locate proposals ' + $route.current.params.proposalId
     delay.promise
 
 # Individtually like this?

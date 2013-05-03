@@ -18,5 +18,5 @@ child :hub do
 end
 
 child :votes do
-  attributes :id, :comment, :username, :created_at, :user_id
+  attributes :id, :comment, :username, :created_at, :user_id, :email, :gravatar_hash, :facebook_auth
 end

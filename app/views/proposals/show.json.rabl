@@ -15,7 +15,7 @@ node :related_proposals do |proposal|
 end
 
 child :user do
-  attributes :id, :email, :name
+  attributes :id, :email, :name, :gravatar_hash, :facebook_auth
 end
 
 child :hub do
@@ -23,5 +23,5 @@ child :hub do
 end
 
 child :votes do
-  attributes :id, :comment, :username, :created_at, :user_id
+  attributes :id, :comment, :username, :created_at, :user_id, :email, :gravatar_hash, :facebook_auth
 end

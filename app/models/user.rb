@@ -45,4 +45,15 @@ class User < ActiveRecord::Base
   def is_admin?
     self.email && ENV['ADMIN_EMAILS'].to_s.downcase.include?(self.email)
   end
+
+  def facebook_auth
+    if authentications.any?
+      self.authentications.first.uid
+    end
+  end
+
+  def gravatar_hash
+    Digest::MD5.hexdigest(self.email.downcase)
+  end
+
 end

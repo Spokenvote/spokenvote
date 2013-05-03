@@ -31,6 +31,8 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       resolve:
         proposal: (ProposalLoader) ->
           ProposalLoader()
+        current_user: (CurrentUserLoader) ->
+          CurrentUserLoader()
 
     .when '/currentuser',
       resolve:
@@ -42,3 +44,8 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
 
 setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
 window.angularApp = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(setupApp)
+
+services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+
+services.factory "SessionSettings", ->
+  defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
