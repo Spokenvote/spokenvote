@@ -2,71 +2,23 @@ class ProposalsController < ApplicationController
   respond_to :json
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :search]
+  before_filter :find_hub, only: [:index, :search]
 
   # GET /proposals
   # GET /proposals.json
   def index
-    @searched = ''
-    @proposals = []
+    filter = params[:filter] || 'active'
 
-    # Change the filter if needed and let the view see it
-    session[:filter] = params[:filter] if params[:filter]
-    session[:filter] = 'active' unless session[:filter]
-    @filter = session[:filter]
+    proposals = Proposal.scoped
+    proposals = proposals.where(hub_id: @hub.id) if @hub
 
-    if params[:filter]
-      @proposals = @filter == 'my_votes' ? voted_proposals(current_user) : Proposal.roots
-    elsif params[:hub]
-      search_hub = Hub.find(params[:hub])
+    user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
+    proposals = User.find(user_id).proposals if user_id
 
-      if search_hub
-        session[:search_hub] = search_hub
-        @selected_hub_id = search_hub.id
-        @selected_hub = search_hub.to_json(:methods => :full_hub)
-        @proposals = Proposal.roots.where(hub_id: search_hub.id)
-      end
-    elsif params[:user_id]
-      session[:search_hub] = nil
-      user = User.find params[:user_id]
-      @proposals = voted_proposals(user)
-      @filter = session[:filter] = 'my_votes'
-    elsif user_signed_in?
-      session[:search_hub] = nil
-      @proposals = voted_proposals(current_user)
+    proposals = proposals.order('created_at desc') if filter == 'new'
+    proposals = proposals.order('updated_at desc') if filter == 'active'
 
-      if @proposals.empty?
-        @filter = session[:filter] = 'active'
-        @proposals = Proposal.roots
-      else
-        @filter = session[:filter] = 'my_votes'
-      end
-    else
-      session[:search_hub] = nil
-      @filter = session[:filter] = 'active'
-      @proposals = Proposal.roots
-    end
-
-    if session[:search_hub]
-      begin
-        search_hub = Hub.find session[:search_hub].id
-        @selected_hub_id = search_hub.id
-        @selected_hub = search_hub.to_json(:methods => :full_hub)
-        @proposals = @proposals.where(hub_id: search_hub.id)
-      rescue Exception => exception
-        logger.info { "The search hub in the session wasn't found in the database." }
-      end
-    end
-
-    @proposals = order_by_filter @proposals
-    @sortTitle = title_by_filter_and_hub
-
-    respond_to do |format|
-      if @proposals.any?
-        format.json
-      else
-        format.json { render json: @no_proposals, status: :unprocessable_entity }
-      end
-    end
+    @proposals = proposals.includes(:hub)
   end
 
   # POST /proposals/search
@@ -84,17 +36,6 @@ class ProposalsController < ApplicationController
         search_hub = Hub.by_location(params[:location_filter]).where(group_name: hub_filter).first
       else
         search_hub = Hub.where(group_name: hub_filter).first
-      end
-
-      if search_hub
-        session[:search_hub] = search_hub
-        @selected_hub_id = search_hub.id
-        @selected_hub = search_hub.to_json(:methods => :full_hub)
-
-        @proposals = @filter == 'my_votes' ? voted_proposals(current_user) : Proposal.roots
-        @proposals = order_by_filter @proposals.where(hub_id: search_hub.id)
-      else
-        session[:search_hub] = nil
       end
     end
 
@@ -115,8 +56,6 @@ class ProposalsController < ApplicationController
     end
 
     @proposal = Proposal.find(proposal_id)
-    set_selected_hub
-
     @default_image = get_default_avatar_image
 
     if params[:proposal].presence
@@ -217,39 +156,7 @@ class ProposalsController < ApplicationController
 
   private
 
-  def voted_proposals user
-    proposal_ids = user.votes.collect {|vote| vote.proposal_id}
-    Proposal.where(id: proposal_ids)
-  end
-
-  def order_by_filter proposals
-    if proposals.any?
-      if session[:filter] && session[:filter] == 'new'
-        return proposals.order('updated_at DESC')
-      else
-        return proposals.order('votes_count DESC')
-      end
-    end
-    
-    proposals
-  end
-
-  def title_by_filter_and_hub
-    title = ''
-
-    if session[:filter] == 'new'
-      title += 'New Topics'
-    elsif session[:filter] == 'my_votes'
-      user = params[:user_id] ? User.find(params[:user_id]) : current_user
-      title += "#{user.username}'s Votes"
-    else
-      title = 'Active Topics'
-    end
-
-    if session[:search_hub]
-      title += " - #{session[:search_hub].short_hub} - #{session[:search_hub].formatted_location}"
-    end
-
-    title
+  def find_hub
+    @hub = Hub.find(params[:hub]) if params[:hub]
   end
 end

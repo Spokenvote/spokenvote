@@ -8,10 +8,15 @@
   border: 2px solid #315c99;
   @include border-radius(10px);
   overflow: auto;
-  form { margin: 0 auto 20px; width: 652px; }
+  form {
+    margin: 0 auto 20px;
+    width: 652px;
+  }
 }
 
-.h1 { @extend h1; }
+.h1 {
+  @extend h1;
+}
 
 .hero-unit {
   padding: 40px;
@@ -37,12 +42,16 @@
   @include box-sizing(border-box);
   margin-left: 60px;
   background-color: #e4e4e4;
-  &, .login_form { @include border-radius(6px); }
+  &, .login_form {
+    @include border-radius(6px);
+  }
   .login_box {
     border: none;
     @include border-radius(0);
     @include box-shadow(0);
-    hr, br { display: none; }
+    hr, br {
+      display: none;
+    }
   }
   .login_form {
     padding-bottom: 0;
