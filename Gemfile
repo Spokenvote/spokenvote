@@ -14,7 +14,6 @@ gem 'rack-cache'
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
 gem 'select2-rails'
-gem 'backbone-on-rails'
 
 # UI/Forms
 gem 'nested_form'
@@ -42,7 +41,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'handlebars_assets'
   gem 'angularjs-rails'
   gem "angular-rails"
 end
