@@ -18,8 +18,6 @@
 
       .proposal_statement
         %h3 {{ proposal.statement }}
-      -#.proposal-person.span3{data: {vote_number: 1}}
-        = render :partial => 'user_avatar', locals: { user: proposal.user, created_at: proposal.created_at }
 
       -#.improve_support_buttons
         .btn-group
@@ -56,19 +54,13 @@
           .row.support_row{class: 'first'}
             .proposal-person.span3
               .user-avatar
-                -#- if !user.authentications.empty?
-                  = image_tag "http://graph.facebook.com/#{user.authentications.first.uid}/picture?width=30&height=30"
-                -#-else
-                  - gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-                = image_tag "http://gravatar.com/avatar/#{'gravatar_id'}.png?s=30&d=#{@default_image}"
+                %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
+                %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
 
               .supported_date
                 %a(ng-href="user_id:{{ value.vote.user_id }}")  {{ value.vote.username }}
-                -#= link_to user.username, proposals_path(user_id: user)
                 %br
                 {{ value.vote.created_at | date:'mediumDate' }}
-              -# {data: {vote_number: vote_counter+1}}
-              -#= render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
 
             .support_comment.span8
               / = truncate(vote.comment, :length => 140, :omission => '...more')
@@ -109,8 +101,8 @@
               .row.support_row{class: 'first'}
                 .proposal-person.span3
                   .user-avatar
-                    = image_tag "http://gravatar.com/avatar/#{'gravatar_id'}.png?s=30&d=#{@default_image}"
-
+                    %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
+                    %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
                   .supported_date
                     %a(ng-href="user_id:{{ value.user_id }}")  {{ value.username }}
                     -#= link_to user.username, proposals_path(user_id: user)
