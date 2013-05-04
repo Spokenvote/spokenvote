@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_many :proposals, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :proposals, through: :votes
 
   def password_required?
     (authentications.empty? || !password.blank?) && super

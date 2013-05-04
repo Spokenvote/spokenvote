@@ -20,7 +20,7 @@ module ApplicationHelper
       content_tag(:div, items, :class => badge_class, :title => title_text, :rel => 'tooltip')
     end
   end
-  
+
   def current_user_link
     if user_signed_in?
       link_to current_user.username || current_user.email, proposals_path(user_id: current_user.id)
@@ -28,7 +28,7 @@ module ApplicationHelper
       content_tag(:span, 'Unknown')
     end
   end
-  
+
   def current_user_voteable?(proposal)
     if current_user && current_user.id == proposal.user_id
       cu_votes = proposal.votes.count {|v| v.user_id == current_user.id}
@@ -39,28 +39,13 @@ module ApplicationHelper
   def resource_name
     :user
   end
- 
+
   def resource
     @resource ||= User.new
   end
   
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
-  end
-
-  def get_selected_hub
-    session[:search_hub] ? session[:search_hub].to_json(:methods => :full_hub) : nil
-  end
-  
-  def get_selected_hub_id
-    (session[:search_hub] && session[:search_hub][:id]) ? session[:search_hub][:id] : nil
-  end
-  
-  def set_selected_hub
-    if session[:search_hub] && session[:search_hub][:id]
-      @selected_hub_id = session[:search_hub][:id]
-      @selected_hub = session[:search_hub].to_json(:methods => :full_hub)
-    end
   end
 
   def get_default_avatar_image

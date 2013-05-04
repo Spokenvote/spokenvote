@@ -30,6 +30,10 @@ class Proposal < ActiveRecord::Base
   # Delegations
   delegate :username, :to => :user
 
+  # Scopes
+  scope :noop, -> { where("1 = 1") }
+  scope :by_hub, lambda { |hub_id| hub_id ? where(hub_id: hub_id) : noop }
+
   # Other
   has_ancestry
 
