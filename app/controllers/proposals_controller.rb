@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
   respond_to :json
-
+  include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :find_hub, only: [:index, :search]
 
@@ -8,14 +8,14 @@ class ProposalsController < ApplicationController
   def index
     filter = params[:filter] || 'active'
 
-    proposals = Proposal.scoped
+    proposals = Proposal.roots.scoped
     proposals = proposals.where(hub_id: @hub.id) if @hub
 
     user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
     proposals = User.find(user_id).proposals if user_id
 
-    proposals = proposals.order('created_at desc') if filter == 'new'
-    proposals = proposals.order('updated_at desc') if filter == 'active'
+    proposals = proposals.order('updated_at DESC') if filter == 'new'
+    proposals = proposals.order('votes_count DESC') if filter == 'active'
 
     @proposals = proposals.includes(:hub)
   end
