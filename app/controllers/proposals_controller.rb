@@ -1,10 +1,9 @@
 class ProposalsController < ApplicationController
   respond_to :json
-  include ApplicationHelper
+
   before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :find_hub, only: [:index, :search]
 
-  # GET /proposals
   # GET /proposals.json
   def index
     filter = params[:filter] || 'active'
@@ -21,30 +20,6 @@ class ProposalsController < ApplicationController
     @proposals = proposals.includes(:hub)
   end
 
-  # POST /proposals/search
-  # POST /proposals/search.json
-  def search
-    @searched = ''
-    @proposals = []
-
-    @filter = session[:filter]
-
-    if params[:hub_filter]
-      hub_filter = params[:hub_filter]
-
-      if params[:location_filter] != ''
-        search_hub = Hub.by_location(params[:location_filter]).where(group_name: hub_filter).first
-      else
-        search_hub = Hub.where(group_name: hub_filter).first
-      end
-    end
-
-    @sortTitle = title_by_filter_and_hub
-
-    render action: :index
-  end
-
-  # GET /proposals/1
   # GET /proposals/1.json
   def show
     records_limit = 10
@@ -68,7 +43,6 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # GET /proposals/new
   # GET /proposals/new.json
   def new
     @proposal = Proposal.new
@@ -79,7 +53,7 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # GET /proposals/1/edit
+  # GET /proposals/1/edit.json
   def edit
     @proposal = Proposal.find(params[:id])
     # TODO does it count votes or proposals?
@@ -87,13 +61,12 @@ class ProposalsController < ApplicationController
     render action: 'show'
   end
 
-  # Get /proposals/:id/isEditable
+  # Get /proposals/:id/isEditable.json
   def isEditable
     proposal = Proposal.find(params[:id])
     render json: { editable: proposal.editable?(current_user) }
   end
 
-  # POST /proposals
   # POST /proposals.json
   def create
     if params[:proposal][:parent_id].present?
@@ -128,7 +101,6 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # PUT /proposals/1
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
@@ -145,7 +117,6 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # DELETE /proposals/1
   # DELETE /proposals/1.json
   def destroy
     @proposal = Proposal.find(params[:id])
