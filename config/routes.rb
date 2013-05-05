@@ -14,9 +14,6 @@ Spokenvote::Application.routes.draw do
     member do
       get 'isEditable'
     end
-    collection do
-      post 'search'
-    end
   end
 
   resources :votes, only: [:create]

@@ -31,9 +31,9 @@ class User < ActiveRecord::Base
 
   # Associations
   has_many :authentications, dependent: :destroy
-  has_many :proposals, dependent: :destroy
   has_many :votes, dependent: :destroy
-  has_many :proposals, through: :votes
+  has_many :proposals, dependent: :destroy  # Created by user
+  has_many :voted_proposals, through: :votes, source: :proposal  # Voted by user
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
