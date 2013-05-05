@@ -24,10 +24,7 @@ class Vote < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
 
   # Delegations
-  delegate :username, :to => :user
-  delegate :email, :to => :user
-  delegate :gravatar_hash, :to => :user
-  delegate :facebook_auth, :to => :user
+  delegate :username, :email, :gravatar_hash, :facebook_auth, :to => :user
 
   def self.find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
     proposals = a_proposal_in_tree.related_proposals
