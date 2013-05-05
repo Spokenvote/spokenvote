@@ -20,7 +20,7 @@ class Proposal < ActiveRecord::Base
   # Associations
   belongs_to :user
   belongs_to :hub
-  has_many :votes, inverse_of: :proposal
+  has_many :votes
 
   accepts_nested_attributes_for :votes, reject_if: :all_blank
 
