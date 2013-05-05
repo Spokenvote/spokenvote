@@ -113,4 +113,28 @@ describe "User" do
       @user.encrypted_password.should_not be_blank
     end
   end
+
+  describe 'associations' do
+    let!(:user1) { create(:user) }
+    let!(:user2) { create(:user) }
+    let!(:hub) { create(:hub) }
+    let!(:proposal1) { create(:proposal, user: user2, hub: hub) }
+    let!(:proposal2) { create(:proposal, user: user2, hub: hub) }
+    let!(:proposal3) { create(:proposal, user: user1, hub: hub) }
+    let!(:vote1) { create(:vote, proposal: proposal1, user: user1) }
+    let!(:vote2) { create(:vote, proposal: proposal2, user: user1) }
+
+    describe '#voted_proposals' do
+      it 'gives list of proposals that the user voted on' do
+        user1.voted_proposals.should == [proposal1, proposal2]
+      end
+    end
+
+    describe '#proposals' do
+      it 'gives list of proposals created by the user' do
+        user1.proposals.should == [proposal3]
+        user2.proposals.should == [proposal1, proposal2]
+      end
+    end
+  end
 end
