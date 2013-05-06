@@ -131,6 +131,7 @@ describe ProposalsController do
     let!(:user1) { create(:user) }
     let!(:user2) { create(:user) }
     let!(:user3) { create(:user) }
+    let!(:user4) { create(:user) }
     let!(:hub1) { create(:hub, group_name: 'State of California') }
     let!(:hub2) { create(:hub, group_name: 'The United Nations') }
     let!(:proposal1) { create(:proposal, statement: 'Taxes should be reduced by 5% in California', hub: hub1, user: user1) }
@@ -171,9 +172,15 @@ describe ProposalsController do
         assigns(:proposals).should match_array([proposal3])
       end
 
-      it 'returns the list of proposals in reverse order of the number of votes received' do
+      it 'returns the list of proposals in reverse order of the number of votes received in the whole proposal tree' do
+        forked_proposal2 = create(:proposal, statement: 'Public transportation should be made better California', hub: hub1, user: user4, parent: proposal2)
+        forked_proposal3 = create(:proposal, statement: 'Animals should not be killed for seafood', hub: hub2, user: user4, parent: proposal3)
+        vote7 = create(:vote, proposal: forked_proposal2, user: user1)
+        vote8 = create(:vote, proposal: forked_proposal2, user: user2)
+        vote9 = create(:vote, proposal: forked_proposal2, user: user3)
+
         get :index, { filter: 'active' }
-        assigns(:proposals).should == [proposal1, proposal3, proposal2]
+        assigns(:proposals).should == [proposal2, proposal1, proposal3]
       end
     end
 
