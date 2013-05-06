@@ -15,7 +15,7 @@ class Vote < ActiveRecord::Base
   attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :ip_address
 
   # Associations
-  belongs_to :proposal, counter_cache: true, inverse_of: :votes
+  belongs_to :proposal, counter_cache: true
   belongs_to :user
 
   # Validations
