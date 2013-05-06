@@ -5,6 +5,7 @@ describe VotesController do
 
   before :each do
     request.env["HTTP_REFERER"] = '/'
+    request.env["HTTP_ACCEPT"] = 'application/json'
   end
 
   let(:hub) { create(:hub) }
