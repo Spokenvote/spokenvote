@@ -1,5 +1,4 @@
 class ProposalsController < ApplicationController
-  respond_to :json
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_hub, only: :index
