@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ProposalsController do
   before :each do
     request.env["HTTP_REFERER"] = '/'
+    request.env["HTTP_ACCEPT"] = 'application/json'
   end
 
   describe 'POST create new proposal with existing hub' do
@@ -13,9 +14,12 @@ describe ProposalsController do
     describe 'with valid parameters' do
       let(:valid_attributes) do
         {
-          :statement => Faker::Lorem.sentence,
-          :hub => hub.attributes,
-          :votes_attributes => {"0" => attributes_for(:vote)}
+          statement: Faker::Lorem.sentence,
+          hub: {
+            group_name: hub.group_name,
+            location_id: hub.location_id
+          },
+          votes_attributes: { "0" => attributes_for(:vote) }
         }
       end
 
@@ -124,10 +128,6 @@ describe ProposalsController do
   end
 
   describe 'Get index' do
-    before :each do
-      request.env["HTTP_ACCEPT"] = 'application/json'
-    end
-
     let!(:user1) { create(:user) }
     let!(:user2) { create(:user) }
     let!(:user3) { create(:user) }
