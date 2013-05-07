@@ -1,0 +1,42 @@
+#voteModal.modal(data-width='400px' ng-controller="VoteNewCtrl" )
+  .modal-header
+    .pull-right(class='close' data-dismiss='modal') &times;
+    %h3 Support this Proposal
+    .container(ng-class="alertclass" ng-show='addvote_alert')
+      %a.close(data-dismiss="alert") &#215;
+      .content
+        .row
+          #alertContainer
+            %ul
+              %span {{addvote_result}}
+              %span(ng-repeat="(key, values) in jsonErrors")
+                %li(ng-repeat="value in values")
+                  {{key | capitalize}} {{value}}
+  .modal-body
+    %form(ng-submit="addVote()")
+      %ng-include(src="'assets/shared/_currentuser_avatar.html.haml'")
+      %h3 Let's go, {{ currentUser.username }} !
+      %fieldset
+        .control-group
+          .controls
+            %input(id='vote_comment' type='text' class='full-width' ng-model='newVote.comment' bs-focus placeholder='Please explain why you want to support this Proposal')
+  .modal-footer
+    %fieldset
+      .control-group
+        .controls
+          %button(ng-click="addVote()" class='btn btn-primary btn-bold' ng-hide='modal.saved') Vote for this proposal <i class="icon-ok"></i>
+          %button(ng-click="clearVote()" class='btn btn-primary btn-bold' data-dismiss='modal' ng-show='modal.saved') Ok <i class="icon-ok"></i>
+          -#%button(ng-click="testScope()" class='btn btn-primary btn-bold') Test Scope <i class="icon-ok"></i>
+
+
+
+-#.row.support_row{class: first_class}
+  .proposal-person.span3{data: {vote_number: vote_counter+1}}
+    = render :partial => 'user_avatar', locals: { user: vote.user, created_at: vote.created_at, vote_counter: vote_counter }
+
+  .support_comment.span8
+    / = truncate(vote.comment, :length => 140, :omission => '...more')
+    = raw vote.comment
+
+  -if @no_more
+    .hide_the_more_link &nbsp;

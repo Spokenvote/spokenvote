@@ -1,11 +1,16 @@
 setupApp = (routeProvider, locationProvider, httpProvider) ->
   httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
-  locationProvider.html5Mode true
+#  locationProvider.html5Mode true
 
   routeProvider
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'DashboardCtrl'
+
+    .when '/newvote',
+      controller: 'VoteNewCtrl'
+      resolve:
+        loadModal: -> angular.element("#voteModal").modal("show")
 
     .when '/newgroup',
 #      templateUrl: "<%= asset_path('hubs/new.html.haml') %>"

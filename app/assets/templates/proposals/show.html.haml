@@ -1,6 +1,6 @@
 .content_page
   -#%ng-include(src="'/assets/proposals/_show.html.haml'")
-  -#= render partial: 'show', locals: { proposal: @proposal, total_votes: @total_votes, :related => false }
+  -#%ng-include(src="'/proposals/_voteModal.html.haml'")
 
   .proposal_hub
     #totalVoteLabel
@@ -19,17 +19,21 @@
       .proposal_statement
         %h3 {{ proposal.statement }}
 
-      -#.improve_support_buttons
+      .improve_support_buttons
         .btn-group
-          - if current_user && proposal.editable?(current_user)
-            = link_to raw('<i class="icon-pencil"></i>'), '#', :class => 'btn btn-primary btn-bold edit', rel: 'popover', data: {title: 'Edit your proposal', content: 'Before any other votes are made for your proposal you may edit it.'}
-            = link_to raw('<i class="icon-trash"></i>'), '#', :class => 'btn btn-danger delete', rel: 'popover', data: {title: 'Delete your proposal', content: 'You may delete your proposal before any other votes are made for it.'}
-          - elsif current_user_voteable?(proposal)
-            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-disabled', disabled: true, rel: 'tooltip', title: 'No voting for your<br>own Proposal', data: {html: true}
-            = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
-          - else
-            = link_to raw('<i class="icon-thumbs-up"></i>'), '#', :class => 'btn btn-primary btn-bold support', rel: 'popover', data: {title: 'Support', content: 'Vote for this proposal'}
-            = link_to raw('<i class="icon-share-alt"></i>'), '#', :class => 'btn btn-warning improve', rel: 'popover', data: {title: 'Improve', content: 'Create a better version of this proposal'}
+          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-primary btn-bold edit' rel='popover' data-title='Edit your proposal' data-content='Before any other votes are made for your proposal you may edit it.') <i class="icon-pencil"></i>
+          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-danger delete' rel='popover' data-title='Delete your proposal.' data-content='You may delete your proposal before any other votes are made for it.') <i class="icon-trash"></i>
+
+          -#- elsif current_user_voteable?(proposal)
+
+          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-disabled' disabled='true' rel='tooltip' data-title='No voting for your<br>own Proposal.' data-html='true' ) <i class="icon-thumbs-up"></i>
+          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-warning improve' disabled='true' rel='popover' data-title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
+
+          -#- else
+
+          %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote()' class='btn btn-primary btn-bold support' rel='popover' title='Support' content='Vote for this proposal' ) <i class="icon-thumbs-up"></i>
+          %ng-href(ng-show='currentUser && proposal.user_id != currentUser.id' class='btn btn-warning improve' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
+
           / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
 
       -#= render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
@@ -62,6 +66,10 @@
                 %br
                 {{ value.vote.created_at | date:'mediumDate' }}
 
+              -#TODO Neither of these seems to work, the HTML verion creates a loop
+              -#%ng-include(src="'user_avatar.html.haml'")
+              -#%ng-include(src="'test_nginclude.html'")
+
             .support_comment.span8
               / = truncate(vote.comment, :length => 140, :omission => '...more')
               {{ value.vote.comment }}
@@ -86,6 +94,7 @@
   -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at ASC')") Oldest
 
   #relatedProposalsTitle Related Proposals
+
 
   .proposal_container(ng-repeat="(key, value) in proposal.related_proposals" ng-show="proposal.related_proposals_count > 0")
     .main-proposal
@@ -113,3 +122,4 @@
                   {{ value.comment }}
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
+

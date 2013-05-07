@@ -13,6 +13,9 @@ services.factory 'CurrentUserLoader', (CurrentUser, $route, $q) ->
       delay.reject 'Unable to locate a current user '
     delay.promise
 
+services.factory "Vote", ($resource) ->
+  $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
+
 services.factory "Hub", ($resource) ->
   $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
 

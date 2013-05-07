@@ -11,12 +11,18 @@ ProposalListCtrl = ($scope, $routeParams, $location, proposals, current_user, Hu
 ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'current_user', 'HubSelected', 'SpokenvoteCookies']
 angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
-ProposalViewCtrl = ($scope, $location, proposal, current_user, SessionSettings) ->
+ProposalViewCtrl = ($scope, $location, proposal, current_user, SessionSettings, $modal) ->
   $scope.proposal = proposal
   $scope.currentUser = current_user
 
-  $scope.fakeFacebookUser = '100002611078431'
   $scope.defaultGravatar = SessionSettings.defaultGravatar
 
-ProposalViewCtrl.$inject = ['$scope', '$location', 'proposal', 'current_user', 'SessionSettings']
+  $scope.vote = ->
+    $modal
+      template: 'assets/proposals/_voteModal.html.haml'
+      show: true
+      backdrop: 'static'
+      scope: $scope
+
+ProposalViewCtrl.$inject = ['$scope', '$location', 'proposal', 'current_user', 'SessionSettings', '$modal']
 angularApp.controller 'ProposalViewCtrl', ProposalViewCtrl

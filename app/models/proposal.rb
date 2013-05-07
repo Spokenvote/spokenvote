@@ -63,6 +63,7 @@ class Proposal < ActiveRecord::Base
     votes.where("user_id != ?", self.user_id).order("created_at DESC")
   end
   
+  #TODO Do we delete this and it's controller companion, since the RABL file looks directly at the model?
   def editable?(current_user)
     current_user && votes_count < 2 && user_id == current_user.id
   end
