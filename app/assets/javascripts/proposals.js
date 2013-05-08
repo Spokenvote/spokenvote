@@ -237,30 +237,32 @@
     }
   }
 
-  var saveVote = function(e) {
-    e.preventDefault();
-    var el = $(this),
-      proposal_container = el.closest('.proposal_container'),
-      proposal_id = proposal_container.data('proposal_id'),
-      comment = proposal_container.find('.vote_comment textarea').val(),
-      // this is not a good way to have user on hand but acceptable to me for first pass
-      hub_id = proposal_container.data('hub_id');
-    
-    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment}})
-      .success(function(data) {
-        hideContentEditable(el);
-        updateSupport(proposal_container, data);
-        app.successMessage('Thanks. Your vote has been counted!');
-      }).
-      error(function(data) {
-        var responseText = data.responseText,
-            msg = $.parseJSON(data.responseText);
+// Moved to Angular
 
-        if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
-          app.errorMessage(msg.user_id);
-        }
-      });
-  }
+//  var saveVote = function(e) {
+//    e.preventDefault();
+//    var el = $(this),
+//      proposal_container = el.closest('.proposal_container'),
+//      proposal_id = proposal_container.data('proposal_id'),
+//      comment = proposal_container.find('.vote_comment textarea').val(),
+//      // this is not a good way to have user on hand but acceptable to me for first pass
+//      hub_id = proposal_container.data('hub_id');
+//
+//    $.post('/votes.json', {vote: {proposal_id: proposal_id, comment: comment}})
+//      .success(function(data) {
+//        hideContentEditable(el);
+//        updateSupport(proposal_container, data);
+//        app.successMessage('Thanks. Your vote has been counted!');
+//      }).
+//      error(function(data) {
+//        var responseText = data.responseText,
+//            msg = $.parseJSON(data.responseText);
+//
+//        if (data.responseText.indexOf("You can only vote once on a proposal") > -1) {
+//          app.errorMessage(msg.user_id);
+//        }
+//      });
+//  }
 
   var openNewProposal = function(na) {
     window.location.assign('/proposals/new');
@@ -286,7 +288,7 @@
     $('.delete').click(deleteProposal);
     $('.support').on('click', newSupport);
     $('.save_statement').on('click', saveImprovement);
-    $('.save_vote').on('click', saveVote);
+//    $('.save_vote').on('click', saveVote);
     $('.cancel').on('click', function(e) {
       e.preventDefault();
       hideContentEditable($(this));
