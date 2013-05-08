@@ -1,11 +1,6 @@
 VoteNewCtrl = ($scope, $location, Vote) ->
   $scope.modal = {content: 'Hello Modal', saved: false};    # part of angular-strap concept
 
-  $scope.testScope = ->
-    console.log 'proposal ' + $scope.proposal.id
-    console.log 'Comment ' + $scope.newVote.comment
-    console.log 'Comment ' + $scope.currentUser.id
-
   $scope.addVote = ->
     $scope.newVote.proposal_id = $scope.proposal.id
     $scope.newVote.user_id = $scope.currentUser.id
@@ -33,11 +28,6 @@ VoteNewCtrl = ($scope, $location, Vote) ->
       $scope.addvote_result = "Please select a Location from the provided list"
 
     $scope.addvote_alert = true
-
-#    $scope.recipe = new Recipe(ingredients: [ {} ])
-#    $scope.save = ->
-#      $scope.recipe.$save (recipe) ->
-#        $location.path "/view/" + recipe.id
 
   $scope.clearVote = ->
     $scope.newVote = null

@@ -1,6 +1,6 @@
 setupApp = (routeProvider, locationProvider, httpProvider) ->
   httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
-#  locationProvider.html5Mode true
+  locationProvider.html5Mode true
 
   routeProvider
     .when '/',

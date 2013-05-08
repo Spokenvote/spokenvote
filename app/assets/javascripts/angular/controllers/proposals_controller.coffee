@@ -19,7 +19,7 @@ ProposalViewCtrl = ($scope, $location, proposal, current_user, SessionSettings, 
 
   $scope.vote = ->
     $modal
-      template: 'assets/proposals/_voteModal.html.haml'
+      template: '/assets/proposals/_voteModal.html.haml'
       show: true
       backdrop: 'static'
       scope: $scope

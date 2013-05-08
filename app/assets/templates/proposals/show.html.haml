@@ -34,8 +34,6 @@
           %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote()' class='btn btn-primary btn-bold support' rel='popover' title='Support' content='Vote for this proposal' ) <i class="icon-thumbs-up"></i>
           %ng-href(ng-show='currentUser && proposal.user_id != currentUser.id' class='btn btn-warning improve' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
 
-          / UNTIL later = link_to 'Reuse', '#', :class => 'btn btn-info reuse'
-
       -#= render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
 
     -#- unless proposal.votes.empty?
@@ -65,10 +63,6 @@
                 %a(ng-href="user_id:{{ value.vote.user_id }}")  {{ value.vote.username }}
                 %br
                 {{ value.vote.created_at | date:'mediumDate' }}
-
-              -#TODO Neither of these seems to work, the HTML verion creates a loop
-              -#%ng-include(src="'user_avatar.html.haml'")
-              -#%ng-include(src="'test_nginclude.html'")
 
             .support_comment.span8
               / = truncate(vote.comment, :length => 140, :omission => '...more')
