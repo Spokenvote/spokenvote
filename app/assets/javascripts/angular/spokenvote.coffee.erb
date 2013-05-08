@@ -7,6 +7,11 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'DashboardCtrl'
 
+    .when '/newvote',
+      controller: 'VoteNewCtrl'
+      resolve:
+        loadModal: -> angular.element("#voteModal").modal("show")
+
     .when '/newgroup',
 #      templateUrl: "<%= asset_path('hubs/new.html.haml') %>"
       controller: 'HubsCtrl'

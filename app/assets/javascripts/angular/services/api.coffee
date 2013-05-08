@@ -3,7 +3,7 @@ services = angular.module('spokenvote.services')
 services.factory "CurrentUser", ($resource) ->
   $resource("/currentuser")
 
-services.factory 'CurrentUserLoader', (CurrentUser, $route, $q) ->
+CurrentUserLoader = (CurrentUser, $route, $q) ->
   ->
     delay = $q.defer()
     CurrentUser.get {}
@@ -13,13 +13,22 @@ services.factory 'CurrentUserLoader', (CurrentUser, $route, $q) ->
       delay.reject 'Unable to locate a current user '
     delay.promise
 
+CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
+services.factory 'CurrentUserLoader', CurrentUserLoader
+
+
+services.factory "Vote", ($resource) ->
+  $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
+
+
 services.factory "Hub", ($resource) ->
   $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
+
 
 services.factory 'Proposal', ($resource) ->
   $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
 
-services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
+MultiProposalLoader = (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
     Proposal.query
@@ -31,10 +40,10 @@ services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
       delay.reject 'Unable to locate proposals ' + $route.current.params.proposalId
     delay.promise
 
-# Individtually like this?
-#services.factory.$inject = [ 'Proposal', '$route', '$q' ]
+MultiProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
+services.factory 'MultiProposalLoader', MultiProposalLoader
 
-services.factory 'ProposalLoader', (Proposal, $route, $q) ->
+ProposalLoader = (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
     Proposal.get
@@ -45,7 +54,5 @@ services.factory 'ProposalLoader', (Proposal, $route, $q) ->
       delay.reject 'Unable to fetch proposal ' + $route.current.params.proposalId
     delay.promise
 
-# or like this?
-services.factory.$inject = [ 'CurrentUser', 'Proposal', '$route', '$q' ]
-
-# TODO check with Wagner here, as I'm not sure I'm doing these injects correctly.
+ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
+services.factory 'ProposalLoader', ProposalLoader
