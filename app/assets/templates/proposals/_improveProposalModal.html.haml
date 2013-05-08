@@ -1,0 +1,29 @@
+#improveProposalModal.modal(data-width='400px' ng-controller="ProposalImroveCtrl" )
+  .modal-header
+    .pull-right(class='close' data-dismiss='modal') &times;
+    %h2 Improve Proposal
+    .container(ng-class="alertclass" ng-show='addvote_alert')
+      %a.close(data-dismiss="alert") &#215;
+      .content
+        .row
+          #alertContainer
+            %ul
+              %span {{addvote_result}}
+              %span(ng-repeat="(key, values) in jsonErrors")
+                %li(ng-repeat="value in values")
+                  {{key | capitalize}} {{value}}
+  .modal-body
+    %form(name='improvedProposalForm' ng-submit="addVote()")
+      %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
+      %h3 Ok, let's improve on this Proposal ...
+      %fieldset
+        .control-group
+          .controls
+            %textarea(id='proposal_statement' type='text' class='full-width' ng-model='improvedProposal.statement' required ng-minLength='15' ng-maxLength='140' placeholder='Please use between 15 and 140 characters to improve upon {{ proposal.statement }}.')
+            %textarea(id='vote_comment' type='text' class='full-width' ng-model='improvedProposal.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.')
+  .modal-footer
+    %fieldset
+      .control-group
+        .controls
+          %button( ng-click="improveProposal()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!improvedProposalForm.$valid' ) Save your Improved proposal <i class="icon-ok"></i>
+          %button( ng-click="clearVote()" class='btn btn-primary btn-bold' data-dismiss='modal' ng-show='modal.saved' ) Ok <i class="icon-ok"></i>

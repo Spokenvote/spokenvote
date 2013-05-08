@@ -1,7 +1,7 @@
 #voteModal.modal(data-width='400px' ng-controller="VoteNewCtrl" )
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
-    %h3 Proposal Support
+    %h2 Support Proposal
     .container(ng-class="alertclass" ng-show='addvote_alert')
       %a.close(data-dismiss="alert") &#215;
       .content
@@ -15,7 +15,7 @@
   .modal-body
     %form(name='newVoteForm' ng-submit="addVote()")
       %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-      %h3 Ok, {{ currentUser.username }} let's vote!
+      %h3 Ok, let's add Support!
       %fieldset
         .control-group
           .controls

@@ -20,9 +20,22 @@ ProposalViewCtrl = ($scope, $location, proposal, current_user, SessionSettings, 
   $scope.vote = ->
     $modal
       template: '/assets/proposals/_voteModal.html.haml'
+      Controller: 'VoteNewCtrl'
+      show: true
+      backdrop: 'static'
+      scope: $scope
+
+  $scope.improve = ->
+    $modal
+      template: '/assets/proposals/_improveProposalModal.html.haml'
+      Controller: 'ProposalImroveCtrl'
       show: true
       backdrop: 'static'
       scope: $scope
 
 ProposalViewCtrl.$inject = ['$scope', '$location', 'proposal', 'current_user', 'SessionSettings', '$modal']
 angularApp.controller 'ProposalViewCtrl', ProposalViewCtrl
+
+
+
+
