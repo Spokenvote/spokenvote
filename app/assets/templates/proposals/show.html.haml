@@ -1,78 +1,5 @@
 .content_page
-  -#%ng-include(src="'/assets/proposals/_show.html.haml'")
-  -#%ng-include(src="'/proposals/_voteModal.html.haml'")
-
-  .proposal_hub
-    #totalVoteLabel
-      %span.label
-        {{ proposal.votes_in_tree }}
-        %ng-pluralize(count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}")
-        Votes on {{proposal.related_proposals_count + 1}}
-        %ng-pluralize(count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
-
-    %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
-  .proposal_container
-
-    .main-proposal
-      %div(id='big-percent') {{ proposal.votes_percentage }}
-
-      .proposal_statement
-        %h3 {{ proposal.statement }}
-
-      .improve_support_buttons
-        .btn-group
-          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-primary btn-bold edit' rel='popover' data-title='Edit your proposal' data-content='Before any other votes are made for your proposal you may edit it.') <i class="icon-pencil"></i>
-          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-danger delete' rel='popover' data-title='Delete your proposal.' data-content='You may delete your proposal before any other votes are made for it.') <i class="icon-trash"></i>
-
-          -#- elsif current_user_voteable?(proposal)
-
-          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-disabled' disabled='true' rel='tooltip' data-title='No voting for your<br>own Proposal.' data-html='true' ) <i class="icon-thumbs-up"></i>
-          %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-warning improve' disabled='true' rel='popover' data-title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
-
-          -#- else
-
-          %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote()' class='btn btn-primary btn-bold support' rel='popover' title='Support' content='Vote for this proposal' ) <i class="icon-thumbs-up"></i>
-          %ng-href(ng-show='currentUser && proposal.user_id != currentUser.id' class='btn btn-warning improve' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
-
-      -#= render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
-
-    -#- unless proposal.votes.empty?
-    -#.supporting_statement.span7(="proposal.votes.comment in proposal.votes.comments" )
-      -#{data: {vote_id: proposal.votes.first.id}}= raw proposal.supporting_statement
-
-    -#- unless proposal.votes.empty?
-      = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
-
-    .supporting_arguments
-      -#{:class => (total_votes < 0 ? 'related_supporting' : '')}
-      %h3(ng-show='proposal.has_support')
-        Supporters
-        %span ({{proposal.votes_count}} votes)
-      .row
-        .supporting_arguments_list.span11(ng-repeat="(key, value) in proposal.votes")
-          -#- if current_user
-          -#  = render partial: 'support_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
-          -#- first_class = (@isXhr or vote_counter > 0) ? 'last' : 'first'
-          .row.support_row{class: 'first'}
-            .proposal-person.span3
-              .user-avatar
-                %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
-                %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
-
-              .supported_date
-                %a(ng-href="user_id:{{ value.vote.user_id }}")  {{ value.vote.username }}
-                %br
-                {{ value.vote.created_at | date:'mediumDate' }}
-
-            .support_comment.span8
-              / = truncate(vote.comment, :length => 140, :omission => '...more')
-              {{ value.vote.comment }}
-
-            -#-if @no_more
-              .hide_the_more_link &nbsp;
-
-          -#- if proposal.votes_count > 3
-            .more=link_to 'More', proposal_path({page: 0, proposal: proposal.id}), class: 'btn'
+  %ng-include(src="'/assets/proposals/_show.html.haml'")
 
   .hr
 
@@ -89,31 +16,7 @@
 
   #relatedProposalsTitle Related Proposals
 
+  %ng-include(src="'/assets/proposals/_show_related.html.haml'")
 
-  .proposal_container(ng-repeat="(key, value) in proposal.related_proposals" ng-show="proposal.related_proposals_count > 0")
-    .main-proposal
-      .div(ng-show='value.has_support')
-        %span(id='big-percent') {{ value.votes_percentage }}
-        %h3 {{ value.statement }}
-        .supporting_arguments
-          %h3
-            Supporters
-            %span ({{ value.votes_count }} votes)
-          .row
-            .supporting_arguments_list.span11(ng-repeat="(key, value) in value.votes")
-              .row.support_row{class: 'first'}
-                .proposal-person.span3
-                  .user-avatar
-                    %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
-                    %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
-                  .supported_date
-                    %a(ng-href="user_id:{{ value.user_id }}")  {{ value.username }}
-                    -#= link_to user.username, proposals_path(user_id: user)
-                    %br
-                    {{ value.created_at | date:'mediumDate' }}
-
-                .support_comment.span8
-                  {{ value.comment }}
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
-

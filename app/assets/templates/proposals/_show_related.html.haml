@@ -1,0 +1,42 @@
+.proposal_container(ng-repeat="(key, value) in proposal.related_proposals" ng-show="proposal.related_proposals_count > 0")
+  .main-proposal(ng-show='value.has_support')
+    %span(id='big-percent') {{ value.votes_percentage }}
+
+    .proposal_statement
+      %h3 {{ value.statement }}
+
+    .improve_support_buttons
+      -#.btn-group
+      %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-primary btn-bold edit' rel='popover' data-title='Edit your proposal' data-content='Before any other votes are made for your proposal you may edit it.') <i class="icon-pencil"></i>
+      %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-danger delete' rel='popover' data-title='Delete your proposal.' data-content='You may delete your proposal before any other votes are made for it.') <i class="icon-trash"></i>
+
+      -#- elsif current_user_voteable?(proposal)
+
+      %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-disabled' disabled='true' rel='tooltip' data-title='No voting for your<br>own Proposal.' data-html='true' ) <i class="icon-thumbs-up"></i>
+      %ng-href(ng-show='currentUser && proposal.user_id == currentUser.id' class='btn btn-warning improve' disabled='true' rel='popover' data-title='Improve' content='Create a better version of this proposal' data-html='true' ) <i class="icon-share-alt""></i>
+
+      -#- else
+
+      .vote_buttons_container
+        %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote()' class='btn btn-primary btn-bold' style='margin-right: 10px' rel='popover' title='Support' content='Vote for this proposal' ) Support
+        %ng-href(ng-show='currentUser && proposal.user_id != currentUser.id' class='btn btn-inverse btn-bold' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) Improve
+
+      .supporting_arguments
+        %h3
+          Supporters
+          %span ({{ value.votes_count }} votes)
+        .row
+          .supporting_arguments_list.span11(ng-repeat="(key, value) in value.votes")
+            .row.support_row{class: 'first'}
+              .proposal-person.span3
+                .user-avatar
+                  %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
+                  %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
+                .supported_date
+                  %a(ng-href="user_id:{{ value.user_id }}")  {{ value.username }}
+                  -#= link_to user.username, proposals_path(user_id: user)
+                  %br
+                  {{ value.created_at | date:'mediumDate' }}
+
+              .support_comment.span8
+                {{ value.comment }}
