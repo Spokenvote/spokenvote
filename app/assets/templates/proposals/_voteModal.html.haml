@@ -19,7 +19,7 @@
       %fieldset
         .control-group
           .controls
-            %textarea(id='vote_comment' type='text' class='full-width' ng-model='newVote.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please add a few words to explain why you want to support this Proposal.')
+            %textarea(id='vote_comment' type='text' class='full-width' ng-model='newVote.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.')
   .modal-footer
     %fieldset
       .control-group
