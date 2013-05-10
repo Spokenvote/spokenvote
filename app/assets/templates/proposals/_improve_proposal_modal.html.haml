@@ -2,13 +2,13 @@
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
     %h2 Improve Proposal
-    .container(ng-class="alertclass" ng-show='addvote_alert')
+    .container(ng-class='alertclass' ng-show='improveProposal_alert')
       %a.close(data-dismiss="alert") &#215;
       .content
         .row
           #alertContainer
             %ul
-              %span {{addvote_result}}
+              %span {{improveProposal_result}}
               %span(ng-repeat="(key, values) in jsonErrors")
                 %li(ng-repeat="value in values")
                   {{key | capitalize}} {{value}}

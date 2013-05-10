@@ -1,7 +1,10 @@
 services = angular.module('spokenvote.services')
 
-services.factory "CurrentUser", ($resource) ->
+CurrentUser = ($resource) ->
   $resource("/currentuser")
+
+CurrentUser.$inject = [ '$resource' ]
+services.factory 'CurrentUser', CurrentUser
 
 CurrentUserLoader = (CurrentUser, $route, $q) ->
   ->
@@ -17,16 +20,26 @@ CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
 services.factory 'CurrentUserLoader', CurrentUserLoader
 
 
-services.factory "Vote", ($resource) ->
+Vote = ($resource) ->
   $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
 
+Vote.$inject = [ '$resource' ]
+services.factory 'Vote', Vote
 
-services.factory "Hub", ($resource) ->
+
+Hub = ($resource) ->
   $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
 
+Hub.$inject = [ '$resource' ]
+services.factory 'Hub', Hub
 
-services.factory 'Proposal', ($resource) ->
+
+Proposal = ($resource) ->
   $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
+
+Proposal.$inject = [ '$resource' ]
+services.factory 'Proposal', Proposal
+
 
 MultiProposalLoader = (Proposal, $route, $q) ->
   ->

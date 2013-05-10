@@ -38,9 +38,9 @@ class Proposal < ActiveRecord::Base
   has_ancestry
 
   def votes_in_tree
-    Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
+    #Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
-    end
+    #end
   end
 
   def related_proposals(related_sort_by = 'votes_count DESC')

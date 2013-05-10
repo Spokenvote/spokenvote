@@ -12,23 +12,23 @@ ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 
 angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
 ProposalViewCtrl = ($scope, $location, proposal, current_user, SessionSettings, $modal) ->
+
   $scope.proposal = proposal
   $scope.currentUser = current_user
-
   $scope.defaultGravatar = SessionSettings.defaultGravatar
 
-  $scope.vote = ->
+  $scope.vote = (proposal_id) ->
+    $scope.parent_id = proposal_id
     $modal
-      template: '/assets/proposals/_voteModal.html.haml'
-      Controller: 'VoteNewCtrl'
+      template: '/assets/proposals/_vote_modal.html.haml'
       show: true
       backdrop: 'static'
       scope: $scope
 
-  $scope.improve = ->
+  $scope.improve = (proposal_id) ->
+    $scope.parent_id = proposal_id
     $modal
-      template: '/assets/proposals/_improveProposalModal.html.haml'
-      Controller: 'ProposalImroveCtrl'
+      template: '/assets/proposals/_improve_proposal_modal.html.haml'
       show: true
       backdrop: 'static'
       scope: $scope

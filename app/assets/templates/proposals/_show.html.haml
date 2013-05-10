@@ -29,8 +29,8 @@
       -#- else
 
       .vote_buttons_container
-        %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote()' class='btn btn-primary btn-bold' style='margin-right: 10px' rel='popover' title='Support' content='Vote for this proposal' ) Support
-        %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='improve()' class='btn btn-inverse btn-bold' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) Improve
+        %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='vote(proposal.id)' class='btn btn-primary btn-bold' style='margin-right: 10px' rel='popover' title='Support' content='Vote for this proposal' ) Support
+        %button(ng-show='currentUser && proposal.user_id != currentUser.id' ng-click='improve(proposal.id)' class='btn btn-inverse btn-bold' rel='popover' title='Improve' content='Create a better version of this proposal' data-html='true' ) Improve
 
       -#= render partial: 'shared/socialButtons', locals: {blockType: 'Check out this SpokenVote proposal: '}
 
