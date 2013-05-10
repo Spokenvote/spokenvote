@@ -18,6 +18,9 @@ class Vote < ActiveRecord::Base
   belongs_to :proposal, counter_cache: true
   belongs_to :user
 
+  # scopes
+  default_scope :order => 'updated_at DESC'
+
   # Validations
   validates :comment, :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
