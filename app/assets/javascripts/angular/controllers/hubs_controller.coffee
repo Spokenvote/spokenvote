@@ -1,5 +1,8 @@
 HubsCtrl = ($scope, Hub) ->
   $scope.modal = {content: 'Hello Modal', saved: false};    # part of angular-strap concept
+  $scope.newHub = {}
+  $scope.newHub.group_name = $scope.searchGroupTerm
+  console.log $scope.searchGroupTerm
 
   $scope.addHub = ->
     $scope.addhub_result = null

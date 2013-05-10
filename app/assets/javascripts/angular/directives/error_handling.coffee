@@ -1,7 +1,6 @@
 directives = angular.module('spokenvote.directives')
 
 svGooglePlace = ->
-#  require: "ngModel"
   link: (scope, element, attrs, model) ->
     defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(72.501722, -172.617188)
@@ -17,3 +16,16 @@ svGooglePlace = ->
         scope.updateModel()
 
 directives.directive 'svGooglePlace', svGooglePlace
+
+#angular.module("myApp.directives", []).directive "alertBar", [ "$parse", ($parse) ->
+#  restrict: "A"
+#  template: "<div class=\"alert alert-error alert-bar\"" + "ng-show=\"errorMessage\">" + "<button type=\"button\" class=\"close\" ng-click=\"hideAlert()\">" + "x</button>" + "{{errorMessage}}</div>"
+#  link: (scope, elem, attrs) ->
+#    alertMessageAttr = attrs["alertmessage"]
+#    scope.errorMessage = null
+#    scope.$watch alertMessageAttr, (newVal) ->
+#      scope.errorMessage = newVal
+#
+#    scope.hideAlert = ->
+#      scope.errorMessage = null
+#]

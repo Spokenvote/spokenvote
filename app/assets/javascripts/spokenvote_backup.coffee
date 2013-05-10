@@ -132,23 +132,23 @@ window.app = {}
         options.callback options.elem  if options.callback
 
 
-  app.gpSearch = (elem) ->
-    defaultBounds = new google.maps.LatLngBounds(new google.maps.LatLng(-33.8902, 151.1759), new google.maps.LatLng(-33.8474, 151.2631))
-    options =
-      bounds: defaultBounds
-      types: ["(regions)"]
-
-    autocomplete = new google.maps.places.Autocomplete(elem, options)
-    google.maps.event.addListener autocomplete, "place_changed", ->
-      place = autocomplete.getPlace()
-      value_field = $(elem).data("valueField")
-      $(value_field).val place.id
-      if elem.id is "location_filter"
-
-        # this was a navbar search, preload the hub modal location field
-        # TODO figure out how to do this in app.navCreateHub() instead
-        $("#hub_formatted_location").val place.formatted_address
-        $("#hub_location_id").val place.id
+#  app.gpSearch = (elem) ->
+#    defaultBounds = new google.maps.LatLngBounds(new google.maps.LatLng(-33.8902, 151.1759), new google.maps.LatLng(-33.8474, 151.2631))
+#    options =
+#      bounds: defaultBounds
+#      types: ["(regions)"]
+#
+#    autocomplete = new google.maps.places.Autocomplete(elem, options)
+#    google.maps.event.addListener autocomplete, "place_changed", ->
+#      place = autocomplete.getPlace()
+#      value_field = $(elem).data("valueField")
+#      $(value_field).val place.id
+#      if elem.id is "location_filter"
+#
+#        # this was a navbar search, preload the hub modal location field
+#        # TODO figure out how to do this in app.navCreateHub() instead
+#        $("#hub_formatted_location").val place.formatted_address
+#        $("#hub_location_id").val place.id
 
 
   app.validateNavbarSearch = (e) ->

@@ -1,5 +1,4 @@
-DashboardCtrl = ($scope, $location, HubSelected) ->
-#  $scope.filterSelection = $routeParams.hub
+DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
   hubSelected = HubSelected
   $scope.model =
     message: "You have reached the Angular Route Provider :)"
@@ -25,30 +24,23 @@ DashboardCtrl = ($scope, $location, HubSelected) ->
       hubSelected.id = item.id
       hubSelected.group_name = item.group_name
       $location.search('hub', item.id)
-#      console.log(hubSelected.group_name)
-#      $scope.hubProposals = Proposal.query
-#        hub: hubSelected.id
-#      $location.search('hub', hubSelected.id)
       item.full_hub
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
-      # TODO Below needs to be converted to an actual angular call
-      'No matches. <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">Create one</a>'
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">create it</a>.'
 
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
 
+
   angularApp.navCreateHub = ->
     angular.element("#s2id_hub_filter").select2 "close"
-    angular.element("#hubModal").modal "show"
-    # TODO This passing of $socpe.searchGroupTerm feels like a hack; let's pass it as an argument
-    angular.element("#hubModal").find("#hub_group_name").val $scope.searchGroupTerm
+    $modal
+      template: '/assets/hubs/_new_hub_modal.html.haml'
+      show: true
+      backdrop: 'static'
+      scope: $scope
 
-#  submitHubSearch = ->
-#    angular.copy($scope.hubProposals, HubProposals)
-#
-#  $scope.$watch('hubProposals', submitHubSearch, true)
-
-DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected']
+DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
 angularApp.controller 'DashboardCtrl', DashboardCtrl

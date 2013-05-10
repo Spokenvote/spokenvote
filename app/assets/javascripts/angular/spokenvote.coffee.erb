@@ -13,7 +13,6 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
         loadModal: -> angular.element("#voteModal").modal("show")
 
     .when '/newgroup',
-#      templateUrl: "<%= asset_path('hubs/new.html.haml') %>"
       controller: 'HubsCtrl'
       resolve:
         loadModal: -> angular.element("#hubModal").modal("show")
@@ -51,6 +50,8 @@ setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
 window.angularApp = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(setupApp)
 
 services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+
+directives = angular.module('spokenvote.directives', [])
 
 services.factory "SessionSettings", ->
   defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
