@@ -73,6 +73,7 @@ class ProposalsController < ApplicationController
 
   # POST /proposals.json
   def create
+    status = true
     if params[:proposal][:parent_id].present?
       # Improve Proposal with Existing Hub
       parent = Proposal.find(params[:proposal][:parent_id])
@@ -98,10 +99,10 @@ class ProposalsController < ApplicationController
       @proposal = current_user.proposals.create(params[:proposal])
     end
 
-    unless @proposal.new_record?
-      redirect_to proposal_path(@proposal), notice: 'Successfully created the proposal.'
+    if status
+      render json: @proposal.as_json, status: :created
     else
-      redirect_to :back, notice: 'Failed to create the proposal'
+      render json: @vote.errors, status: :unprocessable_entity
     end
   end
 
