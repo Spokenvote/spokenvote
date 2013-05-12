@@ -1,0 +1,52 @@
+#loginModal.modal(data-width='400px' ng-controller="RootCtrl" )
+  .modal-header
+    .pull-right(class='close' data-dismiss='modal') &times;
+    %h3 Please Sign In
+    .container(ng-class='alertclass' ng-show='improveProposal_alert')
+      %a.close(data-dismiss="alert") &#215;
+      .content
+        .row
+          #alertContainer
+            %div(alert-bar alertmessage='errorService.errorMessage')
+            %ul
+              %span {{improveProposal_result}}
+              %span(ng-repeat="(key, values) in jsonErrors")
+                %li(ng-repeat="value in values")
+                  {{key | capitalize}} {{value}}
+
+  .modal-body
+    .login_providers
+      .content_div
+        .fb-button-container-centered
+          -#= link_to fb_button('Log in'), user_omniauth_authorize_path(:facebook), class: "fb-button"
+
+
+    -#%h3.or-separator or
+
+
+    %form(name='loginForm')
+      -#%ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
+      %fieldset
+        .control-group
+          .controls
+            %input(id='email_field' type='text' class='full-width' ng-model='login.email' required ng-minLength='3' placeholder='Email address.' value='kim.miller@spokenvote.org')
+
+        .control-group
+          .controls
+            %input(id='password_field' type='text' class='full-width' ng-model='login.password' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
+              -#- if devise_mapping.rememberable?
+          .control-group
+            .controls
+              %label.checkbox
+                %check_box(id='remember_me' type='text' class='full-width' ng-model='login.remember_me' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')        Remember me next time
+                -#- if devise_mapping.recoverable?
+                    #forgotLink= link_to "Forgot password?", new_password_path(resource_name)
+                %br
+          .control-group
+            .controls
+              %button( ng-click="login()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!loginForm.$valid' ) Sign In <i class="icon-ok"></i>
+
+
+  .modal-footer
+    'Join Us'
+    -#= link_to 'Join Us', '#', class: 'btn btn-info btn-bold', id: 'loginReg'

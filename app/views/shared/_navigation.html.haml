@@ -5,6 +5,8 @@
 
       %ul#main-nav.nav
         %hidden_field_tag(id='hub_filter' ui-select2="hubFilterSelect2" ng-model="hubFilter" )
+        %button( ng-click="login()" class='btn btn-primary btn-bold' ) ngLogin
+
 
       %ul.nav.pull-right
         %li.dropdown

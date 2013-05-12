@@ -18,13 +18,14 @@
 
     = csrf_meta_tags
     = yield(:head)
-  %body
+  %body( ng-controller='RootCtrl' )
     = render 'shared/navigation'
     #main(role="main")
       .container
         .content
           .row
             #alertContainer
+              %div(alert-bar alertmessage='errorService.errorMessage')
               = render 'shared/messages'
             #mainContent
               %ng-view

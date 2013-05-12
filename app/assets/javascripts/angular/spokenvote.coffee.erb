@@ -7,6 +7,12 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'DashboardCtrl'
 
+    .when '/login',
+      controller: 'RootCtrl'
+      resolve:
+        loadModal: () ->
+          angular.element("#voteModal").modal("show")
+
     .when '/newvote',
       controller: 'VoteNewCtrl'
       resolve:
@@ -49,9 +55,17 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
 setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
 window.angularApp = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(setupApp)
 
-services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+setupServices = ($httpProvider) ->
+  $httpProvider.responseInterceptors.push('errorHttpInterceptor')
+
+setupServices.$inject = ['$httpProvider']
+services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(setupServices)
 
 directives = angular.module('spokenvote.directives', [])
 
-services.factory "SessionSettings", ->
+
+SessionSettings = ->
   defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
+
+services.factory 'SessionSettings', SessionSettings
+
