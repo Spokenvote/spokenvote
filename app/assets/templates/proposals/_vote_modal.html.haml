@@ -2,17 +2,19 @@
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
     %h2 Support Proposal
-    .container(ng-class="alertclass" ng-show='addvote_alert')
-      %a.close(data-dismiss="alert") &#215;
-      .content
+
+    %div(alert-bar alertmessage='errorService.errorMessage')
+      -#.container
+      -#.content
         .row
-          #alertContainer
-            %div(alert-bar alertmessage='errorService.errorMessage')
-            %ul
-              %span {{addvote_result}}
-              %span(ng-repeat="(key, values) in jsonErrors")
-                %li(ng-repeat="value in values")
-                  {{key | capitalize}} {{value}}
+
+            -#%ul
+            -#  %span {{ action_result }}
+            -#  %span {{ jsonErrors }}
+            -#  %span(ng-repeat="(key, values) in jsonErrors")
+            -#    %li(ng-repeat="value in values")
+            -#      {{key | capitalize}} {{value}}
+
   .modal-body
     %form(name='newVoteForm' ng-submit="addVote()")
       %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")

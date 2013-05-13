@@ -1,37 +1,26 @@
-VoteNewCtrl = ($scope, $location, Vote) ->
+VoteNewCtrl = ($scope, $location, Vote, ErrorService) ->
   $scope.modal = {content: 'Hello Modal', saved: false};    # part of angular-strap concept
 
   $scope.addVote = ->
     $scope.newVote.proposal_id = $scope.parent_id
     $scope.newVote.user_id = $scope.currentUser.id
-    $scope.addvote_result = null
-    $scope.jsonErrors = null
-    $scope.addvote_alert = false
-    if 1 == 1
-      vote = Vote.save($scope.newVote
-          #TODO Error handling needs to be refactored into a Service
-      ,  (response, status, headers, config) ->
-        $scope.alertclass = 'ngalert alert-success'
-        $scope.addvote_result = "Your " + vote.comment + " group was created."
-        $scope.proposal.$get()
-        $scope.modal.saved = true
-        $scope.dismiss()
+#    $scope.errorService = ErrorService
+    vote = Vote.save($scope.newVote
+    ,  (response, status, headers, config) ->
+      $scope.proposal.$get()
+      $scope.alertclass = 'ngalert alert-success'
+      $scope.action_result = "Your " + vote.comment + " vote was created."
+      $scope.modal.saved = true
+      $scope.dismiss()
 
-      ,  (response, status, headers, config) ->
-        $scope.alertclass = 'ngalert alert-error'
+    ,  (response, status, headers, config) ->
+      ErrorService.setCtlResult "Sorry, your vote was not counted."
+      ErrorService.setJson response.data
+    )
 
-        if(response.status == 406)
-          $scope.addvote_result = "You must be logged in"
-        else
-          $scope.jsonErrors = response.data
-      )
-    else
-      $scope.alertclass = 'ngalert alert-error'
-      $scope.addvote_result = "Please select a Location from the provided list"
+#    $scope.addvote_alert = true
 
-    $scope.addvote_alert = true
-
-VoteNewCtrl.$inject = ['$scope', '$location', 'Vote']
+VoteNewCtrl.$inject = ['$scope', '$location', 'Vote', 'ErrorService']
 angularApp.controller 'VoteNewCtrl', VoteNewCtrl
 
 
