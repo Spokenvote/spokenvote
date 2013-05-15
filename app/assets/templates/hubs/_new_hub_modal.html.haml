@@ -1,0 +1,22 @@
+#hubModal.modal(data-width='400px' ng-controller="HubsCtrl")
+  .modal-header
+    .pull-right(class='close' data-dismiss='modal') &times;
+    %h3 Create a new Group
+
+    .content( alert-bar alertmessageclear='alertService.alertClass' )
+
+  .modal-body
+    %form( name='newHubForm' )
+      %fieldset
+        .control-group
+          .controls
+            %input( id='hub_group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model="newHub.group_name" required="true" )
+          .controls
+            %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='newHub.formatted_location' sv-google-place required="true" )
+            %span(ng-show='!newHubForm.formatted_location.$valid' ) Choose a valid location.
+  .modal-footer
+    %fieldset
+      .control-group
+        .controls
+          %button( ng-click='addHub()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newHubForm.$valid' ) Add Group <i class="icon-ok"></i>
+

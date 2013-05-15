@@ -69,6 +69,10 @@ footer {
   margin-left: 0;
 }
 
+.alert-bar {
+  list-style-type: none
+}
+
 .ngalert {
   margin-top: 12px;
   margin-left: 0px;
@@ -202,6 +206,27 @@ textarea {
   font-size: 13px;
 }
 
+// Angular-specific Styles
+
+//ng-valid
+
+input.ng-invalid {
+  border-color: #e9322d !important;
+  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+  box-shadow: 0 0 6px #f8b9b7 !important;
+  }
+
+//ng-pristine
+
+//ng-dirty
+
+
+// fixex Google Autocomplete coming up behind other elements
+.pac-container {
+  z-index: 10000 !important;
+}
+
 // fixes wordwrap, input-append 0x issues
 
 [contenteditable="true"] {
@@ -301,7 +326,7 @@ textarea {
     padding: 0;
   }
   h3.or-separator {
-    background: image-url("or-bubble-sep.png") no-repeat scroll left bottom transparent;
+    //background: image-url("or-bubble-sep.png") no-repeat scroll left bottom transparent;
     margin: 0;
     color: #959595;
     font-size: 1.8em;
