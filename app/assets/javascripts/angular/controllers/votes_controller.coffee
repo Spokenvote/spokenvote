@@ -1,18 +1,18 @@
 VoteNewCtrl = ($scope, $location, Vote, AlertService) ->
 
-  $scope.addVote = ->
-    $scope.newVote.proposal_id = $scope.parent_id
-    $scope.newVote.user_id = $scope.currentUser.id
+  $scope.supportProposal = ->
+    $scope.newSupport.proposal_id = $scope.parent_id
+    $scope.newSupport.user_id = $scope.currentUser.id
     AlertService.clearAlerts()
 
-    vote = Vote.save($scope.newVote
+    vote = Vote.save($scope.newSupport
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
       AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"'
       $scope.dismiss()
     ,  (response, status, headers, config) ->
 #      AlertService.setCallingScope $scope     # feature for future use
-      AlertService.setCtlResult 'Sorry, your vote was not counted.'
+      AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.'
       AlertService.setJson response.data
     )
 
