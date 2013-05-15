@@ -18,10 +18,10 @@ window.app = {};
     app.createAlert(msg, 'error');
   }
 
-  app.closeAlert = function(e) {
-    if ($('.alert').length === 0) { return; }
-    $('.alert').alert('close');
-  }
+//  app.closeAlert = function(e) {
+//    if ($('.alert').length === 0) { return; }
+//    $('.alert').alert('close');
+//  }
 
   app.updateSearchFields = function(options) {
     if (options.hub.length > 0) {

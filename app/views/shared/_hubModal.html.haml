@@ -14,13 +14,17 @@
                   {{key | capitalize}} {{value}}
   .modal-body
     %form(ng-submit="addHub()")
+      -#%input(sv-google-place id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='newHub.formatted_location')
+
       %fieldset
         .control-group
           .controls
             %input(id='hub_group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model="newHub.group_name")
           .controls
-            %input(sv-google-place id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='newHub.formatted_location')
+            -#%input(sv-google-place id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='newHub.formatted_location')
   .modal-footer
+    %input(sv-google-place id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='newHub.formatted_location')
+
     %fieldset
       .control-group
         .controls
