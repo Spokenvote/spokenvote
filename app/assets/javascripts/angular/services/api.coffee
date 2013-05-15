@@ -19,6 +19,9 @@ services.factory "Hub", ($resource) ->
 services.factory 'Proposal', ($resource) ->
   $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
 
+services.factory 'RelatedProposals', ($resource) ->
+  $resource("/proposals/:id/related_proposals?related_sort_by=:related_sort_by", {id: "@id"}, {related_sort_by: "@related_sort_by"}, {update: {method: "PUT"}})
+
 services.factory 'MultiProposalLoader', (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
@@ -38,12 +41,25 @@ services.factory 'ProposalLoader', (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
     Proposal.get
-      id: $route.current.params.proposalId
+      id: $route.current.params.proposalId,
     , (proposal) ->
       delay.resolve proposal
     , ->
       delay.reject 'Unable to fetch proposal ' + $route.current.params.proposalId
     delay.promise
+
+services.factory 'RelatedProposalsLoader', (RelatedProposals, $route, $q) ->
+  ->
+    delay = $q.defer()
+    RelatedProposals.get
+      id: $route.current.params.proposalId,
+      related_sort_by:  $route.current.params.related_sort_by,
+    , (related_proposals) ->
+      delay.resolve related_proposals
+    , ->
+      delay.reject 'Unable to locate proposals ' + $route.current.params.proposalId
+    delay.promise
+
 
 # or like this?
 services.factory.$inject = [ 'CurrentUser', 'Proposal', '$route', '$q' ]

@@ -74,16 +74,20 @@
 
   .hr
 
-  -##relatedSorter(ng-showaaa="proposal.related_proposals_count")
-  -#  .btn-group
-  -#    %a(href="proposal_path(@proposal.id)" class='btn') Highest Ranked
-  -#    %a(href="proposal_path(@proposal.id)" class='btn dropdown-toggle' data-toggle='dropdown')
-  -#      %span(class='caret')
-  -#    %ul.dropdown-menu
-  -#      %li
-  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at DESC')") Newest
-  -#      %li
-  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at ASC')") Oldest
+  #relatedSorter(ng-show="proposal.related_proposals_count")
+    .btn-group
+      %a(href="#" class='btn') Most Votes
+      %a(href="#" class='btn dropdown-toggle' data-toggle='dropdown')
+        %span(class='caret')
+      %ul.dropdown-menu
+        %li
+          %a(ng-click="sortedRelatedProposals('Most Votes')") Most Votes
+        %li
+          %a(ng-click="sortedRelatedProposals('Least Votes')") Least Votes
+        %li
+          %a(ng-click="sortedRelatedProposals('Most Recently Voted on')") Most Recently Voted on
+        %li
+          %a(ng-click="sortedRelatedProposals('Oldest Most Recent Vote')") Oldest Most Recent Vote
 
   #relatedProposalsTitle Related Proposals
 

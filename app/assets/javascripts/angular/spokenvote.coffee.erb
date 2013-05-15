@@ -33,6 +33,8 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
           ProposalLoader()
         current_user: (CurrentUserLoader) ->
           CurrentUserLoader()
+        related_proposals: (RelatedProposalsLoader) ->
+          RelatedProposalsLoader()
 
     .when '/currentuser',
       resolve:

@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :related_proposals]
   before_filter :find_hub, only: :index
 
   # GET /proposals.json
@@ -32,6 +32,8 @@ class ProposalsController < ApplicationController
       flash[:error] = session[:error]
       session[:error] = nil
     end
+    params[:related_sort_by] ||= "Most Votes"
+    @related_sort_by ||= params[:related_sort_by]
 
     @proposal = Proposal.find(proposal_id)
     @default_image = get_default_avatar_image
@@ -126,6 +128,14 @@ class ProposalsController < ApplicationController
     @proposal.destroy
 
     redirect_to action: :index, status: 200
+  end
+
+  # GET /proposals/:id/related_proposals.json
+  def related_proposals
+    params[:related_sort_by] ||= "Most Votes"
+    proposal_id = (params[:proposal].presence || params[:id]).to_i
+    @related_sort_by ||= params[:related_sort_by]
+    @proposal = Proposal.find(proposal_id)
   end
 
   private
