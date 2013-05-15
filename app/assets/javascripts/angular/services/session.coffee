@@ -1,45 +1,56 @@
 services = angular.module('spokenvote.services')
 
-ErrorService = ->
-  errorMessage: null
+AlertService = ->
+  callingScope: null
+  alertMessage: null
   jsonResponse: null
   jsonErrors: null
+  alertClass: null
   cltActionResult: null
 
+  setCallingScope: (scope) ->
+    @callingScope = scope
+    console.log @callingScope
+
+  setSuccess: (msg) ->
+    @alertMessage = msg
+    @alertClass = 'alert-success'
+
   setError: (msg) ->
-    @errorMessage = msg
-#    console.log "setError: " + @errorMessage
+    @alertMessage = msg
+    @alertClass = 'alert-error'
 
   setJson: (json) ->
     @jsonResponse = json
-    @jsonErrors = json
-    console.log "setJson: " + @jsonResponse
-    console.log "setJson-jsonErrors: " + @jsonErrors
+    @jsonErrors = json if json > ' '
 
   setCtlResult: (result) ->
     @cltActionResult = result
+    @alertClass = 'alert-error'
 
-  clear: ->
-    @errorMessage = null
-    console.log "clear: " + @errorMessage
+  clearAlerts: ->
+    @callingScope = null
+    @alertMessage = null
+    @jsonResponse = null
+    @jsonErrors = null
+    @alertClass = null
+    @cltActionResult = null
 
-
-services.factory 'ErrorService', ErrorService
+services.factory 'AlertService', AlertService
 
   # registers an interceptor for ALL angular ajax http calls
 errorHttpInterceptor = ($q, $location, ErrorService, $rootScope) ->
   (promise) ->
     promise.then ((response) ->
-#      ErrorService.setError "Kim's forced message: " + response.status
       response
     ), (response) ->
-      if response.status is 401 || 406
+      if response.status is 406
         ErrorService.setError "Please sign in to continue."
         $rootScope.$broadcast "event:loginRequired"
-      else ErrorService.setError "Server was unable to find what you were looking for... Sorry!!"  if response.status >= 200 and response.status < 500
+      else ErrorService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
       $q.reject response
 
-errorHttpInterceptor.$inject = [ '$q', '$location', 'ErrorService', '$rootScope'  ]
+errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
 services.factory 'errorHttpInterceptor', errorHttpInterceptor
 
 

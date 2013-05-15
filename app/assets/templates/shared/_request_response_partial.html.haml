@@ -1,0 +1,8 @@
+.alert.alert-bar( ng-show='alertService.alertClass' ng-class='alertService.alertClass' )
+  %button.close( ng-click='hideAlert()' type='button' ) &times;
+  %ul-list-style-type-none
+    %li {{ alertService.cltActionResult }}
+    %li {{ alertService.alertMessage }}
+    %span( ng-repeat='(key, values) in alertService.jsonErrors' )
+      %li( ng-repeat='value in values' ng-show='alertService.jsonErrors' )
+        {{ key | capitalize }} {{ value }}

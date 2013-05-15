@@ -1,22 +1,12 @@
-#voteModal.modal(data-width='400px' ng-controller="VoteNewCtrl" )
+#voteModal.modal( data-width='400px' ng-controller="VoteNewCtrl" )
   .modal-header
-    .pull-right(class='close' data-dismiss='modal') &times;
+    .pull-right(class='close' data-dismiss='modal' aria-hidden='true') &times;
     %h2 Support Proposal
 
-    %div(alert-bar alertmessage='errorService.errorMessage')
-      -#.container
-      -#.content
-        .row
-
-            -#%ul
-            -#  %span {{ action_result }}
-            -#  %span {{ jsonErrors }}
-            -#  %span(ng-repeat="(key, values) in jsonErrors")
-            -#    %li(ng-repeat="value in values")
-            -#      {{key | capitalize}} {{value}}
+    .content( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
-    %form(name='newVoteForm' ng-submit="addVote()")
+    %form( name='newVoteForm' )
       %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
       %h3 Ok, let's add Support!
       %fieldset
@@ -28,4 +18,4 @@
       .control-group
         .controls
           %button( ng-click="addVote()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newVoteForm.$valid' ) Vote for this proposal <i class="icon-ok"></i>
-          %button( ng-click="clearVote()" class='btn btn-primary btn-bold' data-dismiss='modal' ng-show='modal.saved' ) Ok <i class="icon-ok"></i>
+

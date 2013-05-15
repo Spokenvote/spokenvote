@@ -1,63 +1,46 @@
-VoteNewCtrl = ($scope, $location, Vote, ErrorService) ->
-  $scope.modal = {content: 'Hello Modal', saved: false};    # part of angular-strap concept
+VoteNewCtrl = ($scope, $location, Vote, AlertService) ->
 
   $scope.addVote = ->
     $scope.newVote.proposal_id = $scope.parent_id
     $scope.newVote.user_id = $scope.currentUser.id
-#    $scope.errorService = ErrorService
+    AlertService.clearAlerts()
+
     vote = Vote.save($scope.newVote
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
-      $scope.alertclass = 'ngalert alert-success'
-      $scope.action_result = "Your " + vote.comment + " vote was created."
-      $scope.modal.saved = true
+      AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"'
       $scope.dismiss()
-
     ,  (response, status, headers, config) ->
-      ErrorService.setCtlResult "Sorry, your vote was not counted."
-      ErrorService.setJson response.data
+#      AlertService.setCallingScope $scope     # feature for future use
+      AlertService.setCtlResult 'Sorry, your vote was not counted.'
+      AlertService.setJson response.data
     )
 
-#    $scope.addvote_alert = true
-
-VoteNewCtrl.$inject = ['$scope', '$location', 'Vote', 'ErrorService']
+VoteNewCtrl.$inject = ['$scope', '$location', 'Vote', 'AlertService']
 angularApp.controller 'VoteNewCtrl', VoteNewCtrl
 
 
-ProposalImroveCtrl = ($scope, $location, Proposal) ->
+ProposalImroveCtrl = ($scope, $location, Proposal, AlertService) ->
+
   $scope.improveProposal = ->
-    improvedProposal = {}
+    improvedProposal = {}       #TODO: Does it really take 7 lines to build this object? Would love to see it done in fewer lines.
     improvedProposal.proposal = {}
     improvedProposal.proposal.votes_attributes = {}
     improvedProposal.proposal.parent_id = $scope.parent_id
     improvedProposal.user_id = $scope.currentUser.id
     improvedProposal.proposal.statement = $scope.improvedProposal.statement
     improvedProposal.proposal.votes_attributes.comment = $scope.improvedProposal.comment
-    $scope.jsonErrors = null
-    $scope.improveProposal_result = null
-    $scope.improveProposal_alert = false
-    if 1 == 1
-      improvedProposal = Proposal.save(improvedProposal
-        #TODO Error handling needs to be refactored into a Service
-      ,  (response, status, headers, config) ->
-        $scope.alertclass = 'ngalert alert-success'
-        $scope.improveProposal_result = "Your " + improvedProposal.statement + " proposal was created."
-        $scope.proposal.$get()  #TODO This works, but I'm confused why I can't call my ProposalLoader() service instead
-        $scope.dismiss()
+    AlertService.clearAlerts()
 
-      ,  (response, status, headers, config) ->
-        $scope.alertclass = 'ngalert alert-error'
+    improvedProposal = Proposal.save(improvedProposal
+    ,  (response, status, headers, config) ->
+      $scope.proposal.$get()
+      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.'
+      $scope.dismiss()
+    ,  (response, status, headers, config) ->
+      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.'
+      AlertService.setJson response.data
+    )
 
-        if(response.status == 406)
-          $scope.improveProposal_result = "You must be logged in"
-        else
-          $scope.jsonErrors = response.data
-      )
-    else
-      $scope.alertclass = 'ngalert alert-error'
-      $scope.improveProposal_result = "Please select a Location from the provided list"
-
-    $scope.improveProposal_alert = true
-
-ProposalImroveCtrl.$inject = ['$scope', '$location', 'Proposal']
+ProposalImroveCtrl.$inject = ['$scope', '$location', 'Proposal', 'AlertService']
 angularApp.controller 'ProposalImroveCtrl', ProposalImroveCtrl
