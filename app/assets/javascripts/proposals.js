@@ -58,7 +58,7 @@
       el.closest('.proposal_container').find('.proposal_fields').removeClass('hide');
     } else if (el.hasClass('edit')) {
       // reconfirm that this is still editable
-      $.get('/proposals/'+proposal_id+'/isEditable.json')
+      $.get('/proposals/'+proposal_id+'/is_editable.json')
       .done(function(data) {
         if (data.editable) {
           $('.save_statement').html('Save Edit');
@@ -82,7 +82,7 @@
 
   var newImprovement = function(e) {
     e.preventDefault();
-    
+
     // not logged in?
     if ($('#user-dropdown-menu').length === 0) {
       if (!app.loginInterrupt(this, showImprovement)) {
@@ -157,7 +157,7 @@
         improve_support_buttons;
 
     // reconfirm that this is still deletable
-    $.get('/proposals/'+proposal_id+'/isEditable.json')
+    $.get('/proposals/'+proposal_id+'/is_editable.json')
     .done(function(data) {
       if (data.editable) {
         $('#confirmationModalQuestion').html('Are you sure you want to delete this Proposal?');
@@ -270,7 +270,7 @@
 
   var newProposal = function(e) {
     e.preventDefault();
-    
+
     // not logged in?
     if ($('#user-dropdown-menu').length === 0) {
       if (!app.loginInterrupt(this, openNewProposal)) {

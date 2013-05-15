@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :related_vote_in_tree]
   before_filter :find_hub, only: :index
 
   # GET /proposals.json
@@ -59,49 +59,46 @@ class ProposalsController < ApplicationController
   # GET /proposals/1/edit.json
   def edit
     @proposal = Proposal.find(params[:id])
-    # TODO does it count votes or proposals?
-    @total_votes = @proposal.root.descendants.count
     render action: 'show'
   end
 
-  # Get /proposals/:id/isEditable.json
+  # Get /proposals/:id/is_editable.json
   #TODO Do we delete this and it's model companion, since RABL can only look directly at the model?
-  def isEditable
+  def is_editable
     proposal = Proposal.find(params[:id])
     render json: { editable: proposal.editable?(current_user) }
   end
 
   # POST /proposals.json
   def create
-    status = true
-    if params[:proposal][:parent_id].present?
-      # Improve Proposal with Existing Hub
-      parent = Proposal.find(params[:proposal][:parent_id])
-      params[:proposal].delete :parent_id
-      params[:proposal][:parent] = parent
-      params[:proposal][:hub_id] = parent.hub.id
-      if params[:proposal][:votes_attributes][:comment].match(/\n/)
-        params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+    begin
+      if params[:proposal][:parent_id].present?
+        # Improve Proposal with Existing Hub
+        parent = Proposal.find(params[:proposal][:parent_id])
+        params[:proposal].delete :parent_id
+        params[:proposal][:parent] = parent
+        params[:proposal][:hub_id] = parent.hub.id
+        if params[:proposal][:votes_attributes][:comment].match(/\n/)
+          params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+        end
+        votes_attributes = params[:proposal].delete :votes_attributes
+        @proposal = current_user.proposals.create(params[:proposal])
+        Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
+      else
+        # New Proposal with Existing Hub
+        hub_attrs = params[:proposal].delete :hub
+        hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
+        params[:proposal][:hub_id] = hub.id unless hub.nil?
+        if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
+          params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
+        end
+        params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
+        params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
+        @proposal = current_user.proposals.create(params[:proposal])
       end
-      votes_attributes = params[:proposal].delete :votes_attributes
-      @proposal = current_user.proposals.create(params[:proposal])
-      Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
-    else
-      # New Proposal with Existing Hub
-      hub_attrs = params[:proposal].delete :hub
-      hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
-      params[:proposal][:hub_id] = hub.id unless hub.nil?
-      if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
-        params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
-      end
-      params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
-      params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
-      @proposal = current_user.proposals.create(params[:proposal])
-    end
 
-    if status
       render json: @proposal.as_json, status: :created
-    else
+    rescue
       render json: @vote.errors, status: :unprocessable_entity
     end
   end
@@ -128,6 +125,11 @@ class ProposalsController < ApplicationController
     @proposal.destroy
 
     redirect_to action: :index, status: 200
+  end
+
+  def related_vote_in_tree
+    proposal = Proposal.find(params[:id])
+    @vote = Vote.find_related_vote_in_tree_for_user(proposal, current_user)
   end
 
   private
