@@ -38,9 +38,9 @@ class Proposal < ActiveRecord::Base
   has_ancestry
 
   def votes_in_tree
-    #Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
+    Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
-    #end
+    end
   end
 
   def related_proposals(related_sort_by = 'votes_count DESC')
@@ -53,16 +53,16 @@ class Proposal < ActiveRecord::Base
       all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     end
   end
-  
+
   def supporting_statement
     votes.where(user_id: self.user_id).first.comment
   end
-  
+
   #TODO should be named "additional_supporting_votes?"
   def supporting_votes
     votes.where("user_id != ?", self.user_id).order("created_at DESC")
   end
-  
+
   #TODO Do we delete this and it's controller companion, since the RABL file looks directly at the model?
   def editable?(current_user)
     current_user && votes_count < 2 && user_id == current_user.id
