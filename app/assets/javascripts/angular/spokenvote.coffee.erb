@@ -21,7 +21,12 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
     .when '/newgroup',
       controller: 'HubsCtrl'
       resolve:
-        loadModal: -> angular.element("#hubModal").modal("show")
+        loadModal: ->
+          $modal
+            template: '/assets/hubs/_new_hub_modal.html.haml'
+            show: true
+            backdrop: 'static'
+            scope: $scope
 
     .when '/hubs',
       templateUrl: "/hubs"

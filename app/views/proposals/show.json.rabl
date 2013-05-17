@@ -6,6 +6,11 @@ node :has_support do |proposal|
   proposal.has_support?
 end
 
+#TODO Could not get this to work, so programmed into Angular for now, but would rather have it here.
+#node :current_user_support do |proposal|
+#  proposal.current_user_support?
+#end
+
 node :related_proposals_count do |proposal|
   proposal.related_proposals.count
 end
