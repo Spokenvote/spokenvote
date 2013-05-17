@@ -48,4 +48,14 @@ class Vote < ActiveRecord::Base
     status = vote.save
     return status, vote
   end
+
+  def self.find_any_vote_in_tree_for_user(a_proposal_in_tree, user)
+    proposals = a_proposal_in_tree.all_related_proposals
+    related_votes = proposals.map(&:votes).flatten
+    related_votes.each do |vote|
+      return vote if vote.user == user
+    end
+    nil
+  end
+
 end

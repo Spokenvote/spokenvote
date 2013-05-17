@@ -69,3 +69,25 @@ ProposalLoader = (Proposal, $route, $q) ->
 
 ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
 services.factory 'ProposalLoader', ProposalLoader
+
+
+RelatedVoteInTree = ($resource) ->
+  $resource("/proposals/:id/related_vote_in_tree", {id: "@id"})
+
+RelatedVoteInTree.$inject = [ '$resource' ]
+services.factory 'RelatedVoteInTree', RelatedVoteInTree
+
+RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
+  (clicked_proposal_id) ->
+    delay = $q.defer()
+    RelatedVoteInTree.get
+      id: clicked_proposal_id
+    , (relatedVoteInTree) ->
+      delay.resolve relatedVoteInTree
+      , ->
+      delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal_id
+    delay.promise
+
+RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
+services.factory 'RelatedVoteInTreeLoader', RelatedVoteInTreeLoader
+
