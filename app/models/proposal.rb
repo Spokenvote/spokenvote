@@ -54,6 +54,10 @@ class Proposal < ActiveRecord::Base
     end
   end
 
+  def all_related_proposals
+    all_proposals_in_tree = [self.root, self.root.descendants].flatten
+  end
+
   def supporting_statement
     votes.where(user_id: self.user_id).first.comment
   end
@@ -63,16 +67,21 @@ class Proposal < ActiveRecord::Base
     votes.where("user_id != ?", self.user_id).order("created_at DESC")
   end
 
-  #TODO Do we delete this and it's controller companion, since the RABL file looks directly at the model?
-  def editable?(current_user)
-    current_user && votes_count < 2 && user_id == current_user.id
-  end
-
   def has_support?
     self.votes.any?
   end
 
   def votes_percentage
     sprintf('%d%%', (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round)
+  end
+
+  #TODO Neither this or current_user_support? seem to be working in our RABL file. Due to "(current_user)"? Need help :)
+  def editable?(current_user)
+    current_user && votes_count < 2 && user_id == current_user.id
+  end
+
+  #TODO Could not get this to work, so programmed into Angular for now, but would rather have it here.
+  def current_user_support?(current_user)
+    votes.where("user_id == ?", current_user.id).any?
   end
 end

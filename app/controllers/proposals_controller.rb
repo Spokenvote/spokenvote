@@ -129,7 +129,7 @@ class ProposalsController < ApplicationController
 
   def related_vote_in_tree
     proposal = Proposal.find(params[:id])
-    @vote = Vote.find_related_vote_in_tree_for_user(proposal, current_user)
+    @vote = Vote.find_any_vote_in_tree_for_user(proposal, current_user)
   end
 
   private

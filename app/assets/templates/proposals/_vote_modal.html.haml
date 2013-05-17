@@ -6,16 +6,16 @@
     .content( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
-    %form( name='newVoteForm' )
+    %form( name='supportProposalForm' )
       %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
       %h3 Ok, let's add Support!
       %fieldset
         .control-group
           .controls
-            %textarea(id='vote_comment' type='text' class='full-width' ng-model='newVote.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.')
+            %textarea(id='support_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.')
   .modal-footer
     %fieldset
       .control-group
         .controls
-          %button( ng-click="addVote()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newVoteForm.$valid' ) Vote for this proposal <i class="icon-ok"></i>
+          %button( ng-click="supportProposal()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!supportProposalForm.$valid' ) Vote for this proposal <i class="icon-ok"></i>
 
