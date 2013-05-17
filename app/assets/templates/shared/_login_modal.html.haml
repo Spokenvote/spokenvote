@@ -1,4 +1,4 @@
-#loginModal.modal(data-width='300px' ng-controller="RootCtrl" data-backdrop="false")
+#loginModal.modal(data-width='300px' ng-controller="SessionCtrl" data-backdrop="false")
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
     %h3 Please Sign In
@@ -15,22 +15,22 @@
     %h3.or-separator or
     %h3
 
-    %form(name='loginForm')
+    %form(name='signInForm')
       -#%ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
       %fieldset
         .control-group
           .controls
-            %input(id='email_field' type='text' class='full-width' ng-model='login.email' required ng-minLength='3' placeholder='Email address.' value='kim.miller@spokenvote.org')
+            %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address.' value='kim.miller@spokenvote.org')
 
         .control-group
           .controls
-            %input(id='password_field' type='text' class='full-width' ng-model='login.password' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
+            %input(id='password_field' type='text' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
               -#- if devise_mapping.rememberable?
             %span
           .control-group
             .controls
               %label.checkbox
-                %check_box(id='remember_me' type='text' class='full-width' ng-model='login.remember_me' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
+                %check_box(id='remember_me' type='text' class='full-width' ng-model='session.remember_me' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
                 Remember me next time
                 -#- if devise_mapping.recoverable?
                     #forgotLink= link_to "Forgot password?", new_password_path(resource_name)
@@ -38,7 +38,7 @@
   .modal-footer
     .control-group
       .controls
-        %button( ng-click='login();hideAlert()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!loginForm.$valid' ) Sign In <i class="icon-ok"></i>
+        %button( ng-click='create();hideAlert()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Sign In <i class="icon-ok"></i>
         %button( ng-click='hideAlert();restoreCallingModal()' class='btn btn-primary btn-bold' ng-hide='modal.saved'  data-dismiss='modal' ) Test Clearing Error <i class="icon-ok"></i>
     'Join Us'
     -#= link_to 'Join Us', '#', class: 'btn btn-info btn-bold', id: 'loginReg'
