@@ -38,9 +38,10 @@ The typical work flow for this is:
 3. ... write your code ...
 4. git add ... files ... (if necessary)
 5. git commit -am "commit message"
-6. git push origin new-branch-name
-7. git checkout master
-8. In your browser go to your repo and create the pull request (Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
+6. git rebase -i @{u} before git push to rebase with Master to ensure your code is still compatible with the master just before submitting.
+7. git push origin new-branch-name
+8. git checkout master
+9. In your browser go to your repo and create the pull request (Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
 
 **Tests are always a welcome inclusion!**
 

@@ -54,8 +54,8 @@
         .row.support_row{class: 'first'}
           .proposal-person.span3
             .user-avatar
-              %img(ng-show='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
-              %img(ng-hide='value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
+              %img(ui-if='value.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ value.vote.facebook_auth }}/picture?width=30&height=30")
+              %img(ui-if='!value.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ value.vote.gravatar_hash }}.png?s=30&d={{ defaultGravatar }}")
             .supported_date
               %a(ng-href="user_id:{{ value.vote.user_id }}")  {{ value.vote.username }}
               %br
