@@ -538,8 +538,16 @@ input.ng-invalid {
   display: inline;
   .btn {
     //@extend .btn-mini;
-    font-size: 1  4px;
+    font-size: 14px;
   }
+}
+
+.supportbtn {
+  color: #0048c7;
+}
+
+.improvebtn {
+  color: #fabd00
 }
 
 .supporting_arguments {
