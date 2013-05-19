@@ -1,4 +1,4 @@
-%li#user_menu.dropdown
+%li#user_menu.dropdown( ng-controller='SessionCtrl' )
   / the data-email attribute is not a good way to have user on hand but acceptable to me for first pass
   = link_to raw(current_user.username + '<b class="caret"></b>'), '#', remote: true, id: 'user-dropdown-menu', class: 'dropdown-toggle', data: {toggle: 'dropdown', email: current_user.id}
   %ul.dropdown-menu
@@ -6,4 +6,6 @@
     %li= link_to 'Settings', edit_user_registration_path(current_user)
     - if current_user.is_admin?
       %li= link_to 'Admin', admin_dashboard_path
-    %li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
+    %li( ng-click='destroy()') Sign Out
+    -#%li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
+
