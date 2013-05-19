@@ -16,7 +16,7 @@ node :related_proposals_count do |proposal|
 end
 
 node :related_proposals do |proposal|
-  partial('proposals/_show_related_proposals', object: proposal.related_proposals)
+  partial('proposals/_show_related_proposals', object: proposal.related_proposals(@related_sort_by))
 end
 
 child :user do

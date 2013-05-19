@@ -14,6 +14,7 @@ Spokenvote::Application.routes.draw do
     member do
       get :is_editable
       get :related_vote_in_tree
+      get :related_proposals
     end
   end
 
