@@ -1,28 +1,20 @@
-SessionCtrl = ($scope, $cookieStore, Session, AlertService, $location, $modal) ->
+SessionCtrl = ($scope, $cookieStore, SessionService, AlertService) ->
   $scope.alertService = AlertService
+  $scope.session = SessionService.userSession
 
-  $scope.session = Session.userSession
   $scope.create = ->
-    if Session.signedOut
-      $scope.session.$save().success (data, status, headers, config) ->
-        $cookieStore.put "_angular_devise_user", data   #_spokenvote_session
+    AlertService.clearAlerts()
+    if SessionService.signedOut
+      $scope.session.$save().success (response, status, headers, config) ->
+        if response.success == true
+          $scope.dismiss()
+          AlertService.setSuccess 'You are signed in!'
+ #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
+        if response.success == false
+          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.'
 
   $scope.destroy = ->
     $scope.session.$destroy()
 
-#  $scope.$on "event:loginRequired", ->
-#    $scope.login()
-#
-#
-#  $scope.login = ->
-#    $modal
-#      template: '/assets/shared/_login_modal.html.haml'
-#      show: true
-#      backdrop: 'static'
-#      scope: $scope
-
-  $scope.restoreCallingModal = ->
-#    $scope.errorService.callingScope.show()        # feature for future use
-
-SessionCtrl.$inject = ['$scope', '$cookieStore', 'Session', 'AlertService', '$location', '$modal']
+SessionCtrl.$inject = ['$scope', '$cookieStore', 'SessionService', 'AlertService']
 angularApp.controller 'SessionCtrl', SessionCtrl

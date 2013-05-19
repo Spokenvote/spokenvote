@@ -6,31 +6,40 @@ CurrentUser = ($resource) ->
 CurrentUser.$inject = [ '$resource' ]
 services.factory 'CurrentUser', CurrentUser
 
-UserSession = ($resource) ->
-  $resource("/users/login",
-    user:
-      email: @email
-      password: @password
-      remember_me: (if @remember_me then 1 else 0))
-
-UserSession.$inject = [ '$resource' ]
-services.factory 'UserSession', UserSession
-
-UserRegistration = ($http) ->
-  UserReg = (options) ->
+UserSessionResource = ($http) ->
+  UserSession = (options) ->
     angular.extend this, options
 
-  UserReg::$save = ->
+  UserSession::$save = ->
+    $http.post "/users/login",
+      user:
+        email: @email
+        password: @password
+        remember_me: (if @remember_me then 1 else 0)
+
+  UserSession::$destroy = ->
+    $http.delete "/users/logout"
+
+  UserSession
+
+UserSessionResource.$inject = [ '$http' ]
+services.factory 'UserSessionResource', UserSessionResource
+
+UserRegistrationResource = ($http) ->
+  UserRegistration = (options) ->
+    angular.extend this, options
+
+  UserRegistration::$save = ->
     $http.post "/users",
       user:
         email: @email
         password: @password
         password_confirmation: @password_confirmation
 
-  UserReg
+  UserRegistration
 
-UserRegistration.$inject = [ '$http' ]
-services.factory 'UserRegistration', UserRegistration
+UserRegistrationResource.$inject = [ '$http' ]
+services.factory 'UserRegistrationResource', UserRegistrationResource
 
 CurrentUserLoader = (CurrentUser, $route, $q) ->
   ->

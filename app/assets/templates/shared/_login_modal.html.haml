@@ -1,8 +1,7 @@
-#loginModal.modal(data-width='300px' ng-controller="SessionCtrl" data-backdrop="false")
+#loginModal.modal(data-width='300px' ng-controller='SessionCtrl' data-backdrop="false")
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
     %h3 Please Sign In
-    %h2
     .content( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
@@ -24,21 +23,17 @@
 
         .control-group
           .controls
-            %input(id='password_field' type='text' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
-              -#- if devise_mapping.rememberable?
+            %input(id='password_field' type='text' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' )
             %span
           .control-group
             .controls
               %label.checkbox
-                %check_box(id='remember_me' type='text' class='full-width' ng-model='session.remember_me' required ng-minLength='3' placeholder='Password' value='kim.miller@spokenvote.org')
-                Remember me next time
+                %input( id='remember_me' type='checkbox' ng-model='session.remember_me' ) Remember me next time
                 -#- if devise_mapping.recoverable?
                     #forgotLink= link_to "Forgot password?", new_password_path(resource_name)
 
   .modal-footer
     .control-group
       .controls
-        %button( ng-click='create();hideAlert()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Sign In <i class="icon-ok"></i>
-        %button( ng-click='hideAlert();restoreCallingModal()' class='btn btn-primary btn-bold' ng-hide='modal.saved'  data-dismiss='modal' ) Test Clearing Error <i class="icon-ok"></i>
-    'Join Us'
-    -#= link_to 'Join Us', '#', class: 'btn btn-info btn-bold', id: 'loginReg'
+        %button( ng-click='create()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Sign In <i class="icon-ok"></i>
+        %button( ng-click='register()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Join Us <i class="icon-ok"></i>
