@@ -33,15 +33,30 @@ When doing a larger piece of work, such as the following, please use a feature/t
 
 The typical work flow for this is:
 
-1. git checkout master (unless you're already on master)
-2. git checkout -b new-branch-name
-3. ... write your code ...
-4. git add ... files ... (if necessary)
-5. git commit -am "commit message"
-6. git rebase -i @{u} before git push to rebase with Master to ensure your code is still compatible with the master just before submitting.
-7. git push origin new-branch-name
-8. git checkout master
-9. In your browser go to your repo and create the pull request (Note: If GitHub tells you your PR can't be automatically merged please close the request and fix the conflict)
+### One time setup
+ - Add railsforcharity/spokenvote as your upstream using the command
+  $ git remote add upstream https://github.com/railsforcharity/spokenvote.git
+
+### Before starting a new feature
+ - Fetch upstream changes to your local git
+  $ git fetch --all
+ - Merged upstream changes to your local
+  $ git merge upstream/master
+ - Create a new feature branch on local (example: may17_my_shiny_feature)
+  $ git checkout -b may17_my_shiny_feature
+ - Work on your feature
+ - Commit your code
+
+### Before pushing to remote master
+ - Sync your local master branch from upstream master
+  $ git checkout master
+  $ git fetch upstream
+  $ git merge upstream/master
+ - Rebase your feature branch on your master
+  $ git checkout may17_my_shiny_feature
+  $ git rebase master
+ - Push your changes to your remote
+  $ git push origin checkout may17_my_shiny_feature
 
 **Tests are always a welcome inclusion!**
 

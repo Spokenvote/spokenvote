@@ -6,6 +6,41 @@ CurrentUser = ($resource) ->
 CurrentUser.$inject = [ '$resource' ]
 services.factory 'CurrentUser', CurrentUser
 
+UserSessionResource = ($http) ->
+  UserSession = (options) ->
+    angular.extend this, options
+
+  UserSession::$save = ->
+    $http.post "/users/login",
+      user:
+        email: @email
+        password: @password
+        remember_me: (if @remember_me then 1 else 0)
+
+  UserSession::$destroy = ->
+    $http.delete "/users/logout"
+
+  UserSession
+
+UserSessionResource.$inject = [ '$http' ]
+services.factory 'UserSessionResource', UserSessionResource
+
+UserRegistrationResource = ($http) ->
+  UserRegistration = (options) ->
+    angular.extend this, options
+
+  UserRegistration::$save = ->
+    $http.post "/users",
+      user:
+        email: @email
+        password: @password
+        password_confirmation: @password_confirmation
+
+  UserRegistration
+
+UserRegistrationResource.$inject = [ '$http' ]
+services.factory 'UserRegistrationResource', UserRegistrationResource
+
 CurrentUserLoader = (CurrentUser, $route, $q) ->
   ->
     delay = $q.defer()
