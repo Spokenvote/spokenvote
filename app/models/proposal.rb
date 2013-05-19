@@ -43,12 +43,19 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  def related_proposals(related_sort_by = 'votes_count DESC')
+  def related_proposals(related_sort_by = 'Most Votes')
     all_proposals_in_tree = [self.root, self.root.descendants].flatten
     all_proposals_in_tree.delete(self.clone)
 
-    if related_sort_by == 'created_at DESC'
-      all_proposals_in_tree.sort! { |p1, p2| p2.created_at <=> p1.created_at }
+    case related_sort_by
+    when "Most Votes"
+      all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
+    when "Least Votes"
+      all_proposals_in_tree.sort! { |p1, p2| p2.votes_count <=> p1.votes_count }
+    when "Most Recently Voted on"
+      all_proposals_in_tree.sort! { |p1, p2| p1.votes.order('created_at DESC').first.created_at <=> p2.votes.order('created_at DESC').first.created_at}
+    when "Oldest Most Recent Vote"
+      all_proposals_in_tree.sort! { |p1, p2| p2.votes.order('created_at DESC').first.created_at <=> p1.votes.order('created_at DESC').first.created_at}
     else
       all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     end

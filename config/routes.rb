@@ -26,6 +26,7 @@ Spokenvote::Application.routes.draw do
   match 'about' => 'pages#about'
   match 'user_nav' => 'pages#user_nav'
   get 'currentuser' => 'users#currentuser'
+  match '/proposals/:id/related_proposals' => 'proposals#related_proposals', :format => 'json'
 
   #match 'help' => 'pages#help'
   #match 'developers' => 'pages#developers'
