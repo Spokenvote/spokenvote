@@ -99,11 +99,33 @@ ProposalLoader = (Proposal, $route, $q) ->
     , (proposal) ->
       delay.resolve proposal
     , ->
-      delay.reject 'Unable to fetch proposal ' + $route.current.params.proposalId
+      delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
     delay.promise
 
 ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
 services.factory 'ProposalLoader', ProposalLoader
+
+
+RelatedProposals = ($resource) ->
+  $resource("/proposals/:id/related_proposals?related_sort_by=:related_sort_by", {id: "@id"}, {related_sort_by: "@related_sort_by"})
+
+RelatedProposals.$inject = [ '$resource' ]
+services.factory 'RelatedProposals', RelatedProposals
+
+RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
+  ->
+    delay = $q.defer()
+    RelatedProposals.get
+      id: $route.current.params.proposalId
+      related_sort_by:  $route.current.params.related_sort_by
+    , (related_proposals) ->
+      delay.resolve related_proposals
+    , ->
+      delay.reject 'Unable to locate related proposals ' + $route.current.params.proposalId
+    delay.promise
+
+RelatedProposalsLoader.$inject = [ 'RelatedProposals', '$route', '$q' ]
+services.factory 'RelatedProposalsLoader', RelatedProposalsLoader
 
 
 RelatedVoteInTree = ($resource) ->

@@ -39,11 +39,8 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
           MultiProposalLoader()
         current_user: (CurrentUserLoader) ->
           CurrentUserLoader()
-        related_proposals: (RelatedProposalsLoader) ->
-          RelatedProposalsLoader()
 
-
-      .when '/proposals/:proposalId',
+    .when '/proposals/:proposalId',
       templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
       controller: 'ProposalViewCtrl'
       resolve:
