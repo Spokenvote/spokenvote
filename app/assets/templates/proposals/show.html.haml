@@ -3,20 +3,14 @@
 
   .hr
 
-  -##relatedSorter(ng-showaaa="proposal.related_proposals_count")
-  -#  .btn-group
-  -#    %a(href="proposal_path(@proposal.id)" class='btn') Highest Ranked
-  -#    %a(href="proposal_path(@proposal.id)" class='btn dropdown-toggle' data-toggle='dropdown')
-  -#      %span(class='caret')
-  -#    %ul.dropdown-menu
-  -#      %li
-  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at DESC')") Newest
-  -#      %li
-  -#        %a(href="proposal_path(@proposal.id, sortBy: 'created_at ASC')") Oldest
+  #relatedSorter(ng-show="proposal.related_proposals_count > 1")
+    .btn-group
+      %button( type='button' class='btn' ) Sort Related Proposals
+      %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
+        %span( class='caret' )
 
   #relatedProposalsTitle Related Proposals
 
   %ng-include(src="'/assets/proposals/_show_related.html.haml'")
-
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
