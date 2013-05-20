@@ -2,7 +2,9 @@
   .modal-header
     .pull-right(class='close' data-dismiss='modal') &times;
     %h3 Please Sign In
-    .content( alert-bar alertmessageclear='alertService.alertClass' )
+
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
     .login_providers
@@ -23,7 +25,7 @@
 
         .control-group
           .controls
-            %input(id='password_field' type='text' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' )
+            %input(id='password_field' type='password' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' )
             %span
           .control-group
             .controls

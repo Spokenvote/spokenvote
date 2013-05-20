@@ -14,7 +14,7 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
           angular.element("#voteModal").modal("show")
 
     .when '/newvote',
-      controller: 'VoteNewCtrl'
+      controller: 'SupportCtrl'
       resolve:
         loadModal: -> angular.element("#voteModal").modal("show")
 

@@ -2,13 +2,13 @@ window.app = {};
 
 (function () {
 
-  app.createAlert = function (msg, style) {
-    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
-  }
+//  app.createAlert = function (msg, style) {
+//    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+//  }
 
-  app.createModalAlert = function (msg, style, modalElem) {
-    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
-  }
+//  app.createModalAlert = function (msg, style, modalElem) {
+//    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+//  }
 
   app.successMessage = function(msg) {
     app.createAlert(msg, 'success');
@@ -30,20 +30,20 @@ window.app = {};
     }
   }
 
-  app.loginInterrupt = function(elem, callback) {
-    $('#loginModal').modal();
-    $('#loginModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
-      if(data.success) {
-        $('#loginModal').modal('toggle');
-        app.redrawLoggedInNav({callback: callback, elem: elem});
-        return true
-      } else {
-        app.createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
-        return false;
-      }
-    });
-    return false;
-  }
+//  app.loginInterrupt = function(elem, callback) {
+//    $('#loginModal').modal();
+//    $('#loginModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+//      if(data.success) {
+//        $('#loginModal').modal('toggle');
+//        app.redrawLoggedInNav({callback: callback, elem: elem});
+//        return true
+//      } else {
+//        app.createModalAlert('We could not sign you in with the supplied name and password', 'error', '#loginModal');
+//        return false;
+//      }
+//    });
+//    return false;
+//  }
 
         // TODO Delete: Logic has been moved to Angular
 //  app.configureHubFilter = function(groupname_elem, select_width) {
@@ -273,10 +273,10 @@ window.app = {};
 
 //    $('#navbarSearch').on('submit', app.validateNavbarSearch);
 
-    $('#confirmationModalNo').on('click', function(e) {
-      e.preventDefault();
-      $(this).parents('.modal').modal('hide');
-    });
+//    $('#confirmationModalNo').on('click', function(e) {
+//      e.preventDefault();
+//      $(this).parents('.modal').modal('hide');
+//    });
     $('.btn-disabled').on('click', function(e) {
       return false;
     })

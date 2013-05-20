@@ -12,6 +12,7 @@ ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 
 angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
 ProposalViewCtrl = (RelatedProposals, $scope, $location, AlertService, proposal, related_proposals, current_user, SessionSettings, $modal, RelatedVoteInTreeLoader) ->
+
   $scope.proposal = proposal
   $scope.currentUser = current_user
   $scope.defaultGravatar = SessionSettings.defaultGravatar
@@ -40,6 +41,8 @@ ProposalViewCtrl = (RelatedProposals, $scope, $location, AlertService, proposal,
   $scope.sortRelatedProposals = (related_sort_by) ->
     $location.search('related_sort_by', related_sort_by)
     $scope.relatedProposals.$get()
+    $scope.selectedSort = related_sort_by
+    console.log $scope.selectedSort
 # TODO once scolling issue is solved, remove this line and the "RelatedProposals" provider above and enjection below.
 #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
@@ -56,7 +59,7 @@ ProposalViewCtrl = (RelatedProposals, $scope, $location, AlertService, proposal,
         AlertService.setCtlResult 'Good news, it looks as if you have already supported this proposal. Further editing is not supported at this time.'
       else
         $modal
-          template: '/assets/proposals/_vote_modal.html.haml'
+          template: '/assets/proposals/_support_modal.html.haml'
           show: true
           backdrop: 'static'
           scope: $scope

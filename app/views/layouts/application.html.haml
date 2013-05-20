@@ -27,13 +27,13 @@
       .container
         .content
           .row
-            #alertContainer
-              %div( alert-bar alertmessageclear='alertService.alertClass' )
-              = render 'shared/messages'
+            -#= render 'shared/messages'
             #mainContent
+              #alertContainer
+                .pageAlert( alert-bar alertmessageclear='alertService.alertClass' )
               %ng-view
     = render 'shared/footer'
-    = render partial: '/shared/loginModal'
-    = render partial: '/shared/registrationModal'
-    = render partial: '/shared/confirmationModal'
+    -#= render partial: '/shared/loginModal'
+    -#= render partial: '/shared/registrationModal'
+    -#= render partial: '/shared/confirmationModal'
     -#= render partial: '/shared/hubModal'
