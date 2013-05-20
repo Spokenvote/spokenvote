@@ -43,7 +43,7 @@ footer {
 
 .content {
   margin: 0;
-  @include clearfix;
+  @import clearfix;
 }
 
 .span11 > .form-horizontal {
@@ -108,8 +108,8 @@ h1.form-horizontal {
 }
 
 .btn-bold {
-  font-weight: bold;
-}
+  font-weight: bold
+;}
 
 .hr {
   background-color: #80A0CC;
@@ -208,10 +208,8 @@ textarea {
 
 input.ng-invalid {
   border-color: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-  }
+  @include box-shadow(#f8b9b7 0 0 6px) !important;
+}
 
 //ng-pristine
 
@@ -263,8 +261,8 @@ input.ng-invalid {
   form {
     margin: 0;
   }
-  .control-group {
-    margin-left: 15px;
+  .control-group 
+{    margin-left: 15px;
     margin-bottom: 0;
   }
 }
@@ -540,14 +538,6 @@ input.ng-invalid {
     //@extend .btn-mini;
     font-size: 14px;
   }
-}
-
-.supportbtn {
-  color: #0048c7;
-}
-
-.improvebtn {
-  color: #fabd00
 }
 
 .supporting_arguments {
