@@ -43,7 +43,7 @@ footer {
 
 .content {
   margin: 0;
-  @import clearfix;
+  @include clearfix;
 }
 
 .span11 > .form-horizontal {
@@ -108,8 +108,8 @@ h1.form-horizontal {
 }
 
 .btn-bold {
-  font-weight: bold
-;}
+  font-weight: bold;
+}
 
 .hr {
   background-color: #80A0CC;
@@ -261,8 +261,8 @@ input.ng-invalid {
   form {
     margin: 0;
   }
-  .control-group 
-{    margin-left: 15px;
+  .control-group {    
+    margin-left: 15px;
     margin-bottom: 0;
   }
 }
