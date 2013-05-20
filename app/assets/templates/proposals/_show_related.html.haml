@@ -1,5 +1,5 @@
-.proposal_container(ng-repeat="(key, value) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0")
-  .main-proposal(ng-show='value.has_support')
+.proposal_container( ng-repeat="(key, value) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
+  .main-proposal( ng-show='value.has_support' )
     %span(id='big-percent') {{ value.votes_percentage }}
 
     .proposal_statement

@@ -3,15 +3,18 @@
 
   .hr
 
-  #relatedSorter(ng-show="proposal.related_proposals_count > 1")
-    .btn-group
-      %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
-      %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
-        %span( class='caret' )
+  #relatedProposals(  ng-controller='RelatedProposalShowCtrl' )
+    #relatedSorter
+      .btn-group(ng-show="proposal.related_proposals_count > 1")
+        %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
+        %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
+          %span( class='caret' )
 
+    #relatedProposalsTitle Related Proposals
 
-  #relatedProposalsTitle Related Proposals
-
-  %ng-include(src="'/assets/proposals/_show_related.html.haml'")
+    %ng-include( src="'/assets/proposals/_show_related.html.haml'" )
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
+
+
+
