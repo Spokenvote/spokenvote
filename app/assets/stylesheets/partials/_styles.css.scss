@@ -60,34 +60,30 @@ footer {
   text-align: center;
 }
 
-.modal .alert {
-  width: auto;
-  margin-left: 0;
-}
-
 .no-gutter {
   margin-left: 0;
 }
 
-.alert-bar {
-  list-style-type: none
-}
 
-.ngalert {
-  margin-top: 12px;
-  margin-left: 0px;
-  margin-bottom: 6px;
-  @include border-radius(0);
-  text-align: center;
-}
+#alertContainer {
 
-.modal .ngalert {
-  width: auto;
-  margin-left: 0;
-}
+  .pageAlert {
+    position: absolute;
+    opacity: .95;
+    z-index: 2000;
+  }
 
-.no-gutter {
-  margin-left: 0;
+  .modalAlert {
+    opacity: .95;
+    z-index: 10000;
+  }
+
+  .alert-bar {
+    @include border-radius(5px);
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 // end Structural
@@ -255,6 +251,10 @@ input.ng-invalid {
 
 .modal-backdrop {
   background-color: #000 !important;
+}
+
+.modal.fade.in {
+  top: 20% !important;
 }
 
 .modal-body {
