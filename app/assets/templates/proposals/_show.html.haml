@@ -1,4 +1,3 @@
--#- unless "related"
 .proposal_hub
   #totalVoteLabel
     %span.label
@@ -42,7 +41,6 @@
       = render partial: 'improve_proposal_form', locals: {proposal: proposal, total_votes: total_votes}
 
   .supporting_arguments
-    -#{:class => (total_votes < 0 ? 'related_supporting' : '')}
     %h3(ng-show='proposal.has_support')
       Supporters
       %span ({{proposal.votes_count}} votes)

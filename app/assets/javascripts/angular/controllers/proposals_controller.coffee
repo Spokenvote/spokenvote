@@ -11,12 +11,26 @@ ProposalListCtrl = ($scope, $routeParams, $location, proposals, current_user, Hu
 ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'current_user', 'HubSelected', 'SpokenvoteCookies']
 angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
-ProposalViewCtrl = (RelatedProposals, $scope, $location, AlertService, proposal, related_proposals, current_user, SessionSettings, $modal, RelatedVoteInTreeLoader) ->
 
+ProposalShowCtrl = ( $scope, $location, AlertService, proposal, current_user, SessionSettings, VotingService ) ->
   $scope.proposal = proposal
   $scope.currentUser = current_user
   $scope.defaultGravatar = SessionSettings.defaultGravatar
-  $scope.relatedProposals = related_proposals
+
+  $scope.support = (clicked_proposal_id) ->
+    VotingService.support $scope, clicked_proposal_id
+
+  $scope.improve = (clicked_proposal_id) ->
+    VotingService.improve $scope, clicked_proposal_id
+
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'current_user', 'SessionSettings', 'VotingService' ]
+angularApp.controller 'ProposalShowCtrl', ProposalShowCtrl
+
+
+RelatedProposalShowCtrl = (RelatedProposals, $scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
+
+  RelatedProposalsLoader().then (related_proposals) ->
+    $scope.relatedProposals = related_proposals
 
   $scope.related_sorter_dropdown = [
     text: "By Votes"
@@ -42,43 +56,9 @@ ProposalViewCtrl = (RelatedProposals, $scope, $location, AlertService, proposal,
     $location.search('related_sort_by', related_sort_by)
     $scope.relatedProposals.$get()
     $scope.selectedSort = related_sort_by
-    console.log $scope.selectedSort
+
 # TODO once scolling issue is solved, remove this line and the "RelatedProposals" provider above and enjection below.
 #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
-  $scope.support = (clicked_proposal_id) ->
-    $scope.clicked_proposal_id = clicked_proposal_id
-    $scope.current_user_support = ''
-    RelatedVoteInTreeLoader($scope.clicked_proposal_id).then (relatedSupport) ->
-      if relatedSupport.id?
-        if relatedSupport.proposal.id == $scope.clicked_proposal_id
-          $scope.current_user_support = 'this_proposal'
-        else
-          $scope.current_user_support = 'related_proposal'
-      if $scope.current_user_support == 'this_proposal'
-        AlertService.setCtlResult 'Good news, it looks as if you have already supported this proposal. Further editing is not supported at this time.'
-      else
-        $modal
-          template: '/assets/proposals/_support_modal.html.haml'
-          show: true
-          backdrop: 'static'
-          scope: $scope
-
-  $scope.improve = (clicked_proposal_id) ->
-    $scope.clicked_proposal_id = clicked_proposal_id
-    $scope.current_user_support = ''
-    RelatedVoteInTreeLoader($scope.clicked_proposal_id).then (relatedSupport) ->
-      if relatedSupport.id?
-        $scope.current_user_support = 'related_proposal'
-      $modal
-        template: '/assets/proposals/_improve_proposal_modal.html.haml'
-        show: true
-        backdrop: 'static'
-        scope: $scope
-
-ProposalViewCtrl.$inject = ['RelatedProposals', '$scope', '$location', 'AlertService', 'proposal', 'related_proposals', 'current_user', 'SessionSettings', '$modal', 'RelatedVoteInTreeLoader']
-angularApp.controller 'ProposalViewCtrl', ProposalViewCtrl
-
-
-
-
+RelatedProposalShowCtrl.$inject = [ 'RelatedProposals', '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
+angularApp.controller 'RelatedProposalShowCtrl', RelatedProposalShowCtrl

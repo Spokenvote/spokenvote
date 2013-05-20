@@ -2,7 +2,7 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.'
 
-  $scope.supportProposal = ->
+  $scope.saveSupport = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal_id
     $scope.newSupport.user_id = $scope.currentUser.id
     AlertService.clearAlerts()
@@ -10,6 +10,7 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
     vote = Vote.save($scope.newSupport
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
+      $scope.relatedProposals.$get()
       AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"'
       $scope.dismiss()
     ,  (response, status, headers, config) ->
@@ -26,7 +27,7 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.'
 
-  $scope.improveProposal = ->
+  $scope.saveImprovement = ->
     improvedProposal = {}       #TODO: Does it really take 7 lines to build this object? Would love to see it done in fewer lines.
     improvedProposal.proposal = {}
     improvedProposal.proposal.votes_attributes = {}
@@ -39,6 +40,7 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
     improvedProposal = Proposal.save(improvedProposal
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
+      $scope.relatedProposals.$get()
       AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.'
       $scope.dismiss()
     ,  (response, status, headers, config) ->

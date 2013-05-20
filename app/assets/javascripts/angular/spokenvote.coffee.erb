@@ -42,14 +42,14 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
 
     .when '/proposals/:proposalId',
       templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
-      controller: 'ProposalViewCtrl'
+      controller: 'ProposalShowCtrl'
       resolve:
         proposal: (ProposalLoader) ->
           ProposalLoader()
         current_user: (CurrentUserLoader) ->
           CurrentUserLoader()
-        related_proposals: (RelatedProposalsLoader) ->
-          RelatedProposalsLoader()
+#        related_proposals: (RelatedProposalsLoader) ->
+#          RelatedProposalsLoader()
 
     .when '/currentuser',
       resolve:
