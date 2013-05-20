@@ -5,9 +5,10 @@
 
   #relatedSorter(ng-show="proposal.related_proposals_count > 1")
     .btn-group
-      %button( type='button' class='btn' ) Sort Related Proposals
+      %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
       %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
         %span( class='caret' )
+
 
   #relatedProposalsTitle Related Proposals
 

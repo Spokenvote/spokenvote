@@ -1,9 +1,10 @@
-#improveProposalModal.modal(data-width='400px' ng-controller="ProposalImroveCtrl" )
+#improveProposalModal.modal(data-width='400px' ng-controller="ImroveCtrl" )
   .modal-header
     .pull-right( class='close' data-dismiss='modal' ) &times;
     %h2 Improve Proposal
 
-    .content( alert-bar alertmessageclear='alertService.alertClass' )
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
     %form( name='improvedProposalForm' )

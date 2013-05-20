@@ -1,4 +1,4 @@
-VoteNewCtrl = ($scope, $location, AlertService, Vote) ->
+SupportCtrl = ($scope, $location, AlertService, Vote) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.'
 
@@ -18,11 +18,11 @@ VoteNewCtrl = ($scope, $location, AlertService, Vote) ->
       AlertService.setJson response.data
     )
 
-VoteNewCtrl.$inject = ['$scope', '$location', 'AlertService', 'Vote' ]
-angularApp.controller 'VoteNewCtrl', VoteNewCtrl
+SupportCtrl.$inject = ['$scope', '$location', 'AlertService', 'Vote' ]
+angularApp.controller 'SupportCtrl', SupportCtrl
 
 
-ProposalImroveCtrl = ($scope, $location, AlertService, Proposal) ->
+ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.'
 
@@ -46,5 +46,5 @@ ProposalImroveCtrl = ($scope, $location, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-ProposalImroveCtrl.$inject = ['$scope', '$location', 'AlertService', 'Proposal']
-angularApp.controller 'ProposalImroveCtrl', ProposalImroveCtrl
+ImroveCtrl.$inject = ['$scope', '$location', 'AlertService', 'Proposal']
+angularApp.controller 'ImroveCtrl', ImroveCtrl

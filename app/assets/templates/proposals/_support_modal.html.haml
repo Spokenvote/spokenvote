@@ -1,9 +1,10 @@
-#voteModal.modal( data-width='400px' ng-controller="VoteNewCtrl" )
+#voteModal.modal( data-width='400px' ng-controller='SupportCtrl' )
   .modal-header
     .pull-right(class='close' data-dismiss='modal' aria-hidden='true') &times;
     %h2 Support Proposal
 
-    .content( alert-bar alertmessageclear='alertService.alertClass' )
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
 
   .modal-body
     %form( name='supportProposalForm' )
