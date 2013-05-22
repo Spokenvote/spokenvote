@@ -20,8 +20,8 @@
     = csrf_meta_tags
     = yield(:head)
   %body( ng-controller='RootCtrl' )
-    = render 'shared/navigation'
-    -#%ng-include(src="'/assets/shared/_navigation.html.haml'")
+    -#= render 'shared/navigation'
+    %ng-include(src="'/assets/shared/_navigation.html.haml'")
 
     #main( role="main" )
       .container

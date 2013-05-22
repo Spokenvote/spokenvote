@@ -17,10 +17,10 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, current_user, Se
   $scope.currentUser = current_user
   $scope.defaultGravatar = SessionSettings.defaultGravatar
 
-  $scope.support = (clicked_proposal_id) ->
+  $scope.support = ( clicked_proposal_id ) ->
     VotingService.support $scope, clicked_proposal_id
 
-  $scope.improve = (clicked_proposal_id) ->
+  $scope.improve = ( clicked_proposal_id ) ->
     VotingService.improve $scope, clicked_proposal_id
 
 ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'current_user', 'SessionSettings', 'VotingService' ]

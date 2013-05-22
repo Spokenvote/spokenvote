@@ -10,18 +10,22 @@
     .login_providers
       .content_div
         .fb-button-container-centered
-          -#= link_to fb_button('Log in'), user_omniauth_authorize_path(:facebook), class: "fb-button"
-          %button( class='fb-button' )
+          .fb-button( ng-click="userOmniauth('facebook')" )
+            %span.fb-button-left
+            %span.fb-button-center
+              %strong Sign in
+              with
+              %strong Facebook
+            %span.fb-button-right
 
     %h3.or-separator or
-    %h3
 
-    %form(name='signInForm')
+    .login_form
       -#%ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-      %fieldset
+      %form( name='signInForm' )
         .control-group
           .controls
-            %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address.' value='kim.miller@spokenvote.org')
+            %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address' )
 
         .control-group
           .controls

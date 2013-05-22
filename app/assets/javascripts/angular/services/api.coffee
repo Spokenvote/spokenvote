@@ -6,6 +6,58 @@ CurrentUser = ($resource) ->
 CurrentUser.$inject = [ '$resource' ]
 services.factory 'CurrentUser', CurrentUser
 
+CurrentUserLoader = (CurrentUser, $route, $q) ->
+  ->
+    delay = $q.defer()
+    CurrentUser.get {}
+    , (current_user) ->
+      delay.resolve current_user
+    , ->
+      delay.reject 'Unable to locate a current user '
+    delay.promise
+
+CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
+services.factory 'CurrentUserLoader', CurrentUserLoader
+
+
+#UserOmniauth = ($resource) ->
+#  $resource("/users/auth/:provider", {provider: "@provider"})
+#
+#UserOmniauth.$inject = [ '$resource' ]
+#services.factory 'UserOmniauth', UserOmniauth
+#
+#UserOmniauthCallback = (UserOmniauth, $route, $q) ->
+#  ( provider )->
+#    delay = $q.defer()
+#    UserOmniauth.save
+#      provider: provider
+#    , (user_auth) ->
+#      delay.resolve user_auth
+#    , ->
+#      delay.reject 'Unable to authorize a current user '
+#    delay.promise
+#
+#UserOmniauthCallback.$inject = [ 'UserOmniauth', '$route', '$q' ]
+#services.factory 'UserOmniauthCallback', UserOmniauthCallback
+
+
+UserOmniauthResource = ($http) ->
+  UserOmniauth = (options) ->
+    angular.extend this, options
+
+  UserOmniauth::$save = ->
+    $http.post "/users/auth/",
+      provider: @provider
+
+  UserOmniauth::$destroy = ->
+    $http.delete "/users/logout"
+
+  UserOmniauth
+
+UserOmniauthResource.$inject = [ '$http' ]
+services.factory 'UserOmniauthResource', UserOmniauthResource
+
+
 UserSessionResource = ($http) ->
   UserSession = (options) ->
     angular.extend this, options
@@ -32,6 +84,7 @@ UserRegistrationResource = ($http) ->
   UserRegistration::$save = ->
     $http.post "/users",
       user:
+        name: @name
         email: @email
         password: @password
         password_confirmation: @password_confirmation
@@ -40,19 +93,6 @@ UserRegistrationResource = ($http) ->
 
 UserRegistrationResource.$inject = [ '$http' ]
 services.factory 'UserRegistrationResource', UserRegistrationResource
-
-CurrentUserLoader = (CurrentUser, $route, $q) ->
-  ->
-    delay = $q.defer()
-    CurrentUser.get {}
-    , (current_user) ->
-      delay.resolve current_user
-    , ->
-      delay.reject 'Unable to locate a current user '
-    delay.promise
-
-CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
-services.factory 'CurrentUserLoader', CurrentUserLoader
 
 
 Vote = ($resource) ->
