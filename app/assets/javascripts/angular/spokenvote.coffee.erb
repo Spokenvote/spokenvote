@@ -6,6 +6,9 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'DashboardCtrl'
+      resolve:
+        current_user: (CurrentUserLoader) ->
+          CurrentUserLoader()
 
     .when '/login',
       controller: 'RootCtrl'

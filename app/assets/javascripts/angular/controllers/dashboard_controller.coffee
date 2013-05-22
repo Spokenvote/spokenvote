@@ -42,5 +42,14 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
       backdrop: 'static'
       scope: $scope
 
+
+  $scope.help_dropdown = [
+#    text: 'About this Site'
+#    click: '$location.path("http://railsforcharity.github.io/spokenvote/")'
+#  ,
+    text: 'Developers'
+    click: "$location.path('http://railsforcharity.github.io/spokenvote/')"
+  ]
+
 DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
 angularApp.controller 'DashboardCtrl', DashboardCtrl

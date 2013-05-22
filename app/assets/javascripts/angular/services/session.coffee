@@ -1,15 +1,22 @@
 services = angular.module('spokenvote.services')
 
-SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource) ->
+SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
   signedIn: !!$cookieStore.get '_spokenvote_session'
   signedOut: not @signedIn
   userSession: new UserSessionResource
-    email: "example@example.com"
-    password: "example"
+    email: $cookieStore.get 'spokenvote_email'
+    password: null
     remember_me: true
+  userOmniauth: new UserOmniauthResource
+    provider: "facebook"
+  userRegistration: new UserRegistrationResource
+    name: null
+    email: $cookieStore.get 'spokenvote_email'
+    password: null
+    password_confirmation: null
 
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource'  ]
+SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 services.factory 'SessionService', SessionService
 
 AlertService = ->

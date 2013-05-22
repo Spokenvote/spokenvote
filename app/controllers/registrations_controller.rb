@@ -1,4 +1,22 @@
 class RegistrationsController < Devise::RegistrationsController
+
+  def create
+    respond_to do |format|
+      format.html {
+        super
+      }
+      format.json {
+        build_resource
+        if resource.save
+          render json: {success: true, new_user: resource}, status: :created
+        else
+          render success: false, json: resource.errors, status: :unprocessable_entity
+        end
+      }
+    end
+  end
+
+
   def update
     @user = User.find(current_user.id)
 
