@@ -208,10 +208,8 @@ textarea {
 
 input.ng-invalid.ng-dirty {
   border-color: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-  }
+  @include box-shadow(#f8b9b7 0 0 6px) !important;
+}
 
 //ng-pristine
 
@@ -270,7 +268,7 @@ input.ng-invalid.ng-dirty {
   form {
     margin: 0;
   }
-  .control-group {
+  .control-group {    
     margin-left: 15px;
     margin-bottom: 0;
   }
@@ -551,14 +549,6 @@ input.ng-invalid.ng-dirty {
     //@extend .btn-mini;
     font-size: 14px;
   }
-}
-
-.supportbtn {
-  color: #0048c7;
-}
-
-.improvebtn {
-  color: #fabd00
 }
 
 .supporting_arguments {
