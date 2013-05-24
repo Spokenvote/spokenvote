@@ -1,26 +1,25 @@
-SessionCtrl = ($scope, $cookieStore, SessionService, AlertService) ->
+SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
   $scope.alertService = AlertService
   $scope.session = SessionService.userSession
 
-  $scope.create = ->
+  $scope.signIn = ->
     AlertService.clearAlerts()
     if SessionService.signedOut
       $scope.session.$save().success (response, status, headers, config) ->
         if response.success == true
           $scope.dismiss()
+          $scope.updateUserSession()
+          $location.path('/proposals').search('filter', 'my_votes')
           AlertService.setSuccess 'You are signed in!'
           $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
- #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
+        #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
           AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.'
 
-  $scope.destroy = ->
-    $scope.session.$destroy()
-
-SessionCtrl.$inject = ['$scope', '$cookieStore', 'SessionService', 'AlertService']
+SessionCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
 angularApp.controller 'SessionCtrl', SessionCtrl
 
-RegistrationCtrl = ($scope, $cookieStore, SessionService, AlertService) ->
+RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
   $scope.alertService = AlertService
   $scope.registration = SessionService.userRegistration
 
@@ -30,7 +29,9 @@ RegistrationCtrl = ($scope, $cookieStore, SessionService, AlertService) ->
       $scope.registration.$save().success (response, status, headers, config) ->
         if response.success == true
           $scope.dismiss()
+          $location.path('/proposals').search('filter', 'active')
           AlertService.setSuccess 'Thank you for joining Spokenvote!'
+          $scope.updateUserSession()
  #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
           AlertService.setCtlResult 'Sorry, we were not able to save your registration.'
@@ -38,14 +39,6 @@ RegistrationCtrl = ($scope, $cookieStore, SessionService, AlertService) ->
   $scope.destroy = ->
     $scope.registration.$destroy()
 
-RegistrationCtrl.$inject = ['$scope', '$cookieStore', 'SessionService', 'AlertService']
+RegistrationCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
 angularApp.controller 'RegistrationCtrl', RegistrationCtrl
 
-
-#angular.module("angularDevise.controllers").controller "RegistrationsController", [ "$scope", "$location", "Session", ($scope, $location, Session) ->
-#  $scope.registration = Session.userRegistration
-#  $scope.create = ->
-#    $scope.registration.$save()
-#
-#  $scope.destroy = ->
-#    $scope.registration.$destroy()

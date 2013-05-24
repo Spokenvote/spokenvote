@@ -6,6 +6,5 @@
     %li= link_to 'Settings', edit_user_registration_path(current_user)
     - if current_user.is_admin?
       %li= link_to 'Admin', admin_dashboard_path
-    %li( ng-click='destroy()') Sign Out
-    -#%li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
+    %li#logout= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
 

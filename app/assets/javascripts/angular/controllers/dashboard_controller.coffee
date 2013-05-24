@@ -1,7 +1,6 @@
 DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
+  $scope.$location = $location
   hubSelected = HubSelected
-  $scope.model =
-    message: "You have reached the Angular Route Provider :)"
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -44,11 +43,25 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
 
 
   $scope.help_dropdown = [
-#    text: 'About this Site'
-#    click: '$location.path("http://railsforcharity.github.io/spokenvote/")'
-#  ,
+    text: 'About this Site'
+    click: "$location.path('/about')"
+  ,
     text: 'Developers'
-    click: "$location.path('http://railsforcharity.github.io/spokenvote/')"
+    href: 'http://railsforcharity.github.io/spokenvote/'
+  ]
+
+  $scope.user_dropdown = [
+    text: 'My Proposals'
+    click: "$location.path('/proposals').search('filter', 'my_votes')"
+  ,
+    text: 'Settings'
+    click: 'console.log "click"'
+  ,
+    text: 'Sign Out'
+    click: 'signOut()'
+  ,
+    text: 'Admin' # if $scope.currentUser.is_admin? == false
+    click: "$location.path('/admin/dashboard')"
   ]
 
 DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
