@@ -46,8 +46,8 @@ UserOmniauthResource = ($http) ->
     angular.extend this, options
 
   UserOmniauth::$save = ->
-    $http.post "/users/auth/",
-      provider: @provider
+    $http.post "/users/auth/facebook",
+#      provider: @provider
 
   UserOmniauth::$destroy = ->
     $http.delete "/users/logout"

@@ -1,3 +1,3 @@
 object @user
 
-attributes :id, :email, :name, :username, :facebook_auth, :gravatar_hash
+attributes :id, :email, :name, :username, :facebook_auth, :gravatar_hash, :is_admin?
