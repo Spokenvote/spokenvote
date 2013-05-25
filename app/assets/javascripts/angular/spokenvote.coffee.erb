@@ -5,16 +5,16 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
   routeProvider
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
-      controller: 'DashboardCtrl'
-      resolve:
-        current_user: (CurrentUserLoader) ->
-          CurrentUserLoader()
+#      controller: 'RootCtrl'
+#      resolve:
+#        currentuser: (CurrentUserLoader) ->
+#          CurrentUserLoader()
 
-    .when '/login',
-      controller: 'RootCtrl'
-      resolve:
-        loadModal: () ->
-          angular.element("#voteModal").modal("show")
+#    .when '/login',
+#      controller: 'RootCtrl'
+#      resolve:
+#        loadModal: () ->
+#          angular.element("#voteModal").modal("show")
 
     .when '/newvote',
       controller: 'SupportCtrl'
@@ -40,8 +40,6 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       resolve:
         proposals: (MultiProposalLoader) ->
           MultiProposalLoader()
-        current_user: (CurrentUserLoader) ->
-          CurrentUserLoader()
 
     .when '/proposals/:proposalId',
       templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
@@ -49,15 +47,17 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
       resolve:
         proposal: (ProposalLoader) ->
           ProposalLoader()
-        current_user: (CurrentUserLoader) ->
-          CurrentUserLoader()
-#        related_proposals: (RelatedProposalsLoader) ->
-#          RelatedProposalsLoader()
 
     .when '/currentuser',
       resolve:
-        proposals: (CurrentUserLoader) ->
+        currentuser: (CurrentUserLoader) ->
           CurrentUserLoader()
+
+    .when '/about',
+      templateUrl: "<%= asset_path('pages/about.html.haml') %>"
+
+    .when '/admin/dashboard',
+      template: ''
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'

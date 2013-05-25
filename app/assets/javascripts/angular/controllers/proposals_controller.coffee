@@ -1,6 +1,5 @@
-ProposalListCtrl = ($scope, $routeParams, $location, proposals, current_user, HubSelected, SpokenvoteCookies) ->
+ProposalListCtrl = ($scope, $routeParams, $location, proposals, HubSelected, SpokenvoteCookies) ->
   $scope.proposals = proposals
-  $scope.currentUser = current_user
   $scope.hubSelection = HubSelected
   $scope.filterSelection = $routeParams.filter
   $scope.spokenvoteSession = SpokenvoteCookies
@@ -8,13 +7,12 @@ ProposalListCtrl = ($scope, $routeParams, $location, proposals, current_user, Hu
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
 
-ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'current_user', 'HubSelected', 'SpokenvoteCookies']
+ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'HubSelected', 'SpokenvoteCookies']
 angularApp.controller 'ProposalListCtrl', ProposalListCtrl
 
 
-ProposalShowCtrl = ( $scope, $location, AlertService, proposal, current_user, SessionSettings, VotingService ) ->
+ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
   $scope.proposal = proposal
-  $scope.currentUser = current_user
   $scope.defaultGravatar = SessionSettings.defaultGravatar
 
   $scope.support = ( clicked_proposal_id ) ->
@@ -23,7 +21,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, current_user, Se
   $scope.improve = ( clicked_proposal_id ) ->
     VotingService.improve $scope, clicked_proposal_id
 
-ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'current_user', 'SessionSettings', 'VotingService' ]
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
 angularApp.controller 'ProposalShowCtrl', ProposalShowCtrl
 
 

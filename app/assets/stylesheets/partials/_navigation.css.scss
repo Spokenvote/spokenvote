@@ -16,7 +16,8 @@
       letter-spacing: -2px;
     }
     &.megrim {
-      font-family: 'Megrim';
+      //font-family: 'Megrim';
+      font-family: 'Yanone Kaffeesatz', sans-serif;
       letter-spacing: -1px;
     }
     &.offside {
@@ -26,6 +27,7 @@
     img {
       vertical-align: bottom;
       height: 24px;
+
     }
   }
   form {
@@ -54,11 +56,29 @@ header.navbar-inverse .navbar-inner {
     border-top-color: #fff;
     border-bottom-color: #fff;
   }
+  .nav.pull-right {
+    color: #fff;
+    li.dropdown ul {
+      margin-top: 9px;
+      margin-left: 5px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    li.avatar {
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+    li.buttons {
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+  }
 }
 
 .brand {
   font-weight: 700 !important;
-  font-family: 'Megrim';
+  //font-family: 'Megrim';
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;
 }
 
@@ -101,6 +121,7 @@ footer.navbar-inverse {
 .brand {
   img {
     height: 20px;
+    @include border-radius(2px);
   }
 }
 

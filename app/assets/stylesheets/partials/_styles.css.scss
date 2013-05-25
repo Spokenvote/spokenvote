@@ -68,7 +68,7 @@ footer {
 #alertContainer {
 
   .pageAlert {
-    position: absolute;
+    position: fixed;
     opacity: .95;
     z-index: 2000;
   }
@@ -248,6 +248,9 @@ input.ng-invalid.ng-dirty {
 .user-avatar {
   float: left;
   margin-right: 10px;
+  img {
+    @include border-radius(3px);
+  }
 }
 
 

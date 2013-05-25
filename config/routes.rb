@@ -5,7 +5,8 @@ Spokenvote::Application.routes.draw do
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks", :sessions => 'sessions', :registrations => "registrations" }
 
-  root :to => 'proposals#index'
+  root :to => 'application#index'
+  #root :to => 'proposals#index'
   resources :users do
     resources :proposals, only: [:index]
   end
@@ -24,13 +25,16 @@ Spokenvote::Application.routes.draw do
     resources :proposals
   end
 
-  match 'about' => 'pages#about'
-  match 'user_nav' => 'pages#user_nav'
   get 'currentuser' => 'users#currentuser'
 
+  #Kim's attempt at getting Active Admin to work:
+  match '/admin/dashboard' => 'admin/dashboard#index'
+
+  match "/*page" => 'application#index'
+
+  #match 'about' => 'pages#about'
+  #match 'user_nav' => 'pages#user_nav'
   #match 'help' => 'pages#help'
-  #match 'developers' => 'pages#developers'
-  #match 'dev' => 'pages#developers'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
