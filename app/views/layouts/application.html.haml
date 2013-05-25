@@ -10,10 +10,14 @@
     = favicon_link_tag
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide|Yanone+Kaffeesatz'
     = stylesheet_link_tag "application", :media => "all"
+    %script( src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js" )
+    %script( src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js" )
+
     = javascript_include_tag "application"
+
+
     -#Trying to use the Google CDN, but not quite getting load order right
     -#%script( src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js" )
-    -#%script( src="//mgcrea.github.com/angular-strap/css/prettify.css" rel="stylesheet" )
     %script( src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" )
     -#%script( src="//mgcrea.github.com/angular-strap/js/angular-strap.js" )
 

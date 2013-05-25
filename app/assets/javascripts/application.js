@@ -15,8 +15,6 @@
 //= require viewport.min
 //= require site
 //= require proposals
-//= require angular
-//= require angular-resource
 //= require angular-cookies
 //= require angular-ui
 //= require angular-strap
