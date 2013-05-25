@@ -30,6 +30,7 @@ footer {
   overflow: visible;
   .content {
     overflow: auto;
+    background: url(noisy_grid.png);
     background-color: #fff;
     @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
@@ -71,6 +72,8 @@ footer {
     position: fixed;
     opacity: .95;
     z-index: 2000;
+    width: 30%;
+   margin-left: 220px;
   }
 
   .modalAlert {
@@ -125,11 +128,18 @@ h1.form-horizontal {
     @extend .hide;
   }
   h1 {
-    font-size: 32px;
-    color: #315D99;
+    font-size: 72px;
+    color: #333;
+    text-shadow: 1px 1px 2px #999;
+    line-height: 60px;
+    padding: auto;
+    text-align: center;
   }
   span {
-    color: #ff0000;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #50D050;
+    font-size: 60px;
+    font-style: italic ;
   }
 }
 
