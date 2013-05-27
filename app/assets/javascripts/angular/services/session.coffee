@@ -2,14 +2,19 @@ services = angular.module('spokenvote.services')
 
 SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
+
   signedIn: !!$cookieStore.get '_spokenvote_session'
+
   signedOut: not @signedIn
+
   userSession: new UserSessionResource
     email: $cookieStore.get 'spokenvote_email'
     password: null
     remember_me: true
+
   userOmniauth: new UserOmniauthResource
     provider: "facebook"
+
   userRegistration: new UserRegistrationResource
     name: null
     email: $cookieStore.get 'spokenvote_email'
@@ -57,7 +62,7 @@ AlertService = ->
 
 services.factory 'AlertService', AlertService
 
-  # registers an interceptor for ALL angular ajax http calls
+# registers an interceptor for ALL angular ajax http calls
 errorHttpInterceptor = ($q, $location, ErrorService, $rootScope) ->
   (promise) ->
     promise.then ((response) ->

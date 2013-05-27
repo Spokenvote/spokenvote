@@ -32,7 +32,6 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
 
-
   angularApp.navCreateHub = ->
     angular.element("#s2id_hub_filter").select2 "close"
     $modal
@@ -40,29 +39,6 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
       show: true
       backdrop: 'static'
       scope: $scope
-
-
-  $scope.help_dropdown = [
-    text: 'About this Site'
-    click: "$location.path('/about')"
-  ,
-    text: 'Developers'
-    href: 'http://railsforcharity.github.io/spokenvote/'
-  ]
-
-  $scope.user_dropdown = [
-    text: 'My Proposals'
-    click: "$location.path('/proposals').search('filter', 'my_votes')"
-  ,
-    text: 'Settings'
-    click: 'console.log "click"'
-  ,
-    text: 'Sign Out'
-    click: 'signOut()'
-  ,
-    text: 'Admin' # if $scope.currentUser.is_admin? == false
-    click: "$location.path('/admin/dashboard')"
-  ]
 
 DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
 angularApp.controller 'DashboardCtrl', DashboardCtrl

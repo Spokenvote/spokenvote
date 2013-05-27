@@ -1,6 +1,3 @@
-//= require angular-strap
-//= require angular-ui
-//= require angular-cookies
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require select2
@@ -17,5 +14,8 @@
 //= require viewport.min
 //= require site
 //= require proposals
+//= require angular-strap
+//= require angular-ui
+//= require angular-cookies
 //= require ./angular/spokenvote
 //= require_tree ./angular
