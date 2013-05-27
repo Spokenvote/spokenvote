@@ -24,5 +24,4 @@ HubsCtrl = ($scope, Hub, AlertService) ->
     $scope.newHub.formatted_location = $scope.selectedLocation.formatted_address
     $scope.newHub.location_id = $scope.selectedLocation.id
 
-HubsCtrl.$inject = ['$scope', 'Hub', 'AlertService']
-angularApp.controller 'HubsCtrl', HubsCtrl
+App.controller 'HubsCtrl', HubsCtrl

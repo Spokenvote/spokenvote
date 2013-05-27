@@ -26,15 +26,7 @@ Spokenvote::Application.routes.draw do
   end
 
   get 'currentuser' => 'users#currentuser'
-
-  #Kim's attempt at getting Active Admin to work:
-  match '/admin/dashboard' => 'admin/dashboard#index'
-
   match "/*page" => 'application#index'
-
-  #match 'about' => 'pages#about'
-  #match 'user_nav' => 'pages#user_nav'
-  #match 'help' => 'pages#help'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

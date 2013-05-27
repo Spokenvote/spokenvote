@@ -1,10 +1,9 @@
-services = angular.module('spokenvote.services')
-
 VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
 
   support: ( scope, clicked_proposal_id ) ->
     scope.clicked_proposal_id = clicked_proposal_id
     scope.current_user_support = null
+
     RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
       if relatedSupport.id?
         if relatedSupport.proposal.id == clicked_proposal_id
@@ -23,6 +22,7 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
   improve: ( scope, clicked_proposal_id ) ->
     scope.clicked_proposal_id = clicked_proposal_id
     scope.current_user_support = null
+
     RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
       if relatedSupport.id?
         scope.current_user_support = 'related_proposal'
@@ -32,6 +32,5 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         backdrop: 'static'
         scope: scope
 
-VotingService.$inject = [ '$modal', 'AlertService', 'RelatedVoteInTreeLoader'  ]
-services.factory 'VotingService', VotingService
-
+# Register
+App.Services.factory 'VotingService', VotingService

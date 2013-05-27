@@ -11,12 +11,35 @@
 
       %ul.nav.pull-right
         %li.dropdown
-          %ul( type='button' class='dropdown-toggle' bs-dropdown='help_dropdown' ) <b> Help </b> <b class="caret"></b>
-        %li.dropdown( ng-show='currentUser.username')
-          %ul( type='button' class='dropdown-toggle' bs-dropdown='user_dropdown' ) <b class="white"> {{ currentUser.username }} </b> <b class="caret"></b>
+          %a.dropdown-toggle(data-toggle='dropdown')
+            %b.white Help
+            %b.caret
+
+          %ul.dropdown-menu
+            %li
+              %a(href='/about') About this site
+            %li
+              %a(href='http://railsforcharity.github.io/spokenvote/') Developers
+
+        %li.dropdown(ng-show='currentUser.username')
+          %a.dropdown-toggle(data-toggle='dropdown')
+            %b.white {{ currentUser.username }}
+            %b.caret
+
+          %ul.dropdown-menu
+            %li
+              %a(href='/proposals?filter=my_votes') My Proposals
+            %li
+              %a(href='/users/{{ currentUser.id }}/edit') Settings
+            %li
+              / Angular should ignore this route and not try to handle it since it has target='_self'
+              %a(href='/admin' ng-show='currentUser["is_admin?"]' target='_self') Admin
+            %li
+              %a(href='#' ng-click='signOut()') Sign Out
+
         %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' )
           %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+
         %li.buttons( ng-show='!currentUser.username')
           %button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
           %button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!
-

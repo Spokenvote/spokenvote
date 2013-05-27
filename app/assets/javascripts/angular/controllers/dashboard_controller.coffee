@@ -1,4 +1,4 @@
-DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
+DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
   $scope.$location = $location
   hubSelected = HubSelected
 
@@ -27,13 +27,12 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">create it</a>.'
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
 
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
 
-
-  angularApp.navCreateHub = ->
+  App.navCreateHub = ->
     angular.element("#s2id_hub_filter").select2 "close"
     $modal
       template: '/assets/hubs/_new_hub_modal.html.haml'
@@ -41,28 +40,4 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
       backdrop: 'static'
       scope: $scope
 
-
-  $scope.help_dropdown = [
-    text: 'About this Site'
-    click: "$location.path('/about')"
-  ,
-    text: 'Developers'
-    href: 'http://railsforcharity.github.io/spokenvote/'
-  ]
-
-  $scope.user_dropdown = [
-    text: 'My Proposals'
-    click: "$location.path('/proposals').search('filter', 'my_votes')"
-  ,
-    text: 'Settings'
-    click: 'console.log "click"'
-  ,
-    text: 'Sign Out'
-    click: 'signOut()'
-  ,
-    text: 'Admin' # if $scope.currentUser.is_admin? == false
-    click: "$location.path('/admin/dashboard')"
-  ]
-
-DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
-angularApp.controller 'DashboardCtrl', DashboardCtrl
+App.controller 'DashboardCtrl', DashboardCtrl

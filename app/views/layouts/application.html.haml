@@ -24,7 +24,6 @@
     = yield(:head)
 
   %body( ng-controller='RootCtrl' )
-    -#= render 'shared/navigation'
     %ng-include(src="'/assets/shared/_navigation.html.haml'")
 
     #main( role="main" )
@@ -36,8 +35,5 @@
               #alertContainer
                 .pageAlert( alert-bar alertmessageclear='alertService.alertClass' )
               %ng-view
+
     = render 'shared/footer'
-    -#= render partial: '/shared/loginModal'
-    -#= render partial: '/shared/registrationModal'
-    -#= render partial: '/shared/confirmationModal'
-    -#= render partial: '/shared/hubModal'

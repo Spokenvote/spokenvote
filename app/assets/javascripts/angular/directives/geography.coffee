@@ -1,5 +1,3 @@
-directives = angular.module('spokenvote.directives')
-
 svGooglePlace = ->
   require: "ngModel"
   link: (scope, element, attrs, model) ->
@@ -8,7 +6,8 @@ svGooglePlace = ->
 
     defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(72.501722, -172.617188)
-      new google.maps.LatLng(14.604847, -61.171875))
+      new google.maps.LatLng(14.604847, -61.171875)
+    )
 
     options =
       bounds: defaultBounds
@@ -20,4 +19,4 @@ svGooglePlace = ->
       scope.$apply ->
         scope.updateModel()
 
-directives.directive 'svGooglePlace', svGooglePlace
+App.Directives.directive 'svGooglePlace', svGooglePlace
