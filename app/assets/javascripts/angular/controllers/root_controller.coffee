@@ -50,5 +50,4 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.'
 
-RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$modal', 'SessionService', 'CurrentUserLoader']
-angularApp.controller 'RootCtrl', RootCtrl
+App.controller 'RootCtrl', RootCtrl

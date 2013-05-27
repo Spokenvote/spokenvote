@@ -1,8 +1,8 @@
-setupApp = (routeProvider, locationProvider, httpProvider) ->
-  httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
-  locationProvider.html5Mode true
+appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
+  $httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  $locationProvider.html5Mode true
 
-  routeProvider
+  $routeProvider
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
 #      controller: 'RootCtrl'
@@ -59,19 +59,15 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
-setupApp.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
-window.angularApp = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(setupApp)
+window.App = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(appConfig)
 
-setupServices = ($httpProvider) ->
+
+servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig)
 
-setupServices.$inject = ['$httpProvider']
-services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(setupServices)
-
-directives = angular.module('spokenvote.directives', [])
-
+App.Directives = angular.module('spokenvote.directives', [])
 
 SessionSettings = ->
   defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
-
-services.factory 'SessionSettings', SessionSettings
+App.Services.factory 'SessionSettings', SessionSettings
