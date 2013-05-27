@@ -34,6 +34,5 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         backdrop: 'static'
         scope: scope
 
-VotingService.$inject = [ '$modal', 'AlertService', 'RelatedVoteInTreeLoader'  ]
 services.factory 'VotingService', VotingService
 

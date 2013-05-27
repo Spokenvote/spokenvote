@@ -21,7 +21,6 @@ SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, U
     password: null
     password_confirmation: null
 
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 services.factory 'SessionService', SessionService
 
 AlertService = ->
@@ -63,18 +62,17 @@ AlertService = ->
 services.factory 'AlertService', AlertService
 
 # registers an interceptor for ALL angular ajax http calls
-errorHttpInterceptor = ($q, $location, ErrorService, $rootScope) ->
+errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
   (promise) ->
     promise.then ((response) ->
       response
     ), (response) ->
       if response.status is 406
-        ErrorService.setError "Please sign in to continue."
+        AlertService.setError "Please sign in to continue."
         $rootScope.$broadcast "event:loginRequired"
-      else ErrorService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
+      else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
       $q.reject response
 
-errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
 services.factory 'errorHttpInterceptor', errorHttpInterceptor
 
 

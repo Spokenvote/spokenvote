@@ -13,5 +13,4 @@ alertBar = ($parse) ->
 #      scope.errorMessage = null                     #Alternate method using local scope copy of alert
       $parse(alertMessageAttr).assign scope, null
 
-alertBar.$inject = [ '$parse' ]
 directives.directive 'alertBar', alertBar

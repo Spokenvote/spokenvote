@@ -7,8 +7,7 @@ ProposalListCtrl = ($scope, $routeParams, $location, proposals, HubSelected, Spo
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
 
-ProposalListCtrl.$inject = ['$scope', '$routeParams', '$location', 'proposals', 'HubSelected', 'SpokenvoteCookies']
-angularApp.controller 'ProposalListCtrl', ProposalListCtrl
+App.controller 'ProposalListCtrl', ProposalListCtrl
 
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
@@ -21,8 +20,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings,
   $scope.improve = ( clicked_proposal_id ) ->
     VotingService.improve $scope, clicked_proposal_id
 
-ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
-angularApp.controller 'ProposalShowCtrl', ProposalShowCtrl
+App.controller 'ProposalShowCtrl', ProposalShowCtrl
 
 
 RelatedProposalShowCtrl = (RelatedProposals, $scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
@@ -58,5 +56,4 @@ RelatedProposalShowCtrl = (RelatedProposals, $scope, $location, AlertService, Se
 # TODO once scolling issue is solved, remove this line and the "RelatedProposals" provider above and enjection below.
 #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
-RelatedProposalShowCtrl.$inject = [ 'RelatedProposals', '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
-angularApp.controller 'RelatedProposalShowCtrl', RelatedProposalShowCtrl
+App.controller 'RelatedProposalShowCtrl', RelatedProposalShowCtrl

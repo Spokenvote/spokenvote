@@ -19,8 +19,7 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
       AlertService.setJson response.data
     )
 
-SupportCtrl.$inject = ['$scope', '$location', 'AlertService', 'Vote' ]
-angularApp.controller 'SupportCtrl', SupportCtrl
+App.controller 'SupportCtrl', SupportCtrl
 
 
 ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
@@ -48,5 +47,4 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-ImroveCtrl.$inject = ['$scope', '$location', 'AlertService', 'Proposal']
-angularApp.controller 'ImroveCtrl', ImroveCtrl
+App.controller 'ImroveCtrl', ImroveCtrl
