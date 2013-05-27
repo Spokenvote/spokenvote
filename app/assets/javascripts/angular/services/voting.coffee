@@ -32,5 +32,9 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         backdrop: 'static'
         scope: scope
 
+
+# Injects
+VotingService.$inject = [ '$modal', 'AlertService', 'RelatedVoteInTreeLoader'  ]
+
 # Register
 App.Services.factory 'VotingService', VotingService

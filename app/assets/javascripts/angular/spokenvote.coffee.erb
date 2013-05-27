@@ -71,3 +71,7 @@ App.Directives = angular.module('spokenvote.directives', [])
 SessionSettings = ->
   defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
 App.Services.factory 'SessionSettings', SessionSettings
+
+# Injects
+appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
+servicesConfig.$inject = ['$httpProvider']

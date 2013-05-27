@@ -52,6 +52,11 @@ RelatedProposalShowCtrl =
   # TODO once scolling issue is solved, remove this line and the "RelatedProposals" provider above and enjection below.
   #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
+# Injects
+ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'HubSelected', 'SpokenvoteCookies' ]
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
+RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposals', 'RelatedProposalsLoader' ]
+
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl
 App.controller 'ProposalShowCtrl', ProposalShowCtrl

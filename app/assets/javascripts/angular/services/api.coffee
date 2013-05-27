@@ -140,6 +140,27 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
 #
 #App.Services.factory 'UserOmniauthCallback', UserOmniauthCallback
 
+# Injects
+Vote.$inject = [ '$resource' ]
+Hub.$inject = [ '$resource' ]
+Proposal.$inject = [ '$resource' ]
+
+CurrentUser.$inject = [ '$resource' ]
+RelatedProposals.$inject = [ '$resource' ]
+RelatedVoteInTree.$inject = [ '$resource' ]
+# UserOmniauth.$inject = [ '$resource' ]
+
+UserOmniauthResource.$inject = [ '$http' ]
+UserSessionResource.$inject = [ '$http' ]
+UserRegistrationResource.$inject = [ '$http' ]
+
+CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
+ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
+MultiProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
+RelatedProposalsLoader.$inject = [ 'RelatedProposals', '$route', '$q' ]
+RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
+# UserOmniauthCallback.$inject = [ 'UserOmniauth', '$route', '$q' ]
+
 # Register
 App.Services.factory 'Vote', Vote
 App.Services.factory 'Hub', Hub
