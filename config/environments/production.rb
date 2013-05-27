@@ -14,6 +14,9 @@ Spokenvote::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
+  # For Angularjs
+  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
@@ -42,7 +45,7 @@ Spokenvote::Application.configure do
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
   config.cache_store = :dalli_store
-    
+
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
