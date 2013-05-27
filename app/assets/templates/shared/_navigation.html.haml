@@ -11,12 +11,15 @@
 
       %ul.nav.pull-right
         %li.dropdown
-          %ul( type='button' class='dropdown-toggle' bs-dropdown='help_dropdown' ) <b> Help </b> <b class="caret"></b>
+          %ul( type='button' class='dropdown-toggle' bs-dropdown='help_dropdown' )
+            %b Help
+            %b.caret
         %li.dropdown( ng-show='currentUser.username')
-          %ul( type='button' class='dropdown-toggle' bs-dropdown='user_dropdown' ) <b class="white"> {{ currentUser.username }} </b> <b class="caret"></b>
+          %ul( type='button' class='dropdown-toggle' bs-dropdown='user_dropdown' )
+            %b.white {{ currentUser.username }}
+            %b.caret
         %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' )
           %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
         %li.buttons( ng-show='!currentUser.username')
           %button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
           %button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!
-

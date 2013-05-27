@@ -26,10 +26,6 @@ Spokenvote::Application.routes.draw do
   end
 
   get 'currentuser' => 'users#currentuser'
-
-  #Kim's attempt at getting Active Admin to work:
-  match '/admin/dashboard' => 'admin/dashboard#index'
-
   match "/*page" => 'application#index'
 
   #match 'about' => 'pages#about'

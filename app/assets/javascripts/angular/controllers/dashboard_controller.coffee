@@ -60,8 +60,8 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
     text: 'Sign Out'
     click: 'signOut()'
   ,
-    text: 'Admin' # if $scope.currentUser.is_admin? == false
-    click: "$location.path('/admin/dashboard')"
+    text: 'Admin' if $scope.currentUser['is_admin?']
+    click: "$location.path('/admin')"
   ]
 
 DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
