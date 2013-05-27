@@ -8,7 +8,8 @@ svGooglePlace = ->
 
     defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(72.501722, -172.617188)
-      new google.maps.LatLng(14.604847, -61.171875))
+      new google.maps.LatLng(14.604847, -61.171875)
+    )
 
     options =
       bounds: defaultBounds
