@@ -79,6 +79,11 @@ SpokenvoteCookies = ($cookies) ->
   $cookies.SpokenvoteSession = "Setting a value"
   sessionCookie: $cookies.SpokenvoteSession
 
+# Injects
+SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
+SpokenvoteCookies.$inject = [ '$cookies' ]
+errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
+
 # Register
 App.Services.factory 'SessionService', SessionService
 App.Services.factory 'AlertService', AlertService

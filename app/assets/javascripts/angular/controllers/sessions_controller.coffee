@@ -36,6 +36,9 @@ RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
   $scope.destroy = ->
     $scope.registration.$destroy()
 
+# Injects
+SessionCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
+
 # Register
 App.controller 'SessionCtrl', SessionCtrl
 App.controller 'RegistrationCtrl', RegistrationCtrl

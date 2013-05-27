@@ -44,6 +44,10 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
+# Injects
+SupportCtrl.$inject = ['$scope', '$location', 'AlertService', 'Vote' ]
+ImroveCtrl.$inject = ['$scope', '$location', 'AlertService', 'Proposal']
+
 # Register
 App.controller 'SupportCtrl', SupportCtrl
 App.controller 'ImroveCtrl', ImroveCtrl
