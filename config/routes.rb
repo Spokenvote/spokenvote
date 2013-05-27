@@ -6,7 +6,7 @@ Spokenvote::Application.routes.draw do
                      controllers: { omniauth_callbacks: "omniauth_callbacks", :sessions => 'sessions', :registrations => "registrations" }
 
   root :to => 'application#index'
-  #root :to => 'proposals#index'
+
   resources :users do
     resources :proposals, only: [:index]
   end

@@ -40,4 +40,5 @@ DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
       backdrop: 'static'
       scope: $scope
 
+DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
 App.controller 'DashboardCtrl', DashboardCtrl

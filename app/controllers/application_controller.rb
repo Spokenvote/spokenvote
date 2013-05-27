@@ -13,11 +13,13 @@ class ApplicationController < ActionController::Base
   private
 
   def sanitize_bad_params_from_angular
-    params.delete_if{ |key, value| value == 'undefined' }
+    params.delete_if { |key, value| value == 'undefined' }
   end
 
   def intercept_html_requests
-    render('layouts/application') if request.format == Mime::HTML
+    if !request.format.json? && !request.path == '/admin'
+      render('layouts/application')
+    end
   end
 
   def authenticate_admin_user!

@@ -33,7 +33,7 @@
               %a(href='/users/{{ currentUser.id }}/edit') Settings
             %li
               / Angular should ignore this route and not try to handle it since it has target='_self'
-              %a(href='/admin' ng-show='currentUser["is_admin?"]' target='_self') Admin
+              %a(href='/admin' ng-show='currentUser["is_admin?"]' target='_blank') Admin
             %li
               %a(href='#' ng-click='signOut()') Sign Out
 
