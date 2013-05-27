@@ -1,4 +1,4 @@
-DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
+DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
   $scope.$location = $location
   hubSelected = HubSelected
 
@@ -27,12 +27,12 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">create it</a>.'
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
 
     initSelection: (element, callback) ->
       callback($scope.hubFilter.group_name)
 
-  angularApp.navCreateHub = ->
+  App.navCreateHub = ->
     angular.element("#s2id_hub_filter").select2 "close"
     $modal
       template: '/assets/hubs/_new_hub_modal.html.haml'
@@ -40,5 +40,4 @@ DashboardCtrl = ($scope, $location, HubSelected, $modal) ->
       backdrop: 'static'
       scope: $scope
 
-DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
-angularApp.controller 'DashboardCtrl', DashboardCtrl
+App.controller 'DashboardCtrl', DashboardCtrl

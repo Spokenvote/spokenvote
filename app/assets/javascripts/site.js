@@ -82,8 +82,8 @@ window.app = {};
 //      formatNoMatches: function(term) {
 //        // see https://github.com/ivaynberg/select2/issues/448
 //        // this onclick inline handler is not my idea of a good solution but it works for now.
-//        return 'No matches. <a id="navCreateHub" onclick="angularApp.navCreateHub()" href="#">Create one</a>';
-//        // TODO The reference above to "angularApp.navCreateHub()" is a departure point to Angular
+//        return 'No matches. <a id="navCreateHub" onclick="App.navCreateHub()" href="#">Create one</a>';
+//        // TODO The reference above to "App.navCreateHub()" is a departure point to Angular
 //      },
 //
 //      // TODO: This doesn't work, need help
