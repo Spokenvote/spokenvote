@@ -1,42 +1,27 @@
-services = angular.module('spokenvote.services')
+# Rest
+Vote = ($resource) ->
+  $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
 
+Hub = ($resource) ->
+  $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
+
+Proposal = ($resource) ->
+  $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
+
+# Non-rest
 CurrentUser = ($resource) ->
   $resource("/currentuser")
 
-services.factory 'CurrentUser', CurrentUser
+RelatedProposals = ($resource) ->
+  $resource("/proposals/:id/related_proposals?related_sort_by=:related_sort_by",
+    { id: "@id" },
+    { related_sort_by: "@related_sort_by" }
+  )
 
-CurrentUserLoader = (CurrentUser, $route, $q) ->
-  ->
-    delay = $q.defer()
-    CurrentUser.get {}
-    , (current_user) ->
-      delay.resolve current_user
-    , ->
-      delay.reject 'Unable to locate a current user '
-    delay.promise
+RelatedVoteInTree = ($resource) ->
+  $resource("/proposals/:id/related_vote_in_tree", {id: "@id"})
 
-services.factory 'CurrentUserLoader', CurrentUserLoader
-
-
-#UserOmniauth = ($resource) ->
-#  $resource("/users/auth/:provider", {provider: "@provider"})
-#
-#services.factory 'UserOmniauth', UserOmniauth
-#
-#UserOmniauthCallback = (UserOmniauth, $route, $q) ->
-#  ( provider )->
-#    delay = $q.defer()
-#    UserOmniauth.save
-#      provider: provider
-#    , (user_auth) ->
-#      delay.resolve user_auth
-#    , ->
-#      delay.reject 'Unable to authorize a current user '
-#    delay.promise
-#
-#services.factory 'UserOmniauthCallback', UserOmniauthCallback
-
-
+# Resources
 UserOmniauthResource = ($http) ->
   UserOmniauth = (options) ->
     angular.extend this, options
@@ -49,9 +34,6 @@ UserOmniauthResource = ($http) ->
     $http.delete "/users/logout"
 
   UserOmniauth
-
-services.factory 'UserOmniauthResource', UserOmniauthResource
-
 
 UserSessionResource = ($http) ->
   UserSession = (options) ->
@@ -69,8 +51,6 @@ UserSessionResource = ($http) ->
 
   UserSession
 
-services.factory 'UserSessionResource', UserSessionResource
-
 UserRegistrationResource = ($http) ->
   UserRegistration = (options) ->
     angular.extend this, options
@@ -85,26 +65,27 @@ UserRegistrationResource = ($http) ->
 
   UserRegistration
 
-services.factory 'UserRegistrationResource', UserRegistrationResource
+# Loaders
+CurrentUserLoader = (CurrentUser, $route, $q) ->
+  ->
+    delay = $q.defer()
+    CurrentUser.get {}
+    , (current_user) ->
+      delay.resolve current_user
+    , ->
+      delay.reject 'Unable to locate a current user '
+    delay.promise
 
-
-Vote = ($resource) ->
-  $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
-
-services.factory 'Vote', Vote
-
-
-Hub = ($resource) ->
-  $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
-
-services.factory 'Hub', Hub
-
-
-Proposal = ($resource) ->
-  $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
-
-services.factory 'Proposal', Proposal
-
+ProposalLoader = (Proposal, $route, $q) ->
+  ->
+    delay = $q.defer()
+    Proposal.get
+      id: $route.current.params.proposalId
+    , (proposal) ->
+      delay.resolve proposal
+    , ->
+      delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
+    delay.promise
 
 MultiProposalLoader = (Proposal, $route, $q) ->
   ->
@@ -118,27 +99,6 @@ MultiProposalLoader = (Proposal, $route, $q) ->
       delay.reject 'Unable to locate proposals ' + $route.current.params.proposalId
     delay.promise
 
-services.factory 'MultiProposalLoader', MultiProposalLoader
-
-ProposalLoader = (Proposal, $route, $q) ->
-  ->
-    delay = $q.defer()
-    Proposal.get
-      id: $route.current.params.proposalId
-    , (proposal) ->
-      delay.resolve proposal
-    , ->
-      delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
-    delay.promise
-
-services.factory 'ProposalLoader', ProposalLoader
-
-
-RelatedProposals = ($resource) ->
-  $resource("/proposals/:id/related_proposals?related_sort_by=:related_sort_by", {id: "@id"}, {related_sort_by: "@related_sort_by"})
-
-services.factory 'RelatedProposals', RelatedProposals
-
 RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
   ->
     delay = $q.defer()
@@ -151,14 +111,6 @@ RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
       delay.reject 'Unable to locate related proposals ' + $route.current.params.proposalId
     delay.promise
 
-services.factory 'RelatedProposalsLoader', RelatedProposalsLoader
-
-
-RelatedVoteInTree = ($resource) ->
-  $resource("/proposals/:id/related_vote_in_tree", {id: "@id"})
-
-services.factory 'RelatedVoteInTree', RelatedVoteInTree
-
 RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
   (clicked_proposal_id) ->
     delay = $q.defer()
@@ -170,4 +122,39 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
       delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal_id
     delay.promise
 
-services.factory 'RelatedVoteInTreeLoader', RelatedVoteInTreeLoader
+#UserOmniauth = ($resource) ->
+#  $resource("/users/auth/:provider", {provider: "@provider"})
+#
+#App.Services.factory 'UserOmniauth', UserOmniauth
+#
+#UserOmniauthCallback = (UserOmniauth, $route, $q) ->
+#  ( provider )->
+#    delay = $q.defer()
+#    UserOmniauth.save
+#      provider: provider
+#    , (user_auth) ->
+#      delay.resolve user_auth
+#    , ->
+#      delay.reject 'Unable to authorize a current user '
+#    delay.promise
+#
+#App.Services.factory 'UserOmniauthCallback', UserOmniauthCallback
+
+# Register
+App.Services.factory 'Vote', Vote
+App.Services.factory 'Hub', Hub
+App.Services.factory 'Proposal', Proposal
+
+App.Services.factory 'CurrentUser', CurrentUser
+App.Services.factory 'RelatedProposals', RelatedProposals
+App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree
+
+App.Services.factory 'UserOmniauthResource', UserOmniauthResource
+App.Services.factory 'UserSessionResource', UserSessionResource
+App.Services.factory 'UserRegistrationResource', UserRegistrationResource
+
+App.Services.factory 'CurrentUserLoader', CurrentUserLoader
+App.Services.factory 'ProposalLoader', ProposalLoader
+App.Services.factory 'MultiProposalLoader', MultiProposalLoader
+App.Services.factory 'RelatedProposalsLoader', RelatedProposalsLoader
+App.Services.factory 'RelatedVoteInTreeLoader', RelatedVoteInTreeLoader

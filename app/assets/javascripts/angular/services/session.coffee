@@ -1,5 +1,4 @@
-services = angular.module('spokenvote.services')
-
+# Miscellaneous
 SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
 
@@ -20,8 +19,6 @@ SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, U
     email: $cookieStore.get 'spokenvote_email'
     password: null
     password_confirmation: null
-
-services.factory 'SessionService', SessionService
 
 AlertService = ->
   callingScope: null
@@ -59,9 +56,8 @@ AlertService = ->
     @alertClass = null
     @cltActionResult = null
 
-services.factory 'AlertService', AlertService
-
-# registers an interceptor for ALL angular ajax http calls
+# Interceptors
+# Registers an interceptor for ALL angular ajax http calls
 errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
   (promise) ->
     promise.then ((response) ->
@@ -73,18 +69,19 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
       else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
       $q.reject response
 
-services.factory 'errorHttpInterceptor', errorHttpInterceptor
-
 
 HubSelected = ->
   group_name: "All Groups"
   id: "No id yet"
 
-services.factory 'HubSelected', HubSelected
-
+# Cookies
 SpokenvoteCookies = ($cookies) ->
-  $cookies.SpokenvoteSession = "Setting a value6"
+  $cookies.SpokenvoteSession = "Setting a value"
   sessionCookie: $cookies.SpokenvoteSession
 
-SpokenvoteCookies.$inject = [ '$cookies' ]
-services.factory 'SpokenvoteCookies', SpokenvoteCookies
+# Register
+App.Services.factory 'SessionService', SessionService
+App.Services.factory 'AlertService', AlertService
+App.Services.factory 'HubSelected', HubSelected
+App.Services.factory 'SpokenvoteCookies', SpokenvoteCookies
+App.Services.factory 'errorHttpInterceptor', errorHttpInterceptor

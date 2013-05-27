@@ -64,13 +64,10 @@ window.App = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.di
 
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig)
 
-services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig)
-
-directives = angular.module('spokenvote.directives', [])
-
+App.Directives = angular.module('spokenvote.directives', [])
 
 SessionSettings = ->
   defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
-
-services.factory 'SessionSettings', SessionSettings
+App.Services.factory 'SessionSettings', SessionSettings

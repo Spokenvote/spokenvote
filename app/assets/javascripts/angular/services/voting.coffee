@@ -1,5 +1,3 @@
-services = angular.module('spokenvote.services')
-
 VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
 
   support: ( scope, clicked_proposal_id ) ->
@@ -34,5 +32,5 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         backdrop: 'static'
         scope: scope
 
-services.factory 'VotingService', VotingService
-
+# Register
+App.Services.factory 'VotingService', VotingService

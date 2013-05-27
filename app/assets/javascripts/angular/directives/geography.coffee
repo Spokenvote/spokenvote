@@ -1,5 +1,3 @@
-directives = angular.module('spokenvote.directives')
-
 svGooglePlace = ->
   require: "ngModel"
   link: (scope, element, attrs, model) ->
@@ -21,4 +19,4 @@ svGooglePlace = ->
       scope.$apply ->
         scope.updateModel()
 
-directives.directive 'svGooglePlace', svGooglePlace
+App.Directives.directive 'svGooglePlace', svGooglePlace

@@ -19,9 +19,6 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
       AlertService.setJson response.data
     )
 
-App.controller 'SupportCtrl', SupportCtrl
-
-
 ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.'
@@ -47,4 +44,6 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
+# Register
+App.controller 'SupportCtrl', SupportCtrl
 App.controller 'ImroveCtrl', ImroveCtrl
