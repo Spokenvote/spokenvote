@@ -28,10 +28,6 @@ Spokenvote::Application.routes.draw do
   get 'currentuser' => 'users#currentuser'
   match "/*page" => 'application#index'
 
-  #match 'about' => 'pages#about'
-  #match 'user_nav' => 'pages#user_nav'
-  #match 'help' => 'pages#help'
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

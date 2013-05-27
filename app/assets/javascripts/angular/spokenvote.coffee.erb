@@ -56,9 +56,6 @@ setupApp = (routeProvider, locationProvider, httpProvider) ->
     .when '/about',
       templateUrl: "<%= asset_path('pages/about.html.haml') %>"
 
-    .when '/admin/dashboard',
-      template: ''
-
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
