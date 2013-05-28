@@ -1,23 +1,24 @@
-services = angular.module('spokenvote.services')
-
+# Miscellaneous
 SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
+
   signedIn: !!$cookieStore.get '_spokenvote_session'
+
   signedOut: not @signedIn
+
   userSession: new UserSessionResource
     email: $cookieStore.get 'spokenvote_email'
     password: null
     remember_me: true
+
   userOmniauth: new UserOmniauthResource
     provider: "facebook"
+
   userRegistration: new UserRegistrationResource
     name: null
     email: $cookieStore.get 'spokenvote_email'
     password: null
     password_confirmation: null
-
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
-services.factory 'SessionService', SessionService
 
 AlertService = ->
   callingScope: null
@@ -55,10 +56,9 @@ AlertService = ->
     @alertClass = null
     @cltActionResult = null
 
-services.factory 'AlertService', AlertService
-
-  # registers an interceptor for ALL angular ajax http calls
-errorHttpInterceptor = ($q, $location, AlertService, $rootScope) ->
+# Interceptors
+# Registers an interceptor for ALL angular ajax http calls
+errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
   (promise) ->
     promise.then ((response) ->
       response
@@ -69,19 +69,24 @@ errorHttpInterceptor = ($q, $location, AlertService, $rootScope) ->
       else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
       $q.reject response
 
-errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
-services.factory 'errorHttpInterceptor', errorHttpInterceptor
-
 
 HubSelected = ->
   group_name: "All Groups"
   id: "No id yet"
 
-services.factory 'HubSelected', HubSelected
-
+# Cookies
 SpokenvoteCookies = ($cookies) ->
-  $cookies.SpokenvoteSession = "Setting a value6"
+  $cookies.SpokenvoteSession = "Setting a value"
   sessionCookie: $cookies.SpokenvoteSession
 
+# Injects
+SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 SpokenvoteCookies.$inject = [ '$cookies' ]
-services.factory 'SpokenvoteCookies', SpokenvoteCookies
+errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
+
+# Register
+App.Services.factory 'SessionService', SessionService
+App.Services.factory 'AlertService', AlertService
+App.Services.factory 'HubSelected', HubSelected
+App.Services.factory 'SpokenvoteCookies', SpokenvoteCookies
+App.Services.factory 'errorHttpInterceptor', errorHttpInterceptor

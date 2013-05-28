@@ -16,9 +16,6 @@ SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
         if response.success == false
           AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.'
 
-SessionCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
-angularApp.controller 'SessionCtrl', SessionCtrl
-
 RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
   $scope.alertService = AlertService
   $scope.registration = SessionService.userRegistration
@@ -39,6 +36,9 @@ RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
   $scope.destroy = ->
     $scope.registration.$destroy()
 
-RegistrationCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
-angularApp.controller 'RegistrationCtrl', RegistrationCtrl
+# Injects
+SessionCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
 
+# Register
+App.controller 'SessionCtrl', SessionCtrl
+App.controller 'RegistrationCtrl', RegistrationCtrl
