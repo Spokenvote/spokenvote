@@ -1,6 +1,6 @@
 SupportCtrl = ($scope, $location, AlertService, Vote) ->
   if $scope.current_user_support == 'related_proposal'
-    AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.'
+    AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope
 
   $scope.saveSupport = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal_id
@@ -11,17 +11,17 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
       $scope.relatedProposals.$get()
-      AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"'
+      AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope
       $scope.dismiss()
     ,  (response, status, headers, config) ->
 #      AlertService.setCallingScope $scope     # feature for future use
-      AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.'
+      AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope
       AlertService.setJson response.data
     )
 
 ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
-    AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.'
+    AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope
 
   $scope.saveImprovement = ->
     improvedProposal = {}       #TODO: Does it really take 7 lines to build this object? Would love to see it done in fewer lines.
@@ -37,10 +37,10 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
     ,  (response, status, headers, config) ->
       $scope.proposal.$get()
       $scope.relatedProposals.$get()
-      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.'
+      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
       $scope.dismiss()
     ,  (response, status, headers, config) ->
-      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.'
+      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
       AlertService.setJson response.data
     )
 

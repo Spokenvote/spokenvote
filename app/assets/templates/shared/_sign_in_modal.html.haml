@@ -22,14 +22,14 @@
 
     .login_form
       -#%ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-      %form( name='signInForm' )
+      %form( ng-submit="signIn()" name='signInForm' )
         .control-group
           .controls
-            %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address' )
+            %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address' ng-model-instant )
 
         .control-group
           .controls
-            %input(id='password_field' type='password' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' )
+            %input(id='password_field' type='password' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' ng-model-instant )
             %span
           .control-group
             .controls
@@ -37,6 +37,7 @@
                 %input( id='remember_me' type='checkbox' ng-model='session.remember_me' ) Remember me next time
                 -#- if devise_mapping.recoverable?
                     #forgotLink= link_to "Forgot password?", new_password_path(resource_name)
+          %input( type="submit" class='invisible' )
 
   .modal-footer
     .control-group
