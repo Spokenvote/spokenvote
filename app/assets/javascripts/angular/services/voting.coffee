@@ -11,7 +11,7 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         else
           scope.current_user_support = 'related_proposal'
       if scope.current_user_support == 'this_proposal'
-        AlertService.setCtlResult 'Good news, it looks as if you have already supported this proposal. Further editing is not supported at this time.'
+        AlertService.setCtlResult 'Good news, it looks as if you have already supported this proposal. Further editing is not supported at this time.', scope
       else
         $modal
           template: '/assets/proposals/_support_modal.html.haml'

@@ -20,7 +20,7 @@ SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, U
     password: null
     password_confirmation: null
 
-AlertService = ->
+AlertService = ($timeout) ->
   callingScope: null
   alertMessage: null
   jsonResponse: null
@@ -28,25 +28,36 @@ AlertService = ->
   alertClass: null
   cltActionResult: null
 
-  setCallingScope: (scope) ->
-    @callingScope = scope
-    console.log @callingScope
-
-  setSuccess: (msg) ->
+  setSuccess: (msg, scope) ->
     @alertMessage = msg
     @alertClass = 'alert-success'
+    $timeout  (-> scope.hideAlert()), 6000 if scope?
 
-  setError: (msg) ->
+  setInfo: (msg, scope) ->
+    @alertMessage = msg
+    @alertClass = 'alert-info'
+    $timeout  (-> scope.hideAlert()), 6000 if scope?
+
+  setError: (msg, scope) ->
     @alertMessage = msg
     @alertClass = 'alert-error'
+    $timeout  (-> scope.hideAlert()), 6000 if scope?
+
+  setCtlResult: (result, scope) ->
+    @cltActionResult = result
+    @alertClass = 'alert-error'
+    $timeout  (-> scope.hideAlert()), 6000 if scope?
 
   setJson: (json) ->
     @jsonResponse = json
     @jsonErrors = json if json > ' '
 
-  setCtlResult: (result) ->
-    @cltActionResult = result
-    @alertClass = 'alert-error'
+  setCallingScope: (scope) ->
+    @callingScope = scope
+    console.log @callingScope
+
+  setClass: (alertclass) ->
+    @alertClass = alertclass
 
   clearAlerts: ->
     @callingScope = null
@@ -81,8 +92,9 @@ SpokenvoteCookies = ($cookies) ->
 
 # Injects
 SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
+AlertService.$inject = [ '$timeout' ]
+errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]
-errorHttpInterceptor.$inject = [ '$q', '$location', 'AlertService', '$rootScope'  ]
 
 # Register
 App.Services.factory 'SessionService', SessionService

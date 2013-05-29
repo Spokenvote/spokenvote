@@ -10,11 +10,11 @@ SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
           $scope.dismiss()
           $scope.updateUserSession()
           $location.path('/proposals').search('filter', 'my_votes')
-          AlertService.setSuccess 'You are signed in!'
+          AlertService.setInfo 'You are signed in!', $scope
           $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
         #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
-          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.'
+          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope
 
 RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
   $scope.alertService = AlertService
@@ -27,11 +27,11 @@ RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
         if response.success == true
           $scope.dismiss()
           $location.path('/proposals').search('filter', 'active')
-          AlertService.setSuccess 'Thank you for joining Spokenvote!'
+          AlertService.setInfo 'Thank you for joining Spokenvote!', $scope
           $scope.updateUserSession()
  #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
-          AlertService.setCtlResult 'Sorry, we were not able to save your registration.'
+          AlertService.setCtlResult 'Sorry, we were not able to save your registration.', $scope
 
   $scope.destroy = ->
     $scope.registration.$destroy()

@@ -30,7 +30,7 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
     $scope.session.$destroy()
     $scope.currentUser = {}
     $location.path('/').search('')
-    AlertService.setSuccess 'You are signed out.'
+    AlertService.setInfo 'You are signed out.', $scope
 
   $scope.updateUserSession = ->
     CurrentUserLoader().then (current_user) ->
@@ -45,10 +45,10 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
     $scope.omniauthSession.$save( provider ).success (response, status, headers, config) ->
       if response.success == true
         $scope.dismiss()
-        AlertService.setSuccess 'You  signed in using {{ provider }}!'
+        AlertService.setSuccess 'You  signed in using {{ provider }}!', $scope
       #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
       if response.success == false
-        AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.'
+        AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
 RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$modal', 'SessionService', 'CurrentUserLoader']
 App.controller 'RootCtrl', RootCtrl
