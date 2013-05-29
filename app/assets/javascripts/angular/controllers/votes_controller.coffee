@@ -1,4 +1,4 @@
-SupportCtrl = ($scope, $location, AlertService, Vote) ->
+SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope
 
@@ -9,17 +9,15 @@ SupportCtrl = ($scope, $location, AlertService, Vote) ->
 
     vote = Vote.save($scope.newSupport
     ,  (response, status, headers, config) ->
-      $scope.proposal.$get()
-      $scope.relatedProposals.$get()
+      $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope
       $scope.dismiss()
     ,  (response, status, headers, config) ->
-#      AlertService.setCallingScope $scope     # feature for future use
       AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope
       AlertService.setJson response.data
     )
 
-ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
+ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope
 
@@ -35,8 +33,7 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
 
     improvedProposal = Proposal.save(improvedProposal
     ,  (response, status, headers, config) ->
-      $scope.proposal.$get()
-      $scope.relatedProposals.$get()
+      $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
       $scope.dismiss()
     ,  (response, status, headers, config) ->
@@ -45,8 +42,8 @@ ImroveCtrl = ($scope, $location, AlertService, Proposal) ->
     )
 
 # Injects
-SupportCtrl.$inject = ['$scope', '$location', 'AlertService', 'Vote' ]
-ImroveCtrl.$inject = ['$scope', '$location', 'AlertService', 'Proposal']
+SupportCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
+ImroveCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Proposal']
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl
