@@ -118,7 +118,7 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
       id: clicked_proposal_id
     , (relatedVoteInTree) ->
       delay.resolve relatedVoteInTree
-      , ->
+    , ->
       delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal_id
     delay.promise
 

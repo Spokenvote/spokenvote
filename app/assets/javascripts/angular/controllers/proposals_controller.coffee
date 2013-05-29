@@ -19,7 +19,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings,
     VotingService.improve $scope, clicked_proposal_id
 
 RelatedProposalShowCtrl =
-  (RelatedProposals, $scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
+  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
 
     RelatedProposalsLoader().then (related_proposals) ->
       $scope.relatedProposals = related_proposals
@@ -55,7 +55,7 @@ RelatedProposalShowCtrl =
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'HubSelected', 'SpokenvoteCookies' ]
 ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
-RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposals', 'RelatedProposalsLoader' ]
+RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl
