@@ -81,9 +81,9 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
       $q.reject response
 
 
-HubSelected = ->
-  group_name: "All Groups"
-  id: "No id yet"
+SessionSettings = ->
+  selectedGroupName: "All Groups"
+
 
 # Cookies
 SpokenvoteCookies = ($cookies) ->
@@ -99,6 +99,6 @@ SpokenvoteCookies.$inject = [ '$cookies' ]
 # Register
 App.Services.factory 'SessionService', SessionService
 App.Services.factory 'AlertService', AlertService
-App.Services.factory 'HubSelected', HubSelected
+App.Services.factory 'SessionSettings', SessionSettings
 App.Services.factory 'SpokenvoteCookies', SpokenvoteCookies
 App.Services.factory 'errorHttpInterceptor', errorHttpInterceptor

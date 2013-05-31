@@ -1,11 +1,9 @@
-DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
-  $scope.$location = $location
-  hubSelected = HubSelected
+DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
     placeholder: " Begin typing to find your Group or Location ..."
-    width: '450px'
+    width: '500px'
     allowClear: true
     ajax:
       url: "/hubs"
@@ -20,9 +18,12 @@ DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
       item.full_hub
 
     formatSelection: (item) ->
-      hubSelected.id = item.id
-      hubSelected.group_name = item.group_name
+      SessionSettings.selectedGroupName = item.group_name
       $location.search('hub', item.id)
+      $scope.$watch 'hubFilter', ->
+        if $scope.hubFilter == null
+          $location.search('hub', null)
+          SessionSettings.selectedGroupName = "All Groups"
       item.full_hub
 
     formatNoMatches: (term) ->
@@ -40,5 +41,5 @@ DashboardCtrl = ($scope, $location, $modal, HubSelected) ->
       backdrop: 'static'
       scope: $scope
 
-DashboardCtrl.$inject = ['$scope', '$location', 'HubSelected', '$modal']
+DashboardCtrl.$inject = ['$scope', '$location', '$modal', 'SessionSettings']
 App.controller 'DashboardCtrl', DashboardCtrl
