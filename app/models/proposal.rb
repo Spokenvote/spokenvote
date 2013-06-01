@@ -82,8 +82,8 @@ class Proposal < ActiveRecord::Base
     sprintf('%d%%', (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round)
   end
 
-  #TODO Neither this or current_user_support? seem to be working in our RABL file. Due to "(current_user)"? Need help :)
   def editable?(current_user)
+    return false unless current_user
     current_user && votes_count < 2 && user_id == current_user.id
   end
 

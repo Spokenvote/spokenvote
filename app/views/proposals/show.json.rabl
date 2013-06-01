@@ -2,9 +2,8 @@ object @proposal
 
 attributes :id, :statement, :user_id, :created_at, :votes_count, :ancestry, :created_by, :hub_id, :votes_in_tree, :votes_percentage
 
-node :has_support do |proposal|
-  proposal.has_support?
-end
+node(:is_editable) { |proposal| proposal.editable?(current_user) }
+node(:has_support) { |proposal| proposal.has_support? }
 
 #TODO Could not get this to work, so programmed into Angular for now, but would rather have it here.
 #node :current_user_support do |proposal|
