@@ -1,16 +1,14 @@
-object @proposal
 attributes :id, :statement, :user_id, :created_at, :votes_count, :ancestry, :created_by, :hub_id, :votes_in_tree, :votes_percentage
 
-node :has_support do |proposal|
-  proposal.has_support?
-end
+node(:is_editable) { |proposal| proposal.editable?(current_user) }
+node(:has_support) { |proposal| proposal.has_support? }
 
 node :related_proposals_count do |proposal|
   proposal.related_proposals.count
 end
 
 child :user do
-  attributes :id, :email, :name
+  attributes :id, :email, :name, :gravatar_hash, :facebook_auth
 end
 
 child :hub do
