@@ -28,10 +28,7 @@ class ProposalsController < ApplicationController
     records_limit = 10
     page_number = (params[:page].presence || 0).to_i
     proposal_id = (params[:proposal].presence || params[:id]).to_i
-    if session[:error].present?
-      flash[:error] = session[:error]
-      session[:error] = nil
-    end
+
     params[:related_sort_by] ||= "Most Votes"
     @related_sort_by ||= params[:related_sort_by]
 
@@ -43,7 +40,6 @@ class ProposalsController < ApplicationController
       non_creating_voters = Vote.arel_table[:user_id].not_in(@proposal.user_id)
       @votes = @proposal.votes.order('created_at DESC').offset(offset_by).limit(records_limit).where(non_creating_voters)
       @no_more = @votes.count <= (offset_by + records_limit)
-      @isXhr = true
       render :partial => 'proposal_vote', :collection => @votes, :as => :vote
     end
   end
