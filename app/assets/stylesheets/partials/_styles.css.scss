@@ -287,6 +287,17 @@ input.ng-invalid.ng-dirty {
     margin-left: 15px;
     margin-bottom: 0;
   }
+  .instructions {
+    margin-top: 12px;
+    h5 {
+      color: #555555;
+      font-weight: normal;
+      margin-right: 15px;
+      margin-left: 47px;
+      margin-top: 25px;
+      margin-bottom: 17px;
+    }
+  }
 }
 
 #confirmationModalQuestion {
@@ -482,10 +493,11 @@ input.ng-invalid.ng-dirty {
 // Proposal-related
 .proposal_hub {
   h2 {
-    margin-top: 0;
-    color: #315D99;
-    font-family: Futura;
-    letter-spacing: -2px;
+    margin-top: 14px;
+    //color: #315D99;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #444;
+    //letter-spacing: -2px;
   }
 }
 
@@ -529,21 +541,38 @@ input.ng-invalid.ng-dirty {
   }
 }
 
-.improve_form, .support_form {
-  h3 {
-    font-size: 24px;
-    color: #ff0000;
-  }
-  .proposal_form_buttons {
-    margin-top: 10px;
+.proposal_new {
+  .hub {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #444;
+    margin-top: -20px;
+    margin-bottom: 15px;
+    text-align: right;
+    margin-right: 18px;
+    h3 {
+      margin-top: -10px;
+    }
+    h5 {
+      margin-top: -14px;
+    }
   }
 }
 
-.improve_form {
-  background: #ddd;
-  padding: 10px;
-  border: 1px solid #999;
-}
+//.improve_form, .support_form {
+//  h3 {
+//    font-size: 24px;
+//    color: #ff0000;
+//  }
+//  .proposal_form_buttons {
+//    margin-top: 10px;
+//  }
+//}
+//
+//.improve_form {
+//  background: #ddd;
+//  padding: 10px;
+//  border: 1px solid #999;
+//}
 
 .main-proposal, .supporting_arguments {
   h3 {
@@ -680,7 +709,7 @@ input.ng-invalid.ng-dirty {
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -20px;
+  margin-top: -30px;
   margin-right: -40px;
   // flush right on #mainContent
   .label {

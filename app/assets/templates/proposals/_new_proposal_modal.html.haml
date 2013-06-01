@@ -1,7 +1,7 @@
-#improveProposalModal.modal(data-width='400px' ng-controller="ImroveCtrl" )
+#improveProposalModal.modal( ng-controller="NewProposalCtrl" )
   .modal-header
     .pull-right( class='close' data-dismiss='modal' ) &times;
-    %h2 Improve Proposal
+    %h2 New Proposal
 
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
@@ -18,8 +18,8 @@
             %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
             .instructions
               %h5 Ok, let's improve on this Proposal   ...   Use between 15 and 140 characters to form your improved proposal, while making as few changes to the original proposal as possible to make it yours.
-            %textarea( id='proposal_statement' type='input' class='full-width' ng-model='improvedProposal.statement' required ng-minLength='15' ng-maxLength='140' placeholder='Please use between 15 and 140 characters to form your improved proposal, making as few changes to the original proposal as possible to effect your change.' )
-            %textarea(id='vote_comment' type='text' class='full-width' ng-model='improvedProposal.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why others should support your improved proposal.')
+            %textarea( id='proposal_statement' type='input' class='full-width' ng-model='improvedProposal.statement' required ng-minLength='15' ng-maxLength='140' placeholder='Please use between 15 and 140 characters to make your primary proposal statement.' )
+            %textarea(id='vote_comment' type='text' class='full-width' ng-model='improvedProposal.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why others should support your proposal.')
   .modal-footer
     %fieldset
       .control-group

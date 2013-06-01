@@ -21,6 +21,9 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope
 
+  $scope.improvedProposal = {}
+  $scope.improvedProposal.statement = $scope.proposal.statement
+
   $scope.saveImprovement = ->
     improvedProposal = {}       #TODO: Does it really take 7 lines to build this object? Would love to see it done in fewer lines.
     improvedProposal.proposal = {}
