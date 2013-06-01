@@ -25,27 +25,7 @@ class ProposalsController < ApplicationController
 
   # GET /proposals/1.json
   def show
-    records_limit = 10
-    page_number = (params[:page].presence || 0).to_i
-    proposal_id = (params[:proposal].presence || params[:id]).to_i
-    if session[:error].present?
-      flash[:error] = session[:error]
-      session[:error] = nil
-    end
-    params[:related_sort_by] ||= "Most Votes"
-    @related_sort_by ||= params[:related_sort_by]
-
-    @proposal = Proposal.find(proposal_id)
-    @default_image = get_default_avatar_image
-
-    if params[:proposal].presence
-      offset_by = (page_number * records_limit) + 2
-      non_creating_voters = Vote.arel_table[:user_id].not_in(@proposal.user_id)
-      @votes = @proposal.votes.order('created_at DESC').offset(offset_by).limit(records_limit).where(non_creating_voters)
-      @no_more = @votes.count <= (offset_by + records_limit)
-      @isXhr = true
-      render :partial => 'proposal_vote', :collection => @votes, :as => :vote
-    end
+    @proposal = Proposal.find(params[:id])
   end
 
   # GET /proposals/new.json
@@ -147,4 +127,14 @@ class ProposalsController < ApplicationController
   def find_hub
     @hub = Hub.find(params[:hub]) if params[:hub]
   end
+
+  #def fetch_more(proposal_id, page, offset)
+  #  records_limit = 10
+  #  page_number = (params[:page].presence || 0).to_i
+  #  proposal_id = (params[:proposal_id].presence || params[:id]).to_i
+  #
+  #  if params[:proposal_id].presence
+  #    offset_by = (page_number * records_limit) + 2
+  #  end
+  #end
 end
