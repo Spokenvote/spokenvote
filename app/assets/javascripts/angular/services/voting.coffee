@@ -32,6 +32,13 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         backdrop: 'static'
         scope: scope
 
+  new: ( scope ) ->
+    $modal
+      template: '/assets/proposals/_new_proposal_modal.html.haml'
+      show: true
+      backdrop: 'static'
+      scope: scope
+
 
 # Injects
 VotingService.$inject = [ '$modal', 'AlertService', 'RelatedVoteInTreeLoader'  ]

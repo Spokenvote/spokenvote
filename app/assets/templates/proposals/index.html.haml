@@ -3,7 +3,7 @@
     %table.listing.listing-proposals
       %thead
         %tr
-          %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ hubSelected }}
+          %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ sessionSettings.selectedGroupName }}
         %tr
           %th( width='42%' )
             %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
@@ -30,5 +30,6 @@
       .span7 &nbsp;
       .span4
         Don't see the topic you're looking for?
-        %a( id='makeProposalLink' href='/proposals/new' ) Make it
+        %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it
+        -#%a( id='makeProposalLink' href='/proposals/new' ) Make it
 

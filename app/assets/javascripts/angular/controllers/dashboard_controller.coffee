@@ -18,7 +18,9 @@ DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
       item.full_hub
 
     formatSelection: (item) ->
+      SessionSettings.selectedGroupID = item.id
       SessionSettings.selectedGroupName = item.group_name
+      SessionSettings.selectedGroupLocation = item.formatted_location
       $location.path('/proposals').search('hub', item.id)
       $scope.$watch 'hubFilter', ->
         if $scope.hubFilter == null

@@ -44,10 +44,34 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
+NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+
+  $scope.saveNewProposal = ->
+    newProposal = {}
+    newProposal.proposal = {}
+    newProposal.proposal.votes_attributes = {}
+    newProposal.proposal.parent_id = $scope.clicked_proposal_id
+    newProposal.user_id = $scope.currentUser.id
+    newProposal.proposal.statement = $scope.newProposal.statement
+    newProposal.proposal.votes_attributes.comment = $scope.newProposal.comment
+    AlertService.clearAlerts()
+
+    newProposal = Proposal.save(newProposal
+    ,  (response, status, headers, config) ->
+#      $rootScope.$broadcast 'event:votesChanged'
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
+      $scope.dismiss()
+    ,  (response, status, headers, config) ->
+      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
+      AlertService.setJson response.data
+    )
+
 # Injects
 SupportCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
 ImroveCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Proposal']
+NewProposalCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Proposal']
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl
 App.controller 'ImroveCtrl', ImroveCtrl
+App.controller 'NewProposalCtrl', NewProposalCtrl
