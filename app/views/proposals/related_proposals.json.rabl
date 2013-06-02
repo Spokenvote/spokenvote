@@ -1,6 +1,6 @@
 object @proposal
 
-attributes :id, :statement, :user_id, :created_at, :votes_count, :ancestry, :created_by, :hub_id, :votes_in_tree, :votes_percentage
+attributes :id
 
 node :related_proposals do |proposal|
   partial('proposals/_show', object: proposal.related_proposals(@related_sort_by))
