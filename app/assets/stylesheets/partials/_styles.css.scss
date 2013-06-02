@@ -89,6 +89,15 @@ footer {
   }
 }
 
+.length_counter {
+  text-align: right;
+  margin-right: 25px;
+  margin-top: -12px;
+  margin-bottom: 6px;
+  font-size: 70%;
+  color: gray;
+}
+
 // end Structural
 
 // General elements
@@ -289,11 +298,14 @@ input.ng-invalid.ng-dirty {
   }
   .instructions {
     margin-top: 12px;
+    .avatar {
+      margin-left: 14px;
+    }
     h5 {
       color: #555555;
       font-weight: normal;
       margin-right: 15px;
-      margin-left: 47px;
+      margin-left: 58px;
       margin-top: 25px;
       margin-bottom: 17px;
     }
@@ -547,10 +559,11 @@ input.ng-invalid.ng-dirty {
     color: #444;
     margin-top: -20px;
     margin-bottom: 15px;
+    margin-left: 3px;
     text-align: right;
     margin-right: 18px;
     h3 {
-      margin-top: -10px;
+      margin-top: -12px;
     }
     h5 {
       margin-top: -14px;

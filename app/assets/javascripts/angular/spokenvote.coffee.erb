@@ -5,13 +5,19 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
-#      controller: 'RootCtrl'
-#      resolve:
-#        currentuser: (CurrentUserLoader) ->
-#          CurrentUserLoader()
+      controller: 'RootCtrl'
+      resolve:
+        currentuser: (CurrentUserLoader) ->
+          CurrentUserLoader()
 
-#    .when '/login',
-#      controller: 'RootCtrl'
+    .when '/login',
+#      templateUrl: "<%= asset_path('_sign_in_modal.html.haml') %>"
+      template: "<div class='modal fade hide' id='sign_in_modal' data-remote='/assets/shared/'>...</div>"
+      controller: 'RootCtrl'
+#      resolve:
+#        angular.element("#/assets/shared/_sign_in_modal.html.haml").modal("show")
+#              console.log 'hi'
+
 #      resolve:
 #        loadModal: () ->
 #          angular.element("#voteModal").modal("show")
