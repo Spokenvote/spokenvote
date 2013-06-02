@@ -82,7 +82,7 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
-  selectedGroupID: 1
+  selectedHubID: null
   selectedGroupName: "All Groups"
   selectedGroupLocation: "None"
 

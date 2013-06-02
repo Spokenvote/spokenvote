@@ -1,4 +1,4 @@
-#newProposalModal.modal(  ng-controller="NewProposalCtrl" )
+#newProposalModal.modal( ng-controller="NewProposalCtrl" )
   .modal-header
     .pull-right( class='close' data-dismiss='modal' ) &times;
     %h2 New Proposal
@@ -8,7 +8,9 @@
 
   .modal-body
     .proposal_new
-      .hub
+      .changehub( ng-controller='DashboardCtrl' ng-show='sessionSettings.changeHub' )
+        %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='newProposalHub' )
+      %a.hub( ng-click=' sessionSettings.changeHub = !sessionSettings.changeHub ' href='#' )
         %h3 {{ sessionSettings.selectedGroupName }}
         %h5 {{ sessionSettings.selectedGroupLocation }}
     %form( name='newProposalForm' )
@@ -17,7 +19,7 @@
           .controls
             .instructions
               .avatar
-                %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
+                %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
               %h5 Ok, let's create a new Proposal   ...   Start by creating your main proposal statement, and then add a supporting argument to explain why others should support your proposal.
             %textarea( id='proposal_statement' type='input' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140' placeholder='Please use  15 - 140 characters to form your main proposal statement.' )
             .length_counter( ng-show=' newProposal.statement.length > 15 ' )  {{ 140 - newProposal.statement.length }} characters remaining

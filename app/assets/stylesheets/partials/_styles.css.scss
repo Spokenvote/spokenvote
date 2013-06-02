@@ -92,7 +92,7 @@ footer {
 .length_counter {
   text-align: right;
   margin-right: 25px;
-  margin-top: -12px;
+  margin-top: -11px;
   margin-bottom: 6px;
   font-size: 70%;
   color: gray;
@@ -304,7 +304,7 @@ input.ng-invalid.ng-dirty {
     h5 {
       color: #555555;
       font-weight: normal;
-      margin-right: 15px;
+      margin-right: 20px;
       margin-left: 58px;
       margin-top: 25px;
       margin-bottom: 17px;
@@ -554,11 +554,13 @@ input.ng-invalid.ng-dirty {
 }
 
 .proposal_new {
+  margin-top: -20px;
+  margin-bottom: -38px;
   .hub {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #444;
     margin-top: -20px;
-    margin-bottom: 15px;
+    //margin-bottom: 15px;
     margin-left: 3px;
     text-align: right;
     margin-right: 18px;
@@ -568,6 +570,11 @@ input.ng-invalid.ng-dirty {
     h5 {
       margin-top: -14px;
     }
+  }
+  .changehub {
+    margin-top: 5px;
+    margin-bottom: -10px;
+    text-align: center;
   }
 }
 

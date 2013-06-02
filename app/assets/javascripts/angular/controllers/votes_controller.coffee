@@ -44,14 +44,16 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, SessionSettings) ->
+
+  $scope.sessionSettings = SessionSettings
 
   $scope.saveNewProposal = ->
     newProposal = {}
     newProposal.proposal = {}
     newProposal.proposal.votes_attributes = {}
-    newProposal.proposal.parent_id = $scope.clicked_proposal_id
-    newProposal.user_id = $scope.currentUser.id
+    newProposal.proposal.user_id = $scope.currentUser.id
+    newProposal.proposal.hub_id = $scope.sessionSettings.selectedHubID
     newProposal.proposal.statement = $scope.newProposal.statement
     newProposal.proposal.votes_attributes.comment = $scope.newProposal.comment
     AlertService.clearAlerts()
@@ -60,6 +62,7 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
     ,  (response, status, headers, config) ->
 #      $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
+      $location.path('/proposals').search('hub', SessionSettings.selectedHubID)
       $scope.dismiss()
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
@@ -67,9 +70,9 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
     )
 
 # Injects
-SupportCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
-ImroveCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Proposal']
-NewProposalCtrl.$inject = ['$scope', '$location', '$rootScope', 'AlertService', 'Proposal']
+SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
+ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
+NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal', 'SessionSettings' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

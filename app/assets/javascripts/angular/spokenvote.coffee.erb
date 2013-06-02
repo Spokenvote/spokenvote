@@ -10,6 +10,10 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
         currentuser: (CurrentUserLoader) ->
           CurrentUserLoader()
 
+    .when '/landing',
+      templateUrl: "<%= asset_path('landing.html.haml') %>"
+      controller: 'RootCtrl'
+
     .when '/login',
 #      templateUrl: "<%= asset_path('_sign_in_modal.html.haml') %>"
       template: "<div class='modal fade hide' id='sign_in_modal' data-remote='/assets/shared/'>...</div>"
