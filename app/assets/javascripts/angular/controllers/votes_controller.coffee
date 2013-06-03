@@ -51,11 +51,14 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, Sessio
   $scope.saveNewProposal = ->
     newProposal = {}
     newProposal.proposal = {}
-    newProposal.proposal.votes_attributes = {}
     newProposal.proposal.user_id = $scope.currentUser.id
     newProposal.proposal.hub_id = $scope.sessionSettings.selectedHubID
     newProposal.proposal.statement = $scope.newProposal.statement
-    newProposal.proposal.votes_attributes.comment = $scope.newProposal.comment
+    newProposal.proposal.votes_attributes = []
+    attrs =
+      comment: $scope.newProposal.comment
+
+    newProposal.proposal.votes_attributes.push(attrs)
     AlertService.clearAlerts()
 
     newProposal = Proposal.save(newProposal

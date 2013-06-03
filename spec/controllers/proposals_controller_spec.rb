@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe ProposalsController do
   before :each do
-    request.env["HTTP_REFERER"] = '/'
     request.env["HTTP_ACCEPT"] = 'application/json'
   end
 
@@ -15,11 +14,8 @@ describe ProposalsController do
       let(:valid_attributes) do
         {
           statement: Faker::Lorem.sentence,
-          hub: {
-            group_name: hub.group_name,
-            location_id: hub.location_id
-          },
-          votes_attributes: { "0" => attributes_for(:vote) }
+          hub_id: hub.id,
+          votes_attributes: [{ comment: 'That is why i support it' }]
         }
       end
 
@@ -41,11 +37,6 @@ describe ProposalsController do
         vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
         vote.should_not be_nil
       end
-
-      it 'sets the success flash message' do
-        post :create, :proposal => valid_attributes
-        should set_the_flash.to 'Successfully created the proposal.'
-      end
     end
 
     describe 'with invalid parameters' do
@@ -66,11 +57,6 @@ describe ProposalsController do
         expect {
           post :create, :proposal => invalid_attributes
         }.to change(Vote, :count).by(0)
-      end
-
-      it 'sets the failure flash message' do
-        post :create, :proposal => invalid_attributes
-        should set_the_flash.to 'Failed to create the proposal'
       end
     end
   end

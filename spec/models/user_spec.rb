@@ -126,14 +126,14 @@ describe "User" do
 
     describe '#voted_proposals' do
       it 'gives list of proposals that the user voted on' do
-        user1.voted_proposals.should == [proposal1, proposal2]
+        user1.voted_proposals.should match_array([proposal1, proposal2])
       end
     end
 
     describe '#proposals' do
       it 'gives list of proposals created by the user' do
-        user1.proposals.should == [proposal3]
-        user2.proposals.should == [proposal1, proposal2]
+        user1.proposals.should match_array([proposal3])
+        user2.proposals.should match_array([proposal1, proposal2])
       end
     end
   end

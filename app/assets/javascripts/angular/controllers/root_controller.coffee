@@ -11,7 +11,7 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
 #    console.log "console.log $scope.currentUser.is_admin?" + $scope.currentUser.is_admin?
 
   $scope.$on "event:loginRequired", ->
-    $scope.signIn()
+    $scope.signInModal()
 
   $scope.signInModal = ->
     $modal
