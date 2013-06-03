@@ -7,7 +7,7 @@ HubsCtrl = ($scope, Hub, AlertService) ->
     if $scope.selectedLocation? and $scope.selectedLocation != null and
        $scope.newHub.formatted_location == $scope.selectedLocation.formatted_address
 
-      hub = Hub.save($scope.newHub
+      Hub.save($scope.newHub
       ,  (response, status, headers, config) ->
 #        $scope.Hub.$get()        # Currently we don't show a list of hubs, but might at some point.
         AlertService.setSuccess 'Your new group \"' + response.group_name + '\" was created.', $scope

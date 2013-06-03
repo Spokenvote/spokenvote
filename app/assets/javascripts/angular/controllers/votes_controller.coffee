@@ -49,19 +49,19 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, Sessio
   $scope.sessionSettings = SessionSettings
 
   $scope.saveNewProposal = ->
-    newProposal = {}
-    newProposal.proposal = {}
-    newProposal.proposal.user_id = $scope.currentUser.id
-    newProposal.proposal.hub_id = $scope.sessionSettings.selectedHubID
-    newProposal.proposal.statement = $scope.newProposal.statement
-    newProposal.proposal.votes_attributes = []
-    attrs =
-      comment: $scope.newProposal.comment
+    newProposal =
+      proposal:
+        user_id: $scope.currentUser.id
+        hub_id: $scope.sessionSettings.selectedHubID
+        statement: $scope.newProposal.statement
+        votes_attributes: [comment: $scope.newProposal.comment]
+        hub_attributes: $scope.hub_attributes
 
-    newProposal.proposal.votes_attributes.push(attrs)
+    console.log newProposal
+    console.log $scope.hub_attributes.group_name
     AlertService.clearAlerts()
 
-    newProposal = Proposal.save(newProposal
+    Proposal.save(newProposal
     ,  (response, status, headers, config) ->
 #      $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope

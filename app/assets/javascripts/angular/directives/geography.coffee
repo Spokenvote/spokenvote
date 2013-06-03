@@ -14,9 +14,13 @@ svGooglePlace = ->
       types: ['(regions)']
     autocomplete = new google.maps.places.Autocomplete(element[0], options)
     google.maps.event.addListener autocomplete, "place_changed", ->
-      scope.selectedLocation = autocomplete.getPlace()
+      location = autocomplete.getPlace()
+      scope.selectedLocation = location      #TODO Refactor existing to format below
+      scope.hub_attributes.location_id = location.id
+      scope.hub_attributes.formatted_location = location.formatted_address
+
       model.$setValidity "location", true
-      scope.$apply ->
-        scope.updateModel()
+#      scope.$apply ->
+#        scope.updateModel()
 
 App.Directives.directive 'svGooglePlace', svGooglePlace

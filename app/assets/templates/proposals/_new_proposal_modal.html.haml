@@ -1,15 +1,23 @@
-#newProposalModal.modal( ng-controller="NewProposalCtrl" )
+#newProposalModal.modal(ng-controller="NewProposalCtrl")
   .modal-header
-    .pull-right( class='close' data-dismiss='modal' ) &times;
+    .pull-right(class='close' data-dismiss='modal') &times;
     %h2 New Proposal
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert(alert-bar alertmessageclear='alertService.alertClass')
 
   .modal-body
     .proposal_new
-      .changehub( ng-controller='DashboardCtrl' ng-show='sessionSettings.changeHub' )
+      -#.changehub( ng-controller='DashboardCtrl' ng-show='sessionSettings.changeHub' )
         %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='newProposalHub' )
+      .makeHub
+        %fieldset
+          .control-group
+            .controls
+              %input( name='group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model="hub_attributes.group_name" required="true" )
+            .controls
+              %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='formatted_location' sv-google-place required="true" )
+              -#%span(ng-show='!newHubForm.formatted_location.$valid' ) Choose a valid location.
       %a.hub( ng-click=' sessionSettings.changeHub = !sessionSettings.changeHub ' href='#' )
         %h3 {{ sessionSettings.selectedGroupName }}
         %h5 {{ sessionSettings.selectedGroupLocation }}
