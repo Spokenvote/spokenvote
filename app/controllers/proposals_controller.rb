@@ -67,7 +67,7 @@ class ProposalsController < ApplicationController
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
 
       render 'show', status: :created
-    else
+    elsif params[:proposal][:hub_id].present?
       # New Proposal with Existing Hub
       begin
         hub = Hub.find(params[:proposal][:hub_id])
@@ -82,22 +82,27 @@ class ProposalsController < ApplicationController
 
         render 'show', status: :created
       rescue => e
+        puts e.message
+        puts e.backtrace.join("\n")
+        render json: {}, status: :unprocessable_entity
+      end
+    else
+      # New Proposal with New Hub
+      begin
+        if params[:proposal][:votes_attributes].first[:comment].match(/\n/)
+          params[:proposal][:votes_attributes].first[:comment].gsub!(/(\r\n|\n)/, '<br>')
+        end
+        params[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
+        params[:proposal][:votes_attributes].first[:user_id] = current_user.id  #TODO is this line needed?
+        @proposal = current_user.proposals.create!(params[:proposal])
+
+        render 'show', status: :created
+      rescue => e
+        puts e.message
+        puts e.backtrace.join("\n")
         render json: {}, status: :unprocessable_entity
       end
     end
-
-    #else
-    #  # New Proposal with New Hub
-    #  hub_attrs = params[:proposal].delete :hub
-    #  hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
-    #  params[:proposal][:hub_id] = hub.id unless hub.nil?
-    #  if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
-    #    params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
-    #  end
-    #  params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
-    #  params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
-    #  @proposal = current_user.proposals.create(params[:proposal])
-    #end
   end
 
   # PUT /proposals/1.json
