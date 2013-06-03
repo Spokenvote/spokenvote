@@ -63,25 +63,39 @@ class ProposalsController < ApplicationController
         if params[:proposal][:votes_attributes][:comment].match(/\n/)
           params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
         end
-        votes_attributes = params[:proposal].delete :votes_attributes
+        votes_attributes = params[:proposal].delete :votes_attributes #TODO don't we want any new IP address here?
         @proposal = current_user.proposals.create(params[:proposal])
         Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
-      else
+
+      else #TODO change to the folloing when we have the New hub case?: elsif params[:proposal][:hub_id].present?
         # New Proposal with Existing Hub
-        hub_attrs = params[:proposal].delete :hub
-        hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
-        params[:proposal][:hub_id] = hub.id unless hub.nil?
+        hub = Hub.find(params[:proposal][:hub_id])
+        params[:proposal].delete :hub_id
+        params[:proposal][:hub] = hub
         if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
           params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
         end
         params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
-        params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
-        @proposal = current_user.proposals.create(params[:proposal])
+        params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id  #TODO is this line needed?
+        @proposal = current_user.proposals.create(params[:proposal]) #TODO why does "improve" use "votes_attributes = params[:proposal].delete"?
       end
+
+      #else
+      #  # New Proposal with New Hub
+      #  hub_attrs = params[:proposal].delete :hub
+      #  hub = Hub.find_by_group_name_and_location_id(hub_attrs[:group_name], hub_attrs[:location_id])
+      #  params[:proposal][:hub_id] = hub.id unless hub.nil?
+      #  if params[:proposal][:votes_attributes].first[1][:comment].match(/\n/)
+      #    params[:proposal][:votes_attributes].first[1][:comment].gsub!(/(\r\n|\n)/, '<br>')
+      #  end
+      #  params[:proposal][:votes_attributes].first[1][:ip_address] = request.remote_ip
+      #  params[:proposal][:votes_attributes].first[1][:user_id] = current_user.id
+      #  @proposal = current_user.proposals.create(params[:proposal])
+      #end
 
       render json: @proposal.as_json, status: :created
     rescue
-      render json: @vote.errors, status: :unprocessable_entity
+      render json: @vote.errors, status: :unprocessable_entity #TODO was this correct as some point? Not working now.
     end
   end
 

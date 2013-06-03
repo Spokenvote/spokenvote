@@ -3,7 +3,8 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
   $scope.session = SessionService.userSession
   CurrentUserLoader().then (current_user) ->
     $scope.currentUser = current_user
-    $location.path('/proposals').search('filter', 'my_votes') if $scope.currentUser.username?
+    $location.path('/proposals').search('filter', 'my_votes') if $scope.currentUser.username? and $location.path() == '/'
+
 #    console.log $scope.currentUser
 #    console.log $scope.currentUser.is_admin?
 #  if $scope.currentUser.is_admin?.to_text is 'true'

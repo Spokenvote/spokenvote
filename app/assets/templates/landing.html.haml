@@ -6,8 +6,4 @@
       %span Voting redefined.
     %h4
       Browse proposals, support one or branch your own. Participate in real decisions.
-  -#    = link_to 'More...', about_path
-  -#
-  -#- if @sortTitle != '' or @searched != '' or user_signed_in?
-  -#  #searchResults
-  -#    = render partial: 'shared/proposals_table', locals: { proposals: @proposals, showHub: false, searched: @searched != '' }
+    %a(href='/about') More...

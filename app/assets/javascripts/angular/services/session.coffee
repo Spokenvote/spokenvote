@@ -82,7 +82,15 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
+  selectedHubID: null
   selectedGroupName: "All Groups"
+  selectedGroupLocation: "None"
+
+#SessionSettings = -> [       #TODO trying to learn how to do it this way
+#  selectedGroup: [
+#    Name: "All Groups"
+#  ]
+#]
 
 
 # Cookies
