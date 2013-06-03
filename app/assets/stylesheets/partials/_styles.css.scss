@@ -29,7 +29,7 @@ footer {
 #main {
   overflow: visible;
   .content {
-    overflow: auto;
+    overflow: visible;
     background: url(noisy_grid.png);
     background-color: #fff;
     @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
@@ -744,6 +744,9 @@ input.ng-invalid.ng-dirty {
   font-weight: bold;
   color: #325c99;
   float: right;
+}
+.dropdown-submenu ul.dropdown-menu{
+  border-radius:6px;
 }
 
 // end Proposal-related
