@@ -553,22 +553,33 @@ input.ng-invalid.ng-dirty {
   }
 }
 
-.proposal_new {
+.newProposal {
   margin-top: -20px;
   margin-bottom: -38px;
+  .changehub {
+    margin-top: 5px;
+    margin-bottom: -10px;
+    text-align: center;
+  }
+}
+
+.selectedHub {
+  margin-top: -20px;
+  //margin-bottom: -10px;
   .hub {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #444;
-    margin-top: -20px;
+    //margin-top: -20px;
     //margin-bottom: 15px;
-    margin-left: 3px;
+    //margin-left: 3px;
     text-align: right;
-    margin-right: 18px;
     h3 {
-      margin-top: -12px;
+      margin-right: 3px;
     }
     h5 {
-      margin-top: -14px;
+      margin-top: -2px;
+      margin-bottom: -4px;
+      margin-right: 3px;
     }
   }
   .changehub {

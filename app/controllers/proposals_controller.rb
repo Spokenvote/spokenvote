@@ -25,7 +25,8 @@ class ProposalsController < ApplicationController
 
   # GET /proposals/1.json
   def show
-    @proposal = Proposal.find(params[:id])
+    eager_load = [:votes => { :user => :authentications }]
+    @proposal = Proposal.includes(eager_load).where(id: params[:id]).first
   end
 
   # GET /proposals/new.json

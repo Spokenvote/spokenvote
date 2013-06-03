@@ -45,14 +45,14 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
     )
 
 NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, SessionSettings) ->
-
+  $scope.hub_attributes = {}
   $scope.sessionSettings = SessionSettings
 
   $scope.saveNewProposal = ->
     newProposal =
       proposal:
         user_id: $scope.currentUser.id
-        hub_id: $scope.sessionSettings.selectedHubID
+        hub_id: $scope.sessionSettings.hub_id
         statement: $scope.newProposal.statement
         votes_attributes: [comment: $scope.newProposal.comment]
         hub_attributes: $scope.hub_attributes
@@ -65,7 +65,7 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, Sessio
     ,  (response, status, headers, config) ->
 #      $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
-      $location.path('/proposals').search('hub', SessionSettings.selectedHubID)
+      $location.path('/proposals').search('hub', SessionSettings.hub_id)
       $scope.dismiss()
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope

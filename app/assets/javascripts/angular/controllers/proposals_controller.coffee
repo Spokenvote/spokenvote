@@ -15,7 +15,7 @@ ProposalListCtrl =
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
   $scope.proposal = proposal
-  $scope.defaultGravatar = SessionSettings.defaultGravatar
+  $scope.defaultGravatar = SessionSettings.spokenvote_attributes.defaultGravatar
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

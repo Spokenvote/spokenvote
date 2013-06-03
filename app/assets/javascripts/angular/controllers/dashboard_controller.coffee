@@ -3,9 +3,9 @@ DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
   $scope.$watch 'hubFilter', ->
     if $scope.hubFilter == null
       $location.search('hub', null)
-      SessionSettings.selectedGroupName = "All Groups"
-    else
-      $location.path('/proposals').search('hub', SessionSettings.selectedHubID)
+      SessionSettings.hub_attributes.group_name = "All Groups"
+    else if $scope.hubFilter?
+      $location.path('/proposals').search('hub', SessionSettings.hub_attributes.hub_id)
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -25,13 +25,17 @@ DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
       item.full_hub
 
     formatSelection: (item) ->
-      SessionSettings.selectedHubID = item.id
-      SessionSettings.selectedGroupName = item.group_name
-      SessionSettings.selectedGroupLocation = item.formatted_location
+      SessionSettings.hub_attributes.hub_id = item.id
+      SessionSettings.hub_attributes.group_name = item.group_name
+      SessionSettings.hub_attributes.formatted_location = item.formatted_location
+      SessionSettings.hub_attributes.full_hub = item.full_hub
+      SessionSettings.hub_attributes.changeHub = null
       item.full_hub
+
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
+      console.log $scope.searchGroupTerm
       'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
 
     initSelection: (element, callback) ->

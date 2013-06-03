@@ -37,8 +37,9 @@
             %li
               %a(href='#' ng-click='signOut()') Sign Out
 
-        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' )
-          %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes')
+          %a(href='/proposals?filter=my_votes')
+            %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
 
         %li.buttons( ng-show='!currentUser.username')
           %button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
