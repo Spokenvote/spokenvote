@@ -53,9 +53,9 @@ class Proposal < ActiveRecord::Base
     when "Least Votes"
       all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     when "Most Recently Voted on"
-      all_proposals_in_tree.sort! { |p1, p2| p2.recent_vote.created_at <=> p1.recent_vote.created_at }
+      all_proposals_in_tree.sort! { |p1, p2| p2.recent_vote <=> p1.recent_vote }
     when "Oldest Most Recent Vote"
-      all_proposals_in_tree.sort! { |p1, p2| p1.recent_vote.created_at <=> p2.recent_vote.created_at }
+      all_proposals_in_tree.sort! { |p1, p2| p1.recent_vote <=> p2.recent_vote }
     else
       all_proposals_in_tree.sort! { |p1, p2| p1.votes_count <=> p2.votes_count }
     end
@@ -88,7 +88,8 @@ class Proposal < ActiveRecord::Base
   end
 
   def recent_vote
-    self.votes.order('created_at DESC').first
+    return self.created_at if self.votes.blank?
+    self.votes.order('created_at DESC').first.created_at
   end
 
   #TODO Could not get this to work, so programmed into Angular for now, but would rather have it here.

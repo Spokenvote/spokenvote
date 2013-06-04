@@ -33,7 +33,7 @@ RelatedProposalShowCtrl =
     $scope.$on 'event:votesChanged', ->
       $scope.relatedProposals.$get()
 
-    $scope.relatedProposals = RelatedProposals.get({id:$scope.proposal.id})
+    $scope.relatedProposals = RelatedProposals.get({id: $scope.proposal.id})
 
     $scope.related_sorter_dropdown = [
       text: "By Votes"
@@ -56,7 +56,7 @@ RelatedProposalShowCtrl =
     ]
 
     $scope.sortRelatedProposals = (related_sort_by) ->
-      $scope.relatedProposals = RelatedProposals.get({id:$scope.proposal.id,related_sort_by:related_sort_by})
+      $scope.relatedProposals = RelatedProposals.get({id: $scope.proposal.id, related_sort_by: related_sort_by})
       $scope.selectedSort = related_sort_by
 
 # Injects
