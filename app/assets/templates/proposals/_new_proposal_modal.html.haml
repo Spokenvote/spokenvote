@@ -3,6 +3,7 @@
     .pull-right(class='close' data-dismiss='modal') &times;
     %h2 New Proposal
     .selectedHub
+      -#%a.hub(ng-click='sessionSettings.hub_attributes.changeHub = !sessionSettings.hub_attributes.changeHub' href='#')
       %a.hub(ng-click='sessionSettings.hub_attributes.changeHub = !sessionSettings.hub_attributes.changeHub' href='#')
         %h3(ng-show='sessionSettings.hub_attributes.hub_id') {{ sessionSettings.hub_attributes.group_name }}
         %h3(ng-hide='sessionSettings.hub_attributes.hub_id') Select your Group

@@ -29,25 +29,28 @@ DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
       SessionSettings.hub_attributes.group_name = item.group_name
       SessionSettings.hub_attributes.formatted_location = item.formatted_location
       SessionSettings.hub_attributes.full_hub = item.full_hub
-      SessionSettings.hub_attributes.changeHub = null
       item.full_hub
-
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
-      console.log $scope.searchGroupTerm
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
+#      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
+#      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" ng-href="#">create it</a>.'
 
     initSelection: (element, callback) ->
       callback()
 
   App.navCreateHub = ->
-    angular.element("#s2id_hub_filter").select2 "close"
-    $modal
-      template: '/assets/hubs/_new_hub_modal.html.haml'
-      show: true
-      backdrop: 'static'
-      scope: $scope
+    angular.element('.select2-drop-active').select2 'close'
+    if SessionSettings.user_actions.open_modal == 'newProposalModal'
+      $modal
+        template: '/assets/hubs/_new_hub_modal.html.haml'
+        show: true
+        backdrop: 'static'
+        scope: $scope
+    $scope.$apply ->
+      SessionSettings.hub_attributes.changeHub = 'new'
+      console.log SessionSettings.hub_attributes.changeHub
 
 DashboardCtrl.$inject = ['$scope', '$location', '$modal', 'SessionSettings']
 App.controller 'DashboardCtrl', DashboardCtrl

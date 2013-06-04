@@ -82,12 +82,14 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
+  user_actions:
+    open_modal: null
   hub_attributes:
     hub_id: null
     group_name: "All Groups"
     formatted_location: "None"
     full_hub: null
-    changeHub: null
+    changeHub: false
   spokenvote_attributes:
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
 
