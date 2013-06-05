@@ -69,7 +69,7 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
-window.App = angular.module('spokenvote', ['spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui']).config(appConfig)
+window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 
 servicesConfig = ($httpProvider) ->

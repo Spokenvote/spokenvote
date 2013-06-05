@@ -83,7 +83,7 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 SessionSettings = ->
   user_actions:
-    open_modal: null
+    open_modal: false
   hub_attributes:
     hub_id: null
     group_name: "All Groups"
