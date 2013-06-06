@@ -21,7 +21,7 @@ Spokenvote::Application.routes.draw do
 
   resources :votes, only: [:create]
 
-  resources :hubs, only: [:create, :index] do
+  resources :hubs, only: [:create, :index, :show] do
     resources :proposals
   end
 

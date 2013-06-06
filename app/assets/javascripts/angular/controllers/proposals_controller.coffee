@@ -1,10 +1,14 @@
 ProposalListCtrl =
-  ($scope, $routeParams, $location, proposals, SessionSettings, SpokenvoteCookies, VotingService) ->
+  ($scope, $routeParams, $location, proposals, SessionSettings, SpokenvoteCookies, VotingService, searchedHub) ->
     $scope.proposals = proposals
     $scope.filterSelection = $routeParams.filter
     $scope.spokenvoteSession = SpokenvoteCookies
 
     $scope.sessionSettings = SessionSettings
+
+    console.log searchedHub
+    SessionSettings.searchedHub = searchedHub
+    console.log SessionSettings.searchedHub
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
@@ -12,10 +16,8 @@ ProposalListCtrl =
     $scope.new = ->
       VotingService.new $scope
 
-
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
   $scope.proposal = proposal
-  $scope.defaultGravatar = SessionSettings.spokenvote_attributes.defaultGravatar
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
@@ -65,7 +67,7 @@ RelatedProposalShowCtrl =
   #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
 # Injects
-ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
+ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService', 'searchedHub' ]
 ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
 RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
 

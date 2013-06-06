@@ -282,8 +282,8 @@ input.ng-invalid.ng-dirty {
   background-color: #000 !important;
 }
 
-.modal.fade.in {
-  top: 20% !important;
+.modal {
+  top: 15% !important;
 }
 
 .modal-body {
@@ -558,7 +558,7 @@ input.ng-invalid.ng-dirty {
   margin-bottom: -38px;
   .changehub {
     margin-top: 5px;
-    margin-bottom: -10px;
+    margin-bottom: 50px;
     text-align: center;
   }
 }

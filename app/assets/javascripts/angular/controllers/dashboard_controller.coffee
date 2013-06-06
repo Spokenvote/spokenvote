@@ -1,4 +1,6 @@
-DashboardCtrl = ($scope, $location, $dialog, $modal, SessionSettings) ->
+DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+
+#  $scope.hubFilter = SessionSettings.searchedHub
 
   $scope.$watch 'hubFilter', ->
     if $scope.hubFilter == null
@@ -35,28 +37,30 @@ DashboardCtrl = ($scope, $location, $dialog, $modal, SessionSettings) ->
       $scope.searchGroupTerm = term
 #      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
     initSelection: (element, callback) ->
       callback()
 
   App.navCreateHub = ->
-    angular.element('.select2-drop-active').select2 'close'
-    console.log "dialog starting: " + SessionSettings.user_actions.open_modal
     $scope.$apply ->
-      if SessionSettings.user_actions.open_modal != 'newProposalModal'
-        SessionSettings.user_actions.open_modal = 'newProposalModal'
-        $scope.opts =
-          backdrop: true
-          keyboard: true
-          backdropClick: true
-          templateUrl: '/assets/proposals/_new_proposal_modal.html.haml'
-        d = $dialog.dialog($scope.opts)
-        d.open().then (result) ->
-          SessionSettings.user_actions.open_modal = false
-          console.log "dialog closed with result: " + SessionSettings.user_actions.open_modal
+      VotingService.new $scope
       SessionSettings.hub_attributes.changeHub = 'new'
-      console.log SessionSettings.hub_attributes.changeHub
+    angular.element('.select2-drop-active').select2 'close'
+#      if SessionSettings.user_actions.open_modal != 'newProposalModal'
+#        concole.log "passed if"
+#        SessionSettings.user_actions.open_modal = 'newProposalModal'
+#        $scope.opts =
+#          backdrop: true
+#          keyboard: true
+#          backdropClick: true
+#          templateUrl: '/assets/proposals/_new_proposal_modal.html.haml'
+#        d = $dialog.dialog($scope.opts)
+#        d.open().then (result) ->
+#          SessionSettings.user_actions.open_modal = false
+#          console.log "dialog closed with result: " + SessionSettings.user_actions.open_modal
+#      SessionSettings.hub_attributes.changeHub = 'new'
+#      console.log SessionSettings.hub_attributes.changeHub
 
 #    if SessionSettings.user_actions.open_modal != 'newProposalModal'
 #      $scope.$apply ->
@@ -69,5 +73,5 @@ DashboardCtrl = ($scope, $location, $dialog, $modal, SessionSettings) ->
 #      SessionSettings.hub_attributes.changeHub = 'new'
 #      console.log SessionSettings.hub_attributes.changeHub
 
-DashboardCtrl.$inject = ['$scope', '$location', '$dialog', '$modal', 'SessionSettings']
+DashboardCtrl.$inject = [ '$scope', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl

@@ -33,18 +33,27 @@ VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInT
         scope: scope
 
   new: ( scope ) ->
-    SessionSettings.user_actions.open_modal = 'newProposalModal'
-    scope.opts =
-      backdrop: true
-      keyboard: true
-      backdropClick: true
-      templateUrl: '/assets/proposals/_new_proposal_modal.html.haml'
-#      controller: "TestDialogController"
-    d = $dialog.dialog(scope.opts)
-    d.open().then (result) ->
-      console.log "dialog closing: " + SessionSettings.user_actions.open_modal
-      SessionSettings.user_actions.open_modal = false
-      console.log "dialog closed with result: " + SessionSettings.user_actions.open_modal
+    if SessionSettings.openModals.newProposal is false
+      scope.opts =
+        backdrop: true
+        keyboard: true
+        backdropClick: true
+        dialogFade: true
+        resolve:
+          parentScope: ->
+            scope
+      d = $dialog.dialog(scope.opts)
+      SessionSettings.openModals.newProposal = true
+#      console.log "Inside if ... SessionSettings.openModals.newProposal = true"
+      d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
+#        console.log "result d.open: " + d.isOpen('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl')
+#        console.log "result d.open: SessionSettings.openModals.newProposal " + SessionSettings.openModals.newProposal
+        SessionSettings.openModals.newProposal = d.isOpen()
+#        d.close()
+#        console.log "After setting on exit and close: SessionSettings.openModals.newProposal = d.isOpen " + SessionSettings.openModals.newProposal
+#    console.log "end of voting service"
+
+
 
 #    SessionSettings.user_actions.open_modal = 'newProposalModal'
 #    $modal
