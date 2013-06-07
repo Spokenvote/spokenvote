@@ -1,14 +1,16 @@
-DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
-  $scope.hubFilter = {}
-  $scope.hubFilter.full_hub = ' '
+DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+  SessionSettings.routeParams = $route.current.params
+  if $route.current.params.hub?
+    $scope.hubFilter =
+      full_hub: true
 
   $scope.$watch 'hubFilter.full_hub', ->
-    if $scope.hubFilter.full_hub == null
-      $location.search('hub', null)
-      SessionSettings.hub_attributes.group_name = "All Groups"
-    else if SessionSettings.hub_attributes.hub_id?
-#      console.log "id" + SessionSettings.hub_attributes.hub_id
-      $location.path('/proposals').search('hub', SessionSettings.hub_attributes.hub_id)
+    if $scope.hubFilter?
+      if $scope.hubFilter.full_hub == null
+          $location.search('hub', null)
+          SessionSettings.hub_attributes.group_name = "All Groups"
+      else if SessionSettings.hub_attributes.id?
+        $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -24,15 +26,12 @@ DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, 
       results: (data, page) ->
         results: data
 
-    formatResult: (item) ->
-      item.full_hub
+    formatResult: (searchedHub) ->
+      searchedHub.full_hub
 
-    formatSelection: (item) ->
-      SessionSettings.hub_attributes.hub_id = item.id
-      SessionSettings.hub_attributes.group_name = item.group_name
-      SessionSettings.hub_attributes.formatted_location = item.formatted_location
-      SessionSettings.hub_attributes.full_hub = item.full_hub
-      item.full_hub
+    formatSelection: (searchedHub) ->
+      SessionSettings.hub_attributes = searchedHub
+      searchedHub.full_hub
 
     formatNoMatches: (term) ->
       $scope.searchGroupTerm = term
@@ -43,9 +42,8 @@ DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, 
     initSelection: (element, callback) ->
 #      console.log "init"
       CurrentHubLoader().then (searchedHub) ->
-        SessionSettings.searchedHub = searchedHub
-        $scope.hubFilter = searchedHub
-        callback full_hub: SessionSettings.searchedHub.full_hub
+        SessionSettings.hub_attributes = searchedHub
+        callback SessionSettings.hub_attributes
 
 
   App.navCreateHub = ->
@@ -79,5 +77,5 @@ DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, 
 #      SessionSettings.hub_attributes.changeHub = 'new'
 #      console.log SessionSettings.hub_attributes.changeHub
 
-DashboardCtrl.$inject = [ '$scope', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl

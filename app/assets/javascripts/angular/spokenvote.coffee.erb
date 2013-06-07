@@ -50,8 +50,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
       resolve:
         proposals: (MultiProposalLoader) ->
           MultiProposalLoader()
-        searchedHub: (CurrentHubLoader) ->
-          CurrentHubLoader()
 
     .when '/proposals/:proposalId',
       templateUrl: "<%= asset_path('proposals/show.html.haml') %>"

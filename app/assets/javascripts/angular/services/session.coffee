@@ -81,18 +81,19 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
       $q.reject response
 
 
-SessionSettings = (CurrentHubLoader) ->
+SessionSettings = ->
   userActions:
     futureUse: false
   openModals:
     newProposal: false
   searchedHub: {}
+  routeParams: {}
   hub_attributes:
-    hub_id: null
+#    hub_id: null
     group_name: "All Groups"
-    formatted_location: "None"
-    full_hub: null
-    changeHub: false
+#    formatted_location: "None"
+#    full_hub: null
+#    changeHub: false
   spokenvote_attributes:
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
 
@@ -105,7 +106,6 @@ SpokenvoteCookies = ($cookies) ->
 SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 AlertService.$inject = [ '$timeout' ]
 errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
-SessionSettings.$inject = [ 'CurrentHubLoader' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]
 
 # Register
