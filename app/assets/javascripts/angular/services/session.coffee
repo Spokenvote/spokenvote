@@ -81,7 +81,7 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
       $q.reject response
 
 
-SessionSettings = ->
+SessionSettings = (CurrentHubLoader) ->
   userActions:
     futureUse: false
   openModals:
@@ -105,6 +105,7 @@ SpokenvoteCookies = ($cookies) ->
 SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 AlertService.$inject = [ '$timeout' ]
 errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
+SessionSettings.$inject = [ 'CurrentHubLoader' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]
 
 # Register

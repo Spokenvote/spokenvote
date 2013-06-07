@@ -5,10 +5,9 @@ ProposalListCtrl =
     $scope.spokenvoteSession = SpokenvoteCookies
 
     $scope.sessionSettings = SessionSettings
-
-    console.log searchedHub
-    SessionSettings.searchedHub = searchedHub
-    console.log SessionSettings.searchedHub
+#
+#    SessionSettings.searchedHub = searchedHub
+#    console.log SessionSettings.searchedHub
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)

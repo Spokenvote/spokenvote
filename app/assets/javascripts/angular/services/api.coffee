@@ -79,12 +79,15 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
 CurrentHubLoader = (Hub, $route, $q) ->
   ->
     delay = $q.defer()
-    Hub.get
-      id: $route.current.params.hub
-    , (hub) ->
-      delay.resolve hub
-    , ->
-      delay.reject 'Unable to locate a hub '
+    if $route.current.params.hub
+      Hub.get
+        id: $route.current.params.hub
+      , (hub) ->
+        delay.resolve hub
+      , ->
+        delay.reject 'Unable to locate a hub '
+    else
+      delay.resolve false
     delay.promise
 
 ProposalLoader = (Proposal, $route, $q) ->

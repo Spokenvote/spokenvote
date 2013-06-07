@@ -1,12 +1,13 @@
 DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+  $scope.hubFilter = {}
+  $scope.hubFilter.full_hub = ' '
 
-#  $scope.hubFilter = SessionSettings.searchedHub
-
-  $scope.$watch 'hubFilter', ->
-    if $scope.hubFilter == null
+  $scope.$watch 'hubFilter.full_hub', ->
+    if $scope.hubFilter.full_hub == null
       $location.search('hub', null)
       SessionSettings.hub_attributes.group_name = "All Groups"
-    else if $scope.hubFilter?
+    else if SessionSettings.hub_attributes.hub_id?
+#      console.log "id" + SessionSettings.hub_attributes.hub_id
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.hub_id)
 
   $scope.hubFilterSelect2 =
@@ -40,7 +41,12 @@ DashboardCtrl = ($scope, $location, $dialog, SessionSettings, CurrentHubLoader, 
       'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
     initSelection: (element, callback) ->
-      callback()
+#      console.log "init"
+      CurrentHubLoader().then (searchedHub) ->
+        SessionSettings.searchedHub = searchedHub
+        $scope.hubFilter = searchedHub
+        callback full_hub: SessionSettings.searchedHub.full_hub
+
 
   App.navCreateHub = ->
     $scope.$apply ->
