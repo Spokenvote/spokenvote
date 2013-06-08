@@ -44,10 +44,13 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal, SessionSettings) ->
-  $scope.hub_attributes = {}
-  $scope.sessionSettings = SessionSettings
+NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+  $scope.sessionSettings = parentScope.sessionSettings
   $scope.currentUser = parentScope.currentUser
+#  $scope.sessionSettings.hub_attributes.group_name = parentScope.sessionSettings.actions.searchTerm
+  console.log $scope.sessionSettings.actions.changeHub
+  console.log "$scope.sessionSettings.hub_attributes.group_name: " + $scope.sessionSettings.hub_attributes.group_name
+  console.log "parentScope.sessionSettings.actions.searchTerm: " + parentScope.sessionSettings.actions.searchTerm
 
   $scope.saveNewProposal = ->
     newProposal =
@@ -79,7 +82,7 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
-NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'SessionSettings' ]
+NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

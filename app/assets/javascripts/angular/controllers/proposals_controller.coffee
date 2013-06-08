@@ -8,6 +8,7 @@ ProposalListCtrl =
       $location.search('filter', filterSelected)
 
     $scope.new = ->
+      $scope.sessionSettings.actions.changeHub = null
       VotingService.new $scope
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->

@@ -290,16 +290,17 @@ input.ng-invalid.ng-dirty {
   background-color: #DFDFDF;
   padding-top: 20px;
   form {
-    margin: 0;
+    //margin: 0;
   }
   .control-group {
-    margin-left: 15px;
-    margin-bottom: 0;
+    //margin-left: 15px;
+    margin-bottom: 40px;
   }
   .instructions {
     margin-top: 12px;
+    margin-left: 6px;
     .avatar {
-      margin-left: 14px;
+      margin-left: 18px;
     }
     h5 {
       color: #555555;
@@ -558,8 +559,26 @@ input.ng-invalid.ng-dirty {
   margin-bottom: -38px;
   .changehub {
     margin-top: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     text-align: center;
+  }
+  .makeHub {
+    margin-left: 35px;
+    h3 {
+      font-style: italic;
+      color: rgb(211, 72, 72);
+    }
+    h5 {
+      font-style: italic;
+      color: rgb(72, 72, 211);
+      text-align: center;
+      margin-left: 30px;
+      margin-right: 55px;
+      padding-bottom: 4px;
+    }
+    input {
+      margin-left: 18px;
+    }
   }
 }
 

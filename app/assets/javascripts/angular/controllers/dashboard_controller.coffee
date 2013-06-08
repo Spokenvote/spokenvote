@@ -31,10 +31,11 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
 
     formatSelection: (searchedHub) ->
       SessionSettings.hub_attributes = searchedHub
+      SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
     formatNoMatches: (term) ->
-      $scope.searchGroupTerm = term
+      SessionSettings.actions.searchTerm = term
 #      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
       'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
@@ -49,7 +50,10 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
   App.navCreateHub = ->
     $scope.$apply ->
       VotingService.new $scope
-      SessionSettings.hub_attributes.changeHub = 'new'
+      SessionSettings.actions.changeHub = 'new'
+#      console.log "$scope.searchGroupTerm: " + $scope.searchGroupTerm
+#      SessionSettings.actions.searchTerm = $scope.searchGroupTerm
+      console.log 'SessionSettings.actions.searchTerm: ' + SessionSettings.actions.searchTerm
     angular.element('.select2-drop-active').select2 'close'
 #      if SessionSettings.user_actions.open_modal != 'newProposalModal'
 #        concole.log "passed if"
@@ -63,8 +67,8 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
 #        d.open().then (result) ->
 #          SessionSettings.user_actions.open_modal = false
 #          console.log "dialog closed with result: " + SessionSettings.user_actions.open_modal
-#      SessionSettings.hub_attributes.changeHub = 'new'
-#      console.log SessionSettings.hub_attributes.changeHub
+#      SessionSettings.actions.changeHub = 'new'
+#      console.log SessionSettings.actions.changeHub
 
 #    if SessionSettings.user_actions.open_modal != 'newProposalModal'
 #      $scope.$apply ->
@@ -74,8 +78,8 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
 #          backdrop: 'static'
 #          scope: $scope
 #    $scope.$apply ->
-#      SessionSettings.hub_attributes.changeHub = 'new'
-#      console.log SessionSettings.hub_attributes.changeHub
+#      SessionSettings.actions.changeHub = 'new'
+#      console.log SessionSettings.actions.changeHub
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl

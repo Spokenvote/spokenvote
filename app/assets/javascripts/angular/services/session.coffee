@@ -82,8 +82,9 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
-  userActions:
-    futureUse: false
+  actions:
+    changeHub: false
+    searchTerm: null
   openModals:
     newProposal: false
   searchedHub: {}
