@@ -4,18 +4,21 @@ ProposalListCtrl =
     $scope.filterSelection = $routeParams.filter
     $scope.spokenvoteSession = SpokenvoteCookies
 
-    $scope.sessionSettings = SessionSettings
-
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
 
-    $scope.new = ->
-      VotingService.new $scope
+    $scope.$on 'event:proposalsChanged', ->
+      $scope.proposals.$query()   #not working like the $gets below
 
+    $scope.new = ->
+      if $scope.sessionSettings.hub_attributes.id?
+        $scope.sessionSettings.actions.changeHub = false
+      else
+        $scope.sessionSettings.actions.changeHub = true
+      VotingService.new $scope
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
   $scope.proposal = proposal
-  $scope.defaultGravatar = SessionSettings.defaultGravatar
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

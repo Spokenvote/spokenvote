@@ -82,16 +82,21 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
-  selectedHubID: null
-  selectedGroupName: "All Groups"
-  selectedGroupLocation: "None"
-
-#SessionSettings = -> [       #TODO trying to learn how to do it this way
-#  selectedGroup: [
-#    Name: "All Groups"
-#  ]
-#]
-
+  actions:
+    hubFilter: 'All Groups'
+    changeHub: false
+    newProposalHub: null
+    searchTerm: null
+  openModals:
+    newProposal: false
+  searchedHub: {}
+  routeParams: {}
+  hub_attributes: {}
+  lastLocation:
+    location_id: null
+    formatted_location: null
+  spokenvote_attributes:
+    defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
 
 # Cookies
 SpokenvoteCookies = ($cookies) ->
@@ -107,6 +112,6 @@ SpokenvoteCookies.$inject = [ '$cookies' ]
 # Register
 App.Services.factory 'SessionService', SessionService
 App.Services.factory 'AlertService', AlertService
-App.Services.factory 'SessionSettings', SessionSettings
-App.Services.factory 'SpokenvoteCookies', SpokenvoteCookies
 App.Services.factory 'errorHttpInterceptor', errorHttpInterceptor
+App.Services.factory 'SpokenvoteCookies', SpokenvoteCookies
+App.Services.factory 'SessionSettings', SessionSettings

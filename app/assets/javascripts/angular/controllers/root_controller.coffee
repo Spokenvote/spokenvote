@@ -1,6 +1,7 @@
-RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUserLoader) ->
+RootCtrl = ($scope, AlertService, $location, $modal, SessionService, SessionSettings, CurrentUserLoader) ->
   $scope.alertService = AlertService
   $scope.session = SessionService.userSession
+  $scope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
     $scope.currentUser = current_user
     $location.path('/proposals').search('filter', 'my_votes') if $scope.currentUser.username? and $location.path() == '/'
@@ -11,7 +12,7 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
 #    console.log "console.log $scope.currentUser.is_admin?" + $scope.currentUser.is_admin?
 
   $scope.$on "event:loginRequired", ->
-    $scope.signIn()
+    $scope.signInModal()
 
   $scope.signInModal = ->
     $modal
@@ -51,5 +52,5 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, CurrentUser
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$modal', 'SessionService', 'CurrentUserLoader']
+RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$modal', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
 App.controller 'RootCtrl', RootCtrl

@@ -1,13 +1,14 @@
 HubsCtrl = ($scope, Hub, AlertService) ->
-  $scope.newHub = {}
-  $scope.newHub.group_name = $scope.searchGroupTerm
+  $scope.hub_attributes = {}
+  $scope.hub_attributes.group_name = $scope.searchGroupTerm
+  console.log $scope.hub_attributes.group_name
+
 
   $scope.addHub = ->
     AlertService.clearAlerts()
-    if $scope.selectedLocation? and $scope.selectedLocation != null and
-       $scope.newHub.formatted_location == $scope.selectedLocation.formatted_address
+    if $scope.hub_attributes.formatted_location?
 
-      hub = Hub.save($scope.newHub
+      Hub.save($scope.hub_attributes
       ,  (response, status, headers, config) ->
 #        $scope.Hub.$get()        # Currently we don't show a list of hubs, but might at some point.
         AlertService.setSuccess 'Your new group \"' + response.group_name + '\" was created.', $scope
@@ -21,8 +22,8 @@ HubsCtrl = ($scope, Hub, AlertService) ->
       AlertService.setCtlResult 'Please select a Location from the provided list.', $scope
 
   $scope.updateModel = ->
-    $scope.newHub.formatted_location = $scope.selectedLocation.formatted_address
-    $scope.newHub.location_id = $scope.selectedLocation.id
+    $scope.hub_attributes.formatted_location = $scope.selectedLocation.formatted_address
+    $scope.hub_attributes.location_id = $scope.selectedLocation.id
 
 HubsCtrl.$inject = ['$scope', 'Hub', 'AlertService']
 App.controller 'HubsCtrl', HubsCtrl

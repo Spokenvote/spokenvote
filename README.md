@@ -35,28 +35,41 @@ The typical work flow for this is:
 
 ### One time setup
  - Add railsforcharity/spokenvote as your upstream using the command
+ ```
   $ git remote add upstream https://github.com/railsforcharity/spokenvote.git
-
+ ```
 ### Before starting a new feature
  - Fetch upstream changes to your local git
+  ```
   $ git fetch --all
+  ```
  - Merged upstream changes to your local
+  ```
   $ git merge upstream/master
+  ```
  - Create a new feature branch on local (example: may17_my_shiny_feature)
+  ```
   $ git checkout -b may17_my_shiny_feature
+  ```
  - Work on your feature
  - Commit your code
 
 ### Before pushing to remote master
  - Sync your local master branch from upstream master
+  ```
   $ git checkout master
   $ git fetch upstream
   $ git merge upstream/master
+  ```
  - Rebase your feature branch on your master
+  ```
   $ git checkout may17_my_shiny_feature
   $ git rebase master
+  ```
  - Push your changes to your remote
+   ```
   $ git push origin checkout may17_my_shiny_feature
+   ```
 
 **Tests are always a welcome inclusion!**
 

@@ -2,126 +2,157 @@ require 'spec_helper'
 
 describe ProposalsController do
   before :each do
-    request.env["HTTP_REFERER"] = '/'
     request.env["HTTP_ACCEPT"] = 'application/json'
   end
 
-  describe 'POST create new proposal with existing hub' do
+  describe 'POST create' do
     login_user
 
-    let(:hub) { create(:hub) }
-
-    describe 'with valid parameters' do
-      let(:valid_attributes) do
-        {
-          statement: Faker::Lorem.sentence,
-          hub: {
-            group_name: hub.group_name,
-            location_id: hub.location_id
-          },
-          votes_attributes: { "0" => attributes_for(:vote) }
-        }
-      end
-
-      it 'creates a new proposal' do
-        expect {
-          post :create, :proposal => valid_attributes
-        }.to change(Proposal, :count).by(1)
-      end
-
-      it "increases the vote count by 1" do
-        expect {
-          post :create, :proposal => valid_attributes
-        }.to change(Vote, :count).by(1)
-      end
-
-      it "creates a valid vote" do
-        post :create, :proposal => valid_attributes
-
-        vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
-        vote.should_not be_nil
-      end
-
-      it 'sets the success flash message' do
-        post :create, :proposal => valid_attributes
-        should set_the_flash.to 'Successfully created the proposal.'
-      end
-    end
-
-    describe 'with invalid parameters' do
-      let(:invalid_attributes) do
-        {
-          :hub => hub.attributes,
-          :votes_attributes => {"0" => attributes_for(:vote)}
-        }
-      end
-
-      it 'should not create a new proposal' do
-        expect {
-          post :create, :proposal => invalid_attributes
-        }.to change(Proposal, :count).by(0)
-      end
-
-      it 'should not increase the vote count' do
-        expect {
-          post :create, :proposal => invalid_attributes
-        }.to change(Vote, :count).by(0)
-      end
-
-      it 'sets the failure flash message' do
-        post :create, :proposal => invalid_attributes
-        should set_the_flash.to 'Failed to create the proposal'
-      end
-    end
-  end
-
-  describe 'POST create improve an existing proposal' do
-    login_user
-
-    describe 'with valid parameters' do
+    context 'with existing hub' do
       let(:hub) { create(:hub) }
-      let(:current_user) { user } # Logged in user
 
-      context 'user has no other vote in the proposal tree' do
-        let(:user1) { create(:user) }
-        let!(:proposal1) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1') }
-        let!(:vote1) { create(:vote, user: user1, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
-        let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal1.id, votes_attributes: attributes_for(:vote)) }
+      describe 'new' do
+        describe 'with valid parameters' do
+          let(:valid_attributes) do
+            {
+              statement: Faker::Lorem.sentence,
+              hub_id: hub.id,
+              votes_attributes: [{ comment: 'That is why i support it' }]
+            }
+          end
 
-        it 'creates a new improved proposal' do
-          expect {
+          it 'creates a new proposal' do
+            expect {
+              post :create, :proposal => valid_attributes
+            }.to change(Proposal, :count).by(1)
+          end
+
+          it "increases the vote count by 1" do
+            expect {
+              post :create, :proposal => valid_attributes
+            }.to change(Vote, :count).by(1)
+          end
+
+          it "creates a valid vote" do
             post :create, :proposal => valid_attributes
-          }.to change(Proposal, :count).by(1)
+
+            vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
+            vote.should_not be_nil
+          end
         end
 
-        it 'should increase the votes count by 1' do
-          expect {
-            post :create, :proposal => valid_attributes
-          }.to change(Vote, :count).by(1)
+        describe 'with invalid parameters' do
+          let(:invalid_attributes) do
+            {
+              :hub => hub.attributes,
+              :votes_attributes => { "0" => attributes_for(:vote) }
+            }
+          end
+
+          it 'should not create a new proposal' do
+            expect {
+              post :create, :proposal => invalid_attributes
+            }.to change(Proposal, :count).by(0)
+          end
+
+          it 'should not increase the vote count' do
+            expect {
+              post :create, :proposal => invalid_attributes
+            }.to change(Vote, :count).by(0)
+          end
         end
       end
 
-      context 'user has an existing vote in the proposal tree' do
-        let(:user1) { create(:user) }
+      describe 'improve' do
+        describe 'with valid parameters' do
+          let(:hub) { create(:hub) }
+          let(:current_user) { user } # Logged in user
 
-        let!(:proposal1) { create(:proposal, user: current_user, hub: hub, statement: 'Proposal-1') }
-        let!(:vote1) { create(:vote, user: current_user, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
+          context 'user has no other vote in the proposal tree' do
+            let(:user1) { create(:user) }
+            let!(:proposal1) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1') }
+            let!(:vote1) { create(:vote, user: user1, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
+            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal1.id, votes_attributes: attributes_for(:vote)) }
 
-        let!(:proposal2) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1 --> Proposal-2', parent: proposal1) }
-        let!(:vote2) { create(:vote, user: user1, proposal: proposal2, comment: 'Proposal-1 --> Proposal-2 --> Vote-1') }
+            it 'creates a new improved proposal' do
+              expect {
+                post :create, :proposal => valid_attributes
+              }.to change(Proposal, :count).by(1)
+            end
 
-        let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal2.id, votes_attributes: attributes_for(:vote)) }
+            it 'should increase the votes count by 1' do
+              expect {
+                post :create, :proposal => valid_attributes
+              }.to change(Vote, :count).by(1)
+            end
+          end
 
-        it 'creates a new improved proposal' do
-          expect {
-            post :create, :proposal => valid_attributes
-          }.to change(Proposal, :count).by(1)
+          context 'user has an existing vote in the proposal tree' do
+            let(:user1) { create(:user) }
+
+            let!(:proposal1) { create(:proposal, user: current_user, hub: hub, statement: 'Proposal-1') }
+            let!(:vote1) { create(:vote, user: current_user, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
+
+            let!(:proposal2) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1 --> Proposal-2', parent: proposal1) }
+            let!(:vote2) { create(:vote, user: user1, proposal: proposal2, comment: 'Proposal-1 --> Proposal-2 --> Vote-1') }
+
+            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal2.id, votes_attributes: attributes_for(:vote)) }
+
+            it 'creates a new improved proposal' do
+              expect {
+                post :create, :proposal => valid_attributes
+              }.to change(Proposal, :count).by(1)
+            end
+
+            it 'should not increase the votes count' do
+              expect {
+                post :create, :proposal => valid_attributes
+              }.to change(Vote, :count).by(0)
+            end
+          end
         end
+      end
+    end
 
-        it 'should not increase the votes count' do
-          expect {
+    context 'without existing hub' do
+      describe 'create new proposal while creating a new hub' do
+        describe 'with valid parameters' do
+          let(:valid_attributes) do
+            {
+              statement: Faker::Lorem.sentence,
+              hub_attributes: {
+                group_name: 'Hacker Dojo',
+                location_id: 'somerandomgoogleplacesid',
+                formatted_location: 'Mountain View, CA'
+              },
+              votes_attributes: [{ comment: 'That is why i support it' }]
+            }
+          end
+
+          it 'creates a new proposal' do
+            expect {
+              post :create, :proposal => valid_attributes
+            }.to change(Proposal, :count).by(1)
+          end
+
+          it "increases the vote count by 1" do
+            expect {
+              post :create, :proposal => valid_attributes
+            }.to change(Vote, :count).by(1)
+          end
+
+          it "creates a valid vote" do
             post :create, :proposal => valid_attributes
-          }.to change(Vote, :count).by(0)
+
+            vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
+            vote.should_not be_nil
+          end
+
+          it 'creates a new hub' do
+            expect {
+              post :create, :proposal => valid_attributes
+            }.to change(Hub, :count).by(1)
+          end
         end
       end
     end

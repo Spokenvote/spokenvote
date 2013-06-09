@@ -1,11 +1,19 @@
-DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
+DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+  console.log "SessionSettings.actions.changeHub: " + SessionSettings.actions.changeHub
 
-  $scope.$watch 'hubFilter', ->
-    if $scope.hubFilter == null
-      $location.search('hub', null)
-      SessionSettings.selectedGroupName = "All Groups"
-    else
-      $location.path('/proposals').search('hub', SessionSettings.selectedHubID)
+  SessionSettings.routeParams = $route.current.params
+  if $route.current.params.hub?
+    $scope.hubFilter =
+      full_hub: true
+
+  $scope.$watch 'hubFilter.full_hub', ->
+    if $scope.hubFilter?
+      if $scope.hubFilter.full_hub == null
+          $location.search('hub', null)
+          SessionSettings.actions.hubFilter = "All Groups"
+      else if SessionSettings.hub_attributes.id?
+        $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
+        SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -21,29 +29,36 @@ DashboardCtrl = ($scope, $location, $modal, SessionSettings) ->
       results: (data, page) ->
         results: data
 
-    formatResult: (item) ->
-      item.full_hub
+    formatResult: (searchedHub) ->
+      searchedHub.full_hub
 
-    formatSelection: (item) ->
-      SessionSettings.selectedHubID = item.id
-      SessionSettings.selectedGroupName = item.group_name
-      SessionSettings.selectedGroupLocation = item.formatted_location
-      item.full_hub
+    formatSelection: (searchedHub) ->
+      SessionSettings.hub_attributes = searchedHub
+      SessionSettings.actions.changeHub = false
+      searchedHub.full_hub
 
     formatNoMatches: (term) ->
-      $scope.searchGroupTerm = term
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="#">create it</a>.'
+      SessionSettings.actions.searchTerm = term
+#      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
+#      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
+      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
     initSelection: (element, callback) ->
-      callback()
+      CurrentHubLoader().then (searchedHub) ->
+        SessionSettings.hub_attributes = searchedHub
+        callback SessionSettings.hub_attributes
+
 
   App.navCreateHub = ->
-    angular.element("#s2id_hub_filter").select2 "close"
-    $modal
-      template: '/assets/hubs/_new_hub_modal.html.haml'
-      show: true
-      backdrop: 'static'
-      scope: $scope
+    $scope.$apply ->
+      VotingService.new $scope
+      currentHub = SessionSettings.hub_attributes
+      SessionSettings.hub_attributes = {}
+      SessionSettings.hub_attributes.location_id = currentHub.location_id
+      SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+      SessionSettings.actions.changeHub = 'new'
+    angular.element('.select2-drop-active').select2 'close'
+    angular.element('#newProposalHub').select2('data',null)
 
-DashboardCtrl.$inject = ['$scope', '$location', '$modal', 'SessionSettings']
+DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl
