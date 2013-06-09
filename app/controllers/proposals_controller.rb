@@ -73,6 +73,7 @@ class ProposalsController < ApplicationController
       begin
         hub = Hub.find(params[:proposal][:hub_id])
         params[:proposal].delete :hub_id
+        params[:proposal].delete :hub_attributes
         params[:proposal][:hub] = hub
         if params[:proposal][:votes_attributes].first[:comment].match(/\n/)
           params[:proposal][:votes_attributes].first[:comment].gsub!(/(\r\n|\n)/, '<br>')

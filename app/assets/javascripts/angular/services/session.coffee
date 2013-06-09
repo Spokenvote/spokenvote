@@ -83,18 +83,18 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 SessionSettings = ->
   actions:
+    hubFilter: 'All Groups'
     changeHub: false
+    newProposalHub: null
     searchTerm: null
   openModals:
     newProposal: false
   searchedHub: {}
   routeParams: {}
-  hub_attributes:
-#    hub_id: null
-    group_name: "All Groups"
-#    formatted_location: "None"
-#    full_hub: null
-#    changeHub: false
+  hub_attributes: {}
+  lastLocation:
+    location_id: null
+    formatted_location: null
   spokenvote_attributes:
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
 

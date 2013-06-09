@@ -7,8 +7,14 @@ ProposalListCtrl =
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
 
+    $scope.$on 'event:proposalsChanged', ->
+      $scope.proposals.$query()   #not working like the $gets below
+
     $scope.new = ->
-      $scope.sessionSettings.actions.changeHub = null
+      if $scope.sessionSettings.hub_attributes.id?
+        $scope.sessionSettings.actions.changeHub = false
+      else
+        $scope.sessionSettings.actions.changeHub = true
       VotingService.new $scope
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->

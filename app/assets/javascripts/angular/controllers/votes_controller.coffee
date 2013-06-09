@@ -47,27 +47,26 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
 NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
   $scope.sessionSettings = parentScope.sessionSettings
   $scope.currentUser = parentScope.currentUser
-#  $scope.sessionSettings.hub_attributes.group_name = parentScope.sessionSettings.actions.searchTerm
-  console.log $scope.sessionSettings.actions.changeHub
-  console.log "$scope.sessionSettings.hub_attributes.group_name: " + $scope.sessionSettings.hub_attributes.group_name
-  console.log "parentScope.sessionSettings.actions.searchTerm: " + parentScope.sessionSettings.actions.searchTerm
 
   $scope.saveNewProposal = ->
+    if !$scope.sessionSettings.hub_attributes.id?
+      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
       proposal:
         user_id: $scope.currentUser.id
-        hub_id: $scope.sessionSettings.hub_id
+        hub_id: $scope.sessionSettings.hub_attributes.id
         statement: $scope.newProposal.statement
         votes_attributes: [comment: $scope.newProposal.comment]
-        hub_attributes: $scope.hub_attributes
+        hub_attributes: $scope.sessionSettings.hub_attributes
 
     console.log newProposal
-    console.log $scope.hub_attributes.group_name
+    console.log $scope.sessionSettings.hub_attributes.group_name
+
     AlertService.clearAlerts()
 
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
-#      $rootScope.$broadcast 'event:votesChanged'
+      $rootScope.$broadcast 'event:proposalsChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
       $location.path('/proposals').search('hub', SessionSettings.hub_id)
       $scope.dismiss()

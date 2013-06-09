@@ -3,12 +3,10 @@
     .pull-right(class='close' ng-click='close()') &times;
     %h2 New Proposal
     .selectedHub
-      -#%a.hub(ng-click='sessionSettings.actions.changeHub = !sessionSettings.actions.changeHub' href='#')
       %a.hub(ng-click='sessionSettings.actions.changeHub = !sessionSettings.actions.changeHub' href='#')
-        %h3(ng-show='sessionSettings.hub_attributes.id && sessionSettings.actions.changeHub != "new"') {{ sessionSettings.hub_attributes.group_name }}
-        %h3(ng-hide='sessionSettings.hub_attributes.id && sessionSettings.actions.changeHub != "new"') {{ sessionSettings.actions.searchTerm }}
-        %h3(ng-hide='sessionSettings.hub_attributes.id') Select your Group
-        %h5(ng-show='sessionSettings.hub_attributes.id') {{ sessionSettings.hub_attributes.formatted_location }}
+        %h3(collapse='!sessionSettings.hub_attributes.id') {{ sessionSettings.hub_attributes.group_name }}
+        %h3(collapse='sessionSettings.hub_attributes.id') {{ sessionSettings.actions.searchTerm }}
+        %h5(collapse='!sessionSettings.hub_attributes.formatted_location') {{ sessionSettings.hub_attributes.formatted_location }}
 
     #alertContainer
       .modalAlert(alert-bar alertmessageclear='alertService.alertClass')
@@ -17,25 +15,26 @@
     %form( name='newProposalForm' )
       .newProposal
         %fieldset
-          .control-group( ng-show='sessionSettings.actions.changeHub || !sessionSettings.hub_attributes.id' )
+          .control-group( collapse='!sessionSettings.actions.changeHub' )
             .instructions
               .avatar
                 %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
               %h5 This step is for changing the group to which your proposal is directed, so make sure that's what you want to do. If it is, start by searching for your group below. To return to the group listed above, just click on it.
 
             .changehub( ng-controller='DashboardCtrl' )
-              %hidden_field_tag(id='hub_filter' ui-select2='hubFilterSelect2' ng-model='newProposalHub')
+              %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
-            .makeHub( ng-show='sessionSettings.actions.changeHub == "new"' )
+            .makeHub( collapse='sessionSettings.actions.changeHub != "new"' )
               %h5 Hint!  Double-check to make sure your hub does not already exist by trying alternate spellings above.
               %h3 Creating a New Group ...
               %input( name="group_name" id='group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
-              %span(ng-hide='newProposalForm.group_name.$valid') Must be at least 5 characters
+              %span(ng-hide='newProposalForm.group_name.$valid') 5 character minimum
 
               .controls
               %input(name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge' placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required)
               %span(ng-hide='newProposalForm.formatted_location.$valid') Choose a valid location.
-              %span(ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid') Continue...
+              %span(ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid')
+                %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Continue ...
 
           .control-group
             .proposal-area( ng-hide='sessionSettings.actions.changeHub' )

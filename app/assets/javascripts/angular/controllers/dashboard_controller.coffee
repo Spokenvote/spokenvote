@@ -1,4 +1,6 @@
 DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+  console.log "SessionSettings.actions.changeHub: " + SessionSettings.actions.changeHub
+
   SessionSettings.routeParams = $route.current.params
   if $route.current.params.hub?
     $scope.hubFilter =
@@ -8,9 +10,10 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
     if $scope.hubFilter?
       if $scope.hubFilter.full_hub == null
           $location.search('hub', null)
-          SessionSettings.hub_attributes.group_name = "All Groups"
+          SessionSettings.actions.hubFilter = "All Groups"
       else if SessionSettings.hub_attributes.id?
         $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
+        SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -41,7 +44,6 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
       'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
     initSelection: (element, callback) ->
-#      console.log "init"
       CurrentHubLoader().then (searchedHub) ->
         SessionSettings.hub_attributes = searchedHub
         callback SessionSettings.hub_attributes
@@ -50,36 +52,13 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
   App.navCreateHub = ->
     $scope.$apply ->
       VotingService.new $scope
+      currentHub = SessionSettings.hub_attributes
+      SessionSettings.hub_attributes = {}
+      SessionSettings.hub_attributes.location_id = currentHub.location_id
+      SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
       SessionSettings.actions.changeHub = 'new'
-#      console.log "$scope.searchGroupTerm: " + $scope.searchGroupTerm
-#      SessionSettings.actions.searchTerm = $scope.searchGroupTerm
-      console.log 'SessionSettings.actions.searchTerm: ' + SessionSettings.actions.searchTerm
     angular.element('.select2-drop-active').select2 'close'
-#      if SessionSettings.user_actions.open_modal != 'newProposalModal'
-#        concole.log "passed if"
-#        SessionSettings.user_actions.open_modal = 'newProposalModal'
-#        $scope.opts =
-#          backdrop: true
-#          keyboard: true
-#          backdropClick: true
-#          templateUrl: '/assets/proposals/_new_proposal_modal.html.haml'
-#        d = $dialog.dialog($scope.opts)
-#        d.open().then (result) ->
-#          SessionSettings.user_actions.open_modal = false
-#          console.log "dialog closed with result: " + SessionSettings.user_actions.open_modal
-#      SessionSettings.actions.changeHub = 'new'
-#      console.log SessionSettings.actions.changeHub
-
-#    if SessionSettings.user_actions.open_modal != 'newProposalModal'
-#      $scope.$apply ->
-#        $modal
-#          template: '/assets/hubs/_new_hub_modal.html.haml'
-#          show: true
-#          backdrop: 'static'
-#          scope: $scope
-#    $scope.$apply ->
-#      SessionSettings.actions.changeHub = 'new'
-#      console.log SessionSettings.actions.changeHub
+    angular.element('#newProposalHub').select2('data',null)
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl
