@@ -44,35 +44,44 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal, SessionSettings) ->
-
-  $scope.sessionSettings = SessionSettings
+NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+  $scope.sessionSettings = parentScope.sessionSettings
+  $scope.currentUser = parentScope.currentUser
 
   $scope.saveNewProposal = ->
-    newProposal = {}
-    newProposal.proposal = {}
-    newProposal.proposal.votes_attributes = {}
-    newProposal.proposal.user_id = $scope.currentUser.id
-    newProposal.proposal.hub_id = $scope.sessionSettings.selectedHubID
-    newProposal.proposal.statement = $scope.newProposal.statement
-    newProposal.proposal.votes_attributes.comment = $scope.newProposal.comment
+    if !$scope.sessionSettings.hub_attributes.id?
+      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
+    newProposal =
+      proposal:
+        user_id: $scope.currentUser.id
+        hub_id: $scope.sessionSettings.hub_attributes.id
+        statement: $scope.newProposal.statement
+        votes_attributes: [comment: $scope.newProposal.comment]
+        hub_attributes: $scope.sessionSettings.hub_attributes
+
+    console.log newProposal
+    console.log $scope.sessionSettings.hub_attributes.group_name
+
     AlertService.clearAlerts()
 
-    newProposal = Proposal.save(newProposal
+    Proposal.save(newProposal
     ,  (response, status, headers, config) ->
-#      $rootScope.$broadcast 'event:votesChanged'
+      $rootScope.$broadcast 'event:proposalsChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
-      $location.path('/proposals').search('hub', SessionSettings.selectedHubID)
+      $location.path('/proposals').search('hub', SessionSettings.hub_id)
       $scope.dismiss()
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
     )
 
+  $scope.close = (result) ->
+    dialog.close(result)
+
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
-NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal', 'SessionSettings' ]
+NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

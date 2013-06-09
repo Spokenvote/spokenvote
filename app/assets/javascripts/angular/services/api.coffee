@@ -76,6 +76,20 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
       delay.reject 'Unable to locate a current user '
     delay.promise
 
+CurrentHubLoader = (Hub, $route, $q) ->
+  ->
+    delay = $q.defer()
+    if $route.current.params.hub
+      Hub.get
+        id: $route.current.params.hub
+      , (hub) ->
+        delay.resolve hub
+      , ->
+        delay.reject 'Unable to locate a hub '
+    else
+      delay.resolve false
+    delay.promise
+
 ProposalLoader = (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
@@ -96,7 +110,7 @@ MultiProposalLoader = (Proposal, $route, $q) ->
     , (proposals) ->
       delay.resolve proposals
     , ->
-      delay.reject 'Unable to locate proposals ' + $route.current.params.proposalId
+      delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
     delay.promise
 
 RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
@@ -144,7 +158,6 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
 Vote.$inject = [ '$resource' ]
 Hub.$inject = [ '$resource' ]
 Proposal.$inject = [ '$resource' ]
-
 CurrentUser.$inject = [ '$resource' ]
 RelatedProposals.$inject = [ '$resource' ]
 RelatedVoteInTree.$inject = [ '$resource' ]
@@ -155,6 +168,7 @@ UserSessionResource.$inject = [ '$http' ]
 UserRegistrationResource.$inject = [ '$http' ]
 
 CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
+CurrentHubLoader.$inject = [ 'Hub', '$route', '$q' ]
 ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
 MultiProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
 RelatedProposalsLoader.$inject = [ 'RelatedProposals', '$route', '$q' ]
@@ -167,6 +181,7 @@ App.Services.factory 'Hub', Hub
 App.Services.factory 'Proposal', Proposal
 
 App.Services.factory 'CurrentUser', CurrentUser
+App.Services.factory 'CurrentHubLoader', CurrentHubLoader
 App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree
 

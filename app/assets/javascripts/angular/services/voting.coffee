@@ -1,4 +1,4 @@
-VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
+VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
 
   support: ( scope, clicked_proposal_id ) ->
     scope.clicked_proposal_id = clicked_proposal_id
@@ -33,15 +33,22 @@ VotingService = ( $modal, AlertService, RelatedVoteInTreeLoader ) ->
         scope: scope
 
   new: ( scope ) ->
-    $modal
-      template: '/assets/proposals/_new_proposal_modal.html.haml'
-      show: true
-      backdrop: 'static'
-      scope: scope
-
+    if SessionSettings.openModals.newProposal is false
+      scope.opts =
+        backdrop: true
+        keyboard: true
+        backdropClick: true
+        dialogFade: true
+        resolve:
+          parentScope: ->
+            scope
+      d = $dialog.dialog(scope.opts)
+      SessionSettings.openModals.newProposal = true
+      d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
+        SessionSettings.openModals.newProposal = d.isOpen()
 
 # Injects
-VotingService.$inject = [ '$modal', 'AlertService', 'RelatedVoteInTreeLoader'  ]
+VotingService.$inject = [ '$dialog', '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
 
 # Register
 App.Services.factory 'VotingService', VotingService
