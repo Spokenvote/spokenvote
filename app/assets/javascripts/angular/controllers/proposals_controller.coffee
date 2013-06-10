@@ -31,13 +31,12 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings,
 
 
 RelatedProposalShowCtrl =
-  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
+  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposals) ->
 
     $scope.$on 'event:votesChanged', ->
       $scope.relatedProposals.$get()
 
-    RelatedProposalsLoader().then (related_proposals) ->
-      $scope.relatedProposals = related_proposals
+    $scope.relatedProposals = RelatedProposals.get({id: $scope.proposal.id})
 
     $scope.related_sorter_dropdown = [
       text: "By Votes"
@@ -60,17 +59,13 @@ RelatedProposalShowCtrl =
     ]
 
     $scope.sortRelatedProposals = (related_sort_by) ->
-      $location.search('related_sort_by', related_sort_by)
-      $scope.relatedProposals.$get()
+      $scope.relatedProposals = RelatedProposals.get({id: $scope.proposal.id, related_sort_by: related_sort_by})
       $scope.selectedSort = related_sort_by
-
-  # TODO once scolling issue is solved, remove this line and the "RelatedProposals" provider above and enjection below.
-  #    $scope.relatedProposals = RelatedProposals.get({id:related_proposals.id,related_sort_by:related_sort_by})
 
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
 ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
-RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
+RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposals' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl
