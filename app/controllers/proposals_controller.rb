@@ -2,6 +2,7 @@ class ProposalsController < ApplicationController
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :related_vote_in_tree, :related_proposals]
   before_filter :find_hub, only: :index
+  after_filter :reload_proposal, only: :create
 
   # GET /proposals.json
   def index
@@ -66,7 +67,6 @@ class ProposalsController < ApplicationController
       votes_attributes = params[:proposal].delete :votes_attributes #TODO don't we want any new IP address here?
       @proposal = current_user.proposals.create(params[:proposal])
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
-
       render 'show', status: :created
     elsif params[:proposal][:hub_id].present?
       # New Proposal with Existing Hub
@@ -81,12 +81,11 @@ class ProposalsController < ApplicationController
         params[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
         params[:proposal][:votes_attributes].first[:user_id] = current_user.id  #TODO is this line needed?
         @proposal = current_user.proposals.create(params[:proposal])
-
         render 'show', status: :created
       rescue => e
-        puts e.message
-        puts e.backtrace.join("\n")
-        render json: {}, status: :unprocessable_entity
+        Rails.logger.info e.message
+        Rails.logger.info e.backtrace.join("\n")
+        render json: { errors: { global: e.message } }, status: :unprocessable_entity
       end
     else
       # New Proposal with New Hub
@@ -96,13 +95,12 @@ class ProposalsController < ApplicationController
         end
         params[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
         params[:proposal][:votes_attributes].first[:user_id] = current_user.id  #TODO is this line needed?
-        @proposal = current_user.proposals.create!(params[:proposal])
-
+        @proposal = current_user.proposals.create(params[:proposal])
         render 'show', status: :created
       rescue => e
-        puts e.message
-        puts e.backtrace.join("\n")
-        render json: {}, status: :unprocessable_entity
+        Rails.logger.info e.message
+        Rails.logger.info e.backtrace.join("\n")
+        render json: { errors: { global: e.message } }, status: :unprocessable_entity
       end
     end
   end
@@ -150,6 +148,9 @@ class ProposalsController < ApplicationController
     @hub = Hub.find(params[:hub]) if params[:hub]
   end
 
+  def reload_proposal
+    @proposal.reload
+  end
   #def fetch_more(proposal_id, page, offset)
   #  records_limit = 10
   #  page_number = (params[:page].presence || 0).to_i

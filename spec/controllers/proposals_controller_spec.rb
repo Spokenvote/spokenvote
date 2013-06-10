@@ -39,6 +39,11 @@ describe ProposalsController do
             vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
             vote.should_not be_nil
           end
+
+          it "updates the votes_count attribute of the proposal loaded in memory" do
+            post :create, :proposal => valid_attributes
+            assigns(:proposal).votes_count.should == 1
+          end
         end
 
         describe 'with invalid parameters' do
@@ -84,6 +89,11 @@ describe ProposalsController do
               expect {
                 post :create, :proposal => valid_attributes
               }.to change(Vote, :count).by(1)
+            end
+
+            it "updates the votes_count attribute of the proposal loaded in memory" do
+              post :create, :proposal => valid_attributes
+              assigns(:proposal).votes_count.should == 1
             end
           end
 
@@ -146,6 +156,11 @@ describe ProposalsController do
 
             vote = Vote.find_by_user_id_and_proposal_id(user.id, assigns(:proposal).id)
             vote.should_not be_nil
+          end
+
+          it "updates the votes_count attribute of the proposal loaded in memory" do
+            post :create, :proposal => valid_attributes
+            assigns(:proposal).votes_count.should == 1
           end
 
           it 'creates a new hub' do

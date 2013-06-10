@@ -53,7 +53,7 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
       $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
       proposal:
-        user_id: $scope.currentUser.id
+#        user_id: $scope.currentUser.id
         hub_id: $scope.sessionSettings.hub_attributes.id
         statement: $scope.newProposal.statement
         votes_attributes: [comment: $scope.newProposal.comment]
