@@ -8,7 +8,8 @@ ProposalListCtrl =
       $location.search('filter', filterSelected)
 
     $scope.$on 'event:proposalsChanged', ->
-      $scope.proposals.$query()   #not working like the $gets below
+      $scope.proposals.$query
+      console.log $scope.proposals
 
     $scope.new = ->
       if $scope.sessionSettings.hub_attributes.id?
