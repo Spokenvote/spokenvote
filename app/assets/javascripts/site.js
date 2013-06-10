@@ -127,7 +127,7 @@ window.app = {};
       $('#mainContent').height(vph - 142);
     } else {
       if (vph > $('#mainContent').height()) {
-        $('#mainContent').height(vph - 140);
+        //$('#mainContent').height(vph - 140);
       }
     }
   }
