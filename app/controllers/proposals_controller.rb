@@ -55,13 +55,14 @@ class ProposalsController < ApplicationController
   # POST /proposals.json
   def create
     modified_params = modify_create_params(params.dup)
-    if @proposal = current_user.proposals.create!(modified_params[:proposal])
+    if @proposal = current_user.proposals.create(modified_params[:proposal])
       # Success
     else
       # Failure
     end
 
     if improving?
+      votes_attributes = params[:proposal][:votes_attributes]
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
     end
 
@@ -159,16 +160,23 @@ class ProposalsController < ApplicationController
 
   def modify_create_params(params_hash)
     if parent_proposal
+      params_hash[:proposal].delete :parent_id                 #needed to pass some tests
+      params_hash[:proposal].delete :votes_attributes          #exsited before, not sure if needed.
       params_hash[:proposal][:parent] = @parent
       params_hash[:proposal][:hub_id] = @parent.hub.id
-    elsif existing_hub
-      params[:proposal][:hub] = @hub
-    end
-
-    if params_hash[:proposal][:votes_attributes].first
+    else
+      #if params_hash[:proposal][:votes_attributes].first
       params_hash[:proposal][:votes_attributes].first[:user_id] = current_user.id
       params_hash[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
+      #end
+      if existing_hub
+        params_hash[:proposal].delete :hub_id
+        params_hash[:proposal].delete :hub_attributes
+        params_hash[:proposal][:hub] = @hub
+        #hub = Hub.find(params[:proposal][:hub_id])
+      end
     end
+
     cleanup(params_hash)
   end
 

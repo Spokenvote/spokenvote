@@ -69,8 +69,8 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
-#      $location.path('/proposals').search('hub', SessionSettings.hub_id)
-      $scope.dismiss()
+      $location.path('/proposals/' + response.id)
+      dialog.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data

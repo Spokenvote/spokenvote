@@ -11,7 +11,7 @@ describe ProposalsController do
     context 'with existing hub' do
       let(:hub) { create(:hub) }
 
-      describe 'new' do
+      describe 'new proposal' do
         describe 'with valid parameters' do
           let(:valid_attributes) do
             {
@@ -68,7 +68,7 @@ describe ProposalsController do
         end
       end
 
-      describe 'improve' do
+      describe 'improve proposal' do
         describe 'with valid parameters' do
           let(:hub) { create(:hub) }
           let(:current_user) { user } # Logged in user
