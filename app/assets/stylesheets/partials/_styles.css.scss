@@ -738,11 +738,15 @@ input.ng-invalid.ng-dirty {
   overflow: hidden;
 }
 
+#relatedProposals {
+   min-height: 200px;
+}
+
 #relatedProposalsTitle {
   font-size: 28px;
   color: #315c99;
   margin-top: 20px;
-}
+ }
 
 .related_supporting {
   clear: both;
