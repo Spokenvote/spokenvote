@@ -36,6 +36,7 @@ VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInT
     scope.editProposal =
       proposal: clicked_proposal
 
+
     $modal
       template: '/assets/proposals/_edit_proposal_modal.html.haml'
       show: true
