@@ -32,6 +32,16 @@ VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInT
         backdrop: 'static'
         scope: scope
 
+  edit: ( scope, clicked_proposal ) ->
+    scope.editProposal =
+      proposal: clicked_proposal
+
+    $modal
+      template: '/assets/proposals/_edit_proposal_modal.html.haml'
+      show: true
+      backdrop: 'static'
+      scope: scope
+
   new: ( scope ) ->
     if SessionSettings.openModals.newProposal is false
       scope.opts =

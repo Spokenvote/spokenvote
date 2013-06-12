@@ -44,8 +44,10 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
               By composing an <i>improved</i> proposal you automatically become that proposal's first supporter.
               You may change your support to a <i>different</i> proposal at any time by
               supporting it or by composing another <i>improved</i> proposal."
-    edit: 'You may edit your proposal<br />up until it  receives its first support<br />from another user.',
-    delete: 'You may delete your proposal up until<br />receiving support from another user,<br />or if support ever falls to zero.'
+    edit: "<h5><b>Edit your proposal</b></h4><b>Editing: </b>You may edit your proposal<br />
+            up until it receives its first support from<br />another user."
+    delete: "<h5><b>Delete your proposal</b></h4><b>Deleting: </b>You may delete your<br />proposal
+                up until it receives its first<br />support from another user or if support<br /> ever falls to zero."
     twitter: 'Share this proposal on Twitter'
     facebook: 'Share this proposal on Facebook'
     google: 'Share this proposal on Google+'
