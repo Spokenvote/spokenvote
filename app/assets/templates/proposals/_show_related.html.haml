@@ -1,9 +1,13 @@
-.proposal_container( ng-repeat="(key, value) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
-  .main-proposal( ng-show='value.has_support' )
-    %span(id='big-percent') {{ value.votes_percentage }}
 
+###           TODO Delete this file when we're sure the new shared partial is working.
+
+-#.proposal_container( ng-repeat="(key, value) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
+.proposal_container
+
+  .main-proposal( ng-show='proposal.has_support' )
+    %span(id='big-percent') {{ proposal.votes_percentage }}
     .proposal_statement
-      %h3 {{ value.statement }}
+      %h3 {{ proposal.statement }}
 
     .improve_support_buttons
       -#.btn-group

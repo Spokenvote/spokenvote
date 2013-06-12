@@ -88,13 +88,15 @@ class Proposal < ActiveRecord::Base
     current_user && votes_count < 2 && user_id == current_user.id
   end
 
+  def current_user_support?(current_user)
+    return false unless current_user
+    cu_votes = votes.count {|v| v.user_id == current_user.id}
+    return cu_votes.present?
+  end
+
   def recent_vote
     return self.created_at if self.votes.blank?
     self.votes.order('created_at DESC').first.created_at
   end
 
-  #TODO Could not get this to work, so programmed into Angular for now, but would rather have it here.
-  def current_user_support?(current_user)
-    votes.where("user_id == ?", current_user.id).any?
-  end
 end

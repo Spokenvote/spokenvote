@@ -264,10 +264,10 @@ window.app = {};
     $('body').on('click', app.closeAlert);
     $('#navLogin').on('click', app.navLogin);
     $('#navJoin, #loginReg').on('click', app.navReg);
-    $('.shares').on('click', 'a', function(e) {
-      e.preventDefault();
-      window.open($(this).attr('href'));
-    })
+//    $('.shares').on('click', 'a', function(e) {
+//      e.preventDefault();
+//      window.open($(this).attr('href'));
+//    })
     $('select').select2({width: '200px'});
     $('#hubModalSave').on('click', app.saveNewHub);
 
