@@ -24,7 +24,7 @@
             .changehub( ng-controller='DashboardCtrl' )
               %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
-            .makeHub( collapse='sessionSettings.actions.changeHub != "new"' )
+            .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
               %h5 Hint!  Double-check to make sure your hub does not already exist by trying alternate spellings above.
               %h3 Creating a New Group ...
               %input( name="group_name" id='group_name' type='text' class='input-xlarge' placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
