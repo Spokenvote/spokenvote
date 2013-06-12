@@ -649,8 +649,9 @@ input.ng-invalid.ng-dirty {
     margin-right: 20px;
     margin-top: 5px;
   }
-  .btn {
+  .main {
     //@extend .btn-mini;
+    margin-right: 10px;
     font-size: 14px;
   }
 }
