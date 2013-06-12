@@ -46,10 +46,14 @@ class ProposalsController < ApplicationController
   end
 
   # Get /proposals/:id/is_editable.json
-  #TODO Do we delete this and it's model companion, since RABL can only look directly at the model?
   def is_editable
     proposal = Proposal.find(params[:id])
     render json: { editable: proposal.editable?(current_user) }
+  end
+
+  def current_user_support
+    proposal = Proposal.find(params[:id])
+    render json: { current_user_support: proposal.current_user_support?(current_user) }
   end
 
   # POST /proposals.json
