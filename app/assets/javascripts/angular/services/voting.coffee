@@ -33,15 +33,30 @@ VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInT
         scope: scope
 
   edit: ( scope, clicked_proposal ) ->
-    scope.editProposal =
-      proposal: clicked_proposal
-
+    scope.clicked_proposal = clicked_proposal
 
     $modal
       template: '/assets/proposals/_edit_proposal_modal.html.haml'
       show: true
       backdrop: 'static'
       scope: scope
+
+  delete: ( scope, clicked_proposal ) ->
+    scope.clicked_proposal = clicked_proposal
+
+    if SessionSettings.openModals.newProposal is false
+      scope.opts =
+        backdrop: true
+        keyboard: true
+        backdropClick: true
+        dialogFade: true
+        resolve:
+          parentScope: ->
+            scope
+      d = $dialog.dialog(scope.opts)
+      SessionSettings.openModals.newProposal = true
+      d.open('/assets/proposals/_delete_proposal_modal.html.haml', 'DeleteProposalCtrl').then (result) ->
+        SessionSettings.openModals.newProposal = d.isOpen()
 
   new: ( scope ) ->
     if SessionSettings.openModals.newProposal is false

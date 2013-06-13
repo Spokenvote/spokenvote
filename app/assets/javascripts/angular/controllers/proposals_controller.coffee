@@ -21,9 +21,13 @@ ProposalListCtrl =
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) ->
   $scope.proposal = proposal
+  $scope.proposal.$get()
+  console.log "$scope.proposal.$get"
+
 
   $scope.$on 'event:votesChanged', ->
-    $scope.proposal.$get()
+    $scope.proposal.$get
+    console.log "$scope.$on 'event:votesChanged' triggered"
 
   $scope.support = ( clicked_proposal_id ) ->
     VotingService.support $scope, clicked_proposal_id
@@ -31,11 +35,11 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
   $scope.improve = ( clicked_proposal_id ) ->
     VotingService.improve $scope, clicked_proposal_id
 
-  $scope.edit = ( clicked_proposal_id ) ->
-    VotingService.edit $scope, clicked_proposal_id
+  $scope.edit = ( clicked_proposal ) ->
+    VotingService.edit $scope, clicked_proposal
 
-  $scope.delete = ( clicked_proposal_id ) ->
-    VotingService.delete $scope, clicked_proposal_id
+  $scope.delete = ( clicked_proposal ) ->
+    VotingService.delete $scope, clicked_proposal
 
   $scope.tooltips =
     support: "<h5><b>Support this proposal</b></h4><b>Supporting:</b> You may support only one proposal on this topic,
