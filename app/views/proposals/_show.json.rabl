@@ -2,6 +2,7 @@ attributes :id, :statement, :user_id, :created_at, :votes_count, :ancestry, :cre
 
 node(:is_editable) { |proposal| proposal.editable?(current_user) }
 node(:has_support) { |proposal| proposal.has_support? }
+node(:current_user_support) { |proposal| proposal.current_user_support?(current_user) }
 
 node :related_proposals_count do |proposal|
   proposal.related_proposals.count

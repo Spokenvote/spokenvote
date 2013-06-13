@@ -18,7 +18,8 @@ ProposalListCtrl =
         $scope.sessionSettings.actions.changeHub = true
       VotingService.new $scope
 
-ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings, VotingService ) ->
+
+ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) ->
   $scope.proposal = proposal
 
   $scope.$on 'event:votesChanged', ->
@@ -29,6 +30,33 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, SessionSettings,
 
   $scope.improve = ( clicked_proposal_id ) ->
     VotingService.improve $scope, clicked_proposal_id
+
+  $scope.edit = ( clicked_proposal_id ) ->
+    VotingService.edit $scope, clicked_proposal_id
+
+  $scope.delete = ( clicked_proposal_id ) ->
+    VotingService.delete $scope, clicked_proposal_id
+
+  $scope.tooltips =
+    support: "<h5><b>Support this proposal</b></h4><b>Supporting:</b> You may support only one proposal on this topic,
+              but are free to change your support to a <i>different</i> proposal at any time by clicking
+              <i>support</i> on that proposal or by composing an <i>improved</i> proposal."
+    improve: "<h5><b>Create a better proposal</b></h4><b>Improving:</b>
+              By composing an <i>improved</i> proposal you automatically become that proposal's first supporter.
+              You may change your support to a <i>different</i> proposal at any time by
+              supporting it or by composing another <i>improved</i> proposal."
+    edit: "<h5><b>Edit your proposal</b></h4><b>Editing: </b>You may edit your proposal<br />
+            up until it receives its first support from<br />another user."
+    delete: "<h5><b>Delete your proposal</b></h4><b>Deleting: </b>You may delete your<br />proposal
+                up until it receives its first<br />support from another user or if support<br /> ever falls to zero."
+    twitter: 'Share this proposal on Twitter'
+    facebook: 'Share this proposal on Facebook'
+    google: 'Share this proposal on Google+'
+
+  $scope.socialSharing =
+    twitterUrl: $scope.sessionSettings.socialSharing.twitterRootUrl + 'Check out this Spokenvote proposal:' + $scope.location.absUrl() + ' /via @spokenvote'
+    facebookUrl: $scope.sessionSettings.socialSharing.facebookRootUrl + $scope.location.absUrl()
+    googleUrl: $scope.sessionSettings.socialSharing.googleRootUrl + $scope.location.absUrl()
 
 
 RelatedProposalShowCtrl =
@@ -68,7 +96,7 @@ RelatedProposalShowCtrl =
 
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
-ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'VotingService' ]
 RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
 
 # Register

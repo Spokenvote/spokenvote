@@ -74,13 +74,8 @@ window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.d
 
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig)
-
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
 App.Directives = angular.module('spokenvote.directives', [])
-
-#RailsSettings = ->
-#  defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
-#App.Services.factory 'RailsSettings', RailsSettings
 
 # Injects
 appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']

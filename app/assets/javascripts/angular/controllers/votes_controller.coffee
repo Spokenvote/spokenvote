@@ -25,7 +25,7 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
   $scope.improvedProposal.statement = $scope.proposal.statement
 
   $scope.saveImprovement = ->
-    improvedProposal = {}       #TODO: Does it really take 7 lines to build this object? Would love to see it done in fewer lines.
+    improvedProposal = {}       #TODO: Refactor to a complex object.
     improvedProposal.proposal = {}
     improvedProposal.proposal.votes_attributes = {}
     improvedProposal.proposal.parent_id = $scope.clicked_proposal_id
@@ -35,6 +35,28 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
     AlertService.clearAlerts()
 
     improvedProposal = Proposal.save(improvedProposal
+    ,  (response, status, headers, config) ->
+      $rootScope.$broadcast 'event:votesChanged'
+      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
+      $scope.dismiss()
+    ,  (response, status, headers, config) ->
+      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
+      AlertService.setJson response.data
+    )
+
+EditCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+  if $scope.editProposal.proposal.votes.length > 1
+    AlertService.setCtlResult "We found support from other users on your proposal. You can no loger edit your proposal, but you can Improve it to get a similar result.", $scope
+
+  $scope.editProposal.proposal.votes_attributes = $scope.editProposal.proposal.votes[0]
+  console.log $scope.editProposal.proposal
+  console.log $scope.editProposal.proposal.votes[0].comment
+
+  $scope.saveEdit = ->
+    console.log $scope.editProposal.proposal
+    AlertService.clearAlerts()
+
+    Proposal.save($scope.editProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
@@ -87,4 +109,5 @@ NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 
 # Register
 App.controller 'SupportCtrl', SupportCtrl
 App.controller 'ImroveCtrl', ImroveCtrl
+App.controller 'EditCtrl', EditCtrl
 App.controller 'NewProposalCtrl', NewProposalCtrl

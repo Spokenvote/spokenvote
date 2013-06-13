@@ -95,6 +95,10 @@ SessionSettings = ->
   lastLocation:
     location_id: null
     formatted_location: null
+  socialSharing:
+    twitterRootUrl: 'http://twitter.com/home?status='
+    facebookRootUrl: 'http://www.facebook.com/sharer.php?u='
+    googleRootUrl: 'https://plus.google.com/share?url='
   spokenvote_attributes:
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
 

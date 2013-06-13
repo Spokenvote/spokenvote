@@ -1,5 +1,4 @@
 DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
-  console.log "SessionSettings.actions.changeHub: " + SessionSettings.actions.changeHub
 
   SessionSettings.routeParams = $route.current.params
   if $route.current.params.hub?
