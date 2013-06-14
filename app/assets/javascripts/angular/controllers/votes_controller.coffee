@@ -76,6 +76,9 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertSer
       AlertService.setJson response.data
     )
 
+  $scope.close = (result) ->
+    dialog.close(result)
+
 DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal, parentScope) ->
   $scope.sessionSettings = parentScope.sessionSettings
   $scope.currentUser = parentScope.currentUser
