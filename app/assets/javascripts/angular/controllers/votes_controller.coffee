@@ -86,7 +86,7 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     Proposal.delete($scope.clicked_proposal
     ,  (response, status, headers, config) ->
       AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', parentScope
-      $location.path('/proposals')
+      $location.path('/proposals').search('hub', parentScope.clicked_proposal.hub_id)
       dialog.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope

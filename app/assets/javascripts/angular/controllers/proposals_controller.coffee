@@ -24,6 +24,8 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
   $scope.proposal.$get()
   console.log "$scope.proposal.$get"
 
+  $scope.hubView = ->
+    $location.path('/proposals').search('hub', proposal.hub.id)
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get
