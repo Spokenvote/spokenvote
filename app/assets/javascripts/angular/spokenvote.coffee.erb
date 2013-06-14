@@ -1,4 +1,4 @@
-appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
+appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
@@ -69,6 +69,17 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
+  $dialogProvider.options =
+    backdrop: false
+    dialogClass: 'modal'
+    backdropClass: 'modal-backdrop'
+    transitionClass: 'fade'
+    triggerClass: 'modal-open'
+    backdropFade: false
+    dialogFade: true
+    keyboard: true
+    backdropClick: true
+
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 
@@ -78,5 +89,5 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects
-appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
+appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$dialogProvider' ]
 servicesConfig.$inject = ['$httpProvider']
