@@ -61,6 +61,7 @@ group :development, :test do
   gem 'rspec'
   gem 'spork'
   gem 'shoulda-matchers'
+  gem 'railroady'
 end
 
 group :test do
