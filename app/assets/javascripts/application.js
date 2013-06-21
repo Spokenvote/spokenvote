@@ -12,8 +12,6 @@
 //= require bootstrap-typeahead
 //= require holder
 //= require viewport.min
-//= require site
-//= require proposals
 //= require ui-bootstrap-tpls-0.3.0
 //= require angular-strap
 //= require angular-ui
