@@ -1,6 +1,6 @@
-window.app = {};
-
-(function () {
+//window.app = {};
+//
+//(function () {
 
 //  app.createAlert = function (msg, style) {
 //    $('#alertContainer').before('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
@@ -9,26 +9,26 @@ window.app = {};
 //  app.createModalAlert = function (msg, style, modalElem) {
 //    $(modalElem).find('.modal-body div').first().prepend('<div class="alert alert-' + style + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
 //  }
+//
+//  app.successMessage = function(msg) {
+//    app.createAlert(msg, 'success');
+//  }
 
-  app.successMessage = function(msg) {
-    app.createAlert(msg, 'success');
-  }
-
-  app.errorMessage = function(msg) {
-    app.createAlert(msg, 'error');
-  }
+//  app.errorMessage = function(msg) {
+//    app.createAlert(msg, 'error');
+//  }
 
 //  app.closeAlert = function(e) {
 //    if ($('.alert').length === 0) { return; }
 //    $('.alert').alert('close');
 //  }
 
-  app.updateSearchFields = function(options) {
-    if (options.hub.length > 0) {
-      $('#hub').val(options.hub[0]);
-      $('#location').val(options.hub[1]);
-    }
-  }
+//  app.updateSearchFields = function(options) {
+//    if (options.hub.length > 0) {
+//      $('#hub').val(options.hub[0]);
+//      $('#location').val(options.hub[1]);
+//    }
+//  }
 
 //  app.loginInterrupt = function(elem, callback) {
 //    $('#loginModal').modal();
@@ -45,7 +45,6 @@ window.app = {};
 //    return false;
 //  }
 
-        // TODO Delete: Logic has been moved to Angular
 //  app.configureHubFilter = function(groupname_elem, select_width) {
 //    var location_input = $(groupname_elem).data('locationInput'),
 //        location_id = $(groupname_elem).data('locationId'),
@@ -83,10 +82,9 @@ window.app = {};
 //        // see https://github.com/ivaynberg/select2/issues/448
 //        // this onclick inline handler is not my idea of a good solution but it works for now.
 //        return 'No matches. <a id="navCreateHub" onclick="App.navCreateHub()" href="#">Create one</a>';
-//        // TODO The reference above to "App.navCreateHub()" is a departure point to Angular
 //      },
 //
-//      // TODO: This doesn't work, need help
+//      //  This doesn't work, need help
 //      // See example at http://ivaynberg.github.com/select2/#events
 //      // createSearchChoice: function(term, data) {
 //      //   if ($(data).filter(function() {
@@ -121,49 +119,48 @@ window.app = {};
 //    });
 //  }
 
-  app.setPageHeight = function() {
-    var vp = new Viewport(), vph = vp.height;
-    if ($('section.clear').length > 0 || $('section.searched').length > 0) {
-      $('#mainContent').height(vph - 142);
-    } else {
-      if (vph > $('#mainContent').height()) {
-        //$('#mainContent').height(vph - 140);
-      }
-    }
-  }
+//  app.setPageHeight = function() {
+//    var vp = new Viewport(), vph = vp.height;
+//    if ($('section.clear').length > 0 || $('section.searched').length > 0) {
+//      $('#mainContent').height(vph - 142);
+//    } else {
+//      if (vph > $('#mainContent').height()) {
+//        //$('#mainContent').height(vph - 140);
+//      }
+//    }
+//  }
 
-  app.fillNavSearch = function() {
-    $('#hub, #location').each(function() {
-      var self = $(this);
-      if (self.data('value') != '') {
-        self.val(self.data('value'));
-      }
-    });
-  }
+//  app.fillNavSearch = function() {
+//    $('#hub, #location').each(function() {
+//      var self = $(this);
+//      if (self.data('value') != '') {
+//        self.val(self.data('value'));
+//      }
+//    });
+//  }
 
-  app.pageEffects = function() {
-    if ($('.content_page #new_user').length > 0) {
-      $('#user_email').focus();
-    }
-    app.setPageHeight();
-    app.fillNavSearch();
-  }
+//  app.pageEffects = function() {
+//    if ($('.content_page #new_user').length > 0) {
+//      $('#user_email').focus();
+//    }
+//    app.setPageHeight();
+//    app.fillNavSearch();
+//  }
 
-  app.redrawLoggedInNav = function(options) {
-    options = options || {}
-    var newNav = '';
-    $.get('/user_nav', function(data) {
-      if (data.success) {
-        $('header.navbar').remove();
-        $('body').prepend(data.content);
-        if (options.callback) {
-          options.callback(options.elem);
-        }
-      }
-    });
-  }
+//  app.redrawLoggedInNav = function(options) {
+//    options = options || {}
+//    var newNav = '';
+//    $.get('/user_nav', function(data) {
+//      if (data.success) {
+//        $('header.navbar').remove();
+//        $('body').prepend(data.content);
+//        if (options.callback) {
+//          options.callback(options.elem);
+//        }
+//      }
+//    });
+//  }
 
-//  TODO: Delete: Logic has been moved to Angular Hub Controller
 //  app.navCreateHub = function(e) {
 //    // e.preventDefault();
 //    var searchGroup = $('.select2-input').val();
@@ -184,7 +181,6 @@ window.app = {};
 //    })
 //  }
 
-    // TODO Delete: Logic has been moved to Angular
 //  app.gpSearch = function (elem) {
 //    var defaultBounds = new google.maps.LatLngBounds(
 //      new google.maps.LatLng(-33.8902, 151.1759),
@@ -199,7 +195,6 @@ window.app = {};
 //    var autocomplete = new google.maps.places.Autocomplete(elem, options);
 //
 //    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-//        // TODO Delete: Add Hub modal logic has been moved to Angular
 //        //if (elem.id === 'location_filter') {
 //        // this was a navbar search, preload the hub modal location field
 //        // $('#hub_formatted_location').val(place.formatted_address);
@@ -228,74 +223,74 @@ window.app = {};
 //    }
 //  }
 
-  app.reloadHome = function() {
-    if ($('#homepage').length === 0) {
-      e.preventDefault();
-    } else {
-      window.location.replace('/');
-    }
-  }
+//  app.reloadHome = function() {
+//    if ($('#homepage').length === 0) {
+//      e.preventDefault();
+//    } else {
+//      window.location.replace('/');
+//    }
+//  }
 
-  app.navLogin = function(e) {
-    app.loginInterrupt(this, app.reloadHome);
-  }
+//  app.navLogin = function(e) {
+//    app.loginInterrupt(this, app.reloadHome);
+//  }
 
-  app.navReg = function(e) {
-    // If user was on login modal and clicked Join...
-    if ($('#loginModal').hasClass('in')) {
-      $('#loginModal').modal('hide');
-      $('.login_form').off('ajax:success');
-    }
-    $('#registrationModal').modal();
-    $('#registrationModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
-      if(status === 'success') {
-        window.location.assign('/');
-      } else {
-        app.errorMessage('We could not register you');
-        return false;
-      }
-    });
-    return false;
-  }
+//  app.navReg = function(e) {
+//    // If user was on login modal and clicked Join...
+//    if ($('#loginModal').hasClass('in')) {
+//      $('#loginModal').modal('hide');
+//      $('.login_form').off('ajax:success');
+//    }
+//    $('#registrationModal').modal();
+//    $('#registrationModal .login_form').data('remote', true).attr('format', 'json').on('ajax:success', function(e, data, status, xhr) {
+//      if(status === 'success') {
+//        window.location.assign('/');
+//      } else {
+//        app.errorMessage('We could not register you');
+//        return false;
+//      }
+//    });
+//    return false;
+//  }
 
-  $(function() {
-    $('[rel=tooltip]').tooltip();
-    $('[rel=popover]').popover({trigger: 'hover'});
-    $('body').on('click', app.closeAlert);
-    $('#navLogin').on('click', app.navLogin);
-    $('#navJoin, #loginReg').on('click', app.navReg);
+//  $(function() {
+//    $('[rel=tooltip]').tooltip();
+//    $('[rel=popover]').popover({trigger: 'hover'});
+//    $('body').on('click', app.closeAlert);
+//    $('#navLogin').on('click', app.navLogin);
+//    $('#navJoin, #loginReg').on('click', app.navReg);
 //    $('.shares').on('click', 'a', function(e) {
 //      e.preventDefault();
 //      window.open($(this).attr('href'));
 //    })
-    $('select').select2({width: '200px'});
-    $('#hubModalSave').on('click', app.saveNewHub);
-
+//    $('select').select2({width: '200px'});
+//    $('#hubModalSave').on('click', app.saveNewHub);
+//
 //    $('#navbarSearch').on('submit', app.validateNavbarSearch);
-
+//
 //    $('#confirmationModalNo').on('click', function(e) {
 //      e.preventDefault();
 //      $(this).parents('.modal').modal('hide');
 //    });
-    $('.btn-disabled').on('click', function(e) {
-      return false;
-    })
-
-    $('.related_supporting').last().css('border-bottom', 'none');
-    app.pageEffects();
-
+//    $('.btn-disabled').on('click', function(e) {
+//      return false;
+//    })
+//
+//    $('.related_supporting').last().css('border-bottom', 'none');
+//    app.pageEffects();
+//
 //    app.configureHubFilter('#hub_filter', '220px');
 //    app.configureHubFilter('#proposal_hub_group_name', '220px');
-    // $(document).on('click', '#navCreateHub', app.navCreateHub);
-
+//    $(document).on('click', '#navCreateHub', app.navCreateHub);
+//
 //    $('.gpSearchBox').each(function() {
 //      app.gpSearch(this);
 //    });
-
-    // See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
-    // This fixes the issue with navbar dropdowns not acting on clicks
-    $('a.dropdown-toggle, .dropdown-menu a').on('touchstart', function(e) {
-      e.stopPropagation();
-    });
-  });
-})();
+//
+//    See https://github.com/twitter/bootstrap/issues/5900#issuecomment-10398454
+//    This fixes the issue with navbar dropdowns not acting on clicks
+//    $('a.dropdown-toggle, .dropdown-menu a').on('touchstart', function(e) {
+//      e.stopPropagation();
+//    });
+//  });
+//})();
