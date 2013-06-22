@@ -66,7 +66,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
 
 
 RelatedProposalShowCtrl =
-  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
+  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader, RelatedProposals) ->
     $scope.selectedSort = $location.search().related_sort_by
 
     $scope.$on 'event:votesChanged', ->
@@ -97,13 +97,13 @@ RelatedProposalShowCtrl =
     ]
 
     $scope.sortRelatedProposals = (related_sort_by) ->
-      $location.search('related_sort_by', related_sort_by)
+      $scope.relatedProposals = RelatedProposals.get({id: $scope.proposal.id, related_sort_by: related_sort_by})
       $scope.selectedSort = related_sort_by
 
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
-ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'VotingService' ]
-RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'SessionSettings', 'VotingService' ]
+RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader', 'RelatedProposals' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl
