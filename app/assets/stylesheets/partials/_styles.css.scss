@@ -32,9 +32,10 @@ footer {
 
 #main {
   overflow: visible;
+  background: url(noisy_grid.png);
+  min-height: 1200px;
   .content {
     overflow: auto;
-    background: url(noisy_grid.png);
     background-color: #fff;
     @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
@@ -171,7 +172,7 @@ h2 {
   @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
-    background-color: #315D99;
+    background-color: #006ecc;
     color: #fff;
     font-size: 16px;
     border-top: none;
