@@ -32,11 +32,12 @@ footer {
 
 #main {
   overflow: visible;
+  background: url(noisy_grid.png);
+  min-height: 1200px;
   .content {
     overflow: auto;
-    background: url(noisy_grid.png);
-    background-color: #fff;
-    @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+    //background-color: #fff;
+    //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
 }
 
@@ -128,15 +129,20 @@ h1.form-horizontal {
 }
 
 .hr {
-  background-color: #80A0CC;
+  background-color: rgba(28, 133, 246, 0.25);
   overflow: auto;
-  border: 2px solid #80A0CC;
+  border: 1.35px solid rgba(28, 133, 246, 0.55);
 }
 
 .page_title {
   margin-top: ($gridGutterWidth * 2.5);
   margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
+  width: 905px;
+  margin-left: -25px  ;
+  .brand {
+    font-size: 82px !important;
+  }
   .searched & {
     @extend .hide;
   }
@@ -144,14 +150,16 @@ h1.form-horizontal {
     font-size: 72px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
-    line-height: 60px;
-    padding: auto;
+    line-height: 80px;
+    //padding: auto;
+    padding-bottom: 50px;
     text-align: center;
   }
   span {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #50D050;
-    font-size: 60px;
+    //font-size: 60px;
+
     font-style: italic ;
   }
 }
@@ -171,7 +179,7 @@ h2 {
   @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
-    background-color: #315D99;
+    background-color: rgba(28, 133, 246, 1.00);
     color: #fff;
     font-size: 16px;
     border-top: none;
@@ -193,7 +201,7 @@ h2 {
     padding: ($gridGutterWidth * 0.3);
   }
   tbody:last-child tr:last-child td:first-child {
-    border-bottom-left-radius: 0;
+    -webkit-border-bottom-left-radius: 4px;
   }
   tbody:last-child tr:last-child td:last-child {
     border-bottom-right-radius: 0;
@@ -270,7 +278,7 @@ input.ng-invalid.ng-dirty {
 
 .user-avatar {
   float: left;
-  margin-right: ($gridGutterWidth/2);
+  margin-right: 13px;
   img {
     @include border-radius(3px);
     background-color: #ccc;
@@ -445,7 +453,11 @@ input.ng-invalid.ng-dirty {
 // content_pages elements
 .content_page {
   @extend .span11;
-  margin-left: $gridGutterWidth;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  background-color: #fff;
+  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+  margin-top: -20px;
+  margin-left: -13px;
   h2 {
     margin-top: $gridGutterWidth;
   }
@@ -524,6 +536,8 @@ input.ng-invalid.ng-dirty {
 
 .listing-proposals {
   margin-bottom: 0px;
+  background-color: #fff;
+  -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
     width: 114px;
   }
@@ -540,6 +554,7 @@ input.ng-invalid.ng-dirty {
   background-color: #e4e4e4;
   text-align: center;
   padding: 3px 10px;
+  -webkit-border-radius: 4px;
 }
 
 #hpContent {
@@ -648,6 +663,14 @@ input.ng-invalid.ng-dirty {
 
 .improve_support_buttons {
   display: inline;
+  .btn-support {
+    color: white;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
+  }
+  .btn-improve {
+    color: white;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+  }
   .shares {
     float: right;
     margin-right: 20px;
@@ -732,7 +755,10 @@ input.ng-invalid.ng-dirty {
 
 .shares  .btn {
   @extend .btn-mini;
-  @extend .btn-success;
+  //@extend .btn-success;
+  //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(56, 179, 59))) !important;
+  color: white;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(71, 126, 236)), to(rgb(40, 71, 132))) !important;
 }
 
 .proposal_fields {
@@ -755,7 +781,7 @@ input.ng-invalid.ng-dirty {
 
 #relatedProposalsTitle {
   font-size: 28px;
-  color: #315c99;
+  color: #284784;
   margin-top: 20px;
 }
 
@@ -775,9 +801,11 @@ input.ng-invalid.ng-dirty {
 #totalVoteLabel {
   @extend .pull-right;
   margin-top: -30px;
-  margin-right: -40px;
+  margin-right: -21px;
   // flush right on #mainContent
   .label {
+    //background-color: #3bbe3e !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
     @extend .label-large;
     @extend .label-success;
     @extend .label-flat;
@@ -787,7 +815,7 @@ input.ng-invalid.ng-dirty {
 #big-percent {
   font-size: 24pt;
   font-weight: bold;
-  color: #325c99;
+  color: #284784;
   float: right;
 }
 
