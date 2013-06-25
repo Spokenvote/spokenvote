@@ -13,8 +13,8 @@
         %button( ng-click='delete(proposal)' class='btn btn-danger delete' bs-tooltip='tooltips.delete' )  <i class="icon-trash"></i>
 
       .vote_buttons_container( ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='support(proposal.id)' class='btn btn-primary btn-bold main' bs-tooltip='tooltips.support' ) Support
-        %button( ng-click='improve(proposal.id)' class='btn btn-inverse btn-bold main' bs-tooltip='tooltips.improve' ) Improve
+        %button( ng-click='support(proposal.id)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' ) Support
+        %button( ng-click='improve(proposal.id)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' ) Improve
 
   .supporting_arguments
     %h3( ng-show='proposal.has_support' )

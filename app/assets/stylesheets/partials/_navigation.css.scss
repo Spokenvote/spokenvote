@@ -7,10 +7,9 @@
   //font-family: 'Megrim', cursive;
   //font-family: 'Audiowide', cursive;
   .brand {
-    //color: #315d99;
-    color: #c1c1c1;
+    //color: #aeaeae;
     //    font-weight: 700; font-family: 'Megrim'; letter-spacing: -1px;
-    margin-left: -14px;
+    margin-left: -6px;
     padding-top: 10px;
     padding-right: 35px;
     &.audiowide {
@@ -83,6 +82,20 @@ header.navbar-inverse .navbar-inner {
 .brand {
   font-weight: 700 !important;
   font-size: 30px !important;
+  .spoken {
+    color: #1c85f6;
+    active {
+      color: white !important;
+    }
+    span {
+      //color: #3bbe3e;
+      color: #3BBE3E;
+      //background: -webkit-linear-gradient(#3BBE3E, #3BBE3E);
+      //-webkit-background-clip: text;
+      //-webkit-text-fill-color: transparent;
+      margin-left: -3px;
+    }
+  }
   //font-family: 'Megrim';
   font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;
