@@ -36,8 +36,8 @@ footer {
   min-height: 1200px;
   .content {
     overflow: auto;
-    background-color: #fff;
-    @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+    //background-color: #fff;
+    //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
 }
 
@@ -138,6 +138,10 @@ h1.form-horizontal {
   margin-top: ($gridGutterWidth * 2.5);
   margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
+  width: 925px;
+  .brand {
+    font-size: 82px !important;
+  }
   .searched & {
     @extend .hide;
   }
@@ -145,14 +149,16 @@ h1.form-horizontal {
     font-size: 72px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
-    line-height: 60px;
-    padding: auto;
+    line-height: 80px;
+    //padding: auto;
+    padding-bottom: 50px;
     text-align: center;
   }
   span {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #50D050;
-    font-size: 60px;
+    //font-size: 60px;
+
     font-style: italic ;
   }
 }
