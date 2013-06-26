@@ -21,7 +21,7 @@ ProposalListCtrl =
 
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) ->
   $scope.proposal = proposal
-  $scope.proposal.$get()
+#  $scope.proposal.$get()
 #  console.log "$scope.proposal.$get"
 
   $scope.hubView = ->
