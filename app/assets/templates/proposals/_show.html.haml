@@ -9,12 +9,12 @@
       %ng-include( src="'/assets/shared/_social_buttons.html.haml'" )
 
       .edit.btn-group( ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='edit(proposal)' class='btn btn-primary edit' bs-tooltip='tooltips.edit' ) <i class="icon-pencil"></i>
-        %button( ng-click='delete(proposal)' class='btn btn-danger delete' bs-tooltip='tooltips.delete' )  <i class="icon-trash"></i>
+        %button( ng-click='edit(proposal)' class='btn btn-primary edit' bs-tooltip='tooltips.edit' data-placement='right' ) <i class="icon-pencil"></i>
+        %button( ng-click='delete(proposal)' class='btn btn-danger delete' bs-tooltip='tooltips.delete' data-placement='right' )  <i class="icon-trash"></i>
 
       .vote_buttons_container( ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='support(proposal.id)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' ) Support
-        %button( ng-click='improve(proposal.id)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' ) Improve
+        %button( ng-click='support(proposal.id)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' data-placement='right' ) Support
+        %button( ng-click='improve(proposal.id)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' data-placement='right' ) Improve
 
   .supporting_arguments
     %h3( ng-show='proposal.has_support' )
