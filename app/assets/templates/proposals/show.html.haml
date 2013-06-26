@@ -11,9 +11,8 @@
       %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
   %ng-include(src="'/assets/proposals/_show.html.haml'")
-  #relatedProposalsScroll
 
-    .hr
+  .hr
 
   #relatedProposals( ng-controller='RelatedProposalShowCtrl' )
     #relatedSorter
