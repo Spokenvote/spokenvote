@@ -22,7 +22,7 @@ ProposalListCtrl =
 ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) ->
   $scope.proposal = proposal
 #  $scope.proposal.$get()
-#  console.log "$scope.proposal.$get"
+  console.log "$scope.proposal.$get"
 
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
@@ -66,7 +66,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
 
 
 RelatedProposalShowCtrl =
-  ($scope, $location, $anchorScroll, $timeout, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
+  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
     $scope.selectedSort = $location.search().related_sort_by
 
     $scope.$on 'event:votesChanged', ->
@@ -74,7 +74,6 @@ RelatedProposalShowCtrl =
 
     $scope.relatedProposals =
       RelatedProposalsLoader().then (relatedProposals) ->
-        $timeout (-> $anchorScroll()), 500 if SessionSettings.actions.newRelatedProposalSort is true
         relatedProposals
 
     $scope.related_sorter_dropdown = [
@@ -98,17 +97,13 @@ RelatedProposalShowCtrl =
     ]
 
     $scope.sortRelatedProposals = (related_sort_by) ->
-      $location.search('related_sort_by', related_sort_by).hash('relatedProposalsScroll')
-      SessionSettings.actions.newRelatedProposalSort = true
-#      console.log "hash on select: " + $location.hash()
-#      console.log "select on select: " + $scope.selectedSort
-
-#      $scope.selectedSort = related_sort_by
+      $location.search('related_sort_by', related_sort_by)
+      $scope.selectedSort = related_sort_by
 
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
 ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'VotingService' ]
-RelatedProposalShowCtrl.$inject = [ '$scope', '$location', '$anchorScroll', '$timeout', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
+RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl

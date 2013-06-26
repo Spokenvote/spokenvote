@@ -11,22 +11,22 @@
       %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
   %ng-include(src="'/assets/proposals/_show.html.haml'")
-  #relatedProposalsScroll( ng-controller='RelatedProposalShowCtrl' )
+  #relatedProposalsScroll
 
     .hr
 
-    #relatedProposals
-      #relatedSorter
-        .btn-group(ng-show="proposal.related_proposals_count > 1")
-          %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
-          %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
-            %span( class='caret' )
+  #relatedProposals(  ng-controller='RelatedProposalShowCtrl' )
+    #relatedSorter
+      .btn-group(ng-show="proposal.related_proposals_count > 1")
+        %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
+        %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
+          %span( class='caret' )
 
-      #relatedProposalsTitle Related Proposals
+    #relatedProposalsTitle Related Proposals
 
-      %ng-include( src="'/assets/proposals/_show.html.haml'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
+    %ng-include( src="'/assets/proposals/_show.html.haml'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
 
-    %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
+  %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
 
 
 
