@@ -19,17 +19,15 @@ ProposalListCtrl =
       VotingService.new $scope
 
 
-ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) ->
+ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->
   $scope.proposal = proposal
-#  $scope.proposal.$get()
-  console.log "$scope.proposal.$get"
+  $scope.relatedProposals = relatedProposals
 
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
 
   $scope.$on 'event:votesChanged', ->
-    $scope.proposal.$get
-    console.log "$scope.$on 'event:votesChanged' triggered"
+    $scope.proposal.$get()
 
   $scope.support = ( clicked_proposal_id ) ->
     VotingService.support $scope, clicked_proposal_id
@@ -65,16 +63,10 @@ ProposalShowCtrl = ( $scope, $location, AlertService, proposal, VotingService ) 
     googleUrl: $scope.sessionSettings.socialSharing.googleRootUrl + $scope.location.absUrl()
 
 
-RelatedProposalShowCtrl =
-  ($scope, $location, AlertService, SessionSettings, VotingService, RelatedProposalsLoader) ->
-    $scope.selectedSort = $location.search().related_sort_by
+RelatedProposalShowCtrl = ( $scope ) ->
 
     $scope.$on 'event:votesChanged', ->
       $scope.relatedProposals.$get()
-
-    $scope.relatedProposals =
-      RelatedProposalsLoader().then (relatedProposals) ->
-        relatedProposals
 
     $scope.related_sorter_dropdown = [
       text: "By Votes"
@@ -97,13 +89,15 @@ RelatedProposalShowCtrl =
     ]
 
     $scope.sortRelatedProposals = (related_sort_by) ->
-      $location.search('related_sort_by', related_sort_by)
+      $scope.relatedProposals.$get
+        id: $scope.proposal.id
+        related_sort_by: related_sort_by
       $scope.selectedSort = related_sort_by
 
 # Injects
 ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
-ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'proposal', 'VotingService' ]
-RelatedProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'SessionSettings', 'VotingService', 'RelatedProposalsLoader' ]
+ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'VotingService', 'proposal', 'relatedProposals' ]
+RelatedProposalShowCtrl.$inject = [ '$scope' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl
