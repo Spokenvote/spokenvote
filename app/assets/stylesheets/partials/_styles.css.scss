@@ -5,9 +5,10 @@ $heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
 // structural styles
+html,body{height:100%;}
 body {
   padding-top: ($gridGutterWidth * 2);
-  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+  @include background(linear-gradient(#ddd, #eee 45%, #fff) no-repeat);
 }
 
 footer {
@@ -35,7 +36,7 @@ footer {
   background: url(noisy_grid.png);
   min-height: 1200px;
   .content {
-    overflow: auto;
+    overflow: visible;
     //background-color: #fff;
     //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
@@ -779,11 +780,15 @@ input.ng-invalid.ng-dirty {
   overflow: hidden;
 }
 
+#relatedProposals {
+   min-height: 200px;
+}
+
 #relatedProposalsTitle {
   font-size: 28px;
   color: #284784;
   margin-top: 20px;
-}
+ }
 
 .related_supporting {
   clear: both;
