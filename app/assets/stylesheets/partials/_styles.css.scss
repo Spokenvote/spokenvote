@@ -35,7 +35,7 @@ footer {
   background: url(noisy_grid.png);
   min-height: 1200px;
   .content {
-    overflow: auto;
+    overflow: visible;
     //background-color: #fff;
     //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
@@ -794,6 +794,7 @@ input.ng-invalid.ng-dirty {
 
 #relatedSorter {
   @extend .pull-right;
+  overflow: visible;
   margin-top: -10px;
   margin-right: 10px;
 }

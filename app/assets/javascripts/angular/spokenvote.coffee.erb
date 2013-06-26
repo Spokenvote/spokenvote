@@ -57,6 +57,8 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       resolve:
         proposal: (ProposalLoader) ->
           ProposalLoader()
+        relatedProposals: (RelatedProposalsLoader) ->
+          RelatedProposalsLoader()
 
     .when '/currentuser',
       resolve:
