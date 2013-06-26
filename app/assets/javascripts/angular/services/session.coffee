@@ -87,6 +87,7 @@ SessionSettings = ->
     changeHub: false
     newProposalHub: null
     searchTerm: null
+    newRelatedProposalSort: null
   openModals:
     newProposal: false
   searchedHub: {}
