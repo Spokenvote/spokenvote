@@ -1,4 +1,4 @@
-SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
+SessionCtrl = ($scope, parentScope, $cookieStore, $location, dialog, SessionService, AlertService) ->
   $scope.alertService = AlertService
   $scope.session = SessionService.userSession
 
@@ -7,14 +7,17 @@ SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
     if SessionService.signedOut
       $scope.session.$save().success (response, status, headers, config) ->
         if response.success == true
-          $scope.dismiss()
-          $scope.updateUserSession()
+          dialog.close(response)
+          parentScope.updateUserSession()
           $location.path('/proposals').search('filter', 'my_votes')
           AlertService.setInfo 'You are signed in!', $scope
           $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
         #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
           AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope
+
+  $scope.close = (result) ->
+    dialog.close(result)
 
 RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertService) ->
   $scope.alertService = AlertService
@@ -37,7 +40,7 @@ RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
     $scope.registration.$destroy()
 
 # Injects
-SessionCtrl.$inject = ['$scope', '$cookieStore', '$location', 'SessionService', 'AlertService']
+SessionCtrl.$inject = ['$scope', 'parentScope', '$cookieStore', '$location', 'dialog', 'SessionService', 'AlertService']
 
 # Register
 App.controller 'SessionCtrl', SessionCtrl

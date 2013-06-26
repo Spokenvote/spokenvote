@@ -17,7 +17,7 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote) ->
       AlertService.setJson response.data
     )
 
-ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope
 
@@ -37,8 +37,8 @@ ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
     improvedProposal = Proposal.save(improvedProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
-      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
-      $scope.dismiss()
+      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+#      dialog.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
       AlertService.setJson response.data
@@ -138,7 +138,7 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
 
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
-ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
+ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'parentScope' ]
 NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]

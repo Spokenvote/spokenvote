@@ -1,7 +1,8 @@
-#improveProposalModal.modal( ng-controller="ImroveCtrl" )
+-##improveProposalModal.modal( ng-controller="ImroveCtrl" )
+#improveProposalModal.modal
   .modal-header
     .pull-right( class='close' data-dismiss='modal' ) &times;
-    %h2 Improve Proposal
+    %h2 Improve Proposal  {{ alertService.alertDestination }}
 
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )

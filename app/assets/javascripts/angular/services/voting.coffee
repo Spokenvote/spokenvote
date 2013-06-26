@@ -23,19 +23,28 @@ VotingService = ( $dialog, $modal, AlertService, SessionSettings, RelatedVoteInT
     scope.clicked_proposal_id = clicked_proposal_id
     scope.current_user_support = null
 
-    RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
-      if relatedSupport.id?
-        scope.current_user_support = 'related_proposal'
-      $modal
-        template: '/assets/proposals/_improve_proposal_modal.html.haml'
-        show: true
-        backdrop: 'static'
-        scope: scope
+    if !scope.currentUser.id?
+      scope.signInModal()
+      AlertService.setInfo 'In order to improve proposals, you sign in.', scope, 'modal'
+    else
+      RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
+        scope.current_user_support = 'related_proposal' if relatedSupport.id?
+
+      if SessionSettings.openModals.improveProposal is false
+        scope.opts =
+          resolve:
+            $scope: ->
+              scope
+        d = $dialog.dialog(scope.opts)
+        SessionSettings.openModals.improveProposal = true
+        d.open('/assets/proposals/_improve_proposal_modal.html.haml', 'ImroveCtrl').then (result) ->
+          SessionSettings.openModals.improveProposal = d.isOpen()
+
 
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
 
-    if SessionSettings.openModals.newProposal is false
+    if SessionSettings.openModals.editProposal is false
       scope.opts =
         resolve:
           parentScope: ->
