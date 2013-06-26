@@ -805,8 +805,8 @@ input.ng-invalid.ng-dirty {
   margin-right: -21px;
   // flush right on #mainContent
   .label {
-    //background-color: #3bbe3e !important;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
+    background-color: #aeaeae !important;
+    //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
     @extend .label-large;
     @extend .label-success;
     @extend .label-flat;
@@ -816,7 +816,7 @@ input.ng-invalid.ng-dirty {
 #big-percent {
   font-size: 24pt;
   font-weight: bold;
-  color: #284784;
+  color: #1c85f6;
   float: right;
 }
 
