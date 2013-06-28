@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
         build_resource
         if resource.save
           render json: {success: true, new_user: resource}, status: :created
+          sign_up(resource_name, resource)
         else
           render success: false, json: resource.errors, status: :unprocessable_entity
         end
@@ -16,6 +17,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def sign_up(resource_name, resource)
+    sign_in(resource_name, resource)
+  end
 
   def update
     @user = User.find(current_user.id)
