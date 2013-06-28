@@ -9,7 +9,6 @@ ProposalListCtrl =
 
     $scope.setHub = (hubSelected) ->
       $location.search('hub', hubSelected.id)
-      SessionSettings.actions.hubFilter = hubSelected.short_hub
 
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
@@ -29,6 +28,9 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
 
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
+
+  $scope.setVoter = (vote) ->
+    $location.path('/proposals').search('user', vote.user_id)
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
