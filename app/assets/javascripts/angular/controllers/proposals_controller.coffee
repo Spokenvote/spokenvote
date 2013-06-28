@@ -7,6 +7,9 @@ ProposalListCtrl =
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
 
+    $scope.setHub = (hubSelected) ->
+      $location.search('hub', hubSelected.id)
+
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
       console.log $scope.proposals
@@ -25,6 +28,9 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
 
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
+
+  $scope.setVoter = (vote) ->
+    $location.path('/proposals').search('user', vote.user_id)
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
