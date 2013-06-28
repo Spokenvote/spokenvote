@@ -7,6 +7,10 @@ ProposalListCtrl =
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
 
+    $scope.setHub = (hubSelected) ->
+      $location.search('hub', hubSelected.id)
+      SessionSettings.actions.hubFilter = hubSelected.short_hub
+
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
       console.log $scope.proposals
