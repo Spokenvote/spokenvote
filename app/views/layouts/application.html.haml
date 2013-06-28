@@ -32,7 +32,7 @@
           .row
             #mainContent
               #alertContainer
-                .pageAlert( alert-bar alertmessageclear='alertService.alertClass' )
+                .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )
               %ng-view
 
     -#= render 'shared/footer'

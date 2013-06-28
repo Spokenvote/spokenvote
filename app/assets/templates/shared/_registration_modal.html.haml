@@ -1,10 +1,10 @@
-#registrationModal.modal( data-width='400px' ng-controller='RegistrationCtrl' )
+#registrationModal.modal
   .modal-header
-    .pull-right(class='close' data-dismiss='modal') &times;
+    .pull-right( class='close' ng-click='close()' ) &times;
     %h3 Join SpokenVote
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     .login_providers
@@ -37,11 +37,11 @@
           .controls
             %input(id='password_confirmation_field' name='password_confirmation' type='password' class='full-width' ng-model='registration.password_confirmation' required ng-minLength='5' placeholder='Confirm password' )
             .input-below-text( ng-show='registration.password != registration.password_confirmation && registrationForm.password_confirmation.$dirty || registrationForm.$invalid && registrationForm.password_confirmation.$dirty ' ) Almost ...
-            .input-below-text( ng-show='registrationForm.$valid && registration.password == registration.password_confirmation && registrationForm.password_confirmation.$dirty' ) Yes!
+            .input-below-text( ng-show='registrationForm.$valid && registration.password == registration.password_confirmation && registrationForm.password_confirmation.$dirty' ) Match!
         %input( type="submit" class='invisible' )
 
 
   .modal-footer
     .control-group
       .controls
-        %button( ng-click='register()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!registrationForm.$valid || registration.password != registration.password_confirmation') Join SpokenVote <i class="icon-ok"></i>
+        %button( ng-click='register()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!registrationForm.$valid || registration.password != registration.password_confirmation') Join SpokenVote
