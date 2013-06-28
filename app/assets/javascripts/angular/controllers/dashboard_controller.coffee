@@ -1,4 +1,4 @@
-DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
+DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
 
   SessionSettings.routeParams = $route.current.params
   if $route.current.params.hub?
@@ -59,5 +59,5 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
-DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl

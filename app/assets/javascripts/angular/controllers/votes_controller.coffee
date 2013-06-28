@@ -1,48 +1,61 @@
-SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote) ->
+SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
   if $scope.current_user_support == 'related_proposal'
-    AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope
+    AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
 
   $scope.saveSupport = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal_id
-    $scope.newSupport.user_id = $scope.currentUser.id
     AlertService.clearAlerts()
 
     vote = Vote.save($scope.newSupport
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
-      AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope
-      $scope.dismiss()
+      AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
+      dialog.close(response)
     ,  (response, status, headers, config) ->
-      AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope
+      AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'modal'
       AlertService.setJson response.data
     )
 
-ImroveCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+  $scope.close = (result) ->
+    dialog.close(result)
+
+ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
-    AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope
+    AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
 
   $scope.improvedProposal = {}
   $scope.improvedProposal.statement = $scope.proposal.statement
 
   $scope.saveImprovement = ->
-    improvedProposal = {}       #TODO: Refactor to a complex object.
-    improvedProposal.proposal = {}
-    improvedProposal.proposal.votes_attributes = {}
-    improvedProposal.proposal.parent_id = $scope.clicked_proposal_id
-    improvedProposal.user_id = $scope.currentUser.id
-    improvedProposal.proposal.statement = $scope.improvedProposal.statement
-    improvedProposal.proposal.votes_attributes.comment = $scope.improvedProposal.comment
+    improvedProposal =
+      proposal:
+        parent_id: $scope.clicked_proposal_id
+        statement: $scope.improvedProposal.statement
+        votes_attributes:
+          comment: $scope.improvedProposal.comment
+
+#    improvedProposal = {}       #TODO: Refactored above. Delete after Rails vote move is fixed and test passing.
+#    improvedProposal.proposal = {}
+#    improvedProposal.proposal.votes_attributes = {}
+#    improvedProposal.proposal.parent_id = $scope.clicked_proposal_id
+#    improvedProposal.user_id = $scope.currentUser.id
+#    improvedProposal.proposal.statement = $scope.improvedProposal.statement
+#    improvedProposal.proposal.votes_attributes.comment = $scope.improvedProposal.comment
+
     AlertService.clearAlerts()
 
     improvedProposal = Proposal.save(improvedProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
-      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope
-      $scope.dismiss()
+      AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+      dialog.close(response)
     ,  (response, status, headers, config) ->
-      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
+      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
       AlertService.setJson response.data
     )
+
+  $scope.close = (result) ->
+    dialog.close(result)
 
 EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
   $scope.sessionSettings = parentScope.sessionSettings
@@ -137,8 +150,8 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     dialog.close(result)
 
 # Injects
-SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote' ]
-ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
+SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', 'dialog' ]
+ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'parentScope' ]
 NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]

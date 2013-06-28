@@ -26,25 +26,30 @@ AlertService = ($timeout) ->
   jsonResponse: null
   jsonErrors: null
   alertClass: null
+  alertDestination: null
   cltActionResult: null
 
-  setSuccess: (msg, scope) ->
+  setSuccess: (msg, scope, dest) ->
     @alertMessage = msg
+    @alertDestination = dest
     @alertClass = 'alert-success'
     $timeout  (-> scope.hideAlert()), 6000 if scope?
 
-  setInfo: (msg, scope) ->
+  setInfo: (msg, scope, dest) ->
     @alertMessage = msg
+    @alertDestination = dest
     @alertClass = 'alert-info'
     $timeout  (-> scope.hideAlert()), 6000 if scope?
 
-  setError: (msg, scope) ->
+  setError: (msg, scope, dest) ->
     @alertMessage = msg
+    @alertDestination = dest
     @alertClass = 'alert-error'
     $timeout  (-> scope.hideAlert()), 6000 if scope?
 
-  setCtlResult: (result, scope) ->
+  setCtlResult: (result, scope, dest) ->
     @cltActionResult = result
+    @alertDestination = dest
     @alertClass = 'alert-error'
     $timeout  (-> scope.hideAlert()), 6000 if scope?
 
@@ -68,7 +73,6 @@ AlertService = ($timeout) ->
     @cltActionResult = null
 
 # Interceptors
-# Registers an interceptor for ALL angular ajax http calls
 errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
   (promise) ->
     promise.then ((response) ->
@@ -88,7 +92,12 @@ SessionSettings = ->
     newProposalHub: null
     searchTerm: null
   openModals:
+    signIn: false
+    register: false
     newProposal: false
+    supportProposal: false
+    improveProposal: false
+    editProposal: false
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}

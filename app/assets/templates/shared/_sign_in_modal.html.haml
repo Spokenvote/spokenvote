@@ -1,10 +1,10 @@
-#loginModal.modal(data-width='300px' ng-controller='SessionCtrl' data-backdrop="false")
+#loginModal.modal( data-width='300px' )
   .modal-header
-    .pull-right(class='close' data-dismiss='modal') &times;
+    .pull-right(class='close' ng-click='close()' ) &times;
     %h3 Please Sign In
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     .login_providers
@@ -42,5 +42,5 @@
   .modal-footer
     .control-group
       .controls
-        %button( ng-click='signIn()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Sign In <i class="icon-ok"></i>
-        %button( ng-click='register()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!signInForm.$valid' ) Join Us <i class="icon-ok"></i>
+        %button( ng-click='registerModal();close()' class='btn btn-warning btn-bold pull-left' ) Need to Sign Up?
+        %button( ng-click='signIn()' class='btn btn-primary btn-bold' ng-disabled='!signInForm.$valid' ) Sign In
