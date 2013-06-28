@@ -8,6 +8,7 @@ class ProposalsController < ApplicationController
     filter = params[:filter] || 'active'
 
     proposals = Proposal.roots.scoped
+    #proposals = Proposal.top_voted_proposal_in_tree
     proposals = proposals.where(hub_id: @hub.id) if @hub
     @proposals = proposals.includes(:hub)
     #proposals = proposals.order('updated_at DESC') if filter == 'new'
@@ -219,4 +220,10 @@ class ProposalsController < ApplicationController
   #    offset_by = (page_number * records_limit) + 2
   #  end
   #end
+
+  def top_voted_proposal_in_tree
+    all_proposals_in_tree = [self.root, self.root.descendants].flatten
+    psort = all_proposals_in_tree.sort! { |p1, p2| p2.votes_count <=> p1.votes_count }
+    psort.first
+  end
 end
