@@ -1,11 +1,10 @@
--##improveProposalModal.modal( ng-controller="ImroveCtrl" )
 #improveProposalModal.modal
   .modal-header
-    .pull-right( class='close' data-dismiss='modal' ) &times;
-    %h2 Improve Proposal  {{ alertService.alertDestination }}
+    .pull-right( class='close' ng-click='close()' ) &times;
+    %h2 Improve Proposal
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     .proposal_new
@@ -29,4 +28,4 @@
     %fieldset
       .control-group
         .controls
-          %button( ng-click="saveImprovement()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!improvedProposalForm.$valid' ) Save your Improved proposal <i class="icon-ok"></i>
+          %button( ng-click="saveImprovement()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!improvedProposalForm.$valid' ) Save Improved proposal

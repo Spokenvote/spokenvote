@@ -73,7 +73,6 @@ AlertService = ($timeout) ->
     @cltActionResult = null
 
 # Interceptors
-# Registers an interceptor for ALL angular ajax http calls
 errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
   (promise) ->
     promise.then ((response) ->
@@ -94,7 +93,9 @@ SessionSettings = ->
     searchTerm: null
   openModals:
     signIn: false
+    register: false
     newProposal: false
+    supportProposal: false
     improveProposal: false
     editProposal: false
   searchedHub: {}

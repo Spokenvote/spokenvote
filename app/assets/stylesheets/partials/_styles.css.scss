@@ -294,6 +294,11 @@ input.ng-invalid.ng-dirty {
   background-color: #eee;
 }
 
+.modal-footer {
+  .pull-left {
+    text-align: left;
+  }
+}
 .modal-backdrop {
   background-color: #000 !important;
 }
