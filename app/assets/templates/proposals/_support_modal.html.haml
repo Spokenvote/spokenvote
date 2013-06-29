@@ -1,6 +1,6 @@
-#voteModal.modal( data-width='400px' ng-controller='SupportCtrl' )
+#voteModal.modal
   .modal-header
-    .pull-right(class='close' data-dismiss='modal' aria-hidden='true') &times;
+    .pull-right( class='close'  ng-click='close()' ) &times;
     %h2 Support Proposal
 
     #alertContainer

@@ -2,8 +2,11 @@
   %nav.navbar-inner( ng-controller='DashboardCtrl' )
     .container
       %a.brand( href='/landing' )
-        %img( alt='Bluefull' size='18x24' src='/assets/bluefull.png' )
-        SpokenVote
+        -#%img( alt='Bluefull' size='18x24' src='/assets/bluefull.png' )
+        .spoken
+          Spoken
+          %span
+            Vote
 
       %ul#main-nav.nav
         %li
@@ -28,14 +31,14 @@
 
           %ul.dropdown-menu
             %li
-              %a(href='/proposals?filter=my_votes') My Proposals
+              %a(ng-href='/proposals?filter=my_votes') My Proposals
             %li
-              %a(href='/users/{{ currentUser.id }}/edit') Settings
+              %a(ng-href='/users/{{ currentUser.id }}/edit') Settings
             %li
               / Angular should ignore this route and not try to handle it since it has target='_self'
               %a(href='/admin' ng-show='currentUser["is_admin?"]' target='_blank') Admin
             %li
-              %a(href='#' ng-click='signOut()') Sign Out
+              %a( href='#' ng-click='signOut()' ) Sign Out
 
         %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes')
           %a(href='/proposals?filter=my_votes')

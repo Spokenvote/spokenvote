@@ -1,10 +1,15 @@
-DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHubLoader, VotingService) ->
-  console.log "SessionSettings.actions.changeHub: " + SessionSettings.actions.changeHub
+DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
 
   SessionSettings.routeParams = $route.current.params
   if $route.current.params.hub?
     $scope.hubFilter =
       full_hub: true
+
+  $scope.$on '$locationChangeSuccess', ->
+    if $route.current.params.hub?
+      CurrentHubLoader().then (paramHub) ->
+        SessionSettings.hub_attributes = paramHub
+        $scope.hubFilter = SessionSettings.hub_attributes
 
   $scope.$watch 'hubFilter.full_hub', ->
     if $scope.hubFilter?
@@ -17,7 +22,7 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
-    placeholder: " Begin typing to find your Group or Location ..."
+    placeholder: " Begin typing to find your Group or Location ... "
     width: '500px'
     allowClear: true
     ajax:
@@ -60,5 +65,5 @@ DashboardCtrl = ($scope, $route, $location, $dialog, SessionSettings, CurrentHub
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
-DashboardCtrl.$inject = [ '$scope', '$route', '$location', '$dialog', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 App.controller 'DashboardCtrl', DashboardCtrl

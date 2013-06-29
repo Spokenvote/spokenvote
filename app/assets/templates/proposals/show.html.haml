@@ -1,9 +1,20 @@
 .content_page
+  .proposal_hub
+    #totalVoteLabel
+      %span.label
+        {{ proposal.votes_in_tree }}
+        %ng-pluralize(count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}")
+        Votes on {{proposal.related_proposals_count + 1}}
+        %ng-pluralize(count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
+
+    %a.hub( ng-click="hubView()" href='#')
+      %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
+
   %ng-include(src="'/assets/proposals/_show.html.haml'")
 
   .hr
 
-  #relatedProposals(  ng-controller='RelatedProposalShowCtrl' )
+  #relatedProposals( ng-controller='RelatedProposalShowCtrl' )
     #relatedSorter
       .btn-group(ng-show="proposal.related_proposals_count > 1")
         %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
@@ -12,7 +23,7 @@
 
     #relatedProposalsTitle Related Proposals
 
-    %ng-include( src="'/assets/proposals/_show_related.html.haml'" )
+    %ng-include( src="'/assets/proposals/_show.html.haml'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
 
   %h3(ng-show="proposal.related_proposals_count < 1") There are no related proposals yet.
 

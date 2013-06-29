@@ -1,5 +1,5 @@
-appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
-  $httpProvider.defaults.headers.post['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
@@ -9,6 +9,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
       resolve:
         currentuser: (CurrentUserLoader) ->
           CurrentUserLoader()
+
+    .when '/admin/authentications',
+      controller: 'RootCtrl'
 
     .when '/landing',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
@@ -57,6 +60,8 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
       resolve:
         proposal: (ProposalLoader) ->
           ProposalLoader()
+        relatedProposals: (RelatedProposalsLoader) ->
+          RelatedProposalsLoader()
 
     .when '/currentuser',
       resolve:
@@ -69,19 +74,25 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
+  $dialogProvider.options =
+    backdrop: false
+    dialogClass: 'modal'
+    backdropClass: 'modal-backdrop'
+    transitionClass: 'fade'
+    triggerClass: 'modal-open'
+    backdropFade: false
+    dialogFade: true
+    keyboard: true
+    backdropClick: true
+
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig)
-
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
 App.Directives = angular.module('spokenvote.directives', [])
 
-#RailsSettings = ->
-#  defaultGravatar: 'http://www.spokenvote.com/' + "<%= DEFAULT_AVATAR_URL %>"
-#App.Services.factory 'RailsSettings', RailsSettings
-
 # Injects
-appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider']
+appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$dialogProvider' ]
 servicesConfig.$inject = ['$httpProvider']

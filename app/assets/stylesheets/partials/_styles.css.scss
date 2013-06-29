@@ -6,39 +6,44 @@ $heroUnitHeadingColor: $headingsColor;
 
 // structural styles
 body {
-  padding-top: 40px;
+  padding-top: ($gridGutterWidth * 2);
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
 }
 
 footer {
   &.navbar {
     margin-bottom: 0;
-    margin-top: 2px;
+    margin-top: ($gridGutterWidth/10);
   }
   .navbar-inner {
     @include border-radius(0);
   }
   .container {
-    padding: 10px 0;
+    padding: ($gridGutterWidth/2) 0;
   }
   a {
     color: #fff;
   }
 }
 
+.container {
+  @extend .span12;
+}
+
 #main {
   overflow: visible;
+  background: url(noisy_grid.png);
+  min-height: 1200px;
   .content {
-    overflow: auto;
-    background: url(noisy_grid.png);
-    background-color: #fff;
-    @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+    overflow: visible;
+    //background-color: #fff;
+    //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
 }
 
 #mainContent {
-  padding: 20px 20px 20px 40px;
-  margin-bottom: 20px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  margin-bottom: $gridGutterWidth;
   position: relative;
 }
 
@@ -48,14 +53,14 @@ footer {
 }
 
 .span11 > .form-horizontal {
-  margin-top: 20px;
+  margin-top: $gridGutterWidth;
   .control-group, .supporting-args {
-    margin-bottom: 10px;
+    margin-bottom: ($gridGutterWidth/2);
   }
 }
 
 .alert {
-  margin-left: 20px;
+  margin-left: $gridGutterWidth;
   margin-bottom: 0;
   @include border-radius(0);
   text-align: center;
@@ -69,11 +74,11 @@ footer {
 #alertContainer {
 
   .pageAlert {
+    @extend .span7;
     position: fixed;
     opacity: .95;
     z-index: 2000;
-    width: 30%;
-   margin-left: 220px;
+    margin-left: ($gridColumnWidth * 3);
   }
 
   .modalAlert {
@@ -91,9 +96,9 @@ footer {
 
 .length_counter {
   text-align: right;
-  margin-right: 25px;
-  margin-top: -11px;
-  margin-bottom: 6px;
+  margin-right: ($gridGutterWidth * 1.25);
+  margin-top: ($gridGutterWidth * -0.55);
+  margin-bottom: ($gridGutterWidth * 0.30);
   font-size: 70%;
   color: gray;
 }
@@ -106,12 +111,12 @@ footer {
 }
 
 h1.form-horizontal {
-  padding-left: 160px;
+  padding-left: ($gridGutterWidth * 8);
 }
 
 .label-large {
   font-size: 16px;
-  padding: 5px 8px 6px;
+  padding: ($gridGutterWidth/4) ($gridGutterWidth * 0.4) ($gridGutterWidth * 0.3);
   border: 1px solid #dddddd;
 }
 
@@ -124,15 +129,20 @@ h1.form-horizontal {
 }
 
 .hr {
-  background-color: #80A0CC;
+  background-color: rgba(28, 133, 246, 0.25);
   overflow: auto;
-  border: 2px solid #80A0CC;
+  border: 1.35px solid rgba(28, 133, 246, 0.55);
 }
 
 .page_title {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: ($gridGutterWidth * 2.5);
+  margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
+  width: 905px;
+  margin-left: -25px  ;
+  .brand {
+    font-size: 82px !important;
+  }
   .searched & {
     @extend .hide;
   }
@@ -140,20 +150,22 @@ h1.form-horizontal {
     font-size: 72px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
-    line-height: 60px;
-    padding: auto;
+    line-height: 80px;
+    //padding: auto;
+    padding-bottom: 50px;
     text-align: center;
   }
   span {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #50D050;
-    font-size: 60px;
+    //font-size: 60px;
+
     font-style: italic ;
   }
 }
 
 h2 {
-  margin-bottom: 12px;
+  margin-bottom: ($gridGutterWidth * 0.6);
 }
 
 .listing {
@@ -167,7 +179,7 @@ h2 {
   @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
-    background-color: #315D99;
+    background-color: rgba(28, 133, 246, 1.00);
     color: #fff;
     font-size: 16px;
     border-top: none;
@@ -183,13 +195,13 @@ h2 {
     border-left: 1px solid #ddd;
   }
   th .pull-right {
-    margin-right: 14px;
+    margin-right: ($gridGutterWidth * 0.7);
   }
   th, td {
-    padding: 6px;
+    padding: ($gridGutterWidth * 0.3);
   }
   tbody:last-child tr:last-child td:first-child {
-    border-bottom-left-radius: 0;
+    -webkit-border-bottom-left-radius: 4px;
   }
   tbody:last-child tr:last-child td:last-child {
     border-bottom-right-radius: 0;
@@ -197,7 +209,7 @@ h2 {
   .pos_statement {
     @extend .pull-left;
     width: 80%;
-    margin-left: 10px;
+    margin-left: ($gridGutterWidth/2);
   }
   .count-column {
     text-align: center;
@@ -230,16 +242,16 @@ input.ng-invalid.ng-dirty {
   -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
   -moz-box-shadow: 0 0 6px #f8b9b7 !important;
   box-shadow: 0 0 6px #f8b9b7 !important;
-  }
+}
 
 //ng-pristine
 
 //ng-dirty
 
 .input-below-text {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  margin-left: 4px;
+  margin-top: ($gridGutterWidth * -0.5);
+  margin-bottom: ($gridGutterWidth * 0.5);
+  margin-left: ($gridGutterWidth * 0.2);
 }
 
 
@@ -266,9 +278,13 @@ input.ng-invalid.ng-dirty {
 
 .user-avatar {
   float: left;
-  margin-right: 10px;
+  margin-right: 13px;
   img {
     @include border-radius(3px);
+    background-color: #ccc;
+    border: 1px solid #B9B9B9;
+    color: #444;
+    display: block;
   }
 }
 
@@ -278,6 +294,11 @@ input.ng-invalid.ng-dirty {
   background-color: #eee;
 }
 
+.modal-footer {
+  .pull-left {
+    text-align: left;
+  }
+}
 .modal-backdrop {
   background-color: #000 !important;
 }
@@ -288,33 +309,33 @@ input.ng-invalid.ng-dirty {
 
 .modal-body {
   background-color: #DFDFDF;
-  padding-top: 20px;
+  padding-top: $gridGutterWidth;
   form {
     //margin: 0;
   }
   .control-group {
     //margin-left: 15px;
-    margin-bottom: 40px;
+    margin-bottom: ($gridGutterWidth * 2);
   }
   .instructions {
-    margin-top: 12px;
-    margin-left: 6px;
+    margin-top: ($gridGutterWidth * 0.6);
+    margin-left: ($gridGutterWidth * 0.3);
     .avatar {
-      margin-left: 18px;
+      margin-left: ($gridGutterWidth * 0.9);
     }
     h5 {
       color: #555555;
       font-weight: normal;
-      margin-right: 20px;
-      margin-left: 58px;
-      margin-top: 25px;
-      margin-bottom: 17px;
+      margin-right: $gridGutterWidth;
+      margin-left: ($gridGutterWidth * 1.9);
+      margin-top: ($gridGutterWidth * 1.25);
+      margin-bottom: ($gridGutterWidth * 0.85);
     }
   }
 }
 
 #confirmationModalQuestion {
-  margin: 20px 0;
+  margin: $gridGutterWidth 0;
   font-weight: bold;
 }
 
@@ -329,33 +350,33 @@ input.ng-invalid.ng-dirty {
 
 // Login elements
 .login_providers {
-  margin-bottom: 20px;
+  margin-bottom: $gridGutterWidth;
 }
 
 .login_form {
   background-color: #DFDFDF;
-  padding-top: 1px;
+  padding-top: ($gridGutterWidth * 0.05);
   form {
     margin: 0;
   }
   .control-group {
-    margin-left: 15px;
+    margin-left: ($gridGutterWidth * 0.75);
     margin-bottom: 0;
   }
   [type="text"], [type="email"], [type="password"] {
-    width: 355px;
+    width: ($gridGutterWidth * 17.75);
   }
   label {
     font-weight: normal;
   }
   .btn {
-    margin-bottom: 10px;
+    margin-bottom: ($gridGutterWidth/2);
   }
   #forgotLink, #loginModal & .btn {
-    margin-left: 21px;
+    margin-left: ($gridGutterWidth * 1.05);
   }
   #forgotLink {
-    padding-bottom: 10px;
+    padding-bottom: ($gridGutterWidth/2);
     a, a:visited {
       color: #ADADAD;
       text-decoration: underline;
@@ -364,11 +385,11 @@ input.ng-invalid.ng-dirty {
 }
 
 #loginModal, #registrationModal {
-  width: 400px;
-  margin-left: -200px;
+  width: ($gridGutterWidth * 20);
+  margin-left: ($gridGutterWidth * -10);
 
   .modal-body {
-    width: 400px;
+    width: ($gridGutterWidth * 20);
     @include background(linear-gradient(center top, #FFFFFF, #F5F5F5) repeat scroll 0 0 transparent);
     @include box-shadow(0 0 3px #FFFFFF inset, 0 2px 2px -2px rgba(0, 0, 0, 0.2));
     padding: 0;
@@ -386,7 +407,7 @@ input.ng-invalid.ng-dirty {
 }
 
 .fb-button-container-centered {
-  padding: 20px 20px 0;
+  padding: $gridGutterWidth $gridGutterWidth 0;
   text-align: center;
   .fb-button {
     @include inline-block;
@@ -410,22 +431,22 @@ input.ng-invalid.ng-dirty {
     display: block;
   }
   .fb-button-left {
-    width: 40px;
+    width: ($gridGutterWidth * 2);
   }
   .fb-button-center {
-    width: 252px;
+    width: ($gridGutterWidth * 12.6);
     text-align: center;
     background-color: #6385BA;
-    background-position: left -40px;
+    background-position: left ($gridGutterWidth * -2);
     background-repeat: repeat-x;
     color: #FFFFFF;
     font-size: 16px;
     line-height: 40px;
-    padding: 0 5px 0 8px;
+    padding: 0 ($gridGutterWidth/4) 0 ($gridGutterWidth * 0.4);
   }
   .fb-button-right {
-    background-position: 100% -80px;
-    width: 6px;
+    background-position: 100% ($gridGutterWidth * -4);
+    width: ($gridGutterWidth * 0.3);
   }
 }
 
@@ -437,12 +458,16 @@ input.ng-invalid.ng-dirty {
 // content_pages elements
 .content_page {
   @extend .span11;
-  margin-left: 20px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  background-color: #fff;
+  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+  margin-top: -20px;
+  margin-left: -13px;
   h2 {
-    margin-top: 20px;
+    margin-top: $gridGutterWidth;
   }
   .content_div {
-    margin-bottom: 20px;
+    margin-bottom: $gridGutterWidth;
   }
   label {
     font-weight: bold;
@@ -454,18 +479,18 @@ input.ng-invalid.ng-dirty {
 // static_pages elements
 .static_page {
   @extend .span11;
-  margin-left: 20px;
+  margin-left: $gridGutterWidth;
   h1 {
-    margin-bottom: 45px;
-    font-size: 40px;
+    margin-bottom: ($gridGutterWidth * 2.25);
+    font-size: ($gridGutterWidth *2);
     color: #315D99;
   }
   h2 {
-    margin-top: 30px;
+    margin-top: ($gridGutterWidth * 1.5);
     color: #555;
   }
   h3 {
-    margin-bottom: 20px;
+    margin-bottom: $gridGutterWidth;
     font-size: 20px;
   }
   h4 {
@@ -516,6 +541,8 @@ input.ng-invalid.ng-dirty {
 
 .listing-proposals {
   margin-bottom: 0px;
+  background-color: #fff;
+  -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
     width: 114px;
   }
@@ -532,6 +559,7 @@ input.ng-invalid.ng-dirty {
   background-color: #e4e4e4;
   text-align: center;
   padding: 3px 10px;
+  -webkit-border-radius: 4px;
 }
 
 #hpContent {
@@ -540,8 +568,9 @@ input.ng-invalid.ng-dirty {
 }
 
 .vote_buttons_container {
-  @extend .span3;
-  text-align: center;
+  @extend .span9;
+  //text-align: center;
+  margin-left: 10px;
 }
 .support_container {
   @extend .no-gutter;
@@ -639,8 +668,22 @@ input.ng-invalid.ng-dirty {
 
 .improve_support_buttons {
   display: inline;
-  .btn {
+  .btn-support {
+    color: white;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
+  }
+  .btn-improve {
+    color: white;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+  }
+  .shares {
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+  }
+  .main {
     //@extend .btn-mini;
+    margin-right: 10px;
     font-size: 14px;
   }
 }
@@ -717,7 +760,10 @@ input.ng-invalid.ng-dirty {
 
 .shares  .btn {
   @extend .btn-mini;
-  @extend .btn-success;
+  //@extend .btn-success;
+  //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(56, 179, 59))) !important;
+  color: white;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(71, 126, 236)), to(rgb(40, 71, 132))) !important;
 }
 
 .proposal_fields {
@@ -740,7 +786,7 @@ input.ng-invalid.ng-dirty {
 
 #relatedProposalsTitle {
   font-size: 28px;
-  color: #315c99;
+  color: #284784;
   margin-top: 20px;
 }
 
@@ -753,6 +799,7 @@ input.ng-invalid.ng-dirty {
 
 #relatedSorter {
   @extend .pull-right;
+  overflow: visible;
   margin-top: -10px;
   margin-right: 10px;
 }
@@ -760,9 +807,11 @@ input.ng-invalid.ng-dirty {
 #totalVoteLabel {
   @extend .pull-right;
   margin-top: -30px;
-  margin-right: -40px;
+  margin-right: -21px;
   // flush right on #mainContent
   .label {
+    background-color: #aeaeae !important;
+    //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
     @extend .label-large;
     @extend .label-success;
     @extend .label-flat;
@@ -772,7 +821,7 @@ input.ng-invalid.ng-dirty {
 #big-percent {
   font-size: 24pt;
   font-weight: bold;
-  color: #325c99;
+  color: #1c85f6;
   float: right;
 }
 

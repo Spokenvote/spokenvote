@@ -53,6 +53,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -109,6 +110,7 @@ GEM
     diff-lcs (1.2.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    eventmachine (1.0.3-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -122,6 +124,7 @@ GEM
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     ffi (1.5.0)
+    ffi (1.5.0-x86-mingw32)
     formtastic (2.2.1)
       actionpack (>= 3.0)
     fssm (0.2.10)
@@ -173,6 +176,7 @@ GEM
     nested_form (0.3.1)
     newrelic_rpm (3.5.5.38)
     nokogiri (1.5.9)
+    nokogiri (1.5.9-x86-mingw32)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -192,6 +196,7 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.14.1)
+    pg (0.14.1-x86-mingw32)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -207,6 +212,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    railroady (1.1.0)
     rails (3.2.13)
       actionmailer (= 3.2.13)
       actionpack (= 3.2.13)
@@ -300,6 +306,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   activeadmin
@@ -334,6 +341,7 @@ DEPENDENCIES
   populator
   rabl
   rack-cache
+  railroady
   rails (= 3.2.13)
   rspec
   rspec-rails

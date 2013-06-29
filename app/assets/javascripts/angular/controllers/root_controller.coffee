@@ -1,4 +1,4 @@
-RootCtrl = ($scope, AlertService, $location, $modal, SessionService, SessionSettings, CurrentUserLoader) ->
+RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSettings, CurrentUserLoader) ->
   $scope.alertService = AlertService
   $scope.session = SessionService.userSession
   $scope.sessionSettings = SessionSettings
@@ -6,33 +6,36 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, SessionSett
     $scope.currentUser = current_user
     $location.path('/proposals').search('filter', 'my_votes') if $scope.currentUser.username? and $location.path() == '/'
 
-#    console.log $scope.currentUser
-#    console.log $scope.currentUser.is_admin?
-#  if $scope.currentUser.is_admin?.to_text is 'true'
-#    console.log "console.log $scope.currentUser.is_admin?" + $scope.currentUser.is_admin?
-
   $scope.$on "event:loginRequired", ->
     $scope.signInModal()
 
   $scope.signInModal = ->
-    $modal
-      template: '/assets/shared/_sign_in_modal.html.haml'
-      show: true
-      backdrop: 'static'
-      scope: $scope
+    if SessionSettings.openModals.signIn is false
+      opts =
+        resolve:
+          $scope: ->
+            $scope
+      d = $dialog.dialog(opts)
+      SessionSettings.openModals.signIn = true
+      d.open('/assets/shared/_sign_in_modal.html.haml', 'SessionCtrl').then (result) ->
+        SessionSettings.openModals.signIn = d.isOpen()
 
   $scope.registerModal = ->
-    $modal
-      template: '/assets/shared/_registration_modal.html.haml'
-      show: true
-      backdrop: 'static'
-      scope: $scope
+    if SessionSettings.openModals.register is false
+      opts =
+        resolve:
+          $scope: ->
+            $scope
+      d = $dialog.dialog(opts)
+      SessionSettings.openModals.register = true
+      d.open('/assets/shared/_registration_modal.html.haml', 'RegistrationCtrl').then (result) ->
+        SessionSettings.openModals.register = d.isOpen()
 
   $scope.signOut = ->
     $scope.session.$destroy()
     $scope.currentUser = {}
     $location.path('/').search('')
-    AlertService.setInfo 'You are signed out.', $scope
+    AlertService.setInfo 'You are signed out.', $scope, 'main'
 
   $scope.updateUserSession = ->
     CurrentUserLoader().then (current_user) ->
@@ -52,5 +55,5 @@ RootCtrl = ($scope, AlertService, $location, $modal, SessionService, SessionSett
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$modal', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$dialog', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
 App.controller 'RootCtrl', RootCtrl
