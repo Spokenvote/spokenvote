@@ -135,8 +135,8 @@ h1.form-horizontal {
 }
 
 .page_title {
-  margin-top: ($gridGutterWidth * 2.5);
-  margin-bottom: ($gridGutterWidth *2.5);
+  //margin-top: ($gridGutterWidth * 2.5);
+  //margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
   width: 905px;
   margin-left: -25px  ;
@@ -147,12 +147,12 @@ h1.form-horizontal {
     @extend .hide;
   }
   h1 {
-    font-size: 72px;
+    font-size: 82px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
     //padding: auto;
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
     text-align: center;
   }
   span {
@@ -305,6 +305,7 @@ input.ng-invalid.ng-dirty {
 
 .modal {
   top: 15% !important;
+  position: fixed !important;
 }
 
 .modal-body {
@@ -530,6 +531,13 @@ input.ng-invalid.ng-dirty {
 
 // Proposal-related
 .proposal_hub {
+  a.hub {
+    text-decoration: none;
+    :hover {
+      color: #1c85f6;
+    }
+  }
+
   h2 {
     margin-top: 14px;
     //color: #315D99;
@@ -616,11 +624,15 @@ input.ng-invalid.ng-dirty {
   //margin-bottom: -10px;
   .hub {
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #444;
+    color: #444 !important;
     //margin-top: -20px;
     //margin-bottom: 15px;
     //margin-left: 3px;
     text-align: right;
+    text-decoration: none;
+    :hover {
+      color: #1c85f6;
+    }
     h3 {
       margin-right: 3px;
     }
@@ -671,6 +683,9 @@ input.ng-invalid.ng-dirty {
   .btn-support {
     color: white;
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
+    :hover {
+      background-color: none;
+    }
   }
   .btn-improve {
     color: white;
