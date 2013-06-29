@@ -10,6 +10,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
         currentuser: (CurrentUserLoader) ->
           CurrentUserLoader()
 
+    .when '/admin/authentications',
+      controller: 'RootCtrl'
+
     .when '/landing',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'RootCtrl'

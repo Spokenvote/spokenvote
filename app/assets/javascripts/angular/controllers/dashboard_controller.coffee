@@ -5,6 +5,12 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     $scope.hubFilter =
       full_hub: true
 
+  $scope.$on '$locationChangeSuccess', ->
+    if $route.current.params.hub?
+      CurrentHubLoader().then (paramHub) ->
+        SessionSettings.hub_attributes = paramHub
+        $scope.hubFilter = SessionSettings.hub_attributes
+
   $scope.$watch 'hubFilter.full_hub', ->
     if $scope.hubFilter?
       if $scope.hubFilter.full_hub == null
@@ -16,7 +22,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
-    placeholder: " Begin typing to find your Group or Location ..."
+    placeholder: " Begin typing to find your Group or Location ... "
     width: '500px'
     allowClear: true
     ajax:

@@ -9,6 +9,7 @@ class ProposalsController < ApplicationController
 
     proposals = Proposal.roots.scoped
     proposals = proposals.where(hub_id: @hub.id) if @hub
+    proposals = proposals.where(user_id: @user.id) if @user  # TODO Angular sending, Rails not quite working
     @proposals = proposals.includes(:hub)
     #proposals = proposals.order('updated_at DESC') if filter == 'new'
     #@proposals = proposals
@@ -160,6 +161,10 @@ class ProposalsController < ApplicationController
 
   def find_hub
     @hub = Hub.find(params[:hub]) if params[:hub]
+  end
+
+  def find_user
+    @user = User.find(params[:user]) if params[:user]
   end
 
   def modify_create_params(params_hash)
