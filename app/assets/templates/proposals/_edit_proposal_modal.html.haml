@@ -22,10 +22,10 @@
         ng-maxLength='140' placeholder='Please use  15 - 140 characters while editing your proposal.' )
       .length_counter( ng-show=' editProposal.proposal.statement.length > 15 ' )
         {{ 140 - editProposal.proposal.statement.length }} characters remaining
-      %textarea(id='vote_comment' type='text' class='full-width' ng-model='editProposal.proposal.votes_attributes[0].comment' required ng-minLength='7'
+      %textarea(id='vote_comment' type='text' class='full-width' ng-model='editProposal.proposal.votes_attributes.comment' required ng-minLength='7'
         ng-maxLength='280' placeholder='Please use  7 - 280 characters in this space to explain why others should support your proposal.')
-      .length_counter( ng-show=' editProposal.proposal.votes_attributes[0].comment.length > 7 ' )
-        {{ 280 - editProposal.proposal.votes_attributes[0].comment.length }} characters remaining
+      .length_counter( ng-show=' editProposal.proposal.votes_attributes.comment.length > 7 ' )
+        {{ 280 - editProposal.proposal.votes_attributes.comment.length }} characters remaining
 
   .modal-footer
     %fieldset
