@@ -58,7 +58,7 @@ class ProposalsController < ApplicationController
 
   # POST /proposals.json
   def create
-    votes_attributes = params[:proposal][:votes_attributes]["0"].merge(user_id: current_user.id, ip_address: request.remote_ip)
+    votes_attributes = params[:proposal][:votes_attributes].merge(user_id: current_user.id, ip_address: request.remote_ip)
     @proposal = current_user.proposals.create(proposal_params)
 
     if @proposal.new_record?

@@ -17,7 +17,7 @@ describe ProposalsController do
             {
               statement: Faker::Lorem.sentence,
               hub_id: hub.id,
-              votes_attributes: { "0" => attributes_for(:vote) }
+              votes_attributes: attributes_for(:vote)
             }
           end
 
@@ -50,7 +50,7 @@ describe ProposalsController do
           let(:invalid_attributes) do
             {
               :hub => hub.attributes,
-              :votes_attributes => { "0" => attributes_for(:vote) }
+              :votes_attributes => attributes_for(:vote)
             }
           end
 
@@ -77,7 +77,7 @@ describe ProposalsController do
             let(:user1) { create(:user) }
             let!(:proposal1) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1') }
             let!(:vote1) { create(:vote, user: user1, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
-            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal1.id, votes_attributes: { "0" => attributes_for(:vote) }) }
+            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal1.id, votes_attributes: attributes_for(:vote)) }
 
             it 'creates a new improved proposal' do
               expect {
@@ -106,7 +106,7 @@ describe ProposalsController do
             let!(:proposal2) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1 --> Proposal-2', parent: proposal1) }
             let!(:vote2) { create(:vote, user: user1, proposal: proposal2, comment: 'Proposal-1 --> Proposal-2 --> Vote-1') }
 
-            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal2.id, votes_attributes: { "0" => attributes_for(:vote) }) }
+            let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal2.id, votes_attributes: attributes_for(:vote)) }
 
             it 'creates a new improved proposal' do
               expect {
@@ -135,7 +135,7 @@ describe ProposalsController do
                 location_id: 'somerandomgoogleplacesid',
                 formatted_location: 'Mountain View, CA'
               },
-              votes_attributes: { "0" => attributes_for(:vote) }
+              votes_attributes: attributes_for(:vote)
             }
           end
 
