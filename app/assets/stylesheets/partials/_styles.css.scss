@@ -629,16 +629,16 @@ input.ng-invalid.ng-dirty {
 .selectedHub {
   margin-top: -12px;
   margin-bottom: -5px;
+  color: #444 !important;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  text-align: right;
+  text-decoration: none;
   a.hub {
     :hover {
        color: #1c85f6;
     }
   }
   .hub {
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #444 !important;
-    text-align: right;
-    text-decoration: none;
     h3 {
       margin-right: 3px;
     }
@@ -654,22 +654,6 @@ input.ng-invalid.ng-dirty {
     text-align: center;
   }
 }
-
-//.improve_form, .support_form {
-//  h3 {
-//    font-size: 24px;
-//    color: #ff0000;
-//  }
-//  .proposal_form_buttons {
-//    margin-top: 10px;
-//  }
-//}
-//
-//.improve_form {
-//  background: #ddd;
-//  padding: 10px;
-//  border: 1px solid #999;
-//}
 
 .main-proposal, .supporting_arguments {
   h3 {
