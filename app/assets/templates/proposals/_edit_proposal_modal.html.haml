@@ -4,27 +4,28 @@
     %h2 Edit Proposal
     .selectedHub
       .hub
-        %h3 {{ proposal.hub.group_name }}
-        %h5 {{ proposal.hub.formatted_location }}
+        %h3 {{ clicked_proposal.hub.group_name }}
+        %h5 {{ clicked_proposal.hub.formatted_location }}
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     .proposal
 
     %form( name='editProposalForm' )
-      %fieldset
-        .control-group
-          .controls
-            .instructions
-              .avatar
-                %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-              %h5 You are editing your Proposal   ...
-            %textarea( id='proposal_statement' type='input' class='full-width' ng-model='editProposal.proposal.statement' required ng-minLength='15' ng-maxLength='140' placeholder='Please use  15 - 140 characters while editing your proposal.' )
-            .length_counter( ng-show=' proposal.statement.length > 15 ' )  {{ 140 - proposal.statement.length }} characters remaining
-            %textarea(id='vote_comment' type='text' class='full-width' ng-model='editProposal.proposal.votes_attributes[0].comment' required ng-minLength='7' ng-maxLength='280' placeholder='Please use  7 - 280 characters in this space to explain why others should support your proposal.')
-            .length_counter( ng-show=' proposal.comment.length > 7 ' ) {{ 280 - proposal.comment.length }} characters remaining
+      .instructions
+        .avatar
+          %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
+        %h5 You are editing your Proposal   ...
+      %textarea( id='proposal_statement' type='input' class='full-width' ng-model='editProposal.proposal.statement' required ng-minLength='15'
+        ng-maxLength='140' placeholder='Please use  15 - 140 characters while editing your proposal.' )
+      .length_counter( ng-show=' editProposal.proposal.statement.length > 15 ' )
+        {{ 140 - editProposal.proposal.statement.length }} characters remaining
+      %textarea(id='vote_comment' type='text' class='full-width' ng-model='editProposal.proposal.votes_attributes[0].comment' required ng-minLength='7'
+        ng-maxLength='280' placeholder='Please use  7 - 280 characters in this space to explain why others should support your proposal.')
+      .length_counter( ng-show=' editProposal.proposal.votes_attributes[0].comment.length > 7 ' )
+        {{ 280 - editProposal.proposal.votes_attributes[0].comment.length }} characters remaining
 
   .modal-footer
     %fieldset

@@ -155,12 +155,13 @@ h1.form-horizontal {
     //padding-bottom: 50px;
     text-align: center;
   }
-  span {
+  .tag_line {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #50D050;
-    //font-size: 60px;
-
+    font-size: 72px;
+    line-height: 80px;
     font-style: italic ;
+    padding-top: 30px;
   }
 }
 
@@ -292,6 +293,9 @@ input.ng-invalid.ng-dirty {
 .modal-header {
   @include border-top-radius(6px);
   background-color: #eee;
+  h2 {
+    color: #1c85f6;
+  }
 }
 
 .modal-footer {
@@ -312,15 +316,17 @@ input.ng-invalid.ng-dirty {
   background-color: #DFDFDF;
   padding-top: $gridGutterWidth;
   form {
-    //margin: 0;
+    margin-bottom: 0;
+    padding-left: 10px;
   }
   .control-group {
     //margin-left: 15px;
     margin-bottom: ($gridGutterWidth * 2);
   }
   .instructions {
-    margin-top: ($gridGutterWidth * 0.6);
+    //margin-top: ($gridGutterWidth * 0.3);
     margin-left: ($gridGutterWidth * 0.3);
+    //padding-bottom: 18px ;
     .avatar {
       margin-left: ($gridGutterWidth * 0.9);
     }
@@ -329,8 +335,9 @@ input.ng-invalid.ng-dirty {
       font-weight: normal;
       margin-right: $gridGutterWidth;
       margin-left: ($gridGutterWidth * 1.9);
-      margin-top: ($gridGutterWidth * 1.25);
-      margin-bottom: ($gridGutterWidth * 0.85);
+      //margin-top: ($gridGutterWidth * 1.25);
+      //margin-bottom: ($gridGutterWidth * 0.85);
+      padding-bottom: ($gridGutterWidth);
     }
   }
 }
@@ -620,19 +627,18 @@ input.ng-invalid.ng-dirty {
 }
 
 .selectedHub {
-  margin-top: -20px;
-  //margin-bottom: -10px;
+  margin-top: -12px;
+  margin-bottom: -5px;
+  a.hub {
+    :hover {
+       color: #1c85f6;
+    }
+  }
   .hub {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #444 !important;
-    //margin-top: -20px;
-    //margin-bottom: 15px;
-    //margin-left: 3px;
     text-align: right;
     text-decoration: none;
-    :hover {
-      color: #1c85f6;
-    }
     h3 {
       margin-right: 3px;
     }

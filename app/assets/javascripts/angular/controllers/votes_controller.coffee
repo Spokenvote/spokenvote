@@ -3,7 +3,7 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
 
   $scope.saveSupport = ->
-    $scope.newSupport.proposal_id = $scope.clicked_proposal_id
+    $scope.newSupport.proposal_id = $scope.clicked_proposal.id
     AlertService.clearAlerts()
 
     vote = Vote.save($scope.newSupport
@@ -23,13 +23,13 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
 
-  $scope.improvedProposal = {}
-  $scope.improvedProposal.statement = $scope.proposal.statement
+  $scope.improvedProposal =
+    statement: $scope.proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =
       proposal:
-        parent_id: $scope.clicked_proposal_id
+        parent_id: $scope.clicked_proposal.id
         statement: $scope.improvedProposal.statement
         votes_attributes:
           comment: $scope.improvedProposal.comment
@@ -120,14 +120,18 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
   $scope.sessionSettings = parentScope.sessionSettings
   $scope.currentUser = parentScope.currentUser
 
+  $scope.changeHub = (request) ->
+    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
+      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
+
   $scope.saveNewProposal = ->
     if !$scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
       proposal:
-        hub_id: $scope.sessionSettings.hub_attributes.id
         statement: $scope.newProposal.statement
         votes_attributes: [comment: $scope.newProposal.comment]
+        hub_id: $scope.sessionSettings.hub_attributes.id
         hub_attributes: $scope.sessionSettings.hub_attributes
 
     console.log newProposal
