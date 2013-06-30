@@ -4,7 +4,7 @@
     %h2 New Proposal
     .selectedHub
       %a.hub( ng-click='changeHub(true)' href='#' )
-        %h3( collapse='!sessionSettings.hub_attributes.id' ) {{ sessionSettings.hub_attributes.group_name }}
+        %h3( collapse='!sessionSettings.hub_attributes.id' bs-tooltip='tooltips.newHub' data-placement='right' ) {{ sessionSettings.hub_attributes.group_name }}
         %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
         %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
