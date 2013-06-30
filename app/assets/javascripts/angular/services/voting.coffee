@@ -1,16 +1,16 @@
 VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
 
-  support: ( scope, clicked_proposal_id ) ->
-    scope.clicked_proposal_id = clicked_proposal_id
+  support: ( scope, clicked_proposal ) ->
+    scope.clicked_proposal = clicked_proposal
     scope.current_user_support = null
 
     if !scope.currentUser.id?
       AlertService.setInfo 'To support proposals you need to sign in.', scope, 'modal'
       scope.signInModal('VotingService.support', scope, clicked_proposal_id)  #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
     else
-      RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
+      RelatedVoteInTreeLoader(clicked_proposal.id).then (relatedSupport) ->
         if relatedSupport.id?
-          if relatedSupport.proposal.id == clicked_proposal_id
+          if relatedSupport.proposal.id == clicked_proposal.id
             scope.current_user_support = 'this_proposal'
           else
             scope.current_user_support = 'related_proposal'
@@ -28,15 +28,15 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
               SessionSettings.openModals.supportProposal = d.isOpen()
 
 
-  improve: ( scope, clicked_proposal_id ) ->
-    scope.clicked_proposal_id = clicked_proposal_id
+  improve: ( scope, clicked_proposal ) ->
+    scope.clicked_proposal = clicked_proposal
     scope.current_user_support = null
 
     if !scope.currentUser.id?
       scope.signInModal()
       AlertService.setInfo 'To improve proposals you need to sign in.', scope, 'modal'
     else
-      RelatedVoteInTreeLoader(clicked_proposal_id).then (relatedSupport) ->
+      RelatedVoteInTreeLoader(clicked_proposal.id).then (relatedSupport) ->
         scope.current_user_support = 'related_proposal' if relatedSupport.id?
 
       if SessionSettings.openModals.improveProposal is false
