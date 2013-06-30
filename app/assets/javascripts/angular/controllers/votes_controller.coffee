@@ -150,6 +150,10 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
       AlertService.setJson response.data
     )
 
+  $scope.tooltips =
+    newHub: "<h5><b>Change Group</b></h5> You may change the group to which you are directing
+                  this proposal by clicking here."
+
   $scope.close = (result) ->
     dialog.close(result)
 
