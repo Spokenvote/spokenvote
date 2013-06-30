@@ -11,17 +11,16 @@ class ProposalsController < ApplicationController
     proposals = proposals.where(hub_id: @hub.id) if @hub
     proposals = proposals.where(user_id: @user.id) if @user  # TODO Angular sending, Rails not quite working
     @proposals = proposals.includes(:hub)
-    #proposals = proposals.order('updated_at DESC') if filter == 'new'
-    #@proposals = proposals
-      if filter == 'active'
-        @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
-      elsif filter == "new"
-        @proposals = proposals.order('updated_at DESC')
-      else
-        user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
-        user = User.find(user_id) if user_id
-        @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree } & user.voted_proposals if user
-      end
+
+    if filter == 'active'
+      @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
+    elsif filter == "new"
+      @proposals = proposals.order('updated_at DESC')
+    else
+      user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
+      user = User.find(user_id) if user_id
+      @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree } & user.voted_proposals if user
+    end
   end
 
   # GET /proposals/1.json
@@ -59,66 +58,17 @@ class ProposalsController < ApplicationController
 
   # POST /proposals.json
   def create
-    modified_params = modify_create_params(params.dup)
-    if @proposal = current_user.proposals.create(modified_params[:proposal])
-      # Success
+    votes_attributes = params[:proposal][:votes_attributes].merge(user_id: current_user.id, ip_address: request.remote_ip)
+    @proposal = current_user.proposals.create(proposal_params)
+
+    if @proposal.new_record?
+      render json: @proposal.errors, status: :unprocessable_entity
     else
-      # Failure
-    end
-
-    if improving?
-      votes_attributes = params[:proposal][:votes_attributes]
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
+      @proposal.reload  # needed to refresh the votes_count from db to this added proposal
+      render 'show', status: :created
     end
-
-    @proposal.reload  # needed to refresh the votes_count from db to this added proposal
-    render 'show', status: :created
   end
-
-  #def create
-  #  if params[:proposal][:parent_id].present?
-  #    # Improve Proposal with Existing Hub
-  #    parent = Proposal.find(params[:proposal][:parent_id])
-  #    params[:proposal].delete :parent_id
-  #    params[:proposal][:parent] = parent
-  #    params[:proposal][:hub_id] = parent.hub.id
-  #    votes_attributes = params[:proposal].delete :votes_attributes #TODO don't we want any new IP address here?
-  #    @proposal = current_user.proposals.create(params[:proposal])
-  #    Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
-  #    @proposal.reload  # needed to refresh the votes_count from db to this added proposal
-  #    render 'show', status: :created
-  #  elsif params[:proposal][:hub_id].present?
-  #    # New Proposal with Existing Hub
-  #    begin
-  #      hub = Hub.find(params[:proposal][:hub_id])
-  #      params[:proposal].delete :hub_id
-  #      params[:proposal].delete :hub_attributes
-  #      params[:proposal][:hub] = hub
-  #      params[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
-  #      params[:proposal][:votes_attributes].first[:user_id] = current_user.id  #TODO is this line needed?
-  #      @proposal = current_user.proposals.create(params[:proposal])
-  #      @proposal.reload  # needed to refresh the votes_count from db to this added proposal
-  #      render 'show', status: :created
-  #    rescue => e
-  #      Rails.logger.info e.message
-  #      Rails.logger.info e.backtrace.join("\n")
-  #      render json: { errors: { global: e.message } }, status: :unprocessable_entity
-  #    end
-  #  else
-  #    # New Proposal with New Hub
-  #    begin
-  #      params[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
-  #      params[:proposal][:votes_attributes].first[:user_id] = current_user.id  #TODO is this line needed?
-  #      @proposal = current_user.proposals.create(params[:proposal])
-  #      @proposal.reload # needed to refresh the votes_count from db to this added proposal
-  #      render 'show', status: :created
-  #    rescue => e
-  #      Rails.logger.info e.message
-  #      Rails.logger.info e.backtrace.join("\n")
-  #      render json: { errors: { global: e.message } }, status: :unprocessable_entity
-  #    end
-  #  end
-  #end
 
   # PUT /proposals/1.json
   def update
@@ -167,35 +117,25 @@ class ProposalsController < ApplicationController
     @user = User.find(params[:user]) if params[:user]
   end
 
-  def modify_create_params(params_hash)
+  def proposal_params
     if parent_proposal
-      params_hash[:proposal].delete :parent_id                 #needed to pass some tests
-      params_hash[:proposal].delete :votes_attributes          #exsited before, not sure if needed.
-      params_hash[:proposal][:parent] = @parent
-      params_hash[:proposal][:hub_id] = @parent.hub.id
+      params[:proposal].merge!(parent_id: @parent.id, hub_id: @parent.hub.id)
+      params.require(:proposal).permit(:statement, :parent_id, :hub_id)
     else
-      #if params_hash[:proposal][:votes_attributes].first
-      params_hash[:proposal][:votes_attributes].first[:user_id] = current_user.id
-      params_hash[:proposal][:votes_attributes].first[:ip_address] = request.remote_ip
-      #end
       if existing_hub
-        params_hash[:proposal].delete :hub_id
-        params_hash[:proposal].delete :hub_attributes
-        params_hash[:proposal][:hub] = @hub
-        #hub = Hub.find(params[:proposal][:hub_id])
+        params.require(:proposal).permit(:statement, :hub_id)
+      else
+        params.require(:proposal).permit(
+          :statement,
+          hub_attributes: [:group_name, :location_id, :formatted_location]
+        )
       end
     end
-
-    cleanup(params_hash)
   end
 
   def improving?
     params[:proposal][:parent_id].present?
   end
-
-  #def existing_hub?
-  #  params[:proposal][:hub_id].present?
-  #end
 
   def parent_proposal
     @parent ||= Proposal.find_by_id(params[:proposal][:parent_id])
@@ -205,16 +145,6 @@ class ProposalsController < ApplicationController
     @hub ||= Hub.find_by_id(params[:proposal][:hub_id])
   end
 
-  def cleanup(params_hash)
-    params_hash.delete :parent_id
-    params_hash[:proposal].delete :votes_attributes if parent_proposal
-
-    if existing_hub
-      params_hash.delete :hub_id
-      params_hash.delete :hub_attributes
-    end
-    params_hash
-  end
   #def fetch_more(proposal_id, page, offset)
   #  records_limit = 10
   #  page_number = (params[:page].presence || 0).to_i
