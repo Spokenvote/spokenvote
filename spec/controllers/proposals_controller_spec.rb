@@ -17,7 +17,7 @@ describe ProposalsController do
             {
               statement: Faker::Lorem.sentence,
               hub_id: hub.id,
-              votes_attributes: [{ comment: 'That is why i support it' }]
+              votes_attributes: attributes_for(:vote)
             }
           end
 
@@ -50,7 +50,7 @@ describe ProposalsController do
           let(:invalid_attributes) do
             {
               :hub => hub.attributes,
-              :votes_attributes => { "0" => attributes_for(:vote) }
+              :votes_attributes => attributes_for(:vote)
             }
           end
 
@@ -135,7 +135,7 @@ describe ProposalsController do
                 location_id: 'somerandomgoogleplacesid',
                 formatted_location: 'Mountain View, CA'
               },
-              votes_attributes: [{ comment: 'That is why i support it' }]
+              votes_attributes: attributes_for(:vote)
             }
           end
 
