@@ -2,21 +2,28 @@
   .modal-header
     .pull-right( class='close'  ng-click='close()' ) &times;
     %h2 Support Proposal
+    .selectedHub
+      .hub
+        %h3 {{ clicked_proposal.hub.group_name }}
+        %h5 {{ clicked_proposal.hub.formatted_location }}
 
     #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     %form( name='supportProposalForm' )
-      %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-      %h3 Ok, let's add Support!
-      %fieldset
-        .control-group
-          .controls
-            %textarea(id='support_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140' placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.')
+      .instructions
+        .avatar
+          %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+        %h5 Ok, let's add Support!
+      %textarea( id='support_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140'
+        placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.' )
+      .length_counter( ng-show=' newSupport.comment.length > 7 ' ) {{ 280 - newSupport.comment.length }} characters remaining
+
+
   .modal-footer
     %fieldset
       .control-group
         .controls
-          %button( ng-click="saveSupport()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!supportProposalForm.$valid' ) Vote for this proposal <i class="icon-ok"></i>
+          %button( ng-click="saveSupport()" class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!supportProposalForm.$valid' ) Vote for this proposal
 

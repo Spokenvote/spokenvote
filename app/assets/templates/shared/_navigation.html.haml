@@ -2,11 +2,10 @@
   %nav.navbar-inner( ng-controller='DashboardCtrl' )
     .container
       %a.brand( href='/landing' )
-        -#%img( alt='Bluefull' size='18x24' src='/assets/bluefull.png' )
-        .spoken
+        %spoken
           Spoken
-          %span
-            Vote
+        %vote
+          Vote
 
       %ul#main-nav.nav
         %li
