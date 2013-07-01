@@ -6,10 +6,10 @@
           %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ sessionSettings.actions.hubFilter }}
         %tr
           %th( width='42%' )
-            %span#hubSorter.btn-group(ng-model="filterSelection" bs-buttons-radio)
-              %button(type="button" ng-click="setFilter('active')" class='btn' value="active") <i class="icon-star"></i> Active
-              %button(type="button" ng-click="setFilter('new')" class='btn' value="new") <i class="icon-fire"></i> New
-              %button(type="button" ng-click="setFilter('my_votes')" class='btn' value="my_votes" ng-Disabled="!currentUser.id") <i class="icon-heart"></i> My Votes
+            %span#hubSorter.btn-group( ng-model='filterSelection' bs-buttons-radio )
+              %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
+              %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> New
+              %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my_votes' ng-Disabled='!currentUser.id' ) <i class='icon-heart'></i> My Votes
 
           %th( width='30%' ) Group
           %th.count-column( width='10%' ) Updated
@@ -17,11 +17,11 @@
           %th.count-column( width='8%' ) Votes
 
       %tbody
-        %tr(ng-repeat="proposal in proposals")
+        %tr( ng-repeat='proposal in proposals' )
           %td
-            %a(href="/proposals/{{proposal.id}}") {{ proposal.statement }}
+            %a( href='/proposals/{{ proposal.id }}' ) {{ proposal.statement }}
           %td
-            %a(href="#") {{ proposal.hub.short_hub }}
+            %a( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
           %td.count-column {{ proposal.updated_at }}
           %td.count-column {{ proposal.related_proposals_count }}
           %td.count-column {{ proposal.votes_in_tree }}
@@ -31,5 +31,3 @@
       .span4
         Don't see the topic you're looking for?
         %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it
-        -#%a( id='makeProposalLink' href='/proposals/new' ) Make it
-

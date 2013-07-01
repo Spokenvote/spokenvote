@@ -10,6 +10,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
         currentuser: (CurrentUserLoader) ->
           CurrentUserLoader()
 
+    .when '/admin/authentications',
+      controller: 'RootCtrl'
+
     .when '/landing',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'RootCtrl'
@@ -35,11 +38,15 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       controller: 'HubsCtrl'
       resolve:
         loadModal: ->
-          $modal
-            template: '/assets/hubs/_new_hub_modal.html.haml'
-            show: true
-            backdrop: 'static'
-            scope: $scope
+          if SessionSettings.openModals.newProposal is false
+            scope.opts =
+              resolve:
+                parentScope: ->
+                  scope
+            d = $dialog.dialog(scope.opts)
+            SessionSettings.openModals.newProposal = true
+            d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
+              SessionSettings.openModals.newProposal = d.isOpen()
 
     .when '/hubs',
       templateUrl: "/hubs"

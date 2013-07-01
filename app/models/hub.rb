@@ -12,7 +12,7 @@
 #
 
 class Hub < ActiveRecord::Base
-  attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub, :short_hub
+  #attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub, :short_hub
 
   # Associations
   has_many :votes, through: :proposals
@@ -25,7 +25,7 @@ class Hub < ActiveRecord::Base
     def by_group
       order(:group)
     end
-    
+
     # No named scopes, they're going away ;)
     def by_group_name(target_group)
       where("LOWER(group_name) = ?", target_group.downcase)
@@ -43,7 +43,7 @@ class Hub < ActiveRecord::Base
   def full_hub
     self.group_name + ' - ' + self.formatted_location
   end
-  
+
   def short_hub
     if self.group_name == 'All of'
       split = self.formatted_location.split(',')

@@ -1,6 +1,7 @@
 @import "compass";
 
-$headingsColor: #315c99;
+//$headingsColor: #315c99;
+$headingsColor: #444;
 $heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
@@ -135,8 +136,8 @@ h1.form-horizontal {
 }
 
 .page_title {
-  margin-top: ($gridGutterWidth * 2.5);
-  margin-bottom: ($gridGutterWidth *2.5);
+  //margin-top: ($gridGutterWidth * 2.5);
+  //margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
   width: 905px;
   margin-left: -25px  ;
@@ -147,20 +148,21 @@ h1.form-horizontal {
     @extend .hide;
   }
   h1 {
-    font-size: 72px;
+    font-size: 82px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
     //padding: auto;
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
     text-align: center;
   }
-  span {
+  .tag_line {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: #50D050;
-    //font-size: 60px;
-
+    font-size: 72px;
+    line-height: 80px;
     font-style: italic ;
+    padding-top: 30px;
   }
 }
 
@@ -292,6 +294,9 @@ input.ng-invalid.ng-dirty {
 .modal-header {
   @include border-top-radius(6px);
   background-color: #eee;
+  h2 {
+    color: #1c85f6;
+  }
 }
 
 .modal-footer {
@@ -305,21 +310,24 @@ input.ng-invalid.ng-dirty {
 
 .modal {
   top: 15% !important;
+  position: fixed !important;
 }
 
 .modal-body {
   background-color: #DFDFDF;
   padding-top: $gridGutterWidth;
   form {
-    //margin: 0;
+    margin-bottom: 0;
+    padding-left: 10px;
   }
   .control-group {
     //margin-left: 15px;
     margin-bottom: ($gridGutterWidth * 2);
   }
   .instructions {
-    margin-top: ($gridGutterWidth * 0.6);
+    //margin-top: ($gridGutterWidth * 0.3);
     margin-left: ($gridGutterWidth * 0.3);
+    //padding-bottom: 18px ;
     .avatar {
       margin-left: ($gridGutterWidth * 0.9);
     }
@@ -328,8 +336,9 @@ input.ng-invalid.ng-dirty {
       font-weight: normal;
       margin-right: $gridGutterWidth;
       margin-left: ($gridGutterWidth * 1.9);
-      margin-top: ($gridGutterWidth * 1.25);
-      margin-bottom: ($gridGutterWidth * 0.85);
+      //margin-top: ($gridGutterWidth * 1.25);
+      //margin-bottom: ($gridGutterWidth * 0.85);
+      padding-bottom: ($gridGutterWidth);
     }
   }
 }
@@ -530,6 +539,13 @@ input.ng-invalid.ng-dirty {
 
 // Proposal-related
 .proposal_hub {
+  a.hub {
+    text-decoration: none;
+    :hover {
+      color: #1c85f6;
+    }
+  }
+
   h2 {
     margin-top: 14px;
     //color: #315D99;
@@ -612,15 +628,18 @@ input.ng-invalid.ng-dirty {
 }
 
 .selectedHub {
-  margin-top: -20px;
-  //margin-bottom: -10px;
+  margin-top: -12px;
+  margin-bottom: -5px;
+  color: #444 !important;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  text-align: right;
+  text-decoration: none;
+  a.hub {
+    :hover {
+       color: #1c85f6;
+    }
+  }
   .hub {
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #444;
-    //margin-top: -20px;
-    //margin-bottom: 15px;
-    //margin-left: 3px;
-    text-align: right;
     h3 {
       margin-right: 3px;
     }
@@ -636,22 +655,6 @@ input.ng-invalid.ng-dirty {
     text-align: center;
   }
 }
-
-//.improve_form, .support_form {
-//  h3 {
-//    font-size: 24px;
-//    color: #ff0000;
-//  }
-//  .proposal_form_buttons {
-//    margin-top: 10px;
-//  }
-//}
-//
-//.improve_form {
-//  background: #ddd;
-//  padding: 10px;
-//  border: 1px solid #999;
-//}
 
 .main-proposal, .supporting_arguments {
   h3 {
@@ -671,6 +674,9 @@ input.ng-invalid.ng-dirty {
   .btn-support {
     color: white;
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
+    :hover {
+      background-color: none;
+    }
   }
   .btn-improve {
     color: white;

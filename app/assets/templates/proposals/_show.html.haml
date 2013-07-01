@@ -13,8 +13,8 @@
         %button( ng-click='delete(proposal)' class='btn btn-danger delete' bs-tooltip='tooltips.delete' data-placement='right' )  <i class="icon-trash"></i>
 
       .vote_buttons_container( ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='support(proposal.id)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' data-placement='right' ) Support
-        %button( ng-click='improve(proposal.id)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' data-placement='right' ) Improve
+        %button( ng-click='support(proposal)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' data-placement='right' ) Support
+        %button( ng-click='improve(proposal)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' data-placement='right' ) Improve
 
   .supporting_arguments
     %h3( ng-show='proposal.has_support' )
@@ -28,7 +28,7 @@
               %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
               %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
             .supported_date
-              %a(ng-href="user_id:{{ vote.user_id }}")  {{ vote.username }}
+              %a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
               %br
               {{ vote.created_at | date:'mediumDate' }}
           .support_comment.span8

@@ -7,6 +7,9 @@ ProposalListCtrl =
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
 
+    $scope.setHub = (hubSelected) ->
+      $location.search('hub', hubSelected.id)
+
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
       console.log $scope.proposals
@@ -15,6 +18,7 @@ ProposalListCtrl =
       if $scope.sessionSettings.hub_attributes.id?
         $scope.sessionSettings.actions.changeHub = false
       else
+        $scope.sessionSettings.actions.searchTerm = null
         $scope.sessionSettings.actions.changeHub = true
       VotingService.new $scope
 
@@ -23,11 +27,14 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
 
+  $scope.$on 'event:votesChanged', ->
+    $scope.proposal.$get()
+
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
 
-  $scope.$on 'event:votesChanged', ->
-    $scope.proposal.$get()
+  $scope.setVoter = (vote) ->
+    $location.path('/proposals').search('user', vote.user_id)
 
   $scope.support = ( clicked_proposal_id ) ->
     VotingService.support $scope, clicked_proposal_id
