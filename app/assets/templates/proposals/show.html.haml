@@ -3,9 +3,9 @@
     #totalVoteLabel
       %span.label
         {{ proposal.votes_in_tree }}
-        %ng-pluralize(count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}")
+        %ng-pluralize( count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}" )
         Votes on {{proposal.related_proposals_count + 1}}
-        %ng-pluralize(count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
+        %ng-pluralize( count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
 
     %a.hub( ng-click="hubView()" href='#' )
       %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}

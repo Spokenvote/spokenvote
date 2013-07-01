@@ -6,7 +6,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
 
     if !scope.currentUser.id?
       AlertService.setInfo 'To support proposals you need to sign in.', scope, 'modal'
-      scope.signInModal('VotingService.support', scope, clicked_proposal_id)  #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
+      scope.signInModal 'VotingService.support', scope, clicked_proposal.id   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
     else
       RelatedVoteInTreeLoader(clicked_proposal.id).then (relatedSupport) ->
         if relatedSupport.id?

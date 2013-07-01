@@ -1,25 +1,33 @@
 # Rest
-Vote = ($resource) ->
-  $resource("/votes/:id", {id: "@id"}, {update: {method: "PUT"}})
+CurrentUser = ($resource) ->
+  $resource '/currentuser'
 
 Hub = ($resource) ->
-  $resource("/hubs/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $resource '/hubs/:id',
+    id: '@id',
+    update:
+      method: 'PUT'
+
+Vote = ($resource) ->
+  $resource '/votes/:id',
+    id: '@id',
+    update:
+      method: 'PUT'
 
 Proposal = ($resource) ->
-  $resource("/proposals/:id", {id: "@id"}, {update: {method: "PUT"}})
-
-# Non-rest
-CurrentUser = ($resource) ->
-  $resource("/currentuser")
+  $resource '/proposals/:id',
+    id: '@id',
+    update:
+      method: 'PUT'
 
 RelatedProposals = ($resource) ->
-  $resource("/proposals/:id/related_proposals?related_sort_by=:related_sort_by",
-    { id: "@id" },
-    { related_sort_by: "@related_sort_by" }
-  )
+  $resource '/proposals/:id/related_proposals?related_sort_by=:related_sort_by',
+    id: '@id'
+    related_sort_by: '@related_sort_by'
 
 RelatedVoteInTree = ($resource) ->
-  $resource("/proposals/:id/related_vote_in_tree", {id: "@id"})
+  $resource '/proposals/:id/related_vote_in_tree',
+    id: '@id'
 
 # Resources
 UserOmniauthResource = ($http) ->
@@ -127,14 +135,14 @@ RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
     delay.promise
 
 RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
-  (clicked_proposal_id) ->
+  (clicked_proposal) ->
     delay = $q.defer()
     RelatedVoteInTree.get
-      id: clicked_proposal_id
+      id: clicked_proposal.id
     , (relatedVoteInTree) ->
       delay.resolve relatedVoteInTree
     , ->
-      delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal_id
+      delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
     delay.promise
 
 #UserOmniauth = ($resource) ->
