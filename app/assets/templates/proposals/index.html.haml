@@ -3,7 +3,9 @@
     %table.listing.listing-proposals
       %thead
         %tr
-          %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ sessionSettings.actions.hubFilter }}
+          %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ sessionSettings.actions.hubFilter }} {{ sessionSettings.actions.userFilter }}
+          -##div( ng-show='sessionSettings.actions.userFilter' ) and voted on by   # TODO not quite right. How do I set a div in a thead?
+
         %tr
           %th( width='42%' )
             %span#hubSorter.btn-group( ng-model='filterSelection' bs-buttons-radio )

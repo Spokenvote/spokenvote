@@ -56,5 +56,4 @@ class User < ActiveRecord::Base
   def gravatar_hash
     Digest::MD5.hexdigest(self.email.downcase)
   end
-
 end
