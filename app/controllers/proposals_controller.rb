@@ -1,20 +1,20 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :index, :related_vote_in_tree, :related_proposals]
-  before_filter :find_hub, only: :index
+  before_filter :find_hub, :find_user, only: :index
 
   # GET /proposals.json
   def index
-    filter = params[:filter] || 'active'
-
-    proposals = Proposal.roots.scoped
+    top_voted_proposal_ids = Proposal.top_voted_proposal_in_tree.map(&:id)
+    proposals = Proposal.where(id: top_voted_proposal_ids)
     proposals = proposals.where(hub_id: @hub.id) if @hub
-    proposals = proposals.where(user_id: @user.id) if @user  # TODO Angular sending, Rails not quite working
+    proposals = proposals.where(user_id: @user.id) if @user
     @proposals = proposals.includes(:hub)
 
+    filter = params[:filter] || 'active'
     if filter == 'active'
       @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
-    elsif filter == "new"
+    elsif filter == 'new'
       @proposals = proposals.order('updated_at DESC')
     else
       user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
@@ -154,4 +154,5 @@ class ProposalsController < ApplicationController
   #    offset_by = (page_number * records_limit) + 2
   #  end
   #end
+
 end

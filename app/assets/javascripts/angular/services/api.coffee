@@ -107,6 +107,7 @@ MultiProposalLoader = (Proposal, $route, $q) ->
     Proposal.query
       hub: $route.current.params.hub
       filter: $route.current.params.filter
+      user: $route.current.params.user
     , (proposals) ->
       delay.resolve proposals
     , ->

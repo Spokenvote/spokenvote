@@ -88,6 +88,7 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 SessionSettings = ->
   actions:
     hubFilter: 'All Groups'
+    userFilter: null
     changeHub: false
     newProposalHub: null
     searchTerm: null

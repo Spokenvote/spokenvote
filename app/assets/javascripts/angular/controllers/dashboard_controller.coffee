@@ -1,6 +1,7 @@
 DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
 
   SessionSettings.routeParams = $route.current.params
+
   if $route.current.params.hub?
     $scope.hubFilter =
       full_hub: true
