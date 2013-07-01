@@ -35,6 +35,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
 
   $scope.setVoter = (vote) ->
     $location.path('/proposals').search('user', vote.user_id)
+    $scope.sessionSettings.actions.userFilter = vote.username
 
   $scope.support = ( clicked_proposal_id ) ->
     VotingService.support $scope, clicked_proposal_id

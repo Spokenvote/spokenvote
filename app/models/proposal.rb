@@ -14,9 +14,6 @@
 #
 
 class Proposal < ActiveRecord::Base
-  #attr_accessible :statement, :supporting_statement, :user_id, :user, :supporting_votes, :hub_id, :hub,
-  #                :vote, :vote_attributes, :votes, :votes_attributes, :parent, :hub_attributes
-
   # Associations
   belongs_to :user
   belongs_to :hub
@@ -34,6 +31,14 @@ class Proposal < ActiveRecord::Base
   # Scopes
   scope :noop, -> { where("1 = 1") }
   scope :by_hub, lambda { |hub_id| hub_id ? where(hub_id: hub_id) : noop }
+  scope :top_voted_proposal_in_tree, lambda {
+    top_voted_proposals = []
+    Proposal.roots.each do |root_proposal|
+      sorted_list = root_proposal.self_and_descendants.sort { |p1, p2| p2.votes_count <=> p1.votes_count }
+      top_voted_proposals << sorted_list.first
+    end
+    top_voted_proposals.compact.uniq
+  }
 
   # Other
   has_ancestry
@@ -42,6 +47,10 @@ class Proposal < ActiveRecord::Base
     Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
       [self.root, self.root.descendants].flatten.map(&:votes_count).sum
     end
+  end
+
+  def self_and_descendants
+    [self.root, self.root.descendants].flatten
   end
 
   def related_proposals(related_sort_by = 'Most Votes')
