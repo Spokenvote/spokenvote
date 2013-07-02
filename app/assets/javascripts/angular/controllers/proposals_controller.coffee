@@ -12,10 +12,9 @@ ProposalListCtrl =
 
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
-      console.log $scope.proposals
 
     $scope.showProposal = (proposal) ->
-      console.log '/proposals/' + proposal.id
+#      console.log '/proposals/' + proposal.id
       $location.path('/proposals/' + proposal.id)
 
     $scope.new = ->
@@ -42,7 +41,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
     $scope.sessionSettings.actions.userFilter = vote.username
 
   $scope.showProposal = (proposal) ->
-    console.log '/proposals/' + proposal.id
+#    console.log '/proposals/' + proposal.id
     $location.path('/proposals/' + proposal.id)
 
   $scope.support = ( clicked_proposal ) ->
