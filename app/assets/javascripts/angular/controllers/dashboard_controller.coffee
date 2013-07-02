@@ -67,4 +67,5 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     angular.element('#newProposalHub').select2('data',null)
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+
 App.controller 'DashboardCtrl', DashboardCtrl

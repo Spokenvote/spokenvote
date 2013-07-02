@@ -4,7 +4,8 @@
     %div(id='big-percent') {{ proposal.votes_percentage }}
 
   .proposal_statement
-    %h3 {{ proposal.statement }}
+    %h3
+      %a( ng-href='#' ng-click='showProposal(proposal)' )  {{ proposal.statement }}
     .improve_support_buttons
       %ng-include( src="'/assets/shared/_social_buttons.html.haml'" )
 

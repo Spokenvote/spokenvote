@@ -747,6 +747,14 @@ input.ng-invalid.ng-dirty {
   .active & {
     width: 97%;
   }
+  h3 {
+    :hover {
+      color: #1c85f6;
+    }
+    a {
+      color: #444;
+    }
+  }
   h4 {
     font-style: italic;
     padding-left: 10px;
