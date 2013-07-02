@@ -14,6 +14,10 @@ ProposalListCtrl =
       $scope.proposals.$query
       console.log $scope.proposals
 
+    $scope.showProposal = (proposal) ->
+      console.log '/proposals/' + proposal.id
+      $location.path('/proposals/' + proposal.id)
+
     $scope.new = ->
       if $scope.sessionSettings.hub_attributes.id?
         $scope.sessionSettings.actions.changeHub = false
@@ -37,11 +41,15 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
     $location.path('/proposals').search('user', vote.user_id)
     $scope.sessionSettings.actions.userFilter = vote.username
 
-  $scope.support = ( clicked_proposal_id ) ->
-    VotingService.support $scope, clicked_proposal_id
+  $scope.showProposal = (proposal) ->
+    console.log '/proposals/' + proposal.id
+    $location.path('/proposals/' + proposal.id)
 
-  $scope.improve = ( clicked_proposal_id ) ->
-    VotingService.improve $scope, clicked_proposal_id
+  $scope.support = ( clicked_proposal ) ->
+    VotingService.support $scope, clicked_proposal
+
+  $scope.improve = ( clicked_proposal ) ->
+    VotingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     VotingService.edit $scope, clicked_proposal

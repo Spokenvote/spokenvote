@@ -21,7 +21,7 @@
       %tbody
         %tr( ng-repeat='proposal in proposals' )
           %td
-            %a( href='/proposals/{{ proposal.id }}' ) {{ proposal.statement }}
+            %a( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
           %td
             %a( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
           %td.count-column {{ proposal.updated_at }}
