@@ -1,25 +1,26 @@
 DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
+  $scope.hubFilter =
+    hubFilter: null
 
   SessionSettings.routeParams = $route.current.params
 
   if $route.current.params.hub?
     $scope.hubFilter =
-      full_hub: true
+      hubFilter: true
 
   $scope.$on '$locationChangeSuccess', ->
-    if $route.current.params.hub?
+    if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
-        $scope.hubFilter = SessionSettings.hub_attributes
+        $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
 
-  $scope.$watch 'hubFilter.full_hub', ->
-    if $scope.hubFilter?
-      if $scope.hubFilter.full_hub == null
-          $location.search('hub', null)
-          SessionSettings.actions.hubFilter = "All Groups"
-      else if SessionSettings.hub_attributes.id?
-        $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
-        SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
+  $scope.$watch 'hubFilter.hubFilter', ->
+    if $scope.hubFilter.hubFilter == null
+      $location.search('hub', null)
+      SessionSettings.actions.hubFilter = 'All Groups'
+    else if SessionSettings.hub_attributes.id?
+      $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
+      SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -52,6 +53,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     initSelection: (element, callback) ->
       CurrentHubLoader().then (searchedHub) ->
         SessionSettings.hub_attributes = searchedHub
+        console.log SessionSettings.hub_attributes
         callback SessionSettings.hub_attributes
 
 
