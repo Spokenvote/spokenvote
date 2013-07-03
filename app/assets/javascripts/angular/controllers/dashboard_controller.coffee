@@ -68,6 +68,48 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
+
+  $scope.auth = ->
+    config =
+#      client_id: "390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5.apps.googleusercontent.com"
+      client_id: "390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5"
+#      scope: "https://www.googleapis.com/auth/urlshortener"
+      scope: "https://www.googleapis.com/auth/plus.me"
+
+    gapi.auth.authorize config, ->
+      console.log "login complete"
+      console.log gapi.auth.getToken()
+
+
+  appendResults = (text) ->
+    results = document.getElementById("results")
+    results.appendChild document.createElement("P")
+    results.appendChild document.createTextNode(text)
+
+  makeRequest = ->
+    console.log 'makeRequest'
+    request = gapi.client.urlshortener.url.get(shortUrl: "http://goo.gl/fbsS")
+    request.execute (response) ->
+      appendResults response.longUrl
+
+#  $scope.makeApiCall = ->
+#    gapi.client.setApiKey "zOdnz-mMN26D4kzMnRKAeG_O"
+#    gapi.client.load "urlshortener", "v1", makeRequest
+
+  gapi.client.setApiKey "zOdnz-mMN26D4kzMnRKAeG_O"
+
+  $scope.makeApiCall = ->
+    gapi.client.load "plus", "v1", ->
+      request = gapi.client.plus.people.get(userId: "me")
+      request.execute (resp) ->
+        heading = document.createElement("h4")
+        image = document.createElement("img")
+        image.src = resp.image.url
+        heading.appendChild image
+        heading.appendChild document.createTextNode(resp.displayName)
+        document.getElementById("content").appendChild heading
+
+
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 
 App.controller 'DashboardCtrl', DashboardCtrl

@@ -11,6 +11,12 @@
         %li
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
+        %li
+          %a( ng-click='auth()' )  G
+
+        %li
+          %a( ng-click='makeApiCall()' )  api
+
       %ul.nav.pull-right
         %li.dropdown
           %a.dropdown-toggle(data-toggle='dropdown')
