@@ -3,7 +3,7 @@ Spokenvote::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
-                     controllers: { omniauth_callbacks: "omniauth_callbacks", :sessions => 'sessions', :registrations => "registrations" }
+                     controllers: { omniauth_callbacks: "omniauth_callbacks", :sessions => 'sessions', :registrations => "registrations", :authentications => "authentications" }
 
   root :to => 'application#index'
 
@@ -20,6 +20,12 @@ Spokenvote::Application.routes.draw do
   end
 
   resources :votes, only: [:create]
+
+  resources :authentications
+
+  devise_scope :user do
+    match "/users/authentications" => "authentications#create"
+  end
 
   resources :hubs, only: [:create, :index, :show] do
     resources :proposals

@@ -4,8 +4,12 @@ CurrentUser = ($resource) ->
 
 Omniauth = ($resource) ->
 #  $resource '/users/auth/:action/callback',
-  $resource '/users/auth/google_oauth2/callback',
+#  $resource '/users/auth/google_oauth2/callback',
+  $resource '/users/authentications',
 #    action: '@action'
+#  ,
+#    google_oauth2:
+#      method: 'google_oauth2'
 
 Hub = ($resource) ->
   $resource '/hubs/:id',

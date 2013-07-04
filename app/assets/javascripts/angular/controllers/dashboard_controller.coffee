@@ -1,4 +1,4 @@
-DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService, Omniauth) ->
+DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService, Omniauth, $window) ->
   $scope.hubFilter =
     hubFilter: null
 
@@ -73,7 +73,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     user =
 #      action: 'google_oauth2'
       auth:
-        provider: 'google'
+        provider: 'google_oauth2'
         uid: $scope.user.id
         name: $scope.user.name
         email: $scope.user.email
@@ -142,7 +142,10 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 #        heading.appendChild document.createTextNode(resp.displayName)
 #        document.getElementById("content").appendChild heading
 
+  $scope.externalLink = (href) ->
+    $window.location.href = href
 
-DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService', 'Omniauth' ]
+
+DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService', 'Omniauth', '$window' ]
 
 App.controller 'DashboardCtrl', DashboardCtrl
