@@ -2,6 +2,11 @@
 CurrentUser = ($resource) ->
   $resource '/currentuser'
 
+Omniauth = ($resource) ->
+#  $resource '/users/auth/:action/callback',
+  $resource '/users/auth/google_oauth2/callback',
+#    action: '@action'
+
 Hub = ($resource) ->
   $resource '/hubs/:id',
     id: '@id'
@@ -167,13 +172,13 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
 #App.Services.factory 'UserOmniauthCallback', UserOmniauthCallback
 
 # Injects
-Vote.$inject = [ '$resource' ]
-Hub.$inject = [ '$resource' ]
-Proposal.$inject = [ '$resource' ]
 CurrentUser.$inject = [ '$resource' ]
+Omniauth.$inject = [ '$resource' ]
+Hub.$inject = [ '$resource' ]
+Vote.$inject = [ '$resource' ]
+Proposal.$inject = [ '$resource' ]
 RelatedProposals.$inject = [ '$resource' ]
 RelatedVoteInTree.$inject = [ '$resource' ]
-# UserOmniauth.$inject = [ '$resource' ]
 
 UserOmniauthResource.$inject = [ '$http' ]
 UserSessionResource.$inject = [ '$http' ]
@@ -188,11 +193,12 @@ RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
 # UserOmniauthCallback.$inject = [ 'UserOmniauth', '$route', '$q' ]
 
 # Register
-App.Services.factory 'Vote', Vote
+App.Services.factory 'CurrentUser', CurrentUser
+App.Services.factory 'Omniauth', Omniauth
 App.Services.factory 'Hub', Hub
+App.Services.factory 'Vote', Vote
 App.Services.factory 'Proposal', Proposal
 
-App.Services.factory 'CurrentUser', CurrentUser
 App.Services.factory 'CurrentHubLoader', CurrentHubLoader
 App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree

@@ -1,7 +1,8 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def all
-    auth = request.env["omniauth.auth"]
+    #auth = request.env["omniauth.auth"]
+    auth  = params[:auth]
     provider, uid, name, email, avatar_url, token  = auth.provider, auth.uid, auth.info.name, auth.info.email, auth.info.image, auth.credentials.token
 
     user = User.find_by_email(email)
