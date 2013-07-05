@@ -12,7 +12,12 @@ SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, U
     remember_me: true
 
   userOmniauth: new UserOmniauthResource
-    provider: "facebook"
+    provider: null
+    uid: null
+    name: null
+    email: null
+    avatar_url: null
+    token: null
 
   userRegistration: new UserRegistrationResource
     name: null

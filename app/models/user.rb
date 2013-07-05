@@ -56,4 +56,28 @@ class User < ActiveRecord::Base
   def gravatar_hash
     Digest::MD5.hexdigest(self.email.downcase)
   end
+
+  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
+
+    unless user
+      user = User.create(name: data["name"],
+                         email: data["email"],
+                         password: Devise.friendly_token[0,20]
+      )
+    end
+    user
+  end
+
+
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      #user.username = auth.name
+    end
+  end
+
+
 end

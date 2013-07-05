@@ -5,7 +5,7 @@ CurrentUser = ($resource) ->
 Omniauth = ($resource) ->
 #  $resource '/users/auth/:action/callback',
 #  $resource '/users/auth/google_oauth2/callback',
-  $resource '/users/authentications',
+  $resource '/authentications',
 #    action: '@action'
 #  ,
 #    google_oauth2:
@@ -42,13 +42,19 @@ RelatedVoteInTree = ($resource) ->
     id: '@id'
 
 # Resources
-UserOmniauthResource = ($http) ->
+UserOmniauthResource = ($resource) ->
   UserOmniauth = (options) ->
     angular.extend this, options
 
   UserOmniauth::$save = ->
-    $http.get "/users/auth/facebook",
-#      provider: @provider
+    $resource '/authentications',
+      auth:
+        provider: @provider
+        uid: @uid
+        name: @name
+        email: @email
+        avatar_url: @avatar_url
+        token: @token
 
   UserOmniauth::$destroy = ->
     $http.delete "/users/logout"
