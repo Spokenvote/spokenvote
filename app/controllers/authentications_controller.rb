@@ -5,7 +5,10 @@ class AuthenticationsController < Devise::SessionsController
     @new_user_saved = false
     # Try to find authentication first
     authentication = Authentication.find_by_provider_and_uid(auth[:provider], auth[:uid])
-    user = User.find_by_email(auth[:email])
+    try_existing_user = User.find_by_email(auth[:email]) || User.find_by_id(authentication.user_id)
+    existing_user.id = try_existing_user.id unless try_existing_user.nil?
+    user = User.from_omniauth(existing_user.id, auth)
+    #user = User.from_omniauth(auth) # TODO Pratik, this is part of a slick Ryan Bates way of creating the user on the fly and updating any changed information. My Rails knowledge came up short, but you may want to try it.
 
     if user.nil?
       user = User.new(:email => auth[:email])
@@ -20,7 +23,6 @@ class AuthenticationsController < Devise::SessionsController
         render json: {success: false, status: 'Failed to create you as a new user.', new_user_saved: @new_user_saved}
       end
     else
-      # TODO: Verify that the authentication record belongs to this user only
       user.authentications.create(:provider => auth[:provider], :uid => auth[:uid], :token => auth[:token]) if !authentication # Regular signed up user, allow him this omniauth sign up also
       omniauth_sign_in user
     end

@@ -71,11 +71,12 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
+  def self.from_omniauth(any_existing_user, auth) # TODO Pratik, slick Ryan Bates way of creating the user on the fly if you want to try it.
+    where(id: any_existing_user).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       #user.username = auth.name
+      user.save!
     end
   end
 
