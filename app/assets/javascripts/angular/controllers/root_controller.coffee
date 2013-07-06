@@ -1,6 +1,7 @@
 RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSettings, CurrentUserLoader) ->
   $scope.alertService = AlertService
-  $scope.session = SessionService.userSession
+#  $scope.session = SessionService.userSession
+#  $scope.session = SessionService.userOmniauth
   $scope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
     $scope.currentUser = current_user
@@ -9,47 +10,64 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
   $scope.$on "event:loginRequired", ->
     $scope.signInModal()
 
-#  $scope.authenticate = ->
-
-  $scope.auth = ->
-    config =
-      client_id: "390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5"
-  #      scope: "https://www.googleapis.com/auth/urlshortener"
-      scope: [ "https://www.googleapis.com/auth/plus.login",
-               "https://www.googleapis.com/auth/plus.me",
-               "https://www.googleapis.com/auth/userinfo.email",
-               "https://www.googleapis.com/auth/userinfo.profile" ]
-    #      immediate: false
-
-    gapi.auth.authorize config, ->
+  $scope.authenticate = ->
+    gapi.auth.authorize SessionSettings.spokenvote_attributes.googleOauth2Config, ->
       console.log "login complete"
       console.log gapi.auth.getToken()
       $scope.authToken = gapi.auth.getToken()
+      gapi.client.load "oauth2", "v2", ->
+        request = gapi.client.oauth2.userinfo.get(userId: "me")
+        request.execute (resp) ->
+          console.log resp
+          SessionService.userOmniauth.auth =
+            provider: 'google_oauth2'
+            uid: resp.id
+            name: resp.name
+            email: resp.email
+            avatar_url: resp.picture
+            token: $scope.authToken.access_token
+#          SessionService.userOmniauth.auth = auth
+          console.log SessionService.userOmniauth.auth
+          SessionService.userOmniauth.$save().success (response, status, headers, config) ->
+            console.log response
+
 
   $scope.makeApiCall = ->
     gapi.client.load "oauth2", "v2", ->
   #      request = gapi.client.plus.people.get(userId: "me")
       request = gapi.client.oauth2.userinfo.get(userId: "me")
       request.execute (resp) ->
-        $scope.user = resp
-        console.log resp
+        auth =
+          provider: 'google_oauth2'
+          uid: resp.id
+          name: resp.name
+          email: resp.email
+          avatar_url: resp.picture
+          token: $scope.authToken.access_token
+        SessionService.userOmniauth.auth = auth
+
+        console.log SessionService.userOmniauth.auth
         console.log gapi.auth.getToken()
 
 
   $scope.devise = ->
-    SessionService.userOmniauth =
-      provider: 'google_oauth2'
-      uid: $scope.user.id
-      name: $scope.user.name
-      email: $scope.user.email
-      avatar_url: $scope.user.picture
-      token: $scope.authToken.access_token
+#    SessionService.userOmniauth =
+#      provider: 'google_oauth2'
+#      uid: $scope.user.id
+#      name: $scope.user.name
+#      email: $scope.user.email
+#      avatar_url: $scope.user.picture
+#      token: $scope.authToken.access_token
+
+    console.log SessionService.userOmniauth
+#    console.log SessionService.userSession
 
 
 #    #    AlertService.clearAlerts()
 #    console.log user
-#
-#    Omniauth.save(user
+
+    SessionService.userOmniauth.$save().success (response, status, headers, config) ->
+      console.log response
 #    ,  (response, status, headers, config) ->
 #      console.log response
 #      #      $location.path('/proposals/' + response.id)
@@ -58,7 +76,7 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
 #    ,  (response, status, headers, config) ->
 #  #      AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
 #  #      AlertService.setJson response.data
-#    )
+
 
 
 
@@ -86,7 +104,8 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
         SessionSettings.openModals.register = d.isOpen()
 
   $scope.signOut = ->
-    $scope.session.$destroy()
+    SessionService.userOmniauth.$destroy()
+#    $scope.session.$destroy()
     $scope.currentUser = {}
     $location.path('/').search('')
     AlertService.setInfo 'You are signed out.', $scope, 'main'

@@ -42,24 +42,43 @@ RelatedVoteInTree = ($resource) ->
     id: '@id'
 
 # Resources
-UserOmniauthResource = ($resource) ->
+UserOmniauthResource = ($http) ->
   UserOmniauth = (options) ->
     angular.extend this, options
 
   UserOmniauth::$save = ->
-    $resource '/authentications',
-      auth:
-        provider: @provider
-        uid: @uid
-        name: @name
-        email: @email
-        avatar_url: @avatar_url
-        token: @token
+    $http.post '/authentications',
+      auth: @auth
+#        provider: @provider
+#        uid: @uid
+#        name: @name
+#        email: @email
+#        avatar_url: @avatar_url
+#        token: @token
 
   UserOmniauth::$destroy = ->
     $http.delete "/users/logout"
 
   UserOmniauth
+
+#UserOmniauthResource = ($resource) ->
+#  UserOmniauth = (options) ->
+#    angular.extend this, options
+#
+#  UserOmniauth::$save = ->
+#    $resource '/authentications',
+#      auth:
+#        provider: @provider
+#        uid: @uid
+#        name: @name
+#        email: @email
+#        avatar_url: @avatar_url
+#        token: @token
+#
+#  UserOmniauth::$destroy = ->
+#    $http.delete "/users/logout"
+#
+#  UserOmniauth
 
 UserSessionResource = ($http) ->
   UserSession = (options) ->
