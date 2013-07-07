@@ -28,8 +28,18 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
             token: $scope.authToken.access_token
 #          SessionService.userOmniauth.auth = auth
           console.log SessionService.userOmniauth.auth
-          SessionService.userOmniauth.$save().success (response, status, headers, config) ->
-            console.log response
+          AlertService.clearAlerts()
+          if SessionService.signedOut
+            SessionService.userOmniauth.$save().success (response, status, headers, config) ->
+              console.log response
+              if response.success == true
+                $scope.updateUserSession()
+                $location.path('/proposals').search('filter', 'my_votes')
+                AlertService.setInfo 'You are signed in!', $scope, 'main'
+                $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
+              #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
+              if response.success == false
+                AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope, 'main'
 
 
   $scope.makeApiCall = ->

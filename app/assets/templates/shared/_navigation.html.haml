@@ -11,17 +11,17 @@
         %li
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-        %li
-          %a( ng-click='authenticate()' )  G
+        -#%li( ng-hide='currentUser.username' )
+        -#  %a( ng-click='authenticate()' )  Google
 
-        %li
-          %a( ng-click='makeApiCall()' )  api
-
-        %li
-          %a( ng-click='devise()' )  d
-
-        %li
-          %a( ng-click='externalLink("/users/auth/google_oauth2")' )  l
+        -#%li
+        -#  %a( ng-click='makeApiCall()' )  api
+        -#
+        -#%li
+        -#  %a( ng-click='devise()' )  d
+        -#
+        -#%li
+        -#  %a( ng-click='externalLink("/users/auth/google_oauth2")' )  l
 
       %ul.nav.pull-right
         %li.dropdown
@@ -55,6 +55,7 @@
           %a(href='/proposals?filter=my_votes')
             %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
 
-        %li.buttons( ng-show='!currentUser.username')
-          %button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
-          %button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!
+        %li.buttons( ng-show='!currentUser.username' )
+          %button( ng-click="authenticate()" class='btn btn-info btn-bold' ) Sign In
+          -#%button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
+          -#%button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!

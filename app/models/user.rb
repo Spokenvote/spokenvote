@@ -72,13 +72,24 @@ class User < ActiveRecord::Base
 
 
   def self.from_omniauth(any_existing_user, auth) # TODO Pratik, slick Ryan Bates way of creating the user on the fly if you want to try it.
-    where(id: any_existing_user).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      #user.username = auth.name
+    where(id: any_existing_user).first_or_initialize.tap do |user|
+      user.name = auth[:name]
+      user.email = auth[:email]
       user.save!
     end
   end
 
+  def password_required?
+    super && false   # TODO  I want this to say && "there are no authentications"
+    #super && provider.blank?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
 
 end
