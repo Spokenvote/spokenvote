@@ -2,15 +2,6 @@
 CurrentUser = ($resource) ->
   $resource '/currentuser'
 
-Omniauth = ($resource) ->
-#  $resource '/users/auth/:action/callback',
-#  $resource '/users/auth/google_oauth2/callback',
-  $resource '/authentications',
-#    action: '@action'
-#  ,
-#    google_oauth2:
-#      method: 'google_oauth2'
-
 Hub = ($resource) ->
   $resource '/hubs/:id',
     id: '@id'
@@ -49,36 +40,11 @@ UserOmniauthResource = ($http) ->
   UserOmniauth::$save = ->
     $http.post '/authentications',
       auth: @auth
-#        provider: @provider
-#        uid: @uid
-#        name: @name
-#        email: @email
-#        avatar_url: @avatar_url
-#        token: @token
 
   UserOmniauth::$destroy = ->
     $http.delete "/users/logout"
 
   UserOmniauth
-
-#UserOmniauthResource = ($resource) ->
-#  UserOmniauth = (options) ->
-#    angular.extend this, options
-#
-#  UserOmniauth::$save = ->
-#    $resource '/authentications',
-#      auth:
-#        provider: @provider
-#        uid: @uid
-#        name: @name
-#        email: @email
-#        avatar_url: @avatar_url
-#        token: @token
-#
-#  UserOmniauth::$destroy = ->
-#    $http.delete "/users/logout"
-#
-#  UserOmniauth
 
 UserSessionResource = ($http) ->
   UserSession = (options) ->
@@ -182,27 +148,8 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
       delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
     delay.promise
 
-#UserOmniauth = ($resource) ->
-#  $resource("/users/auth/:provider", {provider: "@provider"})
-#
-#App.Services.factory 'UserOmniauth', UserOmniauth
-#
-#UserOmniauthCallback = (UserOmniauth, $route, $q) ->
-#  ( provider )->
-#    delay = $q.defer()
-#    UserOmniauth.save
-#      provider: provider
-#    , (user_auth) ->
-#      delay.resolve user_auth
-#    , ->
-#      delay.reject 'Unable to authorize a current user '
-#    delay.promise
-#
-#App.Services.factory 'UserOmniauthCallback', UserOmniauthCallback
-
 # Injects
 CurrentUser.$inject = [ '$resource' ]
-Omniauth.$inject = [ '$resource' ]
 Hub.$inject = [ '$resource' ]
 Vote.$inject = [ '$resource' ]
 Proposal.$inject = [ '$resource' ]
@@ -223,7 +170,6 @@ RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
 
 # Register
 App.Services.factory 'CurrentUser', CurrentUser
-App.Services.factory 'Omniauth', Omniauth
 App.Services.factory 'Hub', Hub
 App.Services.factory 'Vote', Vote
 App.Services.factory 'Proposal', Proposal

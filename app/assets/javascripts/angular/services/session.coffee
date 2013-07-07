@@ -13,12 +13,6 @@ SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, U
 
   userOmniauth: new UserOmniauthResource
     auth: null
-#    provider: null
-#    uid: null
-#    name: null
-#    email: null
-#    avatar_url: null
-#    token: null
 
   userRegistration: new UserRegistrationResource
     name: null
@@ -118,12 +112,17 @@ SessionSettings = ->
   spokenvote_attributes:
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
-      client_id: "390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5"
+      client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'
+      scope: [ 'https://www.googleapis.com/auth/plus.login',
+               'https://www.googleapis.com/auth/plus.me',
+               'https://www.googleapis.com/auth/userinfo.email',
+               'https://www.googleapis.com/auth/userinfo.profile' ]
+    facebookOauth2Config:
+      client_id: '449408378433518'
       scope: [ "https://www.googleapis.com/auth/plus.login",
                "https://www.googleapis.com/auth/plus.me",
                "https://www.googleapis.com/auth/userinfo.email",
                "https://www.googleapis.com/auth/userinfo.profile" ]
-#      immediate: false
 
 # Cookies
 SpokenvoteCookies = ($cookies) ->
