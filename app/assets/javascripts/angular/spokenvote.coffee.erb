@@ -61,13 +61,11 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
 
   window.fbAsyncInit = ->
     FB.init
-#      appId: '<%= ENV["FB_APP_ID"] %>'
-      appId: "449408378433518"
+      appId: '<%= ENV["FB_APP_ID"] %>'
+#      appId: "449408378433518"  # Use this ID for local testing
       cookie: true
       status: true
       xfbml: true
-
-  console.log "sv.coffee ran. Env: " + '<%= ENV["FB_APP_ID"] %>'
 
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
