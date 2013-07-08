@@ -5,10 +5,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
   $routeProvider
     .when '/',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
-      controller: 'RootCtrl'
-      resolve:
-        currentuser: (CurrentUserLoader) ->
-          CurrentUserLoader()
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
@@ -16,40 +12,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
     .when '/landing',
       templateUrl: "<%= asset_path('landing.html.haml') %>"
       controller: 'RootCtrl'
-
-    .when '/login',
-#      templateUrl: "<%= asset_path('_sign_in_modal.html.haml') %>"
-      template: "<div class='modal fade hide' id='sign_in_modal' data-remote='/assets/shared/'>...</div>"
-      controller: 'RootCtrl'
-#      resolve:
-#        angular.element("#/assets/shared/_sign_in_modal.html.haml").modal("show")
-#              console.log 'hi'
-
-#      resolve:
-#        loadModal: () ->
-#          angular.element("#voteModal").modal("show")
-
-    .when '/newvote',
-      controller: 'SupportCtrl'
-      resolve:
-        loadModal: -> angular.element("#voteModal").modal("show")
-
-    .when '/newgroup',
-      controller: 'HubsCtrl'
-      resolve:
-        loadModal: ->
-          if SessionSettings.openModals.newProposal is false
-            scope.opts =
-              resolve:
-                parentScope: ->
-                  scope
-            d = $dialog.dialog(scope.opts)
-            SessionSettings.openModals.newProposal = true
-            d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
-              SessionSettings.openModals.newProposal = d.isOpen()
-
-    .when '/hubs',
-      templateUrl: "/hubs"
 
     .when '/proposals',
       templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
@@ -88,6 +50,24 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
     dialogFade: true
     keyboard: true
     backdropClick: true
+
+  jQuery ->
+    $('body').prepend('<div id="fb-root"></div>')
+
+    $.ajax
+      url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
+      dataType: 'script'
+      cache: true
+
+  window.fbAsyncInit = ->
+    FB.init
+#      appId: '<%= ENV["FB_APP_ID"] %>'
+      appId: "449408378433518"
+      cookie: true
+      status: true
+      xfbml: true
+
+  console.log "sv.coffee ran. Env: " + '<%= ENV["FB_APP_ID"] %>'
 
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 

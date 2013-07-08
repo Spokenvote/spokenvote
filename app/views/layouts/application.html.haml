@@ -18,7 +18,7 @@
     = javascript_include_tag "//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource#{min}.js"
     = javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
     -#= javascript_include_tag "https://apis.google.com/js/client.js?onload=load"
-    = javascript_include_tag "http://connect.facebook.net/en_US/all.js"
+    -#= javascript_include_tag "http://connect.facebook.net/en_US/all.js"
     = javascript_include_tag "application"
 
     = csrf_meta_tags
@@ -26,7 +26,6 @@
     = yield(:head)
 
   %body( ng-controller='RootCtrl' )
-    %div( id="fb-root" )
     %ng-include(src="'/assets/shared/_navigation.html.haml'")
 
     #main( role="main" )

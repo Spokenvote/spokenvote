@@ -11,18 +11,6 @@
         %li
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-        -#%li( ng-hide='currentUser.username' )
-        -#  %a( ng-click='authenticate()' )  Google
-
-        %li
-          %a( ng-click='fbinit()' )  fbi
-
-        -#%li
-        -#  %a( ng-click='devise()' )  d
-        -#
-        -#%li
-        -#  %a( ng-click='externalLink("/users/auth/google_oauth2")' )  l
-
       %ul.nav.pull-right
         %li.dropdown
           %a.dropdown-toggle(data-toggle='dropdown')

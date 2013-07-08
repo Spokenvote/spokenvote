@@ -119,10 +119,7 @@ SessionSettings = ->
                'https://www.googleapis.com/auth/userinfo.profile' ]
     facebookOauth2Config:
       client_id: '449408378433518'
-      scope: [ "https://www.googleapis.com/auth/plus.login",
-               "https://www.googleapis.com/auth/plus.me",
-               "https://www.googleapis.com/auth/userinfo.email",
-               "https://www.googleapis.com/auth/userinfo.profile" ]
+      scope: [  ]
 
 # Cookies
 SpokenvoteCookies = ($cookies) ->
