@@ -62,6 +62,7 @@ header.navbar-inverse .navbar-inner {
   }
   .nav.pull-right {
     color: #fff;
+    padding-right: 22px;
     li.dropdown ul {
       margin-top: 9px;
       margin-left: 5px;
@@ -71,9 +72,10 @@ header.navbar-inverse .navbar-inner {
     li.avatar {
       margin-left: 5px;
       margin-top: -5px;
+      margin-right: -20px;
     }
     li.buttons {
-      vertical-align: middle;
+      padding-top: 2px;
       margin-left: 5px;
     }
   }
@@ -98,9 +100,9 @@ header.navbar-inverse .navbar-inner {
     //color: #3bbe3e;
     color: #3BBE3E;
     //background: -webkit-linear-gradient(#3BBE3E, #3BBE3E);
+    margin-left: -3px;
     //-webkit-background-clip: text;
     //-webkit-text-fill-color: transparent;
-    margin-left: -3px;
     //:hover {
     //  color: white !important;
     //}
@@ -154,7 +156,7 @@ footer.navbar-inverse {
 }
 
 #s2id_hub_filter {
-  padding: 6px 0 0;
+  padding: 7px 0 0;
   a {
     padding: 1px 4px;
   }

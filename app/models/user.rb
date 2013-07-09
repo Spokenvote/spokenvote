@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
@@ -56,4 +56,26 @@ class User < ActiveRecord::Base
   def gravatar_hash
     Digest::MD5.hexdigest(self.email.downcase)
   end
+
+  def self.from_omniauth(any_existing_user, auth)
+    where(id: any_existing_user).first_or_initialize.tap do |user|
+      user.name = auth[:name]
+      user.email = auth[:email]
+      user.save!
+    end
+  end
+
+  def password_required?
+    super && false   # TODO  I want this to say && "there are no authentications"
+    #super && provider.blank?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+
 end
