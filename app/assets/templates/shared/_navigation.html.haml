@@ -32,7 +32,7 @@
             %li
               %a(ng-href='/proposals?filter=my_votes') My Proposals
             %li
-              %a(ng-href='/users/{{ currentUser.id }}/edit') Settings
+              %a( href='#' ng-click='userSettings()' ) Settings
             %li
               / Angular should ignore this route and not try to handle it since it has target='_self'
               %a(href='/admin' ng-show='currentUser["is_admin?"]' target='_blank') Admin

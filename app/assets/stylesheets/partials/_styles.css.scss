@@ -226,6 +226,14 @@ textarea {
   width: 94%;
 }
 
+.half-width {
+  width: 48%;
+}
+
+.thee_quarter-width {
+  width: 71%;
+}
+
 .popover {
   z-index: 12001;
 }
@@ -333,12 +341,12 @@ input.ng-invalid.ng-dirty {
     }
     h5 {
       color: #555555;
-      font-weight: normal;
       margin-right: $gridGutterWidth;
       margin-left: ($gridGutterWidth * 1.9);
+      padding-bottom: ($gridGutterWidth);
+      //font-weight: normal;
       //margin-top: ($gridGutterWidth * 1.25);
       //margin-bottom: ($gridGutterWidth * 0.85);
-      padding-bottom: ($gridGutterWidth);
     }
   }
 }

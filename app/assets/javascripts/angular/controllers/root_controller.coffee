@@ -14,8 +14,10 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
     FB.getLoginStatus (authResponse) ->
       if authResponse.status != 'connected'
         FB.login (authResponse) ->
+          SessionSettings.facebookUser.auth = authResponse
           if authResponse.status is 'connected'
               FB.api '/me', (userInfo) ->
+                SessionSettings.facebookUser.me = userInfo
                 railsSession(authResponse, userInfo)
           else
             AlertService.setError 'Error trying to sign you in to Facebook.', $scope, 'main'
@@ -23,8 +25,11 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
       else
           FB.api '/me', (userInfo) ->
             railsSession(authResponse, userInfo)
+            SessionSettings.facebookUser.me = userInfo
+      console.log SessionSettings.facebookUser.auth
+      console.log SessionSettings.facebookUser.me
 
-  railsSession = (authResponse, userInfo)->
+  railsSession = (authResponse, userInfo) ->
     SessionService.userOmniauth.auth =
       provider: 'facebook'
       uid: userInfo.id
@@ -50,9 +55,19 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
     CurrentUserLoader().then (current_user) ->
       $scope.currentUser = current_user
 
+  $scope.userSettings = ->
+    if SessionSettings.openModals.userSettings is false
+      opts =
+        resolve:
+          $scope: ->
+            $scope
+      d = $dialog.dialog(opts)
+      SessionSettings.openModals.userSettings = true
+      d.open('/assets/user/_support_modal.html.haml', 'UserSettingsCtrl').then (result) ->
+        SessionSettings.openModals.userSettings = d.isOpen()
+
   $scope.signOut = ->
     SessionService.userOmniauth.$destroy()
-    #    $scope.session.$destroy()
     $scope.currentUser = {}
     $location.path('/').search('')
     AlertService.setInfo 'You are signed out.', $scope, 'main'
