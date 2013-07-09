@@ -85,6 +85,8 @@ footer {
   .modalAlert {
     opacity: .95;
     z-index: 10000;
+    margin-top: -5px;
+    padding-bottom: 13px;
   }
 
   .alert-bar {
@@ -636,8 +638,8 @@ input.ng-invalid.ng-dirty {
 }
 
 .selectedHub {
-  margin-top: -12px;
-  margin-bottom: -5px;
+  margin-top: -10px;
+  margin-bottom: -8px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: right;
   text-decoration: none;
