@@ -57,21 +57,7 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(self.email.downcase)
   end
 
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
-    user = User.where(:email => data["email"]).first
-
-    unless user
-      user = User.create(name: data["name"],
-                         email: data["email"],
-                         password: Devise.friendly_token[0,20]
-      )
-    end
-    user
-  end
-
-
-  def self.from_omniauth(any_existing_user, auth) # TODO Pratik, slick Ryan Bates way of creating the user on the fly if you want to try it.
+  def self.from_omniauth(any_existing_user, auth)
     where(id: any_existing_user).first_or_initialize.tap do |user|
       user.name = auth[:name]
       user.email = auth[:email]
