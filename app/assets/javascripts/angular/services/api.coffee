@@ -38,8 +38,8 @@ UserOmniauthResource = ($http) ->
     angular.extend this, options
 
   UserOmniauth::$save = ->
-    $http.get "/users/auth/facebook",
-#      provider: @provider
+    $http.post '/authentications',
+      auth: @auth
 
   UserOmniauth::$destroy = ->
     $http.delete "/users/logout"
@@ -148,32 +148,13 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
       delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
     delay.promise
 
-#UserOmniauth = ($resource) ->
-#  $resource("/users/auth/:provider", {provider: "@provider"})
-#
-#App.Services.factory 'UserOmniauth', UserOmniauth
-#
-#UserOmniauthCallback = (UserOmniauth, $route, $q) ->
-#  ( provider )->
-#    delay = $q.defer()
-#    UserOmniauth.save
-#      provider: provider
-#    , (user_auth) ->
-#      delay.resolve user_auth
-#    , ->
-#      delay.reject 'Unable to authorize a current user '
-#    delay.promise
-#
-#App.Services.factory 'UserOmniauthCallback', UserOmniauthCallback
-
 # Injects
-Vote.$inject = [ '$resource' ]
-Hub.$inject = [ '$resource' ]
-Proposal.$inject = [ '$resource' ]
 CurrentUser.$inject = [ '$resource' ]
+Hub.$inject = [ '$resource' ]
+Vote.$inject = [ '$resource' ]
+Proposal.$inject = [ '$resource' ]
 RelatedProposals.$inject = [ '$resource' ]
 RelatedVoteInTree.$inject = [ '$resource' ]
-# UserOmniauth.$inject = [ '$resource' ]
 
 UserOmniauthResource.$inject = [ '$http' ]
 UserSessionResource.$inject = [ '$http' ]
@@ -188,11 +169,11 @@ RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
 # UserOmniauthCallback.$inject = [ 'UserOmniauth', '$route', '$q' ]
 
 # Register
-App.Services.factory 'Vote', Vote
+App.Services.factory 'CurrentUser', CurrentUser
 App.Services.factory 'Hub', Hub
+App.Services.factory 'Vote', Vote
 App.Services.factory 'Proposal', Proposal
 
-App.Services.factory 'CurrentUser', CurrentUser
 App.Services.factory 'CurrentHubLoader', CurrentHubLoader
 App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree

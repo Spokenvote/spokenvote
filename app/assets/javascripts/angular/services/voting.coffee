@@ -5,8 +5,8 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
     scope.current_user_support = null
 
     if !scope.currentUser.id?
-      AlertService.setInfo 'To support proposals you need to sign in.', scope, 'modal'
-      scope.signInModal 'VotingService.support', scope, clicked_proposal.id   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
+      AlertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
+      scope.facebookAuth2 'VotingService.support', scope, clicked_proposal   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
@@ -33,8 +33,8 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
     scope.current_user_support = null
 
     if !scope.currentUser.id?
-      scope.signInModal()
-      AlertService.setInfo 'To improve proposals you need to sign in.', scope, 'modal'
+      scope.facebookAuth2()
+      AlertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         scope.current_user_support = 'related_proposal' if relatedSupport.id?
