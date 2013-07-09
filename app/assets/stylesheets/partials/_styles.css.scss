@@ -672,15 +672,42 @@ input.ng-invalid.ng-dirty {
 .improve_support_buttons {
   display: inline;
   .btn-support {
-    color: white;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
-    :hover {
-      background-color: none;
-    }
+    //color: white;
+    //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
+    //:hover {
+      //background-color: none;
+    background-color: hsl(211, 92%, 46%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
+    background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
+    background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -o-linear-gradient(top, #449bf7, #0971e1);
+    background-image: linear-gradient(#449bf7, #0971e1);
+    border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
+    color: #fff !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+    -webkit-font-smoothing: antialiased;  
   }
   .btn-improve {
-    color: white;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+    //color: white;
+    //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+    background-color: hsl(121, 53%, 37%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c649", endColorstr="#2c902e");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#47c649), to(#2c902e));
+    background-image: -moz-linear-gradient(top, #47c649, #2c902e);
+    background-image: -ms-linear-gradient(top, #47c649, #2c902e);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #47c649), color-stop(100%, #2c902e));
+    background-image: -webkit-linear-gradient(top, #47c649, #2c902e);
+    background-image: -o-linear-gradient(top, #47c649, #2c902e);
+    background-image: linear-gradient(#47c649, #2c902e);
+    border-color: #2c902e #2c902e hsl(121, 53%, 33%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.26);
+    -webkit-font-smoothing: antialiased;
   }
   .shares {
     float: right;
@@ -776,8 +803,22 @@ input.ng-invalid.ng-dirty {
   @extend .btn-mini;
   //@extend .btn-success;
   //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(56, 179, 59))) !important;
-  color: white;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(71, 126, 236)), to(rgb(40, 71, 132))) !important;
+  //color: white;
+  //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(71, 126, 236)), to(rgb(40, 71, 132))) !important;
+  background-color: hsl(211, 92%, 46%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
+  background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
+  background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -o-linear-gradient(top, #449bf7, #0971e1);
+  background-image: linear-gradient(#449bf7, #0971e1);
+  border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
+  color: #fff !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+  -webkit-font-smoothing: antialiased;
 }
 
 .proposal_fields {
