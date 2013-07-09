@@ -53,7 +53,6 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     initSelection: (element, callback) ->
       CurrentHubLoader().then (searchedHub) ->
         SessionSettings.hub_attributes = searchedHub
-        console.log SessionSettings.hub_attributes
         callback SessionSettings.hub_attributes
 
 

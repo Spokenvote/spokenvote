@@ -630,16 +630,14 @@ input.ng-invalid.ng-dirty {
 .selectedHub {
   margin-top: -12px;
   margin-bottom: -5px;
-  color: #444 !important;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: right;
   text-decoration: none;
-  a.hub {
-    :hover {
-       color: #1c85f6;
-    }
-  }
   .hub {
+    color: #444 !important;
+    :hover {
+      color: #1c85f6;
+    }
     h3 {
       margin-right: 3px;
     }
