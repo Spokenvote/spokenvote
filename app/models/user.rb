@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     self.name.presence || self.email.split('@').first.titlecase
   end
 
+  def first_name
+    self.name.presence.split(' ').first.titlecase.truncate(12)
+  end
+
   def is_admin?
     self.email && ENV['ADMIN_EMAILS'].to_s.downcase.include?(self.email)
   end
