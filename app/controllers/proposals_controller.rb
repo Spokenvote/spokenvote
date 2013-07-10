@@ -20,7 +20,9 @@ class ProposalsController < ApplicationController
       user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
       user = User.find(user_id) if user_id
       user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)
-      proposals = @proposals.where(id: user_voted_proposal_root_ids)
+      top_voted_proposal_root_ids = @proposals.map(&:root_id)
+      # now somehow match these two arrays to produce proposals where these two match here ...
+      # @proposals where user_voted_proposal_root_ids = top_voted_proposal_root_idsPseudo code to descibe
       @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree } & user.voted_proposals if user
     end
   end
