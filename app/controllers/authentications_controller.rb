@@ -1,5 +1,4 @@
 class AuthenticationsController < Devise::SessionsController
-
   def create
     auth = params[:auth]
     @new_user_saved = false
@@ -10,15 +9,16 @@ class AuthenticationsController < Devise::SessionsController
 
     # Create user or update the user info as needed
     user = User.from_omniauth(try_existing_user.try(:id), auth)
-    user.authentications.create(:provider => auth[:provider], :uid => auth[:uid], :token => auth[:token]) if !authentication
+    user.authentications.create(:provider => auth[:provider], :uid => auth[:uid], :token => auth[:token]) unless authentication
+
     omniauth_sign_in user
   end
 
   private
+
   def omniauth_sign_in(resource)
     scope = Devise::Mapping.find_scope!(resource)
     sign_in(scope, resource, {})
-    render json: {success: true, status: 'You are signed in.', new_user_saved: @new_user_saved}
+    render json: { success: true, status: 'You are signed in.', new_user_saved: @new_user_saved }
   end
-
 end
