@@ -2,13 +2,14 @@
   .modal-header
     .pull-right( class='close' ng-click='close()' ) &times;
     %h2 Improve Proposal
+
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
+
     .selectedHub
       .hub
         %h3 {{ proposal.hub.group_name }}
         %h5 {{ proposal.hub.formatted_location }}
-
-    #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
   .modal-body
     .proposal_new

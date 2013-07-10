@@ -85,6 +85,8 @@ footer {
   .modalAlert {
     opacity: .95;
     z-index: 10000;
+    margin-top: -5px;
+    padding-bottom: 13px;
   }
 
   .alert-bar {
@@ -226,6 +228,14 @@ textarea {
   width: 94%;
 }
 
+.half-width {
+  width: 48%;
+}
+
+.thee_quarter-width {
+  width: 71%;
+}
+
 .popover {
   z-index: 12001;
 }
@@ -333,12 +343,12 @@ input.ng-invalid.ng-dirty {
     }
     h5 {
       color: #555555;
-      font-weight: normal;
       margin-right: $gridGutterWidth;
       margin-left: ($gridGutterWidth * 1.9);
+      padding-bottom: ($gridGutterWidth);
+      //font-weight: normal;
       //margin-top: ($gridGutterWidth * 1.25);
       //margin-bottom: ($gridGutterWidth * 0.85);
-      padding-bottom: ($gridGutterWidth);
     }
   }
 }
@@ -628,8 +638,8 @@ input.ng-invalid.ng-dirty {
 }
 
 .selectedHub {
-  margin-top: -12px;
-  margin-bottom: -5px;
+  margin-top: -10px;
+  margin-bottom: -8px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: right;
   text-decoration: none;

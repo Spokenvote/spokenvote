@@ -1,4 +1,5 @@
 SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
+  AlertService.clearAlerts()
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
 
@@ -20,6 +21,8 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
     dialog.close(result)
 
 ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
+  AlertService.clearAlerts()
+
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
 
