@@ -86,6 +86,9 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
 
 
 SessionSettings = ->
+  facebookUser:
+    auth: {}
+    me: {}
   actions:
     hubFilter: 'All Groups'
     userFilter: null
@@ -95,9 +98,11 @@ SessionSettings = ->
   openModals:
     signIn: false
     register: false
-    newProposal: false
+    register: false
+    userSettings: false
     supportProposal: false
     improveProposal: false
+    newProposal: false
     editProposal: false
   searchedHub: {}
   routeParams: {}

@@ -226,7 +226,7 @@ describe ProposalsController do
         vote9 = create(:vote, proposal: forked_proposal2, user: user3)
 
         get :index, { filter: 'active' }
-        assigns(:proposals).should == [proposal2, proposal1, proposal3]
+        assigns(:proposals).should == [forked_proposal2, proposal1, proposal3]
       end
     end
 

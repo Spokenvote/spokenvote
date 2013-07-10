@@ -4,13 +4,13 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
 
   $routeProvider
     .when '/',
-      templateUrl: "<%= asset_path('landing.html.haml') %>"
+      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
-      templateUrl: "<%= asset_path('landing.html.haml') %>"
+      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
       controller: 'RootCtrl'
 
     .when '/proposals',

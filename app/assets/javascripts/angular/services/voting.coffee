@@ -3,6 +3,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
   support: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
     scope.current_user_support = null
+    AlertService.clearAlerts()
 
     if !scope.currentUser.id?
       AlertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
@@ -31,6 +32,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
   improve: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
     scope.current_user_support = null
+    AlertService.clearAlerts()
 
     if !scope.currentUser.id?
       scope.facebookAuth2()
@@ -39,15 +41,15 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         scope.current_user_support = 'related_proposal' if relatedSupport.id?
 
-      if SessionSettings.openModals.improveProposal is false
-        scope.opts =
-          resolve:
-            $scope: ->
-              scope
-        d = $dialog.dialog(scope.opts)
-        SessionSettings.openModals.improveProposal = true
-        d.open('/assets/proposals/_improve_proposal_modal.html.haml', 'ImroveCtrl').then (result) ->
-          SessionSettings.openModals.improveProposal = d.isOpen()
+        if SessionSettings.openModals.improveProposal is false
+          scope.opts =
+            resolve:
+              $scope: ->
+                scope
+          d = $dialog.dialog(scope.opts)
+          SessionSettings.openModals.improveProposal = true
+          d.open('/assets/proposals/_improve_proposal_modal.html.haml', 'ImroveCtrl').then (result) ->
+            SessionSettings.openModals.improveProposal = d.isOpen()
 
 
   edit: ( scope, clicked_proposal ) ->
