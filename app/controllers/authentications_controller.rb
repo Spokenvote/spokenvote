@@ -6,11 +6,10 @@ class AuthenticationsController < Devise::SessionsController
 
     # Try to find authentication first
     authentication = Authentication.find_by_provider_and_uid(auth[:provider], auth[:uid])
-    try_existing_user = User.find_by_email(auth[:email]) || User.find_by_id(authentication.user_id)
-    existing_user_id = try_existing_user.id unless try_existing_user.nil?
+    try_existing_user = User.find_by_email(auth[:email]) || User.find_by_id(authentication.try(:user_id))
 
     # Create user or update the user info as needed
-    user = User.from_omniauth(existing_user_id, auth)
+    user = User.from_omniauth(try_existing_user.try(:id), auth)
     user.authentications.create(:provider => auth[:provider], :uid => auth[:uid], :token => auth[:token]) if !authentication
     omniauth_sign_in user
   end
