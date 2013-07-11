@@ -55,39 +55,52 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
 
-    if SessionSettings.openModals.editProposal is false
-      scope.opts =
-        resolve:
-          parentScope: ->
-            scope
-      d = $dialog.dialog(scope.opts)
-      SessionSettings.openModals.editProposal = true
-      d.open('/assets/proposals/_edit_proposal_modal.html.haml', 'EditProposalCtrl').then (result) ->
-        SessionSettings.openModals.editProposal = d.isOpen()
+    if !scope.currentUser.id?
+      scope.facebookAuth2()
+      AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+    else
+      if SessionSettings.openModals.editProposal is false
+        scope.opts =
+          resolve:
+            parentScope: ->
+              scope
+        d = $dialog.dialog(scope.opts)
+        SessionSettings.openModals.editProposal = true
+        d.open('/assets/proposals/_edit_proposal_modal.html.haml', 'EditProposalCtrl').then (result) ->
+          SessionSettings.openModals.editProposal = d.isOpen()
 
   delete: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
 
-    if SessionSettings.openModals.newProposal is false
-      scope.opts =
-        resolve:
-          parentScope: ->
-            scope
-      d = $dialog.dialog(scope.opts)
-      SessionSettings.openModals.deleteProposal = true
-      d.open('/assets/proposals/_delete_proposal_modal.html.haml', 'DeleteProposalCtrl').then (result) ->
-        SessionSettings.openModals.deleteProposal = d.isOpen()
+    if !scope.currentUser.id?
+      scope.facebookAuth2()
+      AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+    else
+      if SessionSettings.openModals.newProposal is false
+        scope.opts =
+          resolve:
+            parentScope: ->
+              scope
+        d = $dialog.dialog(scope.opts)
+        SessionSettings.openModals.deleteProposal = true
+        d.open('/assets/proposals/_delete_proposal_modal.html.haml', 'DeleteProposalCtrl').then (result) ->
+          SessionSettings.openModals.deleteProposal = d.isOpen()
 
   new: ( scope ) ->
-    if SessionSettings.openModals.newProposal is false
-      scope.opts =
-        resolve:
-          parentScope: ->
-            scope
-      d = $dialog.dialog(scope.opts)
-      SessionSettings.openModals.newProposal = true
-      d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
-        SessionSettings.openModals.newProposal = d.isOpen()
+
+    if !scope.currentUser.id?
+      scope.facebookAuth2()
+      AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
+    else
+      if SessionSettings.openModals.newProposal is false
+        scope.opts =
+          resolve:
+            parentScope: ->
+              scope
+        d = $dialog.dialog(scope.opts)
+        SessionSettings.openModals.newProposal = true
+        d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
+          SessionSettings.openModals.newProposal = d.isOpen()
 
 # Injects
 VotingService.$inject = [ '$dialog', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
