@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    super && false   # TODO  I want this to say && "there are no authentications"
+    super && false
     #super && provider.blank?
   end
 
@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(any_existing_user, auth)
     where(id: any_existing_user).first_or_initialize.tap do |user|
       user.name = auth[:name]
-      user.email = auth[:email] || ''
+      user.email = auth[:email]
       user.save!
     end
   end

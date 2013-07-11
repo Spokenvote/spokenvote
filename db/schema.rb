@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216070648) do
+ActiveRecord::Schema.define(:version => 20130711211418) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20130216070648) do
   add_index "proposals", ["ancestry"], :name => "index_positions_on_ancestry"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
+    t.string   "email",                  :default => ""
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
