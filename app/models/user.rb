@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def gravatar_hash
-    Digest::MD5.hexdigest(self.email.downcase)
+    Digest::MD5.hexdigest(self.email.downcase) if self.email.present?
   end
 
   def self.from_omniauth(any_existing_user, auth)
