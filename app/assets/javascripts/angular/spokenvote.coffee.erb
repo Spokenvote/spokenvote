@@ -37,6 +37,12 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
     .when '/about',
       templateUrl: "<%= asset_path('pages/about.html.haml') %>"
 
+    .when '/terms-of-use',
+      templateUrl: "<%= asset_path('pages/terms-of-use.html.haml') %>"
+
+    .when '/privacy',
+      templateUrl: "<%= asset_path('pages/privacy.html.haml') %>"
+
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
