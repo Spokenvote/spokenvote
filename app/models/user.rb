@@ -35,16 +35,13 @@ class User < ActiveRecord::Base
   has_many :proposals, dependent: :destroy  # Created by user
   has_many :voted_proposals, through: :votes, source: :proposal  # Voted by user
 
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
-  end
-  #
-  #def email_required?
-  #  (authentications.empty? || !email.blank?) && super
-  #end
-
   def email_required?
-    false
+    super && false
+  end
+
+  def password_required?
+    super && false   # TODO  I want this to say && "there are no authentications"
+    #super && provider.blank?
   end
 
   def username
@@ -52,7 +49,11 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    self.name.presence.split(' ').first.titlecase.truncate(12)
+    if self.name.presence
+      self.name.split(' ').first.titlecase.truncate(10)
+    else
+      username.truncate(10)
+    end
   end
 
   def is_admin?
@@ -72,14 +73,9 @@ class User < ActiveRecord::Base
   def self.from_omniauth(any_existing_user, auth)
     where(id: any_existing_user).first_or_initialize.tap do |user|
       user.name = auth[:name]
-      user.email = auth[:email] || ""
+      user.email = auth[:email] || ''
       user.save!
     end
-  end
-
-  def password_required?
-    super && false   # TODO  I want this to say && "there are no authentications"
-    #super && provider.blank?
   end
 
   def update_with_password(params, *options)

@@ -24,8 +24,8 @@
             %li
               %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
-        %li.dropdown(ng-show='currentUser.username')
-          %a.dropdown-toggle(data-toggle='dropdown')
+        %li.dropdown( ng-show='currentUser.username' bs-tooltip='currentUser.username' data-placement='bottom' )
+          %a.dropdown-toggle( data-toggle='dropdown' )
             %b.white {{ currentUser.first_name }}
             %b.caret
 
@@ -40,7 +40,7 @@
             %li
               %a( href='#' ng-click='signOut()' ) Sign Out
 
-        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes')
+        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes'  bs-tooltip='currentUser.username' data-placement='bottom' )
           %a(href='/proposals?filter=my_votes')
             %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
 
