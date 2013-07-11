@@ -38,6 +38,14 @@ class User < ActiveRecord::Base
   def password_required?
     (authentications.empty? || !password.blank?) && super
   end
+  #
+  #def email_required?
+  #  (authentications.empty? || !email.blank?) && super
+  #end
+
+  def email_required?
+    false
+  end
 
   def username
     self.name.presence || self.email.split('@').first.titlecase
@@ -64,7 +72,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(any_existing_user, auth)
     where(id: any_existing_user).first_or_initialize.tap do |user|
       user.name = auth[:name]
-      user.email = auth[:email]
+      user.email = auth[:email] || ""
       user.save!
     end
   end
