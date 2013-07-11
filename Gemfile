@@ -22,7 +22,7 @@ gem 'simple_form'
 gem 'compass'
 gem 'compass-rails'
 gem 'compass_twitter_bootstrap'
-gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
+gem 'activeadmin'
 
 # Authentication
 gem 'omniauth'
