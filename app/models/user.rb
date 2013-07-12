@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
+#  email                  :string(255)      default("")
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -35,16 +35,33 @@ class User < ActiveRecord::Base
   has_many :proposals, dependent: :destroy  # Created by user
   has_many :voted_proposals, through: :votes, source: :proposal  # Voted by user
 
+  def email_required?
+    super && false
+  end
+
   def password_required?
-    (authentications.empty? || !password.blank?) && super
+    super && false
+    #super && provider.blank?
   end
 
   def username
-    self.name.presence || self.email.split('@').first.titlecase
+    if self.name.present?
+      self.name
+    elsif self.email.present?
+      self.email.split('@').first.titlecasee.truncate(10)
+    else
+      'User ' + self.id.to_s
+    end
   end
 
   def first_name
-    self.name.presence.split(' ').first.titlecase.truncate(12)
+    if self.name.present?
+      self.name.split(' ').first.titlecase.truncate(10)
+    elsif username.present?
+      username.truncate(10)
+    else
+      'User ' + self.id.to_s
+    end
   end
 
   def is_admin?
@@ -58,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def gravatar_hash
-    Digest::MD5.hexdigest(self.email.downcase)
+    Digest::MD5.hexdigest(self.email.downcase) if self.email.present?
   end
 
   def self.from_omniauth(any_existing_user, auth)
@@ -67,11 +84,6 @@ class User < ActiveRecord::Base
       user.email = auth[:email]
       user.save!
     end
-  end
-
-  def password_required?
-    super && false   # TODO  I want this to say && "there are no authentications"
-    #super && provider.blank?
   end
 
   def update_with_password(params, *options)

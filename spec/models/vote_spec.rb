@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id          :integer          not null, primary key
+#  proposal_id :integer
+#  comment     :text
+#  user_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  ip_address  :string(255)
+#
+
 require 'spec_helper'
 
 describe Vote do

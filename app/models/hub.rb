@@ -7,7 +7,7 @@
 #  description        :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  location_id :string(255)
+#  location_id        :string(255)
 #  formatted_location :string(255)
 #
 
