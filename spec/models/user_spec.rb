@@ -20,6 +20,46 @@
 
 require 'spec_helper'
 
+describe "Authenticate User" do  #TODO Need some help here understanding if I'm really testing the full Authentications controller, as I don't understand how to pass things to the controller itself.
+  before(:each) do
+    @auth = {
+      provider: 'facebook',
+      uid: '88888888',
+      token: '999999999',
+      name: Faker.name,
+      email: Faker::Internet.email,
+    }
+  end
+
+  it 'should create a new user' do
+    user = User.from_omniauth(nil, @auth)
+    user.should be_valid
+    user.should be_persisted
+  end
+
+  it 'should authenticate a new user' do
+    user = User.from_omniauth(nil, @auth)
+    userauth = user.authentications.create(:provider => @auth[:provider], :uid => @auth[:uid], :token => @auth[:token])
+    userauth.should be_valid
+    userauth.should be_persisted
+  end
+
+  #it 'should not authenticate bad auth data' do
+  #  user = User.from_omniauth(nil, @auth)
+  #  # TODO Line below won't run for the exact failure I'm trying to test for.
+  #  userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token])
+  #  userauth.should_not be_valid
+  #end
+
+  #it 'should not authenticate bad auth data' do
+  #  user = User.from_omniauth(nil, @auth)
+  #  userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token]) unless authentication
+  #  userauth.should_not be_valid
+  #  userauth.should_not be_persisted
+  #end
+
+end
+
 describe "User" do
   before(:each) do
     @attr = {
