@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
+#  email                  :string(255)      default("")
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -45,14 +45,22 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.name.presence || self.email.split('@').first.titlecase
+    if self.name.present?
+      self.name
+    elsif self.email.present?
+      self.email.split('@').first.titlecasee.truncate(10)
+    else
+      'User ' + self.id.to_s
+    end
   end
 
   def first_name
-    if self.name.presence
+    if self.name.present?
       self.name.split(' ').first.titlecase.truncate(10)
-    else
+    elsif username.present?
       username.truncate(10)
+    else
+      'User ' + self.id.to_s
     end
   end
 

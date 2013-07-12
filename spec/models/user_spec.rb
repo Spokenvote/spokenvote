@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
+#  email                  :string(255)      default("")
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -61,6 +61,12 @@ describe "User" do
     User.create!(@attr)
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
+  end
+
+  it "should ACCEPT multiple NULL email addresses" do
+    User.new(@attr.merge(:email => nil))
+    user_with_duplicate_null_email = User.new(@attr.merge(:email => nil))
+    user_with_duplicate_null_email.should be_valid
   end
 
   it "should reject email addresses identical up to case" do
