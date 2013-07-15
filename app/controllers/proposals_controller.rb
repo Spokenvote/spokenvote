@@ -19,7 +19,10 @@ class ProposalsController < ApplicationController
     else
       user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
       user = User.find(user_id) if user_id
-      @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree } & user.voted_proposals if user
+
+      user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)
+      @proposals.delete_if { |proposal| !user_voted_proposal_root_ids.include? proposal.root_id }
+      @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree }
     end
   end
 
