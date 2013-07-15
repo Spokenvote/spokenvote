@@ -1,13 +1,14 @@
 # == Schema Information
 #
-# Table name: hub
+# Table name: hubs
 #
-#    t.string   "group_name"
-#    t.text     "description"
-#    t.datetime "created_at",         :null => false
-#    t.datetime "updated_at",         :null => false
-#    t.string   "location_id"
-#    t.string   "formatted_location"
+#  id                 :integer          not null, primary key
+#  group_name         :string(255)
+#  description        :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  location_id        :string(255)
+#  formatted_location :string(255)
 #
 
 require 'spec_helper'
