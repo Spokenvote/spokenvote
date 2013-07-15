@@ -1,5 +1,7 @@
 Spokenvote::Application.routes.draw do
 
+  root :to => 'application#index'
+
   ActiveAdmin.routes(self)
 
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
@@ -8,8 +10,6 @@ Spokenvote::Application.routes.draw do
   devise_scope :user do
     match "authentications" => "authentications#create"
   end
-
-  root :to => 'application#index'
 
   resources :users do
     resources :proposals, only: [:index]

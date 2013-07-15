@@ -12,6 +12,7 @@ gem 'rack-cache'
 
 # Javascript
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
 gem 'select2-rails'
 
