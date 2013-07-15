@@ -25,7 +25,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
     placeholder: " Begin typing to find your Group or Location ... "
-    width: '500px'
+    width: '490px'
     allowClear: true
     ajax:
       url: "/hubs"

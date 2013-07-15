@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
+#  email                  :string(255)      default("")
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -19,6 +19,46 @@
 #
 
 require 'spec_helper'
+
+describe "Authenticate User" do  #TODO Need some help here understanding if I'm really testing the full Authentications controller, as I don't understand how to pass things to the controller itself.
+  before(:each) do
+    @auth = {
+      provider: 'facebook',
+      uid: '88888888',
+      token: '999999999',
+      name: Faker.name,
+      email: Faker::Internet.email,
+    }
+  end
+
+  it 'should create a new user' do
+    user = User.from_omniauth(nil, @auth)
+    user.should be_valid
+    user.should be_persisted
+  end
+
+  it 'should authenticate a new user' do
+    user = User.from_omniauth(nil, @auth)
+    userauth = user.authentications.create(:provider => @auth[:provider], :uid => @auth[:uid], :token => @auth[:token])
+    userauth.should be_valid
+    userauth.should be_persisted
+  end
+
+  #it 'should not authenticate bad auth data' do
+  #  user = User.from_omniauth(nil, @auth)
+  #  # TODO Line below won't run for the exact failure I'm trying to test for.
+  #  userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token])
+  #  userauth.should_not be_valid
+  #end
+
+  #it 'should not authenticate bad auth data' do
+  #  user = User.from_omniauth(nil, @auth)
+  #  userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token]) unless authentication
+  #  userauth.should_not be_valid
+  #  userauth.should_not be_persisted
+  #end
+
+end
 
 describe "User" do
   before(:each) do
@@ -36,9 +76,9 @@ describe "User" do
     user.save.should be_true
   end
 
-  it "should require an email address" do
-    no_email_user = User.new(@attr.merge(:email => ""))
-    no_email_user.should_not be_valid
+  it "should NOT require an email address" do
+    no_email_user = User.new(@attr.merge(:email => nil))
+    no_email_user.should be_valid
   end
 
   it "should accept valid email addresses" do
@@ -61,6 +101,12 @@ describe "User" do
     User.create!(@attr)
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
+  end
+
+  it "should ACCEPT multiple NULL email addresses" do
+    User.new(@attr.merge(:email => nil))
+    user_with_duplicate_null_email = User.new(@attr.merge(:email => nil))
+    user_with_duplicate_null_email.should be_valid
   end
 
   it "should reject email addresses identical up to case" do
