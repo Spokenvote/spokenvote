@@ -260,10 +260,10 @@ describe ProposalsController do
           assigns(:proposals).should match_array([forked_proposal2, proposal1, proposal3])
         end
 
-        #it 'returns all proposals for a particular hub on which the current user voted' do
-        #  get :index, { filter: 'my_votes', hub: hub1.id }
-        #  assigns(:proposals).should match_array([forked_proposal2, proposal1])
-        #end
+        it 'returns all proposals for a particular hub on which the current user voted' do
+          get :index, { filter: 'my_votes', hub: hub1.id }
+          assigns(:proposals).should match_array([forked_proposal2, proposal1])
+        end
       end
     end
   end

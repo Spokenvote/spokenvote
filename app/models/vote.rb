@@ -57,5 +57,4 @@ class Vote < ActiveRecord::Base
     end
     nil
   end
-
 end

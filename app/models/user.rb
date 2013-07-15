@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
     if self.name.present?
       self.name
     elsif self.email.present?
-      self.email.split('@').first.titlecasee.truncate(10)
+      self.email.split('@').first.titlecase.truncate(10)
     else
       'User ' + self.id.to_s
     end
