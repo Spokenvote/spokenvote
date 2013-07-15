@@ -99,7 +99,7 @@ class Proposal < ActiveRecord::Base
 
   def current_user_support?(current_user)
     return false unless current_user
-    cu_votes = votes.count {|v| v.user_id == current_user.id}
+    cu_votes = votes.count { |v| v.user_id == current_user.id }
     return cu_votes.present?
   end
 
@@ -107,5 +107,4 @@ class Proposal < ActiveRecord::Base
     return self.created_at if self.votes.blank?
     self.votes.order('created_at DESC').first.created_at
   end
-
 end

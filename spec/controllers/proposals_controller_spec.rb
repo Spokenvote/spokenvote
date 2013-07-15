@@ -178,39 +178,48 @@ describe ProposalsController do
     let!(:user2) { create(:user) }
     let!(:user3) { create(:user) }
     let!(:user4) { create(:user) }
+
     let!(:hub1) { create(:hub, group_name: 'State of California') }
     let!(:hub2) { create(:hub, group_name: 'The United Nations') }
-    let!(:proposal1) { create(:proposal, statement: 'Taxes should be reduced by 5% in California', hub: hub1, user: user1) }
-    let!(:proposal2) { create(:proposal, statement: 'Public transportation should be improved in California', hub: hub1, user: user1) }
-    let!(:proposal3) { create(:proposal, statement: 'Animals should not be killed for food', hub: hub2, user: user1) }
+
+    let!(:proposal1) { create(:proposal, statement: 'P1: Taxes should be reduced by 5% in California', hub: hub1, user: user1) }
+    let!(:proposal2) { create(:proposal, statement: 'P2: Public transportation should be improved in California', hub: hub1, user: user1) }
+    let!(:proposal3) { create(:proposal, statement: 'P3: Animals should not be killed for food', hub: hub2, user: user1) }
+    let!(:forked_proposal2) { create(:proposal, statement: 'FP2: Public transportation should be made better California', hub: hub1, user: user4, parent: proposal2) }
+    let!(:forked_proposal3) { create(:proposal, statement: 'FP3: Animals should not be killed for seafood', hub: hub2, user: user4, parent: proposal3) }
+
     let!(:vote1) { create(:vote, proposal: proposal1, user: user1) }
     let!(:vote2) { create(:vote, proposal: proposal1, user: user2) }
     let!(:vote3) { create(:vote, proposal: proposal1, user: user3) }
     let!(:vote4) { create(:vote, proposal: proposal2, user: user2) }
     let!(:vote5) { create(:vote, proposal: proposal3, user: user1) }
     let!(:vote6) { create(:vote, proposal: proposal3, user: user2) }
+    let!(:vote7) { create(:vote, proposal: forked_proposal2, user: user1) }
+    let!(:vote8) { create(:vote, proposal: forked_proposal2, user: user4) }
+    let!(:vote9) { create(:vote, proposal: forked_proposal2, user: user3) }
+    let!(:vote10) { create(:vote, proposal: forked_proposal3, user: user3) }
 
     describe 'New' do
       it 'returns all new proposals' do
         get :index, { filter: 'new' }
-        assigns(:proposals).should match_array([proposal1, proposal2, proposal3])
+        assigns(:proposals).should match_array([proposal1, forked_proposal2, proposal3])
       end
 
       it 'returns new proposals for a particular hub' do
         get :index, { filter: 'new', hub: hub1.id }
-        assigns(:proposals).should match_array([proposal1, proposal2])
+        assigns(:proposals).should match_array([proposal1, forked_proposal2])
       end
 
       it 'returns the list of proposals in reverse order of the their updates' do
         get :index, { filter: 'new' }
-        assigns(:proposals).should == [proposal3, proposal2, proposal1]
+        assigns(:proposals).should == [forked_proposal2, proposal3, proposal1]
       end
     end
 
     describe 'Active' do
       it 'returns all active proposals' do
         get :index, { filter: 'active' }
-        assigns(:proposals).should match_array([proposal1, proposal2, proposal3])
+        assigns(:proposals).should match_array([proposal1, forked_proposal2, proposal3])
       end
 
       it 'returns active proposals for a particular hub' do
@@ -219,30 +228,42 @@ describe ProposalsController do
       end
 
       it 'returns the list of proposals in reverse order of the number of votes received in the whole proposal tree' do
-        forked_proposal2 = create(:proposal, statement: 'Public transportation should be made better California', hub: hub1, user: user4, parent: proposal2)
-        forked_proposal3 = create(:proposal, statement: 'Animals should not be killed for seafood', hub: hub2, user: user4, parent: proposal3)
-        vote7 = create(:vote, proposal: forked_proposal2, user: user1)
-        vote8 = create(:vote, proposal: forked_proposal2, user: user2)
-        vote9 = create(:vote, proposal: forked_proposal2, user: user3)
-
         get :index, { filter: 'active' }
-        assigns(:proposals).should == [forked_proposal2, proposal1, proposal3]
+        assigns(:proposals).should == [forked_proposal2, proposal3, proposal1]
       end
     end
 
     describe 'My Votes' do
-      before :each do
-        login_with_user(user1)
+      describe 'for User #1'do
+        before :each do
+          login_with_user(user1)
+        end
+
+        it 'returns all proposals on which the current user voted' do
+          get :index, { filter: 'my_votes' }
+          assigns(:proposals).should match_array([forked_proposal2, proposal1, proposal3])
+        end
+
+        it 'returns all proposals for a particular hub on which the current user voted' do
+          get :index, { filter: 'my_votes', hub: hub1.id }
+          assigns(:proposals).should match_array([forked_proposal2, proposal1])
+        end
       end
 
-      it 'returns all proposals on which the current user voted' do
-        get :index, { filter: 'my_votes' }
-        assigns(:proposals).should match_array([proposal1, proposal3])
-      end
+      describe 'for User #2' do
+        before :each do
+          login_with_user(user2)
+        end
 
-      it 'returns all proposals for a particular hub on which the current user voted' do
-        get :index, { filter: 'my_votes', hub: hub1.id }
-        assigns(:proposals).should match_array([proposal1])
+        it 'returns all proposals on which the current user voted' do
+          get :index, { filter: 'my_votes' }
+          assigns(:proposals).should match_array([forked_proposal2, proposal1, proposal3])
+        end
+
+        it 'returns all proposals for a particular hub on which the current user voted' do
+          get :index, { filter: 'my_votes', hub: hub1.id }
+          assigns(:proposals).should match_array([forked_proposal2, proposal1])
+        end
       end
     end
   end
