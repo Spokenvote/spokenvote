@@ -9,8 +9,10 @@ RootCtrl = ($scope, AlertService, $location, $dialog, Auth, SessionService, Sess
     $scope.facebookAuth2()
 
   $scope.facebookAuth2 = ->
-    Auth.getFBUser(FB).then (userInfo) ->
+    Auth.signinFb($scope).then (userInfo) ->
       console.log userInfo
+      console.log SessionSettings.facebookUser.auth
+      console.log SessionSettings.facebookUser.me
 
 #    AlertService.clearAlerts()
 #
