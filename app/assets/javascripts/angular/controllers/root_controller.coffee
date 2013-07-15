@@ -1,4 +1,4 @@
-RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSettings, CurrentUserLoader) ->
+RootCtrl = ($scope, AlertService, $location, $dialog, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
   $scope.alertService = AlertService
   $scope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
@@ -9,25 +9,28 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
     $scope.facebookAuth2()
 
   $scope.facebookAuth2 = ->
-    AlertService.clearAlerts()
+    Auth.getFBUser(FB).then (userInfo) ->
+      console.log userInfo
 
-    FB.getLoginStatus (authResponse) ->
-      if authResponse.status != 'connected'
-        FB.login (authResponse) ->
-          SessionSettings.facebookUser.auth = authResponse
-          if authResponse.status is 'connected'
-              FB.api '/me', (userInfo) ->
-                SessionSettings.facebookUser.me = userInfo
-                railsSession(authResponse, userInfo)
-          else
-            AlertService.setError 'Error trying to sign you in to Facebook.', $scope, 'main'
-            console.log 'Error signing in to Facebook.'
-      else
-          FB.api '/me', (userInfo) ->
-            railsSession(authResponse, userInfo)
-            SessionSettings.facebookUser.me = userInfo
-      console.log SessionSettings.facebookUser.auth
-      console.log SessionSettings.facebookUser.me
+#    AlertService.clearAlerts()
+#
+#    FB.getLoginStatus (authResponse) ->
+#      if authResponse.status != 'connected'
+#        FB.login (authResponse) ->
+#          SessionSettings.facebookUser.auth = authResponse
+#          if authResponse.status is 'connected'
+#              FB.api '/me', (userInfo) ->
+#                SessionSettings.facebookUser.me = userInfo
+#                railsSession(authResponse, userInfo)
+#          else
+#            AlertService.setError 'Error trying to sign you in to Facebook.', $scope, 'main'
+#            console.log 'Error signing in to Facebook.'
+#      else
+#          FB.api '/me', (userInfo) ->
+#            railsSession(authResponse, userInfo)
+#            SessionSettings.facebookUser.me = userInfo
+#      console.log SessionSettings.facebookUser.auth
+#      console.log SessionSettings.facebookUser.me
 
   railsSession = (authResponse, userInfo) ->
     SessionService.userOmniauth.auth =
@@ -124,5 +127,5 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$dialog', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$dialog', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
 App.controller 'RootCtrl', RootCtrl
