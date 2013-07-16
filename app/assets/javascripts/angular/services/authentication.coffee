@@ -62,6 +62,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
     CurrentUserLoader().then (current_user) ->
       $rootScope.currentUser = current_user
       AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
+      $rootScope.$broadcast 'event:votesChanged'
       CurrentUserLoader()
 
 Auth.$inject = [ '$q', '$rootScope', 'SessionSettings', 'SessionService', 'AlertService', 'CurrentUserLoader' ]
