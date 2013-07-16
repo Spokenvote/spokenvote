@@ -28,9 +28,6 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
       SessionService.userOmniauth.$save().success (sessionResponse) ->
         if sessionResponse.success == true
           $rootScope.authService.updateUserSession(scope).then ->
-#          CurrentUserLoader().then (current_user) ->
-#            $rootScope.currentUser = current_user
-#            AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
             deferred.resolve sessionResponse
         if sessionResponse.success == false
           AlertService.setCtlResult 'Sorry, we were not able to sign you in to Spokenvote.', scope, 'main'

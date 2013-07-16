@@ -25,8 +25,8 @@ ProposalListCtrl =
       if $scope.currentUser.id?
         VotingService.new $scope
       else
-        $scope.authService.signinFb($scope).then (userInfo) ->
-          VotingService.new $scope
+        $scope.authService.signinFb($scope).then ->
+          VotingService.new $scope, VotingService
 
 
 ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->

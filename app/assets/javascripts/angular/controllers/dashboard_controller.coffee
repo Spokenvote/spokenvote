@@ -58,12 +58,16 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   App.navCreateHub = ->
     $scope.$apply ->
-      VotingService.new $scope
       currentHub = SessionSettings.hub_attributes
       SessionSettings.hub_attributes = {}
       SessionSettings.hub_attributes.location_id = currentHub.location_id
       SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
       SessionSettings.actions.changeHub = 'new'
+      if $scope.currentUser.id?
+        VotingService.new $scope
+      else
+        $scope.authService.signinFb($scope).then ->
+          VotingService.new $scope, VotingService
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
