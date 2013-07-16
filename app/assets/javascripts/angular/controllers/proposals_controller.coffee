@@ -67,16 +67,16 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
     VotingService.delete $scope, clicked_proposal
 
   $scope.tooltips =
-    support: "<h5><b>Support this proposal</b></h4><b>Supporting:</b> You may support only one proposal on this topic,
+    support: "<h5><b>Support this proposal</b></h5><b>Supporting:</b> You may support only one proposal on this topic,
               but are free to change your support to a <i>different</i> proposal at any time by clicking
               <i>support</i> on that proposal or by composing an <i>improved</i> proposal."
-    improve: "<h5><b>Create a better proposal</b></h4><b>Improving:</b>
+    improve: "<h5><b>Create a better proposal</b></h5><b>Improving:</b>
               By composing an <i>improved</i> proposal you automatically become that proposal's first supporter.
               You may change your support to a <i>different</i> proposal at any time by
               supporting it or by composing another <i>improved</i> proposal."
-    edit: "<h5><b>Edit your proposal</b></h4><b>Editing: </b>You may edit your proposal<br />
+    edit: "<h5><b>Edit your proposal</b></h5><b>Editing: </b>You may edit your proposal<br />
             up until it receives its first support from<br />another user."
-    delete: "<h5><b>Delete your proposal</b></h4><b>Deleting: </b>You may delete your<br />proposal
+    delete: "<h5><b>Delete your proposal</b></h5><b>Deleting: </b>You may delete your<br />proposal
                 up until it receives its first<br />support from another user or if support<br /> ever falls to zero."
     twitter: 'Share this proposal on Twitter'
     facebook: 'Share this proposal on Facebook'
