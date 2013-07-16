@@ -11,7 +11,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
         AlertService.setError 'Error trying to sign you in to Facebook. Please try again', scope, 'main'
         if error?
           AlertService.setCtlResult error.message, scope, 'main'
-          console.log error.message   # permanent console.log
+          console.log error   # permanent console.log
         deferredFb.reject error
 
 
@@ -27,12 +27,13 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
     if SessionService.signedOut
       SessionService.userOmniauth.$save().success (sessionResponse) ->
         if sessionResponse.success == true
-          CurrentUserLoader().then (current_user) ->
-            scope.currentUser = current_user
-            AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
+          $rootScope.authService.updateUserSession(scope).then ->
+#          CurrentUserLoader().then (current_user) ->
+#            $rootScope.currentUser = current_user
+#            AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
             deferred.resolve sessionResponse
         if sessionResponse.success == false
-          AlertService.setCtlResult 'Sorry, we were not able to sign you in to Spokenvote.', $scope, 'main'
+          AlertService.setCtlResult 'Sorry, we were not able to sign you in to Spokenvote.', scope, 'main'
           deferred.reject sessionResponse
 
 
@@ -59,6 +60,12 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
             fbResolve null, authResponse, deferredFb, scope
 
     deferredFb.promise
+
+  updateUserSession: (scope) ->
+    CurrentUserLoader().then (current_user) ->
+      $rootScope.currentUser = current_user
+      AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
+      CurrentUserLoader()
 
 Auth.$inject = [ '$q', '$rootScope', 'SessionSettings', 'SessionService', 'AlertService', 'CurrentUserLoader' ]
 App.Services.factory 'Auth', Auth

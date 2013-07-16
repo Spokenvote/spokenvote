@@ -59,7 +59,6 @@ AlertService = ($timeout) ->
 
   setCallingScope: (scope) ->
     @callingScope = scope
-    console.log @callingScope
 
   setClass: (alertclass) ->
     @alertClass = alertclass
