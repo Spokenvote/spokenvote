@@ -9,8 +9,11 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
   $scope.$on "event:loginRequired", ->
     $scope.authService.signinFb($scope)
 
+  $scope.signinAuth = ->
+    $scope.authService.signinFb($scope)
 
-#  $scope.updateUserSession = ->
+
+  #  $scope.updateUserSession = ->
 #    $scope.authService.updateUserSession()
 
 #    CurrentUserLoader().then (current_user) ->
@@ -83,7 +86,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     SessionService.userOmniauth.$destroy()
     $rootScope.currentUser = {}
     $location.path('/').search('')
-    AlertService.setInfo 'You are signed out.', $scope, 'main'
+    AlertService.setInfo 'You are signed out of Spokenvote.', $scope, 'main'
 
 
   $scope.restoreCallingModal = ->

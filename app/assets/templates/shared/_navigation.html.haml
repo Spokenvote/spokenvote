@@ -10,13 +10,42 @@
       %ul#main-nav.nav
         %li
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+        %li.buttons
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) New Topic
 
       %ul.nav.pull-right
-        %li.dropdown
+
+        -#%li.dropdown
+        -#  %a.dropdown-toggle( data-toggle='dropdown' )
+        -#    %b.white Learn more
+        -#    %b.caret
+        -#  %ul.dropdown-menu
+        -#    %li
+        -#      %a( href='/about' ) About this site
+        -#    %li
+        -#      %a( href='/terms-of-use' ) Terms of Use
+        -#    %li
+        -#      %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
+
+        %li.dropdown( bs-tooltip='currentUser.username || "Learn more" ' data-placement='bottom' )
           %a.dropdown-toggle( data-toggle='dropdown' )
-            %b.white Learn more
+            %b.white {{ currentUser.first_name || 'Learn more' }}
             %b.caret
-          %ul.dropdown-menu
+
+          %ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
+            %li
+              %a( ng-href='/proposals?filter=my_votes' ng-show='currentUser.username' ) My Proposals
+            %li
+              %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings
+            %li
+              / Angular should ignore this route and not try to handle it since it has target='_self'
+              %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
+            %li
+              %a( class="divider" ng-show='currentUser.username' )
+            %li
+              %a( href='#' ng-click='signOut()' ng-show='currentUser.username' ) Sign Out
+            %li
+              %a( class="divider" ng-show='currentUser.username' )
             %li
               %a( href='/about' ) About this site
             %li
@@ -24,28 +53,12 @@
             %li
               %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
-        %li.dropdown( ng-show='currentUser.username' bs-tooltip='currentUser.username' data-placement='bottom' )
-          %a.dropdown-toggle( data-toggle='dropdown' )
-            %b.white {{ currentUser.first_name }}
-            %b.caret
-
-          %ul.dropdown-menu
-            %li
-              %a( ng-href='/proposals?filter=my_votes' ) My Proposals
-            %li
-              %a( href='#' ng-click='userSettings()' ) Settings
-            %li
-              / Angular should ignore this route and not try to handle it since it has target='_self'
-              %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
-            %li
-              %a( href='#' ng-click='signOut()' ) Sign Out
-
         %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes'  bs-tooltip='currentUser.username' data-placement='bottom' )
           %a(href='/proposals?filter=my_votes')
             %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
 
         %li.buttons( ng-show='!currentUser.username' )
-          %button( ng-click="authService.signinFb($scope)" class='btn btn-info btn-bold' ) My Spokenvote
+          %button( ng-click="signinAuth()" class='btn btn-info btn-bold' ) My Spokenvote
           -#%button( ng-click="facebookAuth2()" class='btn btn-info btn-bold' ) My Spokenvote
           -#%button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
           -#%button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!

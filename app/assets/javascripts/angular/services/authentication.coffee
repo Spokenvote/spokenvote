@@ -5,7 +5,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
       AlertService.clearAlerts()
       if userInfo
         SessionSettings.facebookUser.me = userInfo
-        AlertService.setSuccess 'Facebook accepted your credentials. Now we\'re signing you into Spokenvote...', scope, 'main'
+#        AlertService.setSuccess 'Facebook accepted your credentials. Now we\'re signing you into Spokenvote...', scope, 'main'
         signinSv deferredFb, scope
       else
         AlertService.setError 'Error trying to sign you in to Facebook. Please try again', scope, 'main'
@@ -61,7 +61,8 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
   updateUserSession: (scope) ->
     CurrentUserLoader().then (current_user) ->
       $rootScope.currentUser = current_user
-      AlertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
+      $rootScope.alertService.clearAlerts
+      $rootScope.alertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
       $rootScope.$broadcast 'event:votesChanged'
       CurrentUserLoader()
 

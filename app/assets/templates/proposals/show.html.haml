@@ -1,5 +1,7 @@
 .content_page
   .proposal_hub
+    #backNav
+      %a.icon( ng-href='#' ng-click='backtoTopics()' bs-tooltip='tooltips.backtoTopics' data-placement='bottom' ) <i class="icon-backward"></i>
     #totalVoteLabel
       %span.label
         {{ proposal.votes_in_tree }}

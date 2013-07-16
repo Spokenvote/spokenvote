@@ -36,6 +36,9 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
+  $scope.backtoTopics = ->
+    $location.path('/proposals')
+
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
 
@@ -81,6 +84,7 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
     twitter: 'Share this proposal on Twitter'
     facebook: 'Share this proposal on Facebook'
     google: 'Share this proposal on Google+'
+    backtoTopics: 'Return to Topic list'
 
   $scope.socialSharing =
     twitterUrl: $scope.sessionSettings.socialSharing.twitterRootUrl + 'Check out this Spokenvote proposal:' + $scope.location.absUrl() + ' /via @spokenvote'

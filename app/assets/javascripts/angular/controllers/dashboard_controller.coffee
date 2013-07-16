@@ -13,6 +13,8 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
+#    else if !$route.current.params.hub?
+#      $scope.hubFilter.hubFilter = null
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
@@ -70,6 +72,27 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
           VotingService.new $scope, VotingService
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
+
+    $scope.main_nav_dropdown = [
+      text: "By Votes"
+      submenu: [
+        text: "Most Votes"
+        click: "sortRelatedProposals('Most Votes')"
+      ,
+        text: "Least Votes"
+        click: "sortRelatedProposals('Least Votes')"
+      ]
+    ,
+      text: "By Age"
+      submenu: [
+        text: "Most Recently Voted on"
+        click: "sortRelatedProposals('Most Recently Voted on')"
+      ,
+        text: "Oldest Most Recent Vote"
+        click: "sortRelatedProposals('Oldest Most Recent Vote')"
+      ]
+    ]
+
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 
