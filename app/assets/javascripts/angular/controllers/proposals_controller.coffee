@@ -22,7 +22,11 @@ ProposalListCtrl =
       else
         $scope.sessionSettings.actions.searchTerm = null
         $scope.sessionSettings.actions.changeHub = true
-      VotingService.new $scope
+      if $scope.currentUser.id?
+        VotingService.new $scope
+      else
+        $scope.authService.signinFb($scope).then (userInfo) ->
+          VotingService.new $scope
 
 
 ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->
@@ -35,18 +39,26 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
 
-  $scope.setVoter = (vote) ->
+  $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)
     $scope.sessionSettings.actions.userFilter = vote.username
 
-  $scope.showProposal = (proposal) ->
+  $scope.showProposal = ( proposal ) ->
     $location.path('/proposals/' + proposal.id)
 
   $scope.support = ( clicked_proposal ) ->
-    VotingService.support $scope, clicked_proposal
+    if $scope.currentUser.id?
+      VotingService.support $scope, clicked_proposal
+    else
+      $scope.authService.signinFb($scope).then (userInfo) ->
+        VotingService.support $scope, clicked_proposal
 
   $scope.improve = ( clicked_proposal ) ->
-    VotingService.improve $scope, clicked_proposal
+    if $scope.currentUser.id?
+      VotingService.improve $scope, clicked_proposal
+    else
+      $scope.authService.signinFb($scope).then (userInfo) ->
+        VotingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     VotingService.edit $scope, clicked_proposal

@@ -7,7 +7,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
 
     if !scope.currentUser.id?
       AlertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
-      scope.facebookAuth2 'VotingService.support', scope, clicked_proposal   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
+#      scope.facebookAuth2 'VotingService.support', scope, clicked_proposal   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?

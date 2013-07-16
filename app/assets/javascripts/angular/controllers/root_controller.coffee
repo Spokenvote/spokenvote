@@ -1,5 +1,6 @@
 RootCtrl = ($scope, AlertService, $location, $dialog, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
   $scope.alertService = AlertService
+  $scope.authService = Auth
   $scope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
     $scope.currentUser = current_user
@@ -11,8 +12,10 @@ RootCtrl = ($scope, AlertService, $location, $dialog, Auth, SessionService, Sess
   $scope.facebookAuth2 = ->
     Auth.signinFb($scope).then (userInfo) ->
       console.log userInfo
-      console.log SessionSettings.facebookUser.auth
-      console.log SessionSettings.facebookUser.me
+#      console.log SessionSettings.facebookUser.auth
+#      console.log SessionSettings.facebookUser.me
+
+
 
 #    AlertService.clearAlerts()
 #
@@ -34,27 +37,27 @@ RootCtrl = ($scope, AlertService, $location, $dialog, Auth, SessionService, Sess
 #      console.log SessionSettings.facebookUser.auth
 #      console.log SessionSettings.facebookUser.me
 
-  railsSession = (authResponse, userInfo) ->
-    SessionService.userOmniauth.auth =
-      provider: 'facebook'
-      uid: userInfo.id
-      name: userInfo.name
-      email: userInfo.email
-      avatar_url: null
-      token: authResponse.authResponse.accessToken
-      expiresIn: authResponse.authResponse.expiresIn
-    signInRails()
-
-  signInRails = ->
-    AlertService.clearAlerts()
-    if SessionService.signedOut
-      SessionService.userOmniauth.$save().success (response) ->
-        if response.success == true
-          $scope.updateUserSession()
-          AlertService.setInfo 'You are signed in!', $scope, 'main'
-#          $cookieStore.put "spokenvote_email", SessionService.userOmniauth.auth.email
-        if response.success == false
-          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope, 'main'
+#  railsSession = (authResponse, userInfo) ->
+#    SessionService.userOmniauth.auth =
+#      provider: 'facebook'
+#      uid: userInfo.id
+#      name: userInfo.name
+#      email: userInfo.email
+#      avatar_url: null
+#      token: authResponse.authResponse.accessToken
+#      expiresIn: authResponse.authResponse.expiresIn
+#    signInRails()
+#
+#  signInRails = ->
+#    AlertService.clearAlerts()
+#    if SessionService.signedOut
+#      SessionService.userOmniauth.$save().success (response) ->
+#        if response.success == true
+#          $scope.updateUserSession()
+#          AlertService.setInfo 'You are signed in!', $scope, 'main'
+##          $cookieStore.put "spokenvote_email", SessionService.userOmniauth.auth.email
+#        if response.success == false
+#          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope, 'main'
 
   $scope.updateUserSession = ->
     CurrentUserLoader().then (current_user) ->
