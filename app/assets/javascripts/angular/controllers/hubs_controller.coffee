@@ -1,7 +1,6 @@
 HubsCtrl = ($scope, Hub, AlertService) ->
   $scope.hub_attributes = {}
   $scope.hub_attributes.group_name = $scope.searchGroupTerm
-  console.log $scope.hub_attributes.group_name
 
 
   $scope.addHub = ->

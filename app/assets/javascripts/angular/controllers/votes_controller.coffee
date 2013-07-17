@@ -105,8 +105,6 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     dialog.close(result)
 
 NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
-  console.log 'NewProposalCtrl'
-  console.log $scope.sessionSettings
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
@@ -122,9 +120,6 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
           comment: $scope.newProposal.comment
         hub_id: $scope.sessionSettings.hub_attributes.id
         hub_attributes: $scope.sessionSettings.hub_attributes
-
-    console.log newProposal
-    console.log $scope.sessionSettings.hub_attributes.group_name
 
     AlertService.clearAlerts()
 
