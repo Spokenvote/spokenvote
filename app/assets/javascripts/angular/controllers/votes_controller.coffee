@@ -105,6 +105,8 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     dialog.close(result)
 
 NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+  console.log 'NewProposalCtrl'
+  console.log $scope.sessionSettings
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'

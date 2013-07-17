@@ -12,6 +12,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
+        console.log '$locationChangeSuccess'
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
@@ -43,6 +44,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
     formatSelection: (searchedHub) ->
       SessionSettings.hub_attributes = searchedHub
+      console.log 'formatSelection'
       SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
@@ -55,6 +57,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     initSelection: (element, callback) ->
       CurrentHubLoader().then (searchedHub) ->
         SessionSettings.hub_attributes = searchedHub
+        console.log 'initSelection'
         callback SessionSettings.hub_attributes
 
 
@@ -62,6 +65,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     $scope.$apply ->
       currentHub = SessionSettings.hub_attributes
       SessionSettings.hub_attributes = {}
+      console.log 'navCreateHub'
       SessionSettings.hub_attributes.location_id = currentHub.location_id
       SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
       SessionSettings.actions.changeHub = 'new'
