@@ -53,8 +53,6 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
     dialog.close(result)
 
 EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
-#  $scope.sessionSettings = parentScope.sessionSettings
-#  $scope.currentUser = parentScope.currentUser
   $scope.clicked_proposal = parentScope.clicked_proposal
 
   if $scope.clicked_proposal.votes.length > 1
@@ -85,8 +83,6 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertSer
     dialog.close(result)
 
 DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal, parentScope) ->
-#  $scope.sessionSettings = parentScope.sessionSettings
-#  $scope.currentUser = parentScope.currentUser
   $scope.clicked_proposal = parentScope.clicked_proposal
 
   if parentScope.clicked_proposal.votes.length > 1
@@ -109,8 +105,6 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     dialog.close(result)
 
 NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
-#  $scope.sessionSettings = parentScope.sessionSettings
-#  $scope.currentUser = parentScope.currentUser
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
