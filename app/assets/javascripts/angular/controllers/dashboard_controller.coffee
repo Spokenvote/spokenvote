@@ -45,6 +45,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     formatSelection: (searchedHub) ->
       SessionSettings.hub_attributes = searchedHub
       console.log 'formatSelection'
+      console.log searchedHub
       SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
