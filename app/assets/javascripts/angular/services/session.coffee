@@ -33,25 +33,25 @@ AlertService = ($timeout) ->
     @alertMessage = msg
     @alertDestination = dest
     @alertClass = 'alert-success'
-    $timeout  (-> scope.hideAlert()), 6000 if scope?
+    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setInfo: (msg, scope, dest) ->
     @alertMessage = msg
     @alertDestination = dest
     @alertClass = 'alert-info'
-    $timeout  (-> scope.hideAlert()), 6000 if scope?
+    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setError: (msg, scope, dest) ->
     @alertMessage = msg
     @alertDestination = dest
     @alertClass = 'alert-error'
-    $timeout  (-> scope.hideAlert()), 6000 if scope?
+    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setCtlResult: (result, scope, dest) ->
     @cltActionResult = result
     @alertDestination = dest
     @alertClass = 'alert-error'
-    $timeout  (-> scope.hideAlert()), 6000 if scope?
+    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setJson: (json) ->
     @jsonResponse = json
@@ -59,7 +59,6 @@ AlertService = ($timeout) ->
 
   setCallingScope: (scope) ->
     @callingScope = scope
-    console.log @callingScope
 
   setClass: (alertclass) ->
     @alertClass = alertclass

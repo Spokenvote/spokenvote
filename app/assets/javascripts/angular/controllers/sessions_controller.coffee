@@ -1,5 +1,7 @@
+# All below had been decreciated in favor of Facebook sign in only
+
 SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, dialog) ->
-  $scope.alertService = AlertService
+#  $scope.alertService = AlertService
   $scope.session = SessionService.userSession
 
   $scope.signIn = ->
@@ -8,9 +10,9 @@ SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, di
       $scope.session.$save().success (response, status, headers, config) ->
         if response.success == true
           dialog.close(response)
-          $scope.updateUserSession()
+          $rootScope.authService.updateUserSession($scope)
           $location.path('/proposals').search('filter', 'my_votes')
-          AlertService.setInfo 'You are signed in!', $scope, 'main'
+#          AlertService.setInfo 'You are signed in!', $scope, 'main'
           $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
         #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
@@ -31,7 +33,7 @@ RegistrationCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
           dialog.close(response)
           $location.path('/proposals').search('filter', 'active')
           AlertService.setInfo 'Thank you for joining Spokenvote!', $scope, 'main'
-          $scope.updateUserSession()
+          $rootScope.authService.updateUserSession(scope)
  #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?
         if response.success == false
           AlertService.setCtlResult 'Sorry, we were not able to save your registration.', $scope, 'modal'

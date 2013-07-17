@@ -57,22 +57,21 @@ header.navbar-inverse .navbar-inner {
   background-image: url(sprite.png);
   background-repeat: repeat-x;
   .nav li.dropdown > .dropdown-toggle .caret {
-    //border-top-color: #fff;
     //border-bottom-color: #fff;
   }
   .nav.pull-right {
     color: #fff;
     padding-right: 22px;
-    li.dropdown ul {
-      margin-top: 9px;
-      margin-left: 5px;
-      margin-right: 10px;
-      vertical-align: middle;
+    li.dropdown {
+      //margin-top: 9px;
+      margin-left: -16px;
+      //margin-right: 11px;
+      //vertical-align: middle;
     }
     li.avatar {
       margin-left: 5px;
       margin-top: -5px;
-      margin-right: -20px;
+      margin-right: -22px;
     }
     li.buttons {
       padding-top: 2px;
@@ -109,6 +108,17 @@ header.navbar-inverse .navbar-inner {
   }
 }
 
+#main-nav {
+  padding: 7px 0 0;
+  a {
+    padding: 1px 4px;
+  }
+  li.buttons {
+    padding: 1px 0px 5px 20px;
+    margin-top: -5px;
+  }
+}
+
 footer.navbar-inverse {
   &.navbar {
     margin-bottom: 0;
@@ -123,6 +133,7 @@ footer.navbar-inverse {
     text-align: center;
     .container {
       width: 940px;
+      height: 44px;
     }
     .brand {
       padding: 0;
@@ -136,9 +147,11 @@ footer.navbar-inverse {
 }
 
 .navbar .nav > li > a {
-  padding: 11px 8px 13px;
+  padding: 11px 15px 13px;
   color: #bbb;
-  font-weight: bold;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 15px;
+  //font-weight: bold;
   &:hover {
     //background-color: #999;
   }
@@ -156,10 +169,10 @@ footer.navbar-inverse {
 }
 
 #s2id_hub_filter {
-  padding: 7px 0 0;
-  a {
-    padding: 1px 4px;
-  }
+  //padding: 7px 0 0;
+  //a {
+  //  padding: 1px 4px;
+  //}
 }
 
 // disalbed because we want the drop to natively just match the search box

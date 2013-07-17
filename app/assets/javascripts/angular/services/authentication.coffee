@@ -1,31 +1,70 @@
-Authentication = ($q, $rootScope) ->
+Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUserLoader) ->
 
-  resolve = (errval, retval, deferred) ->
+  fbResolve = (userInfo, error, deferredFb, scope) ->
     $rootScope.$apply ->
-      if errval
-        deferred.reject errval
+      AlertService.clearAlerts()
+      if userInfo
+        SessionSettings.facebookUser.me = userInfo
+#        AlertService.setSuccess 'Facebook accepted your credentials. Now we\'re signing you into Spokenvote...', scope, 'main'
+        signinSv deferredFb, scope
       else
-        retval.connected = true
-        deferred.resolve retval
+        AlertService.setError 'Error trying to sign you in to Facebook. Please try again', scope, 'main'
+        if error?
+          AlertService.setCtlResult error.message, scope, 'main'
+          console.log error   # permanent console.log
+        deferredFb.reject error
 
-  getUser: (FB) ->
-    deferred = $q.defer()
-    FB.getLoginStatus (response) ->
-      if response.status is "connected"
-        FB.api "/me", (response) ->
-          console.log response
-          resolve null, response, deferred
-      else if response.status is "not_authorized"
-        FB.login (response) ->
-          if response.authResponse
-            FB.api "/me", (response) ->
-              resolve null, response, deferred
+
+  signinSv = (deferred, scope) ->
+    SessionService.userOmniauth.auth =
+      provider: 'facebook'
+      uid: SessionSettings.facebookUser.me.id
+      name: SessionSettings.facebookUser.me.name
+      email: SessionSettings.facebookUser.me.email
+      token: SessionSettings.facebookUser.auth.authResponse.accessToken
+      expiresIn: SessionSettings.facebookUser.auth.authResponse.expiresIn
+
+    if SessionService.signedOut
+      SessionService.userOmniauth.$save().success (sessionResponse) ->
+        if sessionResponse.success == true
+          $rootScope.authService.updateUserSession(scope).then ->
+            deferred.resolve sessionResponse
+        if sessionResponse.success == false
+          AlertService.setCtlResult 'Sorry, we were not able to sign you in to Spokenvote.', scope, 'main'
+          deferred.reject sessionResponse
+
+
+  signinFb: (scope) ->
+    deferredFb = $q.defer()
+    FB.getLoginStatus (authResponse) ->
+      if authResponse.status is "connected"
+        SessionSettings.facebookUser.auth = authResponse
+        FB.api "/me", (userInfo) ->
+          if userInfo.error
+            fbResolve null, userInfo.error, deferredFb, scope
           else
-            resolve response.error, null, deferred
+            fbResolve userInfo, null, deferredFb, scope
+      else
+        FB.login (authResponse) ->
+          SessionSettings.facebookUser.auth = authResponse
+          if authResponse.status is "connected"
+            FB.api "/me", (userInfo) ->
+              if userInfo.error
+                fbResolve null, userInfo.error, deferredFb, scope
+              else
+                fbResolve userInfo, null, deferredFb, scope
+          else
+            fbResolve null, authResponse, deferredFb, scope
 
-    promise = deferred.promise
-    promise.connected = false
-    promise
+    deferredFb.promise
 
-Authentication.$inject = [ '$q', '$rootScope' ]
-App.Services.factory 'Authentication', Authentication
+  updateUserSession: (scope) ->
+    CurrentUserLoader().then (current_user) ->
+      $rootScope.currentUser = current_user
+      $rootScope.alertService.clearAlerts
+      $rootScope.alertService.setInfo 'You are signed in to Spokenvote!', scope, 'main'
+      $rootScope.$broadcast 'event:votesChanged'
+      CurrentUserLoader()
+
+Auth.$inject = [ '$q', '$rootScope', 'SessionSettings', 'SessionService', 'AlertService', 'CurrentUserLoader' ]
+App.Services.factory 'Auth', Auth

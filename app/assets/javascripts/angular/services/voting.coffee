@@ -7,7 +7,6 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
 
     if !scope.currentUser.id?
       AlertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
-      scope.facebookAuth2 'VotingService.support', scope, clicked_proposal   #TODO Preparing for Friendly Forwarding, but need some coaching on best practices.
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
@@ -35,7 +34,6 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
     AlertService.clearAlerts()
 
     if !scope.currentUser.id?
-      scope.facebookAuth2()
       AlertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
@@ -56,7 +54,6 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
     scope.clicked_proposal = clicked_proposal
 
     if !scope.currentUser.id?
-      scope.facebookAuth2()
       AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
     else
       if SessionSettings.openModals.editProposal is false
@@ -69,11 +66,10 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
         d.open('/assets/proposals/_edit_proposal_modal.html.haml', 'EditProposalCtrl').then (result) ->
           SessionSettings.openModals.editProposal = d.isOpen()
 
-  delete: ( scope, clicked_proposal ) ->
+  delete: (scope, clicked_proposal) ->
     scope.clicked_proposal = clicked_proposal
 
     if !scope.currentUser.id?
-      scope.facebookAuth2()
       AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
     else
       if SessionSettings.openModals.newProposal is false
@@ -86,10 +82,9 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
         d.open('/assets/proposals/_delete_proposal_modal.html.haml', 'DeleteProposalCtrl').then (result) ->
           SessionSettings.openModals.deleteProposal = d.isOpen()
 
-  new: ( scope ) ->
+  new: (scope) ->
 
     if !scope.currentUser.id?
-      scope.facebookAuth2()
       AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
     else
       if SessionSettings.openModals.newProposal is false

@@ -13,6 +13,8 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
+    else if !$route.current.params.hub?
+      $scope.hubFilter.hubFilter = null
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
@@ -58,14 +60,30 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   App.navCreateHub = ->
     $scope.$apply ->
-      VotingService.new $scope
       currentHub = SessionSettings.hub_attributes
       SessionSettings.hub_attributes = {}
       SessionSettings.hub_attributes.location_id = currentHub.location_id
       SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
       SessionSettings.actions.changeHub = 'new'
+      if $scope.currentUser.id?
+        VotingService.new $scope
+      else
+        $scope.authService.signinFb($scope).then ->
+          VotingService.new $scope, VotingService
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
+
+  $scope.newTopic = ->
+    if $scope.sessionSettings.hub_attributes.id?
+      $scope.sessionSettings.actions.changeHub = false
+    else
+      $scope.sessionSettings.actions.searchTerm = null
+      $scope.sessionSettings.actions.changeHub = true
+    if $scope.currentUser.id?
+      VotingService.new $scope
+    else
+      $scope.authService.signinFb($scope).then ->
+        VotingService.new $scope, VotingService
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 

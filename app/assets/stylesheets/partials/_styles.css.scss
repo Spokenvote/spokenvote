@@ -680,10 +680,6 @@ input.ng-invalid.ng-dirty {
 .improve_support_buttons {
   display: inline;
   .btn-support {
-    //color: white;
-    //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(28, 141, 255, 0.81)), to(rgb(18, 87, 162))) !important;
-    //:hover {
-      //background-color: none;
     background-color: hsl(211, 92%, 46%) !important;
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
@@ -717,6 +713,7 @@ input.ng-invalid.ng-dirty {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.26);
     -webkit-font-smoothing: antialiased;
   }
+
   .shares {
     float: right;
     margin-right: 20px;
@@ -729,13 +726,30 @@ input.ng-invalid.ng-dirty {
   }
 }
 
-.supportbtn {
-  color: #0048c7;
+.btn-newTopic {
+  background-color: hsl(36, 80%, 40%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eaa947", endColorstr="#b77614");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#eaa947), to(#b77614));
+  background-image: -moz-linear-gradient(top, #eaa947, #b77614);
+  background-image: -ms-linear-gradient(top, #eaa947, #b77614);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaa947), color-stop(100%, #b77614));
+  background-image: -webkit-linear-gradient(top, #eaa947, #b77614);
+  background-image: -o-linear-gradient(top, #eaa947, #b77614);
+  background-image: linear-gradient(#eaa947, #b77614);
+  border-color: #b77614 #b77614 hsl(36, 80%, 35%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
 }
 
-.improvebtn {
-  color: #fabd00
-}
+//.supportbtn {
+//  color: #0048c7;
+//}
+//
+//.improvebtn {
+//  color: #fabd00
+//}
 
 .supporting_arguments {
   h3 span {
@@ -869,7 +883,7 @@ input.ng-invalid.ng-dirty {
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -30px;
+  margin-top: -27px;
   margin-right: -21px;
   // flush right on #mainContent
   .label {
@@ -880,6 +894,18 @@ input.ng-invalid.ng-dirty {
     @extend .label-flat;
   }
 }
+
+#backNav {
+  margin-top: -9px;
+  margin-left: -26px;
+  a.icon {
+    color: #aeaeae;
+    text-decoration: none;
+    :hover {
+      color: #1c85f6!important;
+      }
+    }
+  }
 
 #big-percent {
   font-size: 24pt;
