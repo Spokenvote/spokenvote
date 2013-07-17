@@ -1,5 +1,4 @@
 UserSettingsCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, dialog, CurrentUser) ->
-  console.log $scope.sessionSettings
 
   $scope.saveUserSettings = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal.id

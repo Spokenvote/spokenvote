@@ -1,59 +1,16 @@
-RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSettings, CurrentUserLoader) ->
-  $scope.alertService = AlertService
-  $scope.sessionSettings = SessionSettings
+RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
+  $rootScope.alertService = AlertService
+  $rootScope.authService = Auth
+  $rootScope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
-    $scope.currentUser = current_user
-    $location.path('/proposals').search('filter', 'my_votes') if $scope.currentUser.username? and $location.path() == '/'
+    $rootScope.currentUser = current_user
+    $location.path('/proposals').search('filter', 'my_votes') if $rootScope.currentUser.username? and $location.path() == '/'
 
   $scope.$on "event:loginRequired", ->
-    $scope.facebookAuth2()
+    $scope.authService.signinFb($scope)
 
-  $scope.facebookAuth2 = ->
-    AlertService.clearAlerts()
-
-    FB.getLoginStatus (authResponse) ->
-      if authResponse.status != 'connected'
-        FB.login (authResponse) ->
-          SessionSettings.facebookUser.auth = authResponse
-          if authResponse.status is 'connected'
-              FB.api '/me', (userInfo) ->
-                SessionSettings.facebookUser.me = userInfo
-                railsSession(authResponse, userInfo)
-          else
-            AlertService.setError 'Error trying to sign you in to Facebook.', $scope, 'main'
-            console.log 'Error signing in to Facebook.'
-      else
-          FB.api '/me', (userInfo) ->
-            railsSession(authResponse, userInfo)
-            SessionSettings.facebookUser.me = userInfo
-      console.log SessionSettings.facebookUser.auth
-      console.log SessionSettings.facebookUser.me
-
-  railsSession = (authResponse, userInfo) ->
-    SessionService.userOmniauth.auth =
-      provider: 'facebook'
-      uid: userInfo.id
-      name: userInfo.name
-      email: userInfo.email
-      avatar_url: null
-      token: authResponse.authResponse.accessToken
-      expiresIn: authResponse.authResponse.expiresIn
-    signInRails()
-
-  signInRails = ->
-    AlertService.clearAlerts()
-    if SessionService.signedOut
-      SessionService.userOmniauth.$save().success (response) ->
-        if response.success == true
-          $scope.updateUserSession()
-          AlertService.setInfo 'You are signed in!', $scope, 'main'
-#          $cookieStore.put "spokenvote_email", SessionService.userOmniauth.auth.email
-        if response.success == false
-          AlertService.setCtlResult 'Sorry, we were not able to sign you in with the supplied email and password.', $scope, 'main'
-
-  $scope.updateUserSession = ->
-    CurrentUserLoader().then (current_user) ->
-      $scope.currentUser = current_user
+  $scope.signinAuth = ->
+    $scope.authService.signinFb($scope)
 
   $scope.userSettings = ->
     if SessionSettings.openModals.userSettings is false
@@ -68,15 +25,12 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
 
   $scope.signOut = ->
     SessionService.userOmniauth.$destroy()
-    $scope.currentUser = {}
+    $rootScope.currentUser = {}
     $location.path('/').search('')
-    AlertService.setInfo 'You are signed out.', $scope, 'main'
+    AlertService.setInfo 'You are signed out of Spokenvote.', $scope, 'main'
 
 
-  $scope.restoreCallingModal = ->
-#    $scope.errorService.callingScope.show()        # feature for future use
-
-# Decreciated in favor of Facebook sign in only
+# All below had been decreciated in favor of Facebook sign in only
   $scope.googleAuth2 = ->
     gapi.auth.authorize SessionSettings.spokenvote_attributes.googleOauth2Config, ->
       gapi.client.load "oauth2", "v2", ->
@@ -124,5 +78,5 @@ RootCtrl = ($scope, AlertService, $location, $dialog, SessionService, SessionSet
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', 'AlertService', '$location', '$dialog', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$dialog', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
 App.controller 'RootCtrl', RootCtrl

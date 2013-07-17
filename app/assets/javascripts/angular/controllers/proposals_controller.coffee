@@ -22,7 +22,11 @@ ProposalListCtrl =
       else
         $scope.sessionSettings.actions.searchTerm = null
         $scope.sessionSettings.actions.changeHub = true
-      VotingService.new $scope
+      if $scope.currentUser.id?
+        VotingService.new $scope
+      else
+        $scope.authService.signinFb($scope).then ->
+          VotingService.new $scope, VotingService
 
 
 ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->
@@ -32,21 +36,32 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
+  $scope.backtoTopics = ->
+    $location.path('/proposals')
+
   $scope.hubView = ->
     $location.path('/proposals').search('hub', proposal.hub.id)
 
-  $scope.setVoter = (vote) ->
+  $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)
     $scope.sessionSettings.actions.userFilter = vote.username
 
-  $scope.showProposal = (proposal) ->
+  $scope.showProposal = ( proposal ) ->
     $location.path('/proposals/' + proposal.id)
 
   $scope.support = ( clicked_proposal ) ->
-    VotingService.support $scope, clicked_proposal
+    if $scope.currentUser.id?
+      VotingService.support $scope, clicked_proposal
+    else
+      $scope.authService.signinFb($scope).then ->
+        VotingService.support $scope, clicked_proposal
 
   $scope.improve = ( clicked_proposal ) ->
-    VotingService.improve $scope, clicked_proposal
+    if $scope.currentUser.id?
+      VotingService.improve $scope, clicked_proposal
+    else
+      $scope.authService.signinFb($scope).then ->
+        VotingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     VotingService.edit $scope, clicked_proposal
@@ -55,20 +70,21 @@ ProposalShowCtrl = ( $scope, $location, AlertService, VotingService , proposal, 
     VotingService.delete $scope, clicked_proposal
 
   $scope.tooltips =
-    support: "<h5><b>Support this proposal</b></h4><b>Supporting:</b> You may support only one proposal on this topic,
+    support: "<h5><b>Support this proposal</b></h5><b>Supporting:</b> You may support only one proposal on this topic,
               but are free to change your support to a <i>different</i> proposal at any time by clicking
               <i>support</i> on that proposal or by composing an <i>improved</i> proposal."
-    improve: "<h5><b>Create a better proposal</b></h4><b>Improving:</b>
+    improve: "<h5><b>Create a better proposal</b></h5><b>Improving:</b>
               By composing an <i>improved</i> proposal you automatically become that proposal's first supporter.
               You may change your support to a <i>different</i> proposal at any time by
               supporting it or by composing another <i>improved</i> proposal."
-    edit: "<h5><b>Edit your proposal</b></h4><b>Editing: </b>You may edit your proposal<br />
+    edit: "<h5><b>Edit your proposal</b></h5><b>Editing: </b>You may edit your proposal<br />
             up until it receives its first support from<br />another user."
-    delete: "<h5><b>Delete your proposal</b></h4><b>Deleting: </b>You may delete your<br />proposal
+    delete: "<h5><b>Delete your proposal</b></h5><b>Deleting: </b>You may delete your<br />proposal
                 up until it receives its first<br />support from another user or if support<br /> ever falls to zero."
     twitter: 'Share this proposal on Twitter'
     facebook: 'Share this proposal on Facebook'
     google: 'Share this proposal on Google+'
+    backtoTopics: 'Return to Topic list'
 
   $scope.socialSharing =
     twitterUrl: $scope.sessionSettings.socialSharing.twitterRootUrl + 'Check out this Spokenvote proposal:' + $scope.location.absUrl() + ' /via @spokenvote'
