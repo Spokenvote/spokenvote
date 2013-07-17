@@ -43,9 +43,24 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      SessionSettings.hub_attributes = searchedHub
-      console.log 'formatSelection'
+      SessionSettings.hub_attributes = searchedHub unless _.isEmpty searchedHub
+#      SessionSettings.hub_attributes = searchedHub unless !searchedHub || !searchedHub.length
+      console.log _.isEmpty searchedHub
       console.log searchedHub
+      console.log SessionSettings.hub_attributes
+
+#      jump = []
+#      console.log "jump = [] _.isEmpty"
+#      console.log _.isEmpty jump
+#      jump = null
+#      console.log "jump = null _.isEmpty"
+#      console.log _.isEmpty jump
+#
+#      console.log _.isEmpty jump
+#      jump = ''
+#      console.log "jump = '' _.isEmpty"
+#      console.log _.isEmpty jump
+
       SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
