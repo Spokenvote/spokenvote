@@ -42,8 +42,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      SessionSettings.hub_attributes = searchedHub
-      SessionSettings.actions.changeHub = false
+      if not _.isEmpty searchedHub
+        SessionSettings.hub_attributes = searchedHub unless _.isEmpty searchedHub
+        SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
     formatNoMatches: (term) ->
@@ -60,11 +61,11 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   App.navCreateHub = ->
     $scope.$apply ->
+      SessionSettings.actions.changeHub = 'new'
       currentHub = SessionSettings.hub_attributes
       SessionSettings.hub_attributes = {}
       SessionSettings.hub_attributes.location_id = currentHub.location_id
       SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
-      SessionSettings.actions.changeHub = 'new'
       if $scope.currentUser.id?
         VotingService.new $scope
       else

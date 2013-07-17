@@ -168,15 +168,6 @@ footer.navbar-inverse {
   }
 }
 
-#s2id_hub_filter {
-  //padding: 7px 0 0;
-  //a {
-  //  padding: 1px 4px;
-  //}
-}
-
-// disalbed because we want the drop to natively just match the search box
-//.select2-drop-active, .pac-container { z-index: 10000 !important; width: 505px !important; }
 #location_filter {
   @include border-radius(4px);
 }

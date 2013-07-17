@@ -121,9 +121,6 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
         hub_id: $scope.sessionSettings.hub_attributes.id
         hub_attributes: $scope.sessionSettings.hub_attributes
 
-    console.log newProposal
-    console.log $scope.sessionSettings.hub_attributes.group_name
-
     AlertService.clearAlerts()
 
     Proposal.save(newProposal

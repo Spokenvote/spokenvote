@@ -16,7 +16,7 @@ gem 'rack-cache'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
-gem 'select2-rails'
+#gem 'select2-rails'   # moved to CDN
 
 # UI/Forms
 gem 'nested_form'
