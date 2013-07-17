@@ -43,7 +43,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      SessionSettings.hub_attributes = searchedHub unless _.isEmpty searchedHub
+      if not _.isEmpty searchedHub
+        SessionSettings.hub_attributes = searchedHub unless _.isEmpty searchedHub
+        SessionSettings.actions.changeHub = false
 #      SessionSettings.hub_attributes = searchedHub unless !searchedHub || !searchedHub.length
       console.log _.isEmpty searchedHub
       console.log searchedHub
@@ -61,7 +63,6 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 #      console.log "jump = '' _.isEmpty"
 #      console.log _.isEmpty jump
 
-      SessionSettings.actions.changeHub = false
       searchedHub.full_hub
 
     formatNoMatches: (term) ->
@@ -85,6 +86,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       SessionSettings.hub_attributes.location_id = currentHub.location_id
       SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
       SessionSettings.actions.changeHub = 'new'
+      console.log SessionSettings
       if $scope.currentUser.id?
         VotingService.new $scope
       else
