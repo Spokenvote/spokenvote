@@ -14,19 +14,6 @@
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) New Topic
 
       %ul.nav.pull-right
-
-        -#%li.dropdown
-        -#  %a.dropdown-toggle( data-toggle='dropdown' )
-        -#    %b.white Learn more
-        -#    %b.caret
-        -#  %ul.dropdown-menu
-        -#    %li
-        -#      %a( href='/about' ) About this site
-        -#    %li
-        -#      %a( href='/terms-of-use' ) Terms of Use
-        -#    %li
-        -#      %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
-
         %li.dropdown( bs-tooltip='currentUser.username || "Learn more" ' data-placement='bottom' )
           %a.dropdown-toggle( data-toggle='dropdown' )
             %b.white {{ currentUser.first_name || 'Learn more' }}
