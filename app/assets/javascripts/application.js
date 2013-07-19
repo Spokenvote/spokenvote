@@ -1,6 +1,5 @@
 //= require jquery_ujs
 //= require jquery_nested_form
-//= require select2
 //= require bootstrap-transition
 //= require bootstrap-alert
 //= require bootstrap-button
