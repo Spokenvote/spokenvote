@@ -13,7 +13,7 @@
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) New Topic
 
       %ul.nav.pull-right
-        %li.dropdown( bs-tooltip='currentUser.username || "Learn more" ' data-placement='bottom' )
+        %li.dropdown( data-placement='bottom' )
           %a.dropdown-toggle( data-toggle='dropdown' )
             %b.white {{ currentUser.first_name || 'Learn more' }}
             %b.caret
