@@ -21,13 +21,6 @@ module ApplicationHelper
     end
   end
 
-  def current_user_link
-    if user_signed_in?
-      link_to current_user.username || current_user.email, proposals_path(user_id: current_user.id)
-    else
-      content_tag(:span, 'Unknown')
-    end
-  end
   #
   #def current_user_voteable?(proposal)                   # Moved to Proposals controller for json packaging in RABL
   #  if current_user && current_user.id == proposal.user_id
@@ -43,13 +36,8 @@ module ApplicationHelper
   def resource
     @resource ||= User.new
   end
-  
+
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
-  end
-
-  def get_default_avatar_image
-    the_root_url = request.host == 'localhost' ? 'http://www.spokenvote.com/' : root_url    
-    the_root_url + DEFAULT_AVATAR_URL
   end
 end

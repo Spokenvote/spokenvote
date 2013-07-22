@@ -1,6 +1,0 @@
-%label.first City
-= text_field_tag :proposal_location, location
-%label State
-= subregion_select_tag :state, '', 'USA', {prompt: 'Please select a state'}
-%label Country
-= country_select_tag :country, {priority: %w(US CA), prompt: 'Please select a country'}
