@@ -6,7 +6,7 @@
     %h4
       Browse proposals, support one or branch your own. Participate in real decisions.
       = link_to 'More...', '/about', :class => 'more'
-  
+
   #locateHub.span9
     = form_tag '/locateHub', :html => {:class => 'form-inline'} do
       = text_field_tag 'hubSearch', @searched != '' ? @searched : nil, :placeholder => 'enter a group', :class => 'span3'
@@ -21,7 +21,7 @@
   - if @searched != 'clean'
     #searchResults
       = render partial: 'shared/proposals_table', locals: { proposals: @proposals, canCreate: user_signed_in?, showHub: false, tableTitle: @searched + ' Proposals' }
-  
+
 - if current_user && user_signed_in?
   #hpContent.span7
     %table.listing
@@ -74,7 +74,7 @@
     %div Last few tweets from the house account
 
 / - else
-/ 
+/
 /   #hpContent.span7
 /     %table.listing
 /       %thead
@@ -83,7 +83,7 @@
 /         %tr
 /           %th Submitter/Hub
 /           %th Statement
-/ 
+/
 /       %tbody
 /         - @proposals.each do |proposal|
 /           %tr
@@ -94,7 +94,7 @@
 /             %td
 /               = items_count_badge(proposal.votes_count, 'Total Votes')
 /               .pos_statement= link_to proposal.statement, proposal_path(proposal)
-/ 
+/
 /     %table.listing
 /       %thead
 /         %tr
@@ -102,7 +102,7 @@
 /         %tr
 /           %th Hub
 /           %th Most Active Proposal
-/ 
+/
 /       %tbody
 /         - @hubs.each do |hub|
 /           %tr
@@ -113,14 +113,14 @@
 /               -#  = link_to hub.proposals.order(:votes_count).first.statement, hub_proposal_path(hub, hub.proposals.order(:votes_count).first)
 /               -#- else
 /               -#  %em No proposals yet
-/ 
+/
 /   #sidebar.span4.hide
 /     .login_box
 /       .login_form
 /         %h3
 /           Sign in through:
 /           = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
-/ 
+/
 /         %h3 Sign in with SpokenVote
 /         = form_tag 'users/login' do
 /           %div
@@ -133,13 +133,13 @@
 /           /   = check_box_tag :remember_me
 /           /   = label_tag :remember_me
 /           %div= submit_tag "Sign in", :class => 'btn btn-primary'
-/ 
+/
 /     .login_box
 /       .login_form
 /         %h3
 /           Sign up through:
 /           = link_to image_tag('icons/providers/images/facebook_128.png'), user_omniauth_authorize_path(:facebook)
-/ 
+/
 /         %h3 Sign up
 /         %br
 /         = form_tag '/users' do
