@@ -55,14 +55,15 @@ header.navbar-inverse .navbar-inner {
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;  
-  color: #1c85f6;
+  color: $happy-blue;
   
   &:hover span.vote { 
     color: white !important;
   }
 
   span.vote {
-    color: #3BBE3E;
+    //color: #3BBE3E; // darker green for header?
+    color: $spring-green;
     margin-left: -3px;
   }
 }

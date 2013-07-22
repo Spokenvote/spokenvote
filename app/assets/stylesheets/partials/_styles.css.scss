@@ -1,8 +1,16 @@
 @import "compass";
 
+// Spokenvote Colors
+$happy-blue: #1c85f6;
+$spring-green: #50D050;
+$chisel-grey: #c1c1c1;
+$basic-brown: #444;
+$facebook-blue: #3B5998;
+$alert-blue: #284784;
+
 //$headingsColor: #315c99;
-$headingsColor: #444;
-$heroUnitHeadingColor: $headingsColor;
+//$headingsColor: #444;
+//$heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
 // structural styles
@@ -138,8 +146,6 @@ h1.form-horizontal {
 }
 
 .page_title {
-  //margin-top: ($gridGutterWidth * 2.5);
-  //margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
   width: 905px;
   margin-left: -25px  ;
@@ -147,18 +153,16 @@ h1.form-horizontal {
     @extend .hide;
   }
   h1 {
-    font-size: 82px;
+    font-size: 80px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    //padding: auto;
-    //padding-bottom: 50px;
     text-align: center;
   }
   .tag_line {
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #50D050;
+    color: $spring-green;
     font-size: 72px;
     line-height: 80px;
     font-style: italic ;
@@ -293,7 +297,7 @@ input.ng-invalid.ng-dirty {
     @include border-radius(3px);
     background-color: #ccc;
     border: 1px solid #B9B9B9;
-    color: #444;
+    color: $basic-brown;
     display: block;
   }
 }
@@ -303,7 +307,7 @@ input.ng-invalid.ng-dirty {
   @include border-top-radius(6px);
   background-color: #eee;
   h2 {
-    color: #1c85f6;
+    color: $happy-blue;
   }
 }
 
@@ -550,7 +554,7 @@ input.ng-invalid.ng-dirty {
   a.hub {
     text-decoration: none;
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
   }
 
@@ -558,7 +562,7 @@ input.ng-invalid.ng-dirty {
     margin-top: 14px;
     //color: #315D99;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #444;
+    color: $basic-brown;
     //letter-spacing: -2px;
   }
 }
@@ -619,12 +623,12 @@ input.ng-invalid.ng-dirty {
     margin-left: 35px;
     h3 {
       font-style: italic;
-      color: #1c85f6;
+      color: $happy-blue;
       font-size: 135%;
     }
     h5 {
       font-style: italic;
-      color: #284784;
+      color: $alert-blue;
       text-align: center;
       margin-left: 30px;
       margin-right: 55px;
@@ -643,9 +647,9 @@ input.ng-invalid.ng-dirty {
   text-align: right;
   text-decoration: none;
   .hub {
-    color: #444 !important;
+    color: $basic-brown !important;
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
     h3 {
       margin-right: 3px;
@@ -789,10 +793,10 @@ input.ng-invalid.ng-dirty {
   }
   h3 {
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
     a {
-      color: #444;
+      color: $basic-brown;
     }
   }
   h4 {
@@ -874,7 +878,7 @@ input.ng-invalid.ng-dirty {
   margin-right: -21px;
   // flush right on #mainContent
   .label {
-    background-color: #aeaeae !important;
+    background-color: $chisel-grey !important;
     //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
     @extend .label-large;
     @extend .label-success;
@@ -886,10 +890,10 @@ input.ng-invalid.ng-dirty {
   margin-top: -9px;
   margin-left: -26px;
   a.icon {
-    color: #aeaeae;
+    color: $chisel-grey;
     text-decoration: none;
     :hover {
-      color: #1c85f6!important;
+      color: $happy-blue!important;
       }
     }
   }
@@ -897,7 +901,7 @@ input.ng-invalid.ng-dirty {
 #big-percent {
   font-size: 24pt;
   font-weight: bold;
-  color: #1c85f6;
+  color: $happy-blue;
   float: right;
 }
 
