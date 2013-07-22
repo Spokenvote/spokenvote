@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712212028) do
+ActiveRecord::Schema.define(:version => 20130722013752) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20130712212028) do
     t.string   "token"
   end
 
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
+
   create_table "hubs", :force => true do |t|
     t.string   "group_name"
     t.text     "description"
@@ -60,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20130712212028) do
   end
 
   add_index "proposals", ["ancestry"], :name => "index_positions_on_ancestry"
+  add_index "proposals", ["hub_id"], :name => "index_proposals_on_hub_id"
+  add_index "proposals", ["user_id"], :name => "index_proposals_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => ""
@@ -88,5 +92,9 @@ ActiveRecord::Schema.define(:version => 20130712212028) do
     t.datetime "updated_at",  :null => false
     t.string   "ip_address"
   end
+
+  add_index "votes", ["proposal_id", "user_id"], :name => "index_votes_on_proposal_id_and_user_id"
+  add_index "votes", ["proposal_id"], :name => "index_votes_on_proposal_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end
