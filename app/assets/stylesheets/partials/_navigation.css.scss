@@ -3,34 +3,6 @@
     color: #000;
     border-color: #315c99;
   }
-  //font-family: 'Offside', cursive;
-  //font-family: 'Megrim', cursive;
-  //font-family: 'Audiowide', cursive;
-  .brand {
-    //color: #aeaeae;
-    //    font-weight: 700; font-family: 'Megrim'; letter-spacing: -1px;
-    margin-left: -6px;
-    padding-top: 10px;
-    padding-right: 35px;
-    &.audiowide {
-      font-family: 'Audiowide';
-      letter-spacing: -2px;
-    }
-    &.megrim {
-      //font-family: 'Megrim';
-      font-family: 'Yanone Kaffeesatz', sans-serif;
-      letter-spacing: -1px;
-    }
-    &.offside {
-      font-family: 'Offside';
-      letter-spacing: -2px;
-    }
-    img {
-      vertical-align: bottom;
-      height: 24px;
-
-    }
-  }
   form {
     display: inline-block;
     input, .btn {
@@ -56,9 +28,7 @@ header.navbar-inverse .navbar-inner {
   background: #252525;
   background-image: url(sprite.png);
   background-repeat: repeat-x;
-  .nav li.dropdown > .dropdown-toggle .caret {
-    //border-bottom-color: #fff;
-  }
+  
   .nav.pull-right {
     color: #fff;
     padding-right: 22px;
@@ -80,31 +50,20 @@ header.navbar-inverse .navbar-inner {
   }
 }
 
-.brand {
-  font-weight: 700 !important;
-  font-size: 30px !important;
-  //font-family: 'Megrim';
+.container > .brand {
+  font-weight: 700;
+  font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  letter-spacing: -1px;
-  :hover {
+  letter-spacing: -1px;  
+  color: #1c85f6;
+  
+  &:hover span.vote { 
     color: white !important;
   }
-  spoken {
-    color: #1c85f6;
-    //:hover {
-    //  color: white !important;
-    //}
-  }
-  vote {
-    //color: #3bbe3e;
+
+  span.vote {
     color: #3BBE3E;
-    //background: -webkit-linear-gradient(#3BBE3E, #3BBE3E);
     margin-left: -3px;
-    //-webkit-background-clip: text;
-    //-webkit-text-fill-color: transparent;
-    //:hover {
-    //  color: white !important;
-    //}
   }
 }
 
@@ -135,14 +94,6 @@ footer.navbar-inverse {
       width: 940px;
       height: 44px;
     }
-    .brand {
-      padding: 0;
-      margin-left: 0;
-      margin-right: 0;
-      display: inline;
-      float: none;
-      font-size: 14px;
-    }
   }
 }
 
@@ -151,20 +102,9 @@ footer.navbar-inverse {
   color: #bbb;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 15px;
-  //font-weight: bold;
-  &:hover {
-    //background-color: #999;
-  }
   &.btn {
     padding: 4px 10px 4px;
     margin-right: 10px;
-  }
-}
-
-.brand {
-  img {
-    height: 20px;
-    @include border-radius(2px);
   }
 }
 
