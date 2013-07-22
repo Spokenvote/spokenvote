@@ -143,9 +143,6 @@ h1.form-horizontal {
   text-align: center;
   width: 905px;
   margin-left: -25px  ;
-  .brand {
-    font-size: 82px !important;
-  }
   .searched & {
     @extend .hide;
   }
@@ -154,6 +151,7 @@ h1.form-horizontal {
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
     //padding: auto;
     //padding-bottom: 50px;
     text-align: center;
