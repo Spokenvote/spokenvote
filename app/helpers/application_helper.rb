@@ -21,14 +21,6 @@ module ApplicationHelper
     end
   end
 
-  #
-  #def current_user_voteable?(proposal)                   # Moved to Proposals controller for json packaging in RABL
-  #  if current_user && current_user.id == proposal.user_id
-  #    cu_votes = proposal.votes.count {|v| v.user_id == current_user.id}
-  #  end
-  #  return cu_votes.present?
-  #end
-
   def resource_name
     :user
   end
