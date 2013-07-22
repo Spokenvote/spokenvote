@@ -70,6 +70,8 @@ module Spokenvote
 
     # Only generate request specs and model specs
     config.generators do |g|
+      g.helper = false
+
       g.test_framework :rspec,
         :request_specs    => true,
         :controller_specs => false,

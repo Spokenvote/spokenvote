@@ -11,7 +11,7 @@ Spokenvote::Application.routes.draw do
     match "authentications" => "authentications#create"
   end
 
-  resources :users do
+  resources :users, only: [:show] do
     resources :proposals, only: [:index]
   end
 
