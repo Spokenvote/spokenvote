@@ -2,83 +2,36 @@
   #searchResults
     .listing-proposals
       .header.row-fluid.panel
-        .title.span6
-          .table.title( colspan='5' )  {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }} {{ sessionSettings.actions.userFilter }}
+        .title.span8
+          %h4( colspan='5' )  {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }} {{ sessionSettings.actions.userFilter }}
 
-        -#.span6
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
           %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
           %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp New &nbsp
-          %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my_votes' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
-
-        -#.span6.offset6
-          -#.span2( width='25%' ) Group
-          -#.span2 Updated
-          -#.span2.offset7 Proposals
-          -#.span1 Votes
-
-      -#.hr
+          %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my_voted' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )
         %li.tree_container
           .topic.row-fluid
             .avatars.span1
             .proposal_statement.span9
-              %a.row-fluid( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
+              .proposal.row-fluid
+                %a.h2( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
               .hub.row-fluid
                 %a.h5( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
 
-            .span1
-              -#.row {{ proposal.votes_in_tree }} : {{ proposal.related_proposals_count }}
-              .votes.row {{ proposal.votes_in_tree }}
-              .label.row Votes
-            -#.span1 {{ proposal.votes_in_tree }}
-          -#.hub.row-fluid
-            .avatars.span1
-            .hub.span8
-              %a.h2( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
-            -#%td.count-column {{ proposal.updated_at }}
+            .prop_counts
+              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+                .votes.row {{ proposal.votes_in_tree }}
+                .label.row Votes
 
+
+              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+                .prop_count.row {{ proposal.related_proposals_count  }}
+                .label.row Props
 
     #proposalNotFound
       .span7 &nbsp;
       .span4
         Don't see the topic you're looking for?
         %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it
-
--#%section#homepage.span11
--#  #searchResults
--#    %table.listing.listing-proposals
--#      %thead
--#        %tr
--#          %th.table-title( colspan='5' )  {{ filterSelection | inflector:humanize }} Proposals for {{ sessionSettings.actions.hubFilter }} {{ sessionSettings.actions.userFilter }}
--#          -##div( ng-show='sessionSettings.actions.userFilter' ) and voted on by   # TODO not quite right. How do I set a div in a thead?
--#
--#        %tr
--#          %th( width='50%' )
--#            %span#hubSorter.btn-group( ng-model='filterSelection' bs-buttons-radio )
--#              %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
--#              %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp New &nbsp
--#              %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my_votes' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
--#
--#          %th( width='25%' ) Group
--#          %th.count-column( width='10%' ) Updated
--#          %th.count-column( width='10%' ) Proposals
--#          %th.count-column( width='8%' ) Votes
--#
--#      -#%tbody
--#      -#  %tr( ng-repeat='proposal in proposals' )
--#      -#    %td.proposal_statement
--#      -#      %a( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
--#      -#    %td
--#      -#      %a( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
--#      -#    %td.count-column {{ proposal.updated_at }}
--#      -#    %td.count-column {{ proposal.related_proposals_count }}
--#      -#    %td.count-column {{ proposal.votes_in_tree }}
--#
--#    #proposalNotFound
--#      .span7 &nbsp;
--#      .span4
--#        Don't see the topic you're looking for?
--#        %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it
--#

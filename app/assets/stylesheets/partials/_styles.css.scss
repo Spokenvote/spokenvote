@@ -568,7 +568,7 @@ input.ng-invalid.ng-dirty {
 }
 
 #homepage {
-  margin-left: 0px;
+  margin-left: -5px;
 }
 
 .listing-proposals {
@@ -586,11 +586,19 @@ input.ng-invalid.ng-dirty {
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
   }
   .title {
-    font-size: 24px;
+    h4 {
+      color: rgba(0, 0, 0, 0.54);
+      margin-top: 7px;
+    }
+  }
+  .proposal {
+    a.h2 {
+      color: $basic-brown;
+    }
   }
   .hub {
     a.h5 {
-      color: #848484;
+      color: rgba(132, 132, 132, 0.75);
       font-size: 14px;
       font-weight: normal;
       //line-height: 10px;
@@ -602,8 +610,14 @@ input.ng-invalid.ng-dirty {
     color: $happy-blue;
     text-align: right;
   }
+  .prop_count {
+    font-size: 24px;
+    font-weight: bold;
+    color: $spring-green;
+    text-align: right;
+  }
   .label {
-    margin-left: 33px;
+    margin-left: 34px;
     background-color: rgba(153, 153, 153, 0.46);
     color: whitesmoke;
     line-height: 8px;
@@ -611,24 +625,24 @@ input.ng-invalid.ng-dirty {
     padding: 1px 4px 1px;
   }
   ul {
-    margin: 0 0 0 0;
+    margin: 0 0 0 14px;
     list-style: none;
     :hover {
-      background-color: rgba(240, 240, 255, 0.65);
+      background-color: rgba(240, 240, 255, 0.45);
       border-radius: 10px;
     }
   }
 
   li.tree_container {
     line-height: 25px;
-    border-bottom: 1px solid rgba(68, 68, 68, 0.45);
+    border-bottom: 1px solid rgba(68, 68, 68, 0.35);
     padding: 10px 0;
     position: relative;
   }
 }
 
 .panel {
-  width: 900px;
+  //width: 920px;
   padding: 10px 15px 1px;
   background-color: #e5e5e5;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);

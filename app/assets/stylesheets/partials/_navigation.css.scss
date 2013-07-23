@@ -30,8 +30,8 @@ header.navbar-inverse .navbar-inner {
   background-repeat: repeat-x;
   
   .nav.pull-right {
-    color: #fff;
-    padding-right: 22px;
+    //color: #fff;
+    //padding-right: 22px;
     li.dropdown {
       //margin-top: 9px;
       margin-left: -16px;
@@ -41,7 +41,7 @@ header.navbar-inverse .navbar-inner {
     li.avatar {
       margin-left: 5px;
       margin-top: -5px;
-      margin-right: -90px;
+      margin-right: -80px;
     }
     li.buttons {
       padding-top: 2px;
@@ -72,6 +72,9 @@ header.navbar-inverse .navbar-inner {
   padding: 7px 0 0 30px;
   a {
     padding: 1px 4px;
+  }
+  li.hub_filter {
+    padding: 0px 30px 0px 0px;
   }
   li.buttons {
     padding: 1px 0px 5px 20px;
