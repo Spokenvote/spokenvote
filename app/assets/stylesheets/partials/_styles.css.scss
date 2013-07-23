@@ -179,13 +179,13 @@ h2 {
   width: 100%;
   margin-bottom: 0;
   @extend .table;
-  @extend .table-striped;
-  @extend .table-bordered;
+    //@extend .table-striped;
+  //@extend .table-bordered;
   @extend .table-hover;
   @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
-    background-color: rgba(28, 133, 246, 1.00);
+    background-color: $happy-blue;
     color: #fff;
     font-size: 16px;
     border-top: none;
@@ -576,6 +576,14 @@ input.ng-invalid.ng-dirty {
   }
   td.proposal_buttons + td {
     border-left: none;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .hub {
+    a.h2 {
+      color: $basic-brown;
+    }
   }
 }
 
