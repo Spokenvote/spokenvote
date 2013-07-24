@@ -11,7 +11,7 @@ SessionCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, di
         if response.success == true
           dialog.close(response)
           $rootScope.authService.updateUserSession($scope)
-          $location.path('/proposals').search('filter', 'my_votes')
+          $location.path('/proposals').search('filter', 'my')
 #          AlertService.setInfo 'You are signed in!', $scope, 'main'
           $cookieStore.put "spokenvote_email", $scope.session.email if $scope.session.remember_me == true
         #        $cookieStore.put "_spokenvote_session", response   #let Angular set the cookie in the future?

@@ -240,12 +240,12 @@ describe ProposalsController do
         end
 
         it 'returns all proposals on which the current user voted' do
-          get :index, { filter: 'my_votes' }
+          get :index, { filter: 'my' }
           assigns(:proposals).should match_array([forked_proposal2, proposal1, proposal3])
         end
 
         it 'returns all proposals for a particular hub on which the current user voted' do
-          get :index, { filter: 'my_votes', hub: hub1.id }
+          get :index, { filter: 'my', hub: hub1.id }
           assigns(:proposals).should match_array([forked_proposal2, proposal1])
         end
       end
@@ -256,12 +256,12 @@ describe ProposalsController do
         end
 
         it 'returns all proposals on which the current user voted' do
-          get :index, { filter: 'my_votes' }
+          get :index, { filter: 'my' }
           assigns(:proposals).should match_array([forked_proposal2, proposal1, proposal3])
         end
 
         it 'returns all proposals for a particular hub on which the current user voted' do
-          get :index, { filter: 'my_votes', hub: hub1.id }
+          get :index, { filter: 'my', hub: hub1.id }
           assigns(:proposals).should match_array([forked_proposal2, proposal1])
         end
       end

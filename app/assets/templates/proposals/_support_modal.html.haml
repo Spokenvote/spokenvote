@@ -17,8 +17,10 @@
         .avatar
           %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
         %h5 Ok, let's add Support!
+        .proposal_statement
+          %h4 {{ proposal.statement }}
       %textarea( id='support_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140'
-        placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support {{ proposal.statement }}.' )
+        placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support this proposal.' )
       .length_counter( ng-show=' newSupport.comment.length > 7 ' ) {{ 280 - newSupport.comment.length }} characters remaining
 
 

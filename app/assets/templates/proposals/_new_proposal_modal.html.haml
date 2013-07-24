@@ -1,7 +1,7 @@
 #newProposalModal.modal
   .modal-header
     .pull-right( class='close' ng-click='close()' ) &times;
-    %h2 New Proposal
+    %h2 Start New Topic
     .selectedHub
       %a.hub( ng-click='changeHub(true)' href='#' )
         %h3( collapse='!sessionSettings.hub_attributes.id' bs-tooltip='tooltips.newHub' data-placement='right' ) {{ sessionSettings.hub_attributes.group_name }}

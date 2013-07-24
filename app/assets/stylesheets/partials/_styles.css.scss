@@ -1,8 +1,16 @@
 @import "compass";
 
+// Spokenvote Colors
+$happy-blue: #1c85f6;
+$spring-green: #50D050;
+$chisel-grey: #c1c1c1;
+$basic-brown: #444;
+$facebook-blue: #3B5998;
+$alert-blue: #284784;
+
 //$headingsColor: #315c99;
-$headingsColor: #444;
-$heroUnitHeadingColor: $headingsColor;
+//$headingsColor: #444;
+//$heroUnitHeadingColor: $headingsColor;
 @import "compass_twitter_bootstrap_awesome";
 
 // structural styles
@@ -138,27 +146,23 @@ h1.form-horizontal {
 }
 
 .page_title {
-  //margin-top: ($gridGutterWidth * 2.5);
-  //margin-bottom: ($gridGutterWidth *2.5);
   text-align: center;
-  width: 905px;
-  margin-left: -25px  ;
+  //width: 905px;
+  //margin-left: -25px  ;
   .searched & {
     @extend .hide;
   }
   h1 {
-    font-size: 82px;
+    font-size: 80px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    //padding: auto;
-    //padding-bottom: 50px;
     text-align: center;
   }
   .tag_line {
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #50D050;
+    color: $spring-green;
     font-size: 72px;
     line-height: 80px;
     font-style: italic ;
@@ -175,13 +179,13 @@ h2 {
   width: 100%;
   margin-bottom: 0;
   @extend .table;
-  @extend .table-striped;
-  @extend .table-bordered;
+    //@extend .table-striped;
+  //@extend .table-bordered;
   @extend .table-hover;
   @include border-radius(4px 4px 0 0);
   th {
     text-align: left;
-    background-color: rgba(28, 133, 246, 1.00);
+    background-color: $happy-blue;
     color: #fff;
     font-size: 16px;
     border-top: none;
@@ -293,7 +297,7 @@ input.ng-invalid.ng-dirty {
     @include border-radius(3px);
     background-color: #ccc;
     border: 1px solid #B9B9B9;
-    color: #444;
+    color: $basic-brown;
     display: block;
   }
 }
@@ -303,7 +307,7 @@ input.ng-invalid.ng-dirty {
   @include border-top-radius(6px);
   background-color: #eee;
   h2 {
-    color: #1c85f6;
+    color: $happy-blue;
   }
 }
 
@@ -474,8 +478,9 @@ input.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-  @extend .span11;
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  //@extend .span11;
+  width: 917px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 37px;
   background-color: #fff;
   @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   margin-top: -20px;
@@ -550,7 +555,7 @@ input.ng-invalid.ng-dirty {
   a.hub {
     text-decoration: none;
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
   }
 
@@ -558,21 +563,128 @@ input.ng-invalid.ng-dirty {
     margin-top: 14px;
     //color: #315D99;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    color: #444;
+    color: $basic-brown;
     //letter-spacing: -2px;
   }
 }
 
-.listing-proposals {
-  margin-bottom: 0px;
-  background-color: #fff;
+#homepage {
+  margin-left: -5px;
+}
+
+.landing_hubfilter {
   -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
     width: 114px;
   }
-  td.proposal_buttons + td {
-    border-left: none;
+  .header {
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+    padding: 12px 10px 10px 10px;
   }
+}
+
+.listing-proposals {
+  -webkit-border-bottom-left-radius: 4px;
+  //.proposal_buttons {
+  //  width: 114px;
+  //}
+  .header {
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+  }
+  .title {
+    h4 {
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+  .btn-group {
+    padding: 5px 0 8px 0;
+  }
+  .list-avatar {
+    padding: 0px 0px 0px 13px;
+    avatar-sprite {
+      padding: 0px 0px 0px 0px;
+    }
+    img {
+      margin-left: -5px;
+      width: 20px;
+      height: auto;
+    }
+  }
+  .proposal-person {
+    //margin-left: -40px;
+  }
+  .proposal {
+    a.h2 {
+      color: $basic-brown;
+    }
+  }
+  .hub {
+    .h5 {
+      color: rgba(132, 132, 132, 0.75);
+      font-size: 14px;
+      font-weight: normal;
+      //line-height: 10px;
+    }
+    margin-bottom: -11px;
+  }
+  .votes {
+    font-size: 24px;
+    font-weight: bold;
+    color: $happy-blue;
+    text-align: right;
+  }
+  .prop_count {
+    font-size: 24px;
+    font-weight: bold;
+    color: $spring-green;
+    text-align: right;
+  }
+  .label {
+    margin-left: 34px;
+    background-color: rgba(153, 153, 153, 0.46);
+    color: whitesmoke;
+    line-height: 8px;
+    font-size: 8px;
+    padding: 1px 4px 1px;
+  }
+  .date-stamp {
+    //color: whitesmoke;
+    margin-right: -73px;
+    margin-bottom: -3px;
+    text-align: right;
+    line-height: 8px;
+    font-size: 8px;
+    padding: 1px 0px 0px;
+    color: rgba(132, 132, 132, 0.65);
+  }
+  ul {
+    margin: 0 0 0 14px;
+    list-style: none;
+    :hover {
+      background-color: rgba(240, 240, 255, 0.45);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+
+  li.tree_container {
+    line-height: 25px;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.35);
+    padding: 10px 0;
+    position: relative;
+  }
+}
+
+.panel {
+  //width: 930px;
+  padding: 5px 15px 1px;
+  background-color: #e5e5e5;
+  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+  border: 1px solid #c8c8c8;
+  border-color: rgba(0,0,0,0.2);
+  border-radius: 5px;
 }
 
 #proposalNotFound div {
@@ -619,12 +731,12 @@ input.ng-invalid.ng-dirty {
     margin-left: 35px;
     h3 {
       font-style: italic;
-      color: #1c85f6;
+      color: $happy-blue;
       font-size: 135%;
     }
     h5 {
       font-style: italic;
-      color: #284784;
+      color: $alert-blue;
       text-align: center;
       margin-left: 30px;
       margin-right: 55px;
@@ -643,9 +755,9 @@ input.ng-invalid.ng-dirty {
   text-align: right;
   text-decoration: none;
   .hub {
-    color: #444 !important;
+    color: $basic-brown !important;
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
     h3 {
       margin-right: 3px;
@@ -789,10 +901,10 @@ input.ng-invalid.ng-dirty {
   }
   h3 {
     :hover {
-      color: #1c85f6;
+      color: $happy-blue;
     }
     a {
-      color: #444;
+      color: $basic-brown;
     }
   }
   h4 {
@@ -874,7 +986,7 @@ input.ng-invalid.ng-dirty {
   margin-right: -21px;
   // flush right on #mainContent
   .label {
-    background-color: #aeaeae !important;
+    background-color: $chisel-grey !important;
     //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
     @extend .label-large;
     @extend .label-success;
@@ -886,10 +998,10 @@ input.ng-invalid.ng-dirty {
   margin-top: -9px;
   margin-left: -26px;
   a.icon {
-    color: #aeaeae;
+    color: $chisel-grey;
     text-decoration: none;
     :hover {
-      color: #1c85f6!important;
+      color: $happy-blue!important;
       }
     }
   }
@@ -897,7 +1009,7 @@ input.ng-invalid.ng-dirty {
 #big-percent {
   font-size: 24pt;
   font-weight: bold;
-  color: #1c85f6;
+  color: $happy-blue;
   float: right;
 }
 
