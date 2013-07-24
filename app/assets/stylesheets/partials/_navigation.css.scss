@@ -24,19 +24,13 @@
 
 header.navbar-inverse .navbar-inner {
   border-bottom: 1px solid;
-  //@include background(linear-gradient(#e97e3b, scale-lightness(#e97e3b, 20)));
   background: #252525;
   background-image: url(sprite.png);
   background-repeat: repeat-x;
   
   .nav.pull-right {
-    //color: #fff;
-    //padding-right: 22px;
     li.dropdown {
-      //margin-top: 9px;
       margin-left: -16px;
-      //margin-right: 11px;
-      //vertical-align: middle;
     }
     li.avatar {
       margin-left: 5px;
@@ -62,7 +56,6 @@ header.navbar-inverse .navbar-inner {
   }
 
   span.vote {
-    //color: #3BBE3E; // darker green for header?
     color: $spring-green;
     margin-left: -3px;
   }

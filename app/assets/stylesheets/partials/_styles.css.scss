@@ -147,8 +147,8 @@ h1.form-horizontal {
 
 .page_title {
   text-align: center;
-  width: 905px;
-  margin-left: -25px  ;
+  //width: 905px;
+  //margin-left: -25px  ;
   .searched & {
     @extend .hide;
   }
@@ -478,8 +478,9 @@ input.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-  @extend .span11;
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  //@extend .span11;
+  width: 917px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 37px;
   background-color: #fff;
   @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   margin-top: -20px;
@@ -571,14 +572,23 @@ input.ng-invalid.ng-dirty {
   margin-left: -5px;
 }
 
-.listing-proposals {
+.landing_hubfilter {
   -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
     width: 114px;
   }
-  td.proposal_buttons + td {
-    border-left: none;
+  .header {
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+    padding: 12px 10px 10px 10px;
   }
+}
+
+.listing-proposals {
+  -webkit-border-bottom-left-radius: 4px;
+  //.proposal_buttons {
+  //  width: 114px;
+  //}
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
@@ -597,7 +607,6 @@ input.ng-invalid.ng-dirty {
       padding: 0px 0px 0px 0px;
     }
     img {
-      //padding: 0px 0px 0px 0px;
       margin-left: -5px;
       width: 20px;
       height: auto;
@@ -669,7 +678,7 @@ input.ng-invalid.ng-dirty {
 }
 
 .panel {
-  width: 930px;
+  //width: 930px;
   padding: 5px 15px 1px;
   background-color: #e5e5e5;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
