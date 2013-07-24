@@ -21,25 +21,6 @@ class Hub < ActiveRecord::Base
   validates :group_name, :location_id, :formatted_location, presence: true
   validates :group_name, uniqueness: {scope: :formatted_location}
 
-  class << self
-    def by_group
-      order(:group)
-    end
-
-    # No named scopes, they're going away ;)
-    def by_group_name(target_group)
-      where("LOWER(group_name) = ?", target_group.downcase)
-    end
-
-    def by_location(target_location)
-      where("LOWER(formatted_location) = ?", target_location.downcase)
-    end
-
-    def by_proposal_count
-      Hub.joins(:proposals).select("hubs.id, hubs.group_name, count(proposals.id) as proposals_count").order("proposals_count DESC").group('hubs.id')
-    end
-  end
-
   def full_hub
     self.group_name + ' - ' + self.formatted_location
   end

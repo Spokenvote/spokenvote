@@ -29,8 +29,6 @@ class Proposal < ActiveRecord::Base
   delegate :username, :to => :user
 
   # Scopes
-  scope :noop, -> { where("1 = 1") }
-  scope :by_hub, lambda { |hub_id| hub_id ? where(hub_id: hub_id) : noop }
   scope :top_voted_proposal_in_tree, lambda {
     top_voted_proposals = []
     Proposal.roots.each do |root_proposal|

@@ -56,11 +56,6 @@ class ProposalsController < ApplicationController
     render json: { editable: proposal.editable?(current_user) }
   end
 
-  def current_user_support
-    proposal = Proposal.find(params[:id])
-    render json: { current_user_support: proposal.current_user_support?(current_user) }
-  end
-
   # POST /proposals.json
   def create
     votes_attributes = params[:proposal][:votes_attributes].merge(user_id: current_user.id, ip_address: request.remote_ip)
@@ -136,10 +131,6 @@ class ProposalsController < ApplicationController
         )
       end
     end
-  end
-
-  def improving?
-    params[:proposal][:parent_id].present?
   end
 
   def parent_proposal
