@@ -4,6 +4,12 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   SessionSettings.routeParams = $route.current.params
 
+#  $scope.select2Width = ->
+#    if $location.path() == '/landing'
+#      '590px'
+#    else
+#      '490px'
+
   if $route.current.params.hub?
     $scope.hubFilter =
       hubFilter: true

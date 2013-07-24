@@ -17,7 +17,7 @@ class ProposalsController < ApplicationController
     elsif filter == 'new'
       @proposals = proposals.order('updated_at DESC')
     elsif current_user
-      user_id = filter == 'my_votes' ? current_user.try(:id) : params[:user_id]
+      user_id = filter == 'my' ? current_user.try(:id) : params[:user_id]
       user = User.find(user_id) if user_id
 
       user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)
