@@ -572,8 +572,6 @@ input.ng-invalid.ng-dirty {
 }
 
 .listing-proposals {
-  //margin-bottom: 0px;
-  //background-color: #eeeeee;
   -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
     width: 114px;
@@ -614,24 +612,27 @@ input.ng-invalid.ng-dirty {
     }
   }
   .hub {
-    a.h5 {
+    .h5 {
       color: rgba(132, 132, 132, 0.75);
       font-size: 14px;
       font-weight: normal;
       //line-height: 10px;
     }
+    margin-bottom: -11px;
   }
   .votes {
     font-size: 24px;
     font-weight: bold;
     color: $happy-blue;
     text-align: right;
+    margin-top: -3px;
   }
   .prop_count {
     font-size: 24px;
     font-weight: bold;
     color: $spring-green;
     text-align: right;
+    margin-top: -3px;
   }
   .label {
     margin-left: 34px;
@@ -641,12 +642,22 @@ input.ng-invalid.ng-dirty {
     font-size: 8px;
     padding: 1px 4px 1px;
   }
+  .date-stamp {
+    //color: whitesmoke;
+    margin-right: -73px;
+    margin-bottom: -3px;
+    text-align: right;
+    line-height: 8px;
+    font-size: 8px;
+    padding: 1px 0px 0px;
+  }
   ul {
     margin: 0 0 0 14px;
     list-style: none;
     :hover {
       background-color: rgba(240, 240, 255, 0.45);
       border-radius: 10px;
+      cursor: pointer;
     }
   }
 

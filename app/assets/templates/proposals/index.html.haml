@@ -8,12 +8,11 @@
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
           %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
           %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp New &nbsp
-          %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my voted' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
+          %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )
-        %li.tree_container
+        %li.tree_container( ng-click='showProposal(proposal)' )
           .topic.row-fluid
-            -#.avatars.span1
             .proposal-person.span1
               .list-avatar.row-fluid
                 %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
@@ -21,22 +20,23 @@
                   %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
             .proposal_statement.span9
               .proposal.row-fluid
-                %a.h2( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
+                %a.h2( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
               .hub.row-fluid
-                %a.h5( ng-href='#' ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
+                %a.h5( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
+                -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
             .prop_counts
               .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
                 .votes.row {{ proposal.votes_in_tree }}
                 .label.row Votes
-
+                .date-stamp.row Last voted on: {{ proposal.updated_at }}
 
               .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
                 .prop_count.row {{ proposal.related_proposals_count  }}
                 .label.row Props
 
     #proposalNotFound
-      .span8 &nbsp;
-      .span4
+      .span7 &nbsp;
+      .span5
         Don't see the topic you're looking for?
-        %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it
+        %a( id='makeProposalLink' href='#' ng-click='new()' )  Start a New Topic

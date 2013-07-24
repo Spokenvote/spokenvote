@@ -10,7 +10,7 @@
         %li.hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
         %li.buttons
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) New Topic
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start Topic
 
       %ul.nav.pull-right
         %li.dropdown( data-placement='bottom' )
@@ -20,7 +20,7 @@
 
           %ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
             %li
-              %a( ng-href='/proposals?filter=my_votes' ng-show='currentUser.username' ) My Proposals
+              %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
             %li
               %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings
             %li
@@ -39,8 +39,8 @@
             %li
               %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
-        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my_votes'  bs-tooltip='currentUser.username' data-placement='bottom' )
-          %a(href='/proposals?filter=my_votes')
+        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  bs-tooltip='currentUser.username' data-placement='bottom' )
+          %a(href='/proposals?filter=my')
             %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
 
         %li.buttons( ng-show='!currentUser.username' )

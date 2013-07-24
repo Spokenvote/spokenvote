@@ -4,7 +4,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
   $rootScope.sessionSettings = SessionSettings
   CurrentUserLoader().then (current_user) ->
     $rootScope.currentUser = current_user
-    $location.path('/proposals').search('filter', 'my_votes') if $rootScope.currentUser.username? and $location.path() == '/'
+    $location.path('/proposals').search('filter', 'my') if $rootScope.currentUser.username? and $location.path() == '/'
 
   $scope.$on "event:loginRequired", ->
     $scope.authService.signinFb($scope)
