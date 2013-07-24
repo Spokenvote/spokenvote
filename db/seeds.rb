@@ -23,7 +23,7 @@ begin
   10.times do
     #location_id = location_ids.keys.sample
     location_id = location_ids.keys[i]
-    hubs << Hub.create({
+    hubs << Hub.create!({
       group_name: hubs[i],
       description: Faker::Lorem.sentence,
       location_id: location_id,
@@ -36,9 +36,9 @@ begin
   users = []
   p 'Creating Users'
   # let's create a standard known user for simplicity sake
-  users << User.create({name: 'Voter1', email: 'voter1@example.com', password: 'abc123', password_confirmation: 'abc123'})
+  users << User.create!({name: 'Voter1', email: 'voter1@example.com', password: 'abc123', password_confirmation: 'abc123'})
   40.times do
-    users << User.create({name: Faker::Name.name, email: Faker::Internet.email, password: 'abc123', password_confirmation: 'abc123'})
+    users << User.create!({name: Faker::Name.name, email: Faker::Internet.email, password: 'abc123', password_confirmation: 'abc123'})
   end
 
   hubs = Hub.all
@@ -103,7 +103,7 @@ begin
         fake_comment = fake_comment.html_safe
       end
 
-      Vote.create({
+      Vote.create!({
         proposal: target_proposal,
         #hub: hubs.sample,
         user: voter,
