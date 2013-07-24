@@ -1,7 +1,7 @@
 module ApplicationHelper
   def fb_button(btn_text)
-    content_tag(:span, '', class: "fb-button-left") +
-    content_tag(:span, content_tag(:strong, btn_text) + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
+  	content_tag(:span, '', class: "fb-button-left") +
+  	content_tag(:span, content_tag(:strong, btn_text) + ' with ' + content_tag(:strong, 'Facebook'), class: "fb-button-center") +
   	content_tag(:span, '', class: "fb-button-right")
   end
 
@@ -21,14 +21,6 @@ module ApplicationHelper
     end
   end
 
-  def current_user_link
-    if user_signed_in?
-      link_to current_user.username || current_user.email, proposals_path(user_id: current_user.id)
-    else
-      content_tag(:span, 'Unknown')
-    end
-  end
-
   def resource_name
     :user
   end
@@ -39,10 +31,5 @@ module ApplicationHelper
 
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
-  end
-
-  def get_default_avatar_image
-    the_root_url = request.host == 'localhost' ? 'http://www.spokenvote.com/' : root_url
-    the_root_url + DEFAULT_AVATAR_URL
   end
 end
