@@ -8,12 +8,17 @@
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
           %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
           %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp New &nbsp
-          %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my_voted' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
+          %button( type='button' ng-click="setFilter('my_votes')" class='btn' value='my voted' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )
         %li.tree_container
           .topic.row-fluid
-            .avatars.span1
+            -#.avatars.span1
+            .proposal-person.span1
+              .list-avatar.row-fluid
+                %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
+                  %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
+                  %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
             .proposal_statement.span9
               .proposal.row-fluid
                 %a.h2( id='showProposalLink' href='#' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
@@ -31,7 +36,7 @@
                 .label.row Props
 
     #proposalNotFound
-      .span7 &nbsp;
+      .span8 &nbsp;
       .span4
         Don't see the topic you're looking for?
         %a( id='makeProposalLink' href='#' ng-click='new()' ) Make it

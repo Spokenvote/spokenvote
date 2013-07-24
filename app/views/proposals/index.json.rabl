@@ -11,3 +11,7 @@ child :hub do
   attributes :id, :short_hub
 end
 
+child :votes do
+  attributes :gravatar_hash, :facebook_auth
+end
+
