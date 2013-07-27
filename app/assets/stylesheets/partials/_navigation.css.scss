@@ -80,6 +80,9 @@ header.navbar-inverse .navbar-inner {
   color: #bbb;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 15px;
+  &:hover {
+    cursor: pointer;
+  }
   &.btn {
     padding: 4px 10px 4px;
     margin-right: 10px;
