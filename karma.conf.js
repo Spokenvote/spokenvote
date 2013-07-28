@@ -10,6 +10,8 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
+  ANGULAR_SCENARIO,
+  ANGULAR_SCENARIO_ADAPTER,
   'app/assets/javascripts/*.js'
 //  'app/assets/javascripts/angular/*.coffee'
 ];
@@ -20,6 +22,9 @@ exclude = [
   
 ];
 
+proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
+
+urlRoot = '/_karma_/';
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
