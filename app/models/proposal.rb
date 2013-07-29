@@ -52,8 +52,9 @@ class Proposal < ActiveRecord::Base
   end
 
   def related_proposals(related_sort_by = 'Most Votes')
-    all_proposals_in_tree = [self.root, self.root.descendants].flatten
+    all_proposals_in_tree = self.all_related_proposals
     all_proposals_in_tree.delete(self.clone)
+    all_proposals_in_tree.select! { |proposal| proposal.has_support? }
 
     case related_sort_by
     when "Most Votes"
@@ -70,7 +71,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def all_related_proposals
-    all_proposals_in_tree = [self.root, self.root.descendants].flatten
+    [self.root, self.root.descendants].flatten
   end
 
   def supporting_statement
@@ -83,7 +84,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def has_support?
-    self.votes.any?
+    self.votes_count != 0
   end
 
   def votes_percentage
