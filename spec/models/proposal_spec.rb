@@ -67,4 +67,23 @@ describe Proposal do
       end
     end
   end
+
+  describe '#related_proposals' do
+    it 'excludes self' do
+      proposal1 = stub_model(Proposal, id: 1)
+      forked_proposal1 = stub_model(Proposal, id: 2)
+
+      proposal1.should_receive(:all_related_proposals).and_return([proposal1, forked_proposal1])
+      proposal1.related_proposals.should_not include(proposal1)
+    end
+
+    it 'does not included proposals without any votes' do
+      proposal1 = stub_model(Proposal, id: 1, votes_count: 3)
+      forked_proposal1 = stub_model(Proposal, id: 2, votes_count: 0)
+      forked_proposal2 = stub_model(Proposal, id: 3, votes_count: 2)
+
+      proposal1.should_receive(:all_related_proposals).and_return([proposal1, forked_proposal1, forked_proposal2])
+      proposal1.related_proposals.should match_array([forked_proposal2])
+    end
+  end
 end
