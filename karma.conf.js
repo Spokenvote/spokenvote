@@ -26,6 +26,10 @@ proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
 
 urlRoot = '/_karma_/';
 
+preprocessors = {
+    '**/*.coffee': 'coffee'
+};
+
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
 reporters = ['progress'];
