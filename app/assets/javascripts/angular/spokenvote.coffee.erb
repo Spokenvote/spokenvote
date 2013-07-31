@@ -1,27 +1,33 @@
+'use strict'
+
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
     .when '/',
-      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
+#      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
+      templateUrl: '/assets/pages/landing.html.haml'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
-      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
+#      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
+      templateUrl: '/assets/pages/landing.html.haml'
       controller: 'RootCtrl'
 
     .when '/proposals',
-      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
+#      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
+      templateUrl: '/assets/proposals/index.html.haml'
       controller: 'ProposalListCtrl'
       resolve:
         proposals: (MultiProposalLoader) ->
           MultiProposalLoader()
 
     .when '/proposals/:proposalId',
-      templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
+#      templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
+      templateUrl: '/assets/proposals/show.html.haml'
       controller: 'ProposalShowCtrl'
       resolve:
         proposal: (ProposalLoader) ->
@@ -35,13 +41,16 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
           CurrentUserLoader()
 
     .when '/about',
-      templateUrl: "<%= asset_path('pages/about.html.haml') %>"
+#      templateUrl: "<%= asset_path('pages/about.html.haml') %>"
+      templateUrl: '/assets/pages/about.html.haml'
 
     .when '/terms-of-use',
-      templateUrl: "<%= asset_path('pages/terms-of-use.html.haml') %>"
+#      templateUrl: "<%= asset_path('pages/terms-of-use.html.haml') %>"
+      templateUrl: '/assets/pages/terms-of-use.html.haml'
 
     .when '/privacy',
-      templateUrl: "<%= asset_path('pages/privacy.html.haml') %>"
+#      templateUrl: "<%= asset_path('pages/privacy.html.haml') %>"
+      templateUrl: '/assets/pages/privacy.html.haml'
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'

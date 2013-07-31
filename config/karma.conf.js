@@ -3,17 +3,27 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '';
+basePath = '../';
 
 
 // list of files / patterns to load in the browser
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  ANGULAR_SCENARIO,
-  ANGULAR_SCENARIO_ADAPTER,
-  'app/assets/javascripts/*.js'
-//  'app/assets/javascripts/angular/*.coffee'
+//  ANGULAR_SCENARIO,
+//  ANGULAR_SCENARIO_ADAPTER,
+  'vendor/assets/javascripts/jquery-2.0.3.min.js',
+  'vendor/assets/javascripts/angular.min.js',
+  'vendor/assets/javascripts/angular-resource.min.js',
+  'vendor/assets/javascripts/angular-cookies.js',
+  'vendor/assets/javascripts/angular-strap.js',
+  'vendor/assets/javascripts/angular-ui.js',
+  'vendor/assets/javascripts/ui-bootstrap-tpls-0.4.0.js',
+  'vendor/assets/javascripts/angular-mocks.js',
+//  'app/assets/javascripts/application.js',
+  'app/assets/javascripts/angular/*.coffee.erb',
+  'app/assets/javascripts/angular/**/*.coffee',
+  'test/**/*spec.coffee'
 ];
 
 
@@ -27,7 +37,8 @@ proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
 urlRoot = '/_karma_/';
 
 preprocessors = {
-    '**/*.coffee': 'coffee'
+    '**/*.coffee': 'coffee',
+    '**/*.coffee.erb': 'coffee'
 };
 
 // test results reporter to use
