@@ -53,9 +53,9 @@ describe "Controllers", ->
       mockBackend.expectGET("/assets/pages/landing.html.haml").respond []
       proposals = undefined
       promise = loader(
-        $routeParams: routeParams
-        $route:
-          current: {}
+#        $routeParams
+#        $route:
+#          current: {}
       )
       promise.then (prop) ->
         proposals = prop
@@ -68,36 +68,83 @@ describe "Controllers", ->
         id: 2
       ]
 
-#  describe "EditController", ->
-#    mockBackend = undefined
-#    location = undefined
-#    beforeEach inject(($rootScope, $controller, _$httpBackend_, $location, Proposal) ->
-#      mockBackend = _$httpBackend_
-#      location = $location
-#      $scope = $rootScope.$new()
-#      ctrl = $controller("EditCtrl",
-#        $scope: $scope
-#        $location: $location
-#        proposal: new Proposal(
-#          id: 1
-#          title: "Proposal"
-#        )
-#      )
-#    )
-#    it "should save the proposal", ->
-#      mockBackend.expectPOST("/proposals/1",
-#        id: 1
-#        title: "Proposal"
-#      ).respond id: 2
-#      location.path "test"
-#      $scope.save()
-#      expect(location.path()).toEqual "/test"
-#      mockBackend.flush()
-#      expect(location.path()).toEqual "/view/2"
-#
-#    it "should remove the proposal", ->
-#      expect($scope.proposal).toBeTruthy()
-#      location.path "test"
-#      $scope.remove()
-#      expect($scope.proposal).toBeUndefined()
-#      expect(location.path()).toEqual "/"
+  describe "NewProposalCtrl", ->
+    mockBackend = undefined
+    location = undefined
+    beforeEach inject(($rootScope, $controller, _$httpBackend_, $location, Proposal, SessionSettings) ->
+      mockBackend = _$httpBackend_
+      location = $location
+      $scope = $rootScope.$new()
+      $scope.sessionSettings = SessionSettings
+      $scope.sessionSettings =
+        hub_attributes:
+          id: 1
+          group_name: 'Hacker Dojo'
+      $scope.newProposal =
+        statement: "Jasmine test proposal"
+        comment: "Jasmine test proposal comment"
+      $dialog =
+        close: -> ''
+      ctrl = $controller("NewProposalCtrl",
+        $scope: $scope
+        parentScope: $scope
+        dialog: $dialog
+        $location: $location
+        proposal: new Proposal(
+          proposal:
+            id: 1
+            statement: "Jasmine test proposal"
+            votes_attributes:
+              comment: "Jasmine test proposal comment"
+            hub_id: 1
+            hub_attributes:
+              group_name: 'Hacker Dojo'
+        )
+      )
+    )
+    it "should save the proposal", ->
+      mockBackend.expectPOST("/proposals",
+        proposal:
+          statement: "Jasmine test proposal"
+          votes_attributes:
+            comment: "Jasmine test proposal comment"
+          hub_id: 1
+          hub_attributes:
+            id: 1
+            group_name: 'Hacker Dojo'
+      ).respond id: 2
+      location.path "test"
+      $scope.saveNewProposal()
+      expect(location.path()).toEqual "/test"
+      mockBackend.flush()
+      expect(location.path()).toEqual "/proposals/"
+
+
+  describe "DeleteProposalCtrl", ->
+    mockBackend = undefined
+    location = undefined
+    beforeEach inject(($rootScope, $controller, _$httpBackend_, $location) ->
+      mockBackend = _$httpBackend_
+      location = $location
+      $scope = $rootScope.$new()
+      prntScope =
+        clicked_proposal:
+          id: 1
+          votes: ['']
+      $dialog =
+        close: -> ''
+      ctrl = $controller("DeleteProposalCtrl",
+        $scope: $scope
+        parentScope: prntScope
+        dialog: $dialog
+        $location: $location
+      )
+    )
+    it "should delete the proposal", ->
+      mockBackend.expectDELETE("/proposals/1?votes=",
+      ).respond []
+      location.path "test"
+      $scope.deleteProposal()
+      expect(location.path()).toEqual "/test"
+      mockBackend.flush()
+      expect(location.path()).toEqual "/proposals"
