@@ -112,9 +112,10 @@ footer {
   margin-bottom: ($gridGutterWidth * 0.30);
   font-size: 70%;
   color: gray;
-  .error {
-    color: #b94a48;
-  }
+}
+
+.error-text {
+  color: #b94a48;
 }
 
 // end Structural
@@ -342,8 +343,11 @@ textarea.ng-invalid.ng-dirty {
     margin-bottom: 0;
     padding-left: 10px;
   }
-  .control-group {
-    //margin-left: 15px;
+  //.control-group {
+  //  //margin-left: 15px;
+  //  margin-bottom: ($gridGutterWidth * 2);
+  //}
+  .proposal-area {
     margin-bottom: ($gridGutterWidth * 2);
   }
   .instructions {
