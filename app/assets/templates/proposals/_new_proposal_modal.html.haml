@@ -19,7 +19,7 @@
           .instructions
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
-            %h5 Here is where you set the group for your proposal. Start by searching below to see if it exists. If it doesn't exist yet, create it.
+            %h5 This step is where you set the group for your proposal. Start by searching below to see if it exists. If it doesn't exist yet, create it.
 
           .selecthub( ng-controller='DashboardCtrl' )
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
@@ -35,7 +35,7 @@
               placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
             %span( ng-hide='newProposalForm.formatted_location.$valid' ) Choose a valid location.
             %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
-              %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Continue ...
+              %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
         .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
           .instructions
@@ -63,4 +63,5 @@
     %fieldset
       .control-group
         .controls
-          %button( ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ng-hide='modal.saved' ) Continue
