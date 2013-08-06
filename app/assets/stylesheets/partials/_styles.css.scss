@@ -398,15 +398,12 @@ textarea.ng-invalid.ng-dirty {
 
 .selectedHub {
   margin-top: -10px;
-  margin-bottom: 51px;
+  margin-bottom: 52px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: right;
   text-decoration: none;
   .hub {
     color: $basic-brown !important;
-    :hover {
-      color: $happy-blue;
-    }
     h3 {
       margin-right: 3px;
     }
@@ -414,6 +411,11 @@ textarea.ng-invalid.ng-dirty {
       margin-top: -2px;
       margin-bottom: -4px;
       margin-right: 3px;
+    }
+  }
+  a.hub {
+    :hover {
+      color: $happy-blue;
     }
   }
 }

@@ -4,7 +4,7 @@
     %h2 Improve Proposal
 
     .selectedHub
-      %a.hub.pull-right
+      %a.hub
         .pull-right
           %h3 {{ proposal.hub.group_name }}
           %h5 {{ proposal.hub.formatted_location }}
@@ -20,6 +20,8 @@
           .avatar
             %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
           %h5 Build your improved proposal statement below, making as few changes to the original proposal as possible.
+          .proposal_statement
+            %h4 {{ improvedProposal.statement }}
 
         .control-group
           .controls

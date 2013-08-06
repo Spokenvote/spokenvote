@@ -3,7 +3,7 @@
     .pull-right( class='close' ng-click='close()' ) &times;
     %h2 Start New Topic
     .selectedHub
-      %a.hub.pull-right( ng-click='changeHub(true)' href='#' )
+      %a.hub( ng-click='changeHub(true)' href='#' )
         .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
           %h3( collapse='!sessionSettings.hub_attributes.id' ) {{ sessionSettings.hub_attributes.group_name }}
           %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
