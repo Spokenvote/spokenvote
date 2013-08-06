@@ -42,19 +42,20 @@
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
             %h5 Create your main proposal statement, then add a supporting argument to explain why others should support your proposal.
+
           .control-group
             .controls
-              %textarea( id='proposal_statement' name='proposal_statement' type='input' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
+              %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
                 placeholder='Please use  15 - 140 characters to form your main proposal statement.' )
-              .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.minlength" ) Too short
+              .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.minlength" ) Too Short
               .length_counter( ng-show='newProposalForm.proposal_statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
               .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.maxlength" ) Too Long
 
           .control-group
             .controls
-              %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
+              %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
               placeholder='Use 7 - 280 characters in this space to explain why others should support your proposal.' )
-              .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.minlength" ) Too short
+              .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.minlength" ) Too Short
               .length_counter( ng-show='newProposalForm.vote_comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
               .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.maxlength" ) Too Long
 
