@@ -343,13 +343,6 @@ textarea.ng-invalid.ng-dirty {
     margin-bottom: 0;
     padding-left: 10px;
   }
-  //.control-group {
-  //  //margin-left: 15px;
-  //  margin-bottom: ($gridGutterWidth * 2);
-  //}
-  .proposal-area {
-    margin-bottom: ($gridGutterWidth * 2);
-  }
   .instructions {
     //margin-top: ($gridGutterWidth * 0.3);
     margin-left: ($gridGutterWidth * 0.3);
@@ -368,6 +361,64 @@ textarea.ng-invalid.ng-dirty {
     }
   }
 }
+
+.newProposal {
+  margin-bottom: -38px;
+  .changehub {
+    //margin-bottom: 20px;
+    .selecthub {
+      margin-top: 5px;
+      text-align: center;
+      padding-bottom: 32px;
+    }
+    .makeHub {
+      padding-bottom: 22px;
+      margin-left: 35px;
+      h3 {
+        font-style: italic;
+        color: $happy-blue;
+        font-size: 135%;
+      }
+      h5 {
+        font-style: italic;
+        color: $alert-blue;
+        text-align: center;
+        margin-left: 30px;
+        margin-right: 55px;
+        padding-bottom: 4px;
+      }
+      input {
+        margin-left: 18px;
+      }
+    }
+  }
+  .proposal-area {
+  }
+  padding-bottom: 18px;
+}
+
+.selectedHub {
+  margin-top: -10px;
+  margin-bottom: 42px;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  text-align: right;
+  text-decoration: none;
+  .hub {
+    color: $basic-brown !important;
+    :hover {
+      color: $happy-blue;
+    }
+    h3 {
+      margin-right: 3px;
+    }
+    h5 {
+      margin-top: -2px;
+      margin-bottom: -4px;
+      margin-right: 3px;
+    }
+  }
+}
+
 
 #confirmationModalQuestion {
   margin: $gridGutterWidth 0;
@@ -730,62 +781,6 @@ textarea.ng-invalid.ng-dirty {
   h3 {
     line-height: normal;
     margin-top: 0;
-  }
-}
-
-.newProposal {
-  margin-top: -20px;
-  margin-bottom: -38px;
-  .changehub {
-    margin-top: 5px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .makeHub {
-    margin-left: 35px;
-    h3 {
-      font-style: italic;
-      color: $happy-blue;
-      font-size: 135%;
-    }
-    h5 {
-      font-style: italic;
-      color: $alert-blue;
-      text-align: center;
-      margin-left: 30px;
-      margin-right: 55px;
-      padding-bottom: 4px;
-    }
-    input {
-      margin-left: 18px;
-    }
-  }
-}
-
-.selectedHub {
-  margin-top: -10px;
-  margin-bottom: -8px;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  text-align: right;
-  text-decoration: none;
-  .hub {
-    color: $basic-brown !important;
-    :hover {
-      color: $happy-blue;
-    }
-    h3 {
-      margin-right: 3px;
-    }
-    h5 {
-      margin-top: -2px;
-      margin-bottom: -4px;
-      margin-right: 3px;
-    }
-  }
-  .changehub {
-    margin-top: 5px;
-    margin-bottom: -10px;
-    text-align: center;
   }
 }
 
