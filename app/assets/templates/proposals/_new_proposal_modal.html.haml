@@ -45,9 +45,10 @@
                   .avatar
                     %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
                   %h5 Ok, let's create a new Proposal   ...   Start by creating your main proposal statement, and then add a supporting argument to explain why others should support your proposal.
-                %textarea( id='proposal_statement' type='input' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
+                %textarea( id='proposal_statement' name='proposal_statement' type='input' class='full-width inputError' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
                   placeholder='Please use  15 - 140 characters to form your main proposal statement.' )
-                .length_counter(ng-show=' newProposal.statement.length > 15 ')  {{ 140 - newProposal.statement.length }} characters remaining
+                .length_counter( ng-show=' newProposal.statement.length > 5 ' class='.has-error' )  {{ 140 - newProposal.statement.length }} characters remaining fjdkfjdkfjkj
+                .length_counter( ng-show="newProposalForm.proposal_statement.$error.minlength" class="error" )  Too Short!
                 %textarea( id='vote_comment' type='text' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
                   placeholder='Use 7 - 280 characters in this space to explain why others should support your proposal.' )
                 .length_counter( ng-show=' newProposal.comment.length > 7 ' ) {{ 280 - newProposal.comment.length }} characters remaining
