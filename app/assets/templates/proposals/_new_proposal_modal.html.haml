@@ -9,10 +9,10 @@
           %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
           %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
-    #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
-
   .modal-body
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
+
     %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
         .changehub( collapse='!sessionSettings.actions.changeHub' )

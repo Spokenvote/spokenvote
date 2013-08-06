@@ -3,15 +3,17 @@
     .pull-right( class='close' ng-click='close()' ) &times;
     %h2 Improve Proposal
 
+    .selectedHub
+      %a.hub.pull-right
+        .pull-right
+          %h3 {{ proposal.hub.group_name }}
+          %h5 {{ proposal.hub.formatted_location }}
+
+  .modal-body
+
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    .selectedHub
-      .hub
-        %h3 {{ proposal.hub.group_name }}
-        %h5 {{ proposal.hub.formatted_location }}
-
-  .modal-body
     .proposal_new
       %form( name='improvedProposalForm' )
         .instructions
