@@ -7,6 +7,8 @@ $chisel-grey: #c1c1c1;
 $basic-brown: #444;
 $facebook-blue: #3B5998;
 $alert-blue: #284784;
+$error-text-red: #b94a48;
+$tag-blue: rgba(28, 133, 246, 0.25);
 
 //$headingsColor: #315c99;
 //$headingsColor: #444;
@@ -105,6 +107,30 @@ footer {
   }
 }
 
+.tag_item {
+  background-color: $tag-blue;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+  padding: 0px 4px 0px 4px;
+  .close_x {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    color: black;
+    text-shadow: 0 1px 0 white;
+    opacity: 0.2;
+    vertical-align: top;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.6;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .length_counter {
   text-align: right;
   margin-right: ($gridGutterWidth * 1.25);
@@ -115,7 +141,7 @@ footer {
 }
 
 .error-text {
-  color: #b94a48;
+  color: $error-text-red;
 }
 
 // end Structural

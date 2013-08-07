@@ -3,7 +3,13 @@
     .listing-proposals
       .header.row-fluid.panel
         .title.span8
-          %h4( colspan='5' )  {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }} {{ sessionSettings.actions.userFilter }}
+          %h4( colspan='5' )
+            %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+            %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
+              %span() for
+              %span( class='tag_item' )
+                %span {{ sessionSettings.actions.userFilter }}
+                %span( class='close_x' ) &times;
 
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
           %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
