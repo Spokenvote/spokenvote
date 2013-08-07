@@ -40,3 +40,9 @@
       .span5
         Don't see the topic you're looking for?
         %a( id='makeProposalLink' href='#' ng-click='new()' )  Start a New Topic
+      .span12.offset1( ng-show='!proposals[0]' )
+        %h3
+          %span No {{ filterSelection | inflector:humanize }} topics
+          %span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
+          %span( ui-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
+          %span found.
