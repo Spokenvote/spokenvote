@@ -7,6 +7,8 @@ $chisel-grey: #c1c1c1;
 $basic-brown: #444;
 $facebook-blue: #3B5998;
 $alert-blue: #284784;
+$error-text-red: #b94a48;
+$tag-blue: rgba(28, 133, 246, 0.25);
 
 //$headingsColor: #315c99;
 //$headingsColor: #444;
@@ -105,6 +107,37 @@ footer {
   }
 }
 
+.tag_item {
+  background-color: $tag-blue;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+  padding: 0px 4px 0px 4px;
+  .close_x {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    color: black;
+    text-shadow: 0 1px 0 white;
+    opacity: 0.2;
+    vertical-align: top;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.6;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.icon-edit {
+  font-size: 13px;
+  line-height: 18px;
+  vertical-align: top;
+  margin-right: -1px;
+}
+
 .length_counter {
   text-align: right;
   margin-right: ($gridGutterWidth * 1.25);
@@ -112,6 +145,10 @@ footer {
   margin-bottom: ($gridGutterWidth * 0.30);
   font-size: 70%;
   color: gray;
+}
+
+.error-text {
+  color: $error-text-red;
 }
 
 // end Structural
@@ -258,6 +295,13 @@ input.ng-invalid.ng-dirty {
   box-shadow: 0 0 6px #f8b9b7 !important;
 }
 
+textarea.ng-invalid.ng-dirty {
+  border-color: #e9322d !important;
+  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+  box-shadow: 0 0 6px #f8b9b7 !important;
+}
+
 //ng-pristine
 
 //ng-dirty
@@ -332,10 +376,6 @@ input.ng-invalid.ng-dirty {
     margin-bottom: 0;
     padding-left: 10px;
   }
-  .control-group {
-    //margin-left: 15px;
-    margin-bottom: ($gridGutterWidth * 2);
-  }
   .instructions {
     //margin-top: ($gridGutterWidth * 0.3);
     margin-left: ($gridGutterWidth * 0.3);
@@ -354,6 +394,65 @@ input.ng-invalid.ng-dirty {
     }
   }
 }
+
+.newProposal {
+  margin-bottom: -38px;
+  .changehub {
+    .selecthub {
+      margin-top: 5px;
+      text-align: center;
+      padding-bottom: 32px;
+    }
+    .makeHub {
+      padding-bottom: 22px;
+      margin-left: 35px;
+      h3 {
+        font-style: italic;
+        color: $happy-blue;
+        font-size: 135%;
+      }
+      h5 {
+        font-style: italic;
+        color: $alert-blue;
+        text-align: center;
+        margin-left: 30px;
+        margin-right: 55px;
+        padding-bottom: 4px;
+      }
+      input {
+        margin-left: 18px;
+      }
+    }
+  }
+  .proposal-area {
+  }
+  padding-bottom: 18px;
+}
+
+.selectedHub {
+  margin-top: -10px;
+  margin-bottom: 52px;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  text-align: right;
+  text-decoration: none;
+  .hub {
+    color: $basic-brown !important;
+    h3 {
+      margin-right: 3px;
+    }
+    h5 {
+      margin-top: -2px;
+      margin-bottom: -4px;
+      margin-right: 3px;
+    }
+  }
+  a.hub {
+    :hover {
+      color: $happy-blue;
+    }
+  }
+}
+
 
 #confirmationModalQuestion {
   margin: $gridGutterWidth 0;
@@ -719,62 +818,6 @@ input.ng-invalid.ng-dirty {
   }
 }
 
-.newProposal {
-  margin-top: -20px;
-  margin-bottom: -38px;
-  .changehub {
-    margin-top: 5px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .makeHub {
-    margin-left: 35px;
-    h3 {
-      font-style: italic;
-      color: $happy-blue;
-      font-size: 135%;
-    }
-    h5 {
-      font-style: italic;
-      color: $alert-blue;
-      text-align: center;
-      margin-left: 30px;
-      margin-right: 55px;
-      padding-bottom: 4px;
-    }
-    input {
-      margin-left: 18px;
-    }
-  }
-}
-
-.selectedHub {
-  margin-top: -10px;
-  margin-bottom: -8px;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  text-align: right;
-  text-decoration: none;
-  .hub {
-    color: $basic-brown !important;
-    :hover {
-      color: $happy-blue;
-    }
-    h3 {
-      margin-right: 3px;
-    }
-    h5 {
-      margin-top: -2px;
-      margin-bottom: -4px;
-      margin-right: 3px;
-    }
-  }
-  .changehub {
-    margin-top: 5px;
-    margin-bottom: -10px;
-    text-align: center;
-  }
-}
-
 .main-proposal, .supporting_arguments {
   h3 {
     margin-bottom: 10px;
@@ -855,7 +898,7 @@ input.ng-invalid.ng-dirty {
 }
 
 .supporting_arguments {
-  h3 span {
+  h3 votes {
     font-size: 80%;
     font-weight: normal;
     color: #999;

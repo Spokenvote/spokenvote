@@ -29,8 +29,12 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $location.path('/').search('')
     AlertService.setInfo 'You are signed out of Spokenvote.', $scope, 'main'
 
+  $scope.clearFilter = (filter) ->
+    $location.search(filter, null)
+    $rootScope.sessionSettings.actions.userFilter = null
 
-# All below had been decreciated in favor of Facebook sign in only
+
+  # All below had been decreciated in favor of Facebook sign in only
   $scope.googleAuth2 = ->
     gapi.auth.authorize SessionSettings.spokenvote_attributes.googleOauth2Config, ->
       gapi.client.load "oauth2", "v2", ->
