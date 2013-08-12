@@ -42,23 +42,21 @@ footer {
 #main {
   overflow: visible;
   background: url(noisy_grid.png);
-  min-height: 1200px;
+  height: auto;
   .content {
     overflow: visible;
-    //background-color: #fff;
-    //@include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   }
+}
+
+.content {
+  margin: 0;
+  @include clearfix;
 }
 
 #mainContent {
   padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
   margin-bottom: $gridGutterWidth;
   position: relative;
-}
-
-.content {
-  margin: 0;
-  @include clearfix;
 }
 
 .span11 > .form-horizontal {
@@ -831,7 +829,6 @@ input.ng-invalid.ng-dirty {
     margin-top: 5px;
   }
   .main {
-    //@extend .btn-mini;
     margin-right: 10px;
     font-size: 14px;
   }
