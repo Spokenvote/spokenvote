@@ -4,13 +4,14 @@
     %h2 Delete Proposal
     .selectedHub
       .hub
-        %h3 {{ clicked_proposal.hub.group_name }}
-        %h5 {{ clicked_proposal.hub.formatted_location }}
+        .pull-right
+          %h3 {{ clicked_proposal.hub.group_name }}
+          %h5 {{ clicked_proposal.hub.formatted_location }}
 
+  .modal-body
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-  .modal-body
     .instructions
       .avatar
         %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )

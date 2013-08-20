@@ -51,7 +51,7 @@ AlertService = ($timeout) ->
     @cltActionResult = result
     @alertDestination = dest
     @alertClass = 'alert-error'
-    $timeout  (-> scope.hideAlert()), 7000 if scope?
+#    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setJson: (json) ->
     @jsonResponse = json

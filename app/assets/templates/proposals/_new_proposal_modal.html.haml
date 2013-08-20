@@ -4,56 +4,66 @@
     %h2 Start New Topic
     .selectedHub
       %a.hub( ng-click='changeHub(true)' href='#' )
-        %h3( collapse='!sessionSettings.hub_attributes.id' bs-tooltip='tooltips.newHub' data-placement='right' ) {{ sessionSettings.hub_attributes.group_name }}
-        %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
-        %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
-
-    #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' )
+        .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
+          %h3( collapse='!sessionSettings.hub_attributes.id' )
+            %i( class='icon-edit' )
+            %span {{ sessionSettings.hub_attributes.group_name }}
+          %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
+          %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
   .modal-body
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
+
     %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
-        %fieldset
-          .control-group( collapse='!sessionSettings.actions.changeHub' )
-            .instructions
-              .avatar
-                %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
-              %h5 Here is where we set the group to which your proposal is directed. Start by searching for your group below. If the group does not yet exist, you will have an opportunity to create it.
+        .changehub( collapse='!sessionSettings.actions.changeHub' )
+          .instructions
+            .avatar
+              %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+            %h5 This step is where you set the group for your proposal. Start by searching below to see if it exists. If it doesn't exist yet, create it.
 
-            .changehub( ng-controller='DashboardCtrl' )
-              %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+          .selecthub( ng-controller='DashboardCtrl' )
+            %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
-            .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
-              %h5 Hint!  Double-check to make sure your hub does not already exist by trying alternate spellings above.
-              %h3 or create your new group below ...
-              %input( name="group_name" id='group_name' type='text' class='input-xlarge'
-                placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
-              %span(ng-hide='newProposalForm.group_name.$valid') 5 character minimum
+          .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
+            %h5 Hint!  Double-check to make sure your hub does not already exist by trying alternate spellings above.
+            %h3 or create your new group below ...
+            %input( name="group_name" id='group_name' type='text' class='input-xlarge'
+              placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
+            %span( ng-hide='newProposalForm.group_name.$valid' ) 5 character minimum
 
-              .controls
-              %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
-                placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
-              %span( ng-hide='newProposalForm.formatted_location.$valid' ) Choose a valid location.
-              %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
-                %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Continue ...
+            %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
+              placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
+            %span( ng-hide='newProposalForm.formatted_location.$valid' ) Choose a valid location.
+            %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
+              %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
+
+        .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
+          .instructions
+            .avatar
+              %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+            %h5 Create your main proposal statement, then add a supporting argument to explain why others should support your proposal.
 
           .control-group
-            .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
-              .controls
-                .instructions
-                  .avatar
-                    %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
-                  %h5 Ok, let's create a new Proposal   ...   Start by creating your main proposal statement, and then add a supporting argument to explain why others should support your proposal.
-                %textarea( id='proposal_statement' type='input' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
-                  placeholder='Please use  15 - 140 characters to form your main proposal statement.' )
-                .length_counter(ng-show=' newProposal.statement.length > 15 ')  {{ 140 - newProposal.statement.length }} characters remaining
-                %textarea( id='vote_comment' type='text' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
-                  placeholder='Use 7 - 280 characters in this space to explain why others should support your proposal.' )
-                .length_counter( ng-show=' newProposal.comment.length > 7 ' ) {{ 280 - newProposal.comment.length }} characters remaining
+            .controls
+              %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
+                placeholder='Please use  15 - 140 characters to form your main proposal statement.' )
+              .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.minlength" ) Too Short
+              .length_counter( ng-show='newProposalForm.proposal_statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
+              .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.maxlength" ) Too Long
+
+          .control-group
+            .controls
+              %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
+              placeholder='Use 7 - 280 characters in this space to explain why others should support your proposal.' )
+              .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.minlength" ) Too Short
+              .length_counter( ng-show='newProposalForm.vote_comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
+              .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.maxlength" ) Too Long
 
   .modal-footer
     %fieldset
       .control-group
         .controls
-          %button( ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-hide='modal.saved' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ng-hide='modal.saved' ) Continue
