@@ -36,9 +36,11 @@
           .control-group
             .controls
               %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='improvedProposal.comment' required ng-minLength='7' ng-maxLength='280'
-              placeholder='Use 7 - 280 characters in this space to explain why others should support your improved proposal.' )
-              .length_counter.error-text( ng-show="improvedProposalForm.vote_comment.$error.minlength" ) Too Short
+              placeholder='Explain why others should support your improved proposal.' )
+              .length_counter.error-text( ng-show='improvedProposalForm.vote_comment.$error.minlength' ) Too Short
               .length_counter( ng-show='improvedProposalForm.vote_comment.$valid' ) {{ 280 - improvedProposal.comment.length }} characters remaining
+              .length_counter.error-text( ng-show='improvedProposalForm.vote_comment.$invalid && !improvedProposalForm.vote_comment.$error.minlength' )
+                %i( class='icon-warning-sign' ) &nbsp Required
               .length_counter.error-text( ng-show="improvedProposalForm.vote_comment.$error.maxlength" ) Too Long
 
   .modal-footer
