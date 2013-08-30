@@ -20,9 +20,14 @@
         %h5 Ok, let's add Support!
         .proposal_statement
           %h4 {{ proposal.statement }}
-      %textarea( id='support_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140'
-        placeholder='Please use between 7 and 140 characters in this space to explain why you would like to support this proposal.' )
-      .length_counter( ng-show=' newSupport.comment.length > 7 ' ) {{ 280 - newSupport.comment.length }} characters remaining
+
+      %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140'
+        placeholder='Explain why you want to support this proposal.' )
+      .length_counter( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
+      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
+        %i( class='icon-warning-sign' ) &nbsp Required
+      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' ) Too Short
+      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' ) Too Long
 
 
   .modal-footer
