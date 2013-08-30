@@ -27,7 +27,7 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
 
   $scope.improvedProposal =
-    statement: $scope.proposal.statement
+    statement: $scope.clicked_proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =
