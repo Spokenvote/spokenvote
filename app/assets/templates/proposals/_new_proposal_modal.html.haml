@@ -35,7 +35,8 @@
 
             %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
               placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
-            %span( ng-hide='newProposalForm.formatted_location.$valid' ) Choose a valid location.
+            %span.error-text( ng-hide='newProposalForm.formatted_location.$valid' )
+              %i( class='icon-warning-sign' ) &nbsp Choose a valid location.
             %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
               %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
