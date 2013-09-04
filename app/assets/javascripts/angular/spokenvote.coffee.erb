@@ -1,7 +1,7 @@
 'use strict'
 
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
-  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+#  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
@@ -87,7 +87,7 @@ window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.d
 
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ng-rails-csrf', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects

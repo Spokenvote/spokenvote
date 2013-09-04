@@ -11,6 +11,7 @@
 //= require bootstrap-typeahead
 //= require holder
 //= require viewport.min
+//= require ng-rails-csrf
 //= require ui-bootstrap-tpls-0.4.0
 //= require angular-strap
 //= require angular-ui
