@@ -19,7 +19,9 @@
         .instructions
           .avatar
             %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-          %h5 Build your improved proposal statement below, making as few changes to the original proposal as possible.
+          %h5 {{ currentUser.first_name }} is about to improve upon the proposal below.
+          %h5
+            .hint-text Hint!  Try to make as few changes to the original proposal as possible while making your improvement.
         .proposal_statement
           %h5 Original Proposal
           %h4 {{ clicked_proposal.statement }}

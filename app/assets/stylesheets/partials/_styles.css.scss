@@ -152,6 +152,12 @@ footer {
   color: $error-text-red;
 }
 
+.hint-text {
+  font-style: italic;
+  color: $alert-blue;
+  text-align: center;
+}
+
 // end Structural
 
 // General elements
@@ -412,11 +418,9 @@ textarea.ng-invalid.ng-dirty {
         color: $happy-blue;
         font-size: 135%;
       }
-      h5 {
-        font-style: italic;
-        color: $alert-blue;
-        text-align: center;
+      .hint-text {
         margin-left: 30px;
+        margin-top: -11px;
         margin-right: 55px;
         padding-bottom: 4px;
       }
