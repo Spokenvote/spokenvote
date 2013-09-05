@@ -25,7 +25,7 @@
 
     .row
       .supporting_arguments_list.span12( ng-repeat="(key, vote) in proposal.votes" )
-        .row.support_row{class: 'first'}
+        .row.support_row
           .proposal-person.span3
             .user-avatar
               %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
