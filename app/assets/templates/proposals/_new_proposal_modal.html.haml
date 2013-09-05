@@ -6,9 +6,11 @@
       %a.hub( ng-click='changeHub(true)' href='#' )
         .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
           %h3( collapse='!sessionSettings.hub_attributes.id' )
-            %i( class='icon-edit' )
+            %i( class='icon-pencil' )
             %span {{ sessionSettings.hub_attributes.group_name }}
-          %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' ) {{ sessionSettings.actions.searchTerm }}
+          %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
+            %i( class='icon-pencil' )
+            %span {{ sessionSettings.actions.searchTerm }}
           %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
   .modal-body
