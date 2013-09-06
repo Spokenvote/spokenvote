@@ -338,7 +338,7 @@ DEPENDENCIES
   faker
   haml-rails
   hirb
-  jquery-rails
+  jquery-rails (< 3.0.0)
   jquery-tokeninput-rails
   jquery-ui-rails
   lol_dba
