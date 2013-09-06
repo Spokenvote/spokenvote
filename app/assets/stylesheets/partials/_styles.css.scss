@@ -158,6 +158,17 @@ footer {
   text-align: center;
 }
 
+.right-column {
+  padding-left: 50%;
+  padding-top: 20px;
+}
+
+.left-column {
+  padding-right: 50%;
+  padding-top: 20px;
+}
+
+
 // end Structural
 
 // General elements
@@ -624,6 +635,7 @@ textarea.ng-invalid.ng-dirty {
   }
   h4 {
     color: #555;
+    line-height: 30px;
   }
   .content_offset {
     margin-left: 40px;
