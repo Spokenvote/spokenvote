@@ -182,7 +182,6 @@ GEM
     multipart-post (1.2.0)
     nested_form (0.3.1)
     newrelic_rpm (3.5.5.38)
-    ng-rails-csrf (0.1.0)
     nokogiri (1.5.9)
     nokogiri (1.5.9-x86-mingw32)
     oauth2 (0.8.1)
@@ -345,7 +344,6 @@ DEPENDENCIES
   meta_request
   nested_form
   newrelic_rpm (= 3.5.5.38)
-  ng-rails-csrf
   omniauth
   omniauth-facebook
   omniauth-google-oauth2

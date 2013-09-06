@@ -15,7 +15,7 @@ gem 'rack-cache'
 gem 'jquery-rails', '< 3.0.0'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
-gem 'ng-rails-csrf'
+#gem 'ng-rails-csrf'
 #gem 'select2-rails'   # moved to CDN
 
 # UI/Forms
