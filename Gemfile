@@ -5,7 +5,6 @@ ruby '1.9.3'
 gem 'rails', '3.2.13'
 
 # Infrastructure
-# gem 'heroku'
 gem 'devise'
 gem 'pg'
 gem 'thin'
@@ -16,6 +15,7 @@ gem 'rack-cache'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
+gem 'ng-rails-csrf'
 #gem 'select2-rails'   # moved to CDN
 
 # UI/Forms

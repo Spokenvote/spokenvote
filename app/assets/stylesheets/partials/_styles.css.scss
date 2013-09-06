@@ -5,6 +5,7 @@ $happy-blue: #1c85f6;
 $spring-green: #50D050;
 $chisel-grey: #c1c1c1;
 $basic-brown: #444;
+$soft-brown-text: #555555;
 $facebook-blue: #3B5998;
 $alert-blue: #284784;
 $error-text-red: #b94a48;
@@ -141,13 +142,30 @@ footer {
   margin-right: ($gridGutterWidth * 1.25);
   margin-top: ($gridGutterWidth * -0.55);
   margin-bottom: ($gridGutterWidth * 0.30);
-  font-size: 70%;
+  font-size: 10px;
   color: gray;
 }
 
 .error-text {
   color: $error-text-red;
 }
+
+.hint-text {
+  font-style: italic;
+  color: $alert-blue;
+  text-align: center;
+}
+
+.right-column {
+  padding-left: 50%;
+  padding-top: 20px;
+}
+
+.left-column {
+  padding-right: 50%;
+  padding-top: 20px;
+}
+
 
 // end Structural
 
@@ -382,7 +400,7 @@ textarea.ng-invalid.ng-dirty {
       margin-left: ($gridGutterWidth * 0.9);
     }
     h5 {
-      color: #555555;
+      color: $soft-brown-text;
       margin-right: $gridGutterWidth;
       margin-left: ($gridGutterWidth * 1.9);
       padding-bottom: ($gridGutterWidth);
@@ -409,11 +427,9 @@ textarea.ng-invalid.ng-dirty {
         color: $happy-blue;
         font-size: 135%;
       }
-      h5 {
-        font-style: italic;
-        color: $alert-blue;
-        text-align: center;
+      .hint-text {
         margin-left: 30px;
+        margin-top: -11px;
         margin-right: 55px;
         padding-bottom: 4px;
       }
@@ -425,6 +441,9 @@ textarea.ng-invalid.ng-dirty {
   .proposal-area {
   }
   padding-bottom: 18px;
+  .text_input {
+    padding-left: 7px;
+  }
 }
 
 .selectedHub {
@@ -614,6 +633,7 @@ textarea.ng-invalid.ng-dirty {
   }
   h4 {
     color: #555;
+    line-height: 30px;
   }
   .content_offset {
     margin-left: 40px;
@@ -953,6 +973,9 @@ textarea.ng-invalid.ng-dirty {
     padding-bottom: 10px;
     margin-bottom: 0;
     color: #999999;
+  }
+  h5 {
+    color: $soft-brown-text;
   }
 }
 

@@ -23,7 +23,7 @@
         %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
           %span( class='caret' )
 
-    #relatedProposalsTitle Related Proposals
+    #relatedProposalsTitle Alternative Proposals
 
     %ng-include( src="'/assets/proposals/_show.html.haml'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
 
