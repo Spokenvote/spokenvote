@@ -1,7 +1,7 @@
 'use strict'
 
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
-  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+#  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
