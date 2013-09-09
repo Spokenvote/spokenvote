@@ -332,7 +332,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   debugger
-  devise (= 2.2.3)
+  devise
   factory_girl_rails
   faker
   haml-rails

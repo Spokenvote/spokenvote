@@ -5,7 +5,8 @@ ruby '1.9.3'
 gem 'rails', '3.2.13'
 
 # Infrastructure
-gem 'devise', '2.2.3'
+#gem 'devise', '2.2.3'
+gem 'devise'
 gem 'pg'
 gem 'thin'
 gem 'dalli'
