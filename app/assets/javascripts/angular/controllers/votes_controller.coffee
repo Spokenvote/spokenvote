@@ -27,7 +27,7 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
     AlertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
 
   $scope.improvedProposal =
-    statement: $scope.proposal.statement
+    statement: $scope.clicked_proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =
@@ -105,6 +105,7 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     dialog.close(result)
 
 NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+  AlertService.clearAlerts()
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
@@ -127,7 +128,7 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', parentScope
-      $location.path('/proposals/').search('hub', response.hub_id).search('filter', 'my')
+      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
       dialog.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope

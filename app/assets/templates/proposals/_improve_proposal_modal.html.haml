@@ -14,29 +14,34 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    .proposal_new
-      %form( name='improvedProposalForm' )
+    %form( name='improvedProposalForm' )
+      .newProposal
         .instructions
           .avatar
             %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
-          %h5 Build your improved proposal statement below, making as few changes to the original proposal as possible.
-          .proposal_statement
-            %h4 {{ improvedProposal.statement }}
+          %h5 {{ currentUser.first_name }} is about to improve upon the proposal below.
+          %h5
+            .hint-text Hint!  Try to make as few changes to the original proposal as possible while making your improvement.
+        .proposal_statement
+          %h5 Original Proposal
+          %h4 {{ clicked_proposal.statement }}
 
-        .control-group
-          .controls
+          %h5 Your Improved Proposal
+          .text_input
             %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='improvedProposal.statement' required ng-minLength='15' ng-maxLength='140'
-              placeholder='Please use  15 - 140 characters to form your improved proposal, making as few changes to the original proposal as possible to effect your change.' )
-            .length_counter.error-text( ng-show="improvedProposalForm.proposal_statement.$error.minlength" ) Too Short
+              placeholder='Write your improved proposal here, making as few changes to the original proposal as possible to effect your change.' )
             .length_counter( ng-show='improvedProposalForm.proposal_statement.$valid' ) {{ 140 - improvedProposal.statement.length }} characters remaining
+            .length_counter.error-text( ng-show='improvedProposalForm.proposal_statement.$invalid && !improvedProposalForm.proposal_statement.$error.minlength && !improvedProposalForm.proposal_statement.$error.maxlength' )
+              %i( class='icon-warning-sign' ) &nbsp Required
+            .length_counter.error-text( ng-show="improvedProposalForm.proposal_statement.$error.minlength" ) Too Short
             .length_counter.error-text( ng-show="improvedProposalForm.proposal_statement.$error.maxlength" ) Too Long
 
-        .control-group
-          .controls
             %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='improvedProposal.comment' required ng-minLength='7' ng-maxLength='280'
-            placeholder='Use 7 - 280 characters in this space to explain why others should support your improved proposal.' )
-            .length_counter.error-text( ng-show="improvedProposalForm.vote_comment.$error.minlength" ) Too Short
+            placeholder='Explain why others should support your improved proposal.' )
             .length_counter( ng-show='improvedProposalForm.vote_comment.$valid' ) {{ 280 - improvedProposal.comment.length }} characters remaining
+            .length_counter.error-text( ng-show='improvedProposalForm.vote_comment.$invalid && !improvedProposalForm.vote_comment.$error.minlength && !improvedProposalForm.vote_comment.$error.maxlength' )
+              %i( class='icon-warning-sign' ) &nbsp Required
+            .length_counter.error-text( ng-show='improvedProposalForm.vote_comment.$error.minlength' ) Too Short
             .length_counter.error-text( ng-show="improvedProposalForm.vote_comment.$error.maxlength" ) Too Long
 
   .modal-footer
