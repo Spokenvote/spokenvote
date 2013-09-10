@@ -13,7 +13,8 @@ gem 'dalli'
 gem 'rack-cache'
 
 # Javascript
-gem 'jquery-rails', '< 3.0.0'
+#gem 'jquery-rails', '< 3.0.0'
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
 #gem 'select2-rails'   # moved to CDN
