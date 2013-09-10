@@ -52,7 +52,7 @@ GEM
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -101,11 +101,11 @@ GEM
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
-    devise (2.2.3)
+    devise (3.0.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (~> 3.1)
-      warden (~> 1.2.1)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.3)
     diff-lcs (1.2.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -134,7 +134,7 @@ GEM
       railties (>= 3.1, < 4.1)
     has_scope (0.5.1)
     hashie (1.2.0)
-    hike (1.2.2)
+    hike (1.2.3)
     hirb (0.7.1)
     httpauth (0.2.0)
     i18n (0.6.1)
@@ -175,7 +175,7 @@ GEM
     mime-types (1.23)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    multi_json (1.7.3)
+    multi_json (1.8.0)
     multipart-post (1.2.0)
     nested_form (0.3.1)
     newrelic_rpm (3.5.5.38)
@@ -191,9 +191,6 @@ GEM
       rack
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
-    omniauth-google-oauth2 (0.1.13)
-      omniauth (~> 1.0)
-      omniauth-oauth2
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -223,6 +220,11 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.1)
+    rails_stdout_logging (0.0.2)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -253,7 +255,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     rubyzip (0.9.9)
-    sass (3.2.7)
+    sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -301,7 +303,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     version_fu (1.0.1)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
     xpath (1.0.0)
@@ -326,7 +328,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   debugger
-  devise
+  devise (<= 3.0.3)
   factory_girl_rails
   faker
   haml-rails
@@ -340,13 +342,13 @@ DEPENDENCIES
   newrelic_rpm (= 3.5.5.38)
   omniauth
   omniauth-facebook
-  omniauth-google-oauth2
   pg
   populator
   rabl
   rack-cache
   railroady
   rails (= 3.2.13)
+  rails_12factor
   rspec
   rspec-rails
   sass-rails (~> 3.2.5)

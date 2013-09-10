@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 
 # Infrastructure
 # gem 'heroku'
-gem 'devise'
+gem 'devise', '<= 3.0.3'
 gem 'pg'
 gem 'thin'
 gem 'dalli'
@@ -30,7 +30,7 @@ gem 'activeadmin'
 # Authentication
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
+#gem 'omniauth-google-oauth2'
 
 # Other
 gem 'ancestry'
@@ -75,6 +75,7 @@ group :test do
 end
 
 group :production, :staging do
+  gem 'rails_12factor'
   gem 'newrelic_rpm', '3.5.5.38'
   gem "airbrake"
 end
