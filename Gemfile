@@ -30,7 +30,7 @@ gem 'activeadmin'
 # Authentication
 gem 'omniauth'
 gem 'omniauth-facebook'
-#gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2'
 
 # Other
 gem 'ancestry'
