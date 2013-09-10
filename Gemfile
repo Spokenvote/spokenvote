@@ -19,7 +19,7 @@ gem 'jquery-tokeninput-rails'
 #gem 'select2-rails'   # moved to CDN
 
 # UI/Forms
-#gem 'nested_form'
+gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'compass'

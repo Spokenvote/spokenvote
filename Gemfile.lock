@@ -176,6 +176,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.8.0)
     multipart-post (1.2.0)
+    nested_form (0.3.2)
     newrelic_rpm (3.5.5.38)
     nokogiri (1.5.9)
     oauth2 (0.8.1)
@@ -339,6 +340,7 @@ DEPENDENCIES
   jquery-ui-rails
   lol_dba
   meta_request
+  nested_form
   newrelic_rpm (= 3.5.5.38)
   omniauth
   omniauth-facebook
