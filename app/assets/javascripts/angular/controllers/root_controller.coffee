@@ -6,25 +6,27 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $rootScope.currentUser = current_user
     $location.path('/proposals').search('filter', 'my') if $rootScope.currentUser.username? and $location.path() == '/'
 
+  window.fbAsyncInit = ->
+    FB.init
+      appId:
+        switch $location.host().substring(0,3)
+          when 'loc' then '449408378433518'
+          when 'sta' then '122901591225638'
+          when 'www' then '374325849312759'
+      cookie: true
+      status: true
+      xfbml: true
+
 #  window.fbAsyncInit = ->
-
-#  console.log $location.host().substring(0,3)
-  switch $location.host().substring(0,3)
-    when 'loc' then fbAppId = '449408378433518'
-    when 'sta' then fbAppId = '122901591225638'
-    when 'www' then fbAppId = '374325849312759'
-  console.log fbAppId
-
-
-
+#    switch $location.host().substring(0,3)
+#      when 'loc' then fbAppId = '449408378433518'
+#      when 'sta' then fbAppId = '122901591225638'
+#      when 'www' then fbAppId = '374325849312759'
 #    FB.init
-##      appId: '<%= ENV["FB_APP_ID"] %>'
-#      appId: "449408378433518"  # Use this ID for local testing
-##      appId: "122901591225638"  # Use this ID for staging
+#      appId: fbAppId
 #      cookie: true
 #      status: true
 #      xfbml: true
-
 
   $scope.$on "event:loginRequired", ->
     $scope.authService.signinFb($scope)

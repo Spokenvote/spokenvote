@@ -1,7 +1,6 @@
 'use strict'
 
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
-#  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
@@ -74,14 +73,14 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       dataType: 'script'
       cache: true
 
-  window.fbAsyncInit = ->
-    FB.init
-#      appId: '<%= ENV["FB_APP_ID"] %>'
-#      appId: "449408378433518"  # Use this ID for local testing
-      appId: "122901591225638"  # Use this ID for staging
-      cookie: true
-      status: true
-      xfbml: true
+#  window.fbAsyncInit = ->
+#    FB.init
+##      appId: '<%= ENV["FB_APP_ID"] %>'
+##      appId: "449408378433518"  # Use this ID for local testing
+#      appId: "122901591225638"  # Use this ID for staging
+#      cookie: true
+#      status: true
+#      xfbml: true
 #    console.log "fb.init call"
 #    console.log '<%= ENV["FB_APP_ID"] %>'
 
@@ -91,7 +90,6 @@ window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.d
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
 App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
-#App.Services = angular.module('spokenvote.services', ['ngResource', 'ng-rails-csrf', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects
