@@ -82,8 +82,8 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       cookie: true
       status: true
       xfbml: true
-    console.log "fb.init call"
-    console.log '<%= ENV["FB_APP_ID"] %>'
+#    console.log "fb.init call"
+#    console.log '<%= ENV["FB_APP_ID"] %>'
 
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
