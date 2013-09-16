@@ -45,7 +45,8 @@ footer {
 #main {
   overflow: visible;
   background: url(noisy_grid.png);
-  height: auto;
+  min-height: 1200px;
+  //height: auto;
   .content {
     overflow: visible;
   }
