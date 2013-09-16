@@ -76,8 +76,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
 
   window.fbAsyncInit = ->
     FB.init
-      appId: '<%= ENV["FB_APP_ID"] %>'
+#      appId: '<%= ENV["FB_APP_ID"] %>'
 #      appId: "449408378433518"  # Use this ID for local testing
+      appId: "122901591225638"  # Use this ID for staging
       cookie: true
       status: true
       xfbml: true
