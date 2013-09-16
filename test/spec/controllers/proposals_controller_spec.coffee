@@ -50,7 +50,7 @@ describe "Controllers", ->
       ,
         id: 2
       ]
-      mockBackend.expectGET("/assets/pages/landing.html.haml").respond []
+      mockBackend.expectGET("/assets/pages/landing.html").respond []
       proposals = undefined
       promise = loader(
 #        $routeParams

@@ -22,7 +22,7 @@
         .changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
             .avatar
-              %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+              %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
             %h5 This step is where you set the group for your proposal. Start by searching below to see if it exists. If it doesn't exist yet, create it.
 
           .selecthub( ng-controller='DashboardCtrl' )
@@ -46,7 +46,7 @@
         .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
           .instructions
             .avatar
-              %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+              %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
             %h5 Create your main proposal statement, then add a supporting argument to explain why others should support your proposal.
 
           .control-group
