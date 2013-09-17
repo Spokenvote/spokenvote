@@ -17,17 +17,6 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
       status: true
       xfbml: true
 
-#  window.fbAsyncInit = ->
-#    switch $location.host().substring(0,3)
-#      when 'loc' then fbAppId = '449408378433518'
-#      when 'sta' then fbAppId = '122901591225638'
-#      when 'www' then fbAppId = '374325849312759'
-#    FB.init
-#      appId: fbAppId
-#      cookie: true
-#      status: true
-#      xfbml: true
-
   $scope.$on "event:loginRequired", ->
     $scope.authService.signinFb($scope)
 

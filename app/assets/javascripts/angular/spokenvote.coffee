@@ -5,19 +5,16 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
 
   $routeProvider
     .when '/',
-#      templateUrl: "<%= asset_path('pages/landing.html') %>"
       templateUrl: '/assets/pages/landing.html'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
-#      templateUrl: "<%= asset_path('pages/landing.html') %>"
       templateUrl: '/assets/pages/landing.html'
       controller: 'RootCtrl'
 
     .when '/proposals',
-#      templateUrl: "<%= asset_path('proposals/index.html') %>"
       templateUrl: '/assets/proposals/index.html'
       controller: 'ProposalListCtrl'
       resolve:
@@ -25,7 +22,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
           MultiProposalLoader()
 
     .when '/proposals/:proposalId',
-#      templateUrl: "<%= asset_path('proposals/show.html') %>"
       templateUrl: '/assets/proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
@@ -44,11 +40,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       templateUrl: '/assets/pages/about.html'
 
     .when '/terms-of-use',
-#      templateUrl: "<%= asset_path('pages/terms-of-use.html') %>"
       templateUrl: '/assets/pages/terms-of-use.html'
 
     .when '/privacy',
-#      templateUrl: "<%= asset_path('pages/privacy.html') %>"
       templateUrl: '/assets/pages/privacy.html'
 
     .otherwise
@@ -72,17 +66,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
       dataType: 'script'
       cache: true
-
-#  window.fbAsyncInit = ->
-#    FB.init
-##      appId: '<%= ENV["FB_APP_ID"] %>'
-##      appId: "449408378433518"  # Use this ID for local testing
-#      appId: "122901591225638"  # Use this ID for staging
-#      cookie: true
-#      status: true
-#      xfbml: true
-#    console.log "fb.init call"
-#    console.log '<%= ENV["FB_APP_ID"] %>'
 
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
