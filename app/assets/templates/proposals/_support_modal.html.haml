@@ -29,7 +29,7 @@
         .proposal_statement
           %h4 {{ clicked_proposal.statement }}
 
-      %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='140'
+      %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='280'
         placeholder='Explain why you want to support this proposal.' )
       .length_counter( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
       .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
