@@ -7,7 +7,7 @@
     %h3
       %a( ng-href='#' ng-click='showProposal(proposal)' )  {{ proposal.statement }}
     .improve_support_buttons
-      %ng-include( src="'/assets/shared/_social_buttons.html.haml'" )
+      %ng-include( src="'/assets/shared/_social_buttons.html'" )
 
       .edit.btn-group( ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
         %button( ng-click='edit(proposal)' class='btn btn-primary edit' bs-tooltip='tooltips.edit' data-placement='right' ) <i class="icon-pencil"></i>
@@ -25,7 +25,7 @@
 
     .row
       .supporting_arguments_list.span12( ng-repeat="(key, vote) in proposal.votes" )
-        .row.support_row{class: 'first'}
+        .row.support_row
           .proposal-person.span3
             .user-avatar
               %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )

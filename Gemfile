@@ -6,14 +6,14 @@ gem 'rails', '3.2.13'
 
 # Infrastructure
 # gem 'heroku'
-gem 'devise'
+gem 'devise', '<= 3.0.3'
 gem 'pg'
 gem 'thin'
 gem 'dalli'
 gem 'rack-cache'
 
 # Javascript
-gem 'jquery-rails'
+gem 'jquery-rails', '< 3.0.0'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
 #gem 'select2-rails'   # moved to CDN
@@ -75,6 +75,7 @@ group :test do
 end
 
 group :production, :staging do
+  gem 'rails_12factor'
   gem 'newrelic_rpm', '3.5.5.38'
   gem "airbrake"
 end

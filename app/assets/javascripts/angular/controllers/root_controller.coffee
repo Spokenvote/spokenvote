@@ -6,6 +6,17 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $rootScope.currentUser = current_user
     $location.path('/proposals').search('filter', 'my') if $rootScope.currentUser.username? and $location.path() == '/'
 
+  window.fbAsyncInit = ->
+    FB.init
+      appId:
+        switch $location.host().substring(0,3)
+          when 'loc' then '449408378433518'
+          when 'sta' then '122901591225638'
+          when 'www' then '374325849312759'
+      cookie: true
+      status: true
+      xfbml: true
+
   $scope.$on "event:loginRequired", ->
     $scope.authService.signinFb($scope)
 
@@ -20,7 +31,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
             $scope
       d = $dialog.dialog(opts)
       SessionSettings.openModals.userSettings = true
-      d.open('/assets/user/_support_modal.html.haml', 'UserSettingsCtrl').then (result) ->
+      d.open('/assets/user/_support_modal.html', 'UserSettingsCtrl').then (result) ->
         SessionSettings.openModals.userSettings = d.isOpen()
 
   $scope.signOut = ->
@@ -57,7 +68,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
             $scope
       d = $dialog.dialog(opts)
       SessionSettings.openModals.signIn = true
-      d.open('/assets/shared/_sign_in_modal.html.haml', 'SessionCtrl').then (result) ->
+      d.open('/assets/shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
         SessionSettings.openModals.signIn = d.isOpen()
 
   $scope.registerModal = ->
@@ -68,7 +79,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
             $scope
       d = $dialog.dialog(opts)
       SessionSettings.openModals.register = true
-      d.open('/assets/shared/_registration_modal.html.haml', 'RegistrationCtrl').then (result) ->
+      d.open('/assets/shared/_registration_modal.html', 'RegistrationCtrl').then (result) ->
         SessionSettings.openModals.register = d.isOpen()
 
   $scope.omniauthSession = SessionService.userOmniauth

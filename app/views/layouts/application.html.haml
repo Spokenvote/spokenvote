@@ -9,7 +9,7 @@
     %meta( content="" name="author" )
 
     = favicon_link_tag
-    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide|Yanone+Kaffeesatz"
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide|Yanone+Kaffeesatz', rel: 'stylesheet', type: 'text/css'
     = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.0/select2.css"
     = stylesheet_link_tag "application", :media => "all"
 
@@ -29,7 +29,7 @@
     = yield(:head)
 
   %body( ng-controller='RootCtrl' )
-    %ng-include(src="'/assets/shared/_navigation.html.haml'")
+    %ng-include(src="'/assets/shared/_navigation.html'")
 
     #main( role="main" )
       .container

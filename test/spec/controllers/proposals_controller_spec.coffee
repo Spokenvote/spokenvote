@@ -50,7 +50,7 @@ describe "Controllers", ->
       ,
         id: 2
       ]
-      mockBackend.expectGET("/assets/pages/landing.html.haml").respond []
+      mockBackend.expectGET("/assets/pages/landing.html").respond []
       proposals = undefined
       promise = loader(
 #        $routeParams
@@ -117,7 +117,7 @@ describe "Controllers", ->
       $scope.saveNewProposal()
       expect(location.path()).toEqual "/test"
       mockBackend.flush()
-      expect(location.path()).toEqual "/proposals/"
+      expect(location.path()).toEqual "/proposals/2"
 
 
   describe "DeleteProposalCtrl", ->

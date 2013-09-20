@@ -1,33 +1,28 @@
 'use strict'
 
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
-  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $locationProvider.html5Mode true
 
   $routeProvider
     .when '/',
-#      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
-      templateUrl: '/assets/pages/landing.html.haml'
+      templateUrl: '/assets/pages/landing.html'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
-#      templateUrl: "<%= asset_path('pages/landing.html.haml') %>"
-      templateUrl: '/assets/pages/landing.html.haml'
+      templateUrl: '/assets/pages/landing.html'
       controller: 'RootCtrl'
 
     .when '/proposals',
-#      templateUrl: "<%= asset_path('proposals/index.html.haml') %>"
-      templateUrl: '/assets/proposals/index.html.haml'
+      templateUrl: '/assets/proposals/index.html'
       controller: 'ProposalListCtrl'
       resolve:
         proposals: (MultiProposalLoader) ->
           MultiProposalLoader()
 
     .when '/proposals/:proposalId',
-#      templateUrl: "<%= asset_path('proposals/show.html.haml') %>"
-      templateUrl: '/assets/proposals/show.html.haml'
+      templateUrl: '/assets/proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
         proposal: (ProposalLoader) ->
@@ -41,16 +36,14 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
           CurrentUserLoader()
 
     .when '/about',
-#      templateUrl: "<%= asset_path('pages/about.html.haml') %>"
-      templateUrl: '/assets/pages/about.html.haml'
+#      templateUrl: "<%= asset_path('pages/about.html') %>"
+      templateUrl: '/assets/pages/about.html'
 
     .when '/terms-of-use',
-#      templateUrl: "<%= asset_path('pages/terms-of-use.html.haml') %>"
-      templateUrl: '/assets/pages/terms-of-use.html.haml'
+      templateUrl: '/assets/pages/terms-of-use.html'
 
     .when '/privacy',
-#      templateUrl: "<%= asset_path('pages/privacy.html.haml') %>"
-      templateUrl: '/assets/pages/privacy.html.haml'
+      templateUrl: '/assets/pages/privacy.html'
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
@@ -73,14 +66,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
       url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
       dataType: 'script'
       cache: true
-
-  window.fbAsyncInit = ->
-    FB.init
-      appId: '<%= ENV["FB_APP_ID"] %>'
-#      appId: "449408378433518"  # Use this ID for local testing
-      cookie: true
-      status: true
-      xfbml: true
 
 window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 

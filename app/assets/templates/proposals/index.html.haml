@@ -12,8 +12,8 @@
                 %span( class='close_x' ) &times;
 
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
-          %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> Active
-          %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp New &nbsp
+          %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> &nbsp Active &nbsp
+          %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp Recent &nbsp
           %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )

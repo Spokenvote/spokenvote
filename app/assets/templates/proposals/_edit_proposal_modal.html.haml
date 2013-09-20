@@ -15,23 +15,27 @@
     %form( name='editProposalForm' ng-submit='saveEdit()' )
       .instructions
         .avatar
-          %ng-include(src="'/assets/shared/_currentuser_avatar.html.haml'")
+          %ng-include(src="'/assets/shared/_currentuser_avatar.html'")
         %h5 You are editing your Proposal   ...
 
       .control-group
         .controls
           %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='editProposal.proposal.statement' required ng-minLength='15' ng-maxLength='140'
-            placeholder='Please use  15 - 140 characters while editing your proposal.' )
-          .length_counter.error-text( ng-show="editProposalForm.proposal_statement.$error.minlength" ) Too Short
+            placeholder='Write your main proposal statement here.' )
           .length_counter( ng-show='editProposalForm.proposal_statement.$valid' ) {{ 140 - editProposal.proposal.statement.length }} characters remaining
+          .length_counter.error-text( ng-show='editProposalForm.proposal_statement.$invalid && !editProposalForm.proposal_statement.$error.minlength && !editProposalForm.proposal_statement.$error.maxlength' )
+            %i( class='icon-warning-sign' ) &nbsp Required
+          .length_counter.error-text( ng-show="editProposalForm.proposal_statement.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show='editProposalForm.proposal_statement.$error.maxlength' ) Too Long
 
       .control-group
         .controls
           %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='editProposal.proposal.votes_attributes.comment' required ng-minLength='7' ng-maxLength='280'
-          placeholder='Use 7 - 280 characters in this space to explain why others should support your proposal.' )
-          .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.minlength" ) Too Short
+          placeholder='Explain why others should support your proposal here.' )
           .length_counter( ng-show='editProposalForm.vote_comment.$valid' ) {{ 280 - editProposal.proposal.votes_attributes.comment.length }} characters remaining
+          .length_counter.error-text( ng-show='editProposalForm.vote_comment.$invalid && !editProposalForm.vote_comment.$error.minlength && !editProposalForm.vote_comment.$error.maxlength' )
+            %i( class='icon-warning-sign' ) &nbsp Required
+          .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.maxlength" ) Too Long
 
   .modal-footer
