@@ -1,6 +1,6 @@
 alertBar = ($parse) ->
   restrict: 'A'
-  templateUrl: '/assets/shared/_request_response_partial.html.haml'
+  templateUrl: '/assets/shared/_request_response_partial.html'
 
   link: (scope, elem, attrs) ->
     alertMessageAttr = attrs['alertmessageclear']

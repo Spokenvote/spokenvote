@@ -12,7 +12,7 @@
     %a.hub( ng-click="hubView()" href='#' )
       %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
-  %ng-include( src="'/assets/proposals/_show.html.haml'" )
+  %ng-include( src="'/assets/proposals/_show.html'" )
 
   .hr
 
@@ -23,9 +23,9 @@
         %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
           %span( class='caret' )
 
-    #relatedProposalsTitle Related Proposals
+    #relatedProposalsTitle Alternative Proposals
 
-    %ng-include( src="'/assets/proposals/_show.html.haml'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
+    %ng-include( src="'/assets/proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
 
   %h3( ng-show='proposal.related_proposals_count < 1' ) There are no alternative proposals yet.
 

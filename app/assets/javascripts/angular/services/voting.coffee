@@ -24,7 +24,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
                   scope
             d = $dialog.dialog(scope.opts)
             SessionSettings.openModals.supportProposal = true
-            d.open('/assets/proposals/_support_modal.html.haml', 'SupportCtrl').then (result) ->
+            d.open('/assets/proposals/_support_modal.html', 'SupportCtrl').then (result) ->
               SessionSettings.openModals.supportProposal = d.isOpen()
 
 
@@ -46,7 +46,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
                 scope
           d = $dialog.dialog(scope.opts)
           SessionSettings.openModals.improveProposal = true
-          d.open('/assets/proposals/_improve_proposal_modal.html.haml', 'ImroveCtrl').then (result) ->
+          d.open('/assets/proposals/_improve_proposal_modal.html', 'ImroveCtrl').then (result) ->
             SessionSettings.openModals.improveProposal = d.isOpen()
 
 
@@ -63,7 +63,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
               scope
         d = $dialog.dialog(scope.opts)
         SessionSettings.openModals.editProposal = true
-        d.open('/assets/proposals/_edit_proposal_modal.html.haml', 'EditProposalCtrl').then (result) ->
+        d.open('/assets/proposals/_edit_proposal_modal.html', 'EditProposalCtrl').then (result) ->
           SessionSettings.openModals.editProposal = d.isOpen()
 
   delete: (scope, clicked_proposal) ->
@@ -79,7 +79,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
               scope
         d = $dialog.dialog(scope.opts)
         SessionSettings.openModals.deleteProposal = true
-        d.open('/assets/proposals/_delete_proposal_modal.html.haml', 'DeleteProposalCtrl').then (result) ->
+        d.open('/assets/proposals/_delete_proposal_modal.html', 'DeleteProposalCtrl').then (result) ->
           SessionSettings.openModals.deleteProposal = d.isOpen()
 
   new: (scope) ->
@@ -94,7 +94,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
               scope
         d = $dialog.dialog(scope.opts)
         SessionSettings.openModals.newProposal = true
-        d.open('/assets/proposals/_new_proposal_modal.html.haml', 'NewProposalCtrl').then (result) ->
+        d.open('/assets/proposals/_new_proposal_modal.html', 'NewProposalCtrl').then (result) ->
           SessionSettings.openModals.newProposal = d.isOpen()
 
 # Injects

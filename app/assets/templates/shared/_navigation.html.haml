@@ -41,7 +41,7 @@
 
         %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  bs-tooltip='currentUser.username' data-placement='bottom' )
           %a(href='/proposals?filter=my')
-            %ng-include( src="'/assets/shared/_currentuser_avatar.html.haml'" )
+            %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
 
         %li.buttons( ng-show='!currentUser.username' )
           %button( ng-click="signinAuth()" class='btn btn-info btn-bold' ) Sign In

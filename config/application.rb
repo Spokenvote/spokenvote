@@ -6,6 +6,9 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
 
+require 'haml'
+
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -15,6 +18,23 @@ end
 
 module Spokenvote
   class Application < Rails::Application
+
+    config.assets.paths << Rails.root.join("app", "assets", "templates")
+
+    class HamlTemplate < Tilt::HamlTemplate
+      def prepare
+        @options = @options.merge :format => :html5
+        super
+      end
+    end
+
+    config.before_initialize do |app|
+      require 'sprockets'
+      Sprockets::Engines #force autoloading
+      Sprockets.register_engine '.haml', HamlTemplate
+    end
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -65,8 +85,9 @@ module Spokenvote
     config.assets.version = '1.0'
 
     # Suggested by Bill 1/3/13: Between these lines and using @import statements in application.css.scss my JHTC app has no trouble on Heroku.
-    config.assets.precompile += ['application.scss.css', 'application.js', 'site.js']
+    config.assets.precompile += ['application.scss.css', 'application.js']
     config.assets.initialize_on_precompile = false
+
 
     # Only generate request specs and model specs
     config.generators do |g|
