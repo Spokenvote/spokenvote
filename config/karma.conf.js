@@ -21,7 +21,7 @@ files = [
   'vendor/assets/javascripts/ui-bootstrap-tpls-0.4.0.js',
   'vendor/assets/javascripts/angular-mocks.js',
 //  'app/assets/javascripts/application.js',
-  'app/assets/javascripts/angular/*.coffee.erb',
+  'app/assets/javascripts/angular/*.coffee',
   'app/assets/javascripts/angular/**/*.coffee',
   'test/**/*spec.coffee'
 ];
@@ -37,8 +37,8 @@ proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
 urlRoot = '/_karma_/';
 
 preprocessors = {
-    '**/*.coffee': 'coffee',
-    '**/*.coffee.erb': 'coffee'
+    '**/*.coffee': 'coffee'
+//    '**/*.coffee.erb': 'coffee'
 };
 
 // test results reporter to use

@@ -117,7 +117,7 @@ describe "Controllers", ->
       $scope.saveNewProposal()
       expect(location.path()).toEqual "/test"
       mockBackend.flush()
-      expect(location.path()).toEqual "/proposals/"
+      expect(location.path()).toEqual "/proposals/2"
 
 
   describe "DeleteProposalCtrl", ->
