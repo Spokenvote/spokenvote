@@ -1,8 +1,8 @@
-%section#homepage.span12
+%section#homepage.span11
   #searchResults
     .listing-proposals
       .header.row-fluid.panel
-        .title.span8
+        .title.span7
           %h4( colspan='5' )
             %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
             %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )

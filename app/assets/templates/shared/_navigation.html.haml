@@ -9,13 +9,14 @@
       %ul#hub_search.nav
         %li.hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
-        %li.buttons
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  ng-show='currentUser.username' bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
 
       %ul.nav.pull-right
+        %li.buttons
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
+
         %li.dropdown( data-placement='bottom' )
           %a.dropdown-toggle( data-toggle='dropdown' )
-            %b.white {{ currentUser.first_name || 'Learn more' }}
+            %b.white {{ currentUser.first_name || 'Learn' }}
             %b.caret
 
           %ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
