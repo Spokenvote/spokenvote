@@ -207,7 +207,7 @@ h1.form-horizontal {
     @extend .hide;
   }
   h1 {
-    font-size: 80px;
+    font-size: 78px;
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
@@ -599,7 +599,7 @@ textarea.ng-invalid.ng-dirty {
 .content_page {
   @extend .span11;
   //width: 917px;
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 37px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 32px;
   background-color: #fff;
   @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   margin-top: -20px;
@@ -689,7 +689,7 @@ textarea.ng-invalid.ng-dirty {
 }
 
 #homepage {
-  margin-left: -5px;
+  margin-left: 0;
 }
 
 .landing_hubfilter {
@@ -706,9 +706,6 @@ textarea.ng-invalid.ng-dirty {
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
-  //.proposal_buttons {
-  //  width: 114px;
-  //}
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
@@ -734,6 +731,7 @@ textarea.ng-invalid.ng-dirty {
   }
 
   .proposal {
+    font-size: 175%;
     a.h2 {
       color: $basic-brown;
     }
