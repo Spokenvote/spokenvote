@@ -732,9 +732,7 @@ textarea.ng-invalid.ng-dirty {
       height: auto;
     }
   }
-  .proposal-person {
-    //margin-left: -40px;
-  }
+
   .proposal {
     a.h2 {
       color: $basic-brown;
@@ -925,6 +923,9 @@ textarea.ng-invalid.ng-dirty {
   }
   .proposal-person {
     @extend .clear;
+    .user-avatar {
+      margin-right: 13px;
+    }
   }
   .supported_date {
     @include inline-block;
