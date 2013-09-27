@@ -26,7 +26,7 @@ describe "Controllers", ->
     proposal = undefined
     loader = undefined
     routeParams = undefined
-    beforeEach inject((_$httpBackend_, Proposal, MultiProposalLoader, $location, $routeParams) ->
+    beforeEach inject((_$httpBackend_, Proposal, MultiProposalLoader, $location, $routeParams, $route) ->
       proposal = Proposal
       mockBackend = _$httpBackend_
       loader = MultiProposalLoader
@@ -36,7 +36,7 @@ describe "Controllers", ->
       $location.search('filter', 'active')
       $location.search('user', 42)
 
-      routeParams = $routeParams
+      routeParams = $route
 #      routeParams =
 #        current:
 #          params: {}

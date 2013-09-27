@@ -27,19 +27,18 @@ header.navbar-inverse .navbar-inner {
   background: #252525;
   background-image: url(sprite.png);
   background-repeat: repeat-x;
-  
+  height: 43px;
+
   .nav.pull-right {
+    li.buttons {
+      margin-top: 2px;
+    }
     li.dropdown {
-      margin-left: -16px;
+      padding-left: 10px;
     }
     li.avatar {
-      margin-left: 5px;
-      margin-top: -5px;
-      margin-right: -80px;
-    }
-    li.buttons {
-      padding-top: 2px;
-      margin-left: 5px;
+      margin-top: -6px;
+      margin-right: -5px;
     }
   }
 }
@@ -62,21 +61,17 @@ header.navbar-inverse .navbar-inner {
 }
 
 #hub_search {
-  padding: 7px 0 0 30px;
+  padding: 7px 0 0 28px;
   a {
     padding: 1px 4px;
   }
   li.hub_filter {
-    padding: 0px 30px 0px 0px;
-  }
-  li.buttons {
-    padding: 1px 0px 5px 20px;
-    margin-top: -5px;
+    //padding: 0px 30px 0px 0px;
   }
 }
 
 .navbar .nav > li > a {
-  padding: 11px 15px 13px;
+  //padding: 11px 15px 13px;
   color: #bbb;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 15px;
