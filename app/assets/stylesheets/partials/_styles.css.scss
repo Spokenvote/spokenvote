@@ -353,7 +353,7 @@ textarea.ng-invalid.ng-dirty {
 
 .user-avatar {
   float: left;
-  margin-right: 13px;
+  //margin-right: 13px;
   img {
     @include border-radius(3px);
     background-color: #ccc;
@@ -597,8 +597,8 @@ textarea.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-  //@extend .span11;
-  width: 917px;
+  @extend .span11;
+  //width: 917px;
   padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 37px;
   background-color: #fff;
   @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
@@ -958,12 +958,12 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .proposal_statement {
-  font-size: 176%;
   margin-bottom: 10px;
   .active & {
     width: 97%;
   }
   h3 {
+    font-size: 200%;
     :hover {
       color: $happy-blue;
     }
@@ -1078,6 +1078,7 @@ textarea.ng-invalid.ng-dirty {
   font-weight: bold;
   color: $happy-blue;
   float: right;
+  padding-left: 10px;
 }
 
 // end Proposal-related
