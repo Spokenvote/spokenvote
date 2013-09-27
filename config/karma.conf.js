@@ -36,10 +36,27 @@ proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
 
 urlRoot = '/_karma_/';
 
+//preprocessors = {
+//    '**/*.coffee': 'coffee'
+////    '**/*.coffee.erb': 'coffee'
+//};
+
 preprocessors = {
     '**/*.coffee': 'coffee'
-//    '**/*.coffee.erb': 'coffee'
-};
+}
+
+coffeePreprocessor = {
+    // options passed to the coffee compiler
+    options: {
+        bare: true,
+        sourceMap: true
+    },
+    // transforming the filenames
+    transformPath: function(path) {
+        return path.replace(/\.js$/, '.coffee');
+    }
+}
+
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'

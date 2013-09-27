@@ -5,7 +5,6 @@ ruby '1.9.3'
 gem 'rails', '3.2.13'
 
 # Infrastructure
-# gem 'heroku'
 gem 'devise', '<= 3.0.3'
 gem 'pg'
 gem 'thin'
