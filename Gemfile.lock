@@ -106,6 +106,9 @@ GEM
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
     diff-lcs (1.2.1)
+    email_spec (1.2.1)
+      mail (~> 2.2)
+      rspec (~> 2.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.1)
@@ -331,6 +334,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   devise (<= 3.0.3)
+  email_spec (~> 1.2.1)
   factory_girl_rails
   faker
   haml-rails
