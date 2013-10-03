@@ -1,0 +1,39 @@
+-#- taskp = TaskPresenter.new(@task, self)
+
+-#%div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+%div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+  -#%p Hello #{@user.name},
+  %p Hello world!
+  %br
+  %p
+    A new proposal has been created. Please check it out.
+  -#  %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
+  -#    %span.thick=@task.name
+  %br
+  %table.table.table-striped.table-hover
+    %tbody
+      %tr
+        %th Proposal
+        %td
+          %h5= @voter_email
+  -#    %tr
+  -#      %th Task
+  -#      %td= @task.name
+  -#    %tr
+  -#      %th Description
+  -#      %td= @task.description
+  -#    %tr
+  -#      %th Creator
+  -#      %td=@task.creator.name
+  -#    %tr
+  -#      %th Type
+  -#      %td= @task.task_type
+  -#    %tr
+  -#      %th Estimated Time
+  -#      %td= taskp.estimated_time
+  -#    %tr
+  -#      %th Category
+  -#      %td= Task::CATEGORIES.key(@task.category)
+  -#%a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
+  -#  %button.btn.btn-large.btn-primary
+  -#    %p Let me do it!
