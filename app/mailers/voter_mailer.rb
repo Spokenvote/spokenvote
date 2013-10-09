@@ -9,6 +9,7 @@ class VoterMailer < ActionMailer::Base
     proposal.all_related_proposals.each do |related_proposal|
       related_proposal.votes.each do |voter|
         @voter_email = voter.email
+        attachments["bluefull.png"] = File.read("#{Rails.root}/app/assets/images/bluefull.png")
         mail(to: 'termmonitor@gmail.com', subject: 'A New Spokenvote Proposal Has Been Made')
       end
     end
