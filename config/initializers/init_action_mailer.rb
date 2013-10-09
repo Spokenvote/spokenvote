@@ -1,5 +1,5 @@
-require 'development_mail_interceptor'
-ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
+#require 'development_mail_interceptor'
+#ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default :charset => "utf-8"

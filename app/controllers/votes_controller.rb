@@ -17,7 +17,7 @@ class VotesController < ApplicationController
     status, @vote = Vote.move_user_vote_to_proposal(proposal, current_user, votes_attributes)
 
     if status
-      VoterMailer.new_votes_on_topic(current_user).deliver
+      VoterMailer.new_votes_on_topic(proposal).deliver
       render json: @vote.as_json(methods: :username), status: :created
     else
       render json: @vote.errors, status: :unprocessable_entity

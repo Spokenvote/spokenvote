@@ -1,12 +1,12 @@
 -#- taskp = TaskPresenter.new(@task, self)
 
--#%div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
 %div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
-  -#%p Hello #{@user.name},
-  %p Hello world!
+  %h2
+    %p Hello
+    = @voter.username
   %br
   %p
-    A new task has been created. Please check it out.
+    A new vote has been created. Please check it out.
   -#  %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
   -#    %span.thick=@task.name
   -#%br
