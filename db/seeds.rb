@@ -20,7 +20,7 @@ begin
   ]
 
   p 'Creating Hubs'
-  10.times do
+  7.times do
     #location_id = location_ids.keys.sample
     location_id = location_ids.keys[i]
     hubs << Hub.create!({
