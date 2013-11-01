@@ -8,7 +8,7 @@ modalCtrl = ($scope, parentScope, $cookieStore, $location, SessionSettings, Aler
 
 GetStartedCtrl = ($scope, $cookieStore, $location, SessionSettings) ->
   $scope.sessionSettings.hub_attributes = null
-  $scope.sessionSettings.actions.searchTerm = null
+#  $scope.sessionSettings.actions.searchTerm = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
 

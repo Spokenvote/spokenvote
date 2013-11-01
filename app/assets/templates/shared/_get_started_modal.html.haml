@@ -1,5 +1,5 @@
-#newProposalModal.modal( ng-controller='GetStartedCtrl' )
-  .modal-header
+#newProposalModal.modal( ng-controller='NewProposalCtrl' )
+  .modal-header( ng-controller='GetStartedCtrl' )
     .pull-right( class='close' ng-click='close()' ) &times;
     %h2( ng-show='!sessionSettings.hub_attributes.id' ) Step 1 - Find your Group
     %h2( ng-show='sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
@@ -29,7 +29,7 @@
       %br
       %br
 
-    %form( name='newProposalForm' ng-controller='NewProposalCtrl' ng-submit='saveNewProposal()' )
+    %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
         .changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
@@ -85,6 +85,6 @@
     %fieldset
       .control-group
         .controls
-          -#%button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
-          -#%button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
           %button( ng-show='sessionSettings.hub_attributes.id' ng-click='goToGroup()' class='btn btn-primary btn-bold' ) Go to the {{ sessionSettings.hub_attributes.group_name }} group
