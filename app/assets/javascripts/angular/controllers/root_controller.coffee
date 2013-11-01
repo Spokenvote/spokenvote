@@ -44,6 +44,19 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $location.search(filter, null)
     $rootScope.sessionSettings.actions.userFilter = null
 
+  $scope.getStarted = ->
+    $scope.sessionSettings.actions.searchTerm = null
+    $scope.sessionSettings.actions.changeHub = true
+    if SessionSettings.openModals.getStarted is false
+      opts =
+        resolve:
+          parentScope: ->
+            $scope
+      d = $dialog.dialog(opts)
+      SessionSettings.openModals.getStarted = true
+      d.open('/assets/shared/_get_started_modal.html', 'NewProposalCtrl').then (result) ->
+        SessionSettings.openModals.getStarted = d.isOpen()
+
 
   # All below had been decreciated in favor of Facebook sign in only
   $scope.googleAuth2 = ->

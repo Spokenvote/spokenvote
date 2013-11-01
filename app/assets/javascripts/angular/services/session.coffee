@@ -103,6 +103,7 @@ SessionSettings = ->
     improveProposal: false
     newProposal: false
     editProposal: false
+    getStarted: false
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}
