@@ -1,7 +1,8 @@
-#newProposalModal.modal
+#newProposalModal.modal( ng-controller='GetStartedCtrl' )
   .modal-header
     .pull-right( class='close' ng-click='close()' ) &times;
-    %h2 Step 1 - Find your group
+    %h2( ng-show='!sessionSettings.hub_attributes.id' ) Step 1 - Find your Group
+    %h2( ng-show='sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
     .selectedHub
       %a.hub( ng-click='changeHub(true)' href='#' )
         .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
@@ -17,7 +18,18 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    %form( name='newProposalForm' ng-submit='saveNewProposal()' )
+    .groupExists( ng-show='sessionSettings.hub_attributes.id' )
+      %h3 Great!  We found your Group.
+      %h4 Next, let's see what Topics the Group is already discussing...
+      %br
+      %h5
+        .hint-text Hint!  If you don't see the Topic you want on the next screen,
+        .hint-text just select Start New Topic.
+      %br
+      %br
+      %br
+
+    %form( name='newProposalForm' ng-controller='NewProposalCtrl' ng-submit='saveNewProposal()' )
       .newProposal
         .changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
@@ -43,7 +55,7 @@
             %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
               %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
-        .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
+        .proposal-area( ng-hide='sessionSettings.actions.changeHub || sessionSettings.hub_attributes.id' )
           .instructions
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
@@ -73,5 +85,6 @@
     %fieldset
       .control-group
         .controls
-          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
-          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          -#%button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          -#%button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          %button( ng-show='sessionSettings.hub_attributes.id' ng-click='goToGroup()' class='btn btn-primary btn-bold' ) Go to the {{ sessionSettings.hub_attributes.group_name }} group

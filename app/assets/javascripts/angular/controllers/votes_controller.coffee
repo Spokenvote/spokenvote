@@ -104,8 +104,8 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
   $scope.close = (result) ->
     dialog.close(result)
 
-NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
-  AlertService.clearAlerts()
+NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
+#  AlertService.clearAlerts()
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
@@ -127,9 +127,9 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', parentScope
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope.parentScope
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-      dialog.close(response)
+      $scope.dialog.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
@@ -139,15 +139,15 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     newHub: "You may change the group to which you are directing
                   this proposal by clicking here."
 
-  $scope.close = (result) ->
-    dialog.close(result)
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', 'dialog' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
 DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'parentScope' ]
-NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
+NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

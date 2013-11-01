@@ -45,8 +45,10 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $rootScope.sessionSettings.actions.userFilter = null
 
   $scope.getStarted = ->
-    $scope.sessionSettings.actions.searchTerm = null
-    $scope.sessionSettings.actions.changeHub = true
+#    $scope.sessionSettings.actions.searchTerm = null
+#    $scope.sessionSettings.hub_attributes = null
+#    $scope.sessionSettings.actions.newProposalHub = null
+#    $scope.sessionSettings.actions.changeHub = true
     if SessionSettings.openModals.getStarted is false
       opts =
         resolve:
@@ -54,7 +56,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
             $scope
       d = $dialog.dialog(opts)
       SessionSettings.openModals.getStarted = true
-      d.open('/assets/shared/_get_started_modal.html', 'NewProposalCtrl').then (result) ->
+      d.open('/assets/shared/_get_started_modal.html', 'modalCtrl').then (result) ->
         SessionSettings.openModals.getStarted = d.isOpen()
 
 
