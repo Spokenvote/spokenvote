@@ -1,5 +1,5 @@
-#newProposalModal.modal( ng-controller='NewProposalCtrl' )
-  .modal-header( ng-controller='GetStartedCtrl' )
+#getStartedModal.modal( ng-controller='NewProposalCtrl' )
+  .modal-header
     .pull-right( class='close' ng-click='close()' ) &times;
     %h2( ng-show='!sessionSettings.hub_attributes.id' ) Step 1 - Find your Group
     %h2( ng-show='sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
@@ -18,12 +18,15 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    .groupExists( ng-show='sessionSettings.hub_attributes.id' )
-      %h3 Great!  We found your Group.
-      %h4 Next, let's see what Topics the Group is already discussing...
+    .modalMessageArea( ng-show='sessionSettings.hub_attributes.id' )
+      %h3 We found your group!
+      %h4 Next we will take a look at the topics {{ sessionSettings.hub_attributes.group_name }} is currently discussing...
+      %br
       %br
       %h5
-        .hint-text Hint!  If you don't see the Topic you want on the next screen,
+        .hint-text
+          %span-red <red> Hint! </red>
+          %span If you don't see the Topic you want on the next screen,
         .hint-text just select Start New Topic.
       %br
       %br
@@ -81,10 +84,10 @@
               .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.minlength" ) Too Short
               .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.maxlength" ) Too Long
 
-  .modal-footer
+  .modal-footer( ng-controller='GetStartedCtrl' )
     %fieldset
       .control-group
         .controls
-          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == false && !sessionSettings.hub_attributes.id' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
           %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
-          %button( ng-show='sessionSettings.hub_attributes.id' ng-click='goToGroup()' class='btn btn-primary btn-bold' ) Go to the {{ sessionSettings.hub_attributes.group_name }} group
+          %button( ng-show='sessionSettings.hub_attributes.id' ng-click='goToGroup()' class='btn btn-primary btn-bold' ) Go to {{ sessionSettings.hub_attributes.group_name }} topics

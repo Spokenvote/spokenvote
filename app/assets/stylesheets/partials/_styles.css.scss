@@ -155,6 +155,9 @@ footer {
   font-style: italic;
   color: $alert-blue;
   text-align: center;
+  span-red {
+    color: $error-text-red;
+  }
 }
 
 .right-column {
@@ -394,6 +397,14 @@ textarea.ng-invalid.ng-dirty {
   form {
     margin-bottom: 0;
     padding-left: 10px;
+  }
+
+  .modalMessageArea {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: $soft-brown-text;
+    h3 {
+    }
   }
   .instructions {
     //margin-top: ($gridGutterWidth * 0.3);
