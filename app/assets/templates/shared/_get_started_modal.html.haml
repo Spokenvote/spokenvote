@@ -2,8 +2,10 @@
   #newProposalModal.modal( ng-controller='NewProposalCtrl' )
     .modal-header
       .pull-right( class='close' ng-click='close()' ) &times;
-      %h2( ng-show='!sessionSettings.hub_attributes.id' ) Step 1 - Find your Group
+      %h2( ng-show='!sessionSettings.hub_attributes.id && sessionSettings.actions.changeHub == true' ) Step 1 - Find your Group
       %h2( ng-show='sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
+      %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - Creating a New Group
+      %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - Creating a New Proposal Topic
       .selectedHub
         %a.hub( ng-click='changeHub(true)' href='#' )
           .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
@@ -47,7 +49,7 @@
             .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
               %h5
                 .hint-text Hint!  Double-check to make sure your group does not already exist by trying alternate spellings above.
-              %h3 or create your new group below ...
+              %h3 No group by that name? Create it below ...
               %input( name="group_name" id='group_name' type='text' class='input-xlarge'
                 placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
               %span( ng-hide='newProposalForm.group_name.$valid' ) 5 character minimum

@@ -87,7 +87,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
     if !scope.currentUser.id?
       AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
     else
-      if SessionSettings.openModals.newProposal is false
+      if SessionSettings.openModals.newProposal is false and SessionSettings.openModals.getStarted is false
         scope.opts =
           resolve:
             parentScope: ->
