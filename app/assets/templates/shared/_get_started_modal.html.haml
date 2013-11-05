@@ -5,7 +5,7 @@
       %h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find your Group
       %h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
       %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - Creating a New Group
-      %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - Creating a New Proposal Topic
+      %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - Creating a New Topic
       .selectedHub
         %a.hub( ng-click='changeHub(true)' href='#' )
           .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
@@ -39,8 +39,6 @@
         .newProposal
           .changehub( collapse='!sessionSettings.actions.changeHub' )
             .modalMessageArea
-              -#.avatar
-                %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
               %h4 Enter the group to which your proposal is directed.
               %br
 

@@ -6,18 +6,19 @@ modalCtrl = ($scope, parentScope, $cookieStore, $location, SessionSettings, Aler
   $scope.close = (result) ->
     dialog.close(result)
 
-GetStartedCtrl = ($scope, $cookieStore, $location, SessionSettings) ->
-  $scope.sessionSettings.hub_attributes.id = null
-  $scope.sessionSettings.actions.newProposalHub = null
-  $scope.sessionSettings.actions.changeHub = true
-
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.tooltips =
     newHub: "You may change the group to which you are directing
-                      this proposal by clicking here."
+                          this proposal by clicking here."
+
+
+GetStartedCtrl = ($scope, $cookieStore, $location, SessionSettings) ->
+  $scope.sessionSettings.hub_attributes.id = null
+  $scope.sessionSettings.actions.newProposalHub = null
+  $scope.sessionSettings.actions.changeHub = true
 
   $scope.goToGroup = ->
     if SessionSettings.hub_attributes.id?

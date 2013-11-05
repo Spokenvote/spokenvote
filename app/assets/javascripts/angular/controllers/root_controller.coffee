@@ -45,10 +45,6 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
     $rootScope.sessionSettings.actions.userFilter = null
 
   $scope.getStarted = ->
-#    $scope.sessionSettings.actions.searchTerm = null
-#    $scope.sessionSettings.hub_attributes = null
-#    $scope.sessionSettings.actions.newProposalHub = null
-#    $scope.sessionSettings.actions.changeHub = true
     if SessionSettings.openModals.getStarted is false
       opts =
         resolve:

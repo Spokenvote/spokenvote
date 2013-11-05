@@ -105,11 +105,6 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
     dialog.close(result)
 
 NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
-#  AlertService.clearAlerts()
-
-  $scope.changeHub = (request) ->
-    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
-      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.saveNewProposal = ->
     if !$scope.sessionSettings.hub_attributes.id?
@@ -134,13 +129,6 @@ NewProposalCtrl = ($scope, $location, $rootScope, AlertService, Proposal) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
     )
-
-  $scope.tooltips =
-    newHub: "You may change the group to which you are directing
-                  this proposal by clicking here."
-
-#  $scope.close = (result) ->
-#    dialog.close(result)
 
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', 'dialog' ]
