@@ -2,8 +2,8 @@
   #newProposalModal.modal( ng-controller='NewProposalCtrl' )
     .modal-header
       .pull-right( class='close' ng-click='close()' ) &times;
-      %h2( ng-show='!sessionSettings.hub_attributes.id && sessionSettings.actions.changeHub == true' ) Step 1 - Find your Group
-      %h2( ng-show='sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
+      %h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find your Group
+      %h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
       %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - Creating a New Group
       %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - Creating a New Proposal Topic
       .selectedHub
@@ -21,7 +21,7 @@
       #alertContainer
         .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-      .modalMessageArea( ng-show='sessionSettings.hub_attributes.id' )
+      .modalMessageArea( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' )
         %h3 We found your group!
         %h4 Next we will take a look at the topics {{ sessionSettings.hub_attributes.group_name }} is currently discussing...
         %br
@@ -38,13 +38,18 @@
       %form( name='newProposalForm' ng-submit='saveNewProposal()' )
         .newProposal
           .changehub( collapse='!sessionSettings.actions.changeHub' )
-            .instructions
-              .avatar
+            .modalMessageArea
+              -#.avatar
                 %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
-              %h5 First search for the group to which we will direct your proposal. This group is the organization, company or governing body who needs to see this proposal. If you don't see the group, create it.
+              %h4 Enter the group to which your proposal is directed.
+              %br
 
-            .selecthub( ng-controller='DashboardCtrl' )
-              %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+              .selecthub( ng-controller='DashboardCtrl' )
+                %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+
+              %h5 This group is the organization, company or governing body who needs to see your proposal. If you don't find the group, we will let you create it.
+              %br
+
 
             .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
               %h5
