@@ -39,13 +39,13 @@
         .newProposal
           .changehub( collapse='!sessionSettings.actions.changeHub' )
             .modalMessageArea
-              %h4 Enter the group to which your proposal is directed.
+              %h4 Enter any group you would like to influence.
               %br
 
               .selecthub( ng-controller='DashboardCtrl' )
                 %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
-              %h5 This group is the organization, company or governing body who needs to see your proposal. If you don't find the group, we will let you create it.
+              %h5.italic_offset Groups are any organization, company or governing body, formal or informal, which routinely makes decisions that effect you. If your group is not set up yet, we will let you set it up.
               %br
 
 

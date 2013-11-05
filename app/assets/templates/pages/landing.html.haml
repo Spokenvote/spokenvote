@@ -1,50 +1,19 @@
 %section#homepage
   .page_title
-    -#%h1 Influence a group, impact the world.
-    %br
-    %br
-    %h1 Voting redefined.
-    -#%h1
+    .call_to_action Participate in real decisions that effect you
+    .brand
+      Spoken
+      %span.vote
+        Vote
+    %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Get Started!
+
+    %h1
       .tag_line Voting redefined.
-    %br
-    %br
-    %br
-    %br
-    %br
 
-    %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Get Started
-
-    -#.landing_hubfilter.span9.offset1( ng-controller='DashboardCtrl' )
-      .header.row-fluid.panel( ng-init="landing.location='true'" )
-        %span
-        .hub_filter
-          %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' data-width='590px' )
-    %br
-    %br
-    %br
-    %br
-    %br
-    %br
-    %br
-
-    %h3
-      %br
-      %a(href='/proposals?filter=active') <i>Browse proposals</i>,
-      %span support one or create your own.
-    %h2 <i> Participate in real decisions. </i>
-
-    -#%h4
-      %br
-      %a(href='/about') <i>Learn more...</i>
-
-    %br
-    %br
-    %br
-    %br
-    %br
-    %br
-
-
+    .instructions
+      %h3
+        %a(href='/proposals?filter=active') <i>Browse proposals</i>,
+        %span support one or create your own.
 
 .static_page
   .pull-right
