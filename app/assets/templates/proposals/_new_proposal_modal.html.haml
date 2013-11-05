@@ -51,7 +51,7 @@
 
           .control-group
             .controls
-              %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
+              %textarea( id='proposal_statement' name='proposal_statement' class='full-width-short' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
                 placeholder='Write your main proposal statement here.' )
               .length_counter( ng-show='newProposalForm.proposal_statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
               .length_counter.error-text( ng-show='newProposalForm.proposal_statement.$invalid && !newProposalForm.proposal_statement.$error.minlength && !newProposalForm.proposal_statement.$error.maxlength' )
@@ -61,7 +61,7 @@
 
           .control-group
             .controls
-              %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
+              %textarea( id='vote_comment' name='vote_comment' class='full-width-tall' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
               placeholder='Explain why others should support your proposal here.' )
               .length_counter( ng-show='newProposalForm.vote_comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
               .length_counter.error-text( ng-show='newProposalForm.vote_comment.$invalid && !newProposalForm.vote_comment.$error.minlength && !newProposalForm.vote_comment.$error.maxlength' )
