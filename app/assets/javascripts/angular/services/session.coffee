@@ -94,6 +94,7 @@ SessionSettings = ->
     changeHub: false
     newProposalHub: null
     searchTerm: null
+    wizardToGroup: null
   openModals:
     signIn: false
     register: false

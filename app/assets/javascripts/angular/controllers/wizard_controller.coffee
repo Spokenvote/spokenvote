@@ -1,4 +1,4 @@
-modalCtrl = ($scope, parentScope, $cookieStore, $location, SessionSettings, AlertService, dialog) ->
+modalCtrl = ($scope, parentScope, $location, SessionSettings, AlertService, dialog) ->
   AlertService.clearAlerts()
   $scope.parentScope = parentScope
   $scope.dialog = dialog
@@ -15,20 +15,20 @@ modalCtrl = ($scope, parentScope, $cookieStore, $location, SessionSettings, Aler
                           this proposal by clicking here."
 
 
-GetStartedCtrl = ($scope, $cookieStore, $location, SessionSettings) ->
+GetStartedCtrl = ($scope, $location, SessionSettings) ->
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
 
-  $scope.goToGroup = ->
+  $scope.goToGroup = (action) ->
     if SessionSettings.hub_attributes.id?
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
       SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
-      $scope.close()
+      $scope.sessionSettings.actions.wizardToGroup = action
 
 # Injects
-modalCtrl.$inject = [ '$scope', 'parentScope', '$cookieStore', '$location', 'SessionSettings', 'AlertService', 'dialog' ]
-GetStartedCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionSettings' ]
+modalCtrl.$inject = [ '$scope', 'parentScope', '$location', 'SessionSettings', 'AlertService', 'dialog' ]
+GetStartedCtrl.$inject = [ '$scope', '$location', 'SessionSettings' ]
 
 # Register
 App.controller 'modalCtrl', modalCtrl

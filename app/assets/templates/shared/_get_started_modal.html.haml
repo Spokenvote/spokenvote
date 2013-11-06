@@ -21,12 +21,16 @@
       #alertContainer
         .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-      .modalMessageArea( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' )
+      .modalMessageArea( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
         %h3
           %span We found
           %span( ng-click='changeHub(true)' ) your group!
-        %h4 If the group shown above is not the group you wanted, just click the name to search again.
+        .italic_offset
+          %h4 - If the group shown above is not the group you wanted, just click the name to search again.
         %h4 If {{ sessionSettings.hub_attributes.group_name }} in {{ sessionSettings.hub_attributes.formatted_location }} is the group you are looking for, lets take a look at the topics they are currently discussing...
+        %br
+
+      .modalMessageArea( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup' )
         %br
         %br
         %h5
@@ -99,4 +103,5 @@
           .controls
             %button( ng-show='sessionSettings.actions.changeHub == false && !sessionSettings.hub_attributes.id' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
             %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
-            %button( ng-show='sessionSettings.hub_attributes.id' ng-click='goToGroup()' class='btn btn-primary btn-bold' ) Go to {{ sessionSettings.hub_attributes.group_name }} topics
+            %button( ng-show='sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' ng-click='goToGroup("hint")' class='btn btn-primary btn-bold' ) Go to {{ sessionSettings.hub_attributes.group_name }} topics
+            %button( ng-show='sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup == "hint"' ng-click='close()' class='btn btn-primary btn-bold' ) Got it. Let me see the {{ sessionSettings.hub_attributes.group_name }} topics
