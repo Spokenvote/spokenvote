@@ -22,8 +22,11 @@
         .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
       .modalMessageArea( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' )
-        %h3 We found your group!
-        %h4 Next we will take a look at the topics {{ sessionSettings.hub_attributes.group_name }} is currently discussing...
+        %h3
+          %span We found
+          %span( ng-click='changeHub(true)' ) your group!
+        %h4 If the group shown above is not the group you wanted, just click the name to search again.
+        %h4 If {{ sessionSettings.hub_attributes.group_name }} in {{ sessionSettings.hub_attributes.formatted_location }} is the group you are looking for, lets take a look at the topics they are currently discussing...
         %br
         %br
         %h5
