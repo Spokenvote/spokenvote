@@ -212,38 +212,41 @@ h1.form-horizontal {
   .brand {
     color: $happy-blue;
     text-shadow: 2px 2px 4px #999;
-    font-size: 200px;
+    font-size: 105px;
     font-weight: 700;
     line-height: 80px;
     letter-spacing: 0px;
     padding-top: 35px;
-    padding-bottom: 100px;
+    padding-bottom: 40px;
     font-family: 'Yanone Kaffeesatz', sans-serif;
     span.vote {
       color: $spring-green;
-      margin-left: -28px;
+      margin-left: -22px;
     }
   }
   .tag_line {
     color: #333;
     text-shadow: 1px 1px 2px #999;
-    font-size: 78px;
+    font-size: 45px;
     line-height: 50px;
     font-style: italic ;
     text-align: center;
-    padding-top: 45px;
+    padding-top: 19px;
     font-family: 'Yanone Kaffeesatz', sans-serif;
   }
   .call_to_action {
     color: #333;
-    padding-left: 330px;
-    font-size: 30px;
+    //padding-left: 330px;
+    font-size: 55px;
+    font-weight: 800;
     line-height: 70px;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    padding-top: 55px;
+    padding-bottom: 45px;    font-family: 'Yanone Kaffeesatz', sans-serif;
   }
   .instructions {
-    padding-top: 17px;
-    padding-bottom: 100px;
+    //font-size: 12px;
+    //padding-top: 7px;
+    padding-bottom: 35px;
   }
 }
 
@@ -712,6 +715,16 @@ textarea.ng-invalid.ng-dirty {
   }
   label {
     font-weight: bold;
+  }
+  .pull-right {
+    .screen-shot-examples {
+      text-align: right;
+      img {
+        //padding-top: 20px;
+        padding-bottom: 40px;
+        //right: 0px;
+      }
+    }
   }
 }
 
