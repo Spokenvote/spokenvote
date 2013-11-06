@@ -8,6 +8,7 @@ modalCtrl = ($scope, parentScope, $location, SessionSettings, AlertService, dial
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
+      $scope.sessionSettings.actions.newProposalHub = null
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.tooltips =
@@ -19,11 +20,12 @@ GetStartedCtrl = ($scope, $location, SessionSettings) ->
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
+  $scope.sessionSettings.actions.wizardToGroup = null
 
   $scope.goToGroup = (action) ->
-    if SessionSettings.hub_attributes.id?
-      $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
-      SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
+    if $scope.sessionSettings.hub_attributes.id?
+      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
+      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
 # Injects
