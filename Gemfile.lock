@@ -123,6 +123,9 @@ GEM
     formtastic (2.2.1)
       actionpack (>= 3.0)
     fssm (0.2.10)
+    google_places_autocomplete (0.0.2)
+      hashie
+      httparty
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -136,6 +139,9 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.1)
     inherited_resources (1.4.1)
@@ -175,6 +181,7 @@ GEM
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.8.0)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     nested_form (0.3.2)
     newrelic_rpm (3.5.5.38)
@@ -333,6 +340,7 @@ DEPENDENCIES
   devise (<= 3.0.3)
   factory_girl_rails
   faker
+  google_places_autocomplete
   haml-rails
   hirb
   jquery-rails (< 3.0.0)

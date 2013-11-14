@@ -112,7 +112,7 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.saveNewProposal = ->
-    if !$scope.sessionSettings.hub_attributes.id?
+    if !$scope.sessionSettings.hub_attributes.id? and not _.isEmpty $scope.sessionSettings.actions.searchTerm
       $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
       proposal:

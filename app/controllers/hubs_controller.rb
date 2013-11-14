@@ -16,6 +16,14 @@ class HubsController < ApplicationController
       @hubs = Hub.all
     end
 
+    # Add google place matches to list of hubs
+    if hub_filter.presence 
+      google_search_service = GooglePlacesAutocompleteService.new
+      google_search_service.find_regions(hub_filter).each do |l|
+        @hubs << Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description])
+      end
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @hubs.to_json(:methods => :full_hub) }
