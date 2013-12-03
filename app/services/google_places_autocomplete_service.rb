@@ -18,6 +18,14 @@ class GooglePlacesAutocompleteService
     results
 	end
 
+  def self.location_types 
+    ["All of", "City of", "County of", "State of", "Country of", "District of"]
+  end
+
+  def self.prefix
+    "GL-"
+  end
+
 	private 
 	
 	# Provides translation of location types returned by google apis to ones our app desires
@@ -32,6 +40,8 @@ class GooglePlacesAutocompleteService
    			"State of"
    		when "country"
    			"Country of"
+      when "sublocality"
+        "District of"
    		else
    			nil
    		end

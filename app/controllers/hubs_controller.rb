@@ -16,28 +16,38 @@ class HubsController < ApplicationController
       @hubs = Hub.all
     end
 
-    # Add google place matches to list of hubs
+    found_hubs = @hubs.map { |h| "#{h.group_name} #{h.formatted_location}" }
+
+    # Add google place matches to list of hubs if they dont already exist in our DB
     if hub_filter.presence 
       google_search_service = GooglePlacesAutocompleteService.new
       google_search_service.find_regions(hub_filter).each do |l|
-        @hubs << Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description])
+        if !found_hubs.include?("#{l[:type]} #{l[:description]}")
+          newHub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description])
+          newHub.id = "#{GooglePlacesAutocompleteService.prefix}#{l[:id]}"
+          @hubs << newHub
+        end
       end
     end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hubs.to_json(:methods => :full_hub) }
+      format.json { render json: @hubs.to_json(:methods => [:full_hub, :short_hub, :select_id]) }
     end
   end
 
   # GET /hubs/1
   # GET /hubs/1.json
   def show
-    @hub = Hub.find(params[:id])
+    if params[:id].starts_with?(GooglePlacesAutocompleteService.prefix) 
+      @hub = {}
+    else 
+      @hub = Hub.find(params[:id])
+    end
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @hub.to_json(:methods => :full_hub) }
+      format.json { render json: @hub.to_json(:methods => [:full_hub, :select_id]) }
     end
   end
 

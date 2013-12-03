@@ -22,7 +22,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       SessionSettings.actions.hubFilter = 'All Groups'
     else if SessionSettings.hub_attributes.id?
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
-      SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.group_name
+      SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.short_hub
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
@@ -42,9 +42,12 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      if not _.isEmpty searchedHub
-        SessionSettings.hub_attributes = searchedHub unless _.isEmpty searchedHub
+      if (searchedHub != null) and not _.isEmpty searchedHub
+        SessionSettings.hub_attributes = searchedHub
         SessionSettings.actions.changeHub = false
+        SessionSettings.hub_attributes.short_hub = searchedHub.short_hub
+        SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
+        $scope.hubFilter.hubFilter = searchedHub 
       searchedHub.full_hub
 
     formatNoMatches: (term) ->
@@ -53,9 +56,13 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
       'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
+    id: (obj) ->
+      obj.select_id 
+
     initSelection: (element, callback) ->
       CurrentHubLoader().then (searchedHub) ->
-        SessionSettings.hub_attributes = searchedHub
+        if (searchedHub != null) and not _.isEmpty searchedHub 
+          SessionSettings.hub_attributes = searchedHub
         callback SessionSettings.hub_attributes
 
 

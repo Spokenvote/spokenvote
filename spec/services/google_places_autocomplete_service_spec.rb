@@ -45,10 +45,12 @@ describe GooglePlacesAutocompleteService do
 			end
 		end 
 
-		context "non city/country/state/country search (i.e. hamptom beach)" do 
+		context "district search" do 
 			it "locates and does not return entry" do 
 				locations = @service.find_regions("Hampton Beach")
-				expect(locations.count).to eq 0
+				expect(locations[0][:description]).to eq("Hampton Beach, Hampton, NH, United States")
+				expect(locations[0][:id]).to eq("5f59aebc53bba8ff82b7dc98ea629977e58ebaf8")
+				expect(locations[0][:type]).to eq("District of")
 			end
 		end
 	end	
