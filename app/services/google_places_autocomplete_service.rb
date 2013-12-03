@@ -4,7 +4,11 @@ class GooglePlacesAutocompleteService
 
 	# Service requires an API key that should be set in application's environment variable
 	def initialize
-		@client = GooglePlacesAutocomplete::Client.new(api_key: ENV['GOOGLE_API_KEY'])
+    if ENV['GOOGLE_API_KEY'] 
+		  @client = GooglePlacesAutocomplete::Client.new(api_key: ENV['GOOGLE_API_KEY'])
+    else 
+       raise ArgumentError, "GOOGLE_API_KEY is undefined"
+    end
 	end
 
 	# Finds cities, counties, states and countries matching the passed in search string

@@ -20,15 +20,21 @@ class HubsController < ApplicationController
 
     # Add google place matches to list of hubs if they dont already exist in our DB
     if hub_filter.presence 
-      google_search_service = GooglePlacesAutocompleteService.new
-      google_search_service.find_regions(hub_filter).each do |l|
-        if !found_hubs.include?("#{l[:type]} #{l[:description]}")
-          newHub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description])
-          newHub.id = "#{GooglePlacesAutocompleteService.prefix}#{l[:id]}"
-          @hubs << newHub
+      begin 
+        google_search_service = GooglePlacesAutocompleteService.new
+        google_search_service.find_regions(hub_filter).each do |l|
+          if !found_hubs.include?("#{l[:type]} #{l[:description]}")
+            newHub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description])
+            newHub.id = "#{GooglePlacesAutocompleteService.prefix}#{l[:id]}"
+            @hubs << newHub
+          end
         end
+      rescue 
+        # We will simply ignore this and not use Google API 
       end
+      
     end
+  
 
     respond_to do |format|
       format.html # index.html.erb
