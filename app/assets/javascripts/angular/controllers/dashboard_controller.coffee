@@ -69,10 +69,10 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       else
         $scope.authService.signinFb($scope).then ->
           VotingService.new $scope, VotingService
+    $scope.hubFilter.hubFilter = null  # clear out old user selection
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
-    $scope.hubFilter.hubFilter = null  # clear out old user selection
- 
+
   $scope.newTopic = ->
     if $scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.actions.changeHub = false
