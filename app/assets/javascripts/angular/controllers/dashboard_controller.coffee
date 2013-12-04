@@ -8,14 +8,6 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     $scope.hubFilter =
       hubFilter: true
 
-  $scope.$on '$locationChangeSuccess', ->
-    if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
-      CurrentHubLoader().then (paramHub) ->
-        SessionSettings.hub_attributes = paramHub
-        $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
-    else if !$route.current.params.hub?
-      $scope.hubFilter.hubFilter = null
-
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
@@ -42,13 +34,12 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      if (searchedHub != null) and not _.isEmpty searchedHub
+      if not _.isEmpty searchedHub
         SessionSettings.hub_attributes = searchedHub
         SessionSettings.actions.changeHub = false
-        SessionSettings.hub_attributes.short_hub = searchedHub.short_hub
         SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = searchedHub 
-      searchedHub.full_hub
+        searchedHub.full_hub
 
     formatNoMatches: (term) ->
       SessionSettings.actions.searchTerm = term
@@ -61,7 +52,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
     initSelection: (element, callback) ->
       CurrentHubLoader().then (searchedHub) ->
-        if (searchedHub != null) and not _.isEmpty searchedHub 
+        if not _.isEmpty searchedHub 
           SessionSettings.hub_attributes = searchedHub
         callback SessionSettings.hub_attributes
 
@@ -80,7 +71,8 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
           VotingService.new $scope, VotingService
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
-
+    $scope.hubFilter.hubFilter = null  # clear out old user selection
+ 
   $scope.newTopic = ->
     if $scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.actions.changeHub = false

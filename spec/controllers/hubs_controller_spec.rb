@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe HubsController do
+
+	if ENV["GOOGLE_API_KEY"] == nil 
+		$API_KEY_DEFINED = false
+		pp "GOOGLE_API_KEY not defined. So testing involving the google api service will be skipped"
+	else 
+		$API_KEY_DEFINED = true 
+	end
+
 	before :each do
     	request.env["HTTP_ACCEPT"] = 'application/json'
   	end
@@ -29,10 +37,12 @@ describe HubsController do
 					expect(assigns(:hubs).first).to eq(hub)
 				end
 
-				it "should find location from googe places api" do
-					found_hub = assigns(:hubs).second
-					expect(found_hub.group_name).to eq("City of")
-					expect(found_hub.formatted_location).to include(hub.formatted_location)
+				it "should find location from google places api" do
+					if $API_KEY_DEFINED
+						found_hub = assigns(:hubs).second
+						expect(found_hub.group_name).to eq("City of")
+						expect(found_hub.formatted_location).to include(hub.formatted_location)
+					end
 				end
 
 			end
@@ -57,10 +67,12 @@ describe HubsController do
 					get :index, hub_filter: search_string
 				end
 
-				it "should find location from googe places api" do
-					found_hub = assigns(:hubs).first
-					expect(found_hub.group_name).to eq("City of")
-					expect(found_hub.formatted_location).to include(search_string)
+				it "should find location from google places api" do
+					if $API_KEY_DEFINED
+						found_hub = assigns(:hubs).first
+						expect(found_hub.group_name).to eq("City of")
+						expect(found_hub.formatted_location).to include(search_string)
+					end
 				end
 
 			end
