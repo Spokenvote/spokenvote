@@ -51,11 +51,13 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       obj.select_id 
 
     initSelection: (element, callback) ->
-      CurrentHubLoader().then (searchedHub) ->
-        if not _.isEmpty searchedHub 
-          SessionSettings.hub_attributes = searchedHub
-        callback SessionSettings.hub_attributes
-
+      if SessionSettings.actions.changeHub == "new"
+        callback({})
+      else
+        CurrentHubLoader().then (searchedHub) ->
+          if not _.isEmpty searchedHub 
+            SessionSettings.hub_attributes = searchedHub
+          callback SessionSettings.hub_attributes
 
   App.navCreateHub = ->
     $scope.$apply ->
@@ -69,10 +71,10 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       else
         $scope.authService.signinFb($scope).then ->
           VotingService.new $scope, VotingService
-    $scope.hubFilter.hubFilter = null  # clear out old user selection
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
+     
   $scope.newTopic = ->
     if $scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.actions.changeHub = false
