@@ -84,9 +84,9 @@ The typical work flow for this is:
 If you would like your development environment to utilitze the Google Places API when you are searching for hubs then you need to perform the following steps when setting up your environment:
 
 1. Create an API console key (see: https://developers.google.com/maps/faq#keysystem for details)
-2. Set a GOOGLE_PLACES_API environmental variable with the key you created.
+2. Set a GOOGLE_API_KEY environmental variable with the key you created.
      For example add the following line to your .bashrc file and source it before starting your rails server
-         export GOOGLE_API_KEY="<insert your key value here>
+         export GOOGLE_API_KEY="<insert your key value here>"
 
 
 ## Rails for Charity Account
