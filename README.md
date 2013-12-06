@@ -79,6 +79,16 @@ The typical work flow for this is:
 2. Run <a href="http://gembundler.com/">Bundler</a> in the project's root directory to install any needed gems.
 3. Create and update the database by running `rake db:setup`
 
+## Google Places API setup (optional)
+
+If you would like your development environment to utilitze the Google Places API when you are searching for hubs then you need to perform the following steps when setting up your environment:
+
+1. Create an API console key (see: https://developers.google.com/maps/faq#keysystem for details)
+2. Set a GOOGLE_PLACES_API environmental variable with the key you created.
+     For example add the following line to your .bashrc file and source it before starting your rails server
+         export GOOGLE_API_KEY="<insert your key value here>
+
+
 ## Rails for Charity Account
 
 Participation is managed through the task system at http://RailsForCharity.org. Please create an account for yourself on that site and either pick your work from the existing tasks or add new tasks that you'd like to work on and assign to yourself.
