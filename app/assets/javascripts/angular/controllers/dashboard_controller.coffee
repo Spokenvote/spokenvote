@@ -37,6 +37,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       if not _.isEmpty searchedHub
         SessionSettings.hub_attributes = searchedHub
         SessionSettings.actions.changeHub = false
+        SessionSettings.routeParams.proposalId = null
         SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = searchedHub 
         searchedHub.full_hub
