@@ -4,7 +4,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   SessionSettings.routeParams = $route.current.params
 
-  if $route.current.params.hub?
+  if $route.current.params.hub? && !$route.current.params.proposalId? 
     $scope.hubFilter =
       hubFilter: true
 
@@ -12,7 +12,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
       SessionSettings.actions.hubFilter = 'All Groups'
-    else if SessionSettings.hub_attributes.id? and !SessionSettings.routeParams.proposalId?
+    else if SessionSettings.hub_attributes.id? 
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
       SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.short_hub
 
@@ -37,7 +37,6 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       if not _.isEmpty searchedHub
         SessionSettings.hub_attributes = searchedHub
         SessionSettings.actions.changeHub = false
-        SessionSettings.routeParams.proposalId = null
         SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = searchedHub 
         searchedHub.full_hub
