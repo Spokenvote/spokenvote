@@ -1,7 +1,7 @@
 %header.navbar.navbar-inverse.navbar-fixed-top
   %nav.navbar-inner( ng-controller='DashboardCtrl' )
     .container
-      %a.brand( href='/landing' )
+      %a.brand( href='/landing' ng-click="clearHubFilter()" )
         Spoken
         %span.vote
           Vote

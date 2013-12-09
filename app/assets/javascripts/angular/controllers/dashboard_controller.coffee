@@ -12,7 +12,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
       SessionSettings.actions.hubFilter = 'All Groups'
-    else if SessionSettings.hub_attributes.id?
+    else if SessionSettings.hub_attributes.id? and !SessionSettings.routeParams.proposalId?
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
       SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.short_hub
 
@@ -86,6 +86,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     else
       $scope.authService.signinFb($scope).then ->
         VotingService.new $scope, VotingService
+
+  $scope.clearHubFilter = ->
+     $scope.hubFilter.hubFilter = null
 
 DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
 
