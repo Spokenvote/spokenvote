@@ -38,6 +38,7 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
 gem 'strong_parameters'
 gem 'google_places_autocomplete'
+gem 'places'
 
 # Gems used only for assets and not required
 # in production environments by default.

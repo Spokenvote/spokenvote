@@ -135,7 +135,7 @@ class ProposalsController < ApplicationController
       else
         params.require(:proposal).permit(
           :statement,
-          hub_attributes: [:group_name, :location_id, :formatted_location]
+          hub_attributes: [:group_name, :location_id, :formatted_location, :description]
         )
       end
     end

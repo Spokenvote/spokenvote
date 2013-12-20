@@ -41,8 +41,8 @@ class Hub < ActiveRecord::Base
   end
 
   def select_id 
-    if self.id == 0 
-      "#{GooglePlacesAutocompleteService.prefix}#{self.location_id}"
+    if self.id == 0
+      "#{GooglePlacesAutocompleteService.prefix}#{self.description}"
     else
       self.id
     end
