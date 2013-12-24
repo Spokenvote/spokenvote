@@ -4,6 +4,7 @@
 $happy-blue: #1c85f6;
 $spring-green: #50D050;
 $chisel-grey: #c1c1c1;
+$soft-grey: rgba(132, 132, 132, 0.75);
 $basic-brown: #444;
 $soft-brown-text: #555555;
 $facebook-blue: #3B5998;
@@ -732,18 +733,24 @@ textarea.ng-invalid.ng-dirty {
 
   .proposal {
     font-size: 175%;
-    a.h2 {
+    :hover {
+      color: $happy-blue;
+      cursor: pointer;
+    }
+    a {
       color: $basic-brown;
     }
   }
   .hub {
-    .h5 {
-      color: rgba(132, 132, 132, 0.75);
-      font-size: 14px;
-      font-weight: normal;
-      //line-height: 10px;
-    }
+    font-size: 14px;
     margin-bottom: -11px;
+    :hover {
+      color: $happy-blue;
+      cursor: pointer;
+    }
+    a {
+      color: $soft-grey;
+    }
   }
   .votes {
     font-size: 24px;
@@ -781,7 +788,7 @@ textarea.ng-invalid.ng-dirty {
     :hover {
       background-color: rgba(240, 240, 255, 0.45);
       border-radius: 10px;
-      cursor: pointer;
+//      cursor: pointer;
     }
   }
 

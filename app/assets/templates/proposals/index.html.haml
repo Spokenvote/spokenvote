@@ -17,18 +17,18 @@
           %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )
-        %li.tree_container( ng-click='showProposal(proposal)' )
+        %li.tree_container
           .topic.row-fluid
             .proposal-person.span1
               .list-avatar.row-fluid
                 %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
                   %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
                   %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-            .proposal_statement.span9
+            .topic_hub.span9
               .proposal.row-fluid
-                %a.h2( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
+                %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
               .hub.row-fluid
-                %a.h5( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
+                %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
                 -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
             .prop_counts
