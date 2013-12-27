@@ -73,9 +73,9 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
-    if params[:proposal][:votes_attributes][:comment].match(/\n/)
-      params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
-    end
+    #if params[:proposal][:votes_attributes][:comment].match(/\n/)
+    #  params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
+    #end
 
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
