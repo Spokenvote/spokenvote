@@ -202,6 +202,8 @@ GEM
       activerecord (~> 3.0)
     polyglot (0.3.3)
     populator (1.0.0)
+    prerender_rails (0.1.15)
+      rack
     rabl (0.8.6)
       activesupport (>= 2.3.14)
     rack (1.4.5)
@@ -347,6 +349,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   populator
+  prerender_rails
   rabl
   rack-cache
   railroady
