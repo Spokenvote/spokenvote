@@ -79,4 +79,5 @@ group :production, :staging do
   gem 'newrelic_rpm', '3.5.5.38'
   gem "airbrake"
   gem 'prerender_rails'
+  gem 'fog'
 end
