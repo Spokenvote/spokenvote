@@ -1,7 +1,7 @@
 # Set the host name for URL creation
 #SitemapGenerator::Sitemap.default_host = "http://www.example.com"
 if ENV['RAILS_ENV'] == 'production'
-  SitemapGenerator::Sitemap.default_host = "https://www.spokenvote.org"
+  SitemapGenerator::Sitemap.default_host = "http://www.spokenvote.org"
 else
   SitemapGenerator::Sitemap.default_host = "http://localhost:3000"
 end
