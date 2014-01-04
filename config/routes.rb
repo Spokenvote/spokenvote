@@ -30,7 +30,7 @@ Spokenvote::Application.routes.draw do
   end
 
   get 'currentuser' => 'users#currentuser'
-  match "/*page" => 'application#index'
+  #match "/*page" => 'application#index'
   #match "/sitemap.xml.gz" => 'sitemaps#show'
 
   # The priority is based upon order of creation:
