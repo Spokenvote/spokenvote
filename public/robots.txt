@@ -6,4 +6,4 @@
 
 # Sitemap: http://www.spokenvote.org/sitemap.xml.gz
 
-Sitemap: http://s3.amazonaws.com/sitemap-generator/sitemaps/sitemap_index.xml.gz
+Sitemap: https://s3-us-west-2.amazonaws.com/spokenvote-sitemap/sitemaps/sitemap.xml.gz
