@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.1.0'
+#ruby '1.9.3'
 
 gem 'rails', '3.2.13'
 
@@ -51,7 +52,7 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  gem 'debugger'
+  #gem 'debugger'   #not compatible with Ruby 2.1
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
