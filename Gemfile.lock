@@ -162,6 +162,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     meta_request (0.2.2)
       rack-contrib
       railties
@@ -234,7 +235,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.1.0)
+    rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
     responders (1.0.0.rc)
@@ -339,6 +340,7 @@ DEPENDENCIES
   jquery-tokeninput-rails
   jquery-ui-rails
   lol_dba
+  memcachier
   meta_request
   nested_form
   newrelic_rpm (= 3.5.5.38)
