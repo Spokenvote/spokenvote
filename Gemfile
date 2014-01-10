@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'devise', '<= 3.0.3'
 gem 'pg'
 gem 'thin'
+gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
 
