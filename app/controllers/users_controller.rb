@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def currentuser
     @user = current_user
-    render 'users/show'
+    #render 'users/show'
+    render 'users/show', nothing: true
   end
 end

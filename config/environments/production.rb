@@ -18,7 +18,7 @@ Spokenvote::Application.configure do
   #config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true

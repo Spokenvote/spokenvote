@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
   def intercept_html_requests
     if !request.format.json? && !(request.path[0,6] == '/admin')
       render('layouts/application')
+      #render layout: 'application', nothing: true
     end
   end
 
