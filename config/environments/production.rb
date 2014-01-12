@@ -73,5 +73,5 @@ Spokenvote::Application.configure do
   config.assets.initialize_on_precompile = false # To fix https://github.com/Compass/compass-rails/issues/19 https://github.com/spree/spree_fancy/issues/2
 
   #Prerender JS SEO service
-  config.middleware.use Rack::Prerender
+  config.middleware.use Rack::Prerender, prerender_token: ENV['PRERENDER_TOKEN']
 end
