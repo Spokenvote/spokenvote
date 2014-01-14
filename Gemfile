@@ -7,11 +7,11 @@ gem 'rails', '3.2.13'
 # Infrastructure
 gem 'devise', '<= 3.0.3'
 gem 'pg'
-gem 'thin'
+#gem 'thin'
+gem 'puma'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
-gem 'puma'
 
 # Javascript
 gem 'jquery-rails', '< 3.0.0'
