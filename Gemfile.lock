@@ -220,6 +220,8 @@ GEM
     populator (1.0.0)
     prerender_rails (0.1.15)
       rack
+    puma (2.7.1)
+      rack (>= 1.1, < 2.0)
     rabl (0.8.6)
       activesupport (>= 2.3.14)
     rack (1.4.5)
@@ -371,6 +373,7 @@ DEPENDENCIES
   pg
   populator
   prerender_rails
+  puma
   rabl
   rack-cache
   railroady

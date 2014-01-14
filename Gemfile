@@ -11,6 +11,7 @@ gem 'thin'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
+gem 'puma'
 
 # Javascript
 gem 'jquery-rails', '< 3.0.0'
@@ -44,7 +45,7 @@ gem 'sitemap_generator'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.5'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails', '~> 3.2.1', :require => 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 
