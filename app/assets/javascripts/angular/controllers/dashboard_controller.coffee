@@ -8,6 +8,16 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     $scope.hubFilter =
       hubFilter: true
 
+  # needed to keep hub selection text box in sync
+  $scope.$on '$locationChangeSuccess', ->
+    if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
+      CurrentHubLoader().then (paramHub) ->
+        SessionSettings.hub_attributes = paramHub
+        $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
+    else if !$route.current.params.hub?
+      $scope.hubFilter.hubFilter = null
+ 
+
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
