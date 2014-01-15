@@ -56,8 +56,9 @@ Spokenvote::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => 'spokenvote.org' }
+
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -71,4 +72,7 @@ Spokenvote::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.assets.initialize_on_precompile = false # To fix https://github.com/Compass/compass-rails/issues/19 https://github.com/spree/spree_fancy/issues/2
+
+  #Prerender JS SEO service
+  config.middleware.use Rack::Prerender, prerender_token: ENV['PRERENDER_TOKEN']
 end
