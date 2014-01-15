@@ -133,6 +133,9 @@ GEM
     formtastic (2.2.1)
       actionpack (>= 3.0)
     fssm (0.2.10)
+    google_places_autocomplete (0.0.2)
+      hashie
+      httparty
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -146,6 +149,9 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.1)
     inherited_resources (1.4.1)
@@ -186,6 +192,7 @@ GEM
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.8.0)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     nested_form (0.3.2)
     net-scp (1.1.2)
@@ -212,6 +219,10 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.16.0)
+    places (0.0.1)
+      hashie
+      httparty
+      json
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -351,6 +362,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog
+  google_places_autocomplete
   haml-rails
   hirb
   jquery-rails (< 3.0.0)
@@ -365,6 +377,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   pg
+  places
   populator
   prerender_rails
   puma
