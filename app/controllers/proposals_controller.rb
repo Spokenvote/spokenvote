@@ -5,6 +5,7 @@ class ProposalsController < ApplicationController
 
   # GET /proposals.json
   def index
+
     top_voted_proposal_ids = Proposal.top_voted_proposal_in_tree.map(&:id)
     proposals = Proposal.where(id: top_voted_proposal_ids)
     proposals = proposals.where(hub_id: @hub.id) if @hub
@@ -110,8 +111,15 @@ class ProposalsController < ApplicationController
   private
 
   def find_hub
-    @hub = Hub.find(params[:hub]) if params[:hub]
-  end
+    if params[:hub] 
+      if params[:hub].is_a?(String) && params[:hub].starts_with?(GooglePlacesAutocompleteService.prefix)  
+        proposals = []
+        render 'index'
+      else
+         @hub = Hub.find(params[:hub]) 
+      end
+    end
+  end 
 
   def find_user
     @user = User.find(params[:user]) if params[:user]
@@ -127,7 +135,7 @@ class ProposalsController < ApplicationController
       else
         params.require(:proposal).permit(
           :statement,
-          hub_attributes: [:group_name, :location_id, :formatted_location]
+          hub_attributes: [:group_name, :location_id, :formatted_location, :description]
         )
       end
     end
@@ -138,7 +146,11 @@ class ProposalsController < ApplicationController
   end
 
   def existing_hub
-    @hub ||= Hub.find_by_id(params[:proposal][:hub_id])
+    if params[:proposal][:hub_id].is_a?(String) && params[:proposal][:hub_id].starts_with?(GooglePlacesAutocompleteService.prefix) # no need to hit db if hub doesn't exist in our DB yet
+      nil
+    else
+      @hub ||= Hub.find_by_id(params[:proposal][:hub_id])
+    end
   end
 
   #def fetch_more(proposal_id, page, offset)
