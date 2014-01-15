@@ -30,7 +30,11 @@ Spokenvote::Application.routes.draw do
   end
 
   get 'currentuser' => 'users#currentuser'
-  match "/*page" => 'application#index'
+
+  require 'robots_generator' # Rails 3 does not autoload files in lib
+  get "/robots.txt" => RobotsGenerator
+
+  get "/*page" => 'application#index'
   match ':controller(/:action(/:id))(.:format)' => redirect('/')
 
   # The priority is based upon order of creation:
