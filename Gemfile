@@ -38,6 +38,7 @@ gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
 gem 'strong_parameters'
+gem 'sitemap_generator'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -78,4 +79,6 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm', '3.5.5.38'
   gem "airbrake"
+  gem 'prerender_rails'
+  gem 'fog'
 end

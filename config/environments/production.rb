@@ -71,4 +71,7 @@ Spokenvote::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.assets.initialize_on_precompile = false # To fix https://github.com/Compass/compass-rails/issues/19 https://github.com/spree/spree_fancy/issues/2
+
+  #Prerender JS SEO service
+  config.middleware.use Rack::Prerender
 end
