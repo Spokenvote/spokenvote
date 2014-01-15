@@ -17,7 +17,7 @@
           %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
 
       %ul.row-fluid( ng-repeat='proposal in proposals' )
-        %li.tree_container
+        %li.tree_container( ng-click='showProposal(proposal)' )
           .topic.row-fluid
             .proposal-person.span1
               .list-avatar.row-fluid
