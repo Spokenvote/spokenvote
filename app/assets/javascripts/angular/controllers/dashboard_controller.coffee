@@ -13,6 +13,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
+        SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
