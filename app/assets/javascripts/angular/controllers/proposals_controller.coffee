@@ -8,7 +8,8 @@ ProposalListCtrl =
       $location.search('filter', filterSelected)
 
     $scope.setHub = (hubSelected) ->
-      $location.search('hub', hubSelected.id)
+      $location.path('/proposals/').search('hub', hubSelected.id)
+
 
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
