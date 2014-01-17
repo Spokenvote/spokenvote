@@ -28,11 +28,8 @@ header {
   background-image: url(sprite.png);
   background-repeat: repeat-x;
   height: 43px;
-  .navbar-inverse .container {
-    .nav.navbar-right {
-      li.buttons {
-        margin-top: 6px;
-      }
+  .container {
+    .nav.navbar-nav.navbar-right {
       li.dropdown {
         padding-left: 10px;
       }
@@ -67,8 +64,12 @@ header {
   a {
     padding: 1px 4px;
   }
+
+  li.buttons {
+    padding: 2px 0px 0px 30px;
+  }
   li.hub_filter {
-    //padding: 0px 30px 0px 0px;
+    padding: 5px 0px 0px 0px;
   }
 }
 
@@ -97,6 +98,10 @@ header {
   z-index: 10001;
   opacity: 0.5;
 }
+//
+//.select2-container {
+//  background-color: #56a600;
+//}
 
 
 //footer.navbar-inverse {

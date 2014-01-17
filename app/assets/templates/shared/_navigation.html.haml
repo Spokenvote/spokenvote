@@ -11,11 +11,13 @@
         %li.hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
           -#%button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
+        %li.buttons
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
 
 
       %ul.nav.navbar-nav.navbar-right
-        %li.buttons
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
+        -#%li.buttons
+        -#  %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
 
         %li.dropdown( data-placement='bottom' )
           %a.dropdown-toggle( data-toggle='dropdown' )
