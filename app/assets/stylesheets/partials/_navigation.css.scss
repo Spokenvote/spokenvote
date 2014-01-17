@@ -1,5 +1,5 @@
-.navbar-inverse .navbar-inner {
-  .navbar-inner {
+.navbar-inverse .container {
+  .navbar {
     color: #000;
     border-color: #315c99;
   }
@@ -22,35 +22,37 @@
   }
 }
 
-header.navbar-inverse .navbar-inner {
+header {
   border-bottom: 1px solid;
   background: #252525;
   background-image: url(sprite.png);
   background-repeat: repeat-x;
   height: 43px;
-
-  .nav.pull-right {
-    li.buttons {
-      margin-top: 2px;
-    }
-    li.dropdown {
-      padding-left: 10px;
-    }
-    li.avatar {
-      margin-top: -6px;
-      margin-right: -5px;
+  .navbar-inverse .container {
+    .nav.navbar-right {
+      li.buttons {
+        margin-top: 6px;
+      }
+      li.dropdown {
+        padding-left: 10px;
+      }
+      li.avatar {
+        margin-top: -8px;
+        margin-right: -5px;
+      }
     }
   }
 }
 
-.container > .brand {
+.navbar-header > .navbar-brand {
+  margin-top: -5;
   font-weight: 700;
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  letter-spacing: -1px;  
+  letter-spacing: -1px;
   color: $happy-blue;
-  
-  &:hover span.vote { 
+
+  &:hover span.vote {
     color: white !important;
   }
 

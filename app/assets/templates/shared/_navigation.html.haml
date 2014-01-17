@@ -1,16 +1,19 @@
+-#%header.navbar.navbar-inverse.navbar-fixed-top
 %header.navbar.navbar-inverse.navbar-fixed-top
-  %nav.navbar-inner( ng-controller='DashboardCtrl' )
-    .container
-      %a.brand( href='/landing' ng-click="clearHubFilter()" )
+  %div.container( ng-controller='DashboardCtrl' )
+    .navbar-header
+      %a.navbar-brand( href='/landing' ng-click="clearHubFilter()" )
         Spoken
         %span.vote
           Vote
-
-      %ul#hub_search.nav
+    %nav.collapse.navbar-collapse.bs-navbar-collapse
+      %ul#hub_search.nav.navbar-nav
         %li.hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+          -#%button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
 
-      %ul.nav.pull-right
+
+      %ul.nav.navbar-nav.navbar-right
         %li.buttons
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start New Topic
 
