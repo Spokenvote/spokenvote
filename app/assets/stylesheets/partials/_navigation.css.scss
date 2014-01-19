@@ -22,6 +22,10 @@
   }
 }
 
+.navbar-collapse {
+  height: 40px;
+}
+
 header {
   border-bottom: 1px solid;
   background: #252525;
@@ -30,29 +34,20 @@ header {
   height: 43px;
   .container {
     .nav.navbar-nav.navbar-right {
-      li.dropdown {
-        padding-left: 10px;
-      }
-      li.avatar {
-        margin-top: -8px;
-        margin-right: -5px;
-      }
     }
   }
 }
 
 .navbar-header > .navbar-brand {
-  margin-top: -5;
+  padding: 9px 15px;
   font-weight: 700;
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;
   color: $happy-blue;
-
   &:hover span.vote {
     color: white !important;
   }
-
   span.vote {
     color: $spring-green;
     margin-left: -3px;
@@ -60,43 +55,56 @@ header {
 }
 
 #hub_search {
-  padding: 7px 0 0 28px;
+  padding: 4px 0 0 28px;
   a {
     padding: 1px 4px;
-  }
-
-  li.buttons {
-    padding: 2px 0px 0px 30px;
   }
   li.hub_filter {
     padding: 5px 0px 0px 0px;
   }
-}
-
-.navbar .nav > li > a {
-  //padding: 11px 15px 13px;
-  color: #bbb;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 15px;
-  &:hover {
-    cursor: pointer;
-  }
-  &.btn {
-    padding: 4px 10px 4px;
-    margin-right: 10px;
+  li.buttons {
+    padding: 1px 0px 0px 30px;
   }
 }
 
-#location_filter {
-  @include border-radius(4px);
+#user_profile {
+  li.dropdown {
+    padding-left: 10px;
+  }
+  li.avatar {
+    margin-top: -10px;
+    margin-right: -3px;
+  }
 }
 
-.clear-location {
-  position: relative;
-  right: 20px;
-  font-size: 12px;
-  z-index: 10001;
-  opacity: 0.5;
+.navbar {
+  min-height: 42px;
+  .nav > li > a {
+    //padding: 11px 15px 13px;
+    color: #bbb;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 15px;
+    &:hover {
+      cursor: pointer;
+    }
+    &.btn {
+      padding: 4px 10px 4px;
+      margin-right: 10px;
+    }
+  }
+
+
+  #location_filter {
+    @include border-radius(4px);
+  }
+
+  .clear-location {
+    position: relative;
+    right: 20px;
+    font-size: 12px;
+    z-index: 10001;
+    opacity: 0.5;
+  }
 }
 //
 //.select2-container {
