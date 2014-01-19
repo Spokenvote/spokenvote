@@ -44,13 +44,13 @@ AlertService = ($timeout) ->
   setError: (msg, scope, dest) ->
     @alertMessage = msg
     @alertDestination = dest
-    @alertClass = 'alert-error'
+    @alertClass = 'alert-danger'
     $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setCtlResult: (result, scope, dest) ->
     @cltActionResult = result
     @alertDestination = dest
-    @alertClass = 'alert-error'
+    @alertClass = 'alert-danger'
 #    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setJson: (json) ->

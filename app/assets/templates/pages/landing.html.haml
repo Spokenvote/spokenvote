@@ -5,8 +5,8 @@
       .tag_line Voting redefined.
     %br
 
-    .landing_hubfilter.span9.offset1( ng-controller='DashboardCtrl' )
-      .header.row-fluid.panel( ng-init="landing.location='true'" )
+    .landing_hubfilter.col-md-9.col-md-offset-1( ng-controller='DashboardCtrl' )
+      .header.row.panel( ng-init="landing.location='true'" )
         %span
         .hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' data-width='590px' )

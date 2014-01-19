@@ -22,18 +22,18 @@
 
     .login_form
       %form( ng-submit='register()' name='registrationForm' novalidate )
-        .control-group
+        .form-group
           .controls
             %input( id='name' name='name' type='text' class='full-width' ng-model='registration.name' required ng-minLength='4' placeholder='Name' )
               .input-below-text( ng-show='registrationForm.name.$invalid && registrationForm.name.$dirty' ) Minimum length of 4
-        .control-group
+        .form-group
           .controls
             %input(id='email_field' name='email' type='email' class='full-width' ng-model='registration.email' required ng-minLength='3' placeholder='Email address' )
-        .control-group
+        .form-group
           .controls
             %input(id='password_field' name='password' type='password' class='full-width' ng-model='registration.password' required ng-minLength='5' placeholder='Password' )
             .input-below-text( ng-show='registrationForm.password.$invalid && registrationForm.password.$dirty' ) Minimum length of 5
-        .control-group
+        .form-group
           .controls
             %input(id='password_confirmation_field' name='password_confirmation' type='password' class='full-width' ng-model='registration.password_confirmation' required ng-minLength='5' placeholder='Confirm password' )
             .input-below-text( ng-show='registration.password != registration.password_confirmation && registrationForm.password_confirmation.$dirty || registrationForm.$invalid && registrationForm.password_confirmation.$dirty ' ) Almost ...
@@ -42,6 +42,6 @@
 
 
   .modal-footer
-    .control-group
+    .form-group
       .controls
         %button( ng-click='register()' class='btn btn-primary btn-bold' ng-disabled='!registrationForm.$valid || registration.password != registration.password_confirmation') Join SpokenVote

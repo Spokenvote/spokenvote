@@ -1,8 +1,8 @@
-%section#homepage.span11
+%section#homepage.col-md-11
   #searchResults
     .listing-proposals
-      .header.row-fluid.panel
-        .title.span7
+      .header.row.panel
+        .title.col-md-7
           %h4( colspan='5' )
             %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
             %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
@@ -12,41 +12,41 @@
                 %span( class='close_x' ) &times;
 
         .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
-          %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> &nbsp Active &nbsp
-          %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp Recent &nbsp
-          %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
+          %button( type='button' ng-click="setFilter('active')" class='btn btn-default' value='active' ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
+          %button( type='button' ng-click="setFilter('new')" class='btn btn-default' value='new' ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
+          %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
 
-      %ul.row-fluid( ng-repeat='proposal in proposals' )
+      %ul.row( ng-repeat='proposal in proposals' )
         %li.tree_container( ng-click='showProposal(proposal)' )
-          .topic.row-fluid
-            .proposal-person.span1
-              .list-avatar.row-fluid
+          .topic.row
+            .proposal-person.col-md-1
+              .list-avatar.row
                 %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
                   %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
                   %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-            .topic_hub.span9
-              .proposal.row-fluid
+            .topic_hub.col-md-9
+              .proposal.row
                 %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
-              .hub.row-fluid
+              .hub.row
                 %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
                 -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
             .prop_counts
-              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              .col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
                 .votes.row {{ proposal.votes_in_tree }}
                 .label.row Votes
                 .date-stamp.row Last voted on: {{ proposal.updated_at }}
 
-              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              .col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
                 .prop_count.row {{ proposal.related_proposals_count  }}
                 .label.row Props
 
     #proposalNotFound
-      .span7 &nbsp;
-      .span5
+      .col-md-7 &nbsp;
+      .col-md-5
         Don't see the topic you're looking for?
         %a( id='makeProposalLink' href='#' ng-click='new()' )  Start a New Topic
-      .span12.offset1( ng-show='!proposals[0]' )
+      .col-md-12.col-md-offset-1( ng-show='!proposals[0]' )
         %h3
           %span No {{ filterSelection | inflector:humanize }} topics
           %span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}

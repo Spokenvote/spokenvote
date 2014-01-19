@@ -31,9 +31,6 @@ footer {
     margin-bottom: 0;
     margin-top: ($gridGutterWidth/10);
   }
-  .navbar-inner {
-    @include border-radius(0);
-  }
   .container {
     padding: ($gridGutterWidth/2) 0;
   }
@@ -43,7 +40,7 @@ footer {
 }
 
 .container {
-  @extend .span12;
+  @extend .col-md-12;
 }
 
 #main {
@@ -67,9 +64,9 @@ footer {
   position: relative;
 }
 
-.span11 > .form-horizontal {
+.col-md-11 > .form-horizontal {
   margin-top: $gridGutterWidth;
-  .control-group, .supporting-args {
+  .form-group, .supporting-args {
     margin-bottom: ($gridGutterWidth/2);
   }
 }
@@ -89,7 +86,7 @@ footer {
 #alertContainer {
 
   .pageAlert {
-    @extend .span7;
+    @extend .col-md-7;
     position: fixed;
     opacity: .95;
     z-index: 20000;
@@ -351,7 +348,7 @@ textarea.ng-invalid.ng-dirty {
   outline: 2px dashed #0090D2;
 }
 
-.select2-container.span4 {
+.select2-container.col-md-4 {
   margin-left: 0;
 }
 
@@ -503,7 +500,7 @@ textarea.ng-invalid.ng-dirty {
   form {
     margin: 0;
   }
-  .control-group {
+  .form-group {
     margin-left: ($gridGutterWidth * 0.75);
     margin-bottom: 0;
   }
@@ -601,7 +598,7 @@ textarea.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-  @extend .span11;
+  @extend .col-md-11;
   //width: 917px;
   padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 32px;
   background-color: #fff;
@@ -623,7 +620,7 @@ textarea.ng-invalid.ng-dirty {
 
 // static_pages elements
 .static_page {
-  @extend .span11;
+  @extend .col-md-11;
   margin-left: $gridGutterWidth;
   h1 {
     margin-bottom: ($gridGutterWidth * 2.25);
@@ -825,12 +822,12 @@ textarea.ng-invalid.ng-dirty {
 }
 
 #hpContent {
-  @extend .span11;
+  @extend .col-md-11;
   margin-left: 20px;
 }
 
 .vote_buttons_container {
-  @extend .span9;
+  @extend .col-md-9;
   //text-align: center;
   margin-left: 10px;
 }

@@ -18,7 +18,7 @@
           %ng-include(src="'/assets/shared/_currentuser_avatar.html'")
         %h5 You are editing your Proposal   ...
 
-      .control-group
+      .form-group
         .controls
           %textarea( id='proposal_statement' name='proposal_statement' class='full-width' ng-model='editProposal.proposal.statement' required ng-minLength='15' ng-maxLength='140'
             placeholder='Write your main proposal statement here.' )
@@ -28,7 +28,7 @@
           .length_counter.error-text( ng-show="editProposalForm.proposal_statement.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show='editProposalForm.proposal_statement.$error.maxlength' ) Too Long
 
-      .control-group
+      .form-group
         .controls
           %textarea( id='vote_comment' name='vote_comment' class='full-width' ng-model='editProposal.proposal.votes_attributes.comment' required ng-minLength='7' ng-maxLength='280'
           placeholder='Explain why others should support your proposal here.' )
@@ -40,6 +40,6 @@
 
   .modal-footer
     %fieldset
-      .control-group
+      .form-group
         .controls
           %button( ng-click='saveEdit()' class='btn btn-primary btn-bold' ng-disabled='!editProposalForm.$valid' ) Save your  proposal changes
