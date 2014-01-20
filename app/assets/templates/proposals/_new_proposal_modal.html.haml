@@ -15,7 +15,7 @@
         %h2.modal-title Start New Topic
         .selectedHub
           %a.hub( ng-click='changeHub(true)' href='#' )
-            .pull-right( bs-tooltip='tooltips.newHub' data-placement='left' )
+            .pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
               %h3( collapse='!sessionSettings.hub_attributes.id' )
                 %i( class='icon-pencil' )
                 %span {{ sessionSettings.hub_attributes.group_name }}

@@ -32,12 +32,14 @@
                 -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
             .prop_counts
-              .col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              -#.col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              .col-md-1( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                 .votes.row {{ proposal.votes_in_tree }}
                 .label.row Votes
                 .date-stamp.row Last voted on: {{ proposal.updated_at }}
 
-              .col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              -#.col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
+              .col-md-1( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                 .prop_count.row {{ proposal.related_proposals_count  }}
                 .label.row Props
 

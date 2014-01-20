@@ -2,6 +2,8 @@
 
 appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
 #appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
+  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
   $locationProvider.html5Mode true
 
   $routeProvider
@@ -68,7 +70,9 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
       dataType: 'script'
       cache: true
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
+#window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
+#window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'mgcrea.ngStrap', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 
 servicesConfig = ($httpProvider) ->
