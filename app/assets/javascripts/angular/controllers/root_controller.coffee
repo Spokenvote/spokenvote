@@ -1,4 +1,4 @@
-RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
+RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
   $rootScope.alertService = AlertService
   $rootScope.authService = Auth
   $rootScope.sessionSettings = SessionSettings
@@ -25,13 +25,19 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
 
   $scope.userSettings = ->
     if SessionSettings.openModals.userSettings is false
-      opts =
+#      opts =
+#        resolve:
+#          $scope: ->
+#            $scope
+      d = $modal.open(
+        templateUrl: '/assets/user/_support_modal.html'
+#        controller: 'UserSettingsCtrl'
         resolve:
           $scope: ->
             $scope
-      d = $dialog.dialog(opts)
+        )
       SessionSettings.openModals.userSettings = true
-      d.open('/assets/user/_support_modal.html', 'UserSettingsCtrl').then (result) ->
+      d.result.then (result) ->
         SessionSettings.openModals.userSettings = d.isOpen()
 
   $scope.signOut = ->
@@ -93,5 +99,5 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$dialog', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
 App.controller 'RootCtrl', RootCtrl

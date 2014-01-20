@@ -1,4 +1,4 @@
-VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
+VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
 
   support: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
@@ -98,7 +98,7 @@ VotingService = ( $dialog, AlertService, SessionSettings, RelatedVoteInTreeLoade
           SessionSettings.openModals.newProposal = d.isOpen()
 
 # Injects
-VotingService.$inject = [ '$dialog', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
+VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
 
 # Register
 App.Services.factory 'VotingService', VotingService

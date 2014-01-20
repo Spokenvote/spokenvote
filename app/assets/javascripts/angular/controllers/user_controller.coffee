@@ -1,4 +1,4 @@
-UserSettingsCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, dialog, CurrentUser) ->
+UserSettingsCtrl = ($scope, $cookieStore, $location, SessionService, AlertService, CurrentUser) ->
 
   $scope.saveUserSettings = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal.id
@@ -18,7 +18,7 @@ UserSettingsCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
     dialog.close(result)
 
 # Injects
-UserSettingsCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'dialog', 'CurrentUser' ]
+UserSettingsCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'CurrentUser' ]
 
 # Register
 App.controller 'UserSettingsCtrl', UserSettingsCtrl

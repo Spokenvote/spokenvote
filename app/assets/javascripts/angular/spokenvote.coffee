@@ -1,6 +1,7 @@
 'use strict'
 
-appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
+appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
+#appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
   $locationProvider.html5Mode true
 
   $routeProvider
@@ -48,16 +49,16 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
-  $dialogProvider.options =
-    backdrop: false
-    dialogClass: 'modal'
-    backdropClass: 'modal-backdrop'
-    transitionClass: 'fade'
-    triggerClass: 'modal-open'
-    backdropFade: false
-    dialogFade: true
-    keyboard: true
-    backdropClick: true
+#  $dialogProvider.options =
+#    backdrop: false
+#    dialogClass: 'modal'
+#    backdropClass: 'modal-backdrop'
+#    transitionClass: 'fade'
+#    triggerClass: 'modal-open'
+#    backdropFade: false
+#    dialogFade: true
+#    keyboard: true
+#    backdropClick: true
 
   jQuery ->
     $('body').prepend('<div id="fb-root"></div>')
@@ -76,5 +77,6 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects
-appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$dialogProvider' ]
+appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider' ]
+#appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$dialogProvider' ]
 servicesConfig.$inject = ['$httpProvider']

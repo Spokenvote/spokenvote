@@ -1,38 +1,40 @@
 #userSettingsModal.modal
-  .modal-header
-    .pull-right( class='close'  ng-click='close()' ) &times;
-    %h2 My Settings
-    .selectedHub
-      .hub
-        %h3 {{ currentUser.name }}
-        %h5 {{ sessionSettings.facebookUser.me.location.name }}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        .pull-right( class='close'  ng-click='close()' ) &times;
+        %h2 My Settings
+        .selectedHub
+          .hub
+            %h3 {{ currentUser.name }}
+            %h5 {{ sessionSettings.facebookUser.me.location.name }}
 
-    #alertContainer
-      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
+        #alertContainer
+          .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-  .modal-body
-    %form( name='userSettingsForm' )
-      .instructions
-        .avatar
-          %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
-        %h5 At this time your settings all come from Facebook and should be edited there. Very soon some awesome social graph features will be added, and this window is where you will configure them.
-      %input( id='user_full_name' type='text' class='half-width' ng-model='currentUser.name' required ng-minLength='5' ng-maxLength='50'
-        placeholder='Your full name' ng-disabled='true' )
-      -#.length_counter( ng-show=' currentUser.name > 5 ' ) {{ 50 - currentUser.name.length }} characters remaining
+      .modal-body
+        %form( name='userSettingsForm' )
+          .instructions
+            .avatar
+              %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
+            %h5 At this time your settings all come from Facebook and should be edited there. Very soon some awesome social graph features will be added, and this window is where you will configure them.
+          %input( id='user_full_name' type='text' class='half-width' ng-model='currentUser.name' required ng-minLength='5' ng-maxLength='50'
+            placeholder='Your full name' ng-disabled='true' )
+          -#.length_counter( ng-show=' currentUser.name > 5 ' ) {{ 50 - currentUser.name.length }} characters remaining
 
-      %input( id='user_email' type='text' class='half-width' ng-model='sessionSettings.facebookUser.me.email' required ng-minLength='5' ng-maxLength='50'
-          placeholder='Your primary email' ng-disabled='true' )
+          %input( id='user_email' type='text' class='half-width' ng-model='sessionSettings.facebookUser.me.email' required ng-minLength='5' ng-maxLength='50'
+              placeholder='Your primary email' ng-disabled='true' )
 
-      %input( id='user_location' type='text' class='thee_quarter-width' ng-model='sessionSettings.facebookUser.me.location.name' required ng-minLength='5' ng-maxLength='50'
-          placeholder='Your city' ng-disabled='true' )
+          %input( id='user_location' type='text' class='thee_quarter-width' ng-model='sessionSettings.facebookUser.me.location.name' required ng-minLength='5' ng-maxLength='50'
+              placeholder='Your city' ng-disabled='true' )
 
-      %input( id='user_hometown' type='text' class='thee_quarter-width' ng-model='sessionSettings.facebookUser.me.hometown.name' required ng-minLength='5' ng-maxLength='50'
-          placeholder='Your hometown' ng-disabled='true' )
+          %input( id='user_hometown' type='text' class='thee_quarter-width' ng-model='sessionSettings.facebookUser.me.hometown.name' required ng-minLength='5' ng-maxLength='50'
+              placeholder='Your hometown' ng-disabled='true' )
 
 
-  .modal-footer
-    %fieldset
-      .form-group
-        .controls
-          %button( ng-click="saveUserSettings()" class='btn btn-primary btn-bold' ng-disabled='userSettingsForm.$valid || userSettingsForm.$invalid' ) Save Settings
+      .modal-footer
+        %fieldset
+          .form-group
+            .controls
+              %button( ng-click="saveUserSettings()" class='btn btn-primary btn-bold' ng-disabled='userSettingsForm.$valid || userSettingsForm.$invalid' ) Save Settings
 
