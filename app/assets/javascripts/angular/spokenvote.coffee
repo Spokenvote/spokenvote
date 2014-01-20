@@ -68,7 +68,7 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
       dataType: 'script'
       cache: true
 
-window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 
 servicesConfig = ($httpProvider) ->
