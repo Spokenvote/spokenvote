@@ -29,15 +29,15 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
 #        resolve:
 #          $scope: ->
 #            $scope
-      d = $modal.open(
-        templateUrl: '/assets/user/_support_modal.html'
-#        controller: 'UserSettingsCtrl'
+      modalInstance = $modal.open(
+        templateUrl: '/assets/user/_settings_modal.html'
+        controller: 'UserSettingsCtrl'
         resolve:
           $scope: ->
             $scope
         )
       SessionSettings.openModals.userSettings = true
-      d.result.then (result) ->
+      modalInstance.result.then (result) ->
         SessionSettings.openModals.userSettings = d.isOpen()
 
   $scope.signOut = ->

@@ -4,6 +4,7 @@
 $happy-blue: #1c85f6;
 $spring-green: #50D050;
 $chisel-grey: #c1c1c1;
+$modal-body-off-white: #DFDFDF;
 $soft-grey: rgba(132, 132, 132, 0.75);
 $basic-brown: #444;
 $soft-brown-text: #555555;
@@ -56,6 +57,11 @@ footer {
 .content {
   margin: 0;
   @include clearfix;
+}
+
+input {
+  border-radius: 4px;
+  margin: 2px 3px 11px 3px;
 }
 
 #mainContent {
@@ -368,35 +374,38 @@ textarea.ng-invalid.ng-dirty {
 
 
 .modal-header {
-  @include border-top-radius(6px);
-  background-color: #eee;
+//  @include border-top-radius(6px);
+//  background-color: #eee;
   h2 {
     color: $happy-blue;
+    font-weight: bold;
   }
 }
 
 .modal-footer {
+  margin: 0;
   .pull-left {
     text-align: left;
   }
 }
 .modal-backdrop {
-  background-color: #000 !important;
+//  background-color: #000 !important;
 }
 
 .modal {
-  top: 15% !important;
-  position: fixed !important;
+//  top: 15% !important;
+//  position: fixed !important;
 }
 
 .modal-body {
-  background-color: #DFDFDF;
-  padding-top: $gridGutterWidth;
+  background-color: $modal-body-off-white;
+//  padding-top: $gridGutterWidth;
   form {
     margin-bottom: 0;
     padding-left: 10px;
   }
   .instructions {
+    font-family: inherit;
     //margin-top: ($gridGutterWidth * 0.3);
     margin-left: ($gridGutterWidth * 0.3);
     //padding-bottom: 18px ;
@@ -452,16 +461,18 @@ textarea.ng-invalid.ng-dirty {
 
 .selectedHub {
   margin-top: -10px;
-  margin-bottom: 52px;
+//  margin-bottom: 52px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: right;
   text-decoration: none;
   .hub {
     color: $basic-brown !important;
     h3 {
+      font-family: inherit;
       margin-right: 3px;
     }
     h5 {
+      font-family: inherit;
       margin-top: -2px;
       margin-bottom: -4px;
       margin-right: 3px;
