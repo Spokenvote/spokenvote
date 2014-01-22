@@ -33,7 +33,7 @@
         placeholder='Explain why you want to support this proposal.' )
       .length_counter( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
       .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
-        %i( class='icon-warning-sign' ) &nbsp Required
+        %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
       .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' ) Too Short
       .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' ) Too Long
 

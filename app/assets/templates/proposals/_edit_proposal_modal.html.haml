@@ -24,7 +24,7 @@
             placeholder='Write your main proposal statement here.' )
           .length_counter( ng-show='editProposalForm.proposal_statement.$valid' ) {{ 140 - editProposal.proposal.statement.length }} characters remaining
           .length_counter.error-text( ng-show='editProposalForm.proposal_statement.$invalid && !editProposalForm.proposal_statement.$error.minlength && !editProposalForm.proposal_statement.$error.maxlength' )
-            %i( class='icon-warning-sign' ) &nbsp Required
+            %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
           .length_counter.error-text( ng-show="editProposalForm.proposal_statement.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show='editProposalForm.proposal_statement.$error.maxlength' ) Too Long
 
@@ -34,7 +34,7 @@
           placeholder='Explain why others should support your proposal here.' )
           .length_counter( ng-show='editProposalForm.vote_comment.$valid' ) {{ 280 - editProposal.proposal.votes_attributes.comment.length }} characters remaining
           .length_counter.error-text( ng-show='editProposalForm.vote_comment.$invalid && !editProposalForm.vote_comment.$error.minlength && !editProposalForm.vote_comment.$error.maxlength' )
-            %i( class='icon-warning-sign' ) &nbsp Required
+            %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
           .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.maxlength" ) Too Long
 

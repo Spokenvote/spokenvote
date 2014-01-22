@@ -148,10 +148,10 @@ input {
 .length_counter {
   text-align: right;
   margin-right: ($gridGutterWidth * 1.25);
-  margin-top: ($gridGutterWidth * -0.55);
-  margin-bottom: ($gridGutterWidth * 0.30);
   font-size: 10px;
-  color: gray;
+  //  margin-top: ($gridGutterWidth * -0.55);
+  //  margin-bottom: ($gridGutterWidth * 0.30);
+//  color: gray;
 }
 
 .error-text {
@@ -288,7 +288,7 @@ textarea {
 }
 
 .full-width {
-  width: 94%;
+  width: 97%;
 }
 
 .half-width {
@@ -470,6 +470,9 @@ textarea.ng-invalid.ng-dirty {
     h3 {
       font-family: inherit;
       margin-right: 3px;
+      i {
+        font-size: 14px;
+      }
     }
     h5 {
       font-family: inherit;

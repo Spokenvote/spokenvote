@@ -14,14 +14,12 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 
-// require bootstrap-tooltip
-
 //= require holder
 //= require viewport.min
+//= require angular-ui
 // require ui-bootstrap-tpls-0.4.0
 // require angular-strap
-//= require angular-ui
-//= require angular-cookies
+// require angular-cookies
 
 //= require ./angular/spokenvote
 //= require_tree ./angular

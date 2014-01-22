@@ -3,14 +3,14 @@
   %h2.modal-title Start New Topic
   .selectedHub
     %a.hub( ng-click='changeHub(true)' href='#' )
-      .pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
-        %h3( collapse='!sessionSettings.hub_attributes.id' )
-          %i( class='icon-pencil' )
-          %span {{ sessionSettings.hub_attributes.group_name }}
-        %h3( collapse='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
-          %i( class='icon-pencil' )
-          %span {{ sessionSettings.actions.searchTerm }}
-        %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
+      -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
+      %h3( collapse='!sessionSettings.hub_attributes.id' )
+        %i( class='glyphicon glyphicon-pencil' )
+        %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
+      %h3( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
+        %i( class='glyphicon glyphicon-pencil' )
+        %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
+      %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
 .modal-body
   #alertContainer
@@ -38,7 +38,7 @@
           %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
             placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
           %span.error-text( ng-hide='newProposalForm.formatted_location.$valid' )
-            %i( class='icon-warning-sign' ) &nbsp Choose a valid location.
+            %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Choose a valid location.
           %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
             %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
@@ -54,7 +54,7 @@
               placeholder='Write your main proposal statement here.' )
             .length_counter( ng-show='newProposalForm.proposal_statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
             .length_counter.error-text( ng-show='newProposalForm.proposal_statement.$invalid && !newProposalForm.proposal_statement.$error.minlength && !newProposalForm.proposal_statement.$error.maxlength' )
-              %i( class='icon-warning-sign' ) &nbsp Required
+              %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
             .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.minlength" ) Too Short
             .length_counter.error-text( ng-show="newProposalForm.proposal_statement.$error.maxlength" ) Too Long
 
@@ -64,7 +64,7 @@
             placeholder='Explain why others should support your proposal here.' )
             .length_counter( ng-show='newProposalForm.vote_comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
             .length_counter.error-text( ng-show='newProposalForm.vote_comment.$invalid && !newProposalForm.vote_comment.$error.minlength && !newProposalForm.vote_comment.$error.maxlength' )
-              %i( class='icon-warning-sign' ) &nbsp Required
+              %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
             .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.minlength" ) Too Short
             .length_counter.error-text( ng-show="newProposalForm.vote_comment.$error.maxlength" ) Too Long
 
