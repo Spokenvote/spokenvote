@@ -415,8 +415,8 @@ textarea.ng-invalid.ng-dirty {
     h5 {
       color: $soft-brown-text;
       margin-right: $gridGutterWidth;
-      margin-left: ($gridGutterWidth * 1.9);
-      padding-bottom: ($gridGutterWidth);
+      padding: 0 0 ($gridGutterWidth) ($gridGutterWidth * 3.25);
+//      padding-bottom: ($gridGutterWidth);
       //font-weight: normal;
       //margin-top: ($gridGutterWidth * 1.25);
       //margin-bottom: ($gridGutterWidth * 0.85);

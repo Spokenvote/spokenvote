@@ -22,7 +22,7 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
               resolve:
                 $scope: ->
                   scope
-            d = $dialog.dialog(scope.opts)
+#            d = $dialog.dialog(scope.opts)
             SessionSettings.openModals.supportProposal = true
             d.open('/assets/proposals/_support_modal.html', 'SupportCtrl').then (result) ->
               SessionSettings.openModals.supportProposal = d.isOpen()
@@ -44,7 +44,7 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
             resolve:
               $scope: ->
                 scope
-          d = $dialog.dialog(scope.opts)
+#          d = $dialog.dialog(scope.opts)
           SessionSettings.openModals.improveProposal = true
           d.open('/assets/proposals/_improve_proposal_modal.html', 'ImroveCtrl').then (result) ->
             SessionSettings.openModals.improveProposal = d.isOpen()
@@ -61,7 +61,7 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
           resolve:
             parentScope: ->
               scope
-        d = $dialog.dialog(scope.opts)
+#        d = $dialog.dialog(scope.opts)
         SessionSettings.openModals.editProposal = true
         d.open('/assets/proposals/_edit_proposal_modal.html', 'EditProposalCtrl').then (result) ->
           SessionSettings.openModals.editProposal = d.isOpen()
@@ -77,25 +77,44 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
           resolve:
             parentScope: ->
               scope
-        d = $dialog.dialog(scope.opts)
+#        d = $dialog.dialog(scope.opts)
         SessionSettings.openModals.deleteProposal = true
         d.open('/assets/proposals/_delete_proposal_modal.html', 'DeleteProposalCtrl').then (result) ->
           SessionSettings.openModals.deleteProposal = d.isOpen()
 
   new: (scope) ->
 
-    if !scope.currentUser.id?
-      AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
-    else
+#    if !scope.currentUser.id?
+#      AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
+#    else
+#      if SessionSettings.openModals.newProposal is false
+#        scope.opts =
+#          resolve:
+#            parentScope: ->
+#              scope
+#        d = $dialog.dialog(scope.opts)
+#        SessionSettings.openModals.newProposal = true
+#        d.open('/assets/proposals/_new_proposal_modal.html', 'NewProposalCtrl').then (result) ->
+#          SessionSettings.openModals.newProposal = d.isOpen()
+
       if SessionSettings.openModals.newProposal is false
-        scope.opts =
+        modalInstance = $modal.open
+          templateUrl: '/assets/proposals/_new_proposal_modal.html'
+          controller: 'NewProposalCtrl'
           resolve:
             parentScope: ->
               scope
-        d = $dialog.dialog(scope.opts)
-        SessionSettings.openModals.newProposal = true
-        d.open('/assets/proposals/_new_proposal_modal.html', 'NewProposalCtrl').then (result) ->
-          SessionSettings.openModals.newProposal = d.isOpen()
+        modalInstance.opened.then ->
+          SessionSettings.openModals.newProposal = true
+          console.log "Opened"
+        modalInstance.result.then(
+          ->
+            console.log "Closed"
+            SessionSettings.openModals.newProposal = false
+        , ->
+          SessionSettings.openModals.newProposal = false
+          console.log "Dismissed"
+        )
 
 # Injects
 VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]

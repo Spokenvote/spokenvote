@@ -1,4 +1,4 @@
-SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
+SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, $modal) ->
   AlertService.clearAlerts()
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
@@ -17,10 +17,10 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
       AlertService.setJson response.data
     )
 
-  $scope.close = (result) ->
-    dialog.close(result)
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
-ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
+ImroveCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal) ->
   AlertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
@@ -49,10 +49,10 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
       AlertService.setJson response.data
     )
 
-  $scope.close = (result) ->
-    dialog.close(result)
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
-EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+EditProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertService, Proposal) ->
   $scope.clicked_proposal = parentScope.clicked_proposal
 
   if $scope.clicked_proposal.votes.length > 1
@@ -78,11 +78,11 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertSer
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
       AlertService.setJson response.data
     )
+#
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
-  $scope.close = (result) ->
-    dialog.close(result)
-
-DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal, parentScope) ->
+DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal, parentScope) ->
   $scope.clicked_proposal = parentScope.clicked_proposal
 
   if parentScope.clicked_proposal.votes.length > 1
@@ -101,10 +101,10 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
       AlertService.setJson response.data
     )
 
-  $scope.close = (result) ->
-    dialog.close(result)
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
-NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+NewProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertService, Proposal) ->
   AlertService.clearAlerts()
 
   $scope.changeHub = (request) ->
@@ -139,15 +139,15 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     newHub: "You may change the group to which you are directing
                   this proposal by clicking here."
 
-  $scope.close = (result) ->
-    dialog.close(result)
+#  $scope.close = (result) ->
+#    dialog.close(result)
 
 # Injects
-SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', 'dialog' ]
-ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
-EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
-DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'parentScope' ]
-NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
+SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
+ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
+EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
+DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal', 'parentScope' ]
+NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

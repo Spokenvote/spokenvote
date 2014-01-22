@@ -25,20 +25,23 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
 
   $scope.userSettings = ->
     if SessionSettings.openModals.userSettings is false
-#      opts =
-#        resolve:
-#          $scope: ->
-#            $scope
-      modalInstance = $modal.open(
+      modalInstance = $modal.open
         templateUrl: '/assets/user/_settings_modal.html'
         controller: 'UserSettingsCtrl'
         resolve:
           $scope: ->
             $scope
-        )
-      SessionSettings.openModals.userSettings = true
-      modalInstance.result.then (result) ->
-        SessionSettings.openModals.userSettings = d.isOpen()
+      modalInstance.opened.then ->
+        SessionSettings.openModals.userSettings = true
+        console.log "Opened"
+      modalInstance.result.then(
+        ->
+          console.log "Closed"
+          SessionSettings.openModals.userSettings = false
+      , ->
+          SessionSettings.openModals.userSettings = false
+          console.log "Dismissed"
+      )
 
   $scope.signOut = ->
     SessionService.userOmniauth.$destroy()

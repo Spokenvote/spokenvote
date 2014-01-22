@@ -1,7 +1,7 @@
 'use strict'
 
-appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
-#appConfig = ($routeProvider, $locationProvider, $httpProvider, $dialogProvider) ->
+#appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
+appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
   $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
   $locationProvider.html5Mode true
@@ -51,16 +51,10 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
-#  $dialogProvider.options =
-#    backdrop: false
-#    dialogClass: 'modal'
-#    backdropClass: 'modal-backdrop'
-#    transitionClass: 'fade'
-#    triggerClass: 'modal-open'
-#    backdropFade: false
-#    dialogFade: true
-#    keyboard: true
-#    backdropClick: true
+  $modalProvider.options =
+    backdrop: true  # 'static' - backdrop is present but modal window is not closed when clicking outside of the modal window.
+    keyboard: true
+    windowClass: ''  # additional CSS class(es) to be added to a modal window template
 
   jQuery ->
     $('body').prepend('<div id="fb-root"></div>')
@@ -81,6 +75,6 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects
-appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider' ]
-#appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$dialogProvider' ]
+#appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider' ]
+appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider' ]
 servicesConfig.$inject = ['$httpProvider']
