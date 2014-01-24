@@ -72,18 +72,19 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
     if !scope.currentUser.id?
       AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
     else
-      if SessionSettings.openModals.newProposal is false
-        scope.opts =
+      if SessionSettings.openModals.deleteProposal is false
+        modalInstance = $modal.open
+          templateUrl: '/assets/proposals/_delete_proposal_modal.html'
+          controller: 'DeleteProposalCtrl'
           resolve:
             parentScope: ->
               scope
-#        d = $dialog.dialog(scope.opts)
-        SessionSettings.openModals.deleteProposal = true
-        d.open('/assets/proposals/_delete_proposal_modal.html', 'DeleteProposalCtrl').then (result) ->
-          SessionSettings.openModals.deleteProposal = d.isOpen()
+        modalInstance.opened.then ->
+          SessionSettings.openModals.deleteProposal = true
+        modalInstance.result.finally ->
+          SessionSettings.openModals.deleteProposal = false
 
   new: (scope) ->
-
     if !scope.currentUser.id?
       AlertService.setInfo 'To create proposals you need to sign in.', scope, 'main'
     else
@@ -91,19 +92,16 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
         modalInstance = $modal.open
           templateUrl: '/assets/proposals/_new_proposal_modal.html'
           controller: 'NewProposalCtrl'
-          resolve:
-            parentScope: ->
-              scope
+          scope: scope
+#          resolve:
+#            parentScope: ->
+#              scope
         modalInstance.opened.then ->
           SessionSettings.openModals.newProposal = true
-          console.log "Opened"
+#          console.log "Opened"
         modalInstance.result.finally ->
-          console.log "Closed or Dismissed"
+#          console.log "Closed or Dismissed"
           SessionSettings.openModals.newProposal = false
-#        , ->
-#          SessionSettings.openModals.newProposal = false
-#          console.log "Dismissed"
-#        )
 
 # Injects
 VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]

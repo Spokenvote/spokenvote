@@ -1,6 +1,6 @@
-#deleteProposalModal.modal
+#deleteProposalModal
   .modal-header
-    .pull-right( class='close' ng-click='close()' ) &times;
+    .pull-right( class='close' ng-click='$close()' ) &times;
     %h2 Delete Proposal
     .selectedHub
       .hub
@@ -23,5 +23,5 @@
     %fieldset
       .form-group
         .controls
-          %button( ng-click='close()' class='btn btn-bold' ) Cancel
+          %button( ng-click='$close()' class='btn btn-bold' ) Cancel
           %button( ng-click='deleteProposal()' class='btn btn-danger btn-bold' ) Delete my proposal

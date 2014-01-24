@@ -95,7 +95,7 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Propo
     ,  (response, status, headers, config) ->
       AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', parentScope
       $location.path('/proposals').search('hub', parentScope.clicked_proposal.hub_id)
-      dialog.close(response)
+      $modal.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
       AlertService.setJson response.data
@@ -104,8 +104,12 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Propo
 #  $scope.close = (result) ->
 #    dialog.close(result)
 
-NewProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertService, Proposal) ->
+NewProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
+
+  $scope.setFormReference = (newProposalForm) ->
+    $scope.newProposal = newProposalForm
+#  $scope.newProposalForm = {}
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
@@ -127,9 +131,9 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertServ
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', parentScope
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.',$scope
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-      dialog.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
@@ -139,15 +143,12 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertServ
     newHub: "You may change the group to which you are directing
                   this proposal by clicking here."
 
-#  $scope.close = (result) ->
-#    dialog.close(result)
-
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
 EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
 DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal', 'parentScope' ]
-NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
+NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

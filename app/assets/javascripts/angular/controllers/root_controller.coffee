@@ -33,15 +33,8 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
             $scope
       modalInstance.opened.then ->
         SessionSettings.openModals.userSettings = true
-        console.log "Opened"
-      modalInstance.result.then(
-        ->
-          console.log "Closed"
-          SessionSettings.openModals.userSettings = false
-      , ->
-          SessionSettings.openModals.userSettings = false
-          console.log "Dismissed"
-      )
+      modalInstance.result.finally ->
+        SessionSettings.openModals.userSettings = false
 
   $scope.signOut = ->
     SessionService.userOmniauth.$destroy()
@@ -80,7 +73,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
       d.open('/assets/shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
         SessionSettings.openModals.signIn = d.isOpen()
 
-  $scope.registerModal = ->
+  $scope.registerModal = ->       # $dialog.dialog no longer supported, must be updated to be used.
     if SessionSettings.openModals.register is false
       opts =
         resolve:
