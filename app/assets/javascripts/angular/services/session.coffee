@@ -94,6 +94,7 @@ SessionSettings = ->
     changeHub: false
     newProposalHub: null
     searchTerm: null
+    selectHub: false
   openModals:
     signIn: false
     register: false
