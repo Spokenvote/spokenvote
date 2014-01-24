@@ -8,9 +8,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     $scope.hubFilter =
       hubFilter: true
 
-  # needed to keep hub selection text box in sync
+  # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
-    if $route.current.params.hub? and $scope.hubFilter.hubFilter is null
+    if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
       CurrentHubLoader().then (paramHub) ->
         SessionSettings.hub_attributes = paramHub
         SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
@@ -23,7 +23,8 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
       SessionSettings.actions.hubFilter = 'All Groups'
-    else if SessionSettings.hub_attributes.id? 
+    else if SessionSettings.hub_attributes.id? and SessionSettings.actions.selectHub == true
+      SessionSettings.actions.selectHub = false 
       $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
       SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.short_hub
 
@@ -48,6 +49,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       if not _.isEmpty searchedHub
         SessionSettings.hub_attributes = searchedHub
         SessionSettings.actions.changeHub = false
+        SessionSettings.actions.selectHub = true
         SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = searchedHub 
         searchedHub.full_hub
