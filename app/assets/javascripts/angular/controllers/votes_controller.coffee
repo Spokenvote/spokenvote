@@ -82,7 +82,7 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertSer
 #  $scope.close = (result) ->
 #    dialog.close(result)
 
-DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal, parentScope) ->
+DeleteProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal, parentScope) ->
   $scope.clicked_proposal = parentScope.clicked_proposal
 
   if parentScope.clicked_proposal.votes.length > 1
@@ -95,7 +95,7 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Propo
     ,  (response, status, headers, config) ->
       AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', parentScope
       $location.path('/proposals').search('hub', parentScope.clicked_proposal.hub_id)
-      $modal.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
       AlertService.setJson response.data
@@ -106,16 +106,17 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, $modal, AlertService, Propo
 
 NewProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
-
-  $scope.setFormReference = (newProposalForm) ->
-    $scope.newProposal = newProposalForm
-#  $scope.newProposalForm = {}
+  $scope.newProposalForm = {}          # Needed for $modal issue of creating two scopes
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.saveNewProposal = ->
+    $scope.newProposal =               # Needed for $modal issue of creating two scopes
+      statement: $scope.newProposalForm.newProposal.statement.$modelValue
+      comment: $scope.newProposalForm.newProposal.comment.$modelValue
+
     if !$scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
@@ -147,7 +148,7 @@ NewProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, 
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
 EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
-DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal', 'parentScope' ]
+DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', 'parentScope' ]
 NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 
 # Register
