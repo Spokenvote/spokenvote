@@ -461,30 +461,25 @@ textarea.ng-invalid.ng-dirty {
 
 .selectedHub {
   margin-top: -10px;
-//  margin-bottom: 52px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
+  color: $basic-brown !important;
   text-align: right;
   text-decoration: none;
-  .hub {
-    color: $basic-brown !important;
-    h3 {
-      font-family: inherit;
-      margin-right: 3px;
-      i {
-        font-size: 14px;
-      }
-    }
-    h5 {
-      font-family: inherit;
-      margin-top: -2px;
-      margin-bottom: -4px;
-      margin-right: 3px;
+  .groupName {
+    font-size: 27px;
+    margin-right: 3px;
+    i {
+      font-size: 14px;
     }
   }
-  a.hub {
-    :hover {
-      color: $happy-blue;
-    }
+  .groupLocation {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: -6px;
+    margin-right: 3px;
+  }
+  :hover {
+    color: $happy-blue;
   }
 }
 

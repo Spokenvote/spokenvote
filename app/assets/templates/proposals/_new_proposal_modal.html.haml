@@ -3,15 +3,15 @@
     .pull-right( class='close' ng-click='$close()' ) &times;
     %h2.modal-title Start New Topic
     .selectedHub
-      %a.hub( ng-click='changeHub(true)' href='#' )
+      %span( ng-click='changeHub(true)' href='#' )
         -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
-        %h3( collapse='!sessionSettings.hub_attributes.id' )
+        .groupName( collapse='!sessionSettings.hub_attributes.id' )
           %i( class='glyphicon glyphicon-pencil' )
           %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
-        %h3( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
+        .groupLocation( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
           %i( class='glyphicon glyphicon-pencil' )
           %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
-        %h5( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
+        .groupLocation( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
   .modal-body
     #alertContainer
