@@ -1,6 +1,6 @@
-#editProposalModal.modal
+#editProposalModal
   .modal-header
-    .pull-right( class='close'  ng-click='close()' ) &times;
+    .pull-right( class='close'  ng-click='$close()' ) &times;
     %h2 Edit Proposal
     .selectedHub
       .hub
@@ -34,7 +34,7 @@
           placeholder='Explain why others should support your proposal here.' )
           .length_counter( ng-show='editProposalForm.vote_comment.$valid' ) {{ 280 - editProposal.proposal.votes_attributes.comment.length }} characters remaining
           .length_counter.error-text( ng-show='editProposalForm.vote_comment.$invalid && !editProposalForm.vote_comment.$error.minlength && !editProposalForm.vote_comment.$error.maxlength' )
-            %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
+            %i( class='glyphicon glyphcon-warning-sign' ) &nbsp Required
           .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.minlength" ) Too Short
           .length_counter.error-text( ng-show="editProposalForm.vote_comment.$error.maxlength" ) Too Long
 

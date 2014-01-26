@@ -52,8 +52,8 @@ ImroveCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal) ->
 #  $scope.close = (result) ->
 #    dialog.close(result)
 
-EditProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertService, Proposal) ->
-  $scope.clicked_proposal = parentScope.clicked_proposal
+EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
+  $scope.clicked_proposal = $scope.clicked_proposal
 
   if $scope.clicked_proposal.votes.length > 1
     AlertService.setCtlResult "We found support from other users on your proposal. You can no longer edit your proposal, but you can Improve it to get a similar result.", $scope
@@ -72,20 +72,18 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, $modal, AlertSer
     Proposal.update($scope.editProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
-      AlertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', parentScope
-      dialog.close(response)
+      AlertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
       AlertService.setJson response.data
     )
-#
-#  $scope.close = (result) ->
-#    dialog.close(result)
+]
 
-DeleteProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal, parentScope) ->
-  $scope.clicked_proposal = parentScope.clicked_proposal
+DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
+  $scope.clicked_proposal = $scope.clicked_proposal
 
-  if parentScope.clicked_proposal.votes.length > 1
+  if $scope.clicked_proposal.votes.length > 1
     AlertService.setCtlResult "We found support from other users on your proposal. You can no longer delete your proposal, but you can Improve it if you'd like to make a different proposal.", $scope
 
   $scope.deleteProposal = ->
@@ -93,30 +91,24 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertServic
 
     Proposal.delete($scope.clicked_proposal
     ,  (response, status, headers, config) ->
-      AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', parentScope
-      $location.path('/proposals').search('hub', parentScope.clicked_proposal.hub_id)
+      AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', $scope
+      $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
       $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
       AlertService.setJson response.data
     )
+]
 
-#  $scope.close = (result) ->
-#    dialog.close(result)
-
-NewProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
+NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
-  $scope.newProposalForm = {}          # Needed for $modal issue of creating two scopes
+  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.saveNewProposal = ->
-    $scope.newProposal =               # Needed for $modal issue of creating two scopes
-      statement: $scope.newProposalForm.newProposal.statement.$modelValue
-      comment: $scope.newProposalForm.newProposal.comment.$modelValue
-
     if !$scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
     newProposal =
@@ -143,13 +135,14 @@ NewProposalCtrl = ($scope, $location, $rootScope, $modalInstance, AlertService, 
   $scope.tooltips =
     newHub: "You may change the group to which you are directing
                   this proposal by clicking here."
+]
 
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
 ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
-EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
-DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', 'parentScope' ]
-NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

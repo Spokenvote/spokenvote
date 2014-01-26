@@ -57,14 +57,14 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
       AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
     else
       if SessionSettings.openModals.editProposal is false
-        scope.opts =
-          resolve:
-            parentScope: ->
-              scope
-#        d = $dialog.dialog(scope.opts)
-        SessionSettings.openModals.editProposal = true
-        d.open('/assets/proposals/_edit_proposal_modal.html', 'EditProposalCtrl').then (result) ->
-          SessionSettings.openModals.editProposal = d.isOpen()
+        modalInstance = $modal.open
+          templateUrl: '/assets/proposals/_edit_proposal_modal.html'
+          controller: 'EditProposalCtrl'
+          scope: scope
+        modalInstance.opened.then ->
+          SessionSettings.openModals.editProposal = true
+        modalInstance.result.finally ->
+          SessionSettings.openModals.editProposal = false
 
   delete: (scope, clicked_proposal) ->
     scope.clicked_proposal = clicked_proposal
@@ -76,9 +76,7 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
         modalInstance = $modal.open
           templateUrl: '/assets/proposals/_delete_proposal_modal.html'
           controller: 'DeleteProposalCtrl'
-          resolve:
-            parentScope: ->
-              scope
+          scope: scope
         modalInstance.opened.then ->
           SessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
@@ -93,14 +91,9 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
           templateUrl: '/assets/proposals/_new_proposal_modal.html'
           controller: 'NewProposalCtrl'
           scope: scope
-#          resolve:
-#            parentScope: ->
-#              scope
         modalInstance.opened.then ->
           SessionSettings.openModals.newProposal = true
-#          console.log "Opened"
         modalInstance.result.finally ->
-#          console.log "Closed or Dismissed"
           SessionSettings.openModals.newProposal = false
 
 # Injects

@@ -55,7 +55,7 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  gem 'debugger'
+  #gem 'debugger'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'

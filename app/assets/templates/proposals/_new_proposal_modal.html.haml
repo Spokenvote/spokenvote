@@ -1,4 +1,4 @@
-#somthing
+#newProposalModal
   .modal-header
     .pull-right( class='close' ng-click='$close()' ) &times;
     %h2.modal-title Start New Topic
@@ -17,8 +17,7 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    %form( name='newProposalForm.newProposal' ng-submit='saveNewProposal()' )
-      {{setFormReference(newProposalForm.newProposal)}}
+    %form( name='newProposal.newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
         .changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
@@ -53,24 +52,24 @@
           .form-group
             %textarea( id='proposal_statement' name='statement' class='full-width' ng-model='newProposal.statement' required ng-minLength='15' ng-maxLength='140'
               placeholder='Write your main proposal statement here.' )
-            .length_counter( ng-show='newProposalForm.newProposal.statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
-            .length_counter.error-text( ng-show='newProposalForm.newProposal.statement.$invalid && !newProposalForm.newProposal.statement.$error.minlength && !newProposalForm.newProposal.statement.$error.maxlength' )
+            .length_counter( ng-show='newProposal.newProposalForm.statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
+            .length_counter.error-text( ng-show='newProposal.newProposalForm.statement.$invalid && !newProposal.newProposalForm.statement.$error.minlength && !newProposal.newProposalForm.statement.$error.maxlength' )
               %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
-            .length_counter.error-text( ng-show="newProposalForm.newProposal.statement.$error.minlength" ) Too Short
-            .length_counter.error-text( ng-show="newProposalForm.newProposal.statement.$error.maxlength" ) Too Long
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.statement.$error.minlength" ) Too Short
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.statement.$error.maxlength" ) Too Long
 
           .form-group
             %textarea( id='vote_comment' name='comment' class='full-width' ng-model='newProposal.comment' required ng-minLength='7' ng-maxLength='280'
             placeholder='Explain why others should support your proposal here.' )
-            .length_counter( ng-show='newProposalForm.newProposal.comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
-            .length_counter.error-text( ng-show='newProposalForm.newProposal.comment.$invalid && !newProposalForm.newProposal.comment.$error.minlength && !newProposalForm.newProposal.comment.$error.maxlength' )
+            .length_counter( ng-show='newProposal.newProposalForm.comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
+            .length_counter.error-text( ng-show='newProposal.newProposalForm.comment.$invalid && !newProposal.newProposalForm.comment.$error.minlength && !newProposal.newProposalForm.comment.$error.maxlength' )
               %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Required
-            .length_counter.error-text( ng-show="newProposalForm.newProposal.comment.$error.minlength" ) Too Short
-            .length_counter.error-text( ng-show="newProposalForm.newProposal.comment.$error.maxlength" ) Too Long
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.comment.$error.minlength" ) Too Short
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.comment.$error.maxlength" ) Too Long
 
   .modal-footer
     %fieldset
       .control-group
         .controls
-          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.newProposal.$valid' ) Save your New proposal
-          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposal.newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposal.newProposalForm.formatted_location.$valid || !newProposal.newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue

@@ -83,7 +83,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -93,12 +92,6 @@ GEM
     dalli (2.6.4)
     database_cleaner (0.9.1)
     debug_inspector (0.0.2)
-    debugger (1.5.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.0)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.0)
     devise (3.0.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -357,7 +350,6 @@ DEPENDENCIES
   compass-rails
   dalli
   database_cleaner
-  debugger
   devise (<= 3.0.3)
   factory_girl_rails
   faker
