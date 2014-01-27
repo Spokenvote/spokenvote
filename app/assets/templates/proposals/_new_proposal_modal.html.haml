@@ -2,6 +2,7 @@
   .modal-header
     .pull-right( class='close' ng-click='$close()' ) &times;
     %h2.modal-title Start New Topic
+
     .selectedHub
       %span( ng-click='changeHub(true)' href='#' )
         -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )

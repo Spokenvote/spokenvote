@@ -835,11 +835,11 @@ textarea.ng-invalid.ng-dirty {
   margin-left: 20px;
 }
 
-.vote_buttons_container {
-  @extend .col-md-9;
-  //text-align: center;
-  margin-left: 10px;
-}
+//.vote_buttons_container {
+////  @extend .col-md-9;
+//  //text-align: center;
+//  margin-left: 10px;
+//}
 .support_container {
   @extend .no-gutter;
   background: #ddd;
@@ -851,21 +851,24 @@ textarea.ng-invalid.ng-dirty {
   }
 }
 
-//.main-proposal, .supporting_arguments {
-//  h3 {
-//    margin-bottom: 10px;
-//  }
-//  .proposal-person {
-//    margin-left: 0;
-//    margin-bottom: 6px;
-//    img {
-//      @include border-radius(3px);
-//    }
-//  }
-//}
+.main-proposal {
+  .stats {
+    float: right;
+    padding-left: 14px;
+    #big-percent {
+      font-size: 24pt;
+      font-weight: bold;
+      color: $happy-blue;
+    }
+    .shares {
+      padding: 10px 10px 10px 0px;
+    }
+  }
+}
 
 .improve_support_buttons {
-  display: inline;
+//  @extend .col-md-4;
+  padding-bottom: 5px;
   .btn-support {
     background-color: hsl(211, 92%, 46%) !important;
     background-repeat: repeat-x;
@@ -901,11 +904,6 @@ textarea.ng-invalid.ng-dirty {
     -webkit-font-smoothing: antialiased;
   }
 
-  .shares {
-    float: right;
-//    margin-right: 20px;
-    margin-top: 5px;
-  }
   .main {
     margin-right: 10px;
     font-size: 14px;
@@ -930,8 +928,9 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .supporting_arguments {
+  padding-top: 10px;
   h3 {
-    padding: 30px 0px 10px 0px ;
+    padding: 0px 0px 10px 0px ;
   }
   votes {
     font-size: 80%;
@@ -977,7 +976,7 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .proposal_statement {
-  margin-bottom: 10px;
+  padding: 0px 10px 10px 10px ;
   .active & {
     width: 97%;
   }
@@ -1091,13 +1090,5 @@ textarea.ng-invalid.ng-dirty {
       }
     }
   }
-
-#big-percent {
-  font-size: 24pt;
-  font-weight: bold;
-  color: $happy-blue;
-  float: right;
-  padding-left: 10px;
-}
 
 // end Proposal-related

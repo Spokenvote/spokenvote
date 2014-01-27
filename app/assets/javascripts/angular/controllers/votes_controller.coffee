@@ -20,7 +20,7 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, $modal) ->
 #  $scope.close = (result) ->
 #    dialog.close(result)
 
-ImroveCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal) ->
+ImroveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
@@ -43,14 +43,12 @@ ImroveCtrl = ($scope, $location, $rootScope, $modal, AlertService, Proposal) ->
     ,  (response, status, headers, config) ->
       $location.path('/proposals/' + response.id)
       AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-      dialog.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
       AlertService.setJson response.data
     )
-
-#  $scope.close = (result) ->
-#    dialog.close(result)
+]
 
 EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   $scope.clicked_proposal = $scope.clicked_proposal
@@ -139,7 +137,7 @@ NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Aler
 
 # Injects
 SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
-ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modal', 'AlertService', 'Proposal' ]
+#ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]

@@ -1,6 +1,5 @@
 'use strict'
 
-#appConfig = ($routeProvider, $locationProvider, $httpProvider) ->
 appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
   $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -39,7 +38,6 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) -
           CurrentUserLoader()
 
     .when '/about',
-#      templateUrl: "<%= asset_path('pages/about.html') %>"
       templateUrl: '/assets/pages/about.html'
 
     .when '/terms-of-use',
@@ -64,10 +62,7 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) -
       dataType: 'script'
       cache: true
 
-#window.App = angular.module('spokenvote', [ 'spokenvote.services', 'spokenvote.directives', '$strap.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
-#window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'mgcrea.ngStrap', 'ui', 'ui.bootstrap' ]).config(appConfig)
 window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
-
 
 servicesConfig = ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')

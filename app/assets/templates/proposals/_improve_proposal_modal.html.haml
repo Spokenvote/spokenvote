@@ -1,13 +1,14 @@
-#improveProposalModal.modal
+#improveProposalModal
   .modal-header
-    .pull-right( class='close' ng-click='close()' ) &times;
+    .pull-right( class='close' ng-click='$close()' ) &times;
     %h2 Improve Proposal
 
     .selectedHub
-      %a.hub
-        .pull-right
-          %h3 {{ proposal.hub.group_name }}
-          %h5 {{ proposal.hub.formatted_location }}
+      %span
+        .groupName
+          {{ sessionSettings.hub_attributes.group_name }}
+        .groupLocation
+          {{ sessionSettings.hub_attributes.formatted_location }}
 
   .modal-body
 

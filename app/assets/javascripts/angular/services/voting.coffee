@@ -40,14 +40,24 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
         scope.current_user_support = 'related_proposal' if relatedSupport.id?
 
         if SessionSettings.openModals.improveProposal is false
-          scope.opts =
-            resolve:
-              $scope: ->
-                scope
-#          d = $dialog.dialog(scope.opts)
-          SessionSettings.openModals.improveProposal = true
-          d.open('/assets/proposals/_improve_proposal_modal.html', 'ImroveCtrl').then (result) ->
-            SessionSettings.openModals.improveProposal = d.isOpen()
+          modalInstance = $modal.open
+            templateUrl: '/assets/proposals/_improve_proposal_modal.html'
+            controller: 'ImroveCtrl'
+            scope: scope
+          modalInstance.opened.then ->
+            SessionSettings.openModals.improveProposal = true
+          modalInstance.result.finally ->
+            SessionSettings.openModals.improveProposal = false
+
+
+#          scope.opts =
+#            resolve:
+#              $scope: ->
+#                scope
+##          d = $dialog.dialog(scope.opts)
+#          SessionSettings.openModals.improveProposal = true
+#          d.open('/assets/proposals/_improve_proposal_modal.html', 'ImroveCtrl').then (result) ->
+#            SessionSettings.openModals.improveProposal = d.isOpen()
 
 
   edit: ( scope, clicked_proposal ) ->
