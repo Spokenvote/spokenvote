@@ -12,6 +12,7 @@ $facebook-blue: #3B5998;
 $alert-blue: #284784;
 $error-text-red: #b94a48;
 $tag-blue: rgba(28, 133, 246, 0.25);
+$smokeyLebel: rgba(153, 153, 153, 0.46);
 
 $gridGutterWidth:         20px !default;
 
@@ -773,23 +774,26 @@ textarea.ng-invalid.ng-dirty {
     color: $spring-green;
     text-align: right;
   }
-  .label {
-    margin-left: 34px;
-    background-color: rgba(153, 153, 153, 0.46);
+  .svlabel {
+//    margin-left: 23px;
+    background-color: $smokeyLebel;
     color: whitesmoke;
     line-height: 8px;
     font-size: 8px;
-    padding: 1px 4px 1px;
+    padding: 1px 3px 1px;
+    border-radius: 4px;
+    text-align: right;
+
   }
-  .date-stamp {
+  #date-stamp {
     //color: whitesmoke;
-    margin-right: -73px;
+//    margin-right: -73px;
     margin-bottom: -3px;
     text-align: right;
-    line-height: 8px;
+//    line-height: 8px;
     font-size: 8px;
     padding: 1px 0px 0px;
-    color: rgba(132, 132, 132, 0.65);
+    color: $soft-grey;
   }
   ul {
     margin: 0 0 0 14px;

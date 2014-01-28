@@ -1,6 +1,6 @@
 %section#homepage.col-md-11
   #searchResults
-    .listing-proposals
+    .listing-proposals.container
       .header.row.panel
         .title.col-md-7
           %h4( colspan='5' )
@@ -17,7 +17,7 @@
           %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
 
       %ul.row( ng-repeat='proposal in proposals' )
-        %li.tree_container( ng-click='showProposal(proposal)' )
+        %li.tree_container.container( ng-click='showProposal(proposal)' )
           .topic.row
             .proposal-person.col-md-1
               .list-avatar.row
@@ -25,23 +25,42 @@
                   %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
                   %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
             .topic_hub.col-md-9
-              .proposal.row
+              .proposal
                 %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
-              .hub.row
+              .hub
                 %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
                 -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
-            .prop_counts
-              -#.col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
-              .col-md-1( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                .votes.row {{ proposal.votes_in_tree }}
-                .label.row Votes
-                .date-stamp.row Last voted on: {{ proposal.updated_at }}
+            .prop_counts.col-md-2
+              .pull-right.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                .stats.row
+                  .votes.col-md-1 {{ proposal.votes_in_tree }}
+                  .prop_count.col-md-1-offset-1 {{ proposal.related_proposals_count  }}
 
-              -#.col-md-1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
-              .col-md-1( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                .prop_count.row {{ proposal.related_proposals_count  }}
-                .label.row Props
+                .row
+                  .svlabel.col-md-1
+                    Votes
+                  .svlabel.col-md-1-offset-1
+                    Props
+
+                .last_date.row
+                  #date-stamp.col-md-2 Last voted on: {{ proposal.updated_at }}
+
+                -#.pull-right( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                  .prop_count {{ proposal.related_proposals_count  }}
+                  #label Props
+
+            -#.prop_counts
+                  -##date-stamp Last voted on: {{ proposal.updated_at }}
+
+            -#  .pull-right.row( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+            -#    .votes.row {{ proposal.votes_in_tree }}
+            -#    #label.row Votes
+            -#    #date-stamp.row Last voted on: {{ proposal.updated_at }}
+            -#
+            -#  .pull-right( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+            -#    .prop_count.row {{ proposal.related_proposals_count  }}
+            -#    #label.row Props
 
     #proposalNotFound
       .col-md-7 &nbsp;
