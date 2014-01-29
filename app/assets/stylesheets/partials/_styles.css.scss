@@ -45,7 +45,7 @@ footer {
 }
 
 .container {
-  @extend .col-md-12;
+  @extend .col-xs-12;
 }
 
 #main {
@@ -74,7 +74,7 @@ input {
   position: relative;
 }
 
-.col-md-11 > .form-horizontal {
+.col-xm-11 > .form-horizontal {
   margin-top: $gridGutterWidth;
   .form-group, .supporting-args {
     margin-bottom: ($gridGutterWidth/2);
@@ -96,7 +96,7 @@ input {
 #alertContainer {
 
   .pageAlert {
-    @extend .col-md-7;
+    @extend .col-xs-9;
     position: fixed;
     opacity: .95;
     z-index: 20000;
@@ -358,9 +358,9 @@ textarea.ng-invalid.ng-dirty {
   outline: 2px dashed #0090D2;
 }
 
-.select2-container.col-md-4 {
-  margin-left: 0;
-}
+//.select2-container.col-xs-4 {
+//  margin-left: 0;
+//}
 
 .user-avatar {
   float: left;
@@ -611,7 +611,6 @@ textarea.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-//  @extend .col-md-11;
   margin: -20px -15px 0 -15px;
   padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth $gridGutterWidth;
   background-color: #fff;
@@ -631,7 +630,7 @@ textarea.ng-invalid.ng-dirty {
 
 // static_pages elements
 .static_page {
-  @extend .col-md-11;
+  @extend .col-xs-11;
   margin-left: $gridGutterWidth;
   h1 {
     margin-bottom: ($gridGutterWidth * 2.25);
@@ -851,16 +850,6 @@ textarea.ng-invalid.ng-dirty {
   -webkit-border-radius: 4px;
 }
 
-#hpContent {
-  @extend .col-md-11;
-  margin-left: 20px;
-}
-
-//.vote_buttons_container {
-////  @extend .col-md-9;
-//  //text-align: center;
-//  margin-left: 10px;
-//}
 .support_container {
   @extend .no-gutter;
   background: #ddd;
@@ -888,7 +877,6 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .improve_support_buttons {
-//  @extend .col-md-4;
   padding-bottom: 5px;
   .btn-support {
     background-color: hsl(211, 92%, 46%) !important;
