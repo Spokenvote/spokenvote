@@ -731,10 +731,9 @@ textarea.ng-invalid.ng-dirty {
     }
   }
   .btn-group {
-    padding: 5px 0 8px 0;
+    padding: 5px 0 8px 40px;
   }
   ul {
-    //    margin: 0 0 0 14px;
     list-style: none;
     margin-top: -12px;
     padding: 0px 8px 0px 8px;
@@ -805,17 +804,18 @@ textarea.ng-invalid.ng-dirty {
     color: whitesmoke;
     line-height: 8px;
     font-size: 8px;
-    padding: 1px 3px 1px;
+    padding: 1px 3px 1px 3px;
     border-radius: 4px;
     text-align: center;
-
+    width: 40px;
+    float: right;
   }
   .date-stamp {
-    margin-bottom: -3px;
-    text-align: right;
+    margin-bottom: -9px;
+    text-align: center;
     line-height: 8px;
     font-size: 8px;
-    padding: 7px 3px 0px 0px;
+    padding: 8px 0px 0px 23px;
     color: $soft-grey;
   }
 }
