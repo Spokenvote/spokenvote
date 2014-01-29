@@ -1,10 +1,13 @@
+
+$twitterBlack: #252525;
+
 .navbar-inverse .container {
   .navbar {
     color: #000;
     border-color: #315c99;
   }
   form {
-    display: inline-block;
+//    display: inline-block;
     input, .btn {
       vertical-align: baseline;
       margin-right: 0;
@@ -23,15 +26,15 @@
 }
 
 .navbar-collapse {
-  height: 40px;
+//  height: 40px;
 }
 
 header {
   border-bottom: 1px solid;
-  background: #252525;
-  background-image: url(sprite.png);
-  background-repeat: repeat-x;
-  height: 43px;
+  background: $twitterBlack;
+//  background-image: url(sprite.png);
+//  background-repeat: repeat-x;
+//  height: 43px;
   .container {
     .nav.navbar-nav.navbar-right {
     }
@@ -39,7 +42,7 @@ header {
 }
 
 .navbar-header > .navbar-brand {
-  padding: 9px 15px;
+  padding: 13px 15px;
   font-weight: 700;
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
@@ -54,25 +57,28 @@ header {
   }
 }
 
-#hub_search {
-  padding: 4px 0 0 28px;
+.hub_search {
+  padding: 5px 5px 5px 5px;
   a {
     padding: 1px 4px;
   }
-  li.hub_filter {
-    padding: 5px 0px 0px 0px;
-  }
-  li.buttons {
-    padding: 1px 0px 0px 30px;
-  }
+//  li.hub_filter {
+//    padding: 5px 0px 0px 0px;
+//  }
+//  li.buttons {
+//    padding: 1px 0px 0px 30px;
+//  }
 }
 
+.new_topic {
+  padding: 9px 0px 0px 24px;
+}
 #user_profile {
   li.dropdown {
 //    padding-left: 10px;
   }
   li.avatar {
-    margin-top: -10px;
+    margin-top: -7px;
     margin-right: -3px;
   }
   li.buttons {
