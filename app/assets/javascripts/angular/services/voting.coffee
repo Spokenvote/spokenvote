@@ -49,17 +49,6 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
           modalInstance.result.finally ->
             SessionSettings.openModals.improveProposal = false
 
-
-#          scope.opts =
-#            resolve:
-#              $scope: ->
-#                scope
-##          d = $dialog.dialog(scope.opts)
-#          SessionSettings.openModals.improveProposal = true
-#          d.open('/assets/proposals/_improve_proposal_modal.html', 'ImroveCtrl').then (result) ->
-#            SessionSettings.openModals.improveProposal = d.isOpen()
-
-
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
 
