@@ -784,21 +784,9 @@ textarea.ng-invalid.ng-dirty {
     }
   }
   .counts {
-    padding-right: 0px;
-  }
-  .votes {
-    font-size: 24px;
-    font-weight: bold;
-    color: $happy-blue;
-    text-align: right;
+//    padding-right: 0px;
     padding: 3px 2px 8px 0px;
-  }
-  .props {
-    font-size: 24px;
-    font-weight: bold;
-    color: $spring-green;
-    text-align: right;
-    padding: 3px 2px 8px 0px;
+
   }
   .svlabel {
     background-color: $smokeyLebel;
@@ -811,12 +799,35 @@ textarea.ng-invalid.ng-dirty {
     min-width: 31px;
     float: right;
   }
+  .vote_count {
+    padding-right: 10px;
+    .votes {
+      font-size: 24px;
+      font-weight: bold;
+      color: $happy-blue;
+      text-align: right;
+      padding: 3px 2px 8px 0px;
+    }
+  }
+  .prop_count {
+    padding-right: 0px;
+    .props {
+      font-size: 24px;
+      font-weight: bold;
+      color: $spring-green;
+      text-align: right;
+      padding: 3px 2px 8px 0px;
+    }
+  }
+  .last_date {
+    padding: 0px 15px 0px 0px;
+  }
   .date-stamp {
     margin-bottom: -9px;
-    text-align: center;
+    text-align: right;
     line-height: 8px;
     font-size: 8px;
-    padding: 8px 0px 0px 0px;
+    padding: 8px 2px 0px 0px;
     color: $soft-grey;
   }
 }

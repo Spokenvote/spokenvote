@@ -28,16 +28,15 @@
               %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
             .hub
               %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
-              -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
           .stats.col-xs-2
-            .row
-              .counts.col-xs-6
+            .counts.row
+              .vote_count.col-xs-6
                 .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                   .svlabel
                     .votes {{ proposal.votes_in_tree }}
                     Votes
-              .prop_counts.col-xs-6
+              .prop_count.col-xs-6
                 .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                   .svlabel
                     .props {{ proposal.related_proposals_count  }}
