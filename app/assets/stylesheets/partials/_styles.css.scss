@@ -14,6 +14,9 @@ $error-text-red: #b94a48;
 $tag-blue: rgba(28, 133, 246, 0.25);
 $smokeyLebel: rgba(153, 153, 153, 0.46);
 
+$rowHighlight: rgba(240, 240, 255, 0.45);
+$rowRuler: rgba(68, 68, 68, 0.35);
+
 $gridGutterWidth:         20px !default;
 
 //$headingsColor: #315c99;
@@ -66,7 +69,7 @@ input {
 }
 
 #mainContent {
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth * 2);
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth);
   margin-bottom: $gridGutterWidth;
   position: relative;
 }
@@ -717,6 +720,7 @@ textarea.ng-invalid.ng-dirty {
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
+  padding: 0px 0px 0px 0px;
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
@@ -729,8 +733,25 @@ textarea.ng-invalid.ng-dirty {
   .btn-group {
     padding: 5px 0 8px 0;
   }
+  ul {
+    //    margin: 0 0 0 14px;
+    list-style: none;
+    margin-top: -12px;
+    padding: 0px 8px 0px 8px;
+    :hover {
+      background-color: $rowHighlight;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+  li.tree_container {
+    line-height: 25px;
+    border-bottom: 1px solid $rowRuler;
+    padding: 15px 20px 15px 25px;
+//    position: relative;
+  }
   .list-avatar {
-    padding: 0px 0px 0px 13px;
+    padding: 0px 0px 0px 0px;
     avatar-sprite {
       padding: 0px 0px 0px 0px;
     }
@@ -769,6 +790,9 @@ textarea.ng-invalid.ng-dirty {
     text-align: right;
     padding: 0px 2px 3px 0px;
   }
+  .prop_counts {
+    padding-right: 0px;
+  }
   .prop_count {
     font-size: 24px;
     font-weight: bold;
@@ -786,31 +810,13 @@ textarea.ng-invalid.ng-dirty {
     text-align: center;
 
   }
-  #date-stamp {
-    //color: whitesmoke;
-//    margin-right: -73px;
+  .date-stamp {
     margin-bottom: -3px;
     text-align: right;
-//    line-height: 8px;
+    line-height: 8px;
     font-size: 8px;
-    padding: 1px 3px 0px;
+    padding: 7px 3px 0px 0px;
     color: $soft-grey;
-  }
-  ul {
-    margin: 0 0 0 14px;
-    list-style: none;
-    :hover {
-      background-color: rgba(240, 240, 255, 0.45);
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  }
-
-  li.tree_container {
-    line-height: 25px;
-    border-bottom: 1px solid rgba(68, 68, 68, 0.35);
-    padding: 10px 0;
-    position: relative;
   }
 }
 
