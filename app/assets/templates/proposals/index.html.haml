@@ -32,18 +32,18 @@
 
           .stats.col-xs-2
             .row
-              .prop_counts.col-xs-6
+              .counts.col-xs-6
                 .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                  .votes {{ proposal.votes_in_tree }}
                   .svlabel
+                    .votes {{ proposal.votes_in_tree }}
                     Votes
               .prop_counts.col-xs-6
                 .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                  .prop_count {{ proposal.related_proposals_count  }}
                   .svlabel
+                    .props {{ proposal.related_proposals_count  }}
                     Props
             .last_date.row
-              .date-stamp.col-xs-12 Last vote: {{ proposal.updated_at }}
+              .date-stamp.col-xs-12 {{ proposal.updated_at }}
 
   #proposalNotFound
     .col-xs-7 &nbsp;

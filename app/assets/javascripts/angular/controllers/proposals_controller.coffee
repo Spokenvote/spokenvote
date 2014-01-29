@@ -10,7 +10,6 @@ ProposalListCtrl =
     $scope.setHub = (hubSelected) ->
       $location.path('/proposals/').search('hub', hubSelected.id)
 
-
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 

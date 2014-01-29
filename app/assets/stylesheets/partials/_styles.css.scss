@@ -783,32 +783,32 @@ textarea.ng-invalid.ng-dirty {
       color: $soft-grey;
     }
   }
+  .counts {
+    padding-right: 0px;
+  }
   .votes {
     font-size: 24px;
     font-weight: bold;
     color: $happy-blue;
     text-align: right;
-    padding: 0px 2px 3px 0px;
+    padding: 3px 2px 8px 0px;
   }
-  .prop_counts {
-    padding-right: 0px;
-  }
-  .prop_count {
+  .props {
     font-size: 24px;
     font-weight: bold;
     color: $spring-green;
     text-align: right;
-    padding: 0px 2px 3px 0px;
+    padding: 3px 2px 8px 0px;
   }
   .svlabel {
     background-color: $smokeyLebel;
     color: whitesmoke;
     line-height: 8px;
     font-size: 8px;
-    padding: 1px 3px 1px 3px;
+    padding: 5px 3px 2px 3px;
     border-radius: 4px;
     text-align: center;
-    width: 30px;
+    min-width: 31px;
     float: right;
   }
   .date-stamp {
@@ -816,7 +816,7 @@ textarea.ng-invalid.ng-dirty {
     text-align: center;
     line-height: 8px;
     font-size: 8px;
-    padding: 8px 30px 0px px;
+    padding: 8px 0px 0px 0px;
     color: $soft-grey;
   }
 }
