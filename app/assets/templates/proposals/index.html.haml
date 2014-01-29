@@ -1,4 +1,4 @@
-%section#homepage.col-md-11
+%section#homepage
   #searchResults
     .listing-proposals.container
       .header.row.panel
@@ -32,19 +32,19 @@
                 -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
 
             .prop_counts.col-md-2
-              .pull-right.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+              .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                 .stats.row
-                  .votes.col-md-1 {{ proposal.votes_in_tree }}
-                  .prop_count.col-md-1-offset-1 {{ proposal.related_proposals_count  }}
+                  .votes.col-md-6 {{ proposal.votes_in_tree }}
+                  .prop_count.col-md-6 {{ proposal.related_proposals_count  }}
 
                 .row
-                  .svlabel.col-md-1
+                  .svlabel.col-md-3.col-md-offset-3
                     Votes
-                  .svlabel.col-md-1-offset-1
+                  .svlabel.col-md-3.col-md-offset-3
                     Props
 
                 .last_date.row
-                  #date-stamp.col-md-2 Last voted on: {{ proposal.updated_at }}
+                  #date-stamp.col-md-12 Last voted on: {{ proposal.updated_at }}
 
                 -#.pull-right( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
                   .prop_count {{ proposal.related_proposals_count  }}
