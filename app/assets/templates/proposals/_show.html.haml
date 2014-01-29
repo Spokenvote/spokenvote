@@ -9,7 +9,6 @@
       %h3
         %a( ng-href='#' ng-click='showProposal(proposal)' )  {{ proposal.statement }}
     .improve_support_buttons
-      -#%ng-include( src="'/assets/shared/_social_buttons.html'" )
 
       .edit.btn-group( ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
         %button( ng-click='edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='bottom' ) <i class="glyphicon glyphicon-pencil"></i>

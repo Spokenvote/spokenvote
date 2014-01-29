@@ -611,13 +611,11 @@ textarea.ng-invalid.ng-dirty {
 
 // content_pages elements
 .content_page {
-  @extend .col-md-11;
-  //width: 917px;
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth 32px;
+//  @extend .col-md-11;
+  margin: -20px -15px 0 -15px;
+  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth $gridGutterWidth;
   background-color: #fff;
   @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
-  margin-top: -20px;
-  margin-left: -13px;
   h2 {
     margin-top: $gridGutterWidth;
   }
@@ -1090,7 +1088,7 @@ textarea.ng-invalid.ng-dirty {
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -23px;
+  margin-top: -32px;
   margin-right: -26px;
   // flush right on #mainContent
   .label {
@@ -1103,8 +1101,10 @@ textarea.ng-invalid.ng-dirty {
 }
 
 #backNav {
-  margin-top: -9px;
-  margin-left: -26px;
+  font-size: small;
+  margin-top: -19px;
+  padding-top: 8px;
+  margin-left: -14px;
   a.icon {
     color: $chisel-grey;
     text-decoration: none;
