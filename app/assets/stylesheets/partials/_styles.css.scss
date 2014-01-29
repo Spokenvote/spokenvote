@@ -751,6 +751,7 @@ textarea.ng-invalid.ng-dirty {
   }
   .list-avatar {
     padding: 0px 0px 0px 0px;
+    max-width: 60px;
     avatar-sprite {
       padding: 0px 0px 0px 0px;
     }
@@ -807,7 +808,7 @@ textarea.ng-invalid.ng-dirty {
     padding: 1px 3px 1px 3px;
     border-radius: 4px;
     text-align: center;
-    width: 40px;
+    width: 30px;
     float: right;
   }
   .date-stamp {
