@@ -17,7 +17,7 @@ $smokeyLebel: rgba(153, 153, 153, 0.46);
 $rowHighlight: rgba(240, 240, 255, 0.45);
 $rowRuler: rgba(68, 68, 68, 0.35);
 
-$gridGutterWidth:         20px !default;
+$gridGutterWidth:         10px !default;
 
 //$headingsColor: #315c99;
 //$headingsColor: #444;
@@ -52,6 +52,7 @@ footer {
   overflow: visible;
   background: url(noisy_grid.png);
   min-height: 1200px;
+  padding-top: 15px;
   //height: auto;
   .content {
     overflow: visible;
@@ -69,8 +70,8 @@ input {
 }
 
 #mainContent {
-  padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth ($gridGutterWidth);
-  margin-bottom: $gridGutterWidth;
+  padding: $gridGutterWidth * 2 $gridGutterWidth * .5;
+  margin-bottom: $gridGutterWidth * 2;
   position: relative;
 }
 
@@ -239,53 +240,53 @@ h2 {
   margin-bottom: ($gridGutterWidth * 0.6);
 }
 
-.listing {
-  // commonly used table styles
-  width: 100%;
-  margin-bottom: 0;
-  @extend .table;
-    //@extend .table-striped;
-  //@extend .table-bordered;
-  @extend .table-hover;
-  @include border-radius(4px 4px 0 0);
-  th {
-    text-align: left;
-    background-color: $happy-blue;
-    color: #fff;
-    font-size: 16px;
-    border-top: none;
-  }
-  th.table-title {
-    font-size: 24px;
-    line-height: 20px;
-  }
-  tr:last-child th {
-    border-left: none;
-  }
-  tr:last-child th:first-child {
-    border-left: 1px solid #ddd;
-  }
-  th .pull-right {
-    margin-right: ($gridGutterWidth * 0.7);
-  }
-  th, td {
-    padding: ($gridGutterWidth * 0.3);
-  }
-  tbody:last-child tr:last-child td:first-child {
-    -webkit-border-bottom-left-radius: 4px;
-  }
-  tbody:last-child tr:last-child td:last-child {
-    border-bottom-right-radius: 0;
-  }
-  .pos_statement {
-    @extend .pull-left;
-    width: 80%;
-    margin-left: ($gridGutterWidth/2);
-  }
-  .count-column {
-    text-align: center;
-  }
-}
+//.listing {
+//  // commonly used table styles
+//  width: 100%;
+//  margin-bottom: 0;
+//  @extend .table;
+//    //@extend .table-striped;
+//  //@extend .table-bordered;
+//  @extend .table-hover;
+//  @include border-radius(4px 4px 0 0);
+//  th {
+//    text-align: left;
+//    background-color: $happy-blue;
+//    color: #fff;
+//    font-size: 16px;
+//    border-top: none;
+//  }
+//  th.table-title {
+//    font-size: 24px;
+//    line-height: 20px;
+//  }
+//  tr:last-child th {
+//    border-left: none;
+//  }
+//  tr:last-child th:first-child {
+//    border-left: 1px solid #ddd;
+//  }
+//  th .pull-right {
+//    margin-right: ($gridGutterWidth * 0.7);
+//  }
+//  th, td {
+//    padding: ($gridGutterWidth * 0.3);
+//  }
+//  tbody:last-child tr:last-child td:first-child {
+//    -webkit-border-bottom-left-radius: 4px;
+//  }
+//  tbody:last-child tr:last-child td:last-child {
+//    border-bottom-right-radius: 0;
+//  }
+//  .pos_statement {
+//    @extend .pull-left;
+//    width: 80%;
+//    margin-left: ($gridGutterWidth/2);
+//  }
+//  .count-column {
+//    text-align: center;
+//  }
+//}
 
 textarea {
   height: 60px;
@@ -411,19 +412,15 @@ textarea.ng-invalid.ng-dirty {
   .instructions {
     font-family: inherit;
     //margin-top: ($gridGutterWidth * 0.3);
-    margin-left: ($gridGutterWidth * 0.3);
+    margin-left: ($gridGutterWidth * 0.6);
     //padding-bottom: 18px ;
     .avatar {
-      margin-left: ($gridGutterWidth * 0.9);
+      margin-left: ($gridGutterWidth * 2);
     }
     h5 {
       color: $soft-brown-text;
-      margin-right: $gridGutterWidth;
-      padding: 0 0 ($gridGutterWidth) ($gridGutterWidth * 3.25);
-//      padding-bottom: ($gridGutterWidth);
-      //font-weight: normal;
-      //margin-top: ($gridGutterWidth * 1.25);
-      //margin-bottom: ($gridGutterWidth * 0.85);
+      margin-right: $gridGutterWidth * 2;
+      padding: 0 0 ($gridGutterWidth * 2) ($gridGutterWidth * 6.5);
     }
   }
 }
@@ -488,10 +485,10 @@ textarea.ng-invalid.ng-dirty {
 }
 
 
-#confirmationModalQuestion {
-  margin: $gridGutterWidth 0;
-  font-weight: bold;
-}
+//#confirmationModalQuestion {
+//  margin: $gridGutterWidth 0;
+//  font-weight: bold;
+//}
 
 .alert-special {
   position: absolute;
@@ -717,7 +714,7 @@ textarea.ng-invalid.ng-dirty {
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
-  padding: 0px 0px 0px 0px;
+  padding: 0px 10px;
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);

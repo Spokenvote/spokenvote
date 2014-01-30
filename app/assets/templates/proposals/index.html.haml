@@ -1,6 +1,7 @@
 %section#homepage
-  .listing-proposals
-    .header.panel
+  -#.listing-proposals
+  .panel.panel-default
+    .panel-title
       .title.pull-left
         %h4( colspan='5' )
           %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
@@ -17,6 +18,7 @@
           %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
       .clearfix
 
+  .listing-proposals
     %ul.row( ng-repeat='proposal in proposals' )
       %li.tree_container.container( ng-click='showProposal(proposal)' )
         .topic.row
