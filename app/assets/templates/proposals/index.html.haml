@@ -1,7 +1,7 @@
 %section#homepage
   .listing-proposals.container
     .header.row.panel
-      .title.col-xs-8
+      .title.col-xs-7
         %h4( colspan='5' )
           %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
@@ -10,10 +10,11 @@
               %span {{ sessionSettings.actions.userFilter }}
               %span( class='close_x' ) &times;
 
-      .col-xs-4.btn-group( ng-model='filterSelection' bs-buttons-radio )
-        %button( type='button' ng-click="setFilter('active')" class='btn btn-default' value='active' ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
-        %button( type='button' ng-click="setFilter('new')" class='btn btn-default' value='new' ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
-        %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
+      .col-xs-5
+        .btn-group.pull-right( ng-model='filterSelection' bs-buttons-radio )
+          %button( type='button' ng-click="setFilter('active')" class='btn btn-default' value='active' ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
+          %button( type='button' ng-click="setFilter('new')" class='btn btn-default' value='new' ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
+          %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
 
     %ul.row( ng-repeat='proposal in proposals' )
       %li.tree_container.container( ng-click='showProposal(proposal)' )
