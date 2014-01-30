@@ -1,7 +1,7 @@
 %section#homepage
-  .listing-proposals.container
-    .header.row.panel
-      .title.col-xs-7
+  .listing-proposals
+    .header.panel
+      .title.pull-left
         %h4( colspan='5' )
           %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
@@ -10,11 +10,12 @@
               %span {{ sessionSettings.actions.userFilter }}
               %span( class='close_x' ) &times;
 
-      .col-xs-5
-        .btn-group.pull-right( ng-model='filterSelection' bs-buttons-radio )
+      .pull-right
+        .btn-group( ng-model='filterSelection' bs-buttons-radio )
           %button( type='button' ng-click="setFilter('active')" class='btn btn-default' value='active' ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
           %button( type='button' ng-click="setFilter('new')" class='btn btn-default' value='new' ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
           %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
+      .clearfix
 
     %ul.row( ng-repeat='proposal in proposals' )
       %li.tree_container.container( ng-click='showProposal(proposal)' )
@@ -33,15 +34,15 @@
           .stats.col-xs-2
             .counts.row
               .vote_count.col-xs-6
-                .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                  .svlabel
-                    .votes {{ proposal.votes_in_tree }}
-                    Votes
-              .prop_count.col-xs-6
-                .container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                  .svlabel
-                    .props {{ proposal.related_proposals_count  }}
-                    Props
+                -#.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                  .votes {{ proposal.votes_in_tree }}
+                  Votes
+              .prop_count.col-xs-6( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                -#.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                .svlabel
+                  .props {{ proposal.related_proposals_count  }}
+                  Props
             .last_date.row
               .date-stamp.col-xs-12 {{ proposal.updated_at }}
 
