@@ -22,9 +22,9 @@
       %li.tree_container( ng-click='showProposal(proposal)' )
         .topic.row
           .list-avatar.col-xs-1
-            %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
-              %img.img-responsive( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
-              %img.img-responsive( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+            .avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:4" )
+              %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
+              %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
           .topic-and-hub.col-xs-9.col-md-10
             .proposal
               %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}

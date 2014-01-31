@@ -702,7 +702,7 @@ textarea.ng-invalid.ng-dirty {
 
 .panel {
   padding: 4px;
-  margin: 18px 0 5px 0;
+  margin: 0;
   background-color: #e5e5e5;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
   border: 1px solid #c8c8c8;
@@ -755,26 +755,28 @@ textarea.ng-invalid.ng-dirty {
   }
 
   .topic {
-    padding: 10px;
+    padding: 10px 7px 5px 7px;
   }
 
   .list-avatar {
 
 //    max-width: 40px;
     padding: 0px 0px 0px 0px;
-    avatar-sprite {
+    .avatar-sprite {
+      width: 20px;
     }
-    .img-responsive {
-//      margin-left: -5px;
-//      width: 20px;
-//      height: auto;
+    img {
+//      vertical-align: bottom;
+      width: 25px;
+      height: auto;
     }
   }
 
   .topic-and-hub {
-    padding: 0px;
+    padding: 0px 6px 0px 0px;
     .proposal {
-      font-size: 175%;
+      font-size: 128%;
+      line-height: 100%;
       :hover {
         color: $happy-blue;
         cursor: pointer;
@@ -785,7 +787,7 @@ textarea.ng-invalid.ng-dirty {
     }
     .hub {
       font-size: 14px;
-      margin-bottom: -11px;
+//      margin-bottom: -11px;
       :hover {
         color: $happy-blue;
         cursor: pointer;
@@ -832,14 +834,12 @@ textarea.ng-invalid.ng-dirty {
     }
   }
   .last_date {
-    padding: 0px 15px 0px 0px;
+    padding: 8px 0px 3px 0px;
   }
   .date-stamp {
-    margin-bottom: -9px;
     text-align: center;
     line-height: 8px;
     font-size: 8px;
-    padding: 8px 2px 0px 0px;
     color: $soft-grey;
   }
 }

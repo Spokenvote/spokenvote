@@ -4,7 +4,7 @@ attributes :id, :statement
 
 node(:updated_at) do |proposal|
   if proposal.updated_at > 10.months.ago
-    proposal.updated_at.strftime("%b %e, '%y - %l:%M%P")
+    proposal.updated_at.strftime("%b %e, %l:%M%P")
   elsif proposal.updated_at > 20.months.ago
     'About a year ago'
   else
