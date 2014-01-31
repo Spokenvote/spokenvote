@@ -359,9 +359,6 @@ textarea.ng-invalid.ng-dirty {
   outline: 2px dashed #0090D2;
 }
 
-//.select2-container.col-xs-4 {
-//  margin-left: 0;
-//}
 
 .user-avatar {
   float: left;
@@ -925,6 +922,7 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .btn-newTopic {
+  width: 100%;
   background-color: hsl(36, 80%, 40%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eaa947", endColorstr="#b77614");

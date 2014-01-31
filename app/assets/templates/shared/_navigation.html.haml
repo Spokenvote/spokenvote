@@ -14,8 +14,9 @@
 
     #collapse-main.collapse.navbar-collapse
       .hub_search.navbar-form.navbar-left( role='search' )
-        -#.hub_filter
-        %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+        .hub_filter
+          %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+          -#.clearfix
 
       .new_topic.nav.navbar-nav
         %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic

@@ -56,16 +56,49 @@ header {
   }
 }
 .hub_search {
-  padding: 5px 5px 5px 5px;
-  width: 45%;
+  padding: 2px 9px 0px 18px;
+//  width: 45%;
   a {
     padding: 1px 4px;
   }
 }
 
 .new_topic {
-  padding: 9px 0px 0px 24px;
+  margin-left: 0;
+  margin-right: -9px;
+  padding: 9px 3px 0px 2px;
 }
+
+.select2-container {
+  .select2-choice {
+    height: 32px;
+    line-height: 32px;
+    min-width: 330px;
+//    background-color: rgba(255, 255, 255, 0.75);
+    background: none;
+    background-image: none;
+//    border: none;
+    .select2-chosen {
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+//      color: rgba(51, 51, 51, 0.5);
+//      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+    }
+    .select2-arrow {
+      display: none;
+    }
+  }
+}
+
+.select2-drop-active {
+  background-color: rgba(34, 34, 34, 0.75);
+}
+.select2-no-results {
+  background: none !important;
+  color: #999 !important;
+}
+
 #user_profile {
   li.dropdown {
 //    padding-left: 10px;
