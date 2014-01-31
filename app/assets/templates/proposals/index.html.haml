@@ -1,5 +1,4 @@
 %section#homepage
-  -#.listing-proposals
   .panel.panel-default
     .panel-title
       .title.pull-left
@@ -19,30 +18,27 @@
       .clearfix
 
   .listing-proposals
-    %ul.row( ng-repeat='proposal in proposals' )
-      %li.tree_container.container( ng-click='showProposal(proposal)' )
+    %ul( ng-repeat='proposal in proposals' )
+      %li.tree_container( ng-click='showProposal(proposal)' )
         .topic.row
-          .proposal-person.col-xs-1
-            .list-avatar.row
-              %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
-                %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
-                %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-          .topic_hub.col-xs-9
+          .list-avatar.col-xs-1
+            %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
+              %img.img-responsive( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
+              %img.img-responsive( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+          .topic-and-hub.col-xs-9.col-md-10
             .proposal
               %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
             .hub
               %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
 
-          .stats.col-xs-2
+          .stats.col-xs-2.col-md-1
             .counts.row
               .vote_count.col-xs-6
-                -#.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
+                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
                   .votes {{ proposal.votes_in_tree }}
                   Votes
-              .prop_count.col-xs-6( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                -#.container( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals.' tooltip-placement='left' )
-                .svlabel
+              .prop_count.col-xs-6
+                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
                   .props {{ proposal.related_proposals_count  }}
                   Props
             .last_date.row

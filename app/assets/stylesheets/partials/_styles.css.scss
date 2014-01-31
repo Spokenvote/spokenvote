@@ -31,22 +31,22 @@ body {
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
 }
 
-footer {
-  &.navbar {
-    margin-bottom: 0;
-    margin-top: ($gridGutterWidth/10);
-  }
-  .container {
-    padding: ($gridGutterWidth/2) 0;
-  }
-  a {
-    color: #fff;
-  }
-}
+//footer {
+//  &.navbar {
+//    margin-bottom: 0;
+//    margin-top: ($gridGutterWidth/10);
+//  }
+//  .container {
+//    padding: ($gridGutterWidth/2) 0;
+//  }
+//  a {
+//    color: #fff;
+//  }
+//}
 
-.container {
-  @extend .col-xs-12;
-}
+//.container {
+//  @extend .col-xs-12;
+//}
 
 #main {
   overflow: visible;
@@ -75,12 +75,12 @@ input {
   position: relative;
 }
 
-.col-xm-11 > .form-horizontal {
-  margin-top: $gridGutterWidth;
-  .form-group, .supporting-args {
-    margin-bottom: ($gridGutterWidth/2);
-  }
-}
+//.col-xm-11 > .form-horizontal {
+//  margin-top: $gridGutterWidth;
+//  .form-group, .supporting-args {
+//    margin-bottom: ($gridGutterWidth/2);
+//  }
+//}
 
 .alert {
   margin-left: $gridGutterWidth;
@@ -700,6 +700,16 @@ textarea.ng-invalid.ng-dirty {
   margin-left: 0;
 }
 
+.panel {
+  padding: 4px;
+  margin: 18px 0 5px 0;
+  background-color: #e5e5e5;
+  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+  border: 1px solid #c8c8c8;
+  border-color: rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
 .landing_hubfilter {
   -webkit-border-bottom-left-radius: 4px;
   .proposal_buttons {
@@ -714,7 +724,6 @@ textarea.ng-invalid.ng-dirty {
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
-  padding: 0px 10px;
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
@@ -729,8 +738,9 @@ textarea.ng-invalid.ng-dirty {
   }
   ul {
     list-style: none;
-    margin-top: -12px;
-    padding: 0px 8px 0px 8px;
+//    margin-top: -12px;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 0px;
     :hover {
       background-color: $rowHighlight;
       border-radius: 10px;
@@ -738,49 +748,57 @@ textarea.ng-invalid.ng-dirty {
     }
   }
   li.tree_container {
-    line-height: 25px;
+//    line-height: 25px;
     border-bottom: 1px solid $rowRuler;
-    padding: 15px 20px 15px 25px;
+    padding: 0px 10px;
 //    position: relative;
   }
+
+  .topic {
+    padding: 10px;
+  }
+
   .list-avatar {
+
+//    max-width: 40px;
     padding: 0px 0px 0px 0px;
-    max-width: 60px;
     avatar-sprite {
-      padding: 0px 0px 0px 0px;
     }
-    img {
-      margin-left: -5px;
-      width: 20px;
-      height: auto;
+    .img-responsive {
+//      margin-left: -5px;
+//      width: 20px;
+//      height: auto;
     }
   }
 
-  .proposal {
-    font-size: 175%;
-    :hover {
-      color: $happy-blue;
-      cursor: pointer;
+  .topic-and-hub {
+    padding: 0px;
+    .proposal {
+      font-size: 175%;
+      :hover {
+        color: $happy-blue;
+        cursor: pointer;
+      }
+      a {
+        color: $basic-brown;
+      }
     }
-    a {
-      color: $basic-brown;
+    .hub {
+      font-size: 14px;
+      margin-bottom: -11px;
+      :hover {
+        color: $happy-blue;
+        cursor: pointer;
+      }
+      a {
+        color: $soft-grey;
+      }
     }
   }
-  .hub {
-    font-size: 14px;
-    margin-bottom: -11px;
-    :hover {
-      color: $happy-blue;
-      cursor: pointer;
-    }
-    a {
-      color: $soft-grey;
-    }
-  }
+
   .counts {
 //    padding-right: 0px;
-    padding: 3px 2px 8px 0px;
-
+    padding: 3px 0px;
   }
   .svlabel {
     background-color: $smokeyLebel;
@@ -818,22 +836,12 @@ textarea.ng-invalid.ng-dirty {
   }
   .date-stamp {
     margin-bottom: -9px;
-    text-align: right;
+    text-align: center;
     line-height: 8px;
     font-size: 8px;
     padding: 8px 2px 0px 0px;
     color: $soft-grey;
   }
-}
-
-.panel {
-  //width: 930px;
-  padding: 5px 15px 1px;
-  background-color: #e5e5e5;
-  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
-  border: 1px solid #c8c8c8;
-  border-color: rgba(0,0,0,0.2);
-  border-radius: 5px;
 }
 
 #proposalNotFound div {
@@ -948,8 +956,6 @@ textarea.ng-invalid.ng-dirty {
     .user-avatar {
       margin-right: 13px;
     }
-//    margin-left: 0;
-//    margin-bottom: 6px;
   }
   .supported_date {
     @include inline-block;
