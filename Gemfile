@@ -23,9 +23,9 @@ gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.0.3.0'
+#gem 'compass_twitter_bootstrap'
 gem 'compass-rails'
 gem 'compass'
-#gem 'compass_twitter_bootstrap'
 gem 'activeadmin'
 
 # Authentication

@@ -30,7 +30,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
-    placeholder: " Find your Group or Location ... "
+    placeholder: "<i class='glyphicon glyphicon-search'></i>" + ' Find your Group or Location '
     width: '100%'
     allowClear: true
     ajax:
@@ -41,6 +41,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
       results: (data, page) ->
         results: data
+
+    escapeMarkup: (m) ->
+      m
 
     formatResult: (searchedHub) ->
       searchedHub.full_hub

@@ -11,7 +11,11 @@
  *= require_self
  */
 
-@import "bootstrap";
+// Media Variables
+//$container-large-desktop: 900;
+//$grid-float-breakpoint: 800;
+
+@import 'bootstrap';
 @import 'partials/styles';
 
 
