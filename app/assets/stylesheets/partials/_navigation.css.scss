@@ -33,28 +33,37 @@ header {
   background: $twitterBlack;
 //  background-image: url(sprite.png);
 //  background-repeat: repeat-x;
-//  height: 43px;
   .container {
     .nav.navbar-nav.navbar-right {
     }
   }
 }
 
-.navbar-header > .navbar-brand {
-  padding: 13px 15px;
+.sv-logo {
+  float: none;
+//  padding: 13px 15px;
   font-weight: 700;
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;
-  color: $happy-blue;
-  &:hover span.vote {
+  text-decoration: none !important;
+  &:hover span.vote, &:hover span.spoken {
     color: white !important;
   }
   span.vote {
     color: $spring-green;
     margin-left: -3px;
   }
+  span.spoken {
+    color: $happy-blue;
+  }
 }
+
+.navbar-header {
+  text-align: center;
+}
+
+
 .hub_search {
   padding: 2px 9px 0px 18px;
 //  width: 45%;

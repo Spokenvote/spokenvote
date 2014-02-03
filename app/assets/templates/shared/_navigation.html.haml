@@ -7,8 +7,16 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand( href='/landing' ng-click="clearHubFilter()" )
-        Spoken
+      .navbar-brand.hidden.xs
+        %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+          %span.spoken
+            Spoken
+          %span.vote
+            Vote
+
+      %a.sv-logo.visible-xs( href='/landing' ng-click="clearHubFilter()" )
+        %span.spoken
+          Spoken
         %span.vote
           Vote
 
