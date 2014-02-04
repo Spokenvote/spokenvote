@@ -1,8 +1,16 @@
 $twitterBlack: #252525;
+$iPhoneSafariHearderWhite: #d8dfe5;
+$iPhoneHearderWhite: #eaeae7;
+$iPhoneHearderOffWhite: #ebebe8;
+$iPhoneHearderBrightWhite: #edf1f2;
+$googlePanelGrey: #252626;
 
 .navbar {
   @media (max-width: $grid-float-breakpoint-max) {
     min-height: 42px;
+    background-color: $iPhoneHearderWhite;
+    border-color: $iPhoneHearderWhite;
+    color: $googlePanelGrey
   }
   .nav > li > a {
     //padding: 11px 15px 13px;
@@ -18,29 +26,29 @@ $twitterBlack: #252525;
     }
   }
 
-.navbar-inverse .container {
-  .navbar {
-    color: #000;
-    border-color: #315c99;
-  }
-  form {
-//    display: inline-block;
-    input, .btn {
-      vertical-align: baseline;
-      margin-right: 0;
-    }
-  }
-  .input {
-    margin-top: 0;
-  }
-  .input-append {
-    margin-top: -2px;
-  }
-  .input-append .btn {
-    margin-left: -4px;
-    font-variant: small-caps;
-  }
-}
+//.navbar-inverse .container {
+//  .navbar {
+//    color: #000;
+//    border-color: #315c99;
+//  }
+//  form {
+////    display: inline-block;
+//    input, .btn {
+//      vertical-align: baseline;
+//      margin-right: 0;
+//    }
+//  }
+//  .input {
+//    margin-top: 0;
+//  }
+//  .input-append {
+//    margin-top: -2px;
+//  }
+//  .input-append .btn {
+//    margin-left: -4px;
+//    font-variant: small-caps;
+//  }
+//}
 
 .navbar-collapse {
 //  height: 40px;
@@ -81,7 +89,11 @@ header {
 .navbar-header {
   text-align: center;
   .navbar-toggle {
-    margin: 4px
+    border-color: transparent;
+    color: $soft-grey;
+    .icon-bar {
+      background-color: $soft-grey;
+    }margin: 4px
   }
   .search-glass {
     text-align: center;
@@ -90,7 +102,6 @@ header {
     .navbar-toggle {
       width: 44px;
       padding: 0px;
-      color: white;
       .glyphicon {
         padding-top: 11px;
         line-height: 50%;

@@ -73,7 +73,12 @@ input {
   padding: $gridGutterWidth * 2 $gridGutterWidth * .5;
   margin-bottom: $gridGutterWidth * 2;
   position: relative;
+  @media (max-width: $grid-float-breakpoint-max) {
+    padding: 0 $gridGutterWidth * .5;
+
+  }
 }
+
 
 //.col-xm-11 > .form-horizontal {
 //  margin-top: $gridGutterWidth;
