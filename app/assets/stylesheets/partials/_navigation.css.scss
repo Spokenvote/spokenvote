@@ -64,9 +64,9 @@ header {
   font-size: 30px;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   letter-spacing: -1px;
-  text-decoration: none !important;
+  text-decoration: none;
   &:hover span.vote, &:hover span.spoken {
-    color: white !important;
+    color: $smokeyLebel;
   }
   span.vote {
     color: $spring-green;
@@ -85,14 +85,14 @@ header {
   }
   .search-glass {
     text-align: center;
-    font-size: 1.6em;
+    font-size: 1.4em;
     vertical-align: middle;
     .navbar-toggle {
       width: 44px;
       padding: 0px;
       color: white;
       .glyphicon {
-        padding-top: 8px;
+        padding-top: 11px;
         line-height: 50%;
       }
     }
