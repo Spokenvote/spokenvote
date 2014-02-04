@@ -1,5 +1,23 @@
 $twitterBlack: #252525;
 
+.navbar {
+  @media (max-width: $grid-float-breakpoint-max) {
+    min-height: 42px;
+  }
+  .nav > li > a {
+    //padding: 11px 15px 13px;
+    color: #bbb;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 15px;
+    &:hover {
+      cursor: pointer;
+    }
+    &.btn {
+      padding: 4px 10px 4px;
+      margin-right: 10px;
+    }
+  }
+
 .navbar-inverse .container {
   .navbar {
     color: #000;
@@ -59,10 +77,27 @@ header {
   }
 }
 
+
 .navbar-header {
   text-align: center;
+  .navbar-toggle {
+    margin: 4px
+  }
+  .search-glass {
+    text-align: center;
+    font-size: 1.6em;
+    vertical-align: middle;
+    .navbar-toggle {
+      width: 44px;
+      padding: 0px;
+      color: white;
+      .glyphicon {
+        padding-top: 8px;
+        line-height: 50%;
+      }
+    }
+  }
 }
-
 
 .hub_search {
   padding: 2px 9px 0px 18px;
@@ -120,24 +155,6 @@ header {
     padding: 5px 12px 0px 0px;
   }
 }
-
-.navbar {
-  padding-right: 15px;
-//  min-height: 42px;
-  .nav > li > a {
-    //padding: 11px 15px 13px;
-    color: #bbb;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-    font-size: 15px;
-    &:hover {
-      cursor: pointer;
-    }
-    &.btn {
-      padding: 4px 10px 4px;
-      margin-right: 10px;
-    }
-  }
-
 
   #location_filter {
     @include border-radius(4px);

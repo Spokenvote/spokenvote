@@ -2,23 +2,31 @@
 %header.navbar.navbar-inverse.navbar-fixed-top( ng-controller='DashboardCtrl' role='navigation' )
   .container-fluid
     .navbar-header
-      %button.navbar-toggle( data-target='#collapse-main' data-toggle='collapse' type='button' )
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      .navbar-brand.hidden.xs
+      .hidden.xs
+        .navbar-brand
+          %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+            %span.spoken
+              Spoken
+            %span.vote
+              Vote
+
+      .visible-xs
+        %button.navbar-toggle.pull-left( data-target='#collapse-main' data-toggle='collapse' type='button' )
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
         %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
           %span.spoken
             Spoken
           %span.vote
             Vote
 
-      %a.sv-logo.visible-xs( href='/landing' ng-click="clearHubFilter()" )
-        %span.spoken
-          Spoken
-        %span.vote
-          Vote
+        .search-glass.pull-right
+          %button.navbar-toggle
+            %span.glyphicon.glyphicon-search
+
 
     #collapse-main.collapse.navbar-collapse
       .hub_search.navbar-form.navbar-left( role='search' )
