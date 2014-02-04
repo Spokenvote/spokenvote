@@ -144,6 +144,9 @@ header {
       background: $iPhoneHearderBrightWhiteTransparent;
       margin: 0px 5px;
       border-radius: 1px;
+      abbr {
+        right: 5px;
+      }
 //      border: none;
 //      @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
     }
