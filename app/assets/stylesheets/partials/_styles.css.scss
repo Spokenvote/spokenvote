@@ -74,8 +74,7 @@ input {
   margin-bottom: $gridGutterWidth * 2;
   position: relative;
   @media (max-width: $grid-float-breakpoint-max) {
-    padding: 0 $gridGutterWidth * .5;
-
+    padding: $gridGutterWidth * 4 $gridGutterWidth * .5;
   }
 }
 

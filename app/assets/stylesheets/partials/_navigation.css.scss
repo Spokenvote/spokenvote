@@ -3,13 +3,14 @@ $iPhoneSafariHearderWhite: #d8dfe5;
 $iPhoneHearderWhite: #eaeae7;
 $iPhoneHearderOffWhite: #ebebe8;
 $iPhoneHearderBrightWhite: #edf1f2;
+$iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
 $googlePanelGrey: #252626;
 
 .navbar {
   @media (max-width: $grid-float-breakpoint-max) {
     min-height: 42px;
-    background-color: $iPhoneHearderWhite;
-    border-color: $iPhoneHearderWhite;
+    background-color: transparent;
+    border-color: transparent;
     color: $googlePanelGrey
   }
   .nav > li > a {
@@ -88,6 +89,11 @@ header {
 
 .navbar-header {
   text-align: center;
+  @media (max-width: $grid-float-breakpoint-max) {
+    background-color: $iPhoneHearderWhite;
+    //    border-color: $iPhoneHearderWhite;
+//    color: $googlePanelGrey
+  }
   .navbar-toggle {
     border-color: transparent;
     color: $soft-grey;
@@ -110,6 +116,15 @@ header {
   }
 }
 
+  .new_topic {
+    margin-left: 0;
+    margin-right: -9px;
+    padding: 9px 3px 0px 2px;
+  }
+
+
+// Search box formatting
+
 .hub_search {
   padding: 2px 9px 0px 18px;
 //  width: 45%;
@@ -118,25 +133,30 @@ header {
   }
 }
 
-.new_topic {
-  margin-left: 0;
-  margin-right: -9px;
-  padding: 9px 3px 0px 2px;
-}
-
 .select2-container {
   .select2-choice {
     height: 32px;
     line-height: 32px;
-    min-width: 330px;
-//    background-color: rgba(255, 255, 255, 0.75);
     background: none;
     background-image: none;
-//    border: none;
+    @media (max-width: $grid-float-breakpoint-max) {
+      min-width: none;
+      background: $iPhoneHearderBrightWhiteTransparent;
+      margin: 0px 5px;
+      border-radius: 1px;
+//      border: none;
+//      @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+    }
+    @media (min-width: $grid-float-breakpoint) {
+      min-width: 330px;
+    }
+    //    background-color: rgba(255, 255, 255, 0.75);
+    //    border: none;
     .select2-chosen {
       font-size: 14px;
       font-weight: 500;
       text-align: center;
+      margin-right: 12px;
 //      color: rgba(51, 51, 51, 0.5);
 //      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
     }
