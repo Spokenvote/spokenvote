@@ -74,6 +74,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'email_spec', "~> 1.2.1"
   gem 'capybara'
   gem 'database_cleaner'
 end

@@ -67,6 +67,7 @@ class ProposalsController < ApplicationController
     else
       Vote.move_user_vote_to_proposal(@proposal, current_user, votes_attributes)
       @proposal.reload  # needed to refresh the votes_count from db to this added proposal
+      VoterMailer.new_proposal_on_topic(@proposal).deliver
       render 'show', status: :created
     end
   end
