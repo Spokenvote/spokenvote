@@ -22,12 +22,11 @@
     = yield(:head)
 
   %body( ng-controller='RootCtrl' )
-    %ng-include(src="'/assets/shared/_navigation.html'")
+    .container-fluid
+      #navigationBar( role='navigation' )
+        %ng-include(src="'/assets/shared/_navigation.html'")
 
-    #main( role="main" )
-      .container-fluid
-        -#.content
-          .row
+      #main( role='main' )
         #mainContent
           #alertContainer
             .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )

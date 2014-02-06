@@ -1,76 +1,76 @@
 -#%nav.navbar.navbar-default{role: "navigation"}
 %header.navbar.navbar-inverse.navbar-fixed-top( ng-controller='DashboardCtrl' role='navigation' )
-  .container-fluid
-    .navbar-header
-      .hidden-xs
-        .navbar-brand
-          %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
-            %span.spoken
-              Spoken
-            %span.vote
-              Vote
-        .hub_search.navbar-form.navbar-left( role='search' )
-          .hub_filter
-            %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
-        .new_topic.nav.navbar-nav
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
-
-      .visible-xs
-        %button.navbar-toggle.pull-left( data-target='#collapse-main' data-toggle='collapse' type='button' )
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-
+  -#.container-fluid
+  .navbar-header
+    .hidden-xs
+      .navbar-brand
         %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
           %span.spoken
             Spoken
           %span.vote
             Vote
+      .hub_search.navbar-form.navbar-left( role='search' )
+        .hub_filter
+          %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+      .new_topic.nav.navbar-nav
+        %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
-        .search-glass.pull-right
-          %button.navbar-toggle
-            %span.glyphicon.glyphicon-search
+    .visible-xs
+      %button.navbar-toggle.pull-left( data-target='#collapse-main' data-toggle='collapse' type='button' )
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-  .hub_search-xs( role='search' )
-    .hub_filter
-      %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+      %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+        %span.spoken
+          Spoken
+        %span.vote
+          Vote
 
-    #collapse-main.collapse.navbar-collapse
+      .search-glass.pull-right
+        %button.navbar-toggle
+          %span.glyphicon.glyphicon-search
 
-      %ul#user_profile.nav.navbar-nav.navbar-right
-        %li.dropdown( data-placement='bottom' )
-          %a.dropdown-toggle( data-toggle='dropdown' )
-            %b.white {{ currentUser.first_name || 'Learn' }}
-            %b.caret
+.hub_search-xs( role='search' )
+  .hub_filter
+    %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-          %ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
-            %li
-              %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
-            %li
-              %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings
-            %li
-              / Angular should ignore this route and not try to handle it since it has target='_self'
-              %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
-            %li
-              %a( class="divider" ng-show='currentUser.username' )
-            %li
-              %a( href='#' ng-click='signOut()' ng-show='currentUser.username' ) Sign Out
-            %li
-              %a( class="divider" ng-show='currentUser.username' )
-            %li
-              %a( href='/about' ) About this site
-            %li
-              %a( href='/terms-of-use' ) Terms of Use
-            %li
-              %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
+  #collapse-main.collapse.navbar-collapse
 
-        %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
-          %a(href='/proposals?filter=my')
-            %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
+    %ul#user_profile.nav.navbar-nav.navbar-right
+      %li.dropdown( data-placement='bottom' )
+        %a.dropdown-toggle( data-toggle='dropdown' )
+          %b.white {{ currentUser.first_name || 'Learn' }}
+          %b.caret
 
-        %li.buttons( ng-show='!currentUser.username' )
-          %button( ng-click="signinAuth()" class='btn btn-info btn-bold' ) Sign In
-          -#%button( ng-click="facebookAuth2()" class='btn btn-info btn-bold' ) My Spokenvote
-          -#%button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
-          -#%button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!
+        %ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
+          %li
+            %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
+          %li
+            %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings
+          %li
+            / Angular should ignore this route and not try to handle it since it has target='_self'
+            %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
+          %li
+            %a( class="divider" ng-show='currentUser.username' )
+          %li
+            %a( href='#' ng-click='signOut()' ng-show='currentUser.username' ) Sign Out
+          %li
+            %a( class="divider" ng-show='currentUser.username' )
+          %li
+            %a( href='/about' ) About this site
+          %li
+            %a( href='/terms-of-use' ) Terms of Use
+          %li
+            %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
+
+      %li.avatar( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
+        %a(href='/proposals?filter=my')
+          %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
+
+      %li.buttons( ng-show='!currentUser.username' )
+        %button( ng-click="signinAuth()" class='btn btn-info btn-bold' ) Sign In
+        -#%button( ng-click="facebookAuth2()" class='btn btn-info btn-bold' ) My Spokenvote
+        -#%button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
+        -#%button( ng-click="registerModal()" class='btn btn-primary btn-bold' ) Join Us!
