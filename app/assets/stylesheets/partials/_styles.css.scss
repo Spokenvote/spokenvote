@@ -26,6 +26,10 @@ $gridGutterWidth:         10px !default;
 //@import "compass_twitter_bootstrap_awesome";
 
 // structural styles
+
+.container-fluid {
+  padding: 0 15px;
+}
 body {
   padding-top: ($gridGutterWidth * 2);
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
@@ -777,7 +781,7 @@ textarea.ng-invalid.ng-dirty {
   .topic-and-hub {
     padding: 0px 6px 0px 0px;
     .proposal {
-      font-size: 128%;
+      font-size: 1.28em;
       line-height: 100%;
       :hover {
         color: $happy-blue;
