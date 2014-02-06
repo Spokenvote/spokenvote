@@ -24,14 +24,27 @@
   %body( ng-controller='RootCtrl' )
     .container-fluid
       .row.row-offcanvas.row-offcanvas-left( ng-class='{active: active, bold: !active}' )
-        #navigationBar( role='navigation' )
-          %ng-include(src="'/assets/shared/_navigation.html'")
+        .sidebar-offcanvas.col-xs-10{role: "navigation"}
+          .sidebar-nav
+            %ul.nav
+              %li.active
+                %a{href: "#"} Sign In
+              %li
+                %a{href: "#"} Settings
+              %li
+                %a{href: "#"} About Us
+              %li
+                %a{href: "#"} Contributing to Spokenvote
 
-        #main( role='main' )
-          #mainContent
-            #alertContainer
-              .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )
-            %ng-view
+        .mainCanvas.col-xs-12
+          #navigationBar( role='navigation' )
+            %ng-include(src="'/assets/shared/_navigation.html'")
+
+          #main( role='main' )
+            #mainContent
+              #alertContainer
+                .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )
+              %ng-view
 
     - min = Rails.env.production? ? '.min' : ''
     = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery#{min}.js"
