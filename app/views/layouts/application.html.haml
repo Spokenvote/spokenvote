@@ -23,7 +23,7 @@
 
   %body( ng-controller='RootCtrl' )
     .container-fluid
-      .row.row-offcanvas.row-offcanvas-left( ng-class='{active: active, bold: !active}' )
+      .row.row-offcanvas.row-offcanvas-left( ng-class='{active: sessionSettings.actions.offcanvas}' )
         .sidebar-offcanvas.col-xs-10{role: "navigation"}
           .sidebar-nav
             %ul.nav

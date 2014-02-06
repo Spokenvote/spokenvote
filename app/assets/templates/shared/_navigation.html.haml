@@ -1,4 +1,3 @@
--#%nav.navbar.navbar-default{role: "navigation"}
 %header.navbar.navbar-inverse.navbar-fixed-top( ng-controller='DashboardCtrl' role='navigation' )
   -#.container-fluid
   .navbar-header
@@ -16,7 +15,9 @@
         %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
     .visible-xs
-      %button.navbar-toggle.pull-left( data-target='#collapse-main' data-toggle='collapse' type='button' )
+      -#%button.navbar-toggle.pull-left( data-target='#collapse-main' data-toggle='collapse' type='button' )
+      -#%button.navbar-toggle.pull-left( ng-click='offcanvas = !offcanvas' type='button' )
+      %button.navbar-toggle.pull-left( ng-click='changeCanvas()' type='button' )
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar

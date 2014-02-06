@@ -95,6 +95,7 @@ SessionSettings = ->
     newProposalHub: null
     searchTerm: null
     selectHub: false
+    offcanvas: false
   openModals:
     signIn: false
     register: false

@@ -1,4 +1,7 @@
 DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
+  $scope.changeCanvas = ->
+    $scope.sessionSettings.actions.offcanvas = !$scope.sessionSettings.actions.offcanvas
+
   $scope.hubFilter =
     hubFilter: null
 
