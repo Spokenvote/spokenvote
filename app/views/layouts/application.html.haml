@@ -51,7 +51,13 @@
             %li
               %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
             %li
-              %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings for {{ currentUser.first_name || 'Learn' }}
+              %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' )
+                .glyphicon.glyphicon-cog &nbsp
+                %span( ng-show='currentUser.first_name') Settings
+              %a( href='#' ng-show='!currentUser.username' )
+                .glyphicon.glyphicon-info-sign &nbsp
+                Learn More
+                -#Settings for {{ currentUser.first_name || 'Learn' }}
             %li
               %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
             %li
