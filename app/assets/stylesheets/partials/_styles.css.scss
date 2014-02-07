@@ -51,21 +51,41 @@ body {
 
 .row-offcanvas-left
 .sidebar-offcanvas {
-  left: -83.3333333%;
+  left: -83.3333333333%; // Inverse of Sidebar Menu width below
 }
 
 .row-offcanvas-left.active {
-  left: 83.3333333%;
-  width: 100%;
+  left: 90%; // Distance moved to right to show Sidebar
 }
 
 .sidebar-offcanvas {
   position: absolute;
   top: 0;
+  width: 83.3333333333%; // Sidebar Menu width
+  padding: 40px 3px 0px 35px;
   height: 100%;
-  color: $googlePanelGreyLettering;
   background: linear-gradient($googlePanelGreyStart, $googlePanelGrey);
-  //  width: 50%;
+  background-image: url(patterns/transit_grey.png);
+  ul {
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 0px;
+    li {
+      color: $googlePanelGreyLettering;
+      padding: 10px;
+      a {
+        color: $googlePanelGreyLettering;
+      }
+    }
+    :hover {
+      text-decoration: none;
+      color: $rowHighlight;
+      cursor: pointer;
+    }
+  }
 }
 
 //.row-offcanvas .mainCanvas {
