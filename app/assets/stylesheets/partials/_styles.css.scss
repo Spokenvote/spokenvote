@@ -17,6 +17,10 @@ $smokeyLebel: rgba(153, 153, 153, 0.46);
 $rowHighlight: rgba(240, 240, 255, 0.45);
 $rowRuler: rgba(68, 68, 68, 0.35);
 
+$googlePanelGreyStart: #252424;
+$googlePanelGrey: #252626;
+$googlePanelGreyLettering: #cecece;
+
 $gridGutterWidth:         10px !default;
 
 //$headingsColor: #315c99;
@@ -58,7 +62,10 @@ body {
 .sidebar-offcanvas {
   position: absolute;
   top: 0;
-//  width: 50%;
+  height: 100%;
+  color: $googlePanelGreyLettering;
+  background: linear-gradient($googlePanelGreyStart, $googlePanelGrey);
+  //  width: 50%;
 }
 
 //.row-offcanvas .mainCanvas {

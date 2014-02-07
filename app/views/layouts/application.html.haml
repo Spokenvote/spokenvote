@@ -25,16 +25,40 @@
     .container-fluid
       .row.row-offcanvas.row-offcanvas-left( ng-class='{active: sessionSettings.actions.offcanvas}' )
         .sidebar-offcanvas.col-xs-10{role: "navigation"}
-          .sidebar-nav
-            %ul.nav
-              %li.active
-                %a{href: "#"} Sign In
-              %li
-                %a{href: "#"} Settings
-              %li
-                %a{href: "#"} About Us
-              %li
-                %a{href: "#"} Contributing to Spokenvote
+
+          .list-group
+            .list-group-item.active Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+            .list-group-item Link
+
+
+          -#%ul.dropdown-menu( role="menu" aria-labelledby="dropdownMenu" )
+          %ul( role="menu"  )
+            %li
+              %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
+            %li
+              %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' ) Settings for {{ currentUser.first_name || 'Learn' }}
+            %li
+              %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
+            %li
+              %a( class="divider" ng-show='currentUser.username' )
+            %li
+              %a( href='#' ng-click='signOut()' ng-show='currentUser.username' ) Sign Out
+            %li
+              %a( class="divider" ng-show='currentUser.username' )
+            %li
+              %a( href='/about' ) About this site
+            %li
+              %a( href='/terms-of-use' ) Terms of Use
+            %li
+              %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
+
 
         .mainCanvas.col-xs-12
           #navigationBar( role='navigation' )
