@@ -28,12 +28,14 @@ $gridGutterWidth:         10px !default;
 // structural styles
 
 body {
-  padding-top: ($gridGutterWidth * 2);
+//  padding-top: ($gridGutterWidth * 2);
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
+  overflow-x: hidden;
 }
 
 .container-fluid {
   padding: 0 15px;
+  overflow-x: hidden;
 }
 
 .row-offcanvas {
@@ -50,6 +52,7 @@ body {
 
 .row-offcanvas-left.active {
   left: 83.3333333%;
+  width: 100%;
 }
 
 .sidebar-offcanvas {
@@ -58,7 +61,7 @@ body {
 //  width: 50%;
 }
 
-//.row-offcanvas #mainCanvas {
+//.row-offcanvas .mainCanvas {
 //  width:calc(100% - 60px);
 //}
 
@@ -86,7 +89,7 @@ body {
   overflow: visible;
   background: url(noisy_grid.png);
   min-height: 1200px;
-  padding-top: 15px;
+//  padding-top: 15px;
   //height: auto;
   .content {
     overflow: visible;

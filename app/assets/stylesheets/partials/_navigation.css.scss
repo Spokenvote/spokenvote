@@ -11,6 +11,7 @@ $googlePanelGreyLettering: #cecece;
 .navbar {
   @media (max-width: $grid-float-breakpoint-max) {
     min-height: 42px;
+    margin-bottom: 0;
     background-color: transparent;
     border-color: transparent;
     color: $googlePanelGrey
