@@ -67,10 +67,8 @@ body {
   background: linear-gradient($googlePanelGreyStart, $googlePanelGrey);
   background-image: url(patterns/transit_grey.png);
   ul {
-    font-family: 'Open Sans', sans-serif;
     list-style: none;
     font-size: 1.2em;
-    font-weight: normal;
     margin-bottom: 0;
     padding: 0px 0px 0px 0px;
     li {
@@ -292,11 +290,11 @@ h1.form-horizontal {
     color: #333;
     text-shadow: 1px 1px 2px #999;
     line-height: 80px;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: $logoTypeFace;
     text-align: center;
   }
   .tag_line {
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: $logoTypeFace;
     color: $spring-green;
     font-size: 72px;
     line-height: 80px;
@@ -528,7 +526,7 @@ textarea.ng-invalid.ng-dirty {
 
 .selectedHub {
   margin-top: -10px;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-family: $logoTypeFace;
   color: $basic-brown !important;
   text-align: right;
   text-decoration: none;
@@ -756,7 +754,7 @@ textarea.ng-invalid.ng-dirty {
   h2 {
     margin-top: 14px;
     //color: #315D99;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: $logoTypeFace;
     color: $basic-brown;
     //letter-spacing: -2px;
   }
