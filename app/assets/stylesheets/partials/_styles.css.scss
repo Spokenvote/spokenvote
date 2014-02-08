@@ -17,7 +17,6 @@ $smokeyLebel: rgba(153, 153, 153, 0.46);
 $rowHighlight: rgba(240, 240, 255, 0.45);
 $rowRuler: rgba(68, 68, 68, 0.35);
 
-$googlePanelGreyStart: #252424;
 $googlePanelGrey: #252626;
 $googlePanelGreyLettering: #cecece;
 
@@ -64,7 +63,7 @@ body {
   width: 83.3333333333%; // Sidebar Menu width
   padding: 40px 3px 0px 35px;
   height: 100%;
-  background: linear-gradient($googlePanelGreyStart, $googlePanelGrey);
+  background-color: $googlePanelGrey;
   background-image: url(patterns/transit_grey.png);
   ul {
     list-style: none;
@@ -73,9 +72,23 @@ body {
     padding: 0px 0px 0px 0px;
     li {
       color: $googlePanelGreyLettering;
-      padding: 10px;
+      padding: 10px 20px 10px 0px;
+      .glyphicon {
+        font-size: 175%%;
+      }
+      span {
+        vertical-align: super;
+      }
       a {
         color: $googlePanelGreyLettering;
+      }
+      .hr {
+        margin-left: -5px;
+        border-top-width: 1.8px;
+        border-color: rgba(37, 38, 38, 1);
+        background-color: rgba(245, 245, 245, 0.05);
+        border-top-color: rgba(37, 38, 38, 0.9);
+        border-bottom-color: rgba(255, 255, 255, .1);
       }
     }
     :hover {

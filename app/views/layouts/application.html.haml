@@ -50,26 +50,29 @@
           %ul( role="menu"  )
             %li
               %a( ng-href='/proposals?filter=my' ng-show='currentUser.username' ) My Proposals
+            -#%li
+              %a( class="divider" ng-show='currentUser.username' )
+            %li( href='#' ng-click='signinAuth()' ng-show='!currentUser.username' )
+              %a Sign In
+            %li( href='#' ng-click='signOut()' ng-show='currentUser.username' )
+              %a Sign Out
             %li
               %a( href='#' ng-click='userSettings()'  ng-show='currentUser.username' )
-                .glyphicon.glyphicon-cog &nbsp
-                %span( ng-show='currentUser.first_name') Settings
-              %a( href='#' ng-show='!currentUser.username' )
-                .glyphicon.glyphicon-info-sign &nbsp
-                Learn More
-                -#Settings for {{ currentUser.first_name || 'Learn' }}
+                -#.glyphicon.glyphicon-cog &nbsp
+                .glyphicon.glyphicon-cog
+                %span( ng-show='currentUser.first_name') &nbsp Settings
+            %li( ng-show='currentUser["is_admin?"]' )
+              %a( href='/admin' target='_blank' ) Admin
             %li
-              %a( href='/admin' ng-show='currentUser["is_admin?"]' target='_blank' ) Admin
-            %li
-              %a( class="divider" ng-show='currentUser.username' )
-            %li
-              %a( href='#' ng-click='signOut()' ng-show='currentUser.username' ) Sign Out
-            %li
-              %a( class="divider" ng-show='currentUser.username' )
+              .hr
             %li
               %a( href='/about' ) About Spokenvote
             %li
+              .hr
+            %li
               %a( href='/terms-of-use' ) Terms of Use
+            %li
+              .hr
             %li
               %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 

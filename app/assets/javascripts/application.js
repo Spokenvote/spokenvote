@@ -11,8 +11,8 @@
 // require bootstrap/modal
 // require bootstrap/tooltip
 // require bootstrap/popover
+// require bootstrap/tab
 
-//= require bootstrap/tab
 //= require bootstrap/collapse
 
 //= require holder
