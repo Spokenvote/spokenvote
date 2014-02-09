@@ -68,16 +68,31 @@ body {
   ul {
     list-style: none;
     font-size: 1.2em;
+    font-weight: 300;
     margin-bottom: 0;
     padding: 0px 0px 0px 0px;
     li {
       color: $googlePanelGreyLettering;
       padding: 10px 20px 10px 0px;
-      .glyphicon {
-        font-size: 175%%;
+      .action-links {
+        font-size: .92em;
+        span {
+          vertical-align: super;
+        }
       }
-      span {
-        vertical-align: super;
+      .category-links {
+        font-weight: 400;
+        .fa {
+          font-size: 1.4em;
+          padding: 0 8px 0 7px;
+        }
+      }
+      .fa {
+        font-size: 1.8em;
+        padding-right: 5px;
+      }
+      .glyphicon {
+        font-size: 1.8em;
       }
       a {
         color: $googlePanelGreyLettering;
