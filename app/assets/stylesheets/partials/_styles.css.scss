@@ -43,9 +43,10 @@ body {
 
 .row-offcanvas {
   position: relative;
-  -webkit-transition: all 0.25s ease-out;
-  -moz-transition: all 0.25s ease-out;
-  transition: all 0.25s ease-out;
+  left: 0%;
+  -webkit-transition: all .7s ease;
+  -moz-transition: all .7s ease;
+  transition: all .7s ease;
 }
 
 .row-offcanvas-left
