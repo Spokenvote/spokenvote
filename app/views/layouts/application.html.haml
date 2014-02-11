@@ -25,8 +25,11 @@
   %body( ng-controller='RootCtrl' )
     .container-fluid
       .row.row-offcanvas.row-offcanvas-left( ng-class='{active: sessionSettings.actions.offcanvas}' )
-        .sidebar-offcanvas.col-xs-10{role: "navigation"}
-          %ul( role="menu"  )
+        .sidebar-offcanvas.col-xs-10( role='navigation' )
+          %ng-include( src="'/assets/shared/_sidebar.html'" )
+
+
+          -#%ul( role="menu"  )
             %li( ng-href='/proposals?filter=my' ng-show='currentUser.username' )
               %a.action-links
                 .fa.fa-check-square-o
@@ -70,7 +73,7 @@
 
         .mainCanvas.col-xs-12
           #navigationBar( role='navigation' )
-            %ng-include(src="'/assets/shared/_navigation.html'")
+            %ng-include( src="'/assets/shared/_navigation.html'" )
 
           #main( role='main' )
             #mainContent

@@ -8,11 +8,11 @@ $iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
 .navbar {
   @media (max-width: $grid-float-breakpoint-max) {
     min-height: 42px;
-    margin-bottom: 0;
     background-color: transparent;
     border-color: transparent;
     color: $googlePanelGrey
   }
+  margin-bottom: 0;
   .nav > li > a {
     //padding: 11px 15px 13px;
     color: #bbb;

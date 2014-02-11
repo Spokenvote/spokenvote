@@ -66,6 +66,20 @@ body {
   height: 100%;
   background-color: $googlePanelGrey;
   background-image: url(patterns/transit_grey.png);
+  .panel-group {
+    margin: 0;
+    .panel {
+      background: none;
+      border: none;
+      .panel-heading {
+        background-color: transparent;
+        padding: 0;
+      }
+      .panel-body {
+        border: none;
+      }
+    }
+  }
   ul {
     list-style: none;
     font-size: 1.2em;
