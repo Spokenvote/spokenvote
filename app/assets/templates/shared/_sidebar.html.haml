@@ -5,26 +5,28 @@
       %span My proposals
 
   %li
-    %accordion{"close-others" => "oneAtATime"}
-      -#%accordion-group{heading: "Static Header, initially expanded", "is-open" => "true"}
-        This content is straight in the template.
-      -#%accordion-group{heading: "", "ng-repeat" => "group in groups"}
-
-      -#%accordion-group{heading: "Dynamic Body Content"}
-        %p The body of the accordion group grows to fit the contents
-        %button.btn.btn-default.btn-sm{"ng-click" => "addItem()"} Add Item
-        %div{"ng-repeat" => "item in items"}
-      %accordion-group{"is-open" => "isopen"}
+    %accordion( close-others='oneAtATime' )
+      %accordion-group( is-open='isopen' )
         %accordion-heading
-          .fa.fa-filter
-          %span Filter
-          -#%i.pull-right.glyphicon{"ng-class" => "{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"}
-        One
-        Two
-        Three
+          %a.action-links
+            .fa.fa-filter
+            %span Filter
+
+
+        %ul.action-links
+          %li( type='button' ng-click="setFilter('active')" ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" )
+            .fa.fa-filter
+            %span Active
+            .fa.pull-right( ng-class="{'fa-check': sessionSettings.routeParams.filter == 'active'}" )
+          %li( type='button' ng-click="setFilter('new')" value='new' )
+            .fa.fa-filter
+            %span Recent
+          %li( type='button' ng-click="setFilter('my')" value='my' ui-if='currentUser.id' )
+            .fa.fa-filter
+            %span My Votes
 
   %li( href='#' ng-click='userSettings()'  ng-show='currentUser.username' )
-    %a
+    %a.action-links
       .fa.fa-wrench
       -#.glyphicon.glyphicon-cog
       %span Settings

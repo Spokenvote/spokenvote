@@ -28,49 +28,6 @@
         .sidebar-offcanvas.col-xs-10( role='navigation' )
           %ng-include( src="'/assets/shared/_sidebar.html'" )
 
-
-          -#%ul( role="menu"  )
-            %li( ng-href='/proposals?filter=my' ng-show='currentUser.username' )
-              %a.action-links
-                .fa.fa-check-square-o
-                %span My proposals
-            %li( href='#' ng-click='userSettings()'  ng-show='currentUser.username' )
-              %a
-                .fa.fa-wrench
-                -#.glyphicon.glyphicon-cog
-                %span Settings
-            %li( href='#' ng-click='signinAuth()' ng-show='!currentUser.username' )
-              %a.action-links
-                .fa.fa-sign-in
-                %span Sign in
-            %li( href='#' ng-click='signOut()' ng-show='currentUser.username' )
-              %a.action-links
-                .fa.fa-sign-out
-                %span Sign out
-            %li( ng-show='currentUser["is_admin?"]' )
-              %a.action-links( href='/admin' target='_blank' )
-
-                %span Admin
-            %li
-              .hr
-            %li
-              %a.category-links( href='/about' )
-                .fa.fa-pagelines
-                %span About Spokenvote
-            %li
-              .hr
-            %li
-              %a.category-links( href='http://railsforcharity.github.io/spokenvote/' )
-                .fa.fa-github
-                %span Developers
-            %li.category-links
-              .hr
-            %li
-              %a.category-links( href='/terms-of-use' )
-                .fa.fa-bell-o
-                %span Terms of use
-
-
         .mainCanvas.col-xs-12
           #navigationBar( role='navigation' )
             %ng-include( src="'/assets/shared/_navigation.html'" )

@@ -11,10 +11,10 @@
               %span( class='close_x' ) &times;
 
       .pull-right
-        .btn-group( ng-model='filterSelection' bs-buttons-radio )
-          %button( type='button' ng-click="setFilter('active')" class='btn btn-default' value='active' ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
-          %button( type='button' ng-click="setFilter('new')" class='btn btn-default' value='new' ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
-          %button( type='button' ng-click="setFilter('my')" class='btn btn-default' value='my' ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
+        .btn-group
+          %button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
+          %button( type='button' ng-click="setFilter('new')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'new'" ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
+          %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
       .clearfix
 
   .listing-proposals

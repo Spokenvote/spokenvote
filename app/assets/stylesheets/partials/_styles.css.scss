@@ -71,6 +71,7 @@ body {
     .panel {
       background: none;
       border: none;
+      padding: 0;
       .panel-heading {
         background-color: transparent;
         padding: 0;
@@ -83,7 +84,6 @@ body {
   ul {
     list-style: none;
     font-size: 1.2em;
-    font-weight: 300;
     margin-bottom: 0;
     padding: 0px 0px 0px 0px;
     li {
@@ -91,8 +91,13 @@ body {
       padding: 10px 20px 10px 0px;
       .action-links {
         font-size: .92em;
+        font-weight: 300;
         span {
           vertical-align: super;
+        }
+        .fa {
+          font-size: 1.8em;
+          width: 33px;
         }
       }
       .category-links {
@@ -102,9 +107,12 @@ body {
           padding: 0 8px 0 7px;
         }
       }
-      .fa {
-        font-size: 1.8em;
-        padding-right: 5px;
+      .fa.pull-right {
+        font-size: 1.2em;
+        line-height: 1.6em;
+      }
+      .active {
+        color: $rowHighlight;
       }
       .glyphicon {
         font-size: 1.8em;

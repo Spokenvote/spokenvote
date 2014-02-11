@@ -1,7 +1,7 @@
 ProposalListCtrl =
   ($scope, $routeParams, $location, proposals, SessionSettings, SpokenvoteCookies, VotingService) ->
     $scope.proposals = proposals
-    $scope.filterSelection = $routeParams.filter
+#    $scope.filterSelection = $routeParams.filter      # Moved to sessionSettings.routeParams.filter
     $scope.spokenvoteSession = SpokenvoteCookies
 
     $scope.setFilter = (filterSelected) ->
