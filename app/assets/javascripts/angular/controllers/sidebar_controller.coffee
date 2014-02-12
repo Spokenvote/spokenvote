@@ -6,7 +6,7 @@ SidebarCtrl = [ '$scope', '$routeParams', '$location', ($scope, $routeParams, $l
     $scope.sessionSettings.routeParams.filter = filterSelected
 
   $scope.oneAtATime = true
-  $scope.isopen = true
+  $scope.isopen = false
 
 # Angular UI Sample code:
 #  $scope.groups = [
