@@ -3,7 +3,7 @@
     .panel-title
       .title.pull-left
         %h4( colspan='5' )
-          %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+          %span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
             %span() for
             %span( class='tag_item' )

@@ -78,6 +78,7 @@ body {
       }
       .panel-body {
         border: none;
+        padding: 8px 0px 0px 15px;
       }
     }
   }
@@ -88,7 +89,12 @@ body {
     padding: 0px 0px 0px 0px;
     li {
       color: $googlePanelGreyLettering;
-      padding: 10px 20px 10px 0px;
+      padding: 10px 10px 10px 0px;
+      ul {
+        li {
+          padding: 5px;
+        }
+      }
       .action-links {
         font-size: .92em;
         font-weight: 300;
@@ -109,7 +115,11 @@ body {
       }
       .fa.pull-right {
         font-size: 1.2em;
-        line-height: 1.6em;
+        line-height: 1.5em;
+      }
+      .fa.sub {
+        font-size: 1.3em;
+        vertical-align: super;
       }
       .active {
         color: $rowHighlight;
