@@ -13,7 +13,8 @@
             .fa.fa-filter
             -#%span( ) Showing {{ sessionSettings.routeParams.filter | inflector:humanize }} topics
             %span( ng-show='isopen' ) Topic filter
-            %span( ng-hide='isopen' ) Filtering {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
+            -#%span( ng-hide='isopen' ) Filtering {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
+            %span( ng-hide='isopen' ) Filter: {{ sessionSettings.routeParams.filter }} votes
 
         %ul.action-links
           %li( type='button' ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" )

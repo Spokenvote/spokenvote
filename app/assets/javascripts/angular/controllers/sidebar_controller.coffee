@@ -2,7 +2,7 @@
 SidebarCtrl = [ '$scope', '$routeParams', '$location', ($scope, $routeParams, $location) ->
 
   $scope.setFilter = (filterSelected) ->
-    $location.search('filter', filterSelected)
+    $location.path('/proposals').search('filter', filterSelected)
     $scope.sessionSettings.routeParams.filter = filterSelected
 
   $scope.oneAtATime = true
