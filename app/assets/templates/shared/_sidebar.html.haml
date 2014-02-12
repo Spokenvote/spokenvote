@@ -11,19 +11,19 @@
           %a.action-links
             .fa.fa-filter
             -#%span( ) Showing {{ sessionSettings.routeParams.filter | inflector:humanize }} topics
-            %span( ng-show='isopen' ) Showing {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
-            %span( ng-hide='isopen' ) Topic filter
+            %span( ng-show='isopen' ) Topic filter
+            %span( ng-hide='isopen' ) Showing {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
 
         %ul.action-links
-          %li( type='button' ng-click="setFilter('my')" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" )
+          %li( type='button' ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" )
             .fa.sub.fa-check-square-o
             %span My Votes
             .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'my'}" )
-          %li( type='button' ng-click="setFilter('active')" ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" )
+          %li( type='button' ng-click="setFilter('active');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" )
             .fa.sub.fa-tachometer
             %span Active
             .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'active'}" )
-          %li( type='button' ng-click="setFilter('new')" ng-class="{'active': sessionSettings.routeParams.filter == 'new'}" )
+          %li( type='button' ng-click="setFilter('new');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'new'}" )
             .fa.sub.fa-clock-o
             %span Recent
             .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'new'}" )
