@@ -1,30 +1,30 @@
 @import "compass";
 
-// Spokenvote Colors
-$happy-blue: #1c85f6;
-$spring-green: #50D050;
-$chisel-grey: #c1c1c1;
-$modal-body-off-white: #DFDFDF;
-$soft-grey: rgba(132, 132, 132, 0.75);
-$basic-brown: #444;
-$soft-brown-text: #555555;
-$facebook-blue: #3B5998;
-$alert-blue: #284784;
-$error-text-red: #b94a48;
-$tag-blue: rgba(28, 133, 246, 0.25);
-$smokeyLebel: rgba(153, 153, 153, 0.46);
-
-$rowHighlight: rgba(240, 240, 255, 0.45);
-$rowRuler: rgba(68, 68, 68, 0.35);
-
-$googlePanelGrey: #252626;
-$googlePanelGreyLettering: #cecece;
-
-$gridGutterWidth:         10px !default;
-
-//$headingsColor: #315c99;
-//$headingsColor: #444;
-//$heroUnitHeadingColor: $headingsColor;
+//// Spokenvote Colors
+//$happy-blue: #1c85f6;
+//$spring-green: #50D050;
+//$chisel-grey: #c1c1c1;
+//$modal-body-off-white: #DFDFDF;
+//$soft-grey: rgba(132, 132, 132, 0.75);
+//$basic-brown: #444;
+//$soft-brown-text: #555555;
+//$facebook-blue: #3B5998;
+//$alert-blue: #284784;
+//$error-text-red: #b94a48;
+//$tag-blue: rgba(28, 133, 246, 0.25);
+//$smokeyLebel: rgba(153, 153, 153, 0.46);
+//
+//$rowHighlight: rgba(240, 240, 255, 0.45);
+//$rowRuler: rgba(68, 68, 68, 0.35);
+//
+//$googlePanelGrey: #252626;
+//$googlePanelGreyLettering: #cecece;
+//
+//$gridGutterWidth:         10px !default;
+//
+////$headingsColor: #315c99;
+////$headingsColor: #444;
+////$heroUnitHeadingColor: $headingsColor;
 
 
 // structural styles
@@ -507,8 +507,29 @@ textarea.ng-invalid.ng-dirty {
 }
 
 
+// Modal Elements
+
+//.modal {
+//  top: 15% !important;
+//  position: fixed !important;
+//}
+
+//.modal-backdrop {
+//  background-color: #000 !important;
+//}
+
+.modal-dialog {
+  margin: 5px;
+}
+
 .modal-header {
-  padding: 2.8%;
+  @media (max-width: $grid-float-breakpoint-max) {
+    padding-top: 0;
+    .close {
+      padding: 5px 1px;
+    }
+  }
+  //  padding: 2.8%; // See $modal-title-padding
   //  @include border-top-radius(6px);
 //  background-color: #eee;
   h2 {
@@ -518,19 +539,31 @@ textarea.ng-invalid.ng-dirty {
   }
 }
 
-.modal-footer {
-  margin: 0;
-  .pull-left {
-    text-align: left;
+.selectedHub {
+  font-family: $logoTypeFace;
+  color: $basic-brown !important;
+  text-align: right;
+  text-decoration: none;
+  margin-top: -10px;
+  @media (max-width: $grid-float-breakpoint-max) {
+    margin-top: -5px;
   }
-}
-.modal-backdrop {
-//  background-color: #000 !important;
-}
-
-.modal {
-//  top: 15% !important;
-//  position: fixed !important;
+  .groupName {
+    font-size: 27px;
+    margin-right: 3px;
+    i {
+      font-size: 14px;
+    }
+  }
+  .groupLocation {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: -6px;
+    margin-right: 3px;
+  }
+  :hover {
+    color: $happy-blue;
+  }
 }
 
 .modal-body {
@@ -566,6 +599,13 @@ textarea.ng-invalid.ng-dirty {
   }
 }
 
+.modal-footer {
+  margin: 0;
+  .pull-left {
+    text-align: left;
+  }
+}
+
 .newProposal {
 //  padding-bottom: 18px;
 //  margin-bottom: -38px;
@@ -594,35 +634,11 @@ textarea.ng-invalid.ng-dirty {
       }
     }
   }
-  .proposal-area {
-  }
-  .text_input {
-    padding-left: 7px;
-  }
-}
-
-.selectedHub {
-  margin-top: -10px;
-  font-family: $logoTypeFace;
-  color: $basic-brown !important;
-  text-align: right;
-  text-decoration: none;
-  .groupName {
-    font-size: 27px;
-    margin-right: 3px;
-    i {
-      font-size: 14px;
-    }
-  }
-  .groupLocation {
-    font-size: 14px;
-    margin-top: -4px;
-    margin-bottom: -6px;
-    margin-right: 3px;
-  }
-  :hover {
-    color: $happy-blue;
-  }
+//  .proposal-area {
+//  }
+//  .text_input {
+//    padding-left: 7px;
+//  }
 }
 
 
@@ -745,7 +761,7 @@ textarea.ng-invalid.ng-dirty {
 // end Login elements
 
 // Partial imports
-@import 'partials/navigation';
+//@import 'partials/navigation';
 
 // content_pages elements
 .content_page {

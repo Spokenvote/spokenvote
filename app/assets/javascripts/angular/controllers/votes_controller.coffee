@@ -1,4 +1,4 @@
-SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, $modal) ->
+SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Vote', ( $scope, $location, $rootScope, $modalInstance, AlertService, Vote ) ->
   AlertService.clearAlerts()
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
@@ -11,14 +11,12 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, $modal) ->
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-      dialog.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'modal'
       AlertService.setJson response.data
     )
-
-#  $scope.close = (result) ->
-#    dialog.close(result)
+]
 
 ImroveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
@@ -137,7 +135,7 @@ NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Aler
 ]
 
 # Injects
-SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
+#SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
 #ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]

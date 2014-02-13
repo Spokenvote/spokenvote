@@ -1,4 +1,4 @@
-VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
+VotingService = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
 
   support: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
@@ -18,14 +18,23 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
           AlertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', scope, 'main'
         else
           if SessionSettings.openModals.supportProposal is false
-            scope.opts =
-              resolve:
-                $scope: ->
-                  scope
-#            d = $dialog.dialog(scope.opts)
-            SessionSettings.openModals.supportProposal = true
-            d.open('/assets/proposals/_support_modal.html', 'SupportCtrl').then (result) ->
-              SessionSettings.openModals.supportProposal = d.isOpen()
+            modalInstance = $modal.open
+              templateUrl: '/assets/proposals/_support_modal.html'
+              controller: 'SupportCtrl'
+              scope: scope
+            modalInstance.opened.then ->
+              SessionSettings.openModals.supportProposal = true
+            modalInstance.result.finally ->
+              SessionSettings.openModals.supportProposal = false
+
+#            scope.opts =
+#              resolve:
+#                $scope: ->
+#                  scope
+##            d = $dialog.dialog(scope.opts)
+#            SessionSettings.openModals.supportProposal = true
+#            d.open('/assets/proposals/_support_modal.html', 'SupportCtrl').then (result) ->
+#              SessionSettings.openModals.supportProposal = d.isOpen()
 
 
   improve: ( scope, clicked_proposal ) ->
@@ -95,8 +104,10 @@ VotingService = ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader
         modalInstance.result.finally ->
           SessionSettings.openModals.newProposal = false
 
+]
+
 # Injects
-VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
+#VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
 
 # Register
 App.Services.factory 'VotingService', VotingService

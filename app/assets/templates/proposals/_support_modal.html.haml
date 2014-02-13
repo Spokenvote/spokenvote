@@ -1,13 +1,14 @@
-#voteModal.modal
+#improveProposalModal
   .modal-header
-    .pull-right( class='close'  ng-click='close()' ) &times;
-    %h2 Proposal Support
+    .pull-right( class='close'  ng-click='$close()' ) &times;
+    %h2.modal-title Proposal Support
 
     .selectedHub
-      .hub
-        .pull-right
-          %h3 {{ clicked_proposal.hub.group_name }}
-          %h5 {{ clicked_proposal.hub.formatted_location }}
+      %span
+        .groupName
+          {{ clicked_proposal.hub.group_name }}
+        .groupLocation
+          {{ clicked_proposal.hub.formatted_location }}
 
   .modal-body
     #alertContainer

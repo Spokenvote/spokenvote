@@ -1,9 +1,9 @@
-$twitterBlack: #252525;
-$iPhoneSafariHearderWhite: #d8dfe5;
-$iPhoneHearderWhite: #eaeae7;
-$iPhoneHearderOffWhite: #ebebe8;
-$iPhoneHearderBrightWhite: #edf1f2;
-$iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
+//$twitterBlack: #252525;
+//$iPhoneSafariHearderWhite: #d8dfe5;
+//$iPhoneHearderWhite: #eaeae7;
+//$iPhoneHearderOffWhite: #ebebe8;
+//$iPhoneHearderBrightWhite: #edf1f2;
+//$iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
 
 .navbar {
   @media (max-width: $grid-float-breakpoint-max) {
@@ -121,60 +121,6 @@ header {
     padding: 9px 3px 0px 2px;
   }
 
-
-// Search box formatting
-
-.hub_search {
-  padding: 2px 9px 0px 18px;
-//  width: 45%;
-  a {
-    padding: 1px 4px;
-  }
-}
-
-.select2-container {
-  .select2-choice {
-    height: 32px;
-    line-height: 32px;
-    background: none;
-    background-image: none;
-    @media (max-width: $grid-float-breakpoint-max) {
-      min-width: none;
-      background: $iPhoneHearderBrightWhiteTransparent;
-      margin: 0px 5px;
-      border-radius: 1px;
-      abbr {
-        right: 5px;
-      }
-//      border: none;
-//      @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
-    }
-    @media (min-width: $grid-float-breakpoint) {
-      min-width: 330px;
-    }
-    //    background-color: rgba(255, 255, 255, 0.75);
-    //    border: none;
-    .select2-chosen {
-      font-size: 14px;
-      font-weight: 500;
-      text-align: center;
-      margin-right: 12px;
-//      color: rgba(51, 51, 51, 0.5);
-//      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
-    }
-    .select2-arrow {
-      display: none;
-    }
-  }
-}
-
-.select2-drop-active {
-  background-color: rgba(34, 34, 34, 0.75);
-}
-.select2-no-results {
-  background: none !important;
-  color: #999 !important;
-}
 
 #user_profile {
   li.dropdown {
