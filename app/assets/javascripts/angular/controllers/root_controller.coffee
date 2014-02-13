@@ -1,4 +1,4 @@
-RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
+RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService', ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
   $rootScope.alertService = AlertService
   $rootScope.authService = Auth
   $rootScope.sessionSettings = SessionSettings
@@ -45,6 +45,18 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
   $scope.clearFilter = (filter) ->
     $location.search(filter, null)
     $rootScope.sessionSettings.actions.userFilter = null
+
+  $scope.newTopic = ->
+    if $scope.sessionSettings.hub_attributes.id?
+      $scope.sessionSettings.actions.changeHub = false
+    else
+      $scope.sessionSettings.actions.searchTerm = null
+      $scope.sessionSettings.actions.changeHub = true
+    if $scope.currentUser.id?
+      VotingService.new $scope
+    else
+      $scope.authService.signinFb($scope).then ->
+        VotingService.new $scope, VotingService
 
 
   # All below had been decreciated in favor of Facebook sign in only
@@ -95,5 +107,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionSe
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+]
+
+#RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService' ]
 App.controller 'RootCtrl', RootCtrl

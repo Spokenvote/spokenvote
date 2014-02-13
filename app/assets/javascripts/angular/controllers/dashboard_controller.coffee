@@ -1,4 +1,4 @@
-DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
+DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', ( $scope, $route, $location, SessionSettings, CurrentHubLoader ) ->
   SessionSettings.routeParams = $route.current.params
 
 #  $scope.changeCanvas = ->
@@ -93,22 +93,24 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
-     
-  $scope.newTopic = ->
-    if $scope.sessionSettings.hub_attributes.id?
-      $scope.sessionSettings.actions.changeHub = false
-    else
-      $scope.sessionSettings.actions.searchTerm = null
-      $scope.sessionSettings.actions.changeHub = true
-    if $scope.currentUser.id?
-      VotingService.new $scope
-    else
-      $scope.authService.signinFb($scope).then ->
-        VotingService.new $scope, VotingService
+#
+#  $scope.newTopic = ->
+#    if $scope.sessionSettings.hub_attributes.id?
+#      $scope.sessionSettings.actions.changeHub = false
+#    else
+#      $scope.sessionSettings.actions.searchTerm = null
+#      $scope.sessionSettings.actions.changeHub = true
+#    if $scope.currentUser.id?
+#      VotingService.new $scope
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        VotingService.new $scope, VotingService
 
   $scope.clearHubFilter = ->
      $scope.hubFilter.hubFilter = null
 
-DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+]
+
+#DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader' ]
 
 App.controller 'DashboardCtrl', DashboardCtrl
