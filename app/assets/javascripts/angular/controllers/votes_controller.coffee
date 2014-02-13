@@ -125,6 +125,7 @@ NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Aler
       AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.',$scope
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
       $modalInstance.close(response)
+      $scope.sessionSettings.actions.offcanvas = false
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
