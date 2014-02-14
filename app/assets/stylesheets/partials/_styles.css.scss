@@ -579,7 +579,7 @@ textarea.ng-invalid.ng-dirty {
     margin: 0;
   }
   .instructions {
-    padding: 0px 10px 5px 10px;
+    padding: 0px 10px;
 //    font-family: inherit;
     //margin-top: ($gridGutterWidth * 0.3);
 //    margin-left: ($gridGutterWidth * 0.6);
@@ -601,6 +601,8 @@ textarea.ng-invalid.ng-dirty {
 
 .modal-footer {
   margin: 0;
+  padding: 20px;
+  min-height: 55px;
   .pull-left {
     text-align: left;
   }
@@ -611,9 +613,10 @@ textarea.ng-invalid.ng-dirty {
 //  margin-bottom: -38px;
   .changehub {
     .selecthub {
-      margin-top: 5px;
+//      margin-top: 5px;
       text-align: center;
-      padding-bottom: 32px;
+//      padding-bottom: 32px;
+      padding: 5% 0 5% 0;
     }
     .makeHub {
       padding-bottom: 22px;

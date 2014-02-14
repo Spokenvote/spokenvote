@@ -26,10 +26,9 @@
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
             %h5 Set the group for your proposal. Start by searching below to see if the group exists yet. If it doesn't, create it.
 
-          .selecthub( ng-controller='DashboardCtrl' )
-            .hub_search-xs( role='search' )
-              .hub_filter
-                %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+          .selecthub( ng-controller='DashboardCtrl' role='search' )
+            -#.hub_search-xs( role='search' )
+            %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
           .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
             %h5
