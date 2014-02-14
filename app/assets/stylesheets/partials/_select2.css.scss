@@ -13,13 +13,16 @@
   .select2-choice {
     height: 32px;
     line-height: 32px;
-    background: none;
-    background-image: none;
+//    background: none;
+//    background-image: none;
+    border: none;
+    box-shadow: none;
+    background: $googlePanelGreyLettering;
     @media (max-width: $grid-float-breakpoint-max) {
       min-width: none;
-      background: $iPhoneHearderBrightWhiteTransparent;
-      margin: 0px 5px;
-      border-radius: 1px;
+      //      background: $iPhoneHearderBrightWhiteTransparent;
+//      margin: 0px 5px;
+      border-radius: 3px;
       abbr {
         right: 5px;
       }
@@ -45,8 +48,19 @@
   }
 }
 
+.select2-search {
+  input {
+    background: $chisel-grey;
+    border: none;
+    border-radius: 2px;
+  }
+}
+
 .select2-drop-active {
-  background-color: rgba(34, 34, 34, 0.75);
+//  background-color: rgba(34, 34, 34, 0.75);
+  background-color: $googlePanelGreyLettering;
+  border: none;
+  box-shadow: none;
 }
 .select2-no-results {
   background: none !important;

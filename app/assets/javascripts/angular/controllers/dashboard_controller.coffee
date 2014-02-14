@@ -34,7 +34,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
     placeholder: "<i class='glyphicon glyphicon-search'></i>" + ' Find your Group or Location '
-    width: '100%'
+    width: '98%'
     allowClear: true
     ajax:
       url: "/hubs"
