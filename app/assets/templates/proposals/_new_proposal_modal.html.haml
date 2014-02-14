@@ -27,21 +27,26 @@
             %h5 Set the group for your proposal. Start by searching below to see if the group exists yet. If it doesn't, create it.
 
           .selecthub( ng-controller='DashboardCtrl' role='search' )
-            -#.hub_search-xs( role='search' )
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
           .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
             %h5
               .hint-text Hint!  Double-check to make sure your group does not already exist by trying alternate spellings above.
-            %h3 or create your new group below ...
+            %h3 Creating a new group ...
             %input( name="group_name" id='group_name' type='text' class='input-xlarge'
-              placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5' required)
-            %span( ng-hide='newProposalForm.group_name.$valid' ) 5 character minimum
+              placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
+            .length_counter( ng-show='newProposal.newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} characters remaining
+            .length_counter.error-text( ng-show='newProposal.newProposalForm.group_name.$invalid && !newProposal.newProposalForm.group_name.$error.minlength && !newProposal.newProposalForm.group_name.$error.maxlength' )
+              %i( class='glyphicon glyphicon-warning-sign' )
+              %span &nbsp Required
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.minlength" ) Too Short
+            .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" ) Too Long
 
             %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
               placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
-            %span.error-text( ng-hide='newProposalForm.formatted_location.$valid' )
-              %i( class='glyphicon glyphicon-warning-sign' ) &nbsp Choose a valid location.
+            .error-text( ng-hide='newProposalForm.formatted_location.$valid' )
+              %i( class='glyphicon glyphicon-warning-sign' )
+              %span &nbsp Choose a valid location.
             %span( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
               %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
