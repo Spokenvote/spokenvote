@@ -632,8 +632,13 @@ textarea.ng-invalid.ng-dirty {
 //        margin-right: 55px;
         padding-bottom: 4px;
       }
-      input {
-        margin-left: 18px;
+      .input-area {
+        width: 90%;
+
+        input {
+//          margin-left: 18px;
+          width: 100%
+        }
       }
     }
   }
