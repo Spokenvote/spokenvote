@@ -192,7 +192,8 @@ body {
 
 input {
   border-radius: 4px;
-  margin: 2px 3px 11px 3px;
+  padding: 5px;
+  //  margin: 2px 3px 11px 3px;          // this global imput setting is strange
 }
 
 #mainContent {
@@ -283,7 +284,8 @@ input {
 
 .length_counter {
   text-align: right;
-  margin-right: ($gridGutterWidth * 1.25);
+//  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
+  padding: 3px 5px 10px 5px;
   font-size: 10px;
   line-height: 13px;
   //  margin-top: ($gridGutterWidth * -0.55);
@@ -293,6 +295,10 @@ input {
 
 .error-text {
   color: $error-text-red;
+}
+
+.happy-text {
+  color: $alert-blue;
 }
 
 .hint-text {
@@ -633,11 +639,15 @@ textarea.ng-invalid.ng-dirty {
         padding-bottom: 4px;
       }
       .input-area {
-        width: 90%;
-
+//        width: 90%;
+        padding: 5px 15px;
+        width: 287px;
+        min-width: 70%;
         input {
-//          margin-left: 18px;
-          width: 100%
+          width: 100%;
+        }
+        .length_counter.happy-text a.link {
+          color: $alert-blue;
         }
       }
     }
