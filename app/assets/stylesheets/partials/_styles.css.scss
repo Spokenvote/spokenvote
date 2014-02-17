@@ -190,12 +190,6 @@ body {
   @include clearfix;
 }
 
-input {
-  border-radius: 4px;
-  padding: 5px;
-  //  margin: 2px 3px 11px 3px;          // this global imput setting is strange
-}
-
 #mainContent {
   padding: $gridGutterWidth * .5;
 //  padding: $gridGutterWidth * 2 $gridGutterWidth * .5;
@@ -206,13 +200,74 @@ input {
 //  }
 }
 
-
 //.col-xm-11 > .form-horizontal {
 //  margin-top: $gridGutterWidth;
 //  .form-group, .supporting-args {
 //    margin-bottom: ($gridGutterWidth/2);
 //  }
 //}
+
+input {
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  //  margin: 2px 3px 11px 3px;          // this global imput setting is strange
+}
+
+textarea {
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  height: 60px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.thee_quarter-width {
+  width: 71%;
+}
+
+.length_counter {
+  text-align: right;
+  //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
+  padding: 3px 5px 10px 5px;
+  font-size: 10px;
+  line-height: 13px;
+  //  margin-top: ($gridGutterWidth * -0.55);
+  //  margin-bottom: ($gridGutterWidth * 0.30);
+  //  color: gray;
+}
+
+.error-text {
+  color: $error-text-red;
+}
+
+.happy-text {
+  color: $alert-blue;
+}
+
+.hint-text {
+  font-style: italic;
+  color: $alert-blue;
+  text-align: center;
+  padding: 0 5% 2% 5%;
+}
+
+.popover {
+  z-index: 12001;
+}
+
+.popover-content * {
+  white-space: normal;
+  font-size: 13px;
+}
+
 
 .alert {
   margin-left: $gridGutterWidth;
@@ -224,7 +279,6 @@ input {
 .no-gutter {
   margin-left: 0;
 }
-
 
 #alertContainer {
 
@@ -280,32 +334,6 @@ input {
   line-height: 18px;
   vertical-align: top;
   margin-right: -1px;
-}
-
-.length_counter {
-  text-align: right;
-//  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
-  padding: 3px 5px 10px 5px;
-  font-size: 10px;
-  line-height: 13px;
-  //  margin-top: ($gridGutterWidth * -0.55);
-  //  margin-bottom: ($gridGutterWidth * 0.30);
-//  color: gray;
-}
-
-.error-text {
-  color: $error-text-red;
-}
-
-.happy-text {
-  color: $alert-blue;
-}
-
-.hint-text {
-  font-style: italic;
-  color: $alert-blue;
-  text-align: center;
-  padding: 0 5% 2% 5%;
 }
 
 .right-column {
@@ -427,35 +455,10 @@ h2 {
 //  }
 //}
 
-textarea {
-  height: 60px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.half-width {
-  width: 48%;
-}
-
-.thee_quarter-width {
-  width: 71%;
-}
-
-.popover {
-  z-index: 12001;
-}
-
-.popover-content * {
-  white-space: normal;
-  font-size: 13px;
-}
 
 // Angular-specific Styles
 
 //ng-valid
-
 input.ng-invalid.ng-dirty {
   border-color: #e9322d !important;
   -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
@@ -473,7 +476,6 @@ textarea.ng-invalid.ng-dirty {
 //ng-pristine
 
 //ng-dirty
-
 .input-below-text {
   margin-top: ($gridGutterWidth * -0.5);
   margin-bottom: ($gridGutterWidth * 0.5);
