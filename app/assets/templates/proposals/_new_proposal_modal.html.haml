@@ -30,10 +30,9 @@
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
           .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
-            %h5
-              .hint-text
-                .fa.fa-lightbulb-o
-                %span Hint! &nbsp Double-check to make sure your group does not already exist by trying alternate spellings above.
+            %h5.hint-text
+            .fa.fa-lightbulb-o
+              %span Hint! &nbsp Double-check to make sure your group does not already exist by trying alternate spellings above.
             %h3 Create new group
             .input-area
               %input( name="group_name" id='group_name' type='text' class='input-xlarge'

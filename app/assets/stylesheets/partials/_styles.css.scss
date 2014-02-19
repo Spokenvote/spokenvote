@@ -222,6 +222,7 @@ textarea {
   padding: 5px;
   border-radius: 4px;
   height: 60px;
+  margin: 5px 0 0 0;
 }
 
 .full-width {
@@ -239,7 +240,7 @@ textarea {
 .length_counter {
   text-align: right;
   //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
-  padding: 2px 5px;
+  padding: 0 5px 2px 5px;
   font-size: 10px;
   line-height: 13px;
   //  margin-top: ($gridGutterWidth * -0.55);
@@ -259,7 +260,8 @@ textarea {
   font-style: italic;
   color: $alert-blue;
   text-align: center;
-  padding: 0 5% 2% 5%;
+  margin: 0;
+  padding: 3% 5%;
 }
 
 .popover {
@@ -583,35 +585,24 @@ textarea.ng-invalid.ng-dirty {
 .modal-body {
   background-color: $modal-body-off-white;
   padding: 3%;
-//  padding-top: $gridGutterWidth;
   form {
-//    margin-bottom: 0;
-//    padding-left: 10px;
   }
   .form-group {
-    padding: 5px;
-//    margin: 0;
+    padding: 3px 3px 0 3px;
   }
   .instructions {
     padding: 0px 10px;
     @media (min-width: $grid-float-breakpoint) {
       padding: 0px 10px 20px 10px;
     }
-      //    font-family: inherit;
-    //margin-top: ($gridGutterWidth * 0.3);
-//    margin-left: ($gridGutterWidth * 0.6);
-    //padding-bottom: 18px ;
     .avatar {
       padding: 3px 5px 5px 5px;
       float: left;
       height: 100%;
-      //      margin-left: ($gridGutterWidth * 2);
     }
     h5 {
       color: $soft-brown-text;
       padding-left: 50px;
-      //      margin-right: $gridGutterWidth * 2;
-//      padding: 0 0 ($gridGutterWidth * 2) ($gridGutterWidth * 6.5);
     }
   }
 }
@@ -1172,7 +1163,12 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .proposal_statement {
-  padding: 3% 1%;
+  padding: 2% 1% 0 1%;
+  .originalProposal {
+    background: lightgray;
+    border-radius: 4px;
+    margin: 5px 0 0 0;
+  }
   .active & {
     width: 97%;
   }
@@ -1187,13 +1183,13 @@ textarea.ng-invalid.ng-dirty {
   }
   h4 {
     font-style: italic;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 0;
+    padding: 5px;
+    margin: 0 0 10px 0;
     color: #999999;
   }
   h5 {
     color: $soft-brown-text;
+    margin: 0;
   }
 }
 
