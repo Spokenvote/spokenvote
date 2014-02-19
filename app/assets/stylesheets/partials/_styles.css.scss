@@ -239,7 +239,7 @@ textarea {
 .length_counter {
   text-align: right;
   //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
-  padding: 3px 5px 10px 5px;
+  padding: 2px 5px;
   font-size: 10px;
   line-height: 13px;
   //  margin-top: ($gridGutterWidth * -0.55);
@@ -592,7 +592,10 @@ textarea.ng-invalid.ng-dirty {
   }
   .instructions {
     padding: 0px 10px;
-//    font-family: inherit;
+    @media (min-width: $grid-float-breakpoint) {
+      padding: 0px 10px 20px 10px;
+    }
+      //    font-family: inherit;
     //margin-top: ($gridGutterWidth * 0.3);
 //    margin-left: ($gridGutterWidth * 0.6);
     //padding-bottom: 18px ;
@@ -626,10 +629,10 @@ textarea.ng-invalid.ng-dirty {
   .changehub {
     .selecthub {
       text-align: center;
-      padding: 4% 2%;
+      padding: 2%;
     }
     .makeHub {
-      padding-bottom: 22px;
+//      padding-bottom: 22px;
       h3 {
 //        font-style: italic;
         color: $happy-blue;
@@ -638,11 +641,12 @@ textarea.ng-invalid.ng-dirty {
         padding: 5px;
       }
       .input-area {
-        padding: 5px 15px;
+        padding: 0 15px;
         width: 287px;
         min-width: 70%;
         input {
           width: 100%;
+          margin-top: 5px;
         }
         .length_counter.happy-text a.link {
           color: $alert-blue;
