@@ -50,17 +50,18 @@ $gridGutterWidth:         10px !default;
 //$headingsColor: #444;
 //$heroUnitHeadingColor: $headingsColor;
 
-// Type Variables
-$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$logoTypeFace: 'Yanone Kaffeesatz', sans-serif;
+// Typography Variables
+$font-size-base:          14px;
+$font-family-sans-serif:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$logoTypeFace:            'Yanone Kaffeesatz', sans-serif;
 
 // Modal Variables
 $modal-title-padding: 2.8%;
 
 @import 'bootstrap';
+@import 'partials/select2';
+@import "compass";
+
 @import 'partials/styles';
 @import 'partials/navigation';
-@import 'partials/select2';
-
-
-
+@import 'partials/off_canvas';

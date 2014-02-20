@@ -1,178 +1,19 @@
-@import "compass";
-
-//// Spokenvote Colors
-//$happy-blue: #1c85f6;
-//$spring-green: #50D050;
-//$chisel-grey: #c1c1c1;
-//$modal-body-off-white: #DFDFDF;
-//$soft-grey: rgba(132, 132, 132, 0.75);
-//$basic-brown: #444;
-//$soft-brown-text: #555555;
-//$facebook-blue: #3B5998;
-//$alert-blue: #284784;
-//$error-text-red: #b94a48;
-//$tag-blue: rgba(28, 133, 246, 0.25);
-//$smokeyLebel: rgba(153, 153, 153, 0.46);
-//
-//$rowHighlight: rgba(240, 240, 255, 0.45);
-//$rowRuler: rgba(68, 68, 68, 0.35);
-//
-//$googlePanelGrey: #252626;
-//$googlePanelGreyLettering: #cecece;
-//
-//$gridGutterWidth:         10px !default;
-//
-////$headingsColor: #315c99;
-////$headingsColor: #444;
-////$heroUnitHeadingColor: $headingsColor;
-
 
 // structural styles
 
 body {
-//  padding-top: ($gridGutterWidth * 2);
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
   overflow-x: hidden;
+  @media (min-width: $grid-float-breakpoint) {
+    padding-top: ($gridGutterWidth * 2);
+    font-size: 1.4em;
+  }
 }
 
 .container-fluid {
   padding: 0 15px;
   overflow-x: hidden;
 }
-
-.row-offcanvas {
-  position: relative;
-  left: 0%;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  transition: all .5s ease;
-}
-
-.row-offcanvas-left
-.sidebar-offcanvas {
-  left: -83.3333333333%; // Inverse of Sidebar Menu width below
-}
-
-.row-offcanvas-left.active {
-  left: 90%; // Distance moved to right to show Sidebar
-}
-
-.sidebar-offcanvas {
-  position: absolute;
-  top: 0;
-  width: 83.3333333333%; // Sidebar Menu width
-  padding: 40px 3px 0px 30px;
-  height: 100%;
-  background-color: $googlePanelGrey;
-  background-image: url(patterns/transit_grey.png);
-  .panel-group {
-    margin: 0;
-    .panel {
-      background: none;
-      border: none;
-      padding: 0;
-      .panel-heading {
-        background-color: transparent;
-        padding: 0;
-      }
-      .panel-body {
-        border: none;
-        padding: 8px 0px 0px 15px;
-      }
-    }
-  }
-  ul {
-    list-style: none;
-    font-size: 1.2em;
-    margin-bottom: 0;
-    padding: 0px 0px 0px 0px;
-    li {
-      color: $googlePanelGreyLettering;
-      padding: 10px 10px 10px 0px;
-      ul {
-        li {
-          padding: 5px;
-        }
-      }
-      .action-links {
-        font-size: .92em;
-        font-weight: 300;
-        span {
-          vertical-align: super;
-        }
-        .fa {
-          font-size: 1.8em;
-          width: 33px;
-        }
-        .entypo {
-          font-size: 1.8em;
-          width: 33px;
-        }
-      }
-      .category-links {
-        font-weight: 400;
-        .fa {
-          font-size: 1.4em;
-          padding: 0 8px 0 7px;
-        }
-      }
-      .fa.pull-right {
-        font-size: 1.2em;
-        line-height: 1.5em;
-      }
-      .fa.sub {
-        font-size: 1.3em;
-        vertical-align: super;
-      }
-      .active {
-        color: $rowHighlight;
-      }
-      .glyphicon {
-        font-size: 1.8em;
-      }
-      a {
-        color: $googlePanelGreyLettering;
-      }
-      .hr {
-        margin-left: -5px;
-        border-top-width: 1.8px;
-        border-color: rgba(37, 38, 38, 1);
-        background-color: rgba(245, 245, 245, 0.05);
-        border-top-color: rgba(37, 38, 38, 0.9);
-        border-bottom-color: rgba(255, 255, 255, .05);
-      }
-    }
-    :hover {
-      text-decoration: none;
-      color: $rowHighlight;
-      cursor: pointer;
-    }
-  }
-}
-
-//.row-offcanvas .mainCanvas {
-//  width:calc(100% - 60px);
-//}
-
-.mainCanvas {
-  padding: 0;
-}
-//footer {
-//  &.navbar {
-//    margin-bottom: 0;
-//    margin-top: ($gridGutterWidth/10);
-//  }
-//  .container {
-//    padding: ($gridGutterWidth/2) 0;
-//  }
-//  a {
-//    color: #fff;
-//  }
-//}
-
-//.container {
-//  @extend .col-xs-12;
-//}
 
 #main {
   overflow: visible;
@@ -927,7 +768,9 @@ textarea.ng-invalid.ng-dirty {
 //    line-height: 25px;
     border-bottom: 1px solid $rowRuler;
     padding: 0px 10px;
-//    position: relative;
+    @media (min-width: $grid-float-breakpoint) {
+      padding: 0px 25px;
+    }
   }
 
   .topic {
@@ -935,23 +778,24 @@ textarea.ng-invalid.ng-dirty {
   }
 
   .list-avatar {
-
-//    max-width: 40px;
-    padding: 0px 0px 0px 0px;
+    padding: 0px;
     .avatar-sprite {
-      width: 20px;
+      max-height: 30px;
+//      width: 20px;
     }
     img {
 //      vertical-align: bottom;
-      width: 25px;
-      height: auto;
+      @media (max-width: $grid-float-breakpoint-max) {
+        width: 25px;
+        height: auto;
+      }
     }
   }
 
   .topic-and-hub {
     padding: 0px 15px 0px 3px;
     .proposal {
-      font-size: 1.24em;
+      font-size: 1.3em;
       line-height: 100%;
       :hover {
         color: $happy-blue;
@@ -1287,8 +1131,8 @@ textarea.ng-invalid.ng-dirty {
     text-decoration: none;
     :hover {
       color: $happy-blue!important;
-      }
     }
   }
+}
 
 // end Proposal-related
