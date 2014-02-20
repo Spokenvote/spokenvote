@@ -19,21 +19,30 @@
         .avatar
           %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
         %h5 Ok, I am adding support to the proposal shown below.
-        .proposal_statement
+
+      .proposal_statement
+        .form-group
+          %h5 Proposal
+          .originalProposal
+            %h4 {{ clicked_proposal.statement }}
+
+        -#.proposal_statement
           %h4 {{ clicked_proposal.statement }}
 
-      %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='280'
-        placeholder='Explain why you want to support this proposal.' )
-      .length_counter.happy-text( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
-        .fa.fa-warning
-        %span Required
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' )
-        .fa.fa-warning
-        %span Too Short
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' )
-        .fa.fa-warning
-        %span Too Long
+        .text_input
+          .form-group
+            %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='280'
+              placeholder='Explain why you want to support this proposal.' )
+            .length_counter.happy-text( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
+              .fa.fa-warning
+              %span Required
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' )
+              .fa.fa-warning
+              %span Too Short
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' )
+              .fa.fa-warning
+              %span Too Long
 
   .modal-footer
     %fieldset
