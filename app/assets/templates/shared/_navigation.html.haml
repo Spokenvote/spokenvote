@@ -33,13 +33,13 @@
               %span.vote
                 Vote
 
-        .hub_search.navbar-form.col-xs-5( role='search' )
+        .hub_search.navbar-form.col-xs-6( role='search' )
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
         .new_topic.navbar-btn.col-xs-2
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
-        .navbar-nav.col-xs-2
+        .col-xs-2
           %ul#user_profile.nav.navbar-nav.pull-right
             %li.dropdown( data-placement='bottom' )
               %a.dropdown-toggle( data-toggle='dropdown' )
@@ -67,7 +67,7 @@
                 %li
                   %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
-        .col-xs-1.navbar-btn.pull-right
+        .user_area.navbar-btn.col-xs-1
           .avatar.navbar-btn.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
             %a(href='/proposals?filter=my')
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )

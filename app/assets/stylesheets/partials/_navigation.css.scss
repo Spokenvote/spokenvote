@@ -113,16 +113,17 @@ header.visible-xs {
   }
 }
 
-  .new_topic {
-    margin-left: 0;
-    margin-right: -9px;
-    padding: 9px 3px 0px 2px;
-  }
+.new_topic {
+  padding: 2px 0 0 60px;
+}
 
+.user_area {
+  padding: 0;
+}
 
 #user_profile {
+  padding: 5px 0;
   li.dropdown {
-//    padding-left: 10px;
   }
   li.avatar {
     margin-top: -7px;
