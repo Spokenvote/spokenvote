@@ -8,7 +8,10 @@
             %span() for
             %span( class='tag_item' )
               %span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
-              %span( class='close_x' ) &times;
+              .fa.fa-times
+              -#%span( class='close_x' ) &times;
+            %span &nbsp
+
 
       %h2.btn-group.pull-right
         %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
@@ -16,10 +19,10 @@
           %span My Votes
         %button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
           .fa.sub.fa-tachometer
-          %span Active
+          %span &nbsp Active
         %button( type='button' ng-click="setFilter('new')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'new'" )
           .fa.sub.fa-clock-o
-          %span Recent
+          %span &nbsp Recent
     .clearfix
 
   .listing-proposals

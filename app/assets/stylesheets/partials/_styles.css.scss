@@ -159,9 +159,11 @@ textarea {
   -moz-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
   padding: 0px 4px 0px 4px;
-  .close_x {
-    font-size: 14px;
+//  .close_x {
+  .fa-times {
+    font-size: .5em;
     font-weight: bold;
+    margin-right: -7px;
     line-height: 20px;
     color: black;
     text-shadow: 0 1px 0 white;
