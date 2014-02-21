@@ -2,7 +2,8 @@
   .panel.panel-default.hidden-xs
     .panel-title
       .title.pull-left
-        %h3( colspan='5' )
+        -#%h3( colspan='5' )
+        %h2
           %span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
             %span() for
@@ -10,12 +11,17 @@
               %span {{ sessionSettings.actions.userFilter }}
               %span( class='close_x' ) &times;
 
-      .pull-right
-        .btn-group
-          %button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" ) <i class='glyphicon glyphicon-fire'></i> &nbsp Active &nbsp
-          %button( type='button' ng-click="setFilter('new')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'new'" ) <i class='glyphicon glyphicon-time'></i> &nbsp Recent &nbsp
-          %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' ) <i class='glyphicon glyphicon-heart'></i> My Votes
-      .clearfix
+      %h2.btn-group.pull-right
+        %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
+          .fa.sub.fa-check-square-o
+          %span My Votes
+        %button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
+          .fa.sub.fa-tachometer
+          %span Active
+        %button( type='button' ng-click="setFilter('new')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'new'" )
+          .fa.sub.fa-clock-o
+          %span Recent
+    .clearfix
 
   .listing-proposals
     %ul( ng-repeat='proposal in proposals' )

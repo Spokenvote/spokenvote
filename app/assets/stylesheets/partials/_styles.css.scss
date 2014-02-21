@@ -718,13 +718,16 @@ textarea.ng-invalid.ng-dirty {
 }
 
 .panel {
-  padding: 4px;
+  padding: 10px;
   margin: 0;
   background-color: #e5e5e5;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
   border: 1px solid #c8c8c8;
   border-color: rgba(0,0,0,0.2);
   border-radius: 5px;
+  button {
+    font-size: .7em;
+  }
 }
 
 .landing_hubfilter {
