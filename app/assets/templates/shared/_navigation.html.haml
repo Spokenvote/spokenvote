@@ -1,18 +1,6 @@
-%header.navbar.navbar-default( ng-controller='DashboardCtrl' role='navigation' )
-  .navbar-header
-    .hidden-xs
-      .navbar-brand
-        %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
-          %span.spoken
-            Spoken
-          %span.vote
-            Vote
-      .hub_search.navbar-form.navbar-left( role='search' )
-        %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
-      .new_topic.nav.navbar-nav
-        %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
-
-    .visible-xs
+#topBar( ng-controller='DashboardCtrl' )
+  %header.navbar.navbar-default.visible-xs
+    .navbar-header
       -#%button.navbar-toggle.pull-left( ng-click='changeCanvas()' type='button' )
       %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' )
         %span.sr-only Toggle navigation
@@ -33,7 +21,20 @@
       .hub_search-xs( role='search' )
         %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-  #collapse-main.collapse.navbar-collapse
+  %header.hidden-xs.navbar.navbar-inverse
+    .navbar-header
+      .navbar-brand
+        %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+          %span.spoken
+            Spoken
+          %span.vote
+            Vote
+      .hub_search.navbar-form.navbar-left( role='search' )
+        %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+      .new_topic.nav.navbar-nav
+        %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
+
+    -##collapse-main.collapse.navbar-collapse
 
     %ul#user_profile.nav.navbar-nav.navbar-right
       %li.dropdown( data-placement='bottom' )
