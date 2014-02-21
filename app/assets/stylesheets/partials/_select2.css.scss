@@ -11,35 +11,35 @@
 
 .select2-container {
   .select2-choice {
-    display: table;
     height: 32px;
     line-height: 32px;
     border: none;
     box-shadow: none;
+    outline: none;
     background: $googlePanelGreyLettering;
+    abbr {
+      right: 13px;
+    }
     @media (max-width: $grid-float-breakpoint-max) {
-      min-width: none;
-      //      background: $iPhoneHearderBrightWhiteTransparent;
-//      margin: 0px 5px;
-      border-radius: 4px;
       abbr {
-        right: 5px;
-      }
-      //      border: none;
-      //      @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+          right: 5px;
+        }
     }
     @media (min-width: $grid-float-breakpoint) {
+//      display: table;
+      min-width: none;
       min-width: 425px;
       height: 43px;
     }
     .select2-chosen {
-      display: table-cell;
-      vertical-align: middle;
       font-size: 14px;
       font-weight: 500;
       text-align: center;
       margin-right: 12px;
       @media (min-width: $grid-float-breakpoint) {
+//        display: table-cell;
+        padding: 5px;
+        vertical-align: middle;
         font-size: 1em;
         height: 100%;
         //        font-weight: 500;
