@@ -36,32 +36,31 @@ header.visible-xs {
 
 .navbar-inverse {
   background-image: url(patterns/transit_grey.png);
-  .container {
-//    max-width: 1300px;
-//    margin-right: auto;
-//    margin-left: auto;
-    .navbar {
-      color: #000;
-      border-color: #315c99;
-    }
-    form {
-  //    display: inline-block;
-      input, .btn {
-        vertical-align: baseline;
-        margin-right: 0;
-      }
-    }
-    .input {
-      margin-top: 0;
-    }
-    .input-append {
-      margin-top: -2px;
-    }
-    .input-append .btn {
-      margin-left: -4px;
-      font-variant: small-caps;
-    }
-  }
+
+//  .container {
+//    .navbar {
+//      color: #000;
+//      border-color: #315c99;
+//    }
+//    form {
+//  //    display: inline-block;
+//      input, .btn {
+//        vertical-align: baseline;
+//        margin-right: 0;
+//      }
+//    }
+//    .input {
+//      margin-top: 0;
+//    }
+//    .input-append {
+//      margin-top: -2px;
+//    }
+//    .input-append .btn {
+//      margin-left: -4px;
+//      font-variant: small-caps;
+//    }
+//  }
+
 }
 
 .sv-logo {

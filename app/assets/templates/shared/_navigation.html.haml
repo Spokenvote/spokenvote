@@ -21,12 +21,8 @@
       .hub_search-xs( role='search' )
         %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-  -#%header.hidden-xs.navbar.navbar-inverse
-    .col-xs-6
-      hi
-    .col-xs-6
-      hi
-  %header.hidden-xs.navbar.navbar-inverse
+  -#%header.hidden-xs.navbar.navbar-inverse.nav.navbar-fixed-top
+  %header.hidden-xs.navbar.navbar-inverse.navbar-fixed-top
     .container
       .row
         .navbar-header.col-xs-2
@@ -37,16 +33,14 @@
               %span.vote
                 Vote
 
-        -#.hub_search.navbar-form.navbar-left.col-xs-5( role='search' )
         .hub_search.navbar-form.col-xs-5( role='search' )
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
-        .new_topic.nav.navbar-nav.col-xs-2
+        .new_topic.navbar-btn.col-xs-2
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
-        -#.nav.navbar-nav.navbar-right
-        .nav.navbar-nav.col-xs-2
-          %ul#user_profile.pull-right
+        .navbar-nav.col-xs-2
+          %ul#user_profile.nav.navbar-nav.pull-right
             %li.dropdown( data-placement='bottom' )
               %a.dropdown-toggle( data-toggle='dropdown' )
                 %b.white {{ currentUser.first_name || 'Learn' }}
@@ -73,12 +67,12 @@
                 %li
                   %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
-        .col-xs-1.pull-right
-          .avatar.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
+        .col-xs-1.navbar-btn.pull-right
+          .avatar.navbar-btn.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
             %a(href='/proposals?filter=my')
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
 
-          .buttons.pull-right( ng-show='!currentUser.username' )
+          .buttons.navbar-btn.pull-right( ng-show='!currentUser.username' )
             %button( ng-click="signinAuth()" class='btn btn-info btn-bold' ) Sign In
             -#%button( ng-click="facebookAuth2()" class='btn btn-info btn-bold' ) My Spokenvote
             -#%button( ng-click="signInModal()" class='btn btn-info btn-bold' ) Sign In
