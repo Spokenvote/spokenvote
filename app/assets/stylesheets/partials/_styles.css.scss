@@ -19,16 +19,14 @@ body {
   overflow: visible;
   background: url(noisy_grid.png);
   min-height: 1200px;
-//  padding-top: 15px;
+//  max-width: 1300px;
+//  margin-right: auto;
+//  margin-left: auto;
+  //  padding-top: 15px;
   //height: auto;
   .content {
     overflow: visible;
   }
-}
-
-.content {
-  margin: 0;
-  @include clearfix;
 }
 
 #mainContent {
@@ -49,6 +47,12 @@ body {
 //    margin-bottom: ($gridGutterWidth/2);
 //  }
 //}
+
+
+.content {
+  margin: 0;
+  @include clearfix;
+}
 
 .form-group {
   margin: 0;
