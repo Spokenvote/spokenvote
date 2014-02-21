@@ -20,6 +20,6 @@ child :hub do
 end
 
 child :votes do
-  attributes :gravatar_hash, :facebook_auth
+  attributes :gravatar_hash, :facebook_auth, :username
 end
 

@@ -2,13 +2,12 @@
   .panel.panel-default.hidden-xs
     .panel-title
       .title.pull-left
-        -#%h3( colspan='5' )
         %h2
           %span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
-          %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
+          %span( ui-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
             %span() for
             %span( class='tag_item' )
-              %span {{ sessionSettings.actions.userFilter }}
+              %span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
               %span( class='close_x' ) &times;
 
       %h2.btn-group.pull-right

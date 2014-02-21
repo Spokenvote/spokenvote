@@ -44,7 +44,7 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
 
   $scope.clearFilter = (filter) ->
     $location.search(filter, null)
-    $rootScope.sessionSettings.actions.userFilter = null
+    $rootScope.sessionSettings.routeParams.user = null
 
   $scope.newTopic = ->
     if $scope.sessionSettings.hub_attributes.id?
