@@ -1,5 +1,5 @@
 #topBar( ng-controller='DashboardCtrl' )
-  %header.navbar.navbar-default.visible-xs
+  %header.navbar.navbar-default.hidden-lg
     .navbar-header
       -#%button.navbar-toggle.pull-left( ng-click='changeCanvas()' type='button' )
       %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' )
@@ -22,12 +22,12 @@
         %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
   -#%header.hidden-xs.navbar.navbar-inverse.nav.navbar-fixed-top
-  %header.hidden-xs.navbar.navbar-inverse.navbar-fixed-top
+  %header.navbar.navbar-inverse.navbar-fixed-top.visible-lg
     .container
       .row
         .navbar-header.col-xs-2
           .navbar-brand
-            %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+            .sv-logo( href='/landing' ng-click="clearHubFilter()" )
               %span.spoken
                 Spoken
               %span.vote

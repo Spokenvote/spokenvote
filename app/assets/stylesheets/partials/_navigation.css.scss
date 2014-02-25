@@ -63,23 +63,29 @@ header.visible-xs {
 
 }
 
+.navbar-brand {
+  padding-top: 19px;
+}
+
 .sv-logo {
-  font-size: 2em;
+  font-size: 2.2em;
 //  font-size: 30px;
   float: none;
-  font-weight: 700;
+  font-weight: 600;
   font-family: $logoTypeFace;
   letter-spacing: -1px;
   text-decoration: none;
   &:hover span.vote, &:hover span.spoken {
     color: $smokeyLebel;
+    cursor: pointer;
+//    text-decoration: none;
+  }
+  span.spoken {
+    color: $happy-blue;
   }
   span.vote {
     color: $spring-green;
     margin-left: -3px;
-  }
-  span.spoken {
-    color: $happy-blue;
   }
 }
 
