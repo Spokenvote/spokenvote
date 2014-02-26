@@ -17,6 +17,7 @@
 
 
 // Color Variables
+
 $twitterBlack: #252525;
 $iPhoneSafariHearderWhite: #d8dfe5;
 $iPhoneHearderWhite: #eaeae7;
@@ -51,17 +52,25 @@ $gridGutterWidth:         10px !default;
 //$heroUnitHeadingColor: $headingsColor;
 
 // Typography Variables
+
 $font-size-base:          14px;
 $font-family-sans-serif:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $logoTypeFace:            'Yanone Kaffeesatz', sans-serif;
 
 // Modal Variables
+
 $modal-title-padding: 2.8%;
+
+// Partial imports
 
 @import 'bootstrap';
 @import 'partials/select2';
 @import "compass";
 
-@import 'partials/styles';
-@import 'partials/navigation';
+@import 'partials/structural';
 @import 'partials/off_canvas';
+@import 'partials/navigation';
+@import 'partials/content_pages';
+@import 'partials/proposal_index';
+@import 'partials/proposal_create';
+@import 'partials/proposal_show';

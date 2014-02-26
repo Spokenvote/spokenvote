@@ -1,0 +1,85 @@
+
+.btn-newTopic {
+  //  width: 100%;
+  height: 45px;
+  font-size: .9em;
+  background-color: hsl(36, 80%, 40%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eaa947", endColorstr="#b77614");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#eaa947), to(#b77614));
+  background-image: -moz-linear-gradient(top, #eaa947, #b77614);
+  background-image: -ms-linear-gradient(top, #eaa947, #b77614);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaa947), color-stop(100%, #b77614));
+  background-image: -webkit-linear-gradient(top, #eaa947, #b77614);
+  background-image: -o-linear-gradient(top, #eaa947, #b77614);
+  background-image: linear-gradient(#eaa947, #b77614);
+  border-color: #b77614 #b77614 hsl(36, 80%, 35%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+
+.newProposal {
+  //  padding-bottom: 18px;
+  //  margin-bottom: -38px;
+  .changehub {
+    .selecthub {
+      text-align: center;
+      padding: 2%;
+    }
+    .makeHub {
+      //      padding-bottom: 22px;
+      h3 {
+        //        font-style: italic;
+        color: $happy-blue;
+        font-size: 135%;
+        margin: 0;
+        padding: 5px;
+      }
+      .input-area {
+        padding: 0 15px;
+        width: 287px;
+        min-width: 70%;
+        input {
+          width: 100%;
+          margin-top: 5px;
+        }
+        .length_counter.happy-text a.link {
+          color: $alert-blue;
+        }
+      }
+    }
+  }
+  //  .proposal-area {
+  //  }
+  //  .text_input {
+  //    padding-left: 7px;
+  //  }
+}
+
+.selectedHub {
+  font-family: $logoTypeFace;
+  color: $basic-brown !important;
+  text-align: right;
+  text-decoration: none;
+  margin-top: -10px;
+  @media (max-width: $grid-float-breakpoint-max) {
+    margin-top: -5px;
+  }
+  .groupName {
+    font-size: 27px;
+    margin-right: 3px;
+    i {
+      font-size: 14px;
+    }
+  }
+  .groupLocation {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: -6px;
+    margin-right: 3px;
+  }
+  :hover {
+    color: $happy-blue;
+  }
+}

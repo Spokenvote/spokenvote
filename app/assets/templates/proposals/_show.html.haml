@@ -28,7 +28,8 @@
       .supporting_arguments_list.col-sx-12( ng-repeat="(key, vote) in proposal.votes" )
         .row.support_row
           .proposal-person.col-xs-3
-            .user-avatar
+            -#.user-avatar
+            .supporter-avatar
               %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
               %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
             .supported_date

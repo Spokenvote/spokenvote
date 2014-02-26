@@ -1,0 +1,70 @@
+
+// Modal Elements
+
+.modal-dialog {
+  @media (max-width: $grid-float-breakpoint-max) {
+    margin: 5px;
+  }
+}
+
+.modal-header {
+  @media (max-width: $grid-float-breakpoint-max) {
+    padding-top: 0;
+    .close {
+      padding: 5px 1px;
+    }
+  }
+  //  padding: 2.8%; // See $modal-title-padding
+  //  @include border-top-radius(6px);
+  //  background-color: #eee;
+  h2 {
+    color: $happy-blue;
+    font-size: 2em;
+    font-weight: bold;
+  }
+}
+
+.modal-body {
+  background-color: $modal-body-off-white;
+  padding: 3%;
+  form {
+  }
+  .form-group {
+    padding: 3px 3px 0 3px;
+  }
+  .instructions {
+    padding: 0px 10px;
+    @media (min-width: $grid-float-breakpoint) {
+      padding: 0px 10px 20px 10px;
+    }
+    .avatar {
+      padding: 3px 5px 5px 5px;
+      float: left;
+      height: 100%;
+    }
+    h5 {
+      color: $soft-brown-text;
+      padding-left: 50px;
+    }
+  }
+}
+
+.modal-footer {
+  margin: 0;
+  padding: 20px;
+  min-height: 55px;
+  .pull-left {
+    text-align: left;
+  }
+}
+
+// Depreciated
+
+//.modal {
+//  top: 15% !important;
+//  position: fixed !important;
+//}
+
+//.modal-backdrop {
+//  background-color: #000 !important;
+//}
