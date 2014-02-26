@@ -108,9 +108,14 @@ header.visible-xs {
     border-color: transparent;
     color: $soft-grey;
     display: inline-block;
+    margin: 4px;
     .icon-bar {
       background-color: $soft-grey;
-    }margin: 4px
+      @media (min-width: $screen-sm-min) {
+        width: 30px;
+        height: 3px;
+      }
+    }
   }
   .search-glass {
     text-align: center;
@@ -122,6 +127,16 @@ header.visible-xs {
       .glyphicon {
         padding-top: 11px;
         line-height: 50%;
+      }
+    }
+  }
+  .user_area {
+    padding: 6px 10px;
+    img {
+      height: 28px;
+      width: auto;
+      @media (min-width: $screen-sm-min) {
+        height: 37px;
       }
     }
   }
@@ -141,7 +156,11 @@ header.visible-xs {
 }
 
 .user_area {
-//  padding: 0;
+  padding: 3px 5px;
+  img {
+    height: 43px;
+    width: auto;
+  }
 }
 
 #user_profile {
