@@ -68,8 +68,13 @@ h2 {
   font-size: 1.8em;
 }
 
-.panel-title {
-  font-size: .8em;
+.panel {
+  .panel-title {
+    font-size: .8em;
+    button {
+      font-size: .6em;
+    }
+  }
 }
 
 input {

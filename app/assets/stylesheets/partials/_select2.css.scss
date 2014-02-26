@@ -18,9 +18,6 @@
         }
     }
     @media (min-width: $grid-float-breakpoint) {
-//      display: table;
-//      min-width: none;
-//      min-width: 425px;
       height: 43px;
     }
     .select2-chosen {
@@ -28,14 +25,13 @@
       font-weight: 500;
       text-align: center;
       margin-right: 12px;
-      @media (min-width: $grid-float-breakpoint) {
-//        display: table-cell;
-        padding: 5px;
-        vertical-align: middle;
-        font-size: 1em;
-        height: 100%;
-        //        font-weight: 500;
+      vertical-align: middle;
+      @media (min-width: $screen-md-min) {
         text-align: left;
+      }
+      @media (min-width: $grid-float-breakpoint) {
+        padding: 5px;
+        font-size: 1em;
       }
     }
     .select2-arrow {
@@ -53,7 +49,6 @@
 }
 
 .select2-drop-active {
-//  background-color: rgba(34, 34, 34, 0.75);
   background-color: $googlePanelGreyLettering;
   border: none;
   box-shadow: none;
