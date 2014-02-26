@@ -4,8 +4,12 @@
 body {
   @include background(linear-gradient(#ddd, #eee 45%, #fff));
   overflow-x: hidden;
-  @media (min-width: $grid-float-breakpoint) {
-    padding-top: ($gridGutterWidth * 2);
+  -webkit-font-smoothing: antialiased;
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    font-size: 1.2em;
+  }
+  @media (min-width: $screen-md-min) {
+    //    padding-top: ($gridGutterWidth * 2);
     font-size: 1.4em;
   }
 }
@@ -19,7 +23,7 @@ body {
   overflow: visible;
   background: url(noisy_grid.png);
   min-height: 1200px;
-  @media (min-width: $grid-float-breakpoint) {
+  @media (min-width: $screen-md-min) {
     padding-top: 35px;
   }
   //  max-width: 1300px;
@@ -34,7 +38,7 @@ body {
 
 #mainContent {
   padding: $gridGutterWidth * .5;
-  @media (min-width: $grid-float-breakpoint) {
+  @media (min-width: $screen-md-min) {
     padding: $gridGutterWidth * 2;
   }
   margin-bottom: $gridGutterWidth * 2;
@@ -58,6 +62,12 @@ body {
 .form-group {
   margin: 0;
 }
+
+h2 {
+  margin-bottom: ($gridGutterWidth * 0.6);
+  font-size: 1.8em;
+}
+
 input {
   border: none;
   padding: 5px;
@@ -122,14 +132,14 @@ textarea {
 }
 
 .currentuser-avatar {
-  float: left;
+//  float: left;
   //margin-right: 13px;
   img {
-    @include border-radius(3px);
-    background-color: #ccc;
-    border: 1px solid #B9B9B9;
-    color: $basic-brown;
-    display: block;
+    @include border-radius(2px);
+//    background-color: #ccc;
+//    border: 1px solid #B9B9B9;
+//    color: $basic-brown;
+//    display: block;
 //    width: 35px;
 //    height: 35px;
   }
@@ -217,15 +227,6 @@ textarea {
   margin-right: -1px;
 }
 
-.right-column {
-  padding-left: 50%;
-  padding-top: 20px;
-}
-
-.left-column {
-  padding-right: 50%;
-  padding-top: 20px;
-}
 
 // end Structural
 
@@ -283,10 +284,6 @@ h1.form-horizontal {
     font-style: italic ;
     padding-top: 30px;
   }
-}
-
-h2 {
-  margin-bottom: ($gridGutterWidth * 0.6);
 }
 
 

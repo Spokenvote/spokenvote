@@ -1,14 +1,6 @@
 
 // Search box formatting
 
-.hub_search {
-  padding: 2px 9px 0px 18px;
-  //  width: 45%;
-  a {
-    padding: 1px 4px;
-  }
-}
-
 .select2-container {
   .select2-choice {
     height: 32px;
@@ -27,8 +19,8 @@
     }
     @media (min-width: $grid-float-breakpoint) {
 //      display: table;
-      min-width: none;
-      min-width: 425px;
+//      min-width: none;
+//      min-width: 425px;
       height: 43px;
     }
     .select2-chosen {

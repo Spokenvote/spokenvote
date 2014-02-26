@@ -1,5 +1,5 @@
 #topBar( ng-controller='DashboardCtrl' )
-  %header.navbar.navbar-default.hidden-lg
+  %header.navbar.navbar-default.hidden-md.hidden-lg
     .navbar-header
       -#%button.navbar-toggle.pull-left( ng-click='changeCanvas()' type='button' )
       %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' )
@@ -22,7 +22,7 @@
         %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
   -#%header.hidden-xs.navbar.navbar-inverse.nav.navbar-fixed-top
-  %header.navbar.navbar-inverse.navbar-fixed-top.visible-lg
+  %header.navbar.navbar-inverse.navbar-fixed-top.hidden-xs.hidden-sm
     .container
       .row
         .navbar-header.col-xs-2
@@ -33,8 +33,9 @@
               %span.vote
                 Vote
 
-        .hub_search.navbar-form.col-xs-6( role='search' )
-          %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
+        .hub_search.col-xs-5( role='search' )
+          .navbar-form
+            %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
         .new_topic.navbar-btn.col-xs-2
           %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
@@ -68,7 +69,7 @@
                   %a( href='http://railsforcharity.github.io/spokenvote/' ) Developers
 
         .user_area.navbar-btn.col-xs-1
-          .avatar.navbar-btn.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
+          .avatar.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
             %a(href='/proposals?filter=my')
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
 

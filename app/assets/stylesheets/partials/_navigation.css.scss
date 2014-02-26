@@ -1,11 +1,12 @@
+
 #topBar {
 
 }
 
-
 header.hidden-xs {
 
 }
+
 header.visible-xs {
   //  padding: 15px 15px;
   //  border-bottom: 1px solid;
@@ -68,8 +69,10 @@ header.visible-xs {
 }
 
 .sv-logo {
-  font-size: 2.2em;
-//  font-size: 30px;
+  font-size: 2.1em;
+  @media (min-width: $screen-lg-min) {
+  font-size: 2.5em;
+  }
   float: none;
   font-weight: 600;
   font-family: $logoTypeFace;
@@ -92,21 +95,26 @@ header.visible-xs {
 
 .navbar-header {
   text-align: center;
-  @media (max-width: $grid-float-breakpoint-max) {
+  @media (max-width: $screen-sm-max) {
+    float: none;
     background-color: $iPhoneHearderWhite;
     //    border-color: $iPhoneHearderWhite;
 //    color: $googlePanelGrey
   }
+  @media (min-width: $screen-md-min) {
+    padding: 0;
+  }
   .navbar-toggle {
     border-color: transparent;
     color: $soft-grey;
+    display: inline-block;
     .icon-bar {
       background-color: $soft-grey;
     }margin: 4px
   }
   .search-glass {
     text-align: center;
-    font-size: 1.4em;
+    font-size: 21px;
     vertical-align: middle;
     .navbar-toggle {
       width: 44px;
@@ -119,25 +127,36 @@ header.visible-xs {
   }
 }
 
+.hub_search {
+  padding: 2px 9px 0 0;
+//  padding: 2px 9px 0px 18px;
+  //  width: 45%;
+  a {
+    padding: 1px 4px;
+  }
+}
+
 .new_topic {
-  padding: 2px 0 0 60px;
+  padding-top: 2px;
 }
 
 .user_area {
-  padding: 0;
+//  padding: 0;
 }
 
 #user_profile {
   padding: 5px 0;
   li.dropdown {
+    font-size: .75em;
+    padding-top: 3px;
   }
-  li.avatar {
-    margin-top: -7px;
-    margin-right: -3px;
-  }
-  li.buttons {
-    padding: 5px 12px 0px 0px;
-  }
+//  li.avatar {
+//    margin-top: -7px;
+//    margin-right: -3px;
+//  }
+//  li.buttons {
+//    padding: 5px 12px 0px 0px;
+//  }
 }
 
   #location_filter {
@@ -151,3 +170,7 @@ header.visible-xs {
     z-index: 10001;
     opacity: 0.5;
   }
+
+
+// Depreciated
+
