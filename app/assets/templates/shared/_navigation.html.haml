@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
 
-      %span.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+      %a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
         %span.spoken
           Spoken
         %span.vote
@@ -30,7 +30,7 @@
       .row
         .navbar-header.col-xs-2
           .navbar-brand
-            .sv-logo( href='/landing' ng-click="clearHubFilter()" )
+            %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
               %span.spoken
                 Spoken
               %span.vote

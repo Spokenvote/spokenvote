@@ -43,20 +43,18 @@ header.visible-xs {
   padding-top: 19px;
 }
 
-.sv-logo {
+.sv-logo, a.sv-logo {
   font-size: 2.1em;
   @media (min-width: $screen-lg-min) {
-  font-size: 2.5em;
+    font-size: 2.5em;
   }
-//  float: none;
+  text-decoration: none;
   font-weight: 600;
   font-family: $logoTypeFace;
   letter-spacing: -1px;
-//  text-decoration: none;
   &:hover span.vote, &:hover span.spoken {
     color: $smokeyLebel;
     cursor: pointer;
-//    text-decoration: none;
   }
   span.spoken {
     color: $happy-blue;
