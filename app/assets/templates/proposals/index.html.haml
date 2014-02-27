@@ -2,7 +2,7 @@
   .panel.panel-default.hidden-xs.hidden-sm
     .panel-title
       .title.pull-left
-        %h2
+        %h3
           %span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           %span( ui-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
             %span() for
@@ -13,7 +13,7 @@
             %span &nbsp
 
 
-      %h2.btn-group.pull-right
+      %h3.btn-group.pull-right
         %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
           .fa.sub.fa-check-square-o
           %span My Votes
