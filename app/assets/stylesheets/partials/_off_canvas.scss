@@ -9,7 +9,7 @@
 
 .row-offcanvas-left
 .sidebar-offcanvas {
-  left: -83.3333333333%; // Inverse of Sidebar Menu width below
+  left: -87%; // Inverse of Sidebar Menu width below
 }
 
 .row-offcanvas-left.active {
@@ -19,8 +19,8 @@
 .sidebar-offcanvas {
   position: absolute;
   top: 0;
-  width: 83.3333333333%; // Sidebar Menu width
-  padding: 40px 3px 0px 30px;
+  width: 87%; // Sidebar Menu width
+  padding: 40px 3px 0px 42px;
   height: 100%;
   background-color: $googlePanelGrey;
   background-image: url(patterns/transit_grey.png);
