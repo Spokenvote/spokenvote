@@ -37,31 +37,6 @@ header.visible-xs {
 
 .navbar-inverse {
   background-image: url(patterns/transit_grey.png);
-
-//  .container {
-//    .navbar {
-//      color: #000;
-//      border-color: #315c99;
-//    }
-//    form {
-//  //    display: inline-block;
-//      input, .btn {
-//        vertical-align: baseline;
-//        margin-right: 0;
-//      }
-//    }
-//    .input {
-//      margin-top: 0;
-//    }
-//    .input-append {
-//      margin-top: -2px;
-//    }
-//    .input-append .btn {
-//      margin-left: -4px;
-//      font-variant: small-caps;
-//    }
-//  }
-
 }
 
 .navbar-brand {
@@ -73,11 +48,11 @@ header.visible-xs {
   @media (min-width: $screen-lg-min) {
   font-size: 2.5em;
   }
-  float: none;
+//  float: none;
   font-weight: 600;
   font-family: $logoTypeFace;
   letter-spacing: -1px;
-  text-decoration: none;
+//  text-decoration: none;
   &:hover span.vote, &:hover span.spoken {
     color: $smokeyLebel;
     cursor: pointer;
@@ -144,8 +119,6 @@ header.visible-xs {
 
 .hub_search {
   padding: 2px 9px 0 0;
-//  padding: 2px 9px 0px 18px;
-  //  width: 45%;
   a {
     padding: 1px 4px;
   }
