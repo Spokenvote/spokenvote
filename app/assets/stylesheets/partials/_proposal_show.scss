@@ -203,8 +203,8 @@
 
 #totalVoteLabel {
   @extend .pull-right;
-  margin-top: -32px;
-  margin-right: -26px;
+//  margin-top: -32px;
+//  margin-right: -26px;
   // flush right on #mainContent
   .label {
     background-color: $chisel-grey !important;
@@ -216,10 +216,10 @@
 }
 
 #backNav {
-  font-size: small;
-  margin-top: -19px;
-  padding-top: 8px;
-  margin-left: -14px;
+//  font-size: small;
+//  margin-top: -19px;
+//  padding-top: 8px;
+//  margin-left: -14px;
   a.icon {
     color: $chisel-grey;
     text-decoration: none;

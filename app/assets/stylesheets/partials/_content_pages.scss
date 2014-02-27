@@ -20,8 +20,8 @@
 .content_page {
 //  margin: -20px -15px 0 -15px;
   padding: $gridGutterWidth $gridGutterWidth $gridGutterWidth $gridGutterWidth;
-  background-color: #fff;
-  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
+//  background-color: #fff;
+//  @include single-box-shadow(#CCCCCC, 0, 0, 2px, 2px);
   h2 {
     margin-top: $gridGutterWidth;
   }

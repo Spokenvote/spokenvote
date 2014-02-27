@@ -70,7 +70,8 @@ header.visible-xs {
   text-align: center;
   @media (max-width: $screen-sm-max) {
     float: none;
-    background-color: $iPhoneHearderWhite;
+    background-color: $airbnbBackgroundWhite;
+//    background-color: $iPhoneHearderWhite;
     //    border-color: $iPhoneHearderWhite;
 //    color: $googlePanelGrey
   }

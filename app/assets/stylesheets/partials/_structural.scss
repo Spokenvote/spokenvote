@@ -2,7 +2,8 @@
 // Structural Styles
 
 body {
-  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+//  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+  background-color: $airbnbBackgroundWhite;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
@@ -21,7 +22,7 @@ body {
 
 #main {
   overflow: visible;
-  background: url(noisy_grid.png);
+//  background: url(noisy_grid.png);
   min-height: 1200px;
   @media (min-width: $screen-md-min) {
     padding-top: 35px;
