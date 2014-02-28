@@ -41,34 +41,33 @@
   .stats {
     float: right;
     padding-left: 14px;
-    margin-top: -2px;
+//    margin-top: -2px;
     #big-percent {
-      margin: -4px -6px 0 0;
+      text-align: right;
+      margin: -8px 0 0 0;
       font-size: 2.2em;
       font-weight: bold;
       color: $happy-blue;
     }
     .shares {
-      padding: 0px 2px 5px 5px;
+      padding: 0 0 5px 5px;
       a {
         font-size: .9em;
-
       }
-
-      //      padding: 10px 10px 10px 0px;
     }
   }
 }
 
 .proposal_container {
-  @media (min-width: $screen-md-min) {
-    margin: 20px 0;
-    overflow: visible;
+  margin: 5% 0;
+  overflow: visible;
+  //  @media (min-width: $screen-md-min) {
+  //    margin: 20px 0;
   }
 }
 
 .proposal_statement {
-  padding: 2% 1% 0 1%;
+//  padding: 2% 1% 0 1%;
   .originalProposal {
     background: lightgray;
     border-radius: 4px;
@@ -78,7 +77,6 @@
     width: 97%;
   }
   h3 {
-//    font-size: 200%;
     a {
       color: $basic-brown;
     }
@@ -166,13 +164,8 @@
 //  font-size: 16px;
 //}
 
-.supported_date {
-  margin-bottom: 10px;
-}
-
-
 .improve_support_buttons {
-  padding-bottom: 5px;
+  padding: 5px;
   .btn-support {
     background-color: hsl(211, 92%, 46%) !important;
     background-repeat: repeat-x;
@@ -235,7 +228,7 @@
 #relatedProposalsTitle {
   font-size: 28px;
   color: #284784;
-  margin-top: 20px;
+  margin-top: 3%;
 }
 
 .related_supporting {
@@ -248,8 +241,8 @@
 #relatedSorter {
   @extend .pull-right;
   overflow: visible;
-  margin-top: -10px;
-  margin-right: 10px;
+//  margin-top: -10px;
+//  margin-right: 10px;
 }
 
 
