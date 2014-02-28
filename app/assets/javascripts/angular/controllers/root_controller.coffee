@@ -58,6 +58,9 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       $scope.authService.signinFb($scope).then ->
         VotingService.new $scope, VotingService
 
+  $scope.backtoTopics = ->
+    $location.path('/proposals')
+
 
   # All below had been decreciated in favor of Facebook sign in only
   $scope.googleAuth2 = ->

@@ -96,6 +96,7 @@ SessionSettings = ->
     searchTerm: null
     selectHub: false
     offcanvas: false
+    detailPage: false
   openModals:
     signIn: false
     register: false

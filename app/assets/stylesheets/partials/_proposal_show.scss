@@ -1,24 +1,70 @@
 
+// content_pages elements
+
+.content_page {
+  padding: $gridGutterWidth / 2;
+  h2 {
+    margin-top: 5px;
+  }
+  h3 {
+    margin-top: 0;
+    @media (min-width: $screen-md-min) {
+      font-size: 2em;
+    }
+  }
+  .content_div {
+    margin-bottom: $gridGutterWidth;
+  }
+  #totalVoteLabel {
+    margin: -15px -13px 0 0;
+    .label {
+      color: $soft-brown-text;
+      background-color: none;
+      @extend h6;
+    }
+    @media (min-width: $screen-md-min) {
+      margin: 0 -9px;
+      .label {
+        background-color: $chisel-grey;
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+// end content_pages elements
+
+
 // Proposal Show
 
 .main-proposal {
   .stats {
     float: right;
     padding-left: 14px;
+    margin-top: -2px;
     #big-percent {
-      font-size: 24pt;
+      margin: -4px -6px 0 0;
+      font-size: 2.2em;
       font-weight: bold;
       color: $happy-blue;
     }
     .shares {
-      padding: 10px 10px 10px 0px;
+      padding: 0px 2px 5px 5px;
+      a {
+        font-size: .9em;
+
+      }
+
+      //      padding: 10px 10px 10px 0px;
     }
   }
 }
 
 .proposal_container {
-  margin: 20px 0;
-  overflow: visible;
+  @media (min-width: $screen-md-min) {
+    margin: 20px 0;
+    overflow: visible;
+  }
 }
 
 .proposal_statement {
@@ -32,7 +78,7 @@
     width: 97%;
   }
   h3 {
-    font-size: 200%;
+//    font-size: 200%;
     :hover {
       color: $happy-blue;
     }
@@ -201,19 +247,6 @@
   margin-right: 10px;
 }
 
-#totalVoteLabel {
-  @extend .pull-right;
-//  margin-top: -32px;
-//  margin-right: -26px;
-  // flush right on #mainContent
-  .label {
-    background-color: $chisel-grey !important;
-    //background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(221, 221, 221)), to(rgb(134, 134, 134))) !important;
-    @extend .label-large;
-    @extend .label-success;
-    @extend .label-flat;
-  }
-}
 
 #backNav {
 //  font-size: small;

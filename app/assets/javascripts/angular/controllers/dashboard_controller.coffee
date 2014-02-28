@@ -1,9 +1,6 @@
 DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', ( $scope, $route, $location, SessionSettings, CurrentHubLoader ) ->
   SessionSettings.routeParams = $route.current.params
 
-#  $scope.changeCanvas = ->
-#    $scope.sessionSettings.actions.offcanvas = !$scope.sessionSettings.actions.offcanvas
-
   $scope.hubFilter =
     hubFilter: null
 
@@ -20,7 +17,12 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
- 
+
+#    $route.when '/proposals/:proposalId',
+#      SessionSettings.actions.detailPage = true
+#    $route.when not '/proposals/:proposalId',
+#      SessionSettings.actions.detailPage = false
+
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null

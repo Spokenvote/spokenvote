@@ -52,6 +52,10 @@ header.visible-xs {
   font-weight: 600;
   font-family: $logoTypeFace;
   letter-spacing: -1px;
+  @media (max-width: $screen-sm-max) {
+    position: absolute;
+    right: 33%;
+  }
   &:hover span.vote, &:hover span.spoken {
     color: $smokeyLebel;
     cursor: pointer;
@@ -90,6 +94,11 @@ header.visible-xs {
         height: 3px;
       }
     }
+  }
+
+  .fa.fa-angle-left {
+    padding: 1px 9px 1px 9px;
+    color: $happy-blue;
   }
   .search-glass {
     text-align: center;
