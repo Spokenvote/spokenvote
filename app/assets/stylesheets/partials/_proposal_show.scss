@@ -109,7 +109,10 @@
     color: $basic-brown;
     display: block;
     width: 35px;
-    height: 35px;
+    height: auto;
+    @media (min-width: $screen-sm-min) {
+      width: 50px;
+    }
   }
 }
 
