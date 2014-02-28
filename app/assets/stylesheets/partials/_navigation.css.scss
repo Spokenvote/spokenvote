@@ -100,14 +100,13 @@ header.visible-xs {
     padding: 1px 9px 1px 9px;
     color: $happy-blue;
   }
-  .search-glass {
+  .new-proposal {
     text-align: center;
-    font-size: 21px;
     vertical-align: middle;
     .navbar-toggle {
       width: 44px;
       padding: 0px;
-      .glyphicon {
+      .fa.fa-file-text-o {
         padding-top: 11px;
         line-height: 50%;
       }

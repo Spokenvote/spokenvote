@@ -16,11 +16,11 @@
         %span.vote
           Vote
 
-      -#.search-glass.pull-right
+      .new-proposal.pull-right
         %button.navbar-toggle
-          %span.glyphicon.glyphicon-search
+          .fa.fa-file-text-o.fa-2x
 
-      .user_area.pull-right
+      -#.user_area.pull-right
         .avatar.pull-right( ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom' )
           %a(href='/proposals?filter=my')
             %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
