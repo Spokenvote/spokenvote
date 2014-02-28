@@ -79,11 +79,11 @@
   }
   h3 {
 //    font-size: 200%;
-    :hover {
-      color: $happy-blue;
-    }
     a {
       color: $basic-brown;
+    }
+    :hover {
+      color: $link-color;
     }
   }
   h4 {
