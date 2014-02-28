@@ -228,26 +228,25 @@
   -webkit-font-smoothing: antialiased;
 }
 
-#relatedProposalsTitle {
-  font-size: 28px;
-  color: #284784;
-  margin-top: 3%;
+#relatedProposals{
+  margin-top: 1%;
+  .relatedProposalsTitle {
+    font-size: 2em;
+    line-height: 110%;
+    font-weight: bold;
+    color: $alert-blue;
+  }
 }
 
-.related_supporting {
-  clear: both;
-  border-bottom: 1px solid #dddddd;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-
-#relatedSorter {
-  @extend .pull-right;
+.relatedSorter {
+  font-size: .7em;
+  padding-top: 15px;
   overflow: visible;
-//  margin-top: -10px;
-//  margin-right: 10px;
+  .btn {
+    font-size: 1em;
+    padding: 3px 5px;
+  }
 }
-
 
 #backNav {
 //  font-size: small;
@@ -265,6 +264,13 @@
 
 
 // Depreciated
+
+//.related_supporting {
+//  clear: both;
+//  border-bottom: 1px solid #dddddd;
+//  padding-bottom: 10px;
+//  margin-bottom: 10px;
+//}
 
 //.proposal_fields {
 //  margin-top: 10px;
