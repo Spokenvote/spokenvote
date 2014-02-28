@@ -16,14 +16,17 @@
     margin-bottom: $gridGutterWidth;
   }
   #totalVoteLabel {
-    margin: -15px -13px 0 0;
+    margin: -12px -10px -8px 0;
+    text-align: right;
     .label {
+      @extend h6;
       color: $soft-brown-text;
       background-color: none;
-      @extend h6;
+      padding: .2em .6em .3em;
     }
-    @media (min-width: $screen-md-min) {
-      margin: 0 -9px;
+    @media (min-width: $screen-sm-min) {
+      margin: 0 -2px;
+      padding-top: 5px;
       .label {
         background-color: $chisel-grey;
         font-size: 1em;
@@ -50,7 +53,7 @@
       color: $happy-blue;
     }
     .shares {
-      padding: 0 0 5px 5px;
+      padding: 0 5px 5px 5px;
       a {
         font-size: .9em;
       }
@@ -63,7 +66,7 @@
   overflow: visible;
   //  @media (min-width: $screen-md-min) {
   //    margin: 20px 0;
-  }
+//  }
 }
 
 .proposal_statement {

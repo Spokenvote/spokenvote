@@ -1,9 +1,5 @@
 .content_page
-  -#.proposal_hub
-    -##backNav
-      %a.icon( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' ) <i class="glyphicon glyphicon-backward"></i>
-  #totalVoteLabel.pull-right
-    -#%h6
+  #totalVoteLabel
     %span.label
       {{ proposal.votes_in_tree }}
       %ng-pluralize( count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}" )
