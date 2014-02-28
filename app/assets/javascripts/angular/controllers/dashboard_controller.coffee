@@ -96,6 +96,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
+  $scope.tooltips =
+    navMenu: 'Menu'
+    backtoTopics: 'Return to Topic list'
+    newTopic: 'Start a New Topic'
+
 #
 #  $scope.newTopic = ->
 #    if $scope.sessionSettings.hub_attributes.id?

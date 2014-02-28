@@ -85,7 +85,7 @@ ProposalShowCtrl = [ '$scope', '$location', 'AlertService', 'VotingService', 'pr
       twitter: 'Share this proposal on Twitter'
       facebook: 'Share this proposal on Facebook'
       google: 'Share this proposal on Google+'
-      backtoTopics: 'Return to Topic list'
+#      backtoTopics: 'Return to Topic list'
 
     $scope.socialSharing =
       twitterUrl: $scope.sessionSettings.socialSharing.twitterRootUrl + 'Check out this Spokenvote proposal:' + $scope.location.absUrl() + ' /via @spokenvote'

@@ -1,14 +1,14 @@
 #topBar( ng-controller='DashboardCtrl' )
   %header.navbar.navbar-default.hidden-md.hidden-lg
     .navbar-header
-      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' ng-hide='sessionSettings.actions.detailPage == true')
+      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.navMenu}}' tooltip-placement='right' type='button' ng-hide='sessionSettings.actions.detailPage == true')
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
 
       -#%button.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
-      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
+      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' type='button' ng-show='sessionSettings.actions.detailPage == true')
 
       %a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
         %span.spoken
@@ -16,8 +16,8 @@
         %span.vote
           Vote
 
-      .new-proposal.pull-right
-        %button.navbar-toggle
+      .new-proposal.pull-right( ng-click='newTopic()' )
+        %button.navbar-toggle( tooltip='{{tooltips.newTopic}}' tooltip-placement='left'  type='button' )
           .fa.fa-file-text-o.fa-2x
 
       -#.user_area.pull-right
@@ -44,7 +44,7 @@
             %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
         .new_topic.navbar-btn.col-xs-2
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main'  tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
         .col-xs-2
           %ul#user_profile.nav.navbar-nav.pull-right

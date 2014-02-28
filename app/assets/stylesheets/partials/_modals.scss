@@ -41,6 +41,10 @@
       padding: 3px 5px 5px 5px;
       float: left;
       height: 100%;
+      img {
+        width: 35px;
+        height: auto;
+      }
     }
     h5 {
       color: $soft-brown-text;
