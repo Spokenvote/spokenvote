@@ -35,8 +35,6 @@
   }
 }
 
-// end content_pages elements
-
 
 // Proposal Show
 
@@ -64,13 +62,9 @@
 .proposal_container {
   margin: 5% 0;
   overflow: visible;
-  //  @media (min-width: $screen-md-min) {
-  //    margin: 20px 0;
-//  }
 }
 
 .proposal_statement {
-//  padding: 2% 1% 0 1%;
   .originalProposal {
     background: lightgray;
     border-radius: 4px;
@@ -152,23 +146,6 @@
     //    &.last { border-bottom: none;}
   }
 }
-
-//.supporting_arguments_list {
-//  overflow: hidden;
-//}
-
-//.supporting_statement, .support_comment {
-//  div {
-//    margin-bottom: 10px;
-//  }
-//  div:last-child {
-//    margin-bottom: 0;
-//  }
-//}
-
-//.supporting_statement {
-//  font-size: 16px;
-//}
 
 .improve_support_buttons {
   padding: 5px;
@@ -252,10 +229,6 @@
 }
 
 #backNav {
-//  font-size: small;
-//  margin-top: -19px;
-//  padding-top: 8px;
-//  margin-left: -14px;
   a.icon {
     color: $chisel-grey;
     text-decoration: none;
@@ -267,6 +240,23 @@
 
 
 // Depreciated
+
+//.supporting_arguments_list {
+//  overflow: hidden;
+//}
+
+//.supporting_statement, .support_comment {
+//  div {
+//    margin-bottom: 10px;
+//  }
+//  div:last-child {
+//    margin-bottom: 0;
+//  }
+//}
+
+//.supporting_statement {
+//  font-size: 16px;
+//}
 
 //.related_supporting {
 //  clear: both;
