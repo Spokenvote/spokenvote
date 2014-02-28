@@ -24,17 +24,22 @@
       %votes ({{ proposal.votes_count }}
       %votes(ng-pluralize count='proposal.votes_count' when="{'0': 'Vote count error', '1': 'Vote)', 'other': 'Votes)'}" )) ({{proposal.votes_count}} votes)
 
-    .row
-      .supporting_arguments_list.col-sx-12( ng-repeat="(key, vote) in proposal.votes" )
-        .row.support_row
-          .proposal-person.col-xs-3
-            -#.user-avatar
-            .supporter-avatar
-              %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
-              %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-            .supported_date
-              %a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
-              %br
-              {{ vote.created_at | date:'mediumDate' }}
-          .support_comment.col-xs-8
-            {{ vote.comment }}
+    -#.row
+    .row.support_row( ng-repeat="(key, vote) in proposal.votes" )
+      .proposal-person.col-xs-2
+        -#.user-avatar
+        .supporter-avatar
+          %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
+          %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+      .support-comment.col-xs-10
+        %supporter-name
+          %a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
+          -#%br
+          -#{{ vote.created_at | date:'mediumDate' }}
+        %supporter-text
+          {{ vote.comment }}
+
+        .supported_date
+          -#%a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
+          -#%br
+          {{ vote.created_at | date:'mediumDate' }}

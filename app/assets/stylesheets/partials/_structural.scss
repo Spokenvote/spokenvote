@@ -64,11 +64,6 @@ body {
   margin: 0;
 }
 
-h2 {
-  margin-bottom: ($gridGutterWidth * 0.6);
-  font-size: 1.8em;
-}
-
 .panel {
   .panel-title {
     font-size: 1em;
@@ -151,6 +146,26 @@ textarea {
 //    height: 35px;
   }
 }
+
+
+// Structural Elements
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+h2 {
+  margin-bottom: ($gridGutterWidth * 0.6);
+  font-size: 1.8em;
+}
+
+h3 {
+  margin: 2% 0 1% 0;
+}
+
 
 // Alert Elements
 

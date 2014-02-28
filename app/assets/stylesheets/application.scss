@@ -18,16 +18,18 @@
 
 // Color Variables
 
-$twitterBlack: #252525;
+$twitterBlack:                        #252525;
 
-$airbnbBackgroundWhite: #eaebeb;
-$airbnbHighlightGrey: #e2e2e2;
+$airbnbBackgroundWhite:               #eaebeb;
+$airbnbHighlightGrey:                 #e2e2e2;
 
-$iPhoneSafariHearderWhite: #d8dfe5;
-$iPhoneHearderWhite: #eaeae7;
-$iPhoneHearderOffWhite: #ebebe8;
-$iPhoneHearderBrightWhite: #edf1f2;
+$iPhoneSafariHearderWhite:            #d8dfe5;
+$iPhoneHearderWhite:                  #eaeae7;
+$iPhoneHearderOffWhite:               #ebebe8;
+$iPhoneHearderBrightWhite:            #edf1f2;
 $iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
+
+
 
 // Spokenvote Colors
 $happy-blue: #1c85f6;
@@ -39,7 +41,7 @@ $soft-grey: rgba(132, 132, 132, 0.75);
 $smokeyLebel: rgba(153, 153, 153, 0.46);
 $basic-brown: #444;
 $soft-brown-text: #555555;
-$facebook-blue: #3B5998;
+$facebook-blue: #3b5998;
 $alert-blue: #284784;
 $error-text-red: #b94a48;
 $tag-blue: rgba(28, 133, 246, 0.25);
@@ -54,6 +56,11 @@ $gridGutterWidth:         10px !default;
 //$headingsColor: #315c99;
 //$headingsColor: #444;
 //$heroUnitHeadingColor: $headingsColor;
+
+
+// Twitter Bootstrap Color Variables
+$link-color:                          $facebook-blue;
+
 
 // Typography Variables
 

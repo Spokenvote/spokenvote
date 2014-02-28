@@ -113,9 +113,8 @@
 }
 
 .supporting_arguments {
-  padding-top: 10px;
-  h3 {
-    padding: 0px 0px 10px 0px ;
+  @media (min-width: $screen-md-min) {
+    padding-top: 10px;
   }
   votes {
     font-size: 80%;
@@ -129,33 +128,43 @@
     }
   }
   .supported_date {
-    @include inline-block;
-    .shares {
-      display: block;
-      margin-top: 4px;
-    }
+    color: grey;
   }
   .support_row {
-    @extend .no-gutter;
-    margin-bottom: 10px;
+    padding: 5px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+    .support-comment {
+      padding: 0 10px 0 5px;
+      supporter-name {
+        font-weight: bold;
+        padding-right: 3px;
+      }
+      supporter-text {
+
+      }
+    }
+    //    @extend .no-gutter;
     //    &.last { border-bottom: none;}
   }
 }
 
-.supporting_statement, .support_comment {
-  div {
-    margin-bottom: 10px;
-  }
-  div:last-child {
-    margin-bottom: 0;
-  }
-}
+//.supporting_arguments_list {
+//  overflow: hidden;
+//}
 
-.supporting_statement {
-  font-size: 16px;
-}
+//.supporting_statement, .support_comment {
+//  div {
+//    margin-bottom: 10px;
+//  }
+//  div:last-child {
+//    margin-bottom: 0;
+//  }
+//}
+
+//.supporting_statement {
+//  font-size: 16px;
+//}
 
 .supported_date {
   margin-bottom: 10px;
@@ -221,10 +230,6 @@
   color: #fff !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
   -webkit-font-smoothing: antialiased;
-}
-
-.supporting_arguments_list {
-  overflow: hidden;
 }
 
 #relatedProposalsTitle {
