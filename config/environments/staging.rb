@@ -12,7 +12,10 @@ Spokenvote::Application.configure do
   config.serve_static_assets = true # Make it true for heroku
 
   # Compress JavaScripts and CSS
-  config.assets.compress = false
+  config.assets.compress = true
+
+  # For Angularjs     set "mangle: true" to get maximum js compression
+  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true

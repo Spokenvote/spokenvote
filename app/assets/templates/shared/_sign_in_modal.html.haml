@@ -22,15 +22,15 @@
 
     .login_form
       %form( ng-submit="signIn()" name='signInForm' )
-        .control-group
+        .form-group
           .controls
             %input(id='email_field' type='text' class='full-width' ng-model='session.email' required ng-minLength='3' placeholder='Email address' ng-model-instant )
 
-        .control-group
+        .form-group
           .controls
             %input(id='password_field' type='password' class='full-width' ng-model='session.password' required ng-minLength='3' placeholder='Password' ng-model-instant )
             %span
-          .control-group
+          .form-group
             .controls
               %label.checkbox
                 %input( id='remember_me' type='checkbox' ng-model='session.remember_me' ) Remember me next time
@@ -39,7 +39,7 @@
           %input( type="submit" class='invisible' )
 
   .modal-footer
-    .control-group
+    .form-group
       .controls
         %button( ng-click='registerModal();close()' class='btn btn-warning btn-bold pull-left' ) Need to Sign Up?
         %button( ng-click='signIn()' class='btn btn-primary btn-bold' ng-disabled='!signInForm.$valid' ) Sign In

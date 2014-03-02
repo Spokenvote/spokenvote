@@ -17,15 +17,15 @@ gem 'rack-cache'
 gem 'jquery-rails', '< 3.0.0'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
-#gem 'select2-rails'   # moved to CDN
 
 # UI/Forms
 gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
-gem 'compass'
+gem 'bootstrap-sass', '~> 3.1.0'
+#gem 'compass_twitter_bootstrap'
 gem 'compass-rails'
-gem 'compass_twitter_bootstrap'
+gem 'compass'
 gem 'activeadmin'
 
 # Authentication
@@ -55,7 +55,7 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  gem 'debugger'
+  #gem 'debugger'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'

@@ -1,0 +1,67 @@
+%ul( ng-controller='SidebarCtrl' role='menu' )
+  %li( )
+    %a.action-links
+      .fa.fa-file-text-o
+      -#%span.entypo.entypo.entypo-plus
+      %span( ng-click='newTopic()' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start a new topic
+
+  %li
+    %accordion( close-others='oneAtATime' )
+      %accordion-group( is-open='isopen' )
+        %accordion-heading
+          %a.action-links
+            .fa.fa-filter
+            -#%span( ) Showing {{ sessionSettings.routeParams.filter | inflector:humanize }} topics
+            %span( ng-show='isopen' ) Topic filter
+            %span( ng-hide='isopen' ) Filter: {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
+            -#%span( ng-hide='isopen' ) Filter: {{ sessionSettings.routeParams.filter }} votes
+
+        %ul.action-links
+          %li( type='button' ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" )
+            .fa.sub.fa-check-square-o
+            %span My Votes
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'my'}" )
+          %li( type='button' ng-click="setFilter('active');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" )
+            .fa.sub.fa-tachometer
+            %span Active
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'active'}" )
+          %li( type='button' ng-click="setFilter('new');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'new'}" )
+            .fa.sub.fa-clock-o
+            %span Recent
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'new'}" )
+
+  %li( href='#' ng-click='userSettings()' ng-show='currentUser.username' )
+    %a.action-links
+      .fa.fa-wrench
+      %span Settings
+  %li( href='#' ng-click='signinAuth()' ng-show='!currentUser.username' )
+    %a.action-links
+      .fa.fa-sign-in
+      %span Sign in
+  %li( href='#' ng-click='signOut()' ng-show='currentUser.username' )
+    %a.action-links
+      .fa.fa-sign-out
+      %span Sign out
+  %li( ng-show='currentUser["is_admin?"]' )
+    %a.action-links( href='/admin' target='_blank' )
+      .fa.fa-cogs
+      %span Admin
+  %li
+    .hr
+  %li
+    %a.category-links( href='/about' )
+      .fa.fa-pagelines
+      %span About Spokenvote
+  %li
+    .hr
+  %li
+    %a.category-links( href='http://railsforcharity.github.io/spokenvote/' )
+      .fa.fa-github
+      %span Developers
+  %li.category-links
+    .hr
+  %li
+    %a.category-links( href='/terms-of-use' )
+      .fa.fa-bell-o
+      %span Terms of use
+

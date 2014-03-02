@@ -44,13 +44,13 @@ AlertService = ($timeout) ->
   setError: (msg, scope, dest) ->
     @alertMessage = msg
     @alertDestination = dest
-    @alertClass = 'alert-error'
+    @alertClass = 'alert-danger'
     $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setCtlResult: (result, scope, dest) ->
     @cltActionResult = result
     @alertDestination = dest
-    @alertClass = 'alert-error'
+    @alertClass = 'alert-danger'
 #    $timeout  (-> scope.hideAlert()), 7000 if scope?
 
   setJson: (json) ->
@@ -95,6 +95,8 @@ SessionSettings = ->
     newProposalHub: null
     searchTerm: null
     selectHub: false
+    offcanvas: false
+    detailPage: false
   openModals:
     signIn: false
     register: false
@@ -104,6 +106,7 @@ SessionSettings = ->
     improveProposal: false
     newProposal: false
     editProposal: false
+    deleteProposal: false
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}

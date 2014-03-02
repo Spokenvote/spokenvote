@@ -1,8 +1,8 @@
-DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
+DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', ( $scope, $route, $location, SessionSettings, CurrentHubLoader ) ->
+  SessionSettings.routeParams = $route.current.params
+
   $scope.hubFilter =
     hubFilter: null
-
-  SessionSettings.routeParams = $route.current.params
 
   if $route.current.params.hub? && !$route.current.params.proposalId? 
     $scope.hubFilter =
@@ -17,7 +17,12 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
         $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
- 
+
+#    $route.when '/proposals/:proposalId',
+#      SessionSettings.actions.detailPage = true
+#    $route.when not '/proposals/:proposalId',
+#      SessionSettings.actions.detailPage = false
+
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
@@ -30,8 +35,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
-    placeholder: " Begin typing to find your Group or Location ... "
-    width: '460px'
+    placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
+#    placeholder: "<i class='glyphicon glyphicon-search'></i>" + ' Find your Group or Location '
+    width: '98%'
     allowClear: true
     ajax:
       url: "/hubs"
@@ -41,6 +47,9 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
 
       results: (data, page) ->
         results: data
+
+    escapeMarkup: (m) ->
+      m
 
     formatResult: (searchedHub) ->
       searchedHub.full_hub
@@ -58,7 +67,7 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
       SessionSettings.actions.searchTerm = term
 #      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
-      'No matches. If you are the first person to use this Group, please <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
+      'No matches. If you are the first person to use this Group, <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
     id: (obj) ->
       obj.select_id 
@@ -87,22 +96,29 @@ DashboardCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, V
     angular.element('.select2-drop-active').select2 'close'
     angular.element('#newProposalHub').select2('data',null)
 
-     
-  $scope.newTopic = ->
-    if $scope.sessionSettings.hub_attributes.id?
-      $scope.sessionSettings.actions.changeHub = false
-    else
-      $scope.sessionSettings.actions.searchTerm = null
-      $scope.sessionSettings.actions.changeHub = true
-    if $scope.currentUser.id?
-      VotingService.new $scope
-    else
-      $scope.authService.signinFb($scope).then ->
-        VotingService.new $scope, VotingService
+  $scope.tooltips =
+    navMenu: 'Menu'
+    backtoTopics: 'Return to Topic list'
+    newTopic: 'Start a New Topic'
+
+#
+#  $scope.newTopic = ->
+#    if $scope.sessionSettings.hub_attributes.id?
+#      $scope.sessionSettings.actions.changeHub = false
+#    else
+#      $scope.sessionSettings.actions.searchTerm = null
+#      $scope.sessionSettings.actions.changeHub = true
+#    if $scope.currentUser.id?
+#      VotingService.new $scope
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        VotingService.new $scope, VotingService
 
   $scope.clearHubFilter = ->
      $scope.hubFilter.hubFilter = null
 
-DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', 'VotingService' ]
+]
+
+#DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader' ]
 
 App.controller 'DashboardCtrl', DashboardCtrl

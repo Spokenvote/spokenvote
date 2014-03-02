@@ -1,6 +1,6 @@
-#userSettingsModal.modal
+#userSettingsModal
   .modal-header
-    .pull-right( class='close'  ng-click='close()' ) &times;
+    .pull-right( class='close'  ng-click='$close()' ) &times;
     %h2 My Settings
     .selectedHub
       .hub
@@ -32,7 +32,7 @@
 
   .modal-footer
     %fieldset
-      .control-group
+      .form-group
         .controls
           %button( ng-click="saveUserSettings()" class='btn btn-primary btn-bold' ng-disabled='userSettingsForm.$valid || userSettingsForm.$invalid' ) Save Settings
 

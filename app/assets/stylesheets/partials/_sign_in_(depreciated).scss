@@ -1,0 +1,111 @@
+
+//#confirmationModalQuestion {
+//  margin: $gridGutterWidth 0;
+//  font-weight: bold;
+//}
+
+
+
+// Login elements
+.login_providers {
+  margin-bottom: $gridGutterWidth;
+}
+
+.login_form {
+  background-color: #DFDFDF;
+  padding-top: ($gridGutterWidth * 0.05);
+  form {
+    margin: 0;
+  }
+  .form-group {
+    margin-left: ($gridGutterWidth * 0.75);
+    margin-bottom: 0;
+  }
+  [type="text"], [type="email"], [type="password"] {
+    width: ($gridGutterWidth * 17.75);
+  }
+  label {
+    font-weight: normal;
+  }
+  .btn {
+    margin-bottom: ($gridGutterWidth/2);
+  }
+  #forgotLink, #loginModal & .btn {
+    margin-left: ($gridGutterWidth * 1.05);
+  }
+  #forgotLink {
+    padding-bottom: ($gridGutterWidth/2);
+    a, a:visited {
+      color: #ADADAD;
+      text-decoration: underline;
+    }
+  }
+}
+
+#loginModal, #registrationModal {
+  width: ($gridGutterWidth * 20);
+  margin-left: ($gridGutterWidth * -10);
+
+  .modal-body {
+    width: ($gridGutterWidth * 20);
+    @include background(linear-gradient(center top, #FFFFFF, #F5F5F5) repeat scroll 0 0 transparent);
+    @include box-shadow(0 0 3px #FFFFFF inset, 0 2px 2px -2px rgba(0, 0, 0, 0.2));
+    padding: 0;
+  }
+  h3.or-separator {
+    background: image-url("or-bubble-sep.png") no-repeat scroll left bottom transparent;
+    margin: 0;
+    color: #959595;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    line-height: 1.6em;
+    position: relative;
+    text-align: center;
+  }
+}
+
+.fb-button-container-centered {
+  padding: $gridGutterWidth $gridGutterWidth 0;
+  text-align: center;
+  .fb-button {
+    @include inline-block;
+    float: none;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    left: auto;
+    border: 0 none !important;
+    @include border-radius(4px);
+    padding: 0;
+    position: relative;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
+    strong {
+      font-weight: bolder;
+    }
+  }
+  .fb-button-left, .fb-button-center, .fb-button-right {
+    @include background(image-url("fb-button-sprite.png") no-repeat scroll left top transparent);
+    float: left;
+    height: 40px;
+    display: block;
+  }
+  .fb-button-left {
+    width: ($gridGutterWidth * 2);
+  }
+  .fb-button-center {
+    width: ($gridGutterWidth * 12.6);
+    text-align: center;
+    background-color: #6385BA;
+    background-position: left ($gridGutterWidth * -2);
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 40px;
+    padding: 0 ($gridGutterWidth/4) 0 ($gridGutterWidth * 0.4);
+  }
+  .fb-button-right {
+    background-position: 100% ($gridGutterWidth * -4);
+    width: ($gridGutterWidth * 0.3);
+  }
+}
+
+// end Login elements

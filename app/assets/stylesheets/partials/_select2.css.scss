@@ -1,0 +1,59 @@
+
+// Search box formatting
+
+.select2-container {
+  .select2-choice {
+    height: 32px;
+    line-height: 32px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: $googlePanelGreyLettering;
+    abbr {
+      right: 13px;
+    }
+    @media (max-width: $grid-float-breakpoint-max) {
+      abbr {
+          right: 5px;
+        }
+    }
+    @media (min-width: $grid-float-breakpoint) {
+      height: 43px;
+    }
+    .select2-chosen {
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      margin-right: 12px;
+      vertical-align: middle;
+      @media (min-width: $screen-md-min) {
+        text-align: left;
+      }
+      @media (min-width: $grid-float-breakpoint) {
+        padding: 5px;
+        font-size: 1em;
+      }
+    }
+    .select2-arrow {
+      display: none;
+    }
+  }
+}
+
+.select2-search {
+  input {
+    background: $chisel-grey;
+    border: none;
+    border-radius: 2px;
+  }
+}
+
+.select2-drop-active {
+  background-color: $googlePanelGreyLettering;
+  border: none;
+  box-shadow: none;
+}
+.select2-no-results {
+  background: none !important;
+  color: #999 !important;
+}
