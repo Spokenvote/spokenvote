@@ -6,7 +6,7 @@ class AuthenticationsController < Devise::SessionsController
     authentication = Authentication.find_by_provider_and_uid(auth_params[:provider], auth_params[:uid] )
     try_existing_user = User.find_by_id(authentication.try(:user_id))
 
-      #Code we might use if we ever auth again with email:
+      #Code we might use if we ever auth with email again:
         #if auth_params[:email] =~ /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
         #  User.find_by_email(auth_params[:email])
         #else
@@ -30,5 +30,5 @@ class AuthenticationsController < Devise::SessionsController
 end
 
 def auth_params
-  params.require(:auth).permit(:provider, :uid, :user_id, :token)
+  params.require(:auth).permit(:provider, :uid, :name, :token, :expiresIn)
 end

@@ -20,7 +20,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
       provider: 'facebook'
       uid: SessionSettings.facebookUser.me.id
       name: SessionSettings.facebookUser.me.name
-      email: SessionSettings.facebookUser.me.email
+      email: SessionSettings.facebookUser.me.email if SessionSettings.facebookUser.me.email not null
       token: SessionSettings.facebookUser.auth.authResponse.accessToken
       expiresIn: SessionSettings.facebookUser.auth.authResponse.expiresIn
 
