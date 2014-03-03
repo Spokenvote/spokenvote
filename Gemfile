@@ -12,7 +12,7 @@ gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
 
 # Infrastructure
-gem 'devise'
+gem 'devise', "~> 3.2.3"
 gem 'pg'
 #gem 'thin'
 gem 'puma'

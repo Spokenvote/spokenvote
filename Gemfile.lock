@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: 3136ccb910e8d1dba929514c6e9df2b190cacd6d
+  revision: 18339ebda67ad5a04efe9c5d257e9f893010b894
   specs:
     activeadmin (1.0.0.pre)
       arbre (~> 1.0)
@@ -349,7 +349,7 @@ DEPENDENCIES
   compass-rails
   dalli
   database_cleaner
-  devise
+  devise (~> 3.2.3)
   factory_girl_rails
   faker
   fog

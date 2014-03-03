@@ -8,8 +8,7 @@ Spokenvote::Application.routes.draw do
                      controllers: { omniauth_callbacks: "omniauth_callbacks", :sessions => 'sessions', :registrations => "registrations", :authentications => "authentications" }
 
   devise_scope :user do
-    get "authentications", to: "authentications#create"
-    #match "authentications" => "authentications#create"
+    post 'authentications', to: 'authentications#create'
   end
 
   resources :users, only: [:show] do
