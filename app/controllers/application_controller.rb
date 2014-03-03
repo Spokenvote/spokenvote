@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
   private
 
   def verified_request?
-    super || form_authenticity_token == request.headers['X_XSRF_TOKEN']
+    super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
+    #super || form_authenticity_token == request.headers['X_XSRF_TOKEN']       # Rails 3 Format
   end
 
   def sanitize_bad_params_from_angular

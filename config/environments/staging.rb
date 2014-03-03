@@ -6,6 +6,9 @@ Spokenvote::Application.configure do
 
   config.eager_load = true
 
+  # Enable threaded mode
+  #config.threadsafe!
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -60,8 +63,6 @@ Spokenvote::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => 'staging.spokenvote.org' }
-  # Enable threaded mode
-  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

@@ -5,12 +5,14 @@ Spokenvote::Application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
+
   config.cache_classes = true
 
   config.eager_load = false
 
   # Enable threaded mode
-  config.threadsafe!
+  # Rails applications behave by default as thread safe in production as long as config.cache_classes and config.eager_load are set to true
+  #config.threadsafe!
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
