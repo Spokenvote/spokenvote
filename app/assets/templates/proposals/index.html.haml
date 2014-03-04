@@ -1,54 +1,65 @@
-%section#homepage.span11
-  #searchResults
-    .listing-proposals
-      .header.row-fluid.panel
-        .title.span7
-          %h4( colspan='5' )
-            %span {{ filterSelection | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
-            %span( ui-if='sessionSettings.actions.userFilter' ng-click="clearFilter('user')" )
-              %span() for
-              %span( class='tag_item' )
-                %span {{ sessionSettings.actions.userFilter }}
-                %span( class='close_x' ) &times;
-
-        .pull-right.btn-group( ng-model='filterSelection' bs-buttons-radio )
-          %button( type='button' ng-click="setFilter('active')" class='btn' value='active' ) <i class='icon-star'></i> &nbsp Active &nbsp
-          %button( type='button' ng-click="setFilter('new')" class='btn' value='new' ) <i class='icon-fire'></i> &nbsp Recent &nbsp
-          %button( type='button' ng-click="setFilter('my')" class='btn' value='my' ui-if='currentUser.id' ) <i class='icon-heart'></i> My Votes
-
-      %ul.row-fluid( ng-repeat='proposal in proposals' )
-        %li.tree_container( ng-click='showProposal(proposal)' )
-          .topic.row-fluid
-            .proposal-person.span1
-              .list-avatar.row-fluid
-                %avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:6" )
-                  %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
-                  %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-            .proposal_statement.span9
-              .proposal.row-fluid
-                %a.h2( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
-              .hub.row-fluid
-                %a.h5( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
-                -#%span.h5 &nbsp; &nbsp; &nbsp; Last voted on: {{ proposal.updated_at }}
-
-            .prop_counts
-              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
-                .votes.row {{ proposal.votes_in_tree }}
-                .label.row Votes
-                .date-stamp.row Last voted on: {{ proposal.updated_at }}
-
-              .span1( bs-tooltip='proposal.votes_in_tree + " votes on " + proposal.related_proposals_count + "  proposals." ' data-placement='left' )
-                .prop_count.row {{ proposal.related_proposals_count  }}
-                .label.row Props
-
-    #proposalNotFound
-      .span7 &nbsp;
-      .span5
-        Don't see the topic you're looking for?
-        %a( id='makeProposalLink' href='#' ng-click='new()' )  Start a New Topic
-      .span12.offset1( ng-show='!proposals[0]' )
+%section#homepage
+  .panel.panel-default.hidden-xs.hidden-sm
+    .panel-title
+      .title.pull-left
         %h3
-          %span No {{ filterSelection | inflector:humanize }} topics
-          %span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
-          %span( ui-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
-          %span found.
+          %span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+          %span( ui-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
+            %span() for
+            %span( class='tag_item' )
+              %span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
+              .fa.fa-times
+              -#%span( class='close_x' ) &times;
+            %span &nbsp
+
+
+      %h3.btn-group.pull-right
+        %button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
+          .fa.sub.fa-check-square-o
+          %span My Votes
+        %button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
+          .fa.sub.fa-tachometer
+          %span &nbsp Active
+        %button( type='button' ng-click="setFilter('new')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'new'" )
+          .fa.sub.fa-clock-o
+          %span &nbsp Recent
+    .clearfix
+
+  .listing-proposals
+    %ul( ng-repeat='proposal in proposals' )
+      %li.tree_container( ng-click='showProposal(proposal)' )
+        .topic.row
+          .list-avatar.col-xs-1
+            .avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:4" )
+              %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
+              %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+          .topic-and-hub.col-xs-9.col-md-10
+            .proposal
+              %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
+            .hub
+              %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
+
+          .stats.col-xs-2.col-md-1
+            .counts.row
+              .vote_count.col-xs-6
+                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
+                  .votes {{ proposal.votes_in_tree }}
+                  Votes
+              .prop_count.col-xs-6
+                .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
+                  .props {{ proposal.related_proposals_count  }}
+                  Props
+            .last_date.row
+              .date-stamp.col-xs-12 {{ proposal.updated_at }}
+
+  #proposalNotFound
+    .col-xs-7 &nbsp;
+    .col-xs-5
+      Don't see the topic you're looking for?
+      %a( id='makeProposalLink' href='#' ng-click='new()' )  Start a New Topic
+    .col-xs-12.col-xs-offset-1( ng-show='!proposals[0]' )
+      %h3
+        %span No {{ filterSelection | inflector:humanize }} topics
+        %span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
+        %span( ui-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
+        %span found.

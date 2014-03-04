@@ -1,12 +1,13 @@
-#deleteProposalModal.modal
+#deleteProposalModal
   .modal-header
-    .pull-right( class='close' ng-click='close()' ) &times;
-    %h2 Delete Proposal
+    .pull-right( class='close' ng-click='$close()' ) &times;
+    %h2.modal-title Delete Proposal
     .selectedHub
-      .hub
-        .pull-right
-          %h3 {{ clicked_proposal.hub.group_name }}
-          %h5 {{ clicked_proposal.hub.formatted_location }}
+      %span
+        .groupName
+          {{ clicked_proposal.hub.group_name }}
+        .groupLocation
+          {{ clicked_proposal.hub.formatted_location }}
 
   .modal-body
     #alertContainer
@@ -17,11 +18,13 @@
         %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
       %h5 Are you sure you want to delete this proposal? Please note that deleting a proposal is permanent and cannot be undone.
       .proposal_statement
-        %h4 {{ clicked_proposal.statement }}
+        .form-group
+          .originalProposal
+            %h4 {{ clicked_proposal.statement }}
 
   .modal-footer
     %fieldset
-      .control-group
+      .form-group
         .controls
-          %button( ng-click='close()' class='btn btn-bold' ) Cancel
+          %button( ng-click='$close()' class='btn btn-bold' ) Cancel
           %button( ng-click='deleteProposal()' class='btn btn-danger btn-bold' ) Delete my proposal

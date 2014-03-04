@@ -1,4 +1,4 @@
-RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionService, SessionSettings, CurrentUserLoader) ->
+RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService', ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
   $rootScope.alertService = AlertService
   $rootScope.authService = Auth
   $rootScope.sessionSettings = SessionSettings
@@ -25,14 +25,16 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
 
   $scope.userSettings = ->
     if SessionSettings.openModals.userSettings is false
-      opts =
+      modalInstance = $modal.open
+        templateUrl: '/assets/user/_settings_modal.html'
+        controller: 'UserSettingsCtrl'
         resolve:
           $scope: ->
             $scope
-      d = $dialog.dialog(opts)
-      SessionSettings.openModals.userSettings = true
-      d.open('/assets/user/_support_modal.html', 'UserSettingsCtrl').then (result) ->
-        SessionSettings.openModals.userSettings = d.isOpen()
+      modalInstance.opened.then ->
+        SessionSettings.openModals.userSettings = true
+      modalInstance.result.finally ->
+        SessionSettings.openModals.userSettings = false
 
   $scope.signOut = ->
     SessionService.userOmniauth.$destroy()
@@ -42,7 +44,22 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
 
   $scope.clearFilter = (filter) ->
     $location.search(filter, null)
-    $rootScope.sessionSettings.actions.userFilter = null
+    $rootScope.sessionSettings.routeParams.user = null
+
+  $scope.newTopic = ->
+    if $scope.sessionSettings.hub_attributes.id?
+      $scope.sessionSettings.actions.changeHub = false
+    else
+      $scope.sessionSettings.actions.searchTerm = null
+      $scope.sessionSettings.actions.changeHub = true
+    if $scope.currentUser.id?
+      VotingService.new $scope
+    else
+      $scope.authService.signinFb($scope).then ->
+        VotingService.new $scope, VotingService
+
+  $scope.backtoTopics = ->
+    $location.path('/proposals')
 
 
   # All below had been decreciated in favor of Facebook sign in only
@@ -71,7 +88,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
       d.open('/assets/shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
         SessionSettings.openModals.signIn = d.isOpen()
 
-  $scope.registerModal = ->
+  $scope.registerModal = ->       # $dialog.dialog no longer supported, must be updated to be used.
     if SessionSettings.openModals.register is false
       opts =
         resolve:
@@ -93,5 +110,7 @@ RootCtrl = ($scope, $rootScope, AlertService, $location, $dialog, Auth, SessionS
       if response.success == false
         AlertService.setCtlResult 'Sorry, we were not able to sign you in using {{ provider }}.', $scope
 
-RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$dialog', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader' ]
+]
+
+#RootCtrl.$inject = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService' ]
 App.controller 'RootCtrl', RootCtrl

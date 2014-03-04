@@ -26,7 +26,7 @@ class Hub < ActiveRecord::Base
   end
 
   def short_hub
-    if self.group_name == 'All of'
+    if GooglePlacesAutocompleteService.location_types.include?(self.group_name)
       split = self.formatted_location.split(',')
       if split.count > 2
         ret = split[0] + ', ' +split[2]
@@ -39,4 +39,13 @@ class Hub < ActiveRecord::Base
     end
     return ret
   end
+
+  def select_id 
+    if self.id == 0
+      "#{GooglePlacesAutocompleteService.prefix}#{self.description}"
+    else
+      self.id
+    end
+  end
+
 end

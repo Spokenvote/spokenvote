@@ -1,14 +1,21 @@
 source 'https://rubygems.org'
 
-#ruby '2.1.0'
 ruby '1.9.3'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.3'
+
+# Temp gems in place to enable Rails 4 upgrade, consider removing
+gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
+#gem 'rails-observers'
+#gem 'actionpack-page_caching'
+#gem 'actionpack-action_caching'
+#gem 'activerecord-deprecated_finders'
 
 # Infrastructure
-gem 'devise', '<= 3.0.3'
+gem 'devise', "~> 3.2.3"
 gem 'pg'
-gem 'thin'
+#gem 'thin'
+gem 'puma'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
@@ -17,16 +24,16 @@ gem 'rack-cache'
 gem 'jquery-rails', '< 3.0.0'
 gem 'jquery-ui-rails'
 gem 'jquery-tokeninput-rails'
-#gem 'select2-rails'   # moved to CDN
 
 # UI/Forms
 gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
-gem 'compass'
+gem 'bootstrap-sass', '~> 3.1.0'
 gem 'compass-rails'
-gem 'compass_twitter_bootstrap'
-gem 'activeadmin'
+gem 'compass'
+gem 'activeadmin', github: 'gregbell/active_admin'
+#gem 'activeadmin', '~> 0.6.3'    # Not compatible with Rails 4
 
 # Authentication
 gem 'omniauth'
@@ -38,21 +45,21 @@ gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
-gem 'strong_parameters'
+gem 'sitemap_generator'
+gem 'google_places_autocomplete'
+gem 'places'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.5'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
+
+gem 'sass-rails',   '~> 4.0.1'
+#gem 'coffee-rails', '~> 4.0.1', :require => 'coffee-rails'
+gem 'coffee-rails', '~> 4.0.1'
+gem 'uglifier', '>= 2.4.0'
 
 group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  #gem 'debugger'   #not compatible with Ruby 2.1
+  #gem 'debugger'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
@@ -80,4 +87,5 @@ group :production, :staging do
   gem 'newrelic_rpm', '3.5.5.38'
   gem "airbrake"
   gem 'prerender_rails'
+  gem 'fog'
 end

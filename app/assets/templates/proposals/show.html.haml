@@ -1,14 +1,12 @@
 .content_page
-  .proposal_hub
-    #backNav
-      %a.icon( ng-href='#' ng-click='backtoTopics()' bs-tooltip='tooltips.backtoTopics' data-placement='bottom' ) <i class="icon-backward"></i>
-    #totalVoteLabel
-      %span.label
-        {{ proposal.votes_in_tree }}
-        %ng-pluralize( count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}" )
-        on {{ proposal.related_proposals_count + 1 }}
-        %ng-pluralize( count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
+  #totalVoteLabel
+    %span.label
+      {{ proposal.votes_in_tree }}
+      %ng-pluralize( count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}" )
+      on {{ proposal.related_proposals_count + 1 }}
+      %ng-pluralize( count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}")
 
+  .proposal_hub
     %a.hub( ng-click="hubView()" href='#' )
       %h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
@@ -17,13 +15,15 @@
   .hr
 
   #relatedProposals( ng-controller='RelatedProposalShowCtrl' )
-    #relatedSorter
-      .btn-group( ng-show='proposal.related_proposals_count > 1' )
-        %button( type='button' class='btn' )  {{ selectedSort || "Sort Related Proposals" }}
-        %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
-          %span( class='caret' )
+    .related-header
+      .relatedSorter.pull-right
+        .btn-group( ng-show='proposal.related_proposals_count > 1' )
+          %button( type='button' class='btn' )  {{ selectedSort || "Sort Proposals" }}
+          %button( type='button' class='btn' bs-dropdown='related_sorter_dropdown' )
+            %span( class='caret' )
 
-    #relatedProposalsTitle Alternative Proposals
+      .relatedProposalsTitle
+        Alternative Proposals
 
     %ng-include( src="'/assets/proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0" )
 

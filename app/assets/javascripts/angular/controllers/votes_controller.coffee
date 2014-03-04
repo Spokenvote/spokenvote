@@ -1,4 +1,4 @@
-SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
+SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Vote', ( $scope, $location, $rootScope, $modalInstance, AlertService, Vote ) ->
   AlertService.clearAlerts()
   if $scope.current_user_support == 'related_proposal'
     AlertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
@@ -11,16 +11,14 @@ SupportCtrl = ($scope, $location, $rootScope, AlertService, Vote, dialog) ->
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
       AlertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-      dialog.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'modal'
       AlertService.setJson response.data
     )
+]
 
-  $scope.close = (result) ->
-    dialog.close(result)
-
-ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
+ImroveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
@@ -43,17 +41,15 @@ ImroveCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal) ->
     ,  (response, status, headers, config) ->
       $location.path('/proposals/' + response.id)
       AlertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-      dialog.close(response)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
       AlertService.setJson response.data
     )
+]
 
-  $scope.close = (result) ->
-    dialog.close(result)
-
-EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
-  $scope.clicked_proposal = parentScope.clicked_proposal
+EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
+  $scope.clicked_proposal = $scope.clicked_proposal
 
   if $scope.clicked_proposal.votes.length > 1
     AlertService.setCtlResult "We found support from other users on your proposal. You can no longer edit your proposal, but you can Improve it to get a similar result.", $scope
@@ -72,20 +68,18 @@ EditProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertSer
     Proposal.update($scope.editProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:votesChanged'
-      AlertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', parentScope
-      dialog.close(response)
+      AlertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
       AlertService.setJson response.data
     )
+]
 
-  $scope.close = (result) ->
-    dialog.close(result)
+DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
+  $scope.clicked_proposal = $scope.clicked_proposal
 
-DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Proposal, parentScope) ->
-  $scope.clicked_proposal = parentScope.clicked_proposal
-
-  if parentScope.clicked_proposal.votes.length > 1
+  if $scope.clicked_proposal.votes.length > 1
     AlertService.setCtlResult "We found support from other users on your proposal. You can no longer delete your proposal, but you can Improve it if you'd like to make a different proposal.", $scope
 
   $scope.deleteProposal = ->
@@ -93,19 +87,18 @@ DeleteProposalCtrl = ($scope, $location, $rootScope, dialog, AlertService, Propo
 
     Proposal.delete($scope.clicked_proposal
     ,  (response, status, headers, config) ->
-      AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', parentScope
-      $location.path('/proposals').search('hub', parentScope.clicked_proposal.hub_id)
-      dialog.close(response)
+      AlertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', $scope
+      $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
+      $modalInstance.close(response)
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
       AlertService.setJson response.data
     )
+]
 
-  $scope.close = (result) ->
-    dialog.close(result)
-
-NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertService, Proposal) ->
+NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
   AlertService.clearAlerts()
+  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
@@ -127,9 +120,10 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', parentScope
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.',$scope
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-      dialog.close(response)
+      $modalInstance.close(response)
+      $scope.sessionSettings.actions.offcanvas = false
     ,  (response, status, headers, config) ->
       AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
       AlertService.setJson response.data
@@ -138,16 +132,14 @@ NewProposalCtrl = ($scope, parentScope, $location, $rootScope, dialog, AlertServ
   $scope.tooltips =
     newHub: "You may change the group to which you are directing
                   this proposal by clicking here."
-
-  $scope.close = (result) ->
-    dialog.close(result)
+]
 
 # Injects
-SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', 'dialog' ]
-ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
-EditProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
-DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal', 'parentScope' ]
-NewProposalCtrl.$inject = [ '$scope', 'parentScope', '$location', '$rootScope', 'dialog', 'AlertService', 'Proposal' ]
+#SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
+#ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
+#NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl

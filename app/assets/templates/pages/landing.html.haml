@@ -3,14 +3,14 @@
     %h1 Influence a group, impact the world.
     %h1
       .tag_line Voting redefined.
-    %br
 
-    .landing_hubfilter.span9.offset1( ng-controller='DashboardCtrl' )
-      .header.row-fluid.panel( ng-init="landing.location='true'" )
+    -#%br
+    -#.landing_hubfilter.col-xs-9.col-xs-offset-1( ng-controller='DashboardCtrl' )
+      .header.row.panel( ng-init="landing.location='true'" )
         %span
         .hub_filter
           %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' data-width='590px' )
-    %br
+    -#%br
 
     %h2
       %br

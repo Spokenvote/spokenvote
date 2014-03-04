@@ -1,0 +1,361 @@
+
+// Structural Styles
+
+body {
+//  @include background(linear-gradient(#ddd, #eee 45%, #fff));
+  background-color: $airbnbBackgroundWhite;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    font-size: 1.2em;
+  }
+  @media (min-width: $screen-md-min) {
+    //    padding-top: ($gridGutterWidth * 2);
+    font-size: 1.4em;
+  }
+}
+
+.container-fluid {
+  padding: 0 15px;
+  overflow-x: hidden;
+}
+
+#main {
+  overflow: visible;
+//  background: url(noisy_grid.png);
+  min-height: 1200px;
+  @media (min-width: $screen-md-min) {
+    padding-top: 35px;
+  }
+  //  max-width: 1300px;
+  //  margin-right: auto;
+  //  margin-left: auto;
+  //  padding-top: 15px;
+  //height: auto;
+  .content {
+    overflow: visible;
+  }
+}
+
+#mainContent {
+  padding: $gridGutterWidth * .5;
+  @media (min-width: $screen-md-min) {
+    padding: $gridGutterWidth * 2;
+  }
+  margin-bottom: $gridGutterWidth * 2;
+  position: relative;
+  //  @media (max-width: $grid-float-breakpoint-max) {
+  //    padding: $gridGutterWidth * 4 $gridGutterWidth * .5;
+  //  }
+}
+
+//.col-xm-11 > .form-horizontal {
+//  margin-top: $gridGutterWidth;
+//  .form-group, .supporting-args {
+//    margin-bottom: ($gridGutterWidth/2);
+//  }
+//}
+
+.no-gutter {
+  margin-left: 0;
+}
+
+.form-group {
+  margin: 0;
+}
+
+.panel {
+  .panel-title {
+    font-size: 1em;
+  }
+}
+
+input {
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  //  margin: 2px 3px 11px 3px;          // this global imput setting is strange
+}
+
+textarea {
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  height: 60px;
+  margin: 5px 0 -3px 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.thee_quarter-width {
+  width: 71%;
+}
+
+.length_counter {
+  text-align: right;
+  //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
+  padding: 0 5px 2px 5px;
+  font-size: 10px;
+  line-height: 13px;
+  //  margin-top: ($gridGutterWidth * -0.55);
+  //  margin-bottom: ($gridGutterWidth * 0.30);
+  //  color: gray;
+}
+
+.error-text {
+  color: $error-text-red;
+}
+
+.happy-text {
+  color: $alert-blue;
+}
+
+.hint-text {
+  font-style: italic;
+  color: $alert-blue;
+  text-align: center;
+  margin: 0;
+  padding: 5px 5%;
+}
+
+.popover {
+  z-index: 12001;
+}
+
+.popover-content * {
+  white-space: normal;
+  font-size: 13px;
+}
+
+.currentuser-avatar {
+//  float: left;
+  //margin-right: 13px;
+  img {
+    @include border-radius(2px);
+//    background-color: #ccc;
+//    border: 1px solid #B9B9B9;
+//    color: $basic-brown;
+//    display: block;
+//    width: 35px;
+//    height: 35px;
+  }
+}
+
+
+// Structural Elements
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+h2 {
+  margin-bottom: ($gridGutterWidth * 0.6);
+  font-size: 1.8em;
+}
+
+h3 {
+  margin: 2% 0 1% 0;
+}
+
+
+// Alert Elements
+
+.alert {
+  margin-left: $gridGutterWidth;
+  margin-bottom: 0;
+  @include border-radius(0);
+  text-align: center;
+}
+
+.alert-special {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 93%;
+}
+
+.content {
+  margin: 0;
+  @include clearfix;
+}
+
+#alertContainer {
+
+  .pageAlert {
+    @extend .col-xs-9;
+    position: fixed;
+    opacity: .95;
+    z-index: 20000;
+    margin-left: ($gridGutterWidth * 9);
+  }
+
+  .modalAlert {
+    opacity: .95;
+    z-index: 10000;
+    margin-top: -5px;
+    padding-bottom: 13px;
+  }
+
+  .alert-bar {
+    @include border-radius(5px);
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// end alert elements
+
+
+.tag_item {
+  background-color: $tag-blue;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+  padding: 0px 4px 0px 4px;
+  //  .close_x {
+  .fa-times {
+    font-size: .5em;
+    font-weight: bold;
+    margin-right: -7px;
+    line-height: 20px;
+    color: black;
+    text-shadow: 0 1px 0 white;
+    opacity: 0.2;
+    vertical-align: top;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.6;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.icon-edit {
+  font-size: 13px;
+  line-height: 18px;
+  vertical-align: top;
+  margin-right: -1px;
+}
+
+
+// end Structural
+
+
+// General elements
+
+.clear {
+  clear: both;
+}
+
+h1.form-horizontal {
+  padding-left: ($gridGutterWidth * 8);
+}
+
+.label-large {
+  font-size: 16px;
+  padding: ($gridGutterWidth/4) ($gridGutterWidth * 0.4) ($gridGutterWidth * 0.3);
+  border: 1px solid #dddddd;
+}
+
+.label-flat {
+  border-radius: 0;
+}
+
+.btn-bold {
+  font-weight: bold;
+}
+
+.hr {
+  background-color: rgba(28, 133, 246, 0.25);
+  overflow: auto;
+  border: 1.35px solid rgba(28, 133, 246, 0.55);
+}
+
+.page_title {
+  text-align: center;
+  //width: 905px;
+  //margin-left: -25px  ;
+  .searched & {
+    @extend .hide;
+  }
+  h1 {
+    font-size: 78px;
+    color: #333;
+    text-shadow: 1px 1px 2px #999;
+    line-height: 80px;
+    font-family: $logoTypeFace;
+    text-align: center;
+  }
+  .tag_line {
+    font-family: $logoTypeFace;
+    color: $spring-green;
+    font-size: 72px;
+    line-height: 80px;
+    font-style: italic ;
+    padding-top: 30px;
+  }
+}
+
+
+// Angular-specific Styles
+
+//ng-valid
+input.ng-invalid.ng-dirty {
+  border-color: #e9322d !important;
+  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+  box-shadow: 0 0 6px #f8b9b7 !important;
+}
+
+textarea.ng-invalid.ng-dirty {
+  border: 1px solid $error-text-red !important;
+  outline: none;
+
+  //  border-color: #e9322d !important;
+  //  border: #e9322d !important;
+  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+  box-shadow: 0 0 6px #f8b9b7 !important;
+}
+
+//ng-pristine
+
+//ng-dirty
+.input-below-text {
+  margin-top: ($gridGutterWidth * -0.5);
+  margin-bottom: ($gridGutterWidth * 0.5);
+  margin-left: ($gridGutterWidth * 0.2);
+}
+
+
+// fixed Google Autocomplete coming up behind other elements
+.pac-container {
+  z-index: 10000 !important;
+}
+
+// fixes wordwrap, input-append 0x issues
+
+[contenteditable="true"] {
+  padding: 10px;
+  outline: 2px dashed #000;
+  background: #fff;
+}
+
+[contenteditable="true"]:hover {
+  outline: 2px dashed #0090D2;
+}
+
+
+// end General elements

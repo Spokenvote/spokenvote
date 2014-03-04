@@ -1,5 +1,5 @@
 class HubsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index, :homepage]
+  before_action :authenticate_user!, :except => [:show, :index, :homepage]
 
   # GET /hubs
   # GET /hubs.json
@@ -16,20 +16,57 @@ class HubsController < ApplicationController
       @hubs = Hub.all
     end
 
+    found_hubs = @hubs.map { |h| "#{h.group_name} #{h.formatted_location}" }
+
+    # Add google place matches to list of hubs if they dont already exist in our DB
+    if hub_filter.presence 
+      begin 
+        service = GooglePlacesAutocompleteService.new
+        service.find_regions(hub_filter).each do |l|
+          if !found_hubs.include?("#{l[:type]} #{l[:description]}")
+            new_hub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description], description: l[:reference])
+            new_hub.id = 0
+            @hubs << new_hub
+          end
+        end
+      rescue ArgumentError 
+        pp "WARNING: Could not use google service to find hubs"
+      end
+    end
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hubs.to_json(:methods => :full_hub) }
+      format.json { render json: @hubs.to_json(:methods => [:full_hub, :short_hub, :select_id]) }
     end
   end
 
   # GET /hubs/1
   # GET /hubs/1.json
   def show
-    @hub = Hub.find(params[:id])
+    if params[:id].starts_with?(GooglePlacesAutocompleteService.prefix) 
+      hub_id = params[:id][3..-1]
+      @hub = Hub.find_by_description(hub_id)
+      if !@hub 
+        begin 
+          service = GooglePlacesAutocompleteService.new
+          found_hub = service.get_place_details(hub_id)
+          if found_hub
+            @hub = Hub.new(group_name: found_hub[:type], location_id: found_hub[:id], formatted_location: found_hub[:description], description: found_hub[:reference])
+            @hub.id = 0
+          else
+            @hub = {}
+          end
+        rescue ArgumentError 
+          pp "WARNING: Could not use google service to find hub details"
+        end
+      end
+    else 
+      @hub = Hub.find(params[:id])
+    end
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @hub.to_json(:methods => :full_hub) }
+      format.json { render json: @hub.to_json(:methods => [:full_hub, :short_hub, :select_id]) }
     end
   end
 

@@ -1,3 +1,4 @@
-.user-avatar
-  %img(ui-if='currentUser.facebook_auth' ng-src="http://graph.facebook.com/{{ currentUser.facebook_auth }}/picture?width=30&height=30")
+.currentuser-avatar
+  %img(ui-if='currentUser.facebook_auth' ng-src="http://graph.facebook.com/{{ currentUser.facebook_auth }}/picture")
+  -#%img(ui-if='currentUser.facebook_auth' ng-src="http://graph.facebook.com/{{ currentUser.facebook_auth }}/picture?width=30&height=30")
   %img(ui-if='!currentUser.facebook_auth' ng-src="http://gravatar.com/avatar/{{ currentUser.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}")
