@@ -6,10 +6,10 @@ gem 'rails', '4.0.3'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 gem 'protected_attributes'
-gem 'rails-observers'
-gem 'actionpack-page_caching'
-gem 'actionpack-action_caching'
-gem 'activerecord-deprecated_finders'
+#gem 'rails-observers'
+#gem 'actionpack-page_caching'
+#gem 'actionpack-action_caching'
+#gem 'activerecord-deprecated_finders'
 
 # Infrastructure
 gem 'devise', "~> 3.2.3"
@@ -30,11 +30,10 @@ gem 'nested_form'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.1.0'
-#gem 'compass_twitter_bootstrap'
 gem 'compass-rails'
 gem 'compass'
 gem 'activeadmin', github: 'gregbell/active_admin'
-#gem 'activeadmin', '~> 0.6.3'
+#gem 'activeadmin', '~> 0.6.3'    # Not compatible with Rails 4
 
 # Authentication
 gem 'omniauth'
@@ -46,18 +45,9 @@ gem 'ancestry'
 gem 'version_fu'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
-#gem 'strong_parameters'
 gem 'sitemap_generator'
 gem 'google_places_autocomplete'
 gem 'places'
-
-# Gems used only for assets and not required
-# in production environments by default.
-#group :assets do
-#  gem 'sass-rails',   '~> 3.2.5'
-#  gem 'coffee-rails', '~> 3.2.1', :require => 'coffee-rails'
-#  gem 'uglifier', '>= 1.0.3'
-#end
 
 
 gem 'sass-rails',   '~> 4.0.1'
