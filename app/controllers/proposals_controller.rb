@@ -1,7 +1,7 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
-  before_filter :authenticate_user!, :except => [:show, :index, :related_vote_in_tree, :related_proposals]
-  before_filter :find_hub, :find_user, only: :index
+  before_action :authenticate_user!, :except => [:show, :index, :related_vote_in_tree, :related_proposals]
+  before_action :find_hub, :find_user, only: :index
 
   # GET /proposals.json
   def index

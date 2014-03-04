@@ -5,7 +5,7 @@ ruby '1.9.3'
 gem 'rails', '4.0.3'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
-gem 'protected_attributes'
+gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
 #gem 'rails-observers'
 #gem 'actionpack-page_caching'
 #gem 'actionpack-action_caching'

@@ -1,5 +1,5 @@
 class HubsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index, :homepage]
+  before_action :authenticate_user!, :except => [:show, :index, :homepage]
 
   # GET /hubs
   # GET /hubs.json
