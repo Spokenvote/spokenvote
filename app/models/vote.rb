@@ -19,11 +19,12 @@ class Vote < ActiveRecord::Base
   belongs_to :user
 
   # scopes
-  default_scope :order => 'updated_at DESC'
+  default_scope { order(:updated_at => :desc) }
 
   # Validations
   validates :comment, :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
+  # last argument needs converting to a lamda for Rails4
 
   # Delegations
   delegate :username, :email, :gravatar_hash, :facebook_auth, to: :user

@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :intercept_html_requests
-  before_filter :sanitize_bad_params_from_angular # TODO: Remove when we fix angular to not send 'undefined' values for params
+  before_action :intercept_html_requests
+  before_action :sanitize_bad_params_from_angular # TODO: Remove when we fix angular to not send 'undefined' values for params
 
   after_filter  :set_csrf_cookie_for_ng
 
@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
   private
 
   def verified_request?
-    super || form_authenticity_token == request.headers['X_XSRF_TOKEN']
+    super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
+    #super || form_authenticity_token == request.headers['X_XSRF_TOKEN']       # Rails 3 Format
   end
 
   def sanitize_bad_params_from_angular

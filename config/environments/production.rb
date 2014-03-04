@@ -4,6 +4,8 @@ Spokenvote::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -12,7 +14,10 @@ Spokenvote::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  #config.assets.compress = true
+
+  # Suggested by Bates in Rails 4 Upgrade
+  #config.assets.js_compressor = :uglifier
 
   # For Angularjs       set "mangle: true" to get maximum js compression
   config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
