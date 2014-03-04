@@ -19,7 +19,7 @@ class Vote < ActiveRecord::Base
   belongs_to :user
 
   # scopes
-  default_scope :order => 'updated_at DESC'
+  default_scope { order(:updated_at => :desc) }
 
   # Validations
   validates :comment, :user, :proposal, presence: true

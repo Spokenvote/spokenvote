@@ -37,6 +37,7 @@ module Spokenvote
       Sprockets.register_engine '.haml', HamlTemplate
     end
 
+    config.i18n.enforce_available_locales = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
