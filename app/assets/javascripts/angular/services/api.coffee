@@ -50,15 +50,15 @@ UserSessionResource = ($http) ->
   UserSession = (options) ->
     angular.extend this, options
 
-  UserSession::$save = ->
-    $http.post "/users/login",
-      user:
-        email: @email
-        password: @password
-        remember_me: (if @remember_me then 1 else 0)
+#  UserSession::$save = ->                 #not current in use
+#    $http.post "/users/login",
+#      user:
+#        email: @email
+#        password: @password
+#        remember_me: (if @remember_me then 1 else 0)
 
-  UserSession::$destroy = ->
-    $http.delete "/users/logout"
+#  UserSession::$destroy = ->
+#    $http.delete "/users/logout"
 
   UserSession
 
