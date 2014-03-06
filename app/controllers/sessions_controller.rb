@@ -4,6 +4,18 @@ class SessionsController < Devise::SessionsController
     sign_in_and_redirect(resource_name, resource, URI(request.referrer).path)
   end
 
+  # DELETE /resource/sign_out
+  def destroy
+    redirect_path = after_sign_out_path_for(resource_name)
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
+    yield resource if block_given?
+
+    respond_to do |format|
+      format.all { head :no_content }
+    end
+  end
+
   def sign_in_and_redirect(resource_or_scope, resource=nil, referrer)
     scope = Devise::Mapping.find_scope!(resource_or_scope)
     resource ||= resource_or_scope

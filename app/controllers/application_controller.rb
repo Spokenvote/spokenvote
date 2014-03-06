@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     #if !request.format.json? && !(request.path[0,6] == '/admin') && !(request.path[0,9] == '/sitemap1')
     #if !request.format.xml? && !(request.path[0,6] == '/admin') && !(request.path[0,8] == '/sitemap')
       render('layouts/application')
+      #render layout: 'application', nothing: true
     end
   end
 
