@@ -31,4 +31,22 @@ describe Vote do
       it { should validate_uniqueness_of(:user_id).scoped_to(:proposal_id).with_message('You can only vote once on a proposal') }
     end
   end
+
+  describe '#new_votes' do
+    let!(:user)  { create(:user) }
+    let!(:hub)   { create(:hub) }
+    let!(:proposal1) { create(:proposal, hub: hub, user: user) }
+    let!(:proposal2) { create(:proposal, hub: hub, user: user) }
+    let!(:proposal3) { create(:proposal, hub: hub, user: user) }
+    let!(:vote1) { create(:vote, :comment => "Once more into the breach", :user => user, :proposal => proposal1) }
+    let!(:vote2) { create(:vote, :comment => "Once more into the breach", :user => user, :proposal => proposal2) }
+    let!(:vote3) { create(:vote, :comment => "Once more into the breach", :created_at => 48.hours.ago, :user => user, :proposal => proposal3) }
+
+    it "should return all votes created in the last 24 hours" do
+      Vote.new_votes.should match_array([vote1, vote2])
+    end
+  end
+
+  subject { vote }
+  it { should respond_to(:find_users_in_tree) }
 end
