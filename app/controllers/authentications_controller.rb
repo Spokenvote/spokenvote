@@ -15,7 +15,7 @@ class AuthenticationsController < Devise::SessionsController
 
     # Create user or update the user info as needed
     user = User.from_omniauth(try_existing_user.try(:id), auth_params)
-    user.authentications.create(:provider => auth_params[:provider], :uid => auth_params[:uid], :token => auth_params[:token]) unless authentication
+    user.authentications.create(auth_params) unless authentication
     @new_user_saved = true
     omniauth_sign_in user
   end
@@ -30,5 +30,5 @@ class AuthenticationsController < Devise::SessionsController
 end
 
 def auth_params
-  params.require(:auth).permit(:provider, :uid, :name, :token, :expiresIn)
+  params.require(:auth).permit(:provider, :uid, :name, :email, :token, :expiresIn)
 end
