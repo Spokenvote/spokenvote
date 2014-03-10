@@ -1,119 +1,168 @@
-.navbar-inverse .navbar-inner {
-  .navbar-inner {
-    color: #000;
-    border-color: #315c99;
-  }
-  form {
-    display: inline-block;
-    input, .btn {
-      vertical-align: baseline;
-      margin-right: 0;
-    }
-  }
-  .input {
-    margin-top: 0;
-  }
-  .input-append {
-    margin-top: -2px;
-  }
-  .input-append .btn {
-    margin-left: -4px;
-    font-variant: small-caps;
-  }
+
+// Navigation Styles
+
+#topBar {
+
 }
 
-header.navbar-inverse .navbar-inner {
-  border-bottom: 1px solid;
-  background: #252525;
-  background-image: url(sprite.png);
-  background-repeat: repeat-x;
-  height: 43px;
+header.hidden-xs {
 
-  .nav.pull-right {
-    li.buttons {
-      margin-top: 2px;
+}
+
+header.visible-xs {
+
+}
+
+.navbar {
+  @media (max-width: $grid-float-breakpoint-max) {
+    min-height: 42px;
+    background-color: transparent;
+    border-color: transparent;
+    color: $googlePanelGrey
+  }
+  margin-bottom: 0;
+  .hidden-xs > .nav > li > a {
+    //padding: 11px 15px 13px;
+    color: #bbb;
+    font-size: 15px;
+    &:hover {
+      cursor: pointer;
     }
-    li.dropdown {
-      padding-left: 10px;
-    }
-    li.avatar {
-      margin-top: -6px;
-      margin-right: -5px;
+    &.btn {
+      padding: 4px 10px 4px;
+      margin-right: 10px;
     }
   }
 }
 
-.container > .brand {
-  font-weight: 700;
-  font-size: 30px;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  letter-spacing: -1px;  
-  color: $happy-blue;
-  
-  &:hover span.vote { 
-    color: white !important;
-  }
+.navbar-inverse {
+  background-image: url(patterns/transit_grey.png);
+}
 
+.navbar-brand {
+  padding-top: 19px;
+}
+
+.sv-logo, a.sv-logo {
+  font-size: 2.1em;
+  @media (min-width: $screen-lg-min) {
+    font-size: 2.5em;
+  }
+  text-decoration: none;
+  font-weight: 600;
+  font-family: $logoTypeFace;
+  letter-spacing: -1px;
+  @media (max-width: $screen-sm-max) {
+    position: absolute;
+    right: 33%;
+  }
+  &:hover span.vote, &:hover span.spoken {
+    color: $smokeyLebel;
+    cursor: pointer;
+  }
+  span.spoken {
+    color: $happy-blue;
+  }
   span.vote {
     color: $spring-green;
     margin-left: -3px;
   }
 }
 
-#hub_search {
-  padding: 7px 0 0 28px;
-  width: 54%;
+
+.navbar-header {
+  text-align: center;
+  @media (max-width: $screen-sm-max) {
+    float: none;
+    background-color: $airbnbBackgroundWhite;
+//    background-color: $iPhoneHearderWhite;
+    //    border-color: $iPhoneHearderWhite;
+//    color: $googlePanelGrey
+  }
+  @media (min-width: $screen-md-min) {
+    padding: 0;
+  }
+  .navbar-toggle {
+    border-color: transparent;
+    color: $soft-grey;
+    display: inline-block;
+    margin: 4px;
+    .icon-bar {
+      background-color: $soft-grey;
+      @media (min-width: $screen-sm-min) {
+        width: 30px;
+        height: 3px;
+      }
+    }
+  }
+
+  .fa.fa-angle-left {
+    padding: 1px 9px 1px 9px;
+    color: $happy-blue;
+  }
+  .new-proposal {
+    text-align: center;
+    vertical-align: middle;
+    .navbar-toggle {
+      width: 44px;
+      padding: 0px;
+      .fa.fa-file-text-o {
+        padding-top: 11px;
+        line-height: 50%;
+      }
+    }
+  }
+  .user_area {
+    padding: 6px 10px;
+    img {
+      height: 28px;
+      width: auto;
+      @media (min-width: $screen-sm-min) {
+        height: 37px;
+      }
+    }
+  }
+}
+
+.hub_search {
+  padding: 2px 9px 0 0;
   a {
     padding: 1px 4px;
   }
-  li.hub_filter {
-    width: 98%;
-    //padding: 0px 30px 0px 0px;
+}
+
+.new_topic {
+  padding-top: 2px;
+}
+
+.user_area {
+  padding: 3px 5px;
+  img {
+    height: 43px;
+    width: auto;
   }
 }
 
-.navbar .nav > li > a {
-  //padding: 11px 15px 13px;
-  color: #bbb;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 15px;
-  &:hover {
-    cursor: pointer;
-  }
-  &.btn {
-    padding: 4px 10px 4px;
-    margin-right: 10px;
+#user_profile {
+  padding: 5px 0;
+  li.dropdown {
+    font-size: .75em;
+    padding-top: 3px;
   }
 }
 
-#location_filter {
-  @include border-radius(4px);
-}
+  #location_filter {
+    @include border-radius(4px);
+  }
 
-.clear-location {
-  position: relative;
-  right: 20px;
-  font-size: 12px;
-  z-index: 10001;
-  opacity: 0.5;
-}
+  .clear-location {
+    position: relative;
+    right: 20px;
+    font-size: 12px;
+    z-index: 10001;
+    opacity: 0.5;
+  }
 
 
-//footer.navbar-inverse {
-//  &.navbar {
-//    margin-bottom: 0;
-//  }
-//  .navbar-inner {
-//    border-top: 1px solid;
-//    //@include background(linear-gradient(scale-lightness(#e97e3b, 20), #e97e3b));
-//    background: #252525;
-//    background-image: url(sprite.png);
-//    background-repeat: repeat-x;
-//    @include border-radius(0);
-//    text-align: center;
-//    .container {
-//      width: 940px;
-//      height: 44px;
-//    }
-//  }
-//}
+// Depreciated
+

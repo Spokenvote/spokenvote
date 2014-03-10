@@ -1,0 +1,92 @@
+
+// Media Variables
+//$container-large-desktop: 900;
+//$grid-float-breakpoint: 800;
+
+
+// Color Variables
+
+$twitterBlack:                        #252525;
+
+$airbnbBackgroundWhite:               #eaebeb;
+$airbnbHighlightGrey:                 #e2e2e2;
+
+$iPhoneSafariHearderWhite:            #d8dfe5;
+$iPhoneHearderWhite:                  #eaeae7;
+$iPhoneHearderOffWhite:               #ebebe8;
+$iPhoneHearderBrightWhite:            #edf1f2;
+$iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
+
+
+// Spokenvote Colors
+$happy-blue: #1c85f6;
+$spring-green: #50D050;
+$modal-body-off-white: #DFDFDF;
+$googlePanelGreyLettering: #cecece;
+$chisel-grey: #c1c1c1;
+$soft-grey: rgba(132, 132, 132, 0.75);
+$smokeyLebel: rgba(153, 153, 153, 0.46);
+$basic-brown: #444;
+$soft-brown-text: #555555;
+$facebook-blue: #3b5998;
+$alert-blue: #284784;
+$error-text-red: #b94a48;
+$tag-blue: rgba(28, 133, 246, 0.25);
+
+$rowHighlight: rgba(240, 240, 255, 0.45);
+$rowRuler: rgba(68, 68, 68, 0.35);
+
+$googlePanelGrey: #252626;
+
+$gridGutterWidth:         10px !default;
+
+//$headingsColor: #315c99;
+//$headingsColor: #444;
+//$heroUnitHeadingColor: $headingsColor;
+
+
+// Twitter Bootstrap Color Variables
+$link-color:                          $facebook-blue;
+
+
+// Typography Variables
+
+$font-size-base:          14px;
+$font-family-sans-serif:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$logoTypeFace:            'Yanone Kaffeesatz', sans-serif;
+
+// Modal Variables
+
+$modal-title-padding: 2.8%;
+
+// Partial imports
+
+@import 'bootstrap';
+@import 'partials/select2';
+@import "compass";
+
+@import 'partials/structural';
+@import 'partials/off_canvas';
+@import 'partials/navigation';
+@import 'partials/modals';
+@import 'partials/content_pages';
+@import 'partials/proposal_index';
+@import 'partials/proposal_create';
+@import 'partials/proposal_show';
+
+
+
+
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ */

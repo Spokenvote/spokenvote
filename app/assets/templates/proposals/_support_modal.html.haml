@@ -1,13 +1,14 @@
-#voteModal.modal
+#improveProposalModal
   .modal-header
-    .pull-right( class='close'  ng-click='close()' ) &times;
-    %h2 Proposal Support
+    .pull-right( class='close'  ng-click='$close()' ) &times;
+    %h2.modal-title Proposal Support
 
     .selectedHub
-      .hub
-        .pull-right
-          %h3 {{ clicked_proposal.hub.group_name }}
-          %h5 {{ clicked_proposal.hub.formatted_location }}
+      %span
+        .groupName
+          {{ clicked_proposal.hub.group_name }}
+        .groupLocation
+          {{ clicked_proposal.hub.formatted_location }}
 
   .modal-body
     #alertContainer
@@ -17,30 +18,35 @@
       .instructions
         .avatar
           %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
-        %h5 Ok, I support this proposal!
-        -#.proposal-person
-          .user-avatar
-            %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
-            %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-          -#.supported_date
-            %a {{ clicked_proposal.user.name }}
-            %br
-            {{ clicked_proposal.created_at | date:'mediumDate' }}
-        .proposal_statement
+        %h5 Ok, I am adding support to the proposal shown below.
+
+      .proposal_statement
+        .form-group
+          %h5 Proposal Statement
+          .originalProposal
+            %h4 {{ clicked_proposal.statement }}
+
+        -#.proposal_statement
           %h4 {{ clicked_proposal.statement }}
 
-      %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='280'
-        placeholder='Explain why you want to support this proposal.' )
-      .length_counter( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
-        %i( class='icon-warning-sign' ) &nbsp Required
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' ) Too Short
-      .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' ) Too Long
-
+        .text_input
+          .form-group
+            %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='newSupport.comment' required ng-minLength='7' ng-maxLength='280'
+              placeholder='Explain why you want to support this proposal.' )
+            .length_counter.happy-text( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
+              .fa.fa-warning
+              %span Required
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.minlength' )
+              .fa.fa-warning
+              %span Too Short
+            .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$error.maxlength' )
+              .fa.fa-warning
+              %span Too Long
 
   .modal-footer
     %fieldset
-      .control-group
+      .form-group
         .controls
           %button( ng-click="saveSupport()" class='btn btn-primary btn-bold' ng-disabled='!supportProposalForm.$valid' ) Vote for this proposal
 

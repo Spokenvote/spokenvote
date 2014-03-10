@@ -3,18 +3,21 @@ require File.expand_path('../boot', __FILE__)
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
+#require "active_resource/railtie"
 require "sprockets/railtie"
-
+require 'google_places_autocomplete'
 require 'haml'
 
+# Rails 4 Upgrade removes below code
+#if defined?(Bundler)
+#  # If you precompile assets before deploying to production, use this line
+#  Bundler.require(*Rails.groups(:assets => %w(development test)))
+#  # If you want your assets lazily compiled in production, use this line
+#  # Bundler.require(:default, :assets, Rails.env)
+#end
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+# ... replacing it with the code below:
+Bundler.require(:default, Rails.env)
 
 module Spokenvote
   class Application < Rails::Application
@@ -34,6 +37,7 @@ module Spokenvote
       Sprockets.register_engine '.haml', HamlTemplate
     end
 
+    config.i18n.enforce_available_locales = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -41,7 +45,8 @@ module Spokenvote
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
+    config.autoload_paths += %W(#{config.root}/app/services)
+  
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -75,11 +80,13 @@ module Spokenvote
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    #config.active_record.whitelist_attributes = true
+
+    # Temp setting while transtioning to Rails 4
+    config.active_record.whitelist_attributes = false
     #config.action_controller.action_on_unpermitted_parameters = :raise
 
     # Enable the asset pipeline
-    config.assets.enabled = true
+    #config.assets.enabled = true   #Defaults True in Rails 4
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

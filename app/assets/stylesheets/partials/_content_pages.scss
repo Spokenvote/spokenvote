@@ -1,0 +1,71 @@
+
+// Landing page
+
+#homepage {
+  margin-left: 0;
+}
+
+.right-column {
+  padding-left: 50%;
+  padding-top: 20px;
+}
+
+.left-column {
+  padding-right: 50%;
+  padding-top: 20px;
+}
+
+
+// static_pages elements
+
+.static_page {
+  @extend .col-xs-11;
+  margin-left: $gridGutterWidth;
+  h1 {
+    margin-bottom: ($gridGutterWidth * 2.25);
+    font-size: ($gridGutterWidth *2);
+    color: #315D99;
+  }
+  h2 {
+    margin-top: ($gridGutterWidth * 1.5);
+    color: #555;
+  }
+  h3 {
+    margin-bottom: $gridGutterWidth;
+    font-size: 20px;
+  }
+  h4 {
+    color: #555;
+    line-height: 30px;
+  }
+  .content_offset {
+    margin-left: 40px;
+  }
+  .content_offset li {
+    padding-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .centered {
+    text-align: center;
+  }
+  .pull-right {
+  }
+  .attention_red {
+    color: #9d261d;
+  }
+  .content_div {
+    margin-bottom: 20px;
+  }
+  .content_div_half {
+    margin-bottom: 16px;
+  }
+  .content_div_1_5 {
+    margin-bottom: 30px;
+  }
+  label {
+    font-weight: bold;
+  }
+}
+
+// end static_pages elements

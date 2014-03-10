@@ -1,21 +1,22 @@
 .proposal_container( ui-if='proposal.has_support' )
 
   .main-proposal
-    %div(id='big-percent') {{ proposal.votes_percentage }}
+    .stats(id='big-percent')
+      #big-percent {{ proposal.votes_percentage }}
+      %ng-include.pull-right( src="'/assets/shared/_social_buttons.html'" )
 
-  .proposal_statement
-    %h3
-      %a( ng-href='#' ng-click='showProposal(proposal)' )  {{ proposal.statement }}
+    .proposal_statement
+      %h3
+        %a( ng-href='#' ng-click='showProposal(proposal)' )  {{ proposal.statement }}
     .improve_support_buttons
-      %ng-include( src="'/assets/shared/_social_buttons.html'" )
 
       .edit.btn-group( ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='edit(proposal)' class='btn btn-primary edit' bs-tooltip='tooltips.edit' data-placement='right' ) <i class="icon-pencil"></i>
-        %button( ng-click='delete(proposal)' class='btn btn-danger delete' bs-tooltip='tooltips.delete' data-placement='right' )  <i class="icon-trash"></i>
+        %button( ng-click='edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='bottom' ) <i class="glyphicon glyphicon-pencil"></i>
+        %button( ng-click='delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right' )  <i class="glyphicon glyphicon-trash"></i>
 
       .vote_buttons_container( ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='support(proposal)' class='btn btn-support btn-bold main' bs-tooltip='tooltips.support' data-placement='right' ) Support
-        %button( ng-click='improve(proposal)' class='btn btn-improve btn-bold main' bs-tooltip='tooltips.improve' data-placement='right' ) Improve
+        %button( ng-click='support(proposal)' class='btn btn-support btn-bold main' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right' ) Support
+        %button( ng-click='improve(proposal)' class='btn btn-improve btn-bold main' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right' ) Improve
 
   .supporting_arguments
     %h3( ng-show='proposal.has_support' )
@@ -23,16 +24,22 @@
       %votes ({{ proposal.votes_count }}
       %votes(ng-pluralize count='proposal.votes_count' when="{'0': 'Vote count error', '1': 'Vote)', 'other': 'Votes)'}" )) ({{proposal.votes_count}} votes)
 
-    .row
-      .supporting_arguments_list.span12( ng-repeat="(key, vote) in proposal.votes" )
-        .row.support_row
-          .proposal-person.span3
-            .user-avatar
-              %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
-              %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
-            .supported_date
-              %a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
-              %br
-              {{ vote.created_at | date:'mediumDate' }}
-          .support_comment.span8
-            {{ vote.comment }}
+    -#.row
+    .row.support_row( ng-repeat="(key, vote) in proposal.votes" )
+      .proposal-person.col-xs-2
+        -#.user-avatar
+        .supporter-avatar
+          %img( ui-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30" )
+          %img( ui-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+      .support-comment.col-xs-10
+        %supporter-name
+          %a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
+          -#%br
+          -#{{ vote.created_at | date:'mediumDate' }}
+        %supporter-text
+          {{ vote.comment }}
+
+        .supported_date
+          -#%a( ng-href='#' ng-click='setVoter(vote)' )  {{ vote.username }}
+          -#%br
+          {{ vote.updated_at }}

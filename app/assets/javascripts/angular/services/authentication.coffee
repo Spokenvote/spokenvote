@@ -20,7 +20,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
       provider: 'facebook'
       uid: SessionSettings.facebookUser.me.id
       name: SessionSettings.facebookUser.me.name
-      email: SessionSettings.facebookUser.me.email
+      email: SessionSettings.facebookUser.me.email if SessionSettings.facebookUser.me.email?
       token: SessionSettings.facebookUser.auth.authResponse.accessToken
       expiresIn: SessionSettings.facebookUser.auth.authResponse.expiresIn
 
@@ -45,7 +45,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
           else
             fbResolve userInfo, null, deferredFb, scope
       else
-        FB.login (authResponse) ->
+        FB.login ((authResponse) ->
           SessionSettings.facebookUser.auth = authResponse
           if authResponse.status is "connected"
             FB.api "/me", (userInfo) ->
@@ -55,6 +55,9 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
                 fbResolve userInfo, null, deferredFb, scope
           else
             fbResolve null, authResponse, deferredFb, scope
+          ),
+            scope: 'email,user_likes'
+
 
     deferredFb.promise
 

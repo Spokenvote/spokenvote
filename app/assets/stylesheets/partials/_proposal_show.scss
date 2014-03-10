@@ -1,0 +1,280 @@
+
+// content_pages elements
+
+.content_page {
+  padding: $gridGutterWidth / 2;
+  h2 {
+    margin-top: 5px;
+  }
+  h3 {
+    margin-top: 0;
+    @media (min-width: $screen-md-min) {
+      font-size: 2em;
+    }
+  }
+  .content_div {
+    margin-bottom: $gridGutterWidth;
+  }
+  #totalVoteLabel {
+    margin: -12px -10px -8px 0;
+    text-align: right;
+    .label {
+      @extend h6;
+      color: $soft-brown-text;
+      background-color: none;
+      padding: .2em .6em .3em;
+    }
+    @media (min-width: $screen-sm-min) {
+      margin: 0 -2px;
+      padding-top: 5px;
+      .label {
+        background-color: $chisel-grey;
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+
+// Proposal Show
+
+.main-proposal {
+  .stats {
+    float: right;
+    padding-left: 14px;
+//    margin-top: -2px;
+    #big-percent {
+      text-align: right;
+      margin: -8px 0 0 0;
+      font-size: 2.2em;
+      font-weight: bold;
+      color: $happy-blue;
+    }
+    .shares {
+      padding: 0 5px 5px 5px;
+      a {
+        font-size: .9em;
+      }
+    }
+  }
+}
+
+.proposal_container {
+  margin: 5% 0;
+  overflow: visible;
+}
+
+.proposal_statement {
+  .originalProposal {
+    background: lightgray;
+    border-radius: 4px;
+    margin: 5px 0 0 0;
+  }
+  .active & {
+    width: 97%;
+  }
+  h3 {
+    a {
+      color: $basic-brown;
+    }
+    :hover {
+      color: $happy-blue;
+    }
+  }
+  h4 {
+    font-style: italic;
+    padding: 5px;
+    margin: 0 0 10px 0;
+    color: #999999;
+  }
+  h5 {
+    color: $soft-brown-text;
+    margin: 0;
+  }
+}
+
+.supporter-avatar {
+  float: left;
+  //margin-right: 13px;
+  img {
+    @include border-radius(3px);
+    background-color: #ccc;
+    border: 1px solid #B9B9B9;
+    color: $basic-brown;
+    display: block;
+    width: 35px;
+    height: auto;
+    @media (min-width: $screen-sm-min) {
+      width: 50px;
+    }
+  }
+}
+
+.supporting_arguments {
+  @media (min-width: $screen-md-min) {
+    padding-top: 10px;
+  }
+  votes {
+    font-size: 80%;
+    font-weight: normal;
+    color: $soft-grey;
+  }
+  .proposal-person {
+    //    @extend .clear;
+    .user-avatar {
+      margin-right: 13px;
+    }
+  }
+  .supported_date {
+    color: grey;
+  }
+  .support_row {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    .support-comment {
+      padding: 0 10px 0 5px;
+      supporter-name {
+        font-weight: bold;
+        padding-right: 3px;
+      }
+      supporter-text {
+
+      }
+    }
+    //    @extend .no-gutter;
+    //    &.last { border-bottom: none;}
+  }
+}
+
+.improve_support_buttons {
+  padding: 5px;
+  .btn-support {
+    background-color: hsl(211, 92%, 46%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
+    background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
+    background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
+    background-image: -o-linear-gradient(top, #449bf7, #0971e1);
+    background-image: linear-gradient(#449bf7, #0971e1);
+    border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
+    color: #fff !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+    -webkit-font-smoothing: antialiased;
+  }
+  .btn-improve {
+    //color: white;
+    //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+    background-color: hsl(121, 53%, 37%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c649", endColorstr="#2c902e");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#47c649), to(#2c902e));
+    background-image: -moz-linear-gradient(top, #47c649, #2c902e);
+    background-image: -ms-linear-gradient(top, #47c649, #2c902e);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #47c649), color-stop(100%, #2c902e));
+    background-image: -webkit-linear-gradient(top, #47c649, #2c902e);
+    background-image: -o-linear-gradient(top, #47c649, #2c902e);
+    background-image: linear-gradient(#47c649, #2c902e);
+    border-color: #2c902e #2c902e hsl(121, 53%, 33%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.26);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .main {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+}
+
+.shares  .btn {
+  @extend .btn-mini;
+  background-color: hsl(211, 92%, 46%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
+  background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
+  background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
+  background-image: -o-linear-gradient(top, #449bf7, #0971e1);
+  background-image: linear-gradient(#449bf7, #0971e1);
+  border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
+  color: #fff !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+  -webkit-font-smoothing: antialiased;
+}
+
+#relatedProposals{
+  margin-top: 1%;
+  .relatedProposalsTitle {
+    font-size: 2em;
+    line-height: 110%;
+    font-weight: bold;
+    color: $alert-blue;
+  }
+}
+
+.relatedSorter {
+  font-size: .7em;
+  padding-top: 5px;
+  overflow: visible;
+  .btn {
+    font-size: 1em;
+    padding: 3px 5px;
+  }
+}
+
+#backNav {
+  a.icon {
+    color: $chisel-grey;
+    text-decoration: none;
+    :hover {
+      color: $happy-blue!important;
+    }
+  }
+}
+
+
+// Depreciated
+
+//.supporting_arguments_list {
+//  overflow: hidden;
+//}
+
+//.supporting_statement, .support_comment {
+//  div {
+//    margin-bottom: 10px;
+//  }
+//  div:last-child {
+//    margin-bottom: 0;
+//  }
+//}
+
+//.supporting_statement {
+//  font-size: 16px;
+//}
+
+//.related_supporting {
+//  clear: both;
+//  border-bottom: 1px solid #dddddd;
+//  padding-bottom: 10px;
+//  margin-bottom: 10px;
+//}
+
+//.proposal_fields {
+//  margin-top: 10px;
+//  label {
+//    @include inline-block;
+//    font-size: 16px;
+//    margin-right: 20px;
+//    margin-left: 17px;
+//  }
+//  label.first {
+//    margin-left: 0;
+//    padding-top: 8px;
+//  }
+//}

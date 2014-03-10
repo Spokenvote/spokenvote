@@ -18,4 +18,15 @@ end
 
 child :votes do
   attributes :id, :comment, :username, :created_at, :user_id, :email, :gravatar_hash, :facebook_auth
+
+  node(:updated_at) do |vote|
+    if vote.updated_at > 10.months.ago
+      vote.updated_at.strftime("%b %e, %l:%M%P")
+    elsif vote.updated_at > 16.months.ago
+      'About a year ago'
+    else
+      'Over a year ago'
+    end
+  end
+
 end

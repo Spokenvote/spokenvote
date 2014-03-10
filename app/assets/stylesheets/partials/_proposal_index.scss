@@ -1,0 +1,198 @@
+
+// Proposal Index
+
+.panel {
+  padding: 10px;
+  margin: 0;
+  background-color: #e5e5e5;
+  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+  border: 1px solid #c8c8c8;
+  border-color: rgba(0,0,0,0.2);
+  border-radius: 5px;
+  button {
+    font-size: .5em;
+  }
+}
+
+.proposal_hub {
+  a.hub {
+    text-decoration: none;
+    :hover {
+      color: $happy-blue;
+    }
+  }
+
+  h2 {
+    margin-top: 14px;
+    //color: #315D99;
+    font-family: $logoTypeFace;
+    color: $basic-brown;
+    //letter-spacing: -2px;
+  }
+}
+
+.landing_hubfilter {
+  -webkit-border-bottom-left-radius: 4px;
+  .proposal_buttons {
+    width: 114px;
+  }
+  .header {
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+    padding: 12px 10px 10px 10px;
+  }
+}
+
+.listing-proposals {
+  -webkit-border-bottom-left-radius: 4px;
+  .header {
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+  }
+  .title {
+    h4 {
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+  .btn-group {
+    padding: 5px 0 8px 0px;
+  }
+  ul {
+    list-style: none;
+    //    margin-top: -12px;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 0px;
+    :hover {
+      background-color: $rowHighlight;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+  li.tree_container {
+    //    line-height: 25px;
+    border-bottom: 1px solid $rowRuler;
+    padding: 0px 10px;
+    @media (min-width: $grid-float-breakpoint) {
+      padding: 0px 25px;
+    }
+  }
+
+  .topic {
+    padding: 10px 7px 5px 7px;
+  }
+
+  .list-avatar {
+    padding: 0px;
+    .avatar-sprite {
+      max-height: 30px;
+      //      width: 20px;
+    }
+    img {
+      //      vertical-align: bottom;
+      @media (max-width: $grid-float-breakpoint-max) {
+        width: 25px;
+        height: auto;
+      }
+    }
+  }
+
+  .topic-and-hub {
+    padding: 0px 15px 0px 3px;
+    .proposal {
+      font-size: 1.3em;
+      line-height: 100%;
+      :hover {
+        color: $happy-blue;
+        cursor: pointer;
+      }
+      a {
+        color: $basic-brown;
+      }
+    }
+    .hub {
+      font-size: 14px;
+      //      margin-bottom: -11px;
+      :hover {
+        color: $happy-blue;
+        cursor: pointer;
+      }
+      a {
+        color: $soft-grey;
+      }
+    }
+  }
+
+  .counts {
+    //    padding-right: 0px;
+    padding: 3px 0px;
+  }
+  .svlabel {
+    background-color: $smokeyLebel;
+    color: whitesmoke;
+    line-height: 8px;
+    font-size: 8px;
+    padding: 5px 3px 2px 3px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 31px;
+    float: right;
+  }
+  .vote_count {
+    padding-right: 10px;
+    .votes {
+      font-size: 24px;
+      font-weight: bold;
+      color: $happy-blue;
+      text-align: right;
+      padding: 3px 2px 8px 0px;
+    }
+  }
+  .prop_count {
+    padding-right: 0px;
+    .props {
+      font-size: 24px;
+      font-weight: bold;
+      color: $spring-green;
+      text-align: right;
+      padding: 3px 2px 8px 0px;
+    }
+  }
+  .last_date {
+    padding: 8px 0px 3px 0px;
+  }
+  .stats {
+    padding-right: 12px;
+    padding-left: 8px;
+  }
+  .date-stamp {
+    text-align: center;
+    line-height: 8px;
+    font-size: 8px;
+    color: $soft-grey;
+  }
+}
+
+#proposalNotFound div {
+  margin-left: 0;
+}
+
+#proposalNotFound div:last-child {
+  background-color: #e4e4e4;
+  text-align: center;
+  padding: 3px 10px;
+  -webkit-border-radius: 4px;
+}
+
+
+// Depreciated
+
+//.support_container {
+//  @extend .no-gutter;
+//  background: #ddd;
+//  padding: 10px;
+//  margin-bottom: 20px;
+//  h3 {
+//    line-height: normal;
+//    margin-top: 0;
+//  }
+//}
