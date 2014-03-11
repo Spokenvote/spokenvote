@@ -32,9 +32,7 @@ class NotificationBuilder
     crossover_result
   end
 
-  def reverse_hash
 
-  end
 end
 
 # [

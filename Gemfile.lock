@@ -169,6 +169,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mandrill-api (1.0.51)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     memcachier (0.0.2)
     meta_request (0.2.8)
       callsite
@@ -351,6 +354,7 @@ DEPENDENCIES
   jquery-tokeninput-rails
   jquery-ui-rails
   lol_dba
+  mandrill-api
   memcachier
   meta_request
   nested_form
