@@ -56,30 +56,3 @@
   //    padding-left: 7px;
   //  }
 }
-
-.selectedHub {
-  font-family: $logoTypeFace;
-  color: $basic-brown !important;
-  text-align: right;
-  text-decoration: none;
-  margin-top: -10px;
-  @media (max-width: $grid-float-breakpoint-max) {
-    margin-top: -5px;
-  }
-  .groupName {
-    font-size: 27px;
-    margin-right: 3px;
-    i {
-      font-size: 14px;
-    }
-  }
-  .groupLocation {
-    font-size: 14px;
-    margin-top: -4px;
-    margin-bottom: -6px;
-    margin-right: 3px;
-  }
-  :hover {
-    color: $happy-blue;
-  }
-}

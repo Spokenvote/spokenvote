@@ -94,6 +94,17 @@ VotingService = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTre
         modalInstance.result.finally ->
           SessionSettings.openModals.newProposal = false
 
+  wizard: (scope) ->
+    if SessionSettings.openModals.getStarted is false
+      modalInstance = $modal.open
+        templateUrl: '/assets/shared/_get_started_modal.html'
+        controller: 'GetStartedCtrl'
+#        scope: scope           # Passed in scope was getting clobbered, so letting it set to $rootscope
+      modalInstance.opened.then ->
+        SessionSettings.openModals.getStarted = true
+      modalInstance.result.finally ->
+        SessionSettings.openModals.getStarted = false
+
 ]
 
 # Injects

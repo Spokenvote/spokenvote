@@ -28,9 +28,7 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       modalInstance = $modal.open
         templateUrl: '/assets/user/_settings_modal.html'
         controller: 'UserSettingsCtrl'
-        resolve:
-          $scope: ->
-            $scope
+        scope: $scope
       modalInstance.opened.then ->
         SessionSettings.openModals.userSettings = true
       modalInstance.result.finally ->
@@ -59,20 +57,10 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       VotingService.new $scope
     else
       $scope.authService.signinFb($scope).then ->
-        VotingService.new $scope, VotingService
+        VotingService.new $scope
 
   $scope.getStarted = ->
-    if SessionSettings.openModals.getStarted is false
-      modalInstance = $modal.open
-        templateUrl: '/assets/shared/_get_started_modal.html'
-        controller: 'GetStartedCtrl'
-        resolve:
-          $scope: ->
-            $scope
-      modalInstance.opened.then ->
-        SessionSettings.openModals.getStarted = true
-      modalInstance.result.finally ->
-        SessionSettings.openModals.getStarted = false
+    VotingService.wizard $scope
 
 
   # All below had been decreciated in favor of Facebook sign in only

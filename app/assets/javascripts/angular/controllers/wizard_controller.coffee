@@ -1,23 +1,26 @@
 #modalCtrl = [ '$scope', '$modalInstance', '$location', 'AlertService', ( $scope, $modalInstance, $location, AlertService ) ->
-GetStartedCtrl = [ '$scope', '$modalInstance', '$location', '$rootScope', 'AlertService', 'Proposal', ( $scope, $modalInstance, $location, $rootScope, AlertService, Proposal ) ->
+GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ( $scope, $location, $rootScope, $modalInstance, AlertService, Proposal ) ->
   AlertService.clearAlerts()
-
-  $scope.goToGroup = (action) ->
-    console.log action
-    if $scope.sessionSettings.hub_attributes.id?
-      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
-      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
-      $scope.sessionSettings.actions.wizardToGroup = action
+  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
       $scope.sessionSettings.actions.newProposalHub = null
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
+  $scope.test = "1"
+
+  $scope.goToGroup = (action) ->
+    console.log 'action'
+
+    if $scope.sessionSettings.hub_attributes.id?
+      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
+      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
+      $scope.sessionSettings.actions.wizardToGroup = action
+
   $scope.tooltips =
     newHub: "You may change the group to which you are directing
                           this proposal by clicking here."
-
 
   #GetStartedCtrl = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal', ( $scope, $location, $rootScope, AlertService, Proposal ) ->
   $scope.sessionSettings.hub_attributes.id = null
@@ -25,7 +28,6 @@ GetStartedCtrl = [ '$scope', '$modalInstance', '$location', '$rootScope', 'Alert
   $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
 
-  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.saveNewProposal = ->
     if !$scope.sessionSettings.hub_attributes.id?
