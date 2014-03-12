@@ -97,6 +97,18 @@ textarea {
   width: 71%;
 }
 
+// TODO depreciate some of above?
+
+.full-width-tall {
+  width: 94%;
+  height: 80px;
+}
+
+.full-width-short {
+  width: 94%;
+  height: 40px;
+}
+
 .length_counter {
   text-align: right;
   //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
@@ -122,6 +134,9 @@ textarea {
   text-align: center;
   margin: 0;
   padding: 5px 5%;
+  span-red {
+    color: $error-text-red;
+  }
 }
 
 .popover {
@@ -285,26 +300,63 @@ h1.form-horizontal {
 
 .page_title {
   text-align: center;
-  //width: 905px;
-  //margin-left: -25px  ;
   .searched & {
     @extend .hide;
   }
-  h1 {
-    font-size: 78px;
+  .brand {
+    color: $happy-blue;
+    text-shadow: 2px 2px 4px #999;
+    font-size: 105px;
+    font-weight: 700;
+    line-height: 80px;
+    letter-spacing: 0px;
+    padding-top: 35px;
+    padding-bottom: 40px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    span.vote {
+      color: $spring-green;
+      margin-left: -22px;
+    }
+  }
+//  h1 {
+//    font-size: 78px;
+//    color: #333;
+//    text-shadow: 1px 1px 2px #999;
+//    line-height: 80px;
+//    font-family: $logoTypeFace;
+//    text-align: center;
+//  }
+  .tag_line {
     color: #333;
     text-shadow: 1px 1px 2px #999;
-    line-height: 80px;
-    font-family: $logoTypeFace;
-    text-align: center;
-  }
-  .tag_line {
-    font-family: $logoTypeFace;
-    color: $spring-green;
-    font-size: 72px;
-    line-height: 80px;
+    font-size: 45px;
+    line-height: 50px;
     font-style: italic ;
-    padding-top: 30px;
+    text-align: center;
+    padding-top: 19px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+  }
+//  .tag_line {
+//    font-family: $logoTypeFace;
+//    color: $spring-green;
+//    font-size: 72px;
+//    line-height: 80px;
+//    font-style: italic ;
+//    padding-top: 30px;
+//  }
+  .call_to_action {
+    color: #333;
+    //padding-left: 330px;
+    font-size: 55px;
+    font-weight: 800;
+    line-height: 70px;
+    padding-top: 55px;
+    padding-bottom: 45px;    font-family: 'Yanone Kaffeesatz', sans-serif;
+  }
+  .instructions {
+    //font-size: 12px;
+    //padding-top: 7px;
+    padding-bottom: 35px;
   }
 }
 

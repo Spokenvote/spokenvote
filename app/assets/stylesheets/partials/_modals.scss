@@ -25,9 +25,23 @@
   background-color: $modal-body-off-white;
   padding: 3%;
   form {
+//    margin-bottom: 0;                     // TODO need this?
+//    padding-left: 10px;
   }
   .form-group {
     padding: 3px 3px 0 3px;
+  }
+  .modalMessageArea {                    // TODO Duplicate?
+    padding-left: 20px;
+    padding-right: 20px;
+    color: $soft-brown-text;
+    .italic_offset {
+      font-style: italic;
+      padding-left: 12px;
+      padding-right: 25px;
+      padding-bottom: 15px;
+      margin-top: 0px;
+    }
   }
   .instructions {
     padding: 0px 10px;
