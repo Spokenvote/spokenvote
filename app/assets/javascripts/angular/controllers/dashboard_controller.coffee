@@ -18,12 +18,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
 
-#    $route.when '/proposals/:proposalId',
-#      SessionSettings.actions.detailPage = true
-#    $route.when not '/proposals/:proposalId',
-#      SessionSettings.actions.detailPage = false
-
-
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
