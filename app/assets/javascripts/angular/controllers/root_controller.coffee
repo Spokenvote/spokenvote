@@ -46,6 +46,9 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
     $location.search(filter, null)
     $rootScope.sessionSettings.routeParams.user = null
 
+  $scope.backtoTopics = ->
+    $location.path('/proposals')
+
   $scope.newTopic = ->
     if $scope.sessionSettings.hub_attributes.id?
       $scope.sessionSettings.actions.changeHub = false
@@ -58,19 +61,18 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       $scope.authService.signinFb($scope).then ->
         VotingService.new $scope, VotingService
 
-  $scope.backtoTopics = ->
-    $location.path('/proposals')
-
   $scope.getStarted = ->
     if SessionSettings.openModals.getStarted is false
-      opts =
+      modalInstance = $modal.open
+        templateUrl: '/assets/shared/_get_started_modal.html'
+        controller: 'GetStartedCtrl'
         resolve:
-          parentScope: ->
+          $scope: ->
             $scope
-      d = $dialog.dialog(opts)
-      SessionSettings.openModals.getStarted = true
-      d.open('/assets/shared/_get_started_modal.html', 'modalCtrl').then (result) ->
-        SessionSettings.openModals.getStarted = d.isOpen()
+      modalInstance.opened.then ->
+        SessionSettings.openModals.getStarted = true
+      modalInstance.result.finally ->
+        SessionSettings.openModals.getStarted = false
 
 
   # All below had been decreciated in favor of Facebook sign in only

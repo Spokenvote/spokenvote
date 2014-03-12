@@ -27,16 +27,6 @@ VotingService = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTre
             modalInstance.result.finally ->
               SessionSettings.openModals.supportProposal = false
 
-#            scope.opts =
-#              resolve:
-#                $scope: ->
-#                  scope
-##            d = $dialog.dialog(scope.opts)
-#            SessionSettings.openModals.supportProposal = true
-#            d.open('/assets/proposals/_support_modal.html', 'SupportCtrl').then (result) ->
-#              SessionSettings.openModals.supportProposal = d.isOpen()
-
-
   improve: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
     scope.current_user_support = null
