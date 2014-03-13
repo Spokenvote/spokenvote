@@ -3,16 +3,18 @@
     .pull-right( class='close' ng-click='$close()' ) &times;
     %h2.modal-title Start New Topic
 
-    .selectedHub
-      %span( ng-click='changeHub(true)' href='#' )
-        -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
-        .groupName( collapse='!sessionSettings.hub_attributes.id' )
-          %i( class='glyphicon glyphicon-pencil' )
-          %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
-        .groupName( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
-          %i( class='glyphicon glyphicon-pencil' )
-          %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
-        .groupLocation( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
+    %ng-include( src="'/assets/shared/_selected_hub.html'" )
+
+    -#.selectedHub
+    -#  %span( ng-click='changeHub(true)' href='#' )
+    -#    -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
+    -#    .groupName( collapse='!sessionSettings.hub_attributes.id' )
+    -#      %i( class='glyphicon glyphicon-pencil' )
+    -#      %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
+    -#    .groupName( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
+    -#      %i( class='glyphicon glyphicon-pencil' )
+    -#      %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
+    -#    .groupLocation( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
 
   .modal-body
     #alertContainer
@@ -20,13 +22,17 @@
 
     %form( name='newProposal.newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
-        .changehub( collapse='!sessionSettings.actions.changeHub' )
+
+        %ng-include( src="'/assets/shared/_change_hub.html'" )
+
+        -#.changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
             %h5 Set the group for your proposal. Start by searching below to see if the group exists yet. If it doesn't, create it.
 
-          .selecthub( ng-controller='DashboardCtrl' role='search' )
+
+          -#.selecthub( ng-controller='DashboardCtrl' role='search' )
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
           %ng-include( src="'/assets/shared/_make_hub.html'" )

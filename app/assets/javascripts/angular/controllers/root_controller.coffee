@@ -62,6 +62,10 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
   $scope.getStarted = ->
     VotingService.wizard $scope
 
+  $rootScope.rootTips =
+    newHub: "You may change the group to which you are directing
+                              this proposal by clicking here."
+
 
   # All below had been decreciated in favor of Facebook sign in only
   $scope.googleAuth2 = ->

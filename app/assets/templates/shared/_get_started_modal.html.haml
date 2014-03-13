@@ -4,20 +4,12 @@
   -##newProposalModal
   .modal-header
     .pull-right( class='close' ng-click='$close()' ) &times;
-    %h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find your Group
-    %h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find your Topic
-    %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - Creating a New Group
-    %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - Creating a New Topic
+    %h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find Group
+    %h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find Topic
+    %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - New Group
+    %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - New Topic
 
-    .selectedHub
-      %span( ng-click='changeHub(true)' href='#' )
-        .groupName( collapse='!sessionSettings.hub_attributes.id' )
-          %i( class='glyphicon glyphicon-pencil' )
-          %span( tooltip-html-unsafe='{{wizardtips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
-        .groupName( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
-          %i( class='glyphicon glyphicon-pencil' )
-          %span( tooltip-html-unsafe='{{wizardtips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
-        .groupLocation( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
+    %ng-include( src="'/assets/shared/_selected_hub.html'" )
 
   .modal-body
     #alertContainer
@@ -47,6 +39,8 @@
 
     %form( name='newProposal.newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
+
+        %ng-include( src="'/assets/shared/_change_hub.html'" )
 
         -#.changehub( collapse='!sessionSettings.actions.changeHub' )
           .instructions
@@ -84,13 +78,15 @@
               .length_counter.happy-text( ng-show='newProposal.newProposalForm.formatted_location.$valid && newProposal.newProposalForm.group_name.$valid' )
                 %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
-        .changehub( collapse='!sessionSettings.actions.changeHub' )
+
+        -#.changehub( collapse='!sessionSettings.actions.changeHub' )
           .modalMessageArea
             %h4 Enter any group you would like to influence.
             %br
 
-          .selecthub( ng-controller='DashboardCtrl' role='search' )
+          -#.selecthub( ng-controller='DashboardCtrl' role='search' )
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+
 
             %h5.italic_offset Groups are any organization, company or governing body, formal or informal, which routinely makes decisions effecting you. If your group is not set up yet, we will let you set it up.
             %br

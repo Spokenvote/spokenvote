@@ -59,9 +59,17 @@
     padding: 3px 3px 0 3px;
   }
   .modalMessageArea {                    // TODO Duplicate?
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0px 20px;
     color: $soft-brown-text;
+//    .avatar {
+//      padding: 0 5px 5px 5px;
+//      float: left;
+//      height: 100%;
+//      img {
+//        width: $small-avatar-height;
+//        height: auto;
+//      }
+//    }
     .italic_offset {
       font-style: italic;
       padding-left: 12px;
@@ -73,10 +81,10 @@
   .instructions {
     padding: 0px 10px;
     @media (min-width: $grid-float-breakpoint) {
-      padding: 0px 10px 20px 10px;
+      padding: 0 10px 20px 10px;
     }
     .avatar {
-      padding: 3px 5px 5px 5px;
+      padding: 0 5px 5px 5px;
       float: left;
       height: 100%;
       img {

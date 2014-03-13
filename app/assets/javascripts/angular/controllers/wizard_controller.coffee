@@ -16,10 +16,6 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
-  $scope.wizardtips =
-    newHub: "You may change the group to which you are directing
-                          this proposal by clicking here."
-
 #  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.saveNewProposal = ->

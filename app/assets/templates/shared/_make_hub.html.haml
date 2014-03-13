@@ -1,11 +1,14 @@
 .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
+
   %h5.hint-text
     .fa.fa-lightbulb-o
     %span-red Hint!
     %span Double-check to make sure your group does not already exist by trying alternate spellings above.
     -#%h3 No group by that name? Create it below ...
+
     %h3 Create new group
   .input-area
+
     %input( name="group_name" id='group_name' type='text' class='input-xlarge'
     placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
     .length_counter.happy-text( ng-show='newProposal.newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
@@ -18,6 +21,7 @@
     .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" )
       .fa.fa-warning
       %spanToo Long
+
     %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
       placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
     .length_counter.error-text( ng-hide='newProposal.newProposalForm.formatted_location.$valid' )

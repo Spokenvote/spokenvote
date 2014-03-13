@@ -129,9 +129,9 @@ NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Aler
       AlertService.setJson response.data
     )
 
-  $scope.tooltips =
-    newHub: "You may change the group to which you are directing
-                  this proposal by clicking here."
+#  $scope.tooltips =
+#    newHub: "You may change the group to which you are directing
+#                  this proposal by clicking here."
 ]
 
 # Injects
