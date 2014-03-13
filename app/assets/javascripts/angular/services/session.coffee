@@ -112,6 +112,7 @@ SessionSettings = ->
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}
+  newProposal: {}
   lastLocation:
     location_id: null
     formatted_location: null

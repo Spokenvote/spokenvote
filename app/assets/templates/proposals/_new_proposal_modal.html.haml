@@ -29,32 +29,33 @@
           .selecthub( ng-controller='DashboardCtrl' role='search' )
             %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
 
-          .makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
-            %h5.hint-text
-              .fa.fa-lightbulb-o
-              %span Hint! &nbsp Double-check to make sure your group does not already exist by trying alternate spellings above.
-              %h3 Create new group
-            .input-area
-              %input( name="group_name" id='group_name' type='text' class='input-xlarge'
-              placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
-              .length_counter.happy-text( ng-show='newProposal.newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
-              .length_counter.error-text( ng-show='newProposal.newProposalForm.group_name.$invalid && !newProposal.newProposalForm.group_name.$error.minlength && !newProposal.newProposalForm.group_name.$error.maxlength' )
-                .fa.fa-warning
-                %span Required
-              .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.minlength" )
-                .fa.fa-warning
-                %span Too Short
-              .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" )
-                .fa.fa-warning
-                %spanToo Long
+          %ng-include( src="'/assets/shared/_make_hub.html'" )
 
-              %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
-                placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
-              .length_counter.error-text( ng-hide='newProposal.newProposalForm.formatted_location.$valid' )
-                .fa.fa-warning
-                %span Choose a valid location from list.
-              .length_counter.happy-text( ng-show='newProposal.newProposalForm.formatted_location.$valid && newProposal.newProposalForm.group_name.$valid' )
-                %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
+          -#.makeHub( ui-if='sessionSettings.actions.changeHub == "new"' )
+          -#  %h5.hint-text
+          -#    .fa.fa-lightbulb-o
+          -#    %span Hint! &nbsp Double-check to make sure your group does not already exist by trying alternate spellings above.
+          -#    %h3 Create new group
+          -#  .input-area
+          -#    %input( name="group_name" id='group_name' type='text' class='input-xlarge'
+          -#    placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
+          -#    .length_counter.happy-text( ng-show='newProposal.newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
+          -#    .length_counter.error-text( ng-show='newProposal.newProposalForm.group_name.$invalid && !newProposal.newProposalForm.group_name.$error.minlength && !newProposal.newProposalForm.group_name.$error.maxlength' )
+          -#      .fa.fa-warning
+          -#      %span Required
+          -#    .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.minlength" )
+          -#      .fa.fa-warning
+          -#      %span Too Short
+          -#    .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" )
+          -#      .fa.fa-warning
+          -#      %spanToo Long
+          -#    %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
+          -#      placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
+          -#    .length_counter.error-text( ng-hide='newProposal.newProposalForm.formatted_location.$valid' )
+          -#      .fa.fa-warning
+          -#      %span Choose a valid location from list.
+          -#    .length_counter.happy-text( ng-show='newProposal.newProposalForm.formatted_location.$valid && newProposal.newProposalForm.group_name.$valid' )
+          -#      %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
 
         .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
           .instructions
