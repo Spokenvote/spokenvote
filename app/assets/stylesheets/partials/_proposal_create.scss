@@ -20,33 +20,29 @@
 }
 
 .newProposal {
-  //  padding-bottom: 18px;
-  //  margin-bottom: -38px;
   .changehub {
     .selecthub {
       text-align: center;
       padding: 2%;
     }
-    .makeHub {
-      //      padding-bottom: 22px;
-      h3 {
-        //        font-style: italic;
-        color: $happy-blue;
-        font-size: 135%;
-        margin: 0;
-        padding: 5px;
+  }
+  .makeHub {
+    h3 {
+      color: $happy-blue;
+      font-size: 135%;
+      margin: 0;
+      padding: 5px;
+    }
+    .input-area {
+      padding: 0 15px;
+      width: 287px;
+      min-width: 70%;
+      input {
+        width: 100%;
+        margin-top: 5px;
       }
-      .input-area {
-        padding: 0 15px;
-        width: 287px;
-        min-width: 70%;
-        input {
-          width: 100%;
-          margin-top: 5px;
-        }
-        .length_counter.happy-text a.link {
-          color: $alert-blue;
-        }
+      .length_counter.happy-text a.link {
+        color: $alert-blue;
       }
     }
   }

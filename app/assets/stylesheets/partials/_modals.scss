@@ -79,14 +79,15 @@
     }
   }
   .instructions {
+    max-height: 50px;
     padding: 0px 10px;
-    @media (min-width: $grid-float-breakpoint) {
-      padding: 0 10px 20px 10px;
-    }
     .avatar {
-      padding: 0 5px 5px 5px;
+      padding: 0 8px;
       float: left;
       height: 100%;
+      @media (min-width: $grid-float-breakpoint) {
+        padding: 0 15px;
+      }
       img {
         width: 35px;
         height: auto;
@@ -94,7 +95,6 @@
     }
     h5 {
       color: $soft-brown-text;
-      padding-left: 50px;
     }
   }
 }
