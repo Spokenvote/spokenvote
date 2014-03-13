@@ -51,35 +51,12 @@
 .modal-body {
   background-color: $modal-body-off-white;
   padding: 3%;
-  form {
-//    margin-bottom: 0;                     // TODO need this?
-//    padding-left: 10px;
-  }
   .form-group {
     padding: 3px 3px 0 3px;
   }
-  .modalMessageArea {                    // TODO Duplicate?
-    padding: 0px 20px;
-    color: $soft-brown-text;
-//    .avatar {
-//      padding: 0 5px 5px 5px;
-//      float: left;
-//      height: 100%;
-//      img {
-//        width: $small-avatar-height;
-//        height: auto;
-//      }
-//    }
-    .italic_offset {
-      font-style: italic;
-      padding-left: 12px;
-      padding-right: 25px;
-      padding-bottom: 15px;
-      margin-top: 0px;
-    }
-  }
   .instructions {
-    max-height: 50px;
+    color: $soft-brown-text;
+//    max-height: 50px;          // Would like div to resize correctly to fit given text
     padding: 0px 10px;
     .avatar {
       padding: 0 8px;
@@ -92,9 +69,6 @@
         width: 35px;
         height: auto;
       }
-    }
-    h5 {
-      color: $soft-brown-text;
     }
   }
 }

@@ -13,19 +13,19 @@
     placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
     .length_counter.happy-text( ng-show='newProposal.newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
     .length_counter.error-text( ng-show='newProposal.newProposalForm.group_name.$invalid && !newProposal.newProposalForm.group_name.$error.minlength && !newProposal.newProposalForm.group_name.$error.maxlength' )
-      .fa.fa-warning
       %span Required
+      .fa.fa-warning
     .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.minlength" )
-      .fa.fa-warning
       %span Too Short
-    .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" )
       .fa.fa-warning
+    .length_counter.error-text( ng-show="newProposal.newProposalForm.group_name.$error.maxlength" )
       %spanToo Long
+      .fa.fa-warning
 
     %input( name="formatted_location" id='hub_formatted_location' type='text' class='input-xlarge'
       placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
     .length_counter.error-text( ng-hide='newProposal.newProposalForm.formatted_location.$valid' )
-      .fa.fa-warning
       %span Choose a valid location from list.
+      .fa.fa-warning
     .length_counter.happy-text( ng-show='newProposal.newProposalForm.formatted_location.$valid && newProposal.newProposalForm.group_name.$valid' )
       %a.link( ng-click='sessionSettings.actions.changeHub = false' href='#' ) Group Location Valid
