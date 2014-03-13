@@ -1,14 +1,10 @@
-#modalCtrl = [ '$scope', '$modalInstance', '$location', 'AlertService', ( $scope, $modalInstance, $location, AlertService ) ->
 GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ( $scope, $location, $rootScope, $modalInstance, AlertService, Proposal ) ->
   AlertService.clearAlerts()
-  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.changeHub = (request) ->
     if request = true and $scope.sessionSettings.actions.changeHub != 'new'
       $scope.sessionSettings.actions.newProposalHub = null
       $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
-
-  $scope.test = "1"
 
   $scope.goToGroup = (action) ->
     console.log 'action'
@@ -22,12 +18,12 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
     newHub: "You may change the group to which you are directing
                           this proposal by clicking here."
 
-  #GetStartedCtrl = [ '$scope', '$location', '$rootScope', 'AlertService', 'Proposal', ( $scope, $location, $rootScope, AlertService, Proposal ) ->
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
 
+  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.saveNewProposal = ->
     if !$scope.sessionSettings.hub_attributes.id?
@@ -45,7 +41,7 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.',$scope
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
       $modalInstance.close(response)
       $scope.sessionSettings.actions.offcanvas = false
@@ -56,10 +52,4 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
 
 ]
 
-# Injects
-#modalCtrl.$inject = [ '$scope', '$location', 'SessionSettings', 'AlertService', 'dialog' ]
-#GetStartedCtrl.$inject = [ '$scope', '$location', 'SessionSettings' ]
-
-# Register
-#App.controller 'modalCtrl', modalCtrl
 App.controller 'GetStartedCtrl', GetStartedCtrl
