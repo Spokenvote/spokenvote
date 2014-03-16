@@ -1,4 +1,4 @@
-alertBar = ($parse) ->
+alertBar = [ '$parse', '$rootScope', ($parse, $rootScope) ->
   restrict: 'A'
   templateUrl: '/assets/shared/_request_response_partial.html'
 
@@ -8,9 +8,10 @@ alertBar = ($parse) ->
 #    scope.$watch alertMessageAttr, (newVal) ->
 #      scope.errorMessage = newVal
 
-    scope.hideAlert = ->
+#    scope.hideAlert = ->
+    $rootScope.hideAlert = ->
 #      scope.errorMessage = null                     #Alternate method using local scope copy of alert
       $parse(alertMessageAttr).assign scope, null
+]
 
-alertBar.$inject = [ '$parse' ]
 App.Directives.directive 'alertBar', alertBar
