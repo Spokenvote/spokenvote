@@ -1,4 +1,4 @@
-GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ( $scope, $location, $rootScope, $modalInstance, AlertService, Proposal ) ->
+GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'VotingService', 'Proposal', ( $scope, $location, $rootScope, $modalInstance, AlertService, VotingService, Proposal ) ->
   AlertService.clearAlerts()
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
@@ -16,32 +16,44 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
-#  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
   $scope.saveNewProposal = ->
-    if !$scope.sessionSettings.hub_attributes.id?
-      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
-    newProposal =
-      proposal:
-        statement: $scope.newProposal.statement
-        votes_attributes:
-          comment: $scope.newProposal.comment
-        hub_id: $scope.sessionSettings.hub_attributes.id
-        hub_attributes: $scope.sessionSettings.hub_attributes
+    VotingService.saveNewProposal $modalInstance
 
-    AlertService.clearAlerts()
 
-    Proposal.save(newProposal
-    ,  (response, status, headers, config) ->
-      $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
-      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-      $modalInstance.close(response)
-      $scope.sessionSettings.actions.offcanvas = false
-    ,  (response, status, headers, config) ->
-      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
-      AlertService.setJson response.data
-    )
+#  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
+
+#  $scope.saveNewProposal = ->
+#    if !$scope.sessionSettings.hub_attributes.id?
+#      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
+#    newProposal =
+#      proposal:
+#        statement: $scope.sessionSettings.newProposal.statement
+#        votes_attributes:
+#          comment: $scope.sessionSettings.newProposal.comment
+#        hub_id: $scope.sessionSettings.hub_attributes.id
+#        hub_attributes: $scope.sessionSettings.hub_attributes
+##    newProposal =
+##      proposal:
+##        statement: $scope.newProposal.statement
+##        votes_attributes:
+##          comment: $scope.newProposal.comment
+##        hub_id: $scope.sessionSettings.hub_attributes.id
+##        hub_attributes: $scope.sessionSettings.hub_attributes
+#
+#    AlertService.clearAlerts()
+#
+#    Proposal.save(newProposal
+#    ,  (response, status, headers, config) ->
+#      $rootScope.$broadcast 'event:proposalsChanged'
+#      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+#      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
+#      $modalInstance.close(response)
+#      $scope.sessionSettings.actions.offcanvas = false
+#    ,  (response, status, headers, config) ->
+#      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope, 'modal'
+#      AlertService.setJson response.data
+#    )
 
 ]
 

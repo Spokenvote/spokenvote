@@ -120,7 +120,7 @@ NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Aler
     Proposal.save(newProposal
     ,  (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
       $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
       $modalInstance.close(response)
       $scope.sessionSettings.actions.offcanvas = false

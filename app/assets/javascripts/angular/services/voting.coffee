@@ -1,4 +1,4 @@
-VotingService = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', ( $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal', ( $rootScope, $location, $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
   support: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
@@ -93,6 +93,33 @@ VotingService = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTre
           SessionSettings.openModals.newProposal = true
         modalInstance.result.finally ->
           SessionSettings.openModals.newProposal = false
+
+
+  saveNewProposal: ($modalInstance) ->
+    if !SessionSettings.hub_attributes.id?
+      SessionSettings.hub_attributes.group_name = SessionSettings.actions.searchTerm
+    newProposal =
+      proposal:
+        statement: SessionSettings.newProposal.statement
+        votes_attributes:
+          comment: SessionSettings.newProposal.comment
+        hub_id: SessionSettings.hub_attributes.id
+        hub_attributes: SessionSettings.hub_attributes
+
+    AlertService.clearAlerts()
+
+    Proposal.save(newProposal
+    ,  (response, status, headers, config) ->
+      $rootScope.$broadcast 'event:proposalsChanged'
+      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
+      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
+      $modalInstance.close(response)
+      SessionSettings.actions.offcanvas = false
+    ,  (response, status, headers, config) ->
+      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
+      AlertService.setJson response.data
+    )
+
 
   wizard: (scope) ->
     if SessionSettings.openModals.getStarted is false
