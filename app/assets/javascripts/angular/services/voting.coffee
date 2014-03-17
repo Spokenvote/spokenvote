@@ -88,7 +88,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
         modalInstance = $modal.open
           templateUrl: '/assets/proposals/_new_proposal_modal.html'
           controller: 'NewProposalCtrl'
-          scope: scope
+#          scope: scope           # Passed in scope was getting clobbered, so letting it set to $rootscope
         modalInstance.opened.then ->
           SessionSettings.openModals.newProposal = true
         modalInstance.result.finally ->
@@ -137,9 +137,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
         SessionSettings.openModals.getStarted = false
 
 ]
-
-# Injects
-#VotingService.$inject = [ '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader'  ]
 
 # Register
 App.Services.factory 'VotingService', VotingService
