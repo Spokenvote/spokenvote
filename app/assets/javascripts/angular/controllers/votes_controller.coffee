@@ -96,38 +96,48 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'A
     )
 ]
 
-NewProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal', ($scope, $location, $rootScope, $modalInstance, AlertService, Proposal) ->
-  AlertService.clearAlerts()
-  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
+NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
+  $scope.alertService.clearAlerts()
+  $scope.modalInstance = $modalInstance
 
-  $scope.changeHub = (request) ->
-    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
-      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
+#  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
-  $scope.saveNewProposal = ->
-    if !$scope.sessionSettings.hub_attributes.id?
-      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
-    newProposal =
-      proposal:
-        statement: $scope.newProposal.statement
-        votes_attributes:
-          comment: $scope.newProposal.comment
-        hub_id: $scope.sessionSettings.hub_attributes.id
-        hub_attributes: $scope.sessionSettings.hub_attributes
+#  $scope.changeHub = (request) ->
+#    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
+#      $scope.sessionSettings.actions.newProposalHub = null
+#      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
-    AlertService.clearAlerts()
+#  $scope.changeHub = (request) ->
+#    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
+#      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
-    Proposal.save(newProposal
-    ,  (response, status, headers, config) ->
-      $rootScope.$broadcast 'event:proposalsChanged'
-      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-      $modalInstance.close(response)
-      $scope.sessionSettings.actions.offcanvas = false
-    ,  (response, status, headers, config) ->
-      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
-      AlertService.setJson response.data
-    )
+#  $scope.saveNewProposal = ->
+#    $scope.votingService.saveNewProposal $modalInstance
+
+#  $scope.saveNewProposal = ->
+#    if !$scope.sessionSettings.hub_attributes.id?
+#      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
+#    newProposal =
+#      proposal:
+#        statement: $scope.newProposal.statement
+#        votes_attributes:
+#          comment: $scope.newProposal.comment
+#        hub_id: $scope.sessionSettings.hub_attributes.id
+#        hub_attributes: $scope.sessionSettings.hub_attributes
+#
+#    AlertService.clearAlerts()
+#
+#    Proposal.save(newProposal
+#    ,  (response, status, headers, config) ->
+#      $rootScope.$broadcast 'event:proposalsChanged'
+#      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+#      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
+#      $modalInstance.close(response)
+#      $scope.sessionSettings.actions.offcanvas = false
+#    ,  (response, status, headers, config) ->
+#      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
+#      AlertService.setJson response.data
+#    )
 
 #  $scope.tooltips =
 #    newHub: "You may change the group to which you are directing

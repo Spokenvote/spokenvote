@@ -2,6 +2,7 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
   $rootScope.alertService = AlertService
   $rootScope.authService = Auth
   $rootScope.sessionSettings = SessionSettings
+  $rootScope.votingService = VotingService
   CurrentUserLoader().then (current_user) ->
     $rootScope.currentUser = current_user
     $location.path('/proposals').search('filter', 'my') if $rootScope.currentUser.username? and $location.path() == '/'

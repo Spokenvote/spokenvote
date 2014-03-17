@@ -210,7 +210,8 @@ h3 {
     position: fixed;
     opacity: .95;
     z-index: 20000;
-    margin-left: ($gridGutterWidth * 9);
+    left: 12.5%;
+    //    margin-left: ($gridGutterWidth * 9);
   }
 
   .modalAlert {

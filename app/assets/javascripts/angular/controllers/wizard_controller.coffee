@@ -1,14 +1,10 @@
-GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'VotingService', 'Proposal', ( $scope, $location, $rootScope, $modalInstance, AlertService, VotingService, Proposal ) ->
-  AlertService.clearAlerts()
+GetStartedCtrl = [ '$scope', '$location', '$modalInstance', ( $scope, $rootScope, $modalInstance ) ->
+  $scope.alertService.clearAlerts()
+  $scope.modalInstance = $modalInstance
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
-
-  $scope.changeHub = (request) ->
-    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
-      $scope.sessionSettings.actions.newProposalHub = null
-      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
@@ -16,9 +12,13 @@ GetStartedCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Alert
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
+#  $scope.changeHub = (request) ->
+#    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
+#      $scope.sessionSettings.actions.newProposalHub = null
+#      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
 
-  $scope.saveNewProposal = ->
-    VotingService.saveNewProposal $modalInstance
+#  $scope.saveNewProposal = ->
+#    $scope.votingService.saveNewProposal $modalInstance
 
 
 #  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes

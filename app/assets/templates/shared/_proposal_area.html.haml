@@ -7,27 +7,27 @@
   .form-group
     %textarea( id='proposal_statement' name='statement' class='full-width' ng-model='sessionSettings.newProposal.statement' required ng-minLength='15' ng-maxLength='140'
       placeholder='Write your main proposal statement here.' )
-    .length_counter.happy-text( ng-show='newProposal.newProposalForm.statement.$valid' ) {{ 140 - newProposal.statement.length }} characters remaining
-    .length_counter.error-text( ng-show='newProposal.newProposalForm.statement.$invalid && !newProposal.newProposalForm.statement.$error.minlength && !newProposal.newProposalForm.statement.$error.maxlength' )
+    .length_counter.happy-text( ng-show='newProposalForm.statement.$valid' ) {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
+    .length_counter.error-text( ng-show='newProposalForm.statement.$invalid && !newProposalForm.statement.$error.minlength && !newProposalForm.statement.$error.maxlength' )
       .fa.fa-warning
       %span Required
-    .length_counter.error-text( ng-show="newProposal.newProposalForm.statement.$error.minlength" )
+    .length_counter.error-text( ng-show="newProposalForm.statement.$error.minlength" )
       .fa.fa-warning
       %span Too Short
-    .length_counter.error-text( ng-show="newProposal.newProposalForm.statement.$error.maxlength" )
+    .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
       .fa.fa-warning
       %span Too Long
 
   .form-group
     %textarea( id='vote_comment' name='comment' class='full-width' ng-model='sessionSettings.newProposal.comment' required ng-minLength='7' ng-maxLength='280'
     placeholder='Explain why others should support your proposal here.' )
-    .length_counter.happy-text( ng-show='newProposal.newProposalForm.comment.$valid' ) {{ 280 - newProposal.comment.length }} characters remaining
-    .length_counter.error-text( ng-show='newProposal.newProposalForm.comment.$invalid && !newProposal.newProposalForm.comment.$error.minlength && !newProposal.newProposalForm.comment.$error.maxlength' )
+    .length_counter.happy-text( ng-show='newProposalForm.comment.$valid' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+    .length_counter.error-text( ng-show='newProposalForm.comment.$invalid && !newProposalForm.comment.$error.minlength && !newProposalForm.comment.$error.maxlength' )
       .fa.fa-warning
       %span  Required
-    .length_counter.error-text( ng-show="newProposal.newProposalForm.comment.$error.minlength" )
+    .length_counter.error-text( ng-show="newProposalForm.comment.$error.minlength" )
       .fa.fa-warning
       %span Too Short
-    .length_counter.error-text( ng-show="newProposal.newProposalForm.comment.$error.maxlength" )
+    .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
       .fa.fa-warning
       %span Too Long

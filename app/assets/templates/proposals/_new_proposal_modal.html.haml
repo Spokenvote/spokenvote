@@ -20,7 +20,7 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    %form( name='newProposal.newProposalForm' ng-submit='saveNewProposal()' )
+    %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
 
         %ng-include( src="'/assets/shared/_change_hub.html'" )
@@ -102,5 +102,5 @@
     %fieldset
       .control-group
         .controls
-          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='saveNewProposal()' class='btn btn-primary btn-bold' ng-disabled='!newProposal.newProposalForm.$valid' ) Save your New proposal
-          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposal.newProposalForm.formatted_location.$valid || !newProposal.newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          %button( ng-show='sessionSettings.actions.changeHub == false' ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue

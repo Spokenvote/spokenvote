@@ -94,6 +94,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
         modalInstance.result.finally ->
           SessionSettings.openModals.newProposal = false
 
+  changeHub: (request) ->
+    if request = true and SessionSettings.actions.changeHub != 'new'
+      SessionSettings.actions.newProposalHub = null
+      SessionSettings.actions.changeHub = !SessionSettings.actions.changeHub
 
   saveNewProposal: ($modalInstance) ->
     if !SessionSettings.hub_attributes.id?
