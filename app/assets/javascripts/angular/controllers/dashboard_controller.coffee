@@ -1,4 +1,4 @@
-DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', ( $scope, $route, $location, SessionSettings, CurrentHubLoader ) ->
+DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope, $route, $location, CurrentHubLoader ) ->
   $scope.sessionSettings.routeParams = $route.current.params
 
   $scope.hubFilter =
@@ -87,29 +87,17 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
         else
           $scope.authService.signinFb($scope).then ->
             $scope.votingService.new $scope
-      angular.element('.select2-drop-active').select2 'close'
+#      angular.element('.select2-drop-active').select2 'close'       #Using two Select2 objects with the same name, both are "active", cloes the first only with this line
+      angular.element('.select2-dropdown-open').select2 'close'
       angular.element('#newProposalHub').select2('data', null)
+
+  $scope.clearHubFilter = ->
+    $scope.hubFilter.hubFilter = null
 
   $scope.tooltips =
     navMenu: 'Menu'
     backtoTopics: 'Return to Topic list'
     newTopic: 'Start a New Topic'
-
-  # TODO Delete this code and move to a service
-#  $scope.newTopic = ->
-#    if $scope.sessionSettings.hub_attributes.id?
-#      $scope.sessionSettings.actions.changeHub = false
-#    else
-#      $scope.sessionSettings.actions.searchTerm = null
-#      $scope.sessionSettings.actions.changeHub = true
-#    if $scope.currentUser.id?
-#      VotingService.new $scope
-#    else
-#      $scope.authService.signinFb($scope).then ->
-#        VotingService.new $scope, VotingService
-
-  $scope.clearHubFilter = ->
-     $scope.hubFilter.hubFilter = null
 
 ]
 

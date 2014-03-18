@@ -49,11 +49,6 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
     $location.path('/proposals')
 
   $scope.newTopic = ->
-    if $scope.sessionSettings.hub_attributes.id?
-      $scope.sessionSettings.actions.changeHub = false
-    else
-      $scope.sessionSettings.actions.searchTerm = null
-      $scope.sessionSettings.actions.changeHub = true
     if $scope.currentUser.id?
       VotingService.new $scope
     else

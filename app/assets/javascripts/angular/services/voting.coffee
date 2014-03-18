@@ -82,6 +82,11 @@ VotingService = [ '$rootScope', '$location', '$anchorScroll', '$modal', 'AlertSe
             SessionSettings.openModals.deleteProposal = false
 
     new: (scope) ->
+      if SessionSettings.hub_attributes.id?
+        SessionSettings.actions.changeHub = false
+      else
+        SessionSettings.actions.changeHub = true
+        SessionSettings.actions.searchTerm = null
       if !$rootScope.currentUser.id?
         AlertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
       else
