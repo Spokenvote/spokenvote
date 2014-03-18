@@ -99,58 +99,7 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'A
 NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
   $scope.alertService.clearAlerts()
   $scope.modalInstance = $modalInstance
-
-# TODO Delete this code
-#  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
-
-#  $scope.changeHub = (request) ->
-#    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
-#      $scope.sessionSettings.actions.newProposalHub = null
-#      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
-
-#  $scope.changeHub = (request) ->
-#    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
-#      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
-
-#  $scope.saveNewProposal = ->
-#    $scope.votingService.saveNewProposal $modalInstance
-
-#  $scope.saveNewProposal = ->
-#    if !$scope.sessionSettings.hub_attributes.id?
-#      $scope.sessionSettings.hub_attributes.group_name = $scope.sessionSettings.actions.searchTerm
-#    newProposal =
-#      proposal:
-#        statement: $scope.newProposal.statement
-#        votes_attributes:
-#          comment: $scope.newProposal.comment
-#        hub_id: $scope.sessionSettings.hub_attributes.id
-#        hub_attributes: $scope.sessionSettings.hub_attributes
-#
-#    AlertService.clearAlerts()
-#
-#    Proposal.save(newProposal
-#    ,  (response, status, headers, config) ->
-#      $rootScope.$broadcast 'event:proposalsChanged'
-#      AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-#      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')
-#      $modalInstance.close(response)
-#      $scope.sessionSettings.actions.offcanvas = false
-#    ,  (response, status, headers, config) ->
-#      AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $scope
-#      AlertService.setJson response.data
-#    )
-
-#  $scope.tooltips =
-#    newHub: "You may change the group to which you are directing
-#                  this proposal by clicking here."
 ]
-
-# Injects              # TODO Delete this code
-#SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
-#ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
-#EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
-#DeleteProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
-#NewProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl
