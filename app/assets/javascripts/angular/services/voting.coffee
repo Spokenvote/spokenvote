@@ -82,6 +82,7 @@ VotingService = [ '$rootScope', '$location', '$anchorScroll', '$modal', 'AlertSe
             SessionSettings.openModals.deleteProposal = false
 
     new: (scope) ->
+      AlertService.clearAlerts()
       if SessionSettings.hub_attributes.id?
         SessionSettings.actions.changeHub = false
       else

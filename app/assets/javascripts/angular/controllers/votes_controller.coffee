@@ -97,7 +97,6 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'A
 ]
 
 NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
-  $scope.alertService.clearAlerts()
   $scope.modalInstance = $modalInstance
 ]
 
