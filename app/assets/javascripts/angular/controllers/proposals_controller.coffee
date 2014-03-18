@@ -1,5 +1,5 @@
-ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies', 'VotingService',
-  ($scope, $routeParams, $location, proposals, SpokenvoteCookies, VotingService) ->
+ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'proposals', 'SpokenvoteCookies', 'VotingService',
+  ($scope, $routeParams, $location, $anchorScroll, proposals, SpokenvoteCookies, VotingService) ->
     $scope.proposals = proposals
 #    $scope.filterSelection = $routeParams.filter      # Moved to sessionSettings.routeParams.filter
     $scope.spokenvoteSession = SpokenvoteCookies
@@ -16,7 +16,8 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'Spoken
       $scope.proposals.$query
 
     $scope.showProposal = (proposal) ->
-      $location.path('/proposals/' + proposal.id)
+      $location.path('/proposals/' + proposal.id).hash('navigationBar')
+      $anchorScroll()
 
     $scope.new = ->
       if $scope.sessionSettings.hub_attributes.id?
@@ -31,8 +32,8 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'Spoken
           VotingService.new $scope, VotingService
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', 'AlertService', 'VotingService', 'proposal', 'relatedProposals',
-  ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->
+ProposalShowCtrl = [ '$scope', '$location', '$anchorScroll', 'AlertService', 'VotingService', 'proposal', 'relatedProposals',
+  ( $scope, $location, $anchorScroll, AlertService, VotingService , proposal, relatedProposals) ->
     $scope.proposal = proposal
     $scope.relatedProposals = relatedProposals
     $scope.sessionSettings.actions.detailPage = true
@@ -48,7 +49,8 @@ ProposalShowCtrl = [ '$scope', '$location', 'AlertService', 'VotingService', 'pr
       $scope.sessionSettings.actions.userFilter = vote.username
 
     $scope.showProposal = ( proposal ) ->
-      $location.path('/proposals/' + proposal.id)
+      $location.path('/proposals/' + proposal.id).hash('navigationBar')
+      $anchorScroll()
 
     $scope.support = ( clicked_proposal ) ->
       if $scope.currentUser.id?
