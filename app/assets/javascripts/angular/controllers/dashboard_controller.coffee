@@ -95,7 +95,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
     backtoTopics: 'Return to Topic list'
     newTopic: 'Start a New Topic'
 
-#
+  # TODO Delete this code and move to a service
 #  $scope.newTopic = ->
 #    if $scope.sessionSettings.hub_attributes.id?
 #      $scope.sessionSettings.actions.changeHub = false

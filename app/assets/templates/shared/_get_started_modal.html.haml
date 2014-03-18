@@ -1,6 +1,6 @@
--##getStartedModal( ng-controller='GetStartedCtrl' )
+-##getStartedModal( ng-controller='GetStartedCtrl' )              # TODO Delete this code
 #getStartedModal
-  -##newProposalModal( ng-controller='NewProposalCtrl' )
+  -##newProposalModal( ng-controller='NewProposalCtrl' )                                 # TODO Delete this code
   -##newProposalModal
   .modal-header
     .pull-right( class='close' ng-click='$close()' ) &times;
@@ -34,17 +34,14 @@
         %span-red Hint!
         %span If you don't see the Topic you want on the next screen, just select Start New Topic.
 
-    %form( name='newProposal.newProposalForm' ng-submit='saveNewProposal()' )
+    %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
-
         %ng-include( src="'/assets/shared/_change_hub.html'" )
-
         %ng-include( src="'/assets/shared/_make_hub.html'" )
-
         %ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'/assets/shared/_proposal_area.html'" )
 
 
-        -#.changehub( collapse='!sessionSettings.actions.changeHub' )
+        -#.changehub( collapse='!sessionSettings.actions.changeHub' )                  # TODO Delete this code
           .instructions
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
@@ -138,7 +135,7 @@
     %fieldset
       .form-group
         .controls
-          %button( ng-show='sessionSettings.actions.changeHub == false && !sessionSettings.hub_attributes.id' ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' ng-disabled='!newProposal.newProposalForm.$valid' ) Save your New proposal
-          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposal.newProposalForm.formatted_location.$valid || !newProposal.newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          %button( ng-show='sessionSettings.actions.changeHub == false && !sessionSettings.hub_attributes.id' ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          %button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid' ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
           %button( ng-show='sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' ng-click='goToGroup("hint")' class='btn btn-primary btn-bold' ) Go to {{ sessionSettings.hub_attributes.group_name }}
           %button( ng-show='sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup == "hint"' ng-click='$close()' class='btn btn-primary btn-bold' ) Ok, got it. Go to {{ sessionSettings.hub_attributes.group_name }}.

@@ -5,7 +5,7 @@
 
     %ng-include( src="'/assets/shared/_selected_hub.html'" )
 
-    -#.selectedHub
+    -#.selectedHub           # TODO Delete this code
     -#  %span( ng-click='changeHub(true)' href='#' )
     -#    -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
     -#    .groupName( collapse='!sessionSettings.hub_attributes.id' )
@@ -29,7 +29,7 @@
 
         %ng-include( src="'/assets/shared/_proposal_area.html'" )
 
-        -#.changehub( collapse='!sessionSettings.actions.changeHub' )
+        -#.changehub( collapse='!sessionSettings.actions.changeHub' )            # TODO Delete this code
           .instructions
             .avatar
               %ng-include( src="'/assets/shared/_currentuser_avatar.html'" )

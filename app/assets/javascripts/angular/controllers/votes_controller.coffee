@@ -100,6 +100,7 @@ NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
   $scope.alertService.clearAlerts()
   $scope.modalInstance = $modalInstance
 
+# TODO Delete this code
 #  $scope.newProposal = {}    # Holds forms data for $modal issue that it creates two scopes
 
 #  $scope.changeHub = (request) ->
@@ -144,7 +145,7 @@ NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
 #                  this proposal by clicking here."
 ]
 
-# Injects
+# Injects              # TODO Delete this code
 #SupportCtrl.$inject = [ '$scope', '$location', '$rootScope', 'AlertService', 'Vote', '$modal' ]
 #ImroveCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]
 #EditProposalCtrl.$inject = [ '$scope', '$location', '$rootScope', '$modalInstance', 'AlertService', 'Proposal' ]

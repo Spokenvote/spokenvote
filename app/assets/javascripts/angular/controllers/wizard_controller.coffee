@@ -12,7 +12,7 @@ GetStartedCtrl = [ '$scope', '$location', '$modalInstance', ( $scope, $rootScope
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
-#  $scope.changeHub = (request) ->
+#  $scope.changeHub = (request) ->                   # TODO Delete this code
 #    if request = true and $scope.sessionSettings.actions.changeHub != 'new'
 #      $scope.sessionSettings.actions.newProposalHub = null
 #      $scope.sessionSettings.actions.changeHub = !$scope.sessionSettings.actions.changeHub
