@@ -1,4 +1,4 @@
-GetStartedCtrl = [ '$scope', '$location', '$modalInstance', ( $scope, $rootScope, $modalInstance ) ->
+GetStartedCtrl = [ '$scope', '$location', '$modalInstance', ( $scope, $location, $modalInstance ) ->
   $scope.alertService.clearAlerts()
   $scope.modalInstance = $modalInstance
   $scope.sessionSettings.hub_attributes.id = null
