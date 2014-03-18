@@ -5,28 +5,14 @@
 
     %ng-include( src="'/assets/shared/_selected_hub.html'" )
 
-    -#.selectedHub           # TODO Delete this code
-    -#  %span( ng-click='changeHub(true)' href='#' )
-    -#    -#.pull-right( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' )
-    -#    .groupName( collapse='!sessionSettings.hub_attributes.id' )
-    -#      %i( class='glyphicon glyphicon-pencil' )
-    -#      %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
-    -#    .groupName( ng-hide='sessionSettings.hub_attributes.id || !sessionSettings.hub_attributes.location_id' )
-    -#      %i( class='glyphicon glyphicon-pencil' )
-    -#      %span( tooltip-html-unsafe='{{tooltips.newHub}}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
-    -#    .groupLocation( collapse='!sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}
-
   .modal-body
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
     %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
-
         %ng-include( src="'/assets/shared/_change_hub.html'" )
-
         %ng-include( src="'/assets/shared/_make_hub.html'" )
-
         %ng-include( src="'/assets/shared/_proposal_area.html'" )
 
         -#.changehub( collapse='!sessionSettings.actions.changeHub' )            # TODO Delete this code

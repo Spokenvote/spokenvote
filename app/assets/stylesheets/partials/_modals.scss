@@ -56,8 +56,7 @@
   }
   .instructions {
     color: $soft-brown-text;
-//    max-height: 50px;          // Would like div to resize correctly to fit given text
-    padding: 0px 10px;
+    padding: 0 3% 3% 3%;
     .avatar {
       padding: 0 8px;
       float: left;
