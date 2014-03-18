@@ -87,8 +87,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
         else
           $scope.authService.signinFb($scope).then ->
             $scope.votingService.new $scope
-    angular.element('.select2-drop-active').select2 'close'
-    angular.element('#newProposalHub').select2('data', null)
+      angular.element('.select2-drop-active').select2 'close'
+      angular.element('#newProposalHub').select2('data', null)
 
   $scope.tooltips =
     navMenu: 'Menu'
