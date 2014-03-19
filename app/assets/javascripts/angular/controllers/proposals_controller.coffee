@@ -19,17 +19,17 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
       $location.path('/proposals/' + proposal.id).hash('navigationBar')
       $anchorScroll()
 
-    $scope.new = ->
-      if $scope.sessionSettings.hub_attributes.id?
-        $scope.sessionSettings.actions.changeHub = false
-      else
-        $scope.sessionSettings.actions.searchTerm = null
-        $scope.sessionSettings.actions.changeHub = true
-      if $scope.currentUser.id?
-        VotingService.new $scope
-      else
-        $scope.authService.signinFb($scope).then ->
-          VotingService.new $scope, VotingService
+#    $scope.new = ->
+#      if $scope.sessionSettings.hub_attributes.id?
+#        $scope.sessionSettings.actions.changeHub = false
+#      else
+#        $scope.sessionSettings.actions.searchTerm = null
+#        $scope.sessionSettings.actions.changeHub = true
+#      if $scope.currentUser.id?
+#        VotingService.new $scope
+#      else
+#        $scope.authService.signinFb($scope).then ->
+#          VotingService.new $scope, VotingService
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', '$anchorScroll', 'AlertService', 'VotingService', 'proposal', 'relatedProposals',
