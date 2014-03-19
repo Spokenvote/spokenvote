@@ -46,7 +46,7 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       $location.search(filter, null)
       $rootScope.sessionSettings.routeParams.user = null
 
-    $scope.backtoTopics = ->
+    $scope.backtoTopics = ->                     # TODO set $anchorScroll here to return to place in list
       $location.path('/proposals')
 
     $scope.newTopic = ->
