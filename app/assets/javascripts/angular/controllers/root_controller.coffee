@@ -1,6 +1,5 @@
-RootCtrl = ['$scope', '$rootScope', '$route', '$anchorScroll', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
-  ($scope, $rootScope, $route, $anchorScroll, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
-    $anchorScroll()
+RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
+  ($scope, $rootScope, $route, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
     $rootScope.alertService = AlertService
     $rootScope.authService = Auth
     $rootScope.sessionSettings = SessionSettings
@@ -50,7 +49,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$anchorScroll', 'AlertService', '
     $scope.showProposal = (proposal) ->
       $location.path('/proposals/' + proposal.id).hash('navigationBar')
 
-    $scope.backtoTopics = ->                     # TODO set $anchorScroll here to return to place in list
+    $scope.backtoTopics = ->
       $scope.sessionSettings.routeParams = $route.current.params
       $location.path('/proposals').hash('prop'+$scope.sessionSettings.routeParams.proposalId)
 
