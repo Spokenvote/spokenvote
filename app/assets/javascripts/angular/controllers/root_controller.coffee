@@ -52,7 +52,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$anchorScroll', 'AlertService', '
 
     $scope.backtoTopics = ->                     # TODO set $anchorScroll here to return to place in list
       $scope.sessionSettings.routeParams = $route.current.params
-      $location.path('/proposals').hash('Prop-'+$scope.sessionSettings.routeParams.proposalId)
+      $location.path('/proposals').hash('prop'+$scope.sessionSettings.routeParams.proposalId)
 
     $scope.newTopic = ->
       if $scope.currentUser.id?

@@ -1,5 +1,5 @@
-VotingService = [ '$rootScope', '$location', '$anchorScroll', '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal',
-  ( $rootScope, $location, $anchorScroll, $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal',
+  ( $rootScope, $location, $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
     support: ( scope, clicked_proposal ) ->
       scope.clicked_proposal = clicked_proposal
@@ -135,7 +135,6 @@ VotingService = [ '$rootScope', '$location', '$anchorScroll', '$modal', 'AlertSe
         $rootScope.$broadcast 'event:proposalsChanged'
         AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
         $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-        $anchorScroll()
         $modalInstance.close(response)
         SessionSettings.actions.offcanvas = false
       ,  (response, status, headers, config) ->

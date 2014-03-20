@@ -1,5 +1,5 @@
-ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'proposals', 'SpokenvoteCookies',
-  ($scope, $routeParams, $location, $anchorScroll, proposals, SpokenvoteCookies) ->
+ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies',
+  ($scope, $routeParams, $location, proposals, SpokenvoteCookies) ->
     $scope.proposals = proposals
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
@@ -13,14 +13,10 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 
-#    $scope.showProposal = (proposal) ->
-#      $location.path('/proposals/' + proposal.id).hash('navigationBar')
-#      $anchorScroll()
-
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', '$anchorScroll', 'proposal', 'relatedProposals',
-  ( $scope, $location, $anchorScroll , proposal, relatedProposals) ->
+ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',
+  ( $scope, $location , proposal, relatedProposals) ->
     $scope.proposal = proposal
     $scope.relatedProposals = relatedProposals
     $scope.sessionSettings.actions.detailPage = true
@@ -34,10 +30,6 @@ ProposalShowCtrl = [ '$scope', '$location', '$anchorScroll', 'proposal', 'relate
     $scope.setVoter = ( vote ) ->
       $location.path('/proposals').search('user', vote.user_id)
       $scope.sessionSettings.actions.userFilter = vote.username
-
-#    $scope.showProposal = ( proposal ) ->
-#      $location.path('/proposals/' + proposal.id).hash('navigationBar')
-#      $anchorScroll()
 
     $scope.support = ( clicked_proposal ) ->
       if $scope.currentUser.id?

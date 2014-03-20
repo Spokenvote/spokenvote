@@ -1,5 +1,5 @@
-GetStartedCtrl = [ '$scope', '$location', '$anchorScroll', '$modalInstance',
-  ( $scope, $location, $anchorScroll, $modalInstance ) ->
+GetStartedCtrl = [ '$scope', '$location', '$modalInstance',
+  ( $scope, $location, $modalInstance ) ->
 
     $scope.alertService.clearAlerts()
     $scope.modalInstance = $modalInstance
@@ -11,7 +11,6 @@ GetStartedCtrl = [ '$scope', '$location', '$anchorScroll', '$modalInstance',
     $scope.goToGroup = (action) ->
       if $scope.sessionSettings.hub_attributes.id?
         $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')
-        $anchorScroll()
         $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
         $scope.sessionSettings.actions.wizardToGroup = action
 
