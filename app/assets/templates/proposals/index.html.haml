@@ -34,7 +34,7 @@
               %img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
               %img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
           .topic-and-hub.col-xs-9.col-md-10
-            .proposal( id='Prop-{{ proposal.id }}' )
+            .proposal( id='prop{{ proposal.id }}' )
               %a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
             .hub
               %a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}

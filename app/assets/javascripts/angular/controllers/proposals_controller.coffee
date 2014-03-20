@@ -3,7 +3,6 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
     $scope.proposals = proposals
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
-    $anchorScroll()
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
@@ -14,10 +13,9 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 
-    $scope.showProposal = (proposal) ->
-      $location.path('/proposals/' + proposal.id).hash('navigationBar')
-      $anchorScroll()
-#      $scope.sessionSettings.routeParams.proposalId = proposal.id
+#    $scope.showProposal = (proposal) ->
+#      $location.path('/proposals/' + proposal.id).hash('navigationBar')
+#      $anchorScroll()
 
 ]
 
@@ -37,9 +35,9 @@ ProposalShowCtrl = [ '$scope', '$location', '$anchorScroll', 'proposal', 'relate
       $location.path('/proposals').search('user', vote.user_id)
       $scope.sessionSettings.actions.userFilter = vote.username
 
-    $scope.showProposal = ( proposal ) ->
-      $location.path('/proposals/' + proposal.id).hash('navigationBar')
-      $anchorScroll()
+#    $scope.showProposal = ( proposal ) ->
+#      $location.path('/proposals/' + proposal.id).hash('navigationBar')
+#      $anchorScroll()
 
     $scope.support = ( clicked_proposal ) ->
       if $scope.currentUser.id?

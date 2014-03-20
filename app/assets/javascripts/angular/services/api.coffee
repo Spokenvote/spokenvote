@@ -112,7 +112,7 @@ ProposalLoader = (Proposal, $route, $q) ->
       delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
     delay.promise
 
-MultiProposalLoader = [ 'Proposal', '$route', '$q', '$anchorScroll', (Proposal, $route, $q, $anchorScroll) ->
+MultiProposalLoader = [ 'Proposal', '$route', '$q', (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
     Proposal.query
@@ -121,7 +121,6 @@ MultiProposalLoader = [ 'Proposal', '$route', '$q', '$anchorScroll', (Proposal, 
       user: $route.current.params.user
     , (proposals) ->
         delay.resolve proposals
-        $anchorScroll()
     , ->
       delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
     delay.promise

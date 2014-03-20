@@ -38,7 +38,7 @@
             #mainContent.container
               #alertContainer
                 .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )
-              %ng-view
+              %ng-view( autoscroll )
 
     - min = Rails.env.production? ? '.min' : ''
     = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery#{min}.js"
