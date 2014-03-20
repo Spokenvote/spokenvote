@@ -112,7 +112,7 @@ ProposalLoader = (Proposal, $route, $q) ->
       delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
     delay.promise
 
-MultiProposalLoader = (Proposal, $route, $q) ->
+MultiProposalLoader = [ 'Proposal', '$route', '$q', '$anchorScroll', (Proposal, $route, $q, $anchorScroll) ->
   ->
     delay = $q.defer()
     Proposal.query
@@ -120,10 +120,12 @@ MultiProposalLoader = (Proposal, $route, $q) ->
       filter: $route.current.params.filter
       user: $route.current.params.user
     , (proposals) ->
-      delay.resolve proposals
+        delay.resolve proposals
+        $anchorScroll()
     , ->
       delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
     delay.promise
+]
 
 RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
   ->
@@ -163,7 +165,7 @@ UserRegistrationResource.$inject = [ '$http' ]
 CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
 CurrentHubLoader.$inject = [ 'Hub', '$route', '$q' ]
 ProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
-MultiProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
+#MultiProposalLoader.$inject = [ 'Proposal', '$route', '$q' ]
 RelatedProposalsLoader.$inject = [ 'RelatedProposals', '$route', '$q' ]
 RelatedVoteInTreeLoader.$inject = [ 'RelatedVoteInTree', '$q' ]
 # UserOmniauthCallback.$inject = [ 'UserOmniauth', '$route', '$q' ]

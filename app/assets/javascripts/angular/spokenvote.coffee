@@ -1,6 +1,6 @@
 'use strict'
 
-appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
+appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider', ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
   $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
   $locationProvider.html5Mode true
@@ -23,7 +23,7 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) -
         proposals: (MultiProposalLoader) ->
           MultiProposalLoader()
 
-    .when '/proposals/:proposalId',
+  .when '/proposals/:proposalId',
       templateUrl: '/assets/proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
@@ -61,15 +61,26 @@ appConfig = ($routeProvider, $locationProvider, $httpProvider, $modalProvider) -
       url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
       dataType: 'script'
       cache: true
+]
 
 window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
-servicesConfig = ($httpProvider) ->
+servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
+]
 App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
 App.Directives = angular.module('spokenvote.directives', [])
 
 # Injects
-#appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider' ]
-appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider' ]
-servicesConfig.$inject = ['$httpProvider']
+#appConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider' ]
+#servicesConfig.$inject = ['$httpProvider']
+
+#Global Debug Functions
+window.getSrv = (name, element) ->        # angular.element(document).injector() to get the current app injector
+  element = element or "*[ng-app]"
+  angular.element(element).injector().get name
+
+window.getScope = (element) ->        # to get the current scope for the element
+  angular.element(element).scope()
+
+#angular.element(domElement).controller() # to get a hold of the ng-controller instance.

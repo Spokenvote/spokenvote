@@ -3,7 +3,7 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
     $scope.proposals = proposals
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
-
+    $anchorScroll()
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
@@ -17,6 +17,7 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', '$anchorScroll', 'pr
     $scope.showProposal = (proposal) ->
       $location.path('/proposals/' + proposal.id).hash('navigationBar')
       $anchorScroll()
+#      $scope.sessionSettings.routeParams.proposalId = proposal.id
 
 ]
 

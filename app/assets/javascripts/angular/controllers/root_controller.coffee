@@ -1,5 +1,5 @@
-RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
-  ($scope, $rootScope, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
+RootCtrl = ['$scope', '$rootScope', '$route', '$anchorScroll', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
+  ($scope, $rootScope, $route, $anchorScroll, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
     $rootScope.alertService = AlertService
     $rootScope.authService = Auth
     $rootScope.sessionSettings = SessionSettings
@@ -46,8 +46,10 @@ RootCtrl = ['$scope', '$rootScope', 'AlertService', '$location', '$modal', 'Auth
       $location.search(filter, null)
       $rootScope.sessionSettings.routeParams.user = null
 
-    $scope.backtoTopics = () ->                     # TODO set $anchorScroll here to return to place in list
-      $location.path('/proposals')
+    $scope.backtoTopics = ->                     # TODO set $anchorScroll here to return to place in list
+      $scope.sessionSettings.routeParams = $route.current.params
+      $location.path('/proposals').hash('Prop-'+$scope.sessionSettings.routeParams.proposalId)
+      $anchorScroll()
 
     $scope.newTopic = ->
       if $scope.currentUser.id?
