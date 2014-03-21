@@ -68,7 +68,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
                                 this proposal by clicking here."
 
 
-    # All below had been decreciated in favor of Facebook sign in only
+    # All below has been decreciated in favor of Facebook sign in only
     $scope.googleAuth2 = ->
       gapi.auth.authorize SessionSettings.spokenvote_attributes.googleOauth2Config, ->
         gapi.client.load "oauth2", "v2", ->
