@@ -2,7 +2,6 @@
 // Structural Styles
 
 body {
-//  @include background(linear-gradient(#ddd, #eee 45%, #fff));
   background-color: $airbnbBackgroundWhite;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -10,7 +9,6 @@ body {
     font-size: 1.2em;
   }
   @media (min-width: $screen-md-min) {
-    //    padding-top: ($gridGutterWidth * 2);
     font-size: 1.4em;
   }
 }
@@ -27,11 +25,6 @@ body {
   @media (min-width: $screen-md-min) {
     padding-top: 35px;
   }
-  //  max-width: 1300px;
-  //  margin-right: auto;
-  //  margin-left: auto;
-  //  padding-top: 15px;
-  //height: auto;
   .content {
     overflow: visible;
   }
@@ -44,17 +37,7 @@ body {
   }
   margin-bottom: $gridGutterWidth * 2;
   position: relative;
-  //  @media (max-width: $grid-float-breakpoint-max) {
-  //    padding: $gridGutterWidth * 4 $gridGutterWidth * .5;
-  //  }
 }
-
-//.col-xm-11 > .form-horizontal {
-//  margin-top: $gridGutterWidth;
-//  .form-group, .supporting-args {
-//    margin-bottom: ($gridGutterWidth/2);
-//  }
-//}
 
 .no-gutter {
   margin-left: 0;
@@ -74,7 +57,6 @@ input {
   border: none;
   padding: 5px;
   border-radius: 4px;
-  //  margin: 2px 3px 11px 3px;          // this global imput setting is strange
 }
 
 textarea {
@@ -97,27 +79,23 @@ textarea {
   width: 71%;
 }
 
-// TODO depreciate some of above?
+// TODO depreciate some of below?
 
-.full-width-tall {
-  width: 94%;
-  height: 80px;
-}
+//.full-width-tall {
+//  width: 94%;
+//  height: 80px;
+//}
 
-.full-width-short {
-  width: 94%;
-  height: 40px;
-}
+//.full-width-short {
+//  width: 94%;
+//  height: 40px;
+//}
 
 .length_counter {
   text-align: right;
-  //  margin-right: ($gridGutterWidth * 1.25);       // will need more ajustment like NewProposal makeHub
   padding: 0 5px 2px 5px;
   font-size: 10px;
   line-height: 13px;
-  //  margin-top: ($gridGutterWidth * -0.55);
-  //  margin-bottom: ($gridGutterWidth * 0.30);
-  //  color: gray;
 }
 
 .error-text {
@@ -149,16 +127,8 @@ textarea {
 }
 
 .currentuser-avatar {
-//  float: left;
-  //margin-right: 13px;
   img {
     @include border-radius(2px);
-//    background-color: #ccc;
-//    border: 1px solid #B9B9B9;
-//    color: $basic-brown;
-//    display: block;
-//    width: 35px;
-//    height: 35px;
   }
 }
 
@@ -211,7 +181,6 @@ h3 {
     opacity: .95;
     z-index: 20000;
     left: 12.5%;
-    //    margin-left: ($gridGutterWidth * 9);
   }
 
   .modalAlert {
@@ -393,7 +362,7 @@ textarea.ng-invalid.ng-dirty {
 }
 
 
-// fixed Google Autocomplete coming up behind other elements
+// fixes Google Autocomplete from coming up behind other elements
 .pac-container {
   z-index: 10000 !important;
 }
