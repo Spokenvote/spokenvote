@@ -14,7 +14,7 @@
   background-image: -o-linear-gradient(top, #eaa947, #b77614);
   background-image: linear-gradient(#eaa947, #b77614);
   border-color: #b77614 #b77614 hsl(36, 80%, 35%);
-  color: #333 !important;
+  color: $basic-brown !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
   -webkit-font-smoothing: antialiased;
 }

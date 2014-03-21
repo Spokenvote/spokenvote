@@ -268,36 +268,67 @@ h1.form-horizontal {
   border: 1.35px solid rgba(28, 133, 246, 0.55);
 }
 
+.sv-logo, a.sv-logo {
+  font-size: 2.1em;
+  @media (min-width: $screen-lg-min) {
+    font-size: 2.5em;
+  }
+  text-decoration: none;
+  font-weight: 600;
+  font-family: $logoTypeFace;
+  letter-spacing: -1px;
+  &:hover span.vote, &:hover span.spoken {
+    color: $smokeyLebel;
+    cursor: pointer;
+  }
+  span.spoken {
+    color: $happy-blue;
+  }
+  span.vote {
+    color: $spring-green;
+    margin-left: -3px;
+  }
+}
+
 .page_title {
   text-align: center;
   .searched & {
     @extend .hide;
   }
-  .brand {
-    color: $happy-blue;
+  .sv-logo, a.sv-logo {
     text-shadow: 2px 2px 4px #999;
-    font-size: 105px;
+    font-size: 5em;
     font-weight: 700;
-    line-height: 80px;
-    letter-spacing: 0px;
-    padding-top: 35px;
-    padding-bottom: 40px;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
     span.vote {
-      color: $spring-green;
-      margin-left: -22px;
+      margin-left: -12px;
     }
   }
+//  .brand {
+//    color: $happy-blue;
+//    text-shadow: 2px 2px 4px #999;
+//    font-size: 5em;
+////    font-size: 105px;
+//    font-weight: 700;
+////    line-height: 80px;
+//    letter-spacing: 0px;
+////    padding-top: 35px;
+//    padding-bottom: 40px;
+//    font-family: 'Yanone Kaffeesatz', sans-serif;
+//    span.vote {
+//      color: $spring-green;
+//      margin-left: -22px;
+//    }
+//  }
 //  h1 {
 //    font-size: 78px;
-//    color: #333;
+//    color: $basic-brown;
 //    text-shadow: 1px 1px 2px #999;
 //    line-height: 80px;
 //    font-family: $logoTypeFace;
 //    text-align: center;
 //  }
   .tag_line {
-    color: #333;
+    color: $basic-brown;
     text-shadow: 1px 1px 2px #999;
     font-size: 45px;
     line-height: 50px;
@@ -315,13 +346,13 @@ h1.form-horizontal {
 //    padding-top: 30px;
 //  }
   .call_to_action {
-    color: #333;
+    color: $basic-brown;
     //padding-left: 330px;
-    font-size: 55px;
+    font-size: 2.5em;
     font-weight: 800;
-    line-height: 70px;
-    padding-top: 55px;
-    padding-bottom: 45px;    font-family: 'Yanone Kaffeesatz', sans-serif;
+//    line-height: 70px;
+    padding: 4% 0;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
   }
   .instructions {
     //font-size: 12px;
