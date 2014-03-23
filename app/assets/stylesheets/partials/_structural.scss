@@ -291,7 +291,6 @@ h1.form-horizontal {
 }
 
 .call_to_action {
-//  color: $basic-brown;
   font-size: 2.5em;
   font-weight: 800;
   line-height: 1;
@@ -300,16 +299,15 @@ h1.form-horizontal {
 }
 
 .tag_line {
-  //    color: $basic-brown;
   text-shadow: 1px 1px 2px #999;
   font-size: 3.3em;
   font-style: italic ;
   text-align: center;
-  //    padding-top: 19px;
   font-family: $logoTypeFace;
 }
 
 .page_title {
+//  color: $theranos-grey;
   color: $soft-brown-text;
   text-align: center;
   .searched & {
@@ -319,14 +317,11 @@ h1.form-horizontal {
     text-shadow: 2px 2px 4px #999;
     font-size: 5em;
     font-weight: 700;
-//    line-height: 1;
     span.vote {
       margin-left: -12px;
     }
   }
   .instructions {
-    //font-size: 12px;
-    //padding-top: 7px;
     padding-bottom: 2%;
   }
 }
