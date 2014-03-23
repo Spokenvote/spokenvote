@@ -105,6 +105,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    email_spec (1.5.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     excon (0.31.0)
     execjs (2.0.2)
@@ -166,6 +169,8 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     lol_dba (1.6.0)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
@@ -351,6 +356,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise (~> 3.2.3)
+  email_spec
   factory_girl_rails
   faker
   fog
