@@ -31,42 +31,65 @@
         %h2 Fork
         %p Create a better version by forking any proposal.
 
-.static_page
-  .pull-right
-    .screen-shot-examples
+  .below_fold.row
+    .instructions.col-sm-6
+      %h2 How it Works
+
+  .below_fold.row
+    .instructions.col-sm-6
+      %h4.attention_red
+        1. Find a group
+      %h4 Start by finding your group in the top box. Once you locate your group, click a topic to see its proposals.
+
+    .screen-shot-examples.col-sm-6
       %img(src="/assets/search_example.png")
       %br
+
+  .below_fold.row
+    .instructions.col-sm-6
+      %h4.attention_red
+        2. See what they're proposing
+      %h4 If the topic has not been started yet, click "Start New Topic".
+
+    .screen-shot-examples.col-sm-6
       %img(src="/assets/new_topic_example.png")
       %br
+
+  .below_fold.row
+    .instructions.col-sm-6
+      %h4.attention_red
+        3. Help the best ideas reach consensus
+      %h4 In a topic you can add your support to any existing proposal or create an improved version using any proposal as your starting point.
+
+    .screen-shot-examples.col-sm-6
       %img(src="/assets/support_improve_example.png")
       %br
 
-  %h2 How it Works
 
-  .content_offset
-    %ol.attention_red
-      %li Find a group
-      %li See what they're proposing
-      %li Help the best ideas reach consensus
+    -#.content_offset
+      %ol.attention_red
+        %li Find a group
+        %li See what they're proposing
+        %li Help the best ideas reach consensus
 
-  .left-column
-    .content_div
-      %h4 Start by finding your group in the top box. Once you locate your group, click a topic to see its proposals.
-      %h4 If the topic has not been started yet, click "Start New Topic".
-      %h4 In a topic you can add your support to any existing proposal or create an improved version using any proposal as your starting point.
+    -#.left-column
+      .content_div
+        %h4 Start by finding your group in the top box. Once you locate your group, click a topic to see its proposals.
+        %h4 If the topic has not been started yet, click "Start New Topic".
+        %h4 In a topic you can add your support to any existing proposal or create an improved version using any proposal as your starting point.
 
-    .content_div_half
-      %h4 As each participant contributes either support to an existing version or creates a new improved version, the group collectively moves toward reaching a majority opinion together. As the wording improves, the best proposals gain momentum by receiving support from multiple users and forming a clarity of consensus.
+      .content_div_half
+        %h4 As each participant contributes either support to an existing version or creates a new improved version, the group collectively moves toward reaching a majority opinion together. As the wording improves, the best proposals gain momentum by receiving support from multiple users and forming a clarity of consensus.
 
-  .right-column
-    %h2 Why it Matters
-    .content_div
-      %h4 Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency. We think the process should be intuitive, fun, and yes, democratic.
-    .content_div_half
-      %h4 Deeply inspired by Wikipedia, Spokenvote is an open source non-profit intended for small groups today, but over time to reach national politics. It starts with spontaneously capturing ideas as they occur to us. When we do that as a diverse group, a <i> “power of the crowd” </i> effect is introduced. The result is often a revelation of common sense that is difficult to discover from a top-down approach.
+    .right-column
+      %h2 Why it Matters
+      .content_div
+        %h4 Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency. We think the process should be intuitive, fun, and yes, democratic.
+      .content_div_half
+        %h4 Deeply inspired by Wikipedia, Spokenvote is an open source non-profit intended for small groups today, but over time to reach national politics. It starts with spontaneously capturing ideas as they occur to us. When we do that as a diverse group, a <i> “power of the crowd” </i> effect is introduced. The result is often a revelation of common sense that is difficult to discover from a top-down approach.
 
-  .left-column
-    %h2 Contribute
-    .content_div
-      %h4 Spokenvote is an open source application, and we welcome your participation in building it.
-      %a( ng-href='http://railsforcharity.github.com/spokenvote' )   Learn more.
+    .left-column
+      %h2 Contribute
+      .content_div
+        %h4 Spokenvote is an open source application, and we welcome your participation in building it.
+        %a( ng-href='http://railsforcharity.github.com/spokenvote' )   Learn more.
