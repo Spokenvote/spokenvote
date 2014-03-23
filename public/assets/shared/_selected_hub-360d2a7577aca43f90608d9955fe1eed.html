@@ -1,0 +1,13 @@
+<div class='selectedHub'>
+  <span href='#' ng-click='votingService.changeHub(true)' ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm'>
+    <div class='groupName' ng-show='sessionSettings.hub_attributes.id'>
+      <i class='glyphicon glyphicon-pencil'></i>
+      <span tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='left'>{{ sessionSettings.hub_attributes.group_name }}</span>
+    </div>
+    <div class='groupName' ng-show='!sessionSettings.hub_attributes.id &amp;&amp; sessionSettings.hub_attributes.location_id'>
+      <i class='glyphicon glyphicon-pencil'></i>
+      <span tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='left'>{{ sessionSettings.actions.searchTerm }}</span>
+    </div>
+    <div class='groupLocation' show='sessionSettings.hub_attributes.formatted_location'>{{ sessionSettings.hub_attributes.formatted_location }}</div>
+  </span>
+</div>

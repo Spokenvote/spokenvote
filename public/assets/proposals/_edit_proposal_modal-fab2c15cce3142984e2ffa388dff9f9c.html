@@ -1,0 +1,74 @@
+<div id='editProposalModal'>
+  <div class='modal-header'>
+    <div class='close pull-right' ng-click='$close()'>&times;</div>
+    <h2>Edit Proposal</h2>
+    <div class='selectedHub'>
+      <span>
+        <div class='groupName'>
+          {{ clicked_proposal.hub.group_name }}
+        </div>
+        <div class='groupLocation'>
+          {{ clicked_proposal.hub.formatted_location }}
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class='modal-body'>
+    <div id='alertContainer'>
+      <div alert-bar alertmessageclear='alertService.alertClass' class='modalAlert' ng-show='alertService.alertDestination=="modal"'></div>
+    </div>
+    <form name='editProposalForm' ng-submit='saveEdit()'>
+      <div class='instructions'>
+        <div class='avatar'>
+          <ng-include src="'/assets/shared/_currentuser_avatar.html'"></ng-include>
+        </div>
+        <h5>You are editing your Proposal.</h5>
+      </div>
+      <div class='form-group'>
+        <div class='controls'>
+          <textarea class='full-width' id='proposal_statement' name='proposal_statement' ng-maxLength='140' ng-minLength='15' ng-model='editProposal.proposal.statement' placeholder='Write your main proposal statement here.' required></textarea>
+          <div class='length_counter' ng-show='editProposalForm.proposal_statement.$valid'>{{ 140 - editProposal.proposal.statement.length }} characters remaining</div>
+          <div class='length_counter error-text' ng-show='editProposalForm.proposal_statement.$invalid &amp;&amp; !editProposalForm.proposal_statement.$error.minlength &amp;&amp; !editProposalForm.proposal_statement.$error.maxlength'>
+            <div class='fa fa-warning'></div>
+            <span>Required</span>
+          </div>
+          <div class='length_counter error-text' ng-show='editProposalForm.proposal_statement.$error.minlength'>
+            <div class='fa fa-warning'></div>
+            <span>Too Short</span>
+          </div>
+          <div class='length_counter error-text' ng-show='editProposalForm.proposal_statement.$error.maxlength'>
+            <div class='fa fa-warning'></div>
+            <span>Too Long</span>
+          </div>
+        </div>
+      </div>
+      <div class='form-group'>
+        <div class='controls'>
+          <textarea class='full-width' id='vote_comment' name='vote_comment' ng-maxLength='280' ng-minLength='7' ng-model='editProposal.proposal.votes_attributes.comment' placeholder='Explain why others should support your proposal here.' required></textarea>
+          <div class='length_counter' ng-show='editProposalForm.vote_comment.$valid'>{{ 280 - editProposal.proposal.votes_attributes.comment.length }} characters remaining</div>
+          <div class='length_counter error-text' ng-show='editProposalForm.vote_comment.$invalid &amp;&amp; !editProposalForm.vote_comment.$error.minlength &amp;&amp; !editProposalForm.vote_comment.$error.maxlength'>
+            <div class='fa fa-warning'></div>
+            <span>Required</span>
+          </div>
+          <div class='length_counter error-text' ng-show='editProposalForm.vote_comment.$error.minlength'>
+            <div class='fa fa-warning'></div>
+            <span>Too Short</span>
+          </div>
+          <div class='length_counter error-text' ng-show='editProposalForm.vote_comment.$error.maxlength'>
+            <div class='fa fa-warning'></div>
+            <span>Too Long</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class='modal-footer'>
+    <fieldset>
+      <div class='form-group'>
+        <div class='controls'>
+          <button class='btn btn-primary btn-bold' ng-click='saveEdit()' ng-disabled='!editProposalForm.$valid'>Save your  proposal changes</button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
