@@ -290,7 +290,27 @@ h1.form-horizontal {
   }
 }
 
+.call_to_action {
+//  color: $basic-brown;
+  font-size: 2.5em;
+  font-weight: 800;
+  line-height: 1;
+  padding: 4% 0 1% 0;
+  font-family: $logoTypeFace;
+}
+
+.tag_line {
+  //    color: $basic-brown;
+  text-shadow: 1px 1px 2px #999;
+  font-size: 3.3em;
+  font-style: italic ;
+  text-align: center;
+  //    padding-top: 19px;
+  font-family: $logoTypeFace;
+}
+
 .page_title {
+  color: $soft-brown-text;
   text-align: center;
   .searched & {
     @extend .hide;
@@ -299,65 +319,15 @@ h1.form-horizontal {
     text-shadow: 2px 2px 4px #999;
     font-size: 5em;
     font-weight: 700;
+//    line-height: 1;
     span.vote {
       margin-left: -12px;
     }
   }
-//  .brand {
-//    color: $happy-blue;
-//    text-shadow: 2px 2px 4px #999;
-//    font-size: 5em;
-////    font-size: 105px;
-//    font-weight: 700;
-////    line-height: 80px;
-//    letter-spacing: 0px;
-////    padding-top: 35px;
-//    padding-bottom: 40px;
-//    font-family: 'Yanone Kaffeesatz', sans-serif;
-//    span.vote {
-//      color: $spring-green;
-//      margin-left: -22px;
-//    }
-//  }
-//  h1 {
-//    font-size: 78px;
-//    color: $basic-brown;
-//    text-shadow: 1px 1px 2px #999;
-//    line-height: 80px;
-//    font-family: $logoTypeFace;
-//    text-align: center;
-//  }
-  .tag_line {
-    color: $basic-brown;
-    text-shadow: 1px 1px 2px #999;
-    font-size: 45px;
-    line-height: 50px;
-    font-style: italic ;
-    text-align: center;
-    padding-top: 19px;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-  }
-//  .tag_line {
-//    font-family: $logoTypeFace;
-//    color: $spring-green;
-//    font-size: 72px;
-//    line-height: 80px;
-//    font-style: italic ;
-//    padding-top: 30px;
-//  }
-  .call_to_action {
-    color: $basic-brown;
-    //padding-left: 330px;
-    font-size: 2.5em;
-    font-weight: 800;
-//    line-height: 70px;
-    padding: 4% 0;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-  }
   .instructions {
     //font-size: 12px;
     //padding-top: 7px;
-    padding-bottom: 35px;
+    padding-bottom: 2%;
   }
 }
 

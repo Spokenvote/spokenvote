@@ -1,7 +1,7 @@
 %section#homepage
   .page_title
     .call_to_action Participate in real decisions that affect you.
-    %a.sv-logo( href='/landing' )
+    .sv-logo( href='/landing' )
       %span.spoken
         Spoken
       %span.vote
@@ -9,21 +9,27 @@
     .div
       %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Get Started!
 
-    %h1
-      .tag_line Voting redefined.
+    -#%h1
+    .tag_line Voting redefined.
 
     .instructions
       %h5
         %a(href='/proposals?filter=active') <i>Browse proposals</i>,
         %span support one or create your own.
 
-  .boxes-123.row
-    .col-xs-4.text-center
-      %i.fa.fa-comment-o.fa-5x
-    .col-xs-4.text-center
-      %i.fa.fa-thumbs-o-up.fa-5x
-    .col-xs-4.text-center
-      %i.fa.fa-code-fork.fa-5x
+    .boxes-123.row
+      .col-xs-4.text-center
+        %i.fa.fa-comment-o.fa-5x
+        %h2 Heading
+        %p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      .col-xs-4.text-center
+        %i.fa.fa-thumbs-o-up.fa-5x
+        %h2 Heading
+        %p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      .col-xs-4.text-center
+        %i.fa.fa-code-fork.fa-5x
+        %h2 Heading
+        %p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
 
 .static_page
   .pull-right
