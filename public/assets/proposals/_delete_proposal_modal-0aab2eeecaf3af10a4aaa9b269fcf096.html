@@ -1,0 +1,44 @@
+<div id='deleteProposalModal'>
+  <div class='modal-header'>
+    <div class='close pull-right' ng-click='$close()'>&times;</div>
+    <h2 class='modal-title'>Delete Proposal</h2>
+    <div class='selectedHub'>
+      <span>
+        <div class='groupName'>
+          {{ clicked_proposal.hub.group_name }}
+        </div>
+        <div class='groupLocation'>
+          {{ clicked_proposal.hub.formatted_location }}
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class='modal-body'>
+    <div id='alertContainer'>
+      <div alert-bar alertmessageclear='alertService.alertClass' class='modalAlert' ng-show='alertService.alertDestination=="modal"'></div>
+    </div>
+    <div class='instructions'>
+      <div class='avatar'>
+        <ng-include src="'/assets/shared/_currentuser_avatar.html'"></ng-include>
+      </div>
+      <h5>Are you sure you want to delete this proposal? Please note that deleting a proposal is permanent and cannot be undone.</h5>
+      <div class='proposal_statement'>
+        <div class='form-group'>
+          <div class='originalProposal'>
+            <h4>{{ clicked_proposal.statement }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='modal-footer'>
+    <fieldset>
+      <div class='form-group'>
+        <div class='controls'>
+          <button class='btn btn-bold' ng-click='$close()'>Cancel</button>
+          <button class='btn btn-danger btn-bold' ng-click='deleteProposal()'>Delete my proposal</button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

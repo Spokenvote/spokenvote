@@ -1,0 +1,32 @@
+<div class='makeHub' ui-if='sessionSettings.actions.changeHub == "new"'>
+  <h5 class='hint-text'>
+    <div class='fa fa-lightbulb-o'></div>
+    <span-red>Hint!</span-red>
+    <span>Double-check to make sure your group does not already exist by trying alternate spellings above.</span>
+  </h5>
+  <h3>Create new group</h3>
+  <div class='input-area'>
+    <input class='input-xlarge' id='group_name' name='group_name' ng-maxLength='50' ng-minlength='5' ng-model='sessionSettings.actions.searchTerm' placeholder='Enter your new group name' type='text'>
+    <div class='length_counter happy-text' ng-show='newProposalForm.group_name.$valid'>{{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed</div>
+    <div class='length_counter error-text' ng-show='newProposalForm.group_name.$invalid &amp;&amp; !newProposalForm.group_name.$error.minlength &amp;&amp; !newProposalForm.group_name.$error.maxlength'>
+      <span>Required</span>
+      <div class='fa fa-warning'></div>
+    </div>
+    <div class='length_counter error-text' ng-show='newProposalForm.group_name.$error.minlength'>
+      <span>Too Short</span>
+      <div class='fa fa-warning'></div>
+    </div>
+    <div class='length_counter error-text' ng-show='newProposalForm.group_name.$error.maxlength'>
+      <spanToo>Long</spanToo>
+      <div class='fa fa-warning'></div>
+    </div>
+    <input class='input-xlarge' id='hub_formatted_location' name='formatted_location' ng-model='sessionSettings.hub_attributes.formatted_location' placeholder="Enter the Group's Location" required sv-google-place type='text'>
+    <div class='length_counter error-text' ng-hide='newProposalForm.formatted_location.$valid'>
+      <span>Choose a valid location from list.</span>
+      <div class='fa fa-warning'></div>
+    </div>
+    <div class='length_counter happy-text' ng-show='newProposalForm.formatted_location.$valid &amp;&amp; newProposalForm.group_name.$valid'>
+      <a class='link' href='#' ng-click='sessionSettings.actions.changeHub = false'>Group Location Valid</a>
+    </div>
+  </div>
+</div>

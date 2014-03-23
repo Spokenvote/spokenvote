@@ -1,0 +1,105 @@
+<div id='topBar' ng-controller='DashboardCtrl'>
+  <header class='navbar navbar-default hidden-md hidden-lg'>
+    <div class='navbar-header'>
+      <button class='navbar-toggle pull-left' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-hide='sessionSettings.actions.detailPage == true' tooltip-placement='right' tooltip='{{tooltips.navMenu}}' type='button'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+      </button>
+      <div class='fa fa-angle-left fa-2x navbar-toggle pull-left' ng-click='backtoTopics()' ng-href='#' ng-show='sessionSettings.actions.detailPage == true' tooltip-placement='right' tooltip='{{tooltips.backtoTopics}}' type='button'></div>
+      <a class='sv-logo' href='/landing' ng-click='clearHubFilter()'>
+        <span class='spoken'>
+          Spoken
+        </span>
+        <span class='vote'>
+          Vote
+        </span>
+      </a>
+      <div class='new-proposal pull-right' ng-click='newTopic()'>
+        <button class='navbar-toggle' tooltip-placement='left' tooltip='{{ tooltips.newTopic }}' type='button'>
+          <div class='fa fa-comment-o fa-2x'></div>
+        </button>
+      </div>
+      <div class='hub_search-xs' role='search'>
+        <hidden_field_tag id='hub_filter' ng-model='hubFilter.hubFilter' ui-select2='hubFilterSelect2'></hidden_field_tag>
+      </div>
+    </div>
+  </header>
+  <header class='navbar navbar-inverse navbar-fixed-top hidden-xs hidden-sm'>
+    <div class='container'>
+      <div class='row'>
+        <div class='navbar-header col-xs-2'>
+          <div class='navbar-brand'>
+            <a class='sv-logo' href='/landing' ng-click='clearHubFilter()'>
+              <span class='spoken'>
+                Spoken
+              </span>
+              <span class='vote'>
+                Vote
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class='hub_search col-xs-5' role='search'>
+          <div class='navbar-form'>
+            <hidden_field_tag id='hub_filter' ng-model='hubFilter.hubFilter' ui-select2='hubFilterSelect2'></hidden_field_tag>
+          </div>
+        </div>
+        <div class='new_topic navbar-btn col-xs-2'>
+          <button class='btn btn-newTopic btn-bold main' ng-click='newTopic()' tooltip-placement='bottom' tooltip='{{tooltips.newTopic}}'>Start New Topic</button>
+        </div>
+        <div class='col-xs-2'>
+          <ul class='nav navbar-nav pull-right' id='user_profile'>
+            <li class='dropdown' data-placement='bottom'>
+              <a class='dropdown-toggle' data-toggle='dropdown'>
+                <b class='white'>{{ currentUser.first_name || 'Learn' }}</b>
+                <b class='caret'></b>
+              </a>
+              <ul aria-labelledby='dropdownMenu' class='dropdown-menu' role='menu'>
+                <li>
+                  <a ng-href='/proposals?filter=my' ng-show='currentUser.username'>My Proposals</a>
+                </li>
+                <li>
+                  <a href='#' ng-click='userSettings()' ng-show='currentUser.username'>Settings</a>
+                </li>
+                <li>
+                  <!-- Angular should ignore this route and not try to handle it since it has target='_self' -->
+                  <a href='/admin' ng-show='currentUser["is_admin?"]' target='_blank'>Admin</a>
+                </li>
+                <li>
+                  <a class='divider' ng-show='currentUser.username'></a>
+                </li>
+                <li>
+                  <a href='#' ng-click='signOut()' ng-show='currentUser.username'>Sign Out</a>
+                </li>
+                <li>
+                  <a class='divider' ng-show='currentUser.username'></a>
+                </li>
+                <li>
+                  <a href='/about'>About this site</a>
+                </li>
+                <li>
+                  <a href='/terms-of-use'>Terms of Use</a>
+                </li>
+                <li>
+                  <a href='http://railsforcharity.github.io/spokenvote/'>Developers</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class='user_area navbar-btn col-xs-1'>
+          <div class='avatar pull-right' ng-href='/proposals?filter=my' ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' tooltip-placement='bottom' tooltip='{{currentUser.username}}'>
+            <a href='/proposals?filter=my'>
+              <ng-include src="'/assets/shared/_currentuser_avatar.html'"></ng-include>
+            </a>
+          </div>
+          <div class='buttons navbar-btn pull-right' ng-show='!currentUser.username'>
+            <button class='btn btn-info btn-bold' ng-click='signinAuth()'>Sign In</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
