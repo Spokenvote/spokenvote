@@ -48,7 +48,8 @@ gem 'rabl'
 gem 'sitemap_generator'
 gem 'google_places_autocomplete'
 gem 'places'
-gem 'mandrill-api'
+# gem 'mandrill-api'
+gem 'premailer-rails' #silent dependency on Nokogiri
 
 
 gem 'sass-rails',   '~> 4.0.1'
