@@ -21,7 +21,7 @@ Spokenvote::Application.configure do
   config.assets.compress = true
   config.assets.js_compressor = Uglifier.new(mangle: false)
 
-  # For Angularjs     set "mangle: true" to get maximum js compression  (old Bates advice, but not widely accepted. )
+  # For Angularjs     set "mangle: true" to get maximum js compression  (old Bates advice, but not widely accepted.)
   #config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
 
   # Don't fallback to assets pipeline if a precompiled asset is missed

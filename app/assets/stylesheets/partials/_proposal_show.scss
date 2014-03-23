@@ -191,7 +191,7 @@
 }
 
 .shares  .btn {
-  @extend .btn-mini;
+//  @extend .btn-mini;       # failed to @extend ".btn-mini"
   background-color: hsl(211, 92%, 46%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");

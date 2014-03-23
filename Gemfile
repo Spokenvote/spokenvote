@@ -88,4 +88,5 @@ group :production, :staging do
   gem "airbrake"
   gem 'prerender_rails'
   gem 'fog'
+  gem 'ngmin-rails', '~> 0.4.0'
 end
