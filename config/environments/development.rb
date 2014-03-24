@@ -36,5 +36,4 @@ Spokenvote::Application.configure do
     :domain =>         'localhost:3000',
     :authentication => :plain
   }
-  # ActionMailer::Base.delivery_method = :smtp # Already included in the initializer
 end

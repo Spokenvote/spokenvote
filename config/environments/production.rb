@@ -89,5 +89,4 @@ Spokenvote::Application.configure do
       :domain =>         'heroku.com',
       :authentication => :plain
   }
-  # ActionMailer::Base.delivery_method = :smtp # Already included in the initializer
 end
