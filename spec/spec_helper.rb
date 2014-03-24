@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'email_spec'
 require 'capybara/rspec'
 require 'database_cleaner'
 
@@ -15,6 +16,8 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros::ClassMethods, :type => :controller
   config.include ControllerMacros::InstanceMethods, :type => :controller
+  config.include EmailSpec::Helpers
+  config.include EmailSpec::Matchers
 
   config.mock_with :rspec
 
