@@ -33,8 +33,8 @@ Spokenvote::Application.configure do
     :address =>        'smtp.mandrillapp.com',
     :user_name =>      ENV['MANDRILL_USERNAME'],
     :password =>       ENV['MANDRILL_APIKEY'],
-    :domain =>         'heroku.com',
+    :domain =>         'localhost:3000',
     :authentication => :plain
   }
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.delivery_method = :smtp # Already included in the initializer
 end
