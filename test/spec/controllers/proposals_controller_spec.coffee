@@ -1,7 +1,7 @@
 describe "Controllers", ->
   $scope = undefined
   ctrl = undefined
-  beforeEach module("spokenvote")
+  beforeEach module("App.spokenvote")
   beforeEach ->
     @addMatchers toEqualData: (expected) ->
       angular.equals @actual, expected
