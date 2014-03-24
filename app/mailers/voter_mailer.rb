@@ -6,6 +6,6 @@ class VoterMailer < ActionMailer::Base
     @recipient = User.find(recipient_id)
     @votes = user_notifications[recipient_id].map { |vote_id| Vote.find(vote_id) }
     attachments["bluefull.png"] = File.read("#{Rails.root}/app/assets/images/bluefull.png")
-    mail(:to => "#{@recipient.name} <#{@recipient.email}>", :subject => "People have voted on proposals you are interested in!")
+    mail(:to => "#{@recipient.name} <#{@recipient.email}>", :subject => "[Spokenvote] People have voted on topics you are interested in!")
   end
 end

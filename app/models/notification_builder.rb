@@ -4,7 +4,7 @@ class NotificationBuilder
     notify_list = self.key_value_crossover(self.create_notify_list)
     notify_list = self.check_preferences(notify_list)
     notify_list.each do |user_notifications|
-      self.mail(user_notifications)
+      VoterMailer.vote_notification(user_notifications)
     end
   end
   # create_notify_list should an array of key (vote.id) value (an array of user_ids) pairs]
