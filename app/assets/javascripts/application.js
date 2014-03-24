@@ -15,9 +15,10 @@
 //= require bootstrap/transition
 //= require bootstrap/collapse
 
-//= require holder
-// require viewport.min     #Don't believe we're calling this any more
 //= require angular-ui
+
+// require holder           #Don't believe this is in use
+// require viewport.min     #Don't believe we're calling this any more
 // require ui-bootstrap-tpls-0.4.0
 // require angular-strap
 // require angular-cookies
