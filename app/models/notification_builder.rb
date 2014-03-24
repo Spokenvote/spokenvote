@@ -3,13 +3,14 @@ class NotificationBuilder
   def self.organize_daily_email
     notify_list = self.key_value_crossover(self.create_notify_list)
     notify_list = self.check_preferences(notify_list)
-    notify_list.each do |user_notifications|
-      VoterMailer.vote_notification(user_notifications)
+    notify_list.each do |user_id, vote_array|
+      VoterMailer.vote_notification(user_id, vote_array).deliver
     end
   end
   # create_notify_list should an array of key (vote.id) value (an array of user_ids) pairs]
   # However, the mailer will want the inverse pairing, a key of a user.id and the vote.ids that she needs to be informed about.
   # So one must crack open each hash and convert it across
+  # This is done in the key_value_crossover
 
   def self.check_preferences(notify_list)
     # Stubbed this out for now
@@ -38,49 +39,6 @@ class NotificationBuilder
       end
     end
     crossover_result
-  end
-
-  def self.mail(user_notifications)
-    recipient = User.find(user_notifications.keys[0])
-    votes = Vote.find(user_notifications.values)
-
-    require 'mandrill'
-    m = Mandrill::API.new
-    rendered_html = m.templates.render 'notification', [{:name => 'main', :content => 'The main content block'}]
-    # rendered_text = m.templates.render 'notification', [{:name => 'main', :content => 'The main content block'}]
-    message = {
-     :subject=> "Update from SpokenVote",
-     :from_name=> "SpokenVote",
-     :text=>"Hi message, how are you?",
-     :to=>[
-       {
-         :email=> "#{recipient.email}",
-         :name=> "#{recipient.name}"
-       }
-     ],
-     :html=>"<html><h1>People have been a <strong>voting</strong></h1></html>",
-     :from_email=>"info@spokenvote.org"
-    }
-    sending = m.messages.send message
-  end
-
-  def self.mail_test
-    require 'mandrill'
-    m = Mandrill::API.new
-    message = {
-     :subject=> "Update from SpokenVote",
-     :from_name=> "SpokenVote",
-     :text=>"Hi message, how are you?",
-     :to=>[
-       {
-         :email=> "thomasgabriel.watson@gmail.com",
-         :name=> "Tom"
-       }
-     ],
-     :html=>"<html><h1>Hi <strong>message</strong>, how are you?</h1></html>",
-     :from_email=>"info@spokenvote.org"
-    }
-    sending = m.messages.send message
   end
 end
 
