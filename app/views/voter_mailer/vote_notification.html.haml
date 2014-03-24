@@ -4,8 +4,7 @@
 
 %div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
   %h2
-    %p Hello
-    = @recipient.username
+    %p= "Hello #{@recipient.username}"
   %br
   %p
     A new vote has been created. Please check it out.
