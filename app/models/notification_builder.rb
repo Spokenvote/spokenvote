@@ -7,7 +7,7 @@ class NotificationBuilder
       VoterMailer.vote_notification(user_id, vote_array).deliver
     end
   end
-  # create_notify_list should an array of key (vote.id) value (an array of user_ids) pairs]
+  # create_notify_list should return an array of key (vote.id) value (an array of user_ids) pairs
   # However, the mailer will want the inverse pairing, a key of a user.id and the vote.ids that she needs to be informed about.
   # So one must crack open each hash and convert it across
   # This is done in the key_value_crossover
