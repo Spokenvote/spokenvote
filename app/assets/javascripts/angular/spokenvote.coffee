@@ -70,7 +70,6 @@ servicesConfig = ['$httpProvider', ($httpProvider) ->
 ]
 App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(['$rootScope', '$location', ($rootScope, $location) -> $rootScope.location = $location])
 
-
 App.Directives = angular.module('spokenvote.directives', [])
 
 
