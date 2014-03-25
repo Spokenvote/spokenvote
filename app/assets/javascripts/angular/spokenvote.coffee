@@ -68,7 +68,9 @@ window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 's
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
 ]
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(($rootScope, $location) -> $rootScope.location = $location)
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(['$rootScope', '$location', ($rootScope, $location) -> $rootScope.location = $location])
+
+
 App.Directives = angular.module('spokenvote.directives', [])
 
 

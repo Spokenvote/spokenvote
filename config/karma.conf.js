@@ -19,10 +19,10 @@ files = [
   "http://code.angularjs.org/1.2.9/angular.min.js",
   "http://code.angularjs.org/1.2.9/angular-resource.min.js",
   "http://code.angularjs.org/1.2.9/angular-route.min.js",
-  "http://code.angularjs.org/1.2.9/angular-mocks.js",
   "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
-  "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
+    "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
   "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
+  "http://code.angularjs.org/1.2.9/angular-mocks.js",
 
 //  'vendor/assets/javascripts/jquery-2.0.3.min.js',
 //  'vendor/assets/javascripts/angular.min.js',
@@ -35,6 +35,8 @@ files = [
 
   'app/assets/javascripts/angular/*.coffee',
   'app/assets/javascripts/angular/**/*.coffee',
+//  'public/assets/application-8c6d2e04a8bdda9f84de2d5144beeee9.js',
+
   'test/**/*spec.coffee'
 ];
 
