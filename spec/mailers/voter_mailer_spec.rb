@@ -13,10 +13,11 @@ describe VoterMailer do
   let!(:vote2) { create(:vote, user: user2, proposal: proposal1) }
   let!(:vote3) { create(:vote, user: user3, proposal: proposal1) }
 
-  let!(:votes_per_user) { { user1.id => [vote2.id, vote3.id] } }
+  let!(:user_id) { user1.id }
+  let!(:votes_for_user) { [vote2.id, vote3.id] }
 
   describe 'new_vote email' do
-    let(:mail) { VoterMailer.vote_notification(votes_per_user) }
+    let(:mail) { VoterMailer.vote_notification(user_id, votes_for_user) }
     subject { mail }
     it { should deliver_to "#{user1.username} <#{user1.email}>" }
     it { should deliver_from 'donotreply@spokenvote.org' }
