@@ -1,13 +1,15 @@
-VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal',
-  ( $rootScope, $location, $modal, AlertService, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal',
+  ( $rootScope, $location, $modal, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
     support: ( scope, clicked_proposal ) ->
-      scope.clicked_proposal = clicked_proposal
+#    support: ( clicked_proposal ) ->
+#      scope.clicked_proposal = clicked_proposal
+      $rootScope.sessionSettings.newSupport.proposal_id = clicked_proposal.id
       scope.current_user_support = null
-      AlertService.clearAlerts()
+      $rootScope.alertService.clearAlerts()
 
       if !scope.currentUser.id?
-        AlertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
+        $rootScope.alertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
       else
         RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
           if relatedSupport.id?
@@ -16,7 +18,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
             else
               scope.current_user_support = 'related_proposal'
           if scope.current_user_support == 'this_proposal'
-            AlertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', scope, 'main'
+            $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', scope, 'main'
           else
             if SessionSettings.openModals.supportProposal is false
               modalInstance = $modal.open
@@ -31,10 +33,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
     improve: ( scope, clicked_proposal ) ->
       scope.clicked_proposal = clicked_proposal
       scope.current_user_support = null
-      AlertService.clearAlerts()
+      $rootScope.alertService.clearAlerts()
 
       if !scope.currentUser.id?
-        AlertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
+        $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
       else
         RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
           scope.current_user_support = 'related_proposal' if relatedSupport.id?
@@ -53,7 +55,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
       scope.clicked_proposal = clicked_proposal
 
       if !scope.currentUser.id?
-        AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+        $rootScope.alertService.setInfo 'To proceed you need to sign in.', scope, 'main'
       else
         if SessionSettings.openModals.editProposal is false
           modalInstance = $modal.open
@@ -69,7 +71,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
       scope.clicked_proposal = clicked_proposal
 
       if !scope.currentUser.id?
-        AlertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+        $rootScope.alertService.setInfo 'To proceed you need to sign in.', scope, 'main'
       else
         if SessionSettings.openModals.deleteProposal is false
           modalInstance = $modal.open
@@ -82,14 +84,14 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
             SessionSettings.openModals.deleteProposal = false
 
     new: (scope) ->
-      AlertService.clearAlerts()
+      $rootScope.alertService.clearAlerts()
       if SessionSettings.hub_attributes.id?
         SessionSettings.actions.changeHub = false
       else
         SessionSettings.actions.changeHub = true
         SessionSettings.actions.searchTerm = null
       if !$rootScope.currentUser.id?
-        AlertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
+        $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
       else
         if SessionSettings.openModals.newProposal is false
           modalInstance = $modal.open
@@ -128,18 +130,18 @@ VotingService = [ '$rootScope', '$location', '$modal', 'AlertService', 'SessionS
           hub_id: SessionSettings.hub_attributes.id
           hub_attributes: SessionSettings.hub_attributes
 
-      AlertService.clearAlerts()
+      $rootScope.alertService.clearAlerts()
 
       Proposal.save(newProposal
       ,  (response, status, headers, config) ->
         $rootScope.$broadcast 'event:proposalsChanged'
-        AlertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
+        $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
         $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
         $modalInstance.close(response)
         SessionSettings.actions.offcanvas = false
       ,  (response, status, headers, config) ->
-        AlertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
-        AlertService.setJson response.data
+        $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
+        $rootScope.alertService.setJson response.data
       )
 
 ]

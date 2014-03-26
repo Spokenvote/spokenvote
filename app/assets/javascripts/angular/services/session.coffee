@@ -113,6 +113,7 @@ SessionSettings = ->
   routeParams: {}
   hub_attributes: {}
   newProposal: {}
+  newSupport: {}
   lastLocation:
     location_id: null
     formatted_location: null

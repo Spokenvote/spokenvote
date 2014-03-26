@@ -32,7 +32,7 @@ describe GooglePlacesAutocompleteService do
 			if $API_KEY_DEFINED
 				it "locates and identifies the county" do 
 					locations = @service.find_regions("Santa Clara County")
-					expect(locations[0][:description]).to eq("Santa Clara, CA, United States")
+					expect(locations[0][:description]).to eq("Santa Clara County, CA, United States")
 					expect(locations[0][:id]).to eq("1019a381cf34eb999ba02adcfeaf3f066d662fb1")
 					expect(locations[0][:type]).to eq("County of")
 					expect(locations[0][:reference]).to_not be_nil

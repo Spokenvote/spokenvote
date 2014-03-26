@@ -23,40 +23,21 @@ ActiveRecord::Schema.define(version: 20140310194542) do
     t.integer  "author_id"
     t.string   "author_type"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "namespace"
   end
 
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
-
-  create_table "activities", force: true do |t|
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
-    t.text     "parameters"
-    t.integer  "recipient_id"
-    t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "notify_list",    default: [], array: true
-  end
-
-  add_index "activities", ["notify_list"], name: "index_activities_on_notify_list", using: :gin
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
     t.string   "uid",        null: false
     t.string   "provider",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "token"
   end
 
@@ -65,8 +46,8 @@ ActiveRecord::Schema.define(version: 20140310194542) do
   create_table "hubs", force: true do |t|
     t.string   "group_name"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "location_id"
     t.string   "formatted_location"
   end
@@ -76,15 +57,15 @@ ActiveRecord::Schema.define(version: 20140310194542) do
   create_table "proposals", force: true do |t|
     t.string   "statement"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "votes_count", default: 0
     t.string   "ancestry"
     t.integer  "created_by"
     t.integer  "hub_id"
   end
 
-  add_index "proposals", ["ancestry"], name: "index_proposals_on_ancestry", using: :btree
+  add_index "proposals", ["ancestry"], name: "index_positions_on_ancestry", using: :btree
   add_index "proposals", ["hub_id"], name: "index_proposals_on_hub_id", using: :btree
   add_index "proposals", ["user_id"], name: "index_proposals_on_user_id", using: :btree
 
@@ -99,8 +80,8 @@ ActiveRecord::Schema.define(version: 20140310194542) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "name"
     t.hstore   "preferences"
   end
@@ -112,8 +93,8 @@ ActiveRecord::Schema.define(version: 20140310194542) do
     t.integer  "proposal_id"
     t.text     "comment"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "ip_address"
   end
 
