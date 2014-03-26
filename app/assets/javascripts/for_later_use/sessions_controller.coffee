@@ -49,5 +49,5 @@ SessionCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService',
 RegistrationCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'dialog' ]
 
 # Register
-#App.controller 'SessionCtrl', SessionCtrl
-#App.controller 'RegistrationCtrl', RegistrationCtrl
+App.controller 'SessionCtrl', SessionCtrl
+App.controller 'RegistrationCtrl', RegistrationCtrl
