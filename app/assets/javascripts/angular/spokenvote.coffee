@@ -20,22 +20,25 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       templateUrl: '/assets/proposals/index.html'
       controller: 'ProposalListCtrl'
       resolve:
-        proposals: (MultiProposalLoader) ->
+        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
           MultiProposalLoader()
-
-  .when '/proposals/:proposalId',
+        ]
+    .when '/proposals/:proposalId',
       templateUrl: '/assets/proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
-        proposal: (ProposalLoader) ->
+        proposal: [ 'ProposalLoader', (ProposalLoader) ->
           ProposalLoader()
-        relatedProposals: (RelatedProposalsLoader) ->
+        ]
+        relatedProposals: [ 'RelatedProposalsLoader', (RelatedProposalsLoader) ->
           RelatedProposalsLoader()
+        ]
 
     .when '/currentuser',
       resolve:
-        currentuser: (CurrentUserLoader) ->
+        currentuser: [ 'CurrentUserLoader', (CurrentUserLoader) ->
           CurrentUserLoader()
+        ]
 
     .when '/about',
       templateUrl: '/assets/pages/about.html'

@@ -1,5 +1,8 @@
 ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies',
   ($scope, $routeParams, $location, proposals, SpokenvoteCookies) ->
+
+    console.log "ProposalListCtrl start corrected"
+
     $scope.proposals = proposals
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
