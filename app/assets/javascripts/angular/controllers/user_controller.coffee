@@ -18,7 +18,7 @@ UserSettingsCtrl = ($scope, $cookieStore, $location, SessionService, AlertServic
     dialog.close(result)
 
 # Injects
-UserSettingsCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'CurrentUser' ]
+#UserSettingsCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'CurrentUser' ]
 
 # Register
 App.controller 'UserSettingsCtrl', UserSettingsCtrl
