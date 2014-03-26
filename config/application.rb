@@ -92,8 +92,8 @@ module Spokenvote
     config.assets.version = '1.0'
 
     # Suggested by Bill 1/3/13: Between these lines and using @import statements in application.css.scss my JHTC app has no trouble on Heroku.
-    config.assets.precompile += ['application.scss.css', 'application.js']
-    config.assets.initialize_on_precompile = false
+    #config.assets.precompile += ['application.scss.css', 'application.js']
+    #config.assets.initialize_on_precompile = false
 
 
     # Only generate request specs and model specs

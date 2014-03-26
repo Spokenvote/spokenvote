@@ -19,10 +19,10 @@ Spokenvote::Application.configure do
   # Compress JavaScripts and CSS
   # Suggested by Bates in Rails 4 Upgrade
   #config.assets.compress = true
-  #config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(mangle: true)
 
-  # For Angularjs     set "mangle: true" to get maximum js compression
-  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
+  # For Angularjs     set "mangle: true" to get maximum js compression  (old Bates advice, but not widely accepted.)
+  #config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true

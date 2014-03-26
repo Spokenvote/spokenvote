@@ -1,66 +1,86 @@
 %section#homepage
   .page_title
-    %h1 Influence a group, impact the world.
-    %h1
-      .tag_line Voting redefined.
+    .call_to_action Participate in real decisions that affect you.
+    .sv-logo( href='/landing' )
+      %span.spoken
+        Spoken
+      %span.vote
+        Vote
+    .div
+      %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Get Started!
 
-    -#%br
-    -#.landing_hubfilter.col-xs-9.col-xs-offset-1( ng-controller='DashboardCtrl' )
-      .header.row.panel( ng-init="landing.location='true'" )
-        %span
-        .hub_filter
-          %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' data-width='590px' )
-    -#%br
+    -#%h1
+    .tag_line Social Sentiment
+    -#.tag_line Voting redefined.
 
-    %h2
-      %br
-      %a(href='/proposals?filter=active') <i>Browse proposals</i>,
-      %span support one or branch your own. Participate in real decisions.
+    .instructions
+      %h5
+        %a(href='/proposals?filter=active') <i>Browse proposals</i>,
+        %span support one or create your own.
 
-    -#%h4
-      %br
-      %a(href='/about') <i>Learn more...</i>
+    .boxes-123.row
+      .col-xs-4.text-center
+        %i.fa.fa-comment-o.fa-5x
+        %h2 Listen
+        %p Find your group to see what they are discussing.
+      .col-xs-4.text-center
+        %i.fa.fa-thumbs-o-up.fa-5x
+        %h2 Support
+        %p Add support to any proposal you like, or...
+      .col-xs-4.text-center
+        %i.fa.fa-code-fork.fa-5x
+        %h2 Fork
+        %p Create a better version by forking any proposal.
 
-    %br
-    %br
-    %br
-    %br
-    %br
-    %br
+  .below_fold
+    .fold_row.row
+      .instructions.col-sm-6
+        %h2 How it Works
 
+    .fold_row.row
+      .instructions.col-sm-6
+        %h4.attention_red
+          1. Find a group
+        %h4 Start by finding your group in the top box. Once you locate your group, click a topic to see its proposals.
 
+      .screen-shot-examples.col-sm-6
+        %img.hidden-xs(src="/assets/search_example.png")
+        %img.visible-xs.hidden-sm(src="/assets/search_example_xs.png")
+        %br
 
-.static_page
-  .pull-right
-    %img(src="/assets/search_example.png" width="400")
+    .fold_row.row
+      .instructions.col-sm-6
+        %h4.attention_red
+          2. See what they're proposing
+        %h4 If the topic has not been started yet, click "Start New Topic".
 
-  %h2 Consensus Simplified
+      .screen-shot-examples.col-sm-6
+        %img(src="/assets/new_topic_example.png")
+        %br
 
-  .content_offset
-    %ol.attention_red
-      %li Find a group
-      %li See what they're proposing
-      %li Help the best ideas reach consensus
+    .fold_row.row
+      .instructions.col-sm-6
+        %h4.attention_red
+          3. Help the best ideas reach consensus
+        %h4 In a topic you can add your support to any existing proposal or create an improved version using any proposal as your starting point.
 
-  .content_offset
-    %h4
-      %br
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Start by finding your group in the top box.
+      .screen-shot-examples.col-sm-6
+        %img(src="/assets/support_improve_example.png")
+        %br
 
-  .right-column
-    %h2 How it Works
-    .content_div
-      %h4 First we capture your ideas, called Proposals. Then you get to organically improve the semantics of those proposals on your way toward reaching a majority opinion together. As the wording improves, the best proposals gain momentum by receiving support from multiple users and forming a clarity of consensus.
+    .fold_row.row
+      .instructions.col-sm-6
+        %h4 As each participant contributes either support to an existing version or creates a new improved version, the group collectively moves toward reaching a majority opinion together. As the wording improves, the best proposals gain momentum by receiving support from multiple users and forming a clarity of consensus.
 
-  .left-column
-    %h2 Why it Matters
-    .content_div
-      %h4 Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency. We think the process should be intuitive, fun, and yes, democratic.
-    .content_div_half
-      %h4 Deeply inspired by Wikipedia, Spokenvote is an open source non-profit intended for small groups today, but over time to reach national politics. It starts with spontaneously capturing ideas as they occur to us. When we do that as a diverse group, a <i> “power of the crowd” </i> effect is introduced. The result is often a revelation of common sense that is difficult to discover from a top-down approach.
+    .fold_row.row
+      .instructions.col-sm-6
+        %h2 Why it Matters
+        %h4 Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency. We think the process should be intuitive, fun, and yes, democratic.
 
-  .right-column
-    %h2 Contribute
-    .content_div
-      %h4 Spokenvote is an open source application, and we welcome your participation in building it.
-      %a( ng-href='http://railsforcharity.github.com/spokenvote' )   Learn more.
+        %h4 Deeply inspired by Wikipedia, Spokenvote is an open source non-profit intended for small groups today, but over time to reach national politics. It starts with spontaneously capturing ideas as they occur to us. When we do that as a diverse group, a <i> “power of the crowd” </i> effect is introduced. The result is often a revelation of common sense that is difficult to discover from a top-down approach.
+
+    .fold_row.row
+      .instructions.col-sm-6
+        %h2 Contribute
+        %h4 Spokenvote is an open source application, and we welcome your participation in building it.
+        %a( ng-href='http://railsforcharity.github.com/spokenvote' )   Learn more.

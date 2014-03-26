@@ -19,33 +19,55 @@
     font-size: 2em;
     font-weight: bold;
   }
+  .selectedHub {
+    font-family: $logoTypeFace;
+    color: $basic-brown !important;
+    text-align: right;
+    text-decoration: none;
+    margin-top: -10px;
+    @media (max-width: $grid-float-breakpoint-max) {
+      margin-top: -5px;
+    }
+    .groupName {
+      font-size: 27px;
+      margin-right: 3px;
+      i {
+        font-size: 14px;
+      }
+    }
+    .groupLocation {
+      font-size: 14px;
+      margin-top: -4px;
+      margin-bottom: -6px;
+      margin-right: 3px;
+    }
+    :hover {
+      color: $happy-blue;
+      cursor: pointer;
+    }
+  }
 }
 
 .modal-body {
   background-color: $modal-body-off-white;
   padding: 3%;
-  form {
-  }
   .form-group {
     padding: 3px 3px 0 3px;
   }
   .instructions {
-    padding: 0px 10px;
-    @media (min-width: $grid-float-breakpoint) {
-      padding: 0px 10px 20px 10px;
-    }
+    color: $soft-brown-text;
+    padding: 0 3% 3% 3%;
     .avatar {
-      padding: 3px 5px 5px 5px;
+      padding: 0 8px;
       float: left;
       height: 100%;
+      @media (min-width: $grid-float-breakpoint) {
+        padding: 0 15px;
+      }
       img {
         width: 35px;
         height: auto;
       }
-    }
-    h5 {
-      color: $soft-brown-text;
-      padding-left: 50px;
     }
   }
 }

@@ -28,17 +28,19 @@ $soft-grey: rgba(132, 132, 132, 0.75);
 $smokeyLebel: rgba(153, 153, 153, 0.46);
 $basic-brown: #444;
 $soft-brown-text: #555555;
+$theranos-grey: #65676b;
 $facebook-blue: #3b5998;
 $alert-blue: #284784;
 $error-text-red: #b94a48;
+$attention-red: #9d261d;
 $tag-blue: rgba(28, 133, 246, 0.25);
 
 $rowHighlight: rgba(240, 240, 255, 0.45);
 $rowRuler: rgba(68, 68, 68, 0.35);
 
-$googlePanelGrey: #252626;
+$googlePanelGrey:                     #252626;
 
-$gridGutterWidth:         10px !default;
+$gridGutterWidth:                     10px !default;
 
 //$headingsColor: #315c99;
 //$headingsColor: #444;
@@ -50,10 +52,14 @@ $link-color:                          $facebook-blue;
 
 
 // Typography Variables
+$small-avatar-height:                 35px;
 
-$font-size-base:          14px;
-$font-family-sans-serif:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$logoTypeFace:            'Yanone Kaffeesatz', sans-serif;
+
+// Typography Variables
+
+$font-size-base:                      14px;
+$font-family-sans-serif:              'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$logoTypeFace:                        'Yanone Kaffeesatz', sans-serif;
 
 // Modal Variables
 
