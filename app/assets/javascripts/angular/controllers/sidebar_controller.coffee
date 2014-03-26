@@ -1,4 +1,3 @@
-#SidebarCtrl = ($scope, $route, $location, SessionSettings, CurrentHubLoader, VotingService) ->
 SidebarCtrl = [ '$scope', '$routeParams', '$location', ( $scope, $routeParams, $location ) ->
 
   $scope.setFilter = (filterSelected) ->

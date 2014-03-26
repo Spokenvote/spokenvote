@@ -30,7 +30,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
         modalInstance = $modal.open
           templateUrl: '/assets/user/_settings_modal.html'
           controller: 'UserSettingsCtrl'
-          scope: $scope
+#          scope: $scope
         modalInstance.opened.then ->
           SessionSettings.openModals.userSettings = true
         modalInstance.result.finally ->
