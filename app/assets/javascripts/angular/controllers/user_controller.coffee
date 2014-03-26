@@ -1,9 +1,5 @@
-#App.controller 'UserSettingsCtrl', [ '$scope', '$modalInstance', 'CurrentUser', ($scope, $modalInstance, CurrentUser) ->
-App.controller 'UserSettingsCtrl', ($scope, $modalInstance, CurrentUser) ->
-
-#UserSettingsCtrl = ($scope, $modalInstance, CurrentUser) ->
-
-  console.log $modalInstance
+app = angular.module "spokenvote" #method required by ngmin DI annotation gem
+app.controller 'UserSettingsCtrl', ($scope, $modalInstance, CurrentUser) ->
 
   $scope.saveUserSettings = ->
     $scope.newSupport.proposal_id = $scope.clicked_proposal.id
@@ -18,10 +14,6 @@ App.controller 'UserSettingsCtrl', ($scope, $modalInstance, CurrentUser) ->
       $scope.alertService.setCtlResult 'Sorry, ' + $scope.currentUser.first_name + ' your settings were not saved.', $scope, 'modal'
       $scope.alertService.setJson response.data
     )
-
-
-# Injects
-#UserSettingsCtrl.$inject = [ '$scope', '$cookieStore', '$location', 'SessionService', 'AlertService', 'CurrentUser' ]
 
 # Register
 #App.controller 'UserSettingsCtrl', UserSettingsCtrl
