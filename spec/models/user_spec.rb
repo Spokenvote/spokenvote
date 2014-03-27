@@ -16,7 +16,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string(255)
-#
+#  preferences            :hstore
 
 require 'spec_helper'
 
@@ -158,6 +158,18 @@ describe "User" do
     it "should set the encrypted password attribute" do
       @user.encrypted_password.should_not be_blank
     end
+  end
+
+  describe 'preferences' do
+    before(:each) do
+      @user = User.new(@attr)
+      @preference = { { proposal_id: 3 } => { email: 'yes', facebook: 'no' } }
+      @user.preferences = @preference
+    end
+
+    subject { @user }
+
+    its(:preferences) { should eq @preference }
   end
 
   describe 'associations' do

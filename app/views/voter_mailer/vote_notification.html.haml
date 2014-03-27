@@ -1,0 +1,12 @@
+/ @votes[0].name
+
+-#- taskp = TaskPresenter.new(@task, self)
+
+%div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+  %h2
+    %p= "Hello #{@recipient.username}"
+  %br
+  %p
+    A new vote has been created. Please check it out.
+- @votes.each do |vote|
+  %p= "#{vote.user.name} voted on the proposal '#{vote.proposal.statement}'"
