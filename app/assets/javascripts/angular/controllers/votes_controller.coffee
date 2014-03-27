@@ -6,6 +6,7 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote',
 
     $scope.saveSupport = ->
       $scope.alertService.clearAlerts()
+      $rootScope.sessionSettings.newSupport.proposal_id = $rootScope.sessionSettings.clickedPrposal.id
 
       vote = Vote.save($scope.sessionSettings.newSupport
       ,  (response, status, headers, config) ->

@@ -2,7 +2,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
   ( $rootScope, $location, $modal, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
     support: ( clicked_proposal ) ->
-      $rootScope.sessionSettings.newSupport.proposal_id = clicked_proposal.id
+      $rootScope.sessionSettings.clickedPrposal = clicked_proposal
       $rootScope.sessionSettings.relatedSupport = null
       $rootScope.alertService.clearAlerts()
 

@@ -115,6 +115,7 @@ SessionSettings = ->
   newProposal: {}
   newSupport: {}
   relatedSupport: {}
+  clickedPrposal: {}
   lastLocation:
     location_id: null
     formatted_location: null
