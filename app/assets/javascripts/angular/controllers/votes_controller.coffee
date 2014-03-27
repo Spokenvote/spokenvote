@@ -1,11 +1,10 @@
 SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote',
   ( $scope, $location, $rootScope, $modalInstance, Vote ) ->
     $scope.alertService.clearAlerts()
-    if $scope.current_user_support == 'related_proposal'
+    if $rootScope.sessionSettings.relatedSupport.id?
       $scope.alertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
 
     $scope.saveSupport = ->
-#      $scope.newSupport.proposal_id = $scope.clicked_proposal.id
       $scope.alertService.clearAlerts()
 
       vote = Vote.save($scope.sessionSettings.newSupport

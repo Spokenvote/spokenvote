@@ -1,34 +1,28 @@
 VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'RelatedVoteInTreeLoader', 'Proposal',
   ( $rootScope, $location, $modal, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
-    support: ( scope, clicked_proposal ) ->
-#    support: ( clicked_proposal ) ->
-#      scope.clicked_proposal = clicked_proposal
+    support: ( clicked_proposal ) ->
       $rootScope.sessionSettings.newSupport.proposal_id = clicked_proposal.id
-      scope.current_user_support = null
+      $rootScope.sessionSettings.relatedSupport = null
       $rootScope.alertService.clearAlerts()
 
-      if !scope.currentUser.id?
+      if !$rootScope.currentUser.id?
         $rootScope.alertService.setInfo 'To support proposals you need to sign in.', scope, 'main'
       else
         RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
           if relatedSupport.id?
+            $rootScope.sessionSettings.relatedSupport = relatedSupport
             if relatedSupport.proposal.id == clicked_proposal.id
-              scope.current_user_support = 'this_proposal'
+              $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             else
-              scope.current_user_support = 'related_proposal'
-          if scope.current_user_support == 'this_proposal'
-            $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', scope, 'main'
-          else
-            if SessionSettings.openModals.supportProposal is false
-              modalInstance = $modal.open
-                templateUrl: '/assets/proposals/_support_modal.html'
-                controller: 'SupportCtrl'
-                scope: scope
-              modalInstance.opened.then ->
-                SessionSettings.openModals.supportProposal = true
-              modalInstance.result.finally ->
-                SessionSettings.openModals.supportProposal = false
+              if SessionSettings.openModals.supportProposal is false
+                modalInstance = $modal.open
+                  templateUrl: '/assets/proposals/_support_modal.html'
+                  controller: 'SupportCtrl'
+                modalInstance.opened.then ->
+                  SessionSettings.openModals.supportProposal = true
+                modalInstance.result.finally ->
+                  SessionSettings.openModals.supportProposal = false
 
     improve: ( scope, clicked_proposal ) ->
       scope.clicked_proposal = clicked_proposal

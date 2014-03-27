@@ -114,6 +114,7 @@ SessionSettings = ->
   hub_attributes: {}
   newProposal: {}
   newSupport: {}
+  relatedSupport: {}
   lastLocation:
     location_id: null
     formatted_location: null
