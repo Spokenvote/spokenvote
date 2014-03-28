@@ -94,6 +94,7 @@ SessionSettings = ->
     changeHub: false
     newProposalHub: null
     searchTerm: null
+    wizardToGroup: null
     selectHub: false
     offcanvas: false
     detailPage: false
@@ -107,9 +108,11 @@ SessionSettings = ->
     newProposal: false
     editProposal: false
     deleteProposal: false
+    getStarted: false
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}
+  newProposal: {}
   lastLocation:
     location_id: null
     formatted_location: null

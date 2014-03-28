@@ -1,10 +1,8 @@
-ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies', 'VotingService',
-  ($scope, $routeParams, $location, proposals, SpokenvoteCookies, VotingService) ->
+ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies',
+  ($scope, $routeParams, $location, proposals, SpokenvoteCookies) ->
     $scope.proposals = proposals
-#    $scope.filterSelection = $routeParams.filter      # Moved to sessionSettings.routeParams.filter
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
-
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
@@ -15,24 +13,10 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'Spoken
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 
-    $scope.showProposal = (proposal) ->
-      $location.path('/proposals/' + proposal.id)
-
-    $scope.new = ->
-      if $scope.sessionSettings.hub_attributes.id?
-        $scope.sessionSettings.actions.changeHub = false
-      else
-        $scope.sessionSettings.actions.searchTerm = null
-        $scope.sessionSettings.actions.changeHub = true
-      if $scope.currentUser.id?
-        VotingService.new $scope
-      else
-        $scope.authService.signinFb($scope).then ->
-          VotingService.new $scope, VotingService
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', 'AlertService', 'VotingService', 'proposal', 'relatedProposals',
-  ( $scope, $location, AlertService, VotingService , proposal, relatedProposals) ->
+ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',
+  ( $scope, $location , proposal, relatedProposals) ->
     $scope.proposal = proposal
     $scope.relatedProposals = relatedProposals
     $scope.sessionSettings.actions.detailPage = true
@@ -47,28 +31,25 @@ ProposalShowCtrl = [ '$scope', '$location', 'AlertService', 'VotingService', 'pr
       $location.path('/proposals').search('user', vote.user_id)
       $scope.sessionSettings.actions.userFilter = vote.username
 
-    $scope.showProposal = ( proposal ) ->
-      $location.path('/proposals/' + proposal.id)
-
     $scope.support = ( clicked_proposal ) ->
       if $scope.currentUser.id?
-        VotingService.support $scope, clicked_proposal
+        $scope.votingService.support $scope, clicked_proposal
       else
         $scope.authService.signinFb($scope).then ->
-          VotingService.support $scope, clicked_proposal
+          $scope.votingService.support $scope, clicked_proposal
 
     $scope.improve = ( clicked_proposal ) ->
       if $scope.currentUser.id?
-        VotingService.improve $scope, clicked_proposal
+        $scope.votingService.improve $scope, clicked_proposal
       else
         $scope.authService.signinFb($scope).then ->
-          VotingService.improve $scope, clicked_proposal
+          $scope.votingService.improve $scope, clicked_proposal
 
     $scope.edit = ( clicked_proposal ) ->
-      VotingService.edit $scope, clicked_proposal
+      $scope.votingService.edit $scope, clicked_proposal
 
     $scope.delete = ( clicked_proposal ) ->
-      VotingService.delete $scope, clicked_proposal
+      $scope.votingService.delete $scope, clicked_proposal
 
     $scope.tooltips =
       support: "<h6><b>Support this proposal</b></h6><b>Supporting:</b> You may support only one proposal on this topic,
@@ -124,11 +105,6 @@ RelatedProposalShowCtrl = [ '$scope', ( $scope ) ->
         related_sort_by: related_sort_by
       $scope.selectedSort = related_sort_by
 ]
-
-# Injects
-#ProposalListCtrl.$inject = [ '$scope', '$routeParams', '$location', 'proposals', 'SessionSettings', 'SpokenvoteCookies', 'VotingService' ]
-#ProposalShowCtrl.$inject = [ '$scope', '$location', 'AlertService', 'VotingService', 'proposal', 'relatedProposals' ]
-#RelatedProposalShowCtrl.$inject = [ '$scope' ]
 
 # Register
 App.controller 'ProposalListCtrl', ProposalListCtrl

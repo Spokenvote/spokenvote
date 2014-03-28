@@ -8,7 +8,7 @@
     %title= content_for?(:title) ? yield(:title) : "SpokenVote"
     %meta( content="" name="description" )
     %meta( content="" name="author" )
-    -#%meta( name='viewport' content="width=device-width, initial-scale=1.0" )          # this line compatible I wonder?
+    -#%meta( name='viewport' content="width=device-width, initial-scale=1.0" )          # Removed this js
     %meta( name='apple-mobile-web-app-capable' content='yes' )
     %meta( name='apple-mobile-web-app-status-bar-style' content='white' )
 
@@ -38,16 +38,18 @@
             #mainContent.container
               #alertContainer
                 .pageAlert( alert-bar alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"' )
-              %ng-view
+              %ng-view( autoscroll )
 
-    - min = Rails.env.production? ? '.min' : ''
+    -#- min = Rails.env.production? || Rails.env.staging? ? '.min' : ''  #Nice approach, but generally not needed
+    -#                                                                   # since Chrome offers full source mapping to non-min versions.
+    - min = '.min'
     = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery#{min}.js"
     = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"
     = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2#{min}.js"
     = javascript_include_tag "//code.angularjs.org/1.2.9/angular#{min}.js"
     = javascript_include_tag "//code.angularjs.org/1.2.9/angular-resource#{min}.js"
     = javascript_include_tag "//code.angularjs.org/1.2.9/angular-route#{min}.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.9/angular-mocks#{min}.js" if Rails.env.development?
+    -#= javascript_include_tag "//code.angularjs.org/1.2.9/angular-mocks#{min}.js" if Rails.env.development?    # Loa
     = javascript_include_tag "//code.angularjs.org/1.2.9/angular-cookies#{min}.js"
     = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls#{min}.js"
     -#= javascript_include_tag '//rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.min.js'

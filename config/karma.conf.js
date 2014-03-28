@@ -12,17 +12,31 @@ files = [
   JASMINE_ADAPTER,
 //  ANGULAR_SCENARIO,
 //  ANGULAR_SCENARIO_ADAPTER,
-  'vendor/assets/javascripts/jquery-2.0.3.min.js',
-  'vendor/assets/javascripts/angular.min.js',
-  'vendor/assets/javascripts/angular-resource.min.js',
-  'vendor/assets/javascripts/angular-cookies.js',
-  'vendor/assets/javascripts/angular-strap.js',
-  'vendor/assets/javascripts/angular-ui.js',
-  'vendor/assets/javascripts/ui-bootstrap-tpls-0.4.0.js',
-  'vendor/assets/javascripts/angular-mocks.js',
-//  'app/assets/javascripts/application.js',
+
+  "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
+  "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
+  "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
+  "http://code.angularjs.org/1.2.9/angular.min.js",
+  "http://code.angularjs.org/1.2.9/angular-resource.min.js",
+  "http://code.angularjs.org/1.2.9/angular-route.min.js",
+  "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
+    "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
+  "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
+  "http://code.angularjs.org/1.2.9/angular-mocks.js",
+
+//  'vendor/assets/javascripts/jquery-2.0.3.min.js',
+//  'vendor/assets/javascripts/angular.min.js',
+//  'vendor/assets/javascripts/angular-resource.min.js',
+//  'vendor/assets/javascripts/angular-cookies.js',
+//  'vendor/assets/javascripts/angular-strap.js',
+//  'vendor/assets/javascripts/angular-ui.js',
+//  'vendor/assets/javascripts/ui-bootstrap-tpls-0.4.0.js',
+//  'vendor/assets/javascripts/angular-mocks.js',
+
   'app/assets/javascripts/angular/*.coffee',
   'app/assets/javascripts/angular/**/*.coffee',
+//  'public/assets/application-8c6d2e04a8bdda9f84de2d5144beeee9.js',
+
   'test/**/*spec.coffee'
 ];
 

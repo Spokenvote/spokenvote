@@ -23,7 +23,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #redirect_to new_user_registration_url
       end
     else
-      # TODO: Verify that the authentication record belongs to this user only
+      # If we ever use this code we'll want to verify that the authentication record belongs to this user only
 
       user.authentications.create(:provider => provider, :uid => uid, :token => token) if !authentication # Regular signed up user, allow him this omniauth signup also
       #flash.notice = 'Signed in successfully!'

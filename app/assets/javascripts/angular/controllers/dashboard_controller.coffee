@@ -1,5 +1,5 @@
-DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader', ( $scope, $route, $location, SessionSettings, CurrentHubLoader ) ->
-  SessionSettings.routeParams = $route.current.params
+DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope, $route, $location, CurrentHubLoader ) ->
+  $scope.sessionSettings.routeParams = $route.current.params
 
   $scope.hubFilter =
     hubFilter: null
@@ -12,32 +12,25 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
   $scope.$on '$locationChangeSuccess', ->
     if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
       CurrentHubLoader().then (paramHub) ->
-        SessionSettings.hub_attributes = paramHub
-        SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = SessionSettings.hub_attributes
+        $scope.sessionSettings.hub_attributes = paramHub
+        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
+        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
-
-#    $route.when '/proposals/:proposalId',
-#      SessionSettings.actions.detailPage = true
-#    $route.when not '/proposals/:proposalId',
-#      SessionSettings.actions.detailPage = false
-
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null)
-      SessionSettings.actions.hubFilter = 'All Groups'
-    else if SessionSettings.hub_attributes.id? and SessionSettings.actions.selectHub == true
-      SessionSettings.actions.selectHub = false 
-      $location.path('/proposals').search('hub', SessionSettings.hub_attributes.id)
-      SessionSettings.actions.hubFilter = SessionSettings.hub_attributes.short_hub
+      $scope.sessionSettings.actions.hubFilter = 'All Groups'
+    else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
+      $scope.sessionSettings.actions.selectHub = false
+      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
+      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
     placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
-#    placeholder: "<i class='glyphicon glyphicon-search'></i>" + ' Find your Group or Location '
-    width: '98%'
+    width: '100%'
     allowClear: true
     ajax:
       url: "/hubs"
@@ -56,16 +49,16 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
 
     formatSelection: (searchedHub) ->
       if not _.isEmpty searchedHub
-        SessionSettings.hub_attributes = searchedHub
-        SessionSettings.actions.changeHub = false
-        SessionSettings.actions.selectHub = true
-        SessionSettings.hub_attributes.id = SessionSettings.hub_attributes.select_id
+        $scope.sessionSettings.hub_attributes = searchedHub
+        $scope.sessionSettings.actions.changeHub = false
+        $scope.sessionSettings.actions.selectHub = true
+        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = searchedHub 
         searchedHub.full_hub
 
     formatNoMatches: (term) ->
-      SessionSettings.actions.searchTerm = term
-#      // The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
+      $scope.sessionSettings.actions.searchTerm = term
+#      The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
       'No matches. If you are the first person to use this Group, <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
 
@@ -73,52 +66,39 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHu
       obj.select_id 
 
     initSelection: (element, callback) ->
-      if SessionSettings.actions.changeHub == "new"
+      if $scope.sessionSettings.actions.changeHub == "new"
         callback({})
       else
         CurrentHubLoader().then (searchedHub) ->
           if not _.isEmpty searchedHub 
-            SessionSettings.hub_attributes = searchedHub
-          callback SessionSettings.hub_attributes
+            $scope.sessionSettings.hub_attributes = searchedHub
+          callback $scope.sessionSettings.hub_attributes
 
   App.navCreateHub = ->
     $scope.$apply ->
-      SessionSettings.actions.changeHub = 'new'
-      currentHub = SessionSettings.hub_attributes
-      SessionSettings.hub_attributes = {}
-      SessionSettings.hub_attributes.location_id = currentHub.location_id
-      SessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
-      if $scope.currentUser.id?
-        VotingService.new $scope
-      else
-        $scope.authService.signinFb($scope).then ->
-          VotingService.new $scope, VotingService
-    angular.element('.select2-drop-active').select2 'close'
-    angular.element('#newProposalHub').select2('data',null)
+      $scope.sessionSettings.actions.changeHub = 'new'
+      currentHub = $scope.sessionSettings.hub_attributes
+      $scope.sessionSettings.hub_attributes = {}
+      $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
+      $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+      if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+        if $scope.currentUser.id?
+          $scope.votingService.new $scope
+        else
+          $scope.authService.signinFb($scope).then ->
+            $scope.votingService.new $scope
+#      angular.element('.select2-drop-active').select2 'close'       #Using two Select2 objects with the same name, both are "active", cloes the first only with this line
+      angular.element('.select2-dropdown-open').select2 'close'
+      angular.element('#newProposalHub').select2('data', null)
+
+  $scope.clearHubFilter = ->
+    $scope.hubFilter.hubFilter = null
 
   $scope.tooltips =
     navMenu: 'Menu'
     backtoTopics: 'Return to Topic list'
     newTopic: 'Start a New Topic'
 
-#
-#  $scope.newTopic = ->
-#    if $scope.sessionSettings.hub_attributes.id?
-#      $scope.sessionSettings.actions.changeHub = false
-#    else
-#      $scope.sessionSettings.actions.searchTerm = null
-#      $scope.sessionSettings.actions.changeHub = true
-#    if $scope.currentUser.id?
-#      VotingService.new $scope
-#    else
-#      $scope.authService.signinFb($scope).then ->
-#        VotingService.new $scope, VotingService
-
-  $scope.clearHubFilter = ->
-     $scope.hubFilter.hubFilter = null
-
 ]
-
-#DashboardCtrl.$inject = [ '$scope', '$route', '$location', 'SessionSettings', 'CurrentHubLoader' ]
 
 App.controller 'DashboardCtrl', DashboardCtrl
