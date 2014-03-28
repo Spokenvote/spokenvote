@@ -25,3 +25,5 @@
 
 //= require ./angular/spokenvote
 //= require_tree ./angular
+
+//= require add2home

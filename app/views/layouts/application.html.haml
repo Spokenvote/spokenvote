@@ -8,12 +8,10 @@
     %title= content_for?(:title) ? yield(:title) : "SpokenVote"
     %meta( content="" name="description" )
     %meta( content="" name="author" )
-    -#%meta( name='viewport' content="width=device-width, initial-scale=1.0" )          # Removed this js
     %meta( name='apple-mobile-web-app-capable' content='yes' )
     %meta( name='apple-mobile-web-app-status-bar-style' content='white' )
 
     = favicon_link_tag
-    -#= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide|Yanone+Kaffeesatz', rel: 'stylesheet', type: 'text/css'
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Yanone+Kaffeesatz:400,600', rel: 'stylesheet', type: 'text/css'
     = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"
     = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
