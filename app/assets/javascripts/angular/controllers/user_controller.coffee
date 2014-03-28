@@ -2,7 +2,7 @@ app = angular.module "spokenvote" #method required by ngmin DI annotation gem
 app.controller 'UserSettingsCtrl', ($scope, $modalInstance, CurrentUser) ->
 
   $scope.saveUserSettings = ->
-    $scope.newSupport.proposal_id = $scope.clicked_proposal.id
+#    $scope.newSupport.proposal_id = $scope.clicked_proposal.id
     $scope.alertService.clearAlerts()
 
     CurrentUser.save($scope.currentUser
