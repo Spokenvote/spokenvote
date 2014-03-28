@@ -1,7 +1,8 @@
 #topBar( ng-controller='DashboardCtrl' )
   %header.navbar.navbar-default.hidden-md.hidden-lg
     .navbar-header
-      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.navMenu}}' tooltip-placement='right' type='button' ng-hide='sessionSettings.actions.detailPage == true')
+      -#%button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.navMenu}}' tooltip-placement='right' type='button' ng-hide='sessionSettings.actions.detailPage == true')
+      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' ng-hide='sessionSettings.actions.detailPage == true')
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
@@ -17,7 +18,8 @@
 
       .new-proposal.pull-right( ng-click='newTopic()' )
         %button.navbar-toggle( tooltip='{{ tooltips.newTopic }}' tooltip-placement='left'  type='button' )
-          .fa.fa-comment-o.fa-2x
+          .fa.fa-pencil-square-o.fa-2x
+          -#.fa.fa-comment-o.fa-2x
           -#.fa.fa-file-text-o.fa-2x
 
       .hub_search-xs( role='search' )

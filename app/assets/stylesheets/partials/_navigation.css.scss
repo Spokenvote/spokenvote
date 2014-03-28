@@ -128,14 +128,11 @@ header.visible-xs {
     color: $happy-blue;
   }
   .new-proposal {
-    text-align: center;
-    vertical-align: middle;
     .navbar-toggle {
       width: 44px;
       padding: 0px;
-      .fa.fa-file-text-o {
-        padding-top: 11px;
-        line-height: 50%;
+      .fa {
+        padding-top: 4px;
       }
     }
   }
