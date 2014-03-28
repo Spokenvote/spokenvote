@@ -8,7 +8,8 @@
         %span.icon-bar
         %span.icon-bar
 
-      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
+      -#.fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
+      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' type='button' ng-show='sessionSettings.actions.detailPage == true')
 
       %a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
         %span.spoken
@@ -17,7 +18,8 @@
           Vote
 
       .new-proposal.pull-right( ng-click='newTopic()' )
-        %button.navbar-toggle( tooltip='{{ tooltips.newTopic }}' tooltip-placement='left'  type='button' )
+        -#%button.navbar-toggle( tooltip='{{ tooltips.newTopic }}' tooltip-placement='left'  type='button' )
+        %button.navbar-toggle( type='button' )
           .fa.fa-pencil-square-o.fa-2x
           -#.fa.fa-comment-o.fa-2x
           -#.fa.fa-file-text-o.fa-2x
