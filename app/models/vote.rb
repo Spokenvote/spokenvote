@@ -61,7 +61,7 @@ class Vote < ActiveRecord::Base
 
   def self.new_votes
     last_check = 24.hours.ago
-    Vote.where("created_at >= ?", last_check)
+    Vote.where("updated_at >= ?", last_check)
   end
 
   def find_users_in_tree
