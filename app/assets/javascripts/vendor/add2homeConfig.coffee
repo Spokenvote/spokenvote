@@ -5,7 +5,7 @@ window.addToHomeConfig =
   expire: 0 					    # Minutes to wait before showing the popup again (0 = always displayed)
   message: 'Install Spokenvote on your %device: tap %icon and then <strong>Add to Home Screen</strong>.'
                           # Customize your message or force a language ('' = automatic)
-  touchIcon: true 			  # Display the touch icon
+  touchIcon: true 			  # Display the touch icon             #todo Put these in place
 
 #  autostart: true			  # Automatically open the balloon
 #  returningVisitor: false	# Show the balloon to returning visitors only (setting this to true is highly recommended)

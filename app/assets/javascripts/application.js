@@ -27,5 +27,4 @@
 //= require_tree ./angular
 
 //= require ./vendor/add2homeConfig
-// #todo wrap in if statement
 //= require add2home
