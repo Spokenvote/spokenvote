@@ -76,9 +76,8 @@
   padding: 7% 0;
   .fold_row {
     padding: 2% 0;
-    img.visible-xs {
-      width: 100%;
-      text-align: center;
+    img {
+      max-width: 100%;
     }
   }
   .instructions {
