@@ -72,6 +72,18 @@
   }
 }
 
+.boxes-123.row {
+  padding: 0 5px;
+  i {
+    border-radius: 23%;
+//    background-image: linear-gradient(rgba(249, 164, 0, 0.5), rgba(250, 112, 0, 0.5));
+    background-color: rgba(208, 208, 208, 0.3);
+    width: 74px;
+    height: 74px;
+    padding: 10px;
+  }
+}
+
 .below_fold {
   padding: 7% 0;
   .fold_row {
