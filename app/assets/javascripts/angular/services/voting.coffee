@@ -2,8 +2,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
   ( $rootScope, $location, $modal, SessionSettings, RelatedVoteInTreeLoader, Proposal ) ->
 
     support: ( clicked_proposal ) ->
-      $rootScope.sessionSettings.clickedPrposal = clicked_proposal
-      $rootScope.sessionSettings.relatedSupport = null
+      $rootScope.sessionSettings.newSupport.target = clicked_proposal
+      $rootScope.sessionSettings.newSupport.related = null
       $rootScope.alertService.clearAlerts()
 
       if !$rootScope.currentUser.id?
@@ -11,7 +11,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
       else
         RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
           if relatedSupport.id?
-            $rootScope.sessionSettings.relatedSupport = relatedSupport
+            $rootScope.sessionSettings.newSupport.related = relatedSupport
             if relatedSupport.proposal.id == clicked_proposal.id
               $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             else

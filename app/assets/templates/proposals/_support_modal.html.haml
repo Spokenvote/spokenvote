@@ -6,9 +6,9 @@
     .selectedHub
       %span
         .groupName
-          {{ clicked_proposal.hub.group_name }}
+          {{ sessionSettings.newSupport.target.hub.group_name }}
         .groupLocation
-          {{ clicked_proposal.hub.formatted_location }}
+          {{ sessionSettings.newSupport.target.hub.formatted_location }}
 
   .modal-body
     #alertContainer
@@ -24,13 +24,13 @@
         .form-group
           %h5 Proposal Statement
           .originalProposal
-            %h4 {{ sessionSettings.clickedPrposal.statement }}
+            %h4 {{ sessionSettings.newSupport.target.statement }}
 
         .text_input
           .form-group
-            %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='sessionSettings.newSupport.comment' required ng-minLength='7' ng-maxLength='280'
+            %textarea( id='vote_comment' name='vote_comment' type='text' class='full-width' ng-model='sessionSettings.newSupport.save.comment' required ng-minLength='7' ng-maxLength='280'
               placeholder='Explain why you want to support this proposal.' )
-            .length_counter.happy-text( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - newSupport.comment.length }} characters remaining
+            .length_counter.happy-text( ng-show='supportProposalForm.vote_comment.$valid' ) {{ 280 - sessionSettings.newSupport.save.comment.length }} characters remaining
             .length_counter.error-text( ng-show='supportProposalForm.vote_comment.$invalid && !supportProposalForm.vote_comment.$error.minlength && !supportProposalForm.vote_comment.$error.maxlength' )
               .fa.fa-warning
               %span Required

@@ -15,8 +15,12 @@
         %button( ng-click='delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right' )  <i class="glyphicon glyphicon-trash"></i>
 
       .vote_buttons_container( ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id' )
-        %button( ng-click='support(proposal)' class='btn btn-support btn-bold main' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right' ) Support
-        %button( ng-click='improve(proposal)' class='btn btn-improve btn-bold main' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right' ) Improve
+        %button( ng-click='support(proposal)' class='btn btn-support btn-bold main' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right' )
+          %i.fa.fa-thumbs-o-up.fa-2x
+          -#Support
+        %button( ng-click='improve(proposal)' class='btn btn-improve btn-bold main' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right' )
+          %i.fa.fa-code-fork.fa-2x
+          -#Improve
 
   .supporting_arguments
     %h3( ng-show='proposal.has_support' )

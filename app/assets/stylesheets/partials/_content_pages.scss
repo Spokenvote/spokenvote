@@ -72,13 +72,28 @@
   }
 }
 
+.boxes-123.row {
+  padding: 0 5px;
+  i {
+    border-radius: 23%;
+//    background-image: linear-gradient(rgba(249, 164, 0, 0.5), rgba(250, 112, 0, 0.5));
+    background-color: rgba(208, 208, 208, 0.3);
+    width: 74px;
+    height: 74px;
+    padding: 10px;
+  }
+}
+
 .below_fold {
   padding: 7% 0;
   .fold_row {
     padding: 2% 0;
-    img.visible-xs {
-      width: 100%;
+    .screen-shot-examples {
       text-align: center;
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
     }
   }
   .instructions {
@@ -87,8 +102,8 @@
 }
 
 .btn-getStarted {
-  font-size: 20px;
-  font-style: italic ;
+  font-size: 22px;
+//  font-style: italic ;
   background-color: hsl(121, 53%, 37%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c649", endColorstr="#2c902e");

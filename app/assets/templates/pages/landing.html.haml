@@ -1,13 +1,14 @@
 %section#homepage
   .page_title
-    .call_to_action Participate in real decisions that affect you.
+    .call_to_action Impact decisions that affect you.
+    -#.call_to_action Participate in real decisions that affect you.
     .sv-logo( href='/landing' )
       %span.spoken
         Spoken
       %span.vote
         Vote
     .div
-      %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Get Started!
+      %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start
 
     -#%h1
     .tag_line Social Sentiment
@@ -16,19 +17,20 @@
     .instructions
       %h5
         %a(href='/proposals?filter=active') <i>Browse proposals</i>,
-        %span support one or create your own.
+        %span support, create your own.
 
     .boxes-123.row
       .col-xs-4.text-center
-        %i.fa.fa-comment-o.fa-5x
-        %h2 Listen
+        -#%i.fa.fa-comment-o.fa-5x
+        %i.fa.fa-pencil-square-o.fa-4x
+        %h2 Find
         %p Find your group to see what they are discussing.
       .col-xs-4.text-center
-        %i.fa.fa-thumbs-o-up.fa-5x
+        %i.fa.fa-thumbs-o-up.fa-4x
         %h2 Support
         %p Add support to any proposal you like, or...
       .col-xs-4.text-center
-        %i.fa.fa-code-fork.fa-5x
+        %i.fa.fa-code-fork.fa-4x
         %h2 Fork
         %p Create a better version by forking any proposal.
 
@@ -73,6 +75,11 @@
         %h4 As each participant contributes either support to an existing version or creates a new improved version, the group collectively moves toward reaching a majority opinion together. As the wording improves, the best proposals gain momentum by receiving support from multiple users and forming a clarity of consensus.
 
     .fold_row.row
+
+      .screen-shot-examples.col-sm-6
+        %img(src="/assets/akropolis.jpg")
+        -#%br
+
       .instructions.col-sm-6
         %h2 Why it Matters
         %h4 Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency. We think the process should be intuitive, fun, and yes, democratic.

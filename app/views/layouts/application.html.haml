@@ -4,20 +4,27 @@
     %meta( name="fragment" content="!" )
     %meta( charset="utf-8" )
     %meta( http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" )
-    %meta( name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" )
     %title= content_for?(:title) ? yield(:title) : "SpokenVote"
-    %meta( content="" name="description" )
-    %meta( content="" name="author" )
-    -#%meta( name='viewport' content="width=device-width, initial-scale=1.0" )          # Removed this js
+
+    %meta( name='description' content='Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency.' )
+    -#%meta( content="" name="author" )
+
+    %meta( name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" )
+
+    -#%link( href= '../assets/icons/touch-icon-iphone3.png' rel= 'apple-touch-icon' sizes= '57x57' )
+    %link( href= '../assets/icons/touch-icon-ipad.png' rel= 'apple-touch-icon' sizes= '76x76' )
+    %link( href= '../assets/icons/touch-icon-iphone-retina.png' rel= 'apple-touch-icon' sizes= '120x120' )
+    %link( href= '../assets/icons/touch-icon-ipad-retina.png' rel= 'apple-touch-icon' sizes= '152x152' )
+    %link( href= '../assets/icons/startup.png' rel= 'apple-touch-startup-image' sizes="640x1096" )
+
+    %meta( name='apple-mobile-web-app-title' content='Spokenvote' )
     %meta( name='apple-mobile-web-app-capable' content='yes' )
     %meta( name='apple-mobile-web-app-status-bar-style' content='white' )
 
     = favicon_link_tag
-    -#= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Offside|Megrim|Audiowide|Yanone+Kaffeesatz', rel: 'stylesheet', type: 'text/css'
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Yanone+Kaffeesatz:400,600', rel: 'stylesheet', type: 'text/css'
     = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"
     = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
-    -#= stylesheet_link_tag "http://weloveiconfonts.com/api/?family=entypo", rel: 'stylesheet'
     = stylesheet_link_tag "application", :media => "all"
 
     = csrf_meta_tags
