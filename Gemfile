@@ -64,6 +64,7 @@ group :development do
   gem 'hirb'
   gem 'annotate'
   #gem 'debugger'
+  gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'better_errors'

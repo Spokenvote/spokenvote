@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/JetBrains/intellij-coffee-script-debugger.git
+  revision: 277ae723a565a1a92445ac79d2293a01b7454264
+  specs:
+    intellij-coffee-script-debugger (0.0.1)
+      coffee-script
+      execjs
+      sprockets
+
+GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 18339ebda67ad5a04efe9c5d257e9f893010b894
   specs:
@@ -379,6 +388,7 @@ DEPENDENCIES
   google_places_autocomplete
   haml-rails
   hirb
+  intellij-coffee-script-debugger!
   jquery-rails (< 3.0.0)
   jquery-tokeninput-rails
   jquery-ui-rails
