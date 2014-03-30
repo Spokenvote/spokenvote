@@ -6,10 +6,6 @@ gem 'rails', '4.0.3'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
-#gem 'rails-observers'
-#gem 'actionpack-page_caching'
-#gem 'actionpack-action_caching'
-#gem 'activerecord-deprecated_finders'
 
 # Infrastructure
 gem 'devise', "~> 3.2.3"
@@ -51,11 +47,7 @@ gem 'places'
 # gem 'mandrill-api'
 gem 'premailer-rails' #silent dependency on Nokogiri
 gem 'add-to-homescreen-rails'
-
-
-
 gem 'sass-rails',   '~> 4.0.1'
-#gem 'coffee-rails', '~> 4.0.1', :require => 'coffee-rails'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '>= 2.4.0'
 
