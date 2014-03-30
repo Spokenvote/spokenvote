@@ -23,7 +23,7 @@ body {
 //  background: url(noisy_grid.png);
   min-height: 1200px;
   @media (min-width: $screen-md-min) {
-    padding-top: 35px;
+    padding-top: 5%;
   }
   .content {
     overflow: visible;
@@ -295,7 +295,7 @@ h1.form-horizontal {
 }
 
 .call_to_action {
-  font-size: 2.5em;
+  font-size: 2.2em;
   font-weight: 800;
   line-height: 1;
   padding: 4% 0 1% 0;
@@ -319,14 +319,30 @@ h1.form-horizontal {
   }
   .sv-logo, a.sv-logo {
     text-shadow: 2px 2px 4px #999;
-    font-size: 5em;
-    font-weight: 700;
+    font-size: 4em;
+    @media (max-width: $screen-sm-min) {
+      font-size: 3.3em;
+    }
+      font-weight: 700;
     span.vote {
+      @media (max-width: $screen-sm-min) {
+        margin-left: -6px;
+      }
       margin-left: -12px;
     }
+    img {
+      margin-right: -6px;
+      @media (max-width: $screen-sm-min) {
+        height: 75px;
+      }
+    }
+  }
+  .start {
+    padding: 1% 0;
   }
   .instructions {
-    padding-bottom: 2%;
+    padding: 2% 0 7% 0;
+    font-size: 1em;
   }
 }
 

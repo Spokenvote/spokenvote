@@ -1,23 +1,27 @@
 %section#homepage
   .page_title
-    .call_to_action Impact decisions that affect you.
+    -#.call_to_action Impact decisions that affect you.
     -#.call_to_action Participate in real decisions that affect you.
     .sv-logo( href='/landing' )
+      %img(src='/assets/spokenvote_logomeg.png')
+
       %span.spoken
         Spoken
       %span.vote
         Vote
-    .div
+    .start
       %button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start
 
     -#%h1
-    .tag_line Social Sentiment
+    -#.tag_line Social Sentiment
     -#.tag_line Voting redefined.
+    .call_to_action Decisions that affect you.
+
 
     .instructions
-      %h5
-        %a(href='/proposals?filter=active') <i>Browse proposals</i>,
-        %span support, create your own.
+      -#%h5
+      %a(href='/proposals?filter=active') <i>Browse proposals</i>,
+      %span support, create your own.
 
     .boxes-123.row
       .col-xs-4.text-center
@@ -46,7 +50,7 @@
         %h4 Start by finding your group in the top box. Once you locate your group, click a topic to see its proposals.
 
       .screen-shot-examples.col-sm-6
-        %img.hidden-xs(src="/assets/search_example.png")
+        %img.hidden-xs(src='/assets/search_example.png')
         %img.visible-xs.hidden-sm(src="/assets/search_example_xs.png")
         %br
 
