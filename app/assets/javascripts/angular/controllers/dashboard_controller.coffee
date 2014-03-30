@@ -85,13 +85,10 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       angular.element('#newProposalHub').select2('data', null)
       if !$scope.currentUser.id?
         $scope.authService.signinFb($scope).then ->
-          console.log "return spot"
-#          return
-      if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
-        $scope.votingService.new
-        console.log "modal open spot spot"
-
-
+          if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+            $scope.votingService.new $scope
+      else if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+        $scope.votingService.new $scope
 
   $scope.clearHubFilter = ->
     $scope.hubFilter.hubFilter = null
