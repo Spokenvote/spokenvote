@@ -68,9 +68,10 @@ $modal-title-padding: 2.8%;
 // Partial imports
 
 @import 'bootstrap';
-@import 'partials/select2';
 @import 'compass';
+@import 'partials/select2';
 @import 'add2home';
+@import 'partials/add2home';
 
 @import 'partials/structural';
 @import 'partials/off_canvas';
