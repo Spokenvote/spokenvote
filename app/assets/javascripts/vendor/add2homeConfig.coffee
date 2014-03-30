@@ -2,7 +2,7 @@
 window.addToHomeConfig =
   startDelay: 2000			  # 2 seconds from page load before the balloon appears
   lifespan: 30000			    # 15 seconds before it is automatically destroyed
-  expire: 0 					    # Minutes to wait before showing the popup again (0 = always displayed)
+  expire: 720 					    # Minutes to wait before showing the popup again (0 = always displayed)
   message: 'Install Spokenvote on your %device: tap %icon and then <strong>Add to Home Screen</strong>.'
                           # Customize your message or force a language ('' = automatic)
   touchIcon: true 			  # Display the touch icon
