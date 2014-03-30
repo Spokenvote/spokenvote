@@ -50,6 +50,8 @@ gem 'google_places_autocomplete'
 gem 'places'
 # gem 'mandrill-api'
 gem 'premailer-rails' #silent dependency on Nokogiri
+gem 'add-to-homescreen-rails'
+
 
 
 gem 'sass-rails',   '~> 4.0.1'

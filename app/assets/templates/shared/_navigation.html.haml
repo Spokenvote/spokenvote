@@ -1,13 +1,15 @@
 #topBar( ng-controller='DashboardCtrl' )
   %header.navbar.navbar-default.hidden-md.hidden-lg
     .navbar-header
-      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.navMenu}}' tooltip-placement='right' type='button' ng-hide='sessionSettings.actions.detailPage == true')
+      -#%button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.navMenu}}' tooltip-placement='right' type='button' ng-hide='sessionSettings.actions.detailPage == true')
+      %button.navbar-toggle.pull-left( ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' ng-hide='sessionSettings.actions.detailPage == true')
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
 
-      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
+      -#.fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
+      .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' type='button' ng-show='sessionSettings.actions.detailPage == true')
 
       %a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
         %span.spoken
@@ -16,8 +18,10 @@
           Vote
 
       .new-proposal.pull-right( ng-click='newTopic()' )
-        %button.navbar-toggle( tooltip='{{ tooltips.newTopic }}' tooltip-placement='left'  type='button' )
-          .fa.fa-comment-o.fa-2x
+        -#%button.navbar-toggle( tooltip='{{ tooltips.newTopic }}' tooltip-placement='left'  type='button' )
+        %button.navbar-toggle( type='button' )
+          .fa.fa-pencil-square-o.fa-2x
+          -#.fa.fa-comment-o.fa-2x
           -#.fa.fa-file-text-o.fa-2x
 
       .hub_search-xs( role='search' )

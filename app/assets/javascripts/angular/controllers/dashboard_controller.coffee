@@ -81,15 +81,14 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       $scope.sessionSettings.hub_attributes = {}
       $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
       $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
-      if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
-        if $scope.currentUser.id?
-          $scope.votingService.new $scope
-        else
-          $scope.authService.signinFb($scope).then ->
-            $scope.votingService.new $scope
-#      angular.element('.select2-drop-active').select2 'close'       #Using two Select2 objects with the same name, both are "active", cloes the first only with this line
       angular.element('.select2-dropdown-open').select2 'close'
       angular.element('#newProposalHub').select2('data', null)
+      if !$scope.currentUser.id?
+        $scope.authService.signinFb($scope).then ->
+          if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+            $scope.votingService.new $scope
+      else if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+        $scope.votingService.new $scope
 
   $scope.clearHubFilter = ->
     $scope.hubFilter.hubFilter = null
