@@ -318,6 +318,7 @@ h1.form-horizontal {
     @extend .hide;
   }
   .sv-logo, a.sv-logo {
+    padding-right: 11px;
     text-shadow: 2px 2px 4px #999;
     font-size: 4em;
     @media (max-width: $screen-sm-min) {
@@ -331,9 +332,10 @@ h1.form-horizontal {
       margin-left: -12px;
     }
     img {
-      margin-right: -6px;
+      margin-right: -9px;
       @media (max-width: $screen-sm-min) {
         height: 75px;
+        margin-right: -6px;
       }
     }
   }
