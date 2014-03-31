@@ -76,7 +76,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
   App.navCreateHub = ->
     $scope.$apply ->
-      $scope.sessionSettings.actions.changeHub = 'new'
       currentHub = $scope.sessionSettings.hub_attributes
       $scope.sessionSettings.hub_attributes = {}
       $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
@@ -86,9 +85,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       if !$scope.currentUser.id?
         $scope.authService.signinFb($scope).then ->
           if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
-            $scope.votingService.new $scope
-      else if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
-        $scope.votingService.new $scope
+            $scope.votingService.new()
+          $scope.sessionSettings.actions.changeHub = 'new'
+      else
+        $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+        $scope.sessionSettings.actions.changeHub = 'new'
 
   $scope.clearHubFilter = ->
     $scope.hubFilter.hubFilter = null

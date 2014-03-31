@@ -73,7 +73,10 @@
 }
 
 .boxes-123.row {
-  padding: 0 5px;
+  padding: 0 10px;
+  .col-xs-4 {
+    padding: 0 5px;
+  }
   i {
     border-radius: 23%;
 //    background-image: linear-gradient(rgba(249, 164, 0, 0.5), rgba(250, 112, 0, 0.5));
