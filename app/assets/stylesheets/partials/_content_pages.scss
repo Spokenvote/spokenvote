@@ -91,12 +91,12 @@
   padding: 7% 0;
   .fold_row {
     padding: 2% 0;
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
     .screen-shot-examples {
       text-align: center;
-      img {
-        max-width: 100%;
-        border-radius: 8px;
-      }
     }
   }
   .instructions {
