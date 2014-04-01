@@ -43,7 +43,8 @@
             %hidden_field_tag( id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter' )
 
         .new_topic.navbar-btn.col-xs-2
-          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
+          %button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main' ) Start New Topic
+          -#%button( ng-click='newTopic()' class='btn btn-newTopic btn-bold main' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start New Topic
 
         .col-xs-2
           %ul#user_profile.nav.navbar-nav.pull-right

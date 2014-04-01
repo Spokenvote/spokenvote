@@ -6,19 +6,15 @@ gem 'rails', '4.0.3'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
-#gem 'rails-observers'
-#gem 'actionpack-page_caching'
-#gem 'actionpack-action_caching'
-#gem 'activerecord-deprecated_finders'
 
 # Infrastructure
 gem 'devise', "~> 3.2.3"
 gem 'pg'
-#gem 'thin'
 gem 'puma'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
+#gem 'thin'
 
 # Javascript
 gem 'jquery-rails', '< 3.0.0'
@@ -51,11 +47,7 @@ gem 'places'
 # gem 'mandrill-api'
 gem 'premailer-rails' #silent dependency on Nokogiri
 gem 'add-to-homescreen-rails'
-
-
-
 gem 'sass-rails',   '~> 4.0.1'
-#gem 'coffee-rails', '~> 4.0.1', :require => 'coffee-rails'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '>= 2.4.0'
 
@@ -63,13 +55,14 @@ group :development do
   gem 'taps', :require => false
   gem 'hirb'
   gem 'annotate'
-  #gem 'debugger'
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'lol_dba'
+  #gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  #gem 'debugger'
 end
 
 group :development, :test do
