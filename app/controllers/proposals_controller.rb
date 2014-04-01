@@ -15,7 +15,7 @@ class ProposalsController < ApplicationController
     filter = params[:filter] || 'active'
     if filter == 'active'
       @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
-    elsif filter == 'new'
+    elsif filter == 'recent'
       @proposals = proposals.order('updated_at DESC')
     elsif current_user
       user_id = filter == 'my' ? current_user.try(:id) : params[:user_id]
