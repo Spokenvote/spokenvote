@@ -32,7 +32,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
     placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
     width: '100%'
     allowClear: true
-    minimumResultsForSearch: -1
     ajax:
       url: "/hubs"
       dataType: "json"
@@ -41,6 +40,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
       results: (data, page) ->
         results: data
+
+    createSearchChoice: (term) ->
+      console.log term
+      id: term
+      text: term + " (new)"
 
     escapeMarkup: (m) ->
       m
@@ -54,7 +58,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         $scope.sessionSettings.actions.changeHub = false
         $scope.sessionSettings.actions.selectHub = true
         $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = searchedHub 
+        $scope.hubFilter.hubFilter = searchedHub
         searchedHub.full_hub
 
     formatNoMatches: (term) ->
@@ -65,14 +69,14 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       'Not here? <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >Click here to create it</a>.'
 
     id: (obj) ->
-      obj.select_id 
+      obj.select_id
 
     initSelection: (element, callback) ->
       if $scope.sessionSettings.actions.changeHub == "new"
         callback({})
       else
         CurrentHubLoader().then (searchedHub) ->
-          if not _.isEmpty searchedHub 
+          if not _.isEmpty searchedHub
             $scope.sessionSettings.hub_attributes = searchedHub
           callback $scope.sessionSettings.hub_attributes
 
