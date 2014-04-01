@@ -32,7 +32,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
     placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
     width: '100%'
     allowClear: true
-#    minimumResultsForSearch: -1
+    minimumResultsForSearch: -1
     ajax:
       url: "/hubs"
       dataType: "json"
