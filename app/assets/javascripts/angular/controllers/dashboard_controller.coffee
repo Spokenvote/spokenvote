@@ -42,9 +42,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         results: data
 
     createSearchChoice: (term) ->
-      console.log term
-      id: term
-      text: term + " (new)"
+      if term.length > 2
+        id: 'createNew'
+        select_id: 'createNew'
+        term: term
+        full_hub: term + ' (Create New)'
 
     escapeMarkup: (m) ->
       m
@@ -53,7 +55,25 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      if not _.isEmpty searchedHub
+      if searchedHub.id is 'createNew'
+        console.log searchedHub
+        $scope.sessionSettings.actions.searchTerm = searchedHub.term
+        currentHub = $scope.sessionSettings.hub_attributes
+        $scope.sessionSettings.hub_attributes = {}
+        $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
+        $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+        angular.element('.select2-dropdown-open').select2 'close'
+        angular.element('#newProposalHub').select2('data', null)
+        if !$scope.currentUser.id?
+          $scope.authService.signinFb($scope).then ->
+            if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+              $scope.votingService.new()
+            $scope.sessionSettings.actions.changeHub = 'new'
+        else
+          $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+          $scope.sessionSettings.actions.changeHub = 'new'
+      else if not _.isEmpty searchedHub
+        console.log 'else'
         $scope.sessionSettings.hub_attributes = searchedHub
         $scope.sessionSettings.actions.changeHub = false
         $scope.sessionSettings.actions.selectHub = true
