@@ -43,8 +43,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
     createSearchChoice: (term) ->
       if term.length > 2
-        id: 'createNew'
-        select_id: 'createNew'
+        id: -1
+        select_id: -1
         term: term
         full_hub: term + ' (Create New)'
 
@@ -55,7 +55,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      if searchedHub.id is 'createNew'
+      if searchedHub.id is -1
         console.log searchedHub
         $scope.sessionSettings.actions.searchTerm = searchedHub.term
         currentHub = $scope.sessionSettings.hub_attributes
@@ -72,6 +72,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         else
           $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
           $scope.sessionSettings.actions.changeHub = 'new'
+        searchedHub.term
       else if not _.isEmpty searchedHub
         console.log 'else'
         $scope.sessionSettings.hub_attributes = searchedHub
