@@ -9,7 +9,7 @@
   .input-area
 
     %input( name="group_name" id='group_name' type='text' class='input-xlarge'
-    placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='5'  ng-maxLength='50' )
+    placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='3'  ng-maxLength='50' )
     .length_counter.happy-text( ng-show='newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
     .length_counter.error-text( ng-show='newProposalForm.group_name.$invalid && !newProposalForm.group_name.$error.minlength && !newProposalForm.group_name.$error.maxlength' )
       %span Required
