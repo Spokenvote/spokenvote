@@ -68,9 +68,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
           $scope.authService.signinFb($scope).then ->
             if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
               $scope.votingService.new()
+              $scope.sessionSettings.openModals.newProposal = true              # remove line when Select2 crew fixes bug
             $scope.sessionSettings.actions.changeHub = 'new'
         else
           $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+          $scope.sessionSettings.openModals.newProposal = true              # remove line when Select2 crew fixes bug
           $scope.sessionSettings.actions.changeHub = 'new'
         searchedHub.term
       else if not _.isEmpty searchedHub
