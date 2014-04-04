@@ -46,7 +46,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         id: -1
         select_id: -1
         term: term
-        full_hub: term + ' (Create New)'
+        full_hub: term + ' (Create New Group)'
 
     escapeMarkup: (m) ->
       m
