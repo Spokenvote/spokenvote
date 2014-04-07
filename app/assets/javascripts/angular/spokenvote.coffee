@@ -66,7 +66,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'spokenvote.templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
@@ -74,6 +74,13 @@ servicesConfig = ['$httpProvider', ($httpProvider) ->
 App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(['$rootScope', '$location', ($rootScope, $location) -> $rootScope.location = $location])
 
 App.Directives = angular.module('spokenvote.directives', [])
+
+#App.Templates = angular.module('spokenvote.templates', []).run(
+#  ['$templateCache', '$http', ($templateCache, $http) ->
+#    $http.get('/assets/pages/landing.html', {cache:$templateCache})
+#    console.log $templateCache.get('/assets/pages/landing.html')
+#    console.log 'spokenvote.templates'
+#])
 
 
 #Global Debug Functions
