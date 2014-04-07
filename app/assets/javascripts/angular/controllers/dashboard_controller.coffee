@@ -29,6 +29,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
+    minimumResultsForSearch: -1
     placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
     width: '100%'
     allowClear: true
