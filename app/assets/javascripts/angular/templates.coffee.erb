@@ -3,6 +3,7 @@ template_cache = []
 # Pre-fill templateCache with latest templates for all environments
 if Rails.env.production? || Rails.env.staging? || Rails.env.development?
   Dir.glob(Rails.root.join("app", "assets", "templates", "**", "*.haml")).each do |f|
+    depend_on(f)
     pathname = Pathname(f)
     template = {}
     # /code/railsapp/app/assets/templates/thing -> assets/thing

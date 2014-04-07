@@ -11,7 +11,7 @@
       -#.fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' tooltip='{{tooltips.backtoTopics}}' tooltip-placement='right' type='button' ng-show='sessionSettings.actions.detailPage == true')
       .fa.fa-angle-left.fa-2x.navbar-toggle.pull-left( ng-href='#' ng-click='backtoTopics()' type='button' ng-show='sessionSettings.actions.detailPage == true')
 
-      %a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
+      %a.sv-logo( href='/landing' )
         %span.spoken
           Spoken
         %span.vote
@@ -32,7 +32,8 @@
       .row
         .navbar-header.col-xs-2
           .navbar-brand
-            %a.sv-logo( href='/landing' ng-click="clearHubFilter()" )
+            -#%a.sv-logo( href='/landing' ng-click='clearHubFilter()' )
+            %a.sv-logo( href='/landing' )
               %span.spoken
                 Spoken
               %span.vote
