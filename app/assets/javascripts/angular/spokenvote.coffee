@@ -14,7 +14,6 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
     .when '/landing',
       templateUrl: '/assets/pages/landing.html'
-      controller: 'RootCtrl'
 
     .when '/proposals',
       templateUrl: '/assets/proposals/index.html'
