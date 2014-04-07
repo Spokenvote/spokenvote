@@ -41,6 +41,13 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       results: (data, page) ->
         results: data
 
+    createSearchChoice: (term) ->
+      if term.length > 2
+        id: -1
+        select_id: -1
+        term: term
+        full_hub: term + ' (Create New Group)'
+
     escapeMarkup: (m) ->
       m
 
@@ -48,29 +55,51 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       searchedHub.full_hub
 
     formatSelection: (searchedHub) ->
-      if not _.isEmpty searchedHub
+      if searchedHub.id is -1
+        console.log searchedHub
+        $scope.sessionSettings.actions.searchTerm = searchedHub.term
+        currentHub = $scope.sessionSettings.hub_attributes
+        $scope.sessionSettings.hub_attributes = {}
+        $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
+        $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+        angular.element('.select2-dropdown-open').select2 'close'
+        angular.element('#newProposalHub').select2('data', null)
+        if !$scope.currentUser.id?
+          $scope.authService.signinFb($scope).then ->
+            if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+              $scope.votingService.new()
+              $scope.sessionSettings.openModals.newProposal = true              # remove line when Select2 crew fixes bug
+            $scope.sessionSettings.actions.changeHub = 'new'
+        else
+          $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
+          $scope.sessionSettings.openModals.newProposal = true              # remove line when Select2 crew fixes bug
+          $scope.sessionSettings.actions.changeHub = 'new'
+        searchedHub.term
+      else if not _.isEmpty searchedHub
+        console.log 'else'
         $scope.sessionSettings.hub_attributes = searchedHub
         $scope.sessionSettings.actions.changeHub = false
         $scope.sessionSettings.actions.selectHub = true
         $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = searchedHub 
+        $scope.hubFilter.hubFilter = searchedHub
         searchedHub.full_hub
 
     formatNoMatches: (term) ->
       $scope.sessionSettings.actions.searchTerm = term
 #      The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
 #      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
-      'No matches. If you are the first person to use this Group, <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
+#      'No matches. If you are the first person to use this Group, <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
+      'Not here? <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >Click here to create it</a>.'
 
     id: (obj) ->
-      obj.select_id 
+      obj.select_id
 
     initSelection: (element, callback) ->
       if $scope.sessionSettings.actions.changeHub == "new"
         callback({})
       else
         CurrentHubLoader().then (searchedHub) ->
-          if not _.isEmpty searchedHub 
+          if not _.isEmpty searchedHub
             $scope.sessionSettings.hub_attributes = searchedHub
           callback $scope.sessionSettings.hub_attributes
 

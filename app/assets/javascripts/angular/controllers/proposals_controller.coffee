@@ -52,9 +52,10 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',
       $scope.votingService.delete $scope, clicked_proposal
 
     $scope.tooltips =
-      support: "<h6><b>Support this proposal</b></h6><b>Supporting:</b> You may support only one proposal on this topic,
+      support: "<div ng-controller='ProposalShowCtrl'><h6><b>Support this proposal</b></h6><b>Supporting:</b> You may support only one proposal on this topic,
                 but are free to change your support to a <i>different</i> proposal at any time by clicking
-                <i>support</i> on that proposal or by composing an <i>improved</i> proposal."
+                <i>support</i> on that proposal or by composing an <i>improved</i> proposal.
+                <br><br><button ng-click='support(proposal)' class='btn btn-support btn-bold main ng-scope'>Ok, got it.</button> <br><br></div>"
       improve: "<h6><b>Create a better proposal</b></h6><b>Improving:</b>
                 By composing an <i>improved</i> proposal you automatically become that proposal's first supporter.
                 You may change your support to a <i>different</i> proposal at any time by
