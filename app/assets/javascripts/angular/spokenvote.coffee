@@ -75,13 +75,6 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
 
 App.Directives = angular.module('spokenvote.directives', [])
 
-#App.Templates = angular.module('spokenvote.templates', []).run(
-#  ['$templateCache', '$http', ($templateCache, $http) ->
-#    $http.get('/assets/pages/landing.html', {cache:$templateCache})
-#    console.log $templateCache.get('/assets/pages/landing.html')
-#    console.log 'spokenvote.templates'
-#])
-
 
 #Global Debug Functions
 window.getSrv = (name, element) ->        # angular.element(document).injector() to get the current app injector
