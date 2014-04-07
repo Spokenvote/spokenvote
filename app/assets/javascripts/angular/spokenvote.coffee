@@ -14,7 +14,6 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
     .when '/landing',
       templateUrl: '/assets/pages/landing.html'
-      controller: 'RootCtrl'
 
     .when '/proposals',
       templateUrl: '/assets/proposals/index.html'
@@ -66,7 +65,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'spokenvote.templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')

@@ -20,7 +20,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
-      $location.search('hub', null)
+      $location.search('hub', null) if $location.path() == '/proposals'
       $scope.sessionSettings.actions.hubFilter = 'All Groups'
     else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
       $scope.sessionSettings.actions.selectHub = false
@@ -29,6 +29,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
+    minimumResultsForSearch: -1
     placeholder: "<div class='fa fa-search'></div>" + "<span> Find your Group or Location</span>"
     width: '100%'
     allowClear: true
@@ -120,8 +121,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
         $scope.sessionSettings.actions.changeHub = 'new'
 
-  $scope.clearHubFilter = ->
-    $scope.hubFilter.hubFilter = null
+#  $scope.clearHubFilter = ->  # Should be automatic now
+#    $scope.hubFilter.hubFilter = null
 
   $scope.tooltips =
     navMenu: 'Menu'

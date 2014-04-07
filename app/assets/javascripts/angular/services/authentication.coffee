@@ -25,6 +25,7 @@ Auth = ($q, $rootScope, SessionSettings, SessionService, AlertService, CurrentUs
       expiresIn: SessionSettings.facebookUser.auth.authResponse.expiresIn
 
     if SessionService.signedOut
+      console.log "signed out"
       SessionService.userOmniauth.$save().success (sessionResponse) ->
         if sessionResponse.success == true
           $rootScope.authService.updateUserSession(scope).then ->
