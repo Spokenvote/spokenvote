@@ -273,6 +273,8 @@ h1.form-horizontal {
 }
 
 .sv-logo, a.sv-logo {
+  color: $happy-blue;
+
   font-size: 2.1em;
   @media (min-width: $screen-lg-min) {
     font-size: 2.5em;

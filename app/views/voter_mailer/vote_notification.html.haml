@@ -1,8 +1,16 @@
 !!!
 %html
   %head
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-  %body{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+    %meta( charset="utf-8" )
+    = stylesheet_link_tag 'mailer', media: 'all'
+
+  %body
+    .sv-logo( href='/landing' )
+      %span.spoken
+        Spoken
+      %span.vote
+        Vote
+
     %h1
       %p= "Hello #{@recipient.username}"
     %br

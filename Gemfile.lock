@@ -161,7 +161,6 @@ GEM
     jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-tokeninput-rails (1.6.0)
     jquery-ui-rails (4.2.0)
       railties (>= 3.2.16)
     json (1.8.1)
@@ -191,7 +190,6 @@ GEM
     multi_json (1.8.4)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
@@ -311,9 +309,6 @@ GEM
     sequel (3.20.0)
     shoulda-matchers (2.5.0)
       activesupport (>= 3.0.0)
-    simple_form (3.0.1)
-      actionpack (>= 4.0.0, < 4.1)
-      activemodel (>= 4.0.0, < 4.1)
     sinatra (1.0)
       rack (>= 1.0)
     sitemap_generator (5.0.0)
@@ -379,13 +374,9 @@ DEPENDENCIES
   google_places_autocomplete
   haml-rails
   hirb
-  jquery-rails (< 3.0.0)
-  jquery-tokeninput-rails
-  jquery-ui-rails
   lol_dba
   memcachier
   meta_request
-  nested_form
   newrelic_rpm (= 3.5.5.38)
   ngmin-rails (~> 0.4.0)
   omniauth
@@ -409,7 +400,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.1)
   shoulda-matchers
-  simple_form
   sitemap_generator
   spork
   taps

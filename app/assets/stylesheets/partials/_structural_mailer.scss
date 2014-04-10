@@ -1,0 +1,19 @@
+.sv-logo, a.sv-logo {
+  color: $happy-blue;
+  font-size: 2.1em;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: $logoTypeFace;
+  letter-spacing: -1px;
+  &:hover span.vote, &:hover span.spoken {
+    color: $smokeyLebel;
+    cursor: pointer;
+  }
+  span.spoken {
+    color: $happy-blue;
+  }
+  span.vote {
+    color: $spring-green;
+    margin-left: -3px;
+  }
+}

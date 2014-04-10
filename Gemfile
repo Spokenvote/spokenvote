@@ -17,14 +17,14 @@ gem 'rack-cache'
 #gem 'thin'
 
 # Javascript
-gem 'jquery-rails', '< 3.0.0'
-gem 'jquery-ui-rails'
-gem 'jquery-tokeninput-rails'
+# gem 'jquery-rails', '< 3.0.0'
+# gem 'jquery-ui-rails'
+# gem 'jquery-tokeninput-rails'
 
 # UI/Forms
-gem 'nested_form'
+# gem 'nested_form'
+# gem 'simple_form'
 gem 'haml-rails'
-gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'compass-rails'
 gem 'compass'
