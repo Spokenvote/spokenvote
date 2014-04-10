@@ -33,7 +33,16 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 
 // Partial imports
 
+@import 'compass';
 @import 'partials/variables';
 
-@import 'partials/structural';
 //@import 'partials/structural_mailer';
+
+@import 'partials/structural';
+//@import 'partials/off_canvas';
+//@import 'partials/navigation';
+//@import 'partials/modals';
+//@import 'partials/content_pages';
+//@import 'partials/proposal_index';
+//@import 'partials/proposal_create';
+//@import 'partials/proposal_show';
