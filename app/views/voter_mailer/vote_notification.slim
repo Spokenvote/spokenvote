@@ -11,12 +11,12 @@ html
       span.vote
         | Vote
 
-    h2 Hello #{@recipient.username}
-    br
-    p A new vote has been created. Please check it out. (html slim version)
+    h2 Hi #{@recipient.username},
+
+    p New votes
     /table
     - for vote in @votes
-      /.vote = vote.user.name
+      /td.vote = vote.user.name
       | #{vote.user.name} voted on the proposal #{vote.proposal.statement}
 
   /@votes[0].name
