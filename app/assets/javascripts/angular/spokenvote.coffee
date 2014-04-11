@@ -48,9 +48,6 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when '/privacy',
       templateUrl: '/assets/pages/privacy.html'
 
-    .when '/vote_mailer',
-      templateUrl: ''
-
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
 
