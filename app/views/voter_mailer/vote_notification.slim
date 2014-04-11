@@ -11,13 +11,15 @@ html
       span.vote
         | Vote
 
-    h2 Hi #{@recipient.username},
+    h3 Hi #{@recipient.username},
 
     p New votes
     /table
     - for vote in @votes
       /td.vote = vote.user.name
-      | #{vote.user.name} voted on the proposal #{vote.proposal.statement}
+      p On proposal #{vote.proposal.statement}
+      /here we need to loop for votes on that proposal
+      p #{vote.user.name} voted: #{vote.comment}
 
   /@votes[0].name
 
