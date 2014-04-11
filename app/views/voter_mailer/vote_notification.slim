@@ -13,14 +13,20 @@ html
 
     h3 Hi #{@recipient.username},
 
-    p New votes
-    /table
-    - for vote in @votes
-      /td.vote = vote.user.name
-      p On proposal #{vote.proposal.statement}
-      /here we need to loop for votes on that proposal
-      p #{vote.user.name} voted: #{vote.comment}
+    p New votes on proposals
+    table
+      tbody
+        - for vote in @votes
+          tr
+            .main-proposal
+              .proposal_statement
+                h3
+                  a = vote.proposal.statement
+          tr
+            / td.vote = vote.user.name
+            /here we need to loop for votes on that proposal
+            td #{vote.user.name} voted: #{vote.comment}
 
-  /@votes[0].name
+      /@votes[0].name
 
-  /-#- taskp = TaskPresenter.new(@task, self)
+      /-#- taskp = TaskPresenter.new(@task, self)
