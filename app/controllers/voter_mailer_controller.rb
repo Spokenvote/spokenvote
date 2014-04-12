@@ -2,12 +2,9 @@ class VoterMailerController < ApplicationController
 
   def vote_notification
     if organize_test_email
-      user_id = @user_id
-      p user_id
-      @recipient = User.find(user_id)
+      @recipient = User.find(@user_id)
       @votes = @vote_array.map { |vote_id| Vote.find(vote_id) }
-      # render voter_mailer: 'vote_notification'
-      render layout: false
+      render layout: false if Rails.env.development?
     end
   end
 
@@ -15,13 +12,13 @@ class VoterMailerController < ApplicationController
     notify_list = NotificationBuilder.key_value_crossover(NotificationBuilder.create_notify_list)
     notify_list = NotificationBuilder.check_preferences(notify_list)
     if notify_list.count > 0
-      if Rails.env.development? # We might take this out for some testing where all the emails are needed.
+      just_one_test_message = true
+      if just_one_test_message?
         single_list = []
         single_list << notify_list.first
         single_list.each do |user_id, vote_array|
           @user_id = user_id
           @vote_array = vote_array
-          # VoterMailer.vote_notification(user_id, vote_array).deliver
         end
       else
         notify_list.each do |user_id, vote_array|
@@ -29,7 +26,8 @@ class VoterMailerController < ApplicationController
         end
       end
     else
-      p 'There are no new votes to notify users about today.'
+      @user_id = 42
+      @vote_array = [95]
     end
   end
 
