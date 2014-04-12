@@ -4,7 +4,11 @@ class VoterMailerController < ApplicationController
     if organize_test_email
       @recipient = User.find(@user_id)
       @votes = @vote_array.map { |vote_id| Vote.find(vote_id) }
-      render layout: false if Rails.env.development?
+      if Rails.env.development?
+        render layout: false
+      else
+        render status: :forbidden
+      end
     end
   end
 
