@@ -5,28 +5,36 @@ html
     = stylesheet_link_tag 'mailer', media: 'all'
 
   body
-    .sv-logo( href='/landing' )
-      span.spoken
-        | Spoken
-      span.vote
-        | Vote
+    table.msg-wrap
+      tr
+        td
+          .msg-container
+            table.head-wrap
+              tr
+                td.sv-logo( href='/landing' )
+                  span.spoken
+                    | Spoken
+                  span.vote
+                    | Vote
 
-    h3 Hi #{@recipient.username},
+            table.msg-row
+              tr
+                td
+                  h3 Hi #{@recipient.username},
+              tr
+                td New votes on proposals
+              table
+                - for vote in @votes
+                  tr
+                    .main-proposal
+                      .proposal_statement
+                        h3
+                          a = vote.proposal.statement
+                  tr
+                    / td.vote = vote.user.name
+                    /here we need to loop for votes on that proposal
+                    td #{vote.user.name} voted: #{vote.comment}
 
-    p New votes on proposals
-    table
-      tbody
-        - for vote in @votes
-          tr
-            .main-proposal
-              .proposal_statement
-                h3
-                  a = vote.proposal.statement
-          tr
-            / td.vote = vote.user.name
-            /here we need to loop for votes on that proposal
-            td #{vote.user.name} voted: #{vote.comment}
+            /@votes[0].name
 
-      /@votes[0].name
-
-      /-#- taskp = TaskPresenter.new(@task, self)
+            /-#- taskp = TaskPresenter.new(@task, self)

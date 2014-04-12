@@ -36,8 +36,6 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 @import 'compass';
 @import 'partials/variables';
 
-//@import 'partials/structural_mailer';
-
 @import 'partials/structural';
 //@import 'partials/off_canvas';
 //@import 'partials/navigation';
@@ -46,3 +44,5 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 //@import 'partials/proposal_index';
 //@import 'partials/proposal_create';
 @import 'partials/proposal_show';
+
+@import 'partials/structural_mailer';
