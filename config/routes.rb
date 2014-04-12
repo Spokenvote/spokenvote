@@ -38,7 +38,6 @@ Spokenvote::Application.routes.draw do
 
   get '/*page' => 'application#index'
   get ':controller(/:action(/:id))(.:format)' => redirect('/')
-  #match ':controller(/:action(/:id))(.:format)' => redirect('/')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

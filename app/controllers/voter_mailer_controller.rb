@@ -6,7 +6,8 @@ class VoterMailerController < ApplicationController
       p user_id
       @recipient = User.find(user_id)
       @votes = @vote_array.map { |vote_id| Vote.find(vote_id) }
-      render voter_mailer: 'vote_notification'
+      # render voter_mailer: 'vote_notification'
+      render layout: false
     end
   end
 
