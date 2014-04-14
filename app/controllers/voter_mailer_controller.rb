@@ -22,7 +22,7 @@ class VoterMailerController < ApplicationController
           @vote_array = vote_array
         end
     else
-      @user_id = 42
+      @user_id = 44
       @vote_array = [95]
     end
   end
