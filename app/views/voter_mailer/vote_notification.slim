@@ -21,12 +21,13 @@ html
             table.msg-wrap
               tr
                 td
-                  h3 Hi #{@recipient.first_name},
+                  h3 Hi #{ @recipient.first_name },
               tr
-                td New votes on proposals
-              table
+                td There have been new votes on your proposal topics.
+              /table
+              tr
                 - for vote in @votes
-                  tr
+                  td
                     .main-proposal
                       .proposal_statement
                         h3
@@ -34,7 +35,7 @@ html
                   tr
                     / td.vote = vote.user.name
                     /here we need to loop for votes on that proposal
-                    td #{vote.user.name} voted: #{vote.comment}
+                    td #{ vote.user.name } voted: #{ vote.comment }
 
             /@votes[0].name
 

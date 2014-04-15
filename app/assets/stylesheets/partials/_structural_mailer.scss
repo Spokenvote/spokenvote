@@ -27,16 +27,23 @@ td.sv-logo {
   //  margin: 0 auto;
   //  max-width: 600px;
   border: none;
-  padding:0 18px;
-  margin: 50px auto;
+//  padding:0 18px;
+  margin: 15px auto 50px;
   width: 500px;
+
 }
 
 table {
   .head-wrap {
     width: 100%;
+    padding: 15px;
   }
   .msg-wrap {
     width: 100%;
+    valign: top;
+    align: left;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 18px;
   }
 }
