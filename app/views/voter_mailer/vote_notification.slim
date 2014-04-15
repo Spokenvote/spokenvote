@@ -2,6 +2,7 @@ doctype html
 html
   head
     meta charset='utf-8'
+    title = 'Spokenvote Notifications'
     /= stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
     = stylesheet_link_tag 'mailer', media: 'all'
 
@@ -19,6 +20,10 @@ html
                     span.vote Vote
 
             table.msg-wrap
+              tr
+                td
+                  h1 Notifications
+                  hr.hrule
               tr
                 td
                   h3 Hi #{ @recipient.first_name },
