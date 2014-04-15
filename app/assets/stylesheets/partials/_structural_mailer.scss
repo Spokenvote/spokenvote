@@ -1,6 +1,14 @@
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: $font-family-sans-serif;
 //  font-size: 15px/1.25em;
+}
+
+img {
+  vertical-align: middle;
 }
 
 table.msg-wrap {

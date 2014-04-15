@@ -1,11 +1,28 @@
 doctype html
 html
   head
-    meta charset='utf-8'
-    = stylesheet_link_tag 'mailer', media: 'all'
+    /meta charset='utf-8'
+    = favicon_link_tag
+
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Yanone+Kaffeesatz:400,600', rel: 'stylesheet', type: 'text/css'
+    = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"
+    = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
+    = stylesheet_link_tag 'application', media: 'all'
 
   body
-    table.msg-wrap
+    .page_title
+
+      .sv-logo( href='/landing' )
+        img(src='/assets/spokenvote_logomeg.png')
+
+        span.spoken
+          | Spoken
+        span.vote
+          | Vote
+
+
+
+    /table.msg-wrap
       tr
         td
           .msg-container
@@ -19,7 +36,7 @@ html
                     span.vote
                       | Vote
 
-            table.msg-row
+            /table.msg-row
               tr
                 td
                   h3 Hi #{@recipient.first_name},
