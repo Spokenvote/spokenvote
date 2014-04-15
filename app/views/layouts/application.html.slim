@@ -57,7 +57,7 @@ html ng-app='spokenvote'
             #mainContent.container
               #alertContainer
                 .pageAlert alert-bar='' alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"'
-              ng-view autoscroll=""
+              ng-view( autoscroll )
 
     -#- min = Rails.env.production? || Rails.env.staging? ? '.min' : ''  #Nice approach, but generally not needed
     -#                                                                   # since Chrome offers full source mapping to non-min versions.
