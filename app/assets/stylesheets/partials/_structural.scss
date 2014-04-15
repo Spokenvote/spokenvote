@@ -292,7 +292,7 @@ h1.form-horizontal {
   }
   span.vote {
     color: $spring-green;
-    margin-left: -3px;
+//    margin-left: -3px;
   }
 }
 
@@ -327,17 +327,17 @@ h1.form-horizontal {
       font-size: 3.3em;
     }
       font-weight: 700;
-    span.vote {
-      @media (max-width: $screen-sm-min) {
-        margin-left: -6px;
-      }
-      margin-left: -12px;
-    }
+//    span.vote {
+//      @media (max-width: $screen-sm-min) {
+//        margin-left: -6px;
+//      }
+//      margin-left: -12px;
+//    }
     img {
-      margin-right: -9px;
+//      margin-right: -9px;
       @media (max-width: $screen-sm-min) {
         height: 75px;
-        margin-right: -6px;
+//        margin-right: -6px;
       }
     }
   }
