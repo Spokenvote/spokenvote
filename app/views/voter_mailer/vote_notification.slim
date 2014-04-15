@@ -5,7 +5,8 @@ html
     /= stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
     = stylesheet_link_tag 'mailer', media: 'all'
 
-    table.msg-wrap
+  body
+    table.msg-body-wrap
       tr
         td
           .msg-container
@@ -17,7 +18,7 @@ html
                     span.spoken Spoken
                     span.vote Vote
 
-            table.msg-row
+            table.msg-wrap
               tr
                 td
                   h3 Hi #{@recipient.first_name},
