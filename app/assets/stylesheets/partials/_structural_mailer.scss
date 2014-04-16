@@ -8,6 +8,11 @@ body {
   font-size: 1.25em;
 }
 
+a {
+  color: $link-color;
+  text-decoration: none;
+}
+
 img {
   vertical-align: middle;
 }

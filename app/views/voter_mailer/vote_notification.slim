@@ -40,17 +40,20 @@ html
                       h3
                         a = vote.proposal.statement
                   tr
-                    td.supporting_arguments
-                      h4 New Supporters
-                  tr
                     td
-                      table
+                      table.supporting_arguments
+                        tr
+                          td
+                            h4 New Supporters
+
                         tr.support_row
                           / td.vote = vote.user.name
                           /here we need to loop for votes on that proposal
                           /td #{ vote.user.name } voted: #{ vote.comment }
                           td.support-comment
-                            supporter-name = vote.user.name
+                            supporter-name
+                              a href='/proposals?user=#{vote.user.id}' = vote.user.name
+                              | &nbsp
                             supporter-text = vote.comment
                             - if vote.updated_at > 10.months.ago               # Refactoring Candidate
                               .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
