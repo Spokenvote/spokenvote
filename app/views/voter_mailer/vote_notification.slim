@@ -41,11 +41,23 @@ html
                         a = vote.proposal.statement
                   tr
                     td.supporting_arguments
-                      h3 New Supporters
+                      h4 New Supporters
                   tr
-                    / td.vote = vote.user.name
-                    /here we need to loop for votes on that proposal
-                    td #{ vote.user.name } voted: #{ vote.comment }
+                    td
+                      table
+                        tr.support_row
+                          / td.vote = vote.user.name
+                          /here we need to loop for votes on that proposal
+                          /td #{ vote.user.name } voted: #{ vote.comment }
+                          td.support-comment
+                            supporter-name = vote.user.name
+                            supporter-text = vote.comment
+                            - if vote.updated_at > 10.months.ago               # Refactoring Candidate
+                              .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
+                            - elsif vote.updated_at > 16.months.ago
+                              .supported_date = 'About a year ago'
+                            - else
+                              .supported_date = 'Over a year ago'
 
             /@votes[0].name
 
