@@ -41,15 +41,18 @@ html
                         a = vote.proposal.statement
                   tr
                     td
+                      h4 New Supporters
+                  tr
+                    td
                       table.supporting_arguments
-                        tr
-                          td
-                            h4 New Supporters
-
                         tr.support_row
-                          / td.vote = vote.user.name
                           /here we need to loop for votes on that proposal
-                          /td #{ vote.user.name } voted: #{ vote.comment }
+                          td.proposal-person
+                            .supporter-avatar
+                              - if vote.facebook_auth
+                                img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
+                              - else
+                                img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
                           td.support-comment
                             supporter-name
                               a href='/proposals?user=#{vote.user.id}' = vote.user.name
