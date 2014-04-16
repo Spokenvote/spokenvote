@@ -27,14 +27,18 @@ html
                 td
                   h1 Notifications
                   hr.hrule
-              tr
-                td
+
                   /h3 Hi #{ @recipient.first_name },
               tr
                 td There have been new votes on your proposal topics.
-              /table
-              tr.proposal_container
-                - for vote in @votes
+
+              - for vote in @votes
+                tr
+                  td
+                    .proposal_hub
+                      a.hub href='#'
+                        h2 #{ vote.proposal.hub.group_name } &ndash; #{ vote.proposal.hub.formatted_location }
+                tr.proposal_container
                   td.main-proposal
                     .proposal_statement
                       h3
@@ -56,7 +60,7 @@ html
                           td.support-comment
                             supporter-name
                               a href='/proposals?user=#{vote.user.id}' = vote.user.name
-                              | &nbsp
+                              span &nbsp
                             supporter-text = vote.comment
                             - if vote.updated_at > 10.months.ago               # Refactoring Candidate
                               .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")

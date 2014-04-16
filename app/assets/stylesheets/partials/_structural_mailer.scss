@@ -60,4 +60,17 @@ table {
     background-color: #fff;
     padding: 18px;
   }
+  .supporting_arguments {
+    width: 100%;
+  }
+}
+
+.proposal-person {
+  width: 55px;
+}
+
+.support-comment {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100px;
 }

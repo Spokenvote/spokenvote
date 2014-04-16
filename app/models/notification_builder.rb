@@ -18,7 +18,7 @@ class NotificationBuilder < ApplicationController
     else
       if Rails.env.development?
         user_id = 44 # Likely need setup for dev's given test data
-        vote_array = [7, 33, 37, 40, 54, 18, 25, 29]
+        vote_array = [98,19,31,36,39,69]
         VoterMailer.vote_notification(user_id, vote_array).deliver
         p 'Sending test votes array.'
       else
