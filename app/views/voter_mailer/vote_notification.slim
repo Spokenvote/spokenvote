@@ -4,6 +4,9 @@ html
     meta charset='utf-8'
     title = 'Spokenvote Notifications'
     /= stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
+
+    /= stylesheet_link_tag '//fonts.googleapis.com/css?family=Open+Sans:300,400,600|Yanone+Kaffeesatz:400,600', rel: 'stylesheet', type: 'text/css'
+
     = stylesheet_link_tag 'mailer', media: 'all'
 
   body
@@ -19,24 +22,26 @@ html
                     span.spoken Spoken
                     span.vote Vote
 
-            table.msg-wrap
+            table.content_page.msg-wrap
               tr
                 td
                   h1 Notifications
                   hr.hrule
               tr
                 td
-                  h3 Hi #{ @recipient.first_name },
+                  /h3 Hi #{ @recipient.first_name },
               tr
                 td There have been new votes on your proposal topics.
               /table
-              tr
+              tr.proposal_container
                 - for vote in @votes
-                  td
-                    .main-proposal
-                      .proposal_statement
-                        h3
-                          a = vote.proposal.statement
+                  td.main-proposal
+                    .proposal_statement
+                      h3
+                        a = vote.proposal.statement
+                  tr
+                    td.supporting_arguments
+                      h3 New Supporters
                   tr
                     / td.vote = vote.user.name
                     /here we need to loop for votes on that proposal

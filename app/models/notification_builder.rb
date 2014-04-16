@@ -16,7 +16,14 @@ class NotificationBuilder < ApplicationController
         end
       end
     else
-      p 'There are no new votes to notify users about today.'
+      if Rails.env.development?
+        user_id = 44 # Likely need setup for dev's given test data
+        vote_array = [7, 33, 37, 40, 54, 18, 25, 29]
+        VoterMailer.vote_notification(user_id, vote_array).deliver
+        p 'Sending test votes array.'
+      else
+        p 'There are no new votes to notify users about today.'
+      end
     end
   end
   # create_notify_list should return an array of key (vote.id) value (an array of user_ids) pairs

@@ -91,4 +91,7 @@ Spokenvote::Application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+
+  Premailer::Rails.config.merge!(base_url: 'http://www.spokenvote.org/')
+
 end

@@ -37,6 +37,8 @@ Spokenvote::Application.configure do
     :authentication => :plain
   }
 
+  Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')
+
   # Use Pry instead of IRB
   silence_warnings do
     begin
