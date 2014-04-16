@@ -121,7 +121,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
         $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
         $scope.sessionSettings.actions.changeHub = 'new'
 
-#  $scope.clearHubFilter = ->  # Should be automatic now
+#  $scope.clearHubFilter = ->  # Should be automatic now.
 #    $scope.hubFilter.hubFilter = null
 
   $scope.tooltips =

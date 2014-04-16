@@ -62,7 +62,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'lol_dba'
-  #gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
   #gem 'debugger'
 end
 
