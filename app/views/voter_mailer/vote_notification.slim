@@ -39,6 +39,10 @@ html
                         h2 #{ vote.proposal.hub.group_name } &ndash; #{ vote.proposal.hub.formatted_location }
                 tr.proposal_container
                   td.main-proposal
+                    .stats#big-percent
+                      #big-percent #{ vote.proposal.votes_percentage }
+                      .pull-right
+                        == render 'voter_mailer/social_buttons'
                     .proposal_statement
                       h3
                         a = vote.proposal.statement
