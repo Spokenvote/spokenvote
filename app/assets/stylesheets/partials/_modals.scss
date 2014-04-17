@@ -57,11 +57,10 @@
   .instructions {
     color: $soft-brown-text;
     padding: 0 3% 3% 3%;
-    height: 45px;  // Seems needed with .avatar height 100% below
     .avatar {
       padding: 0 8px;
       float: left;
-      height: 100%;
+//      height: 100%;     // Keeps text in a block, but causes issues in other places
       @media (min-width: $grid-float-breakpoint) {
         padding: 0 15px;
       }
