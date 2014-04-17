@@ -3,10 +3,6 @@ html
   head
     meta charset='utf-8'
     title = 'Spokenvote Notifications'
-    /= stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
-
-    /= stylesheet_link_tag '//fonts.googleapis.com/css?family=Open+Sans:300,400,600|Yanone+Kaffeesatz:400,600', rel: 'stylesheet', type: 'text/css'
-
     = stylesheet_link_tag 'mailer', media: 'all'
 
   body
@@ -17,8 +13,8 @@ html
             table.head-wrap
               tr
                 td.page_title
-                  .sv-logo( href='/landing' )
-                    img(src='/assets/spokenvote_logomeg.png')
+                  a.sv-logo href='/landing'
+                    img src='/assets/spokenvote_logomeg.png'
                     span.spoken Spoken
                     span.vote Vote
 
@@ -35,43 +31,49 @@ html
                 tr
                   td
                     .proposal_hub
-                      a.hub href='#'
+                      a.hub href='/proposals?hub=#{vote.proposal.hub.id}'
                         h2 #{ vote.proposal.hub.group_name } &ndash; #{ vote.proposal.hub.formatted_location }
                 tr.proposal_container
                   td.main-proposal
                     .stats#big-percent
                       #big-percent #{ vote.proposal.votes_percentage }
-                      .pull-right
+                      /.pull-right
                         == render 'voter_mailer/social_buttons'
                     .proposal_statement
                       h3
-                        a = vote.proposal.statement
-                  tr
-                    td
-                      h4 New Supporters
-                  tr
-                    td
-                      table.supporting_arguments
-                        tr.support_row
-                          /here we need to loop for votes on that proposal
-                          td.proposal-person
-                            .supporter-avatar
-                              - if vote.facebook_auth
-                                img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
-                              - else
-                                img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
-                          td.support-comment
-                            supporter-name
-                              a href='/proposals?user=#{vote.user.id}' = vote.user.name
-                              span &nbsp
-                            supporter-text = vote.comment
-                            - if vote.updated_at > 10.months.ago               # Refactoring Candidate
-                              .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
-                            - elsif vote.updated_at > 16.months.ago
-                              .supported_date = 'About a year ago'
-                            - else
-                              .supported_date = 'Over a year ago'
+                        a href='/proposals/#{vote.proposal.id}' = vote.proposal.statement
+                  /tr
+                  /  td
+                  /    h4 New Supporters
 
-            /@votes[0].name
+                  tr.supporting_arguments
+                    tr
+                      td
+                        h4 New Supporters
+                      td
+                        tr
+                          td
+                            table.supporting_arguments
+                              tr.support_row
+                                /here we need to loop for votes on that proposal
+                                td.proposal-person
+                                  a.supporter-avatar href='/proposals?user=#{vote.user.id}'
+                                    - if vote.facebook_auth
+                                      img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
+                                    - else
+                                      img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
+                                td.support-comment
+                                  supporter-name
+                                    a href='/proposals?user=#{vote.user.id}' = vote.user.name
+                                    | &nbsp;
+                                  supporter-text = vote.comment
+                                  - if vote.updated_at > 10.months.ago               # Refactoring Candidate
+                                    .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
+                                  - elsif vote.updated_at > 16.months.ago
+                                    .supported_date = 'About a year ago'
+                                  - else
+                                    .supported_date = 'Over a year ago'
 
-            /-#- taskp = TaskPresenter.new(@task, self)
+                  /@votes[0].name
+
+                  /-#- taskp = TaskPresenter.new(@task, self)

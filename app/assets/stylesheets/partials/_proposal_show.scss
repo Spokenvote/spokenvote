@@ -9,6 +9,7 @@
   }
   h3 {
     font-weight: inherit;
+    font-size: 1.5em;
     margin-top: 0;
     @media (min-width: $screen-md-min) {
       font-size: 2em;
@@ -17,7 +18,7 @@
   h4 {
     font-weight: inherit;
     margin: 0;
-    font-size: 1em;
+    font-size: 1.2em;
     @media (min-width: $screen-md-min) {
       font-size: 1.4em;
     }
@@ -130,7 +131,6 @@
     color: $soft-grey;
   }
   .proposal-person {
-    vertical-align: top;
     //    @extend .clear;
     .user-avatar {
       margin-right: 13px;
