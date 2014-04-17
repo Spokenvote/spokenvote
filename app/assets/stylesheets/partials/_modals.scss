@@ -57,6 +57,7 @@
   .instructions {
     color: $soft-brown-text;
     padding: 0 3% 3% 3%;
+    height: 45px;  // Seems needed with .avatar height 100% belowCo
     .avatar {
       padding: 0 8px;
       float: left;
