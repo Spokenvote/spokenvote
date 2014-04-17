@@ -89,7 +89,7 @@
     }
     img {
       //      vertical-align: bottom;
-      @media (max-width: $screen-sm-min -1) {
+      @media (max-width: $screen-sm-min) {
         width: 25px;
         height: auto;
       }
