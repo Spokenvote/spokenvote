@@ -24,7 +24,7 @@
 
   h2 {
     margin-top: 14px;
-    //color: #315D99;
+    font-weight: inherit;
     font-family: $logoTypeFace;
     color: $basic-brown;
     //letter-spacing: -2px;
@@ -72,7 +72,7 @@
     //    line-height: 25px;
     border-bottom: 1px solid $rowRuler;
     padding: 0px 10px;
-    @media (min-width: $grid-float-breakpoint) {
+    @media (min-width: $screen-sm-min) {
       padding: 0px 25px;
     }
   }
@@ -89,7 +89,7 @@
     }
     img {
       //      vertical-align: bottom;
-      @media (max-width: $grid-float-breakpoint-max) {
+      @media (max-width: $screen-sm-min) {
         width: 25px;
         height: auto;
       }

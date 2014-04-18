@@ -1,4 +1,4 @@
-// require jquery_ujs
+// require jquery_ujs               # Just jquery, right?
 // require jquery_nested_form       # Not quite sure if we need or don't need.
 
 // require bootstrap/affix

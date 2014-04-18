@@ -1,10 +1,29 @@
-class NotificationBuilder
+class NotificationBuilder < ApplicationController
 
   def self.organize_daily_email
     notify_list = self.key_value_crossover(self.create_notify_list)
     notify_list = self.check_preferences(notify_list)
-    notify_list.each do |user_id, vote_array|
-      VoterMailer.vote_notification(user_id, vote_array).deliver
+    if notify_list.count > 0
+      if Rails.env.development? # We might take this out for some testing where all the emails are needed.
+        single_list = []
+        single_list << notify_list.first
+        single_list.each do |user_id, vote_array|
+          VoterMailer.vote_notification(user_id, vote_array).deliver
+        end
+      else
+        notify_list.each do |user_id, vote_array|
+          VoterMailer.vote_notification(user_id, vote_array).deliver
+        end
+      end
+    else
+      if Rails.env.development?
+        user_id = 44 # Likely need setup for dev's given test data
+        vote_array = [98,19,31,36,39,69]
+        VoterMailer.vote_notification(user_id, vote_array).deliver
+        p 'Sending test votes array.'
+      else
+        p 'There are no new votes to notify users about today.'
+      end
     end
   end
   # create_notify_list should return an array of key (vote.id) value (an array of user_ids) pairs

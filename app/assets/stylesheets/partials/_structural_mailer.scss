@@ -1,0 +1,80 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-family-sans-serif;
+  background: #ffffff;
+  font-size: 1.25em;
+  margin: 0;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+td.sv-logo {
+  text-align: center;
+}
+
+.msg-body-wrap {
+  background: #EEF0F1;
+  width: 100%;
+  .hrule {
+    clear:both;
+    height:1px;
+    border:0;
+    border:none;
+    width:100%;
+    background:#DCDCDC;
+    color:#DCDCDC;
+    margin:18px 0;
+  }
+
+}
+
+.msg-container {
+  border: none;
+  margin: 0 auto 50px;
+  max-width: 500px;
+
+}
+
+table {
+  .head-wrap {
+    width: 100%;
+    padding: 15px;
+  }
+  .msg-wrap {
+    width: 100%;
+    valign: top;
+    align: left;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 18px;
+  }
+  .supporting_arguments {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.support_row {
+  width: 100%;
+}
+
+.proposal-person {
+  width: 55px;
+  vertical-align: top;
+}
+
+.support-comment {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100px;
+}

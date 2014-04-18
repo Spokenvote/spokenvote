@@ -9,6 +9,8 @@ Spokenvote::Application.configure do
   # Enable threaded mode
   #config.threadsafe!
 
+  Premailer::Rails.config.merge!(base_url: 'http://staging.spokenvote.org/')
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true

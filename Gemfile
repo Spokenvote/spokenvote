@@ -17,14 +17,15 @@ gem 'rack-cache'
 #gem 'thin'
 
 # Javascript
-gem 'jquery-rails', '< 3.0.0'
-gem 'jquery-ui-rails'
-gem 'jquery-tokeninput-rails'
+# gem 'jquery-rails', '< 3.0.0'
+# gem 'jquery-ui-rails'
+# gem 'jquery-tokeninput-rails'
 
 # UI/Forms
-gem 'nested_form'
+# gem 'nested_form'
+# gem 'simple_form'
 gem 'haml-rails'
-gem 'simple_form'
+gem 'slim', '~> 2.0.2'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'compass-rails'
 gem 'compass'
@@ -61,7 +62,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'lol_dba'
-  #gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
   #gem 'debugger'
 end
 

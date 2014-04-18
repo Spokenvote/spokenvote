@@ -26,7 +26,7 @@ Spokenvote::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
 
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
@@ -36,6 +36,8 @@ Spokenvote::Application.configure do
     :domain =>         'localhost:3000',
     :authentication => :plain
   }
+
+  Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')
 
   # Use Pry instead of IRB
   silence_warnings do

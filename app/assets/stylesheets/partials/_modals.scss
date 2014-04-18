@@ -60,7 +60,7 @@
     .avatar {
       padding: 0 8px;
       float: left;
-      height: 100%;
+//      height: 100%;     // Keeps text in a block, but causes issues in other places
       @media (min-width: $grid-float-breakpoint) {
         padding: 0 15px;
       }

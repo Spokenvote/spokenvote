@@ -20,10 +20,10 @@ describe VoterMailer do
     let(:mail) { VoterMailer.vote_notification(user_id, votes_for_user) }
     subject { mail }
     it { should deliver_to "#{user1.username} <#{user1.email}>" }
-    it { should deliver_from 'donotreply@spokenvote.org' }
+    it { should deliver_from 'Spokenvote <donotreply@spokenvote.org>' }
     #it { should have_subject "[Spokenvote] (#{project.name}) New task" }
-    it { should have_body_text "A new vote has been created." }
-    it { should have_body_text user1.username }
+    it { should have_body_text 'There have been new votes' }
+    # it { should have_body_text user1.username }    # Not presently addressing user
     it { should have_body_text user2.username }
     it { should have_body_text user3.username }
   end
