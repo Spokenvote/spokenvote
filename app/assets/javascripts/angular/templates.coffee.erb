@@ -18,17 +18,3 @@ if Rails.env.production? || Rails.env.staging? || Rails.env.development?
   end
 end
 %>
-angular.module('spokenvote.templates', []).run(['$templateCache', ($templateCache) ->
-    templates = [
-        <% template_cache.each do |template| %>
-        path: "<%= template[:path] %>"
-        markup: """
-                <%= template[:markup] %>
-                """
-    ,
-        <% end %>
-    ]
-
-    # Pre-fill the Angular cache
-#    $templateCache.put(template.path, template.markup) for template in templates
-])
