@@ -1,6 +1,12 @@
 
 // Modal Elements
 
+.dialog-sm {
+  .modal-dialog {
+//    max-width: 200px;
+  }
+}
+
 .modal-dialog {
   @media (max-width: $grid-float-breakpoint-max) {
     margin: 5px;
