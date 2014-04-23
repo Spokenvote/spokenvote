@@ -25,6 +25,8 @@
 
 //= require ./angular/spokenvote
 //= require_tree ./angular
+//= require_tree ../templates
+
 
 //= require ./vendor/add2homeConfig
 //= require add2home

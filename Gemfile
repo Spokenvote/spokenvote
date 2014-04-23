@@ -52,6 +52,9 @@ gem 'sass-rails',   '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '>= 2.4.0'
 
+# Angular
+gem 'angular-rails-templates'
+
 group :development do
   gem 'taps', :require => false
   gem 'hirb'
