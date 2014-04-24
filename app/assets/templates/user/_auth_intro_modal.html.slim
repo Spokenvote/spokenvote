@@ -1,0 +1,21 @@
+#introAuthModal
+  .modal-header
+    .pull-right( class='close' ng-click='$close()' ) &times;
+    /h2.modal-title Delete Proposal
+
+  .modal-body
+    #alertContainer
+      .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
+
+    .instructions
+      /.avatar
+      /  ng-include( src="'/assets/shared/_currentuser_avatar.html'" )
+      h5 Spokenvote uses Facebook to simplify sign in and prevent vote duplication.
+      h5 We will <i>not</i> use your friends list or post anything without asking you first.
+
+  .modal-footer
+    fieldset
+      .form-group
+        .controls
+          button( ng-click="$dismiss('cancel')" class='btn btn-bold' ) Cancel
+          button( ng-click="$close('signIn')" class='btn btn-primary btn-bold' ) Sign In
