@@ -1,0 +1,13 @@
+.auth-partners {
+  .partner-logo {
+    padding: 0 8px;
+    float: left;
+    @media (min-width: $grid-float-breakpoint) {
+      padding: 0 15px;
+    }
+    img {
+      //    width: 35px;
+      //    height: auto;
+    }
+  }
+}
