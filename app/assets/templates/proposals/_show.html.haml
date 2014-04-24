@@ -1,6 +1,6 @@
 .proposal_container( ui-if='proposal.has_support' )
 
-  .main-proposal
+  .main-proposal( id='prop{{ proposal.id }}' )
     .stats(id='big-percent')
       #big-percent {{ proposal.votes_percentage }}
       %ng-include.pull-right( src="'/assets/shared/_social_buttons.html'" )
