@@ -7,11 +7,12 @@
     #alertContainer
       .modalAlert( alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' )
 
-    .instructions
-      .partner-logo
-        img src='/assets/icons/providers/FB-f-Logo__blue_50.png'
-      h4 Spokenvote uses Facebook to simplify sign in and prevent vote duplication.
-      h4 We will <i>not</i> use your friends list or post anything without asking you first.
+    .auth-partners
+      .instructions
+        .partner-logo
+          img src='/assets/icons/providers/FB-f-Logo__blue_50.png'
+        h4 Simplified Facebook sign in helps prevent vote duplication.
+        h4 We will <i>not</i> use your friends list or post anything without asking you first.
 
   .modal-footer
     fieldset
