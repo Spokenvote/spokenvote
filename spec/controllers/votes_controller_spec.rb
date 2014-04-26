@@ -31,12 +31,16 @@ describe VotesController do
         expect {
           post :create, vote: { proposal_id: proposal1.id, comment: "Coz this modified proposal rocks better!"}
         }.to change(Vote, :count).by(0)
+        proposal1.votes_count.should == 0
+        proposal2.votes_count.should == 1
       end
 
       it 'moves the vote from the previous proposal to the new one' do
         post :create, vote: { proposal_id: proposal1.id, comment: "Changed my mind, the original one rocks better!"}
         assigns(:vote).user.should == user1
         assigns(:vote).proposal.should == proposal1
+        proposal1.votes_count.should == 1
+        proposal2.votes_count.should == 0
       end
     end
   end
