@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
-gem 'rails', '4.0.3'
+gem 'rails', '~> 4.1.0'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
