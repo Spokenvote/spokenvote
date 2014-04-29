@@ -14,7 +14,7 @@ class ProposalsController < ApplicationController
 
     filter = params[:filter] || 'active'
     if filter == 'active'
-      @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
+      @proposals.to_a.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
     elsif filter == 'recent'
       @proposals = proposals.order('updated_at DESC')
     elsif current_user
@@ -22,10 +22,10 @@ class ProposalsController < ApplicationController
       user = User.find(user_id) if user_id
 
       user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)
-      @proposals.delete_if { |proposal| !user_voted_proposal_root_ids.include? proposal.root_id }
+      @proposals.to_a.delete_if { |proposal| !user_voted_proposal_root_ids.include? proposal.root_id }
       @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree }
     else  # Default to 'active' list
-      @proposals.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
+      @proposals.to_a.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
     end
   end
 
