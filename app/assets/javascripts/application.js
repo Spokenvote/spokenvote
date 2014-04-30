@@ -16,6 +16,7 @@
 //= require bootstrap/collapse
 
 //= require angular-ui
+//= require select2-click_leak_fix
 
 // require holder           #Don't believe this is in use
 // require viewport.min     #Don't believe we're calling this any more
