@@ -45,8 +45,8 @@ describe VotesController do
           post :create, vote: { proposal_id: proposal1.id, comment: "Changed my mind, the original one rocks better!"}
         }.to change(Vote, :count).by(0)
         assigns(:vote).user.should == current_user
-        assigns(:vote).proposal.should == proposal1
-        # Proposal.find_by_id(proposal1.id).votes_count.should == 2
+        assigns(:vote).proposal_id.should == proposal1.id
+        Proposal.find_by_id(proposal1.id).votes_count.should == 2
         Proposal.find_by_id(proposal2.id).votes_count.should == 0
       end
     end
