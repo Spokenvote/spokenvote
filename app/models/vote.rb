@@ -40,11 +40,11 @@ class Vote < ActiveRecord::Base
 
   def self.move_user_vote_to_proposal(proposal, user, vote_attributes)
     if vote = find_related_vote_in_tree_for_user(proposal, user)
-      vote.ip_address = vote_attributes[:ip_address]
-      vote.comment = vote_attributes[:comment]
-      vote.update_attributes(:proposal_id => proposal.id)
-      # vote.proposal_id = proposal.id
-      # vote.proposal = proposal
+      vote.update(
+          ip_address: vote_attributes[:ip_address],
+          comment: vote_attributes[:comment],
+          proposal_id: proposal.id
+      )
     else
       vote = user.votes.build({ proposal: proposal }.merge(vote_attributes))
     end
