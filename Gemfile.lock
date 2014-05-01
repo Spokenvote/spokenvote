@@ -60,9 +60,10 @@ GEM
       multi_json
     ancestry (2.0.0)
       activerecord (>= 3.0.0)
-    angular-rails-templates (0.0.7)
+    angular-rails-templates (0.1.1)
       railties (>= 3.1)
       sprockets
+      tilt
     annotate (2.6.2)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -372,7 +373,7 @@ DEPENDENCIES
   add-to-homescreen-rails
   airbrake
   ancestry
-  angular-rails-templates
+  angular-rails-templates (~> 0.1.1)
   annotate
   better_errors
   binding_of_caller

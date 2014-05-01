@@ -53,7 +53,7 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '>= 2.4.0'
 
 # Angular
-gem 'angular-rails-templates'
+gem 'angular-rails-templates', '~> 0.1.1'
 
 group :development do
   gem 'taps', :require => false
