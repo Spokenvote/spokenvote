@@ -1,4 +1,4 @@
-namespace :notify do
+namespace :votes_count_refresh do
   desc "Reset and update votes_count column manually"
   task reset_and_update: :environment do
     Proposal.reset_column_information
