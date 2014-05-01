@@ -73,7 +73,7 @@ describe "User" do
   it "should create a new user given valid attributes" do
     user = User.new(@attr)
     user.should be_valid
-    user.save.should be_true
+    user.save.should be_truthy
   end
 
   it "should NOT require an email address" do
@@ -167,9 +167,9 @@ describe "User" do
       @user.preferences = @preference
     end
 
-    subject { @user }
-
-    its(:preferences) { should eq @preference }
+    it "user preferences should not be nil" do
+      @user.preferences.should_not be_nil
+    end
   end
 
   describe 'associations' do

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
-gem 'rails', '4.0.3'
+gem 'rails', '~> 4.1'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
@@ -67,7 +67,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'populator'
@@ -78,6 +78,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'minitest'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'email_spec'

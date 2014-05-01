@@ -73,38 +73,48 @@ describe ProposalsController do
           let(:hub) { create(:hub) }
           let(:current_user) { user } # Logged in user
 
-          context 'user has no other vote in the proposal tree' do
-            let(:user1) { create(:user) }
-            let!(:proposal1) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1') }
-            let!(:vote1) { create(:vote, user: user1, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
+          context 'current user has no other vote in the proposal tree' do
+            let(:user2) { create(:user) }
+            let!(:proposal1) { create(:proposal, user: user2, hub: hub, statement: 'Proposal-1') }
+            let!(:vote1) { create(:vote, user: user2, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
             let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal1.id, votes_attributes: attributes_for(:vote)) }
+
+            it 'proposal1 votes count should start at 1' do
+              Proposal.find_by_id(proposal1.id).votes_count.should == 1
+            end
 
             it 'creates a new improved proposal' do
               expect {
                 post :create, :proposal => valid_attributes
               }.to change(Proposal, :count).by(1)
+              Proposal.find_by_id(proposal1.id).votes_count.should == 1
+              Proposal.find_by_id(assigns(:proposal).id).votes_count.should == 1
             end
 
             it 'should increase the votes count by 1' do
               expect {
                 post :create, :proposal => valid_attributes
               }.to change(Vote, :count).by(1)
+              Proposal.find_by_id(proposal1.id).votes_count.should == 1
+              Proposal.find_by_id(assigns(:proposal).id).votes_count.should == 1
             end
 
             it "updates the votes_count attribute of the proposal loaded in memory" do
               post :create, :proposal => valid_attributes
               assigns(:proposal).votes_count.should == 1
+              Proposal.find_by_id(proposal1.id).votes_count.should == 1
+              Proposal.find_by_id(assigns(:proposal).id).votes_count.should == 1
             end
           end
 
           context 'user has an existing vote in the proposal tree' do
-            let(:user1) { create(:user) }
+            let(:user2) { create(:user) }
 
             let!(:proposal1) { create(:proposal, user: current_user, hub: hub, statement: 'Proposal-1') }
             let!(:vote1) { create(:vote, user: current_user, proposal: proposal1, comment: 'Proposal-1 --> Vote-1') }
 
-            let!(:proposal2) { create(:proposal, user: user1, hub: hub, statement: 'Proposal-1 --> Proposal-2', parent: proposal1) }
-            let!(:vote2) { create(:vote, user: user1, proposal: proposal2, comment: 'Proposal-1 --> Proposal-2 --> Vote-1') }
+            let!(:proposal2) { create(:proposal, user: user2, hub: hub, statement: 'Proposal-1 --> Proposal-2', parent: proposal1) }
+            let!(:vote2) { create(:vote, user: user2, proposal: proposal2, comment: 'Proposal-1 --> Proposal-2 --> Vote-1') }
 
             let(:valid_attributes) { attributes_for(:proposal, parent_id: proposal2.id, votes_attributes: attributes_for(:vote)) }
 
