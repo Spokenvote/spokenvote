@@ -2,7 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+# require 'rspec/autorun'    # Depreciated in 3.0
 require 'email_spec'
 require 'capybara/rspec'
 require 'database_cleaner'
