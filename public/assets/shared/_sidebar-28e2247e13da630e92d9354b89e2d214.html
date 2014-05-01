@@ -1,0 +1,89 @@
+<ul ng-controller='SidebarCtrl' role='menu'>
+  <li>
+    <a class='action-links'>
+      <div class='fa fa-file-text-o'></div>
+      <span ng-click='newTopic();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip-placement='bottom' tooltip='{{tooltips.newTopic}}'>Start a new topic</span>
+    </a>
+  </li>
+  <li>
+    <accordion close-others='oneAtATime'>
+      <accordion-group is-open='isopen'>
+        <accordion-heading>
+          <a class='action-links'>
+            <div class='fa fa-filter'></div>
+            <span ng-show='isopen'>Topic filter</span>
+            <span ng-hide='isopen'>Filter: {{ sessionSettings.routeParams.filter | inflector:humanize }} votes</span>
+          </a>
+        </accordion-heading>
+        <ul class='action-links'>
+          <li ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' type='button'>
+            <div class='fa sub fa-check-square-o'></div>
+            <span>My Votes</span>
+            <div class='fa pull-right' ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'my'}"></div>
+          </li>
+          <li ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" ng-click="setFilter('active');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" type='button'>
+            <div class='fa sub fa-tachometer'></div>
+            <span>Active</span>
+            <div class='fa pull-right' ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'active'}"></div>
+          </li>
+          <li ng-class="{'active': sessionSettings.routeParams.filter == 'new'}" ng-click="setFilter('new');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" type='button'>
+            <div class='fa sub fa-clock-o'></div>
+            <span>Recent</span>
+            <div class='fa pull-right' ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'new'}"></div>
+          </li>
+        </ul>
+      </accordion-group>
+    </accordion>
+  </li>
+  <li href='#' ng-click='userSettings();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username'>
+    <a class='action-links'>
+      <div class='fa fa-wrench'></div>
+      <span>Settings</span>
+    </a>
+  </li>
+  <li href='#' ng-click='signinAuth();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='!currentUser.username'>
+    <a class='action-links'>
+      <div class='fa fa-sign-in'></div>
+      <span>Sign in</span>
+    </a>
+  </li>
+  <li href='#' ng-click='signOut();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username'>
+    <a class='action-links'>
+      <div class='fa fa-sign-out'></div>
+      <span>Sign out</span>
+    </a>
+  </li>
+  <li ng-show='currentUser["is_admin?"]'>
+    <a class='action-links' href='/admin' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' target='_blank'>
+      <div class='fa fa-cogs'></div>
+      <span>Admin</span>
+    </a>
+  </li>
+  <li>
+    <div class='hr'></div>
+  </li>
+  <li>
+    <a class='category-links' href='/about' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas'>
+      <div class='fa fa-pagelines'></div>
+      <span>About Spokenvote</span>
+    </a>
+  </li>
+  <li>
+    <div class='hr'></div>
+  </li>
+  <li>
+    <a class='category-links' href='http://railsforcharity.github.io/spokenvote/' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas'>
+      <div class='fa fa-github'></div>
+      <span>Developers</span>
+    </a>
+  </li>
+  <li class='category-links'>
+    <div class='hr'></div>
+  </li>
+  <li>
+    <a class='category-links' href='/terms-of-use' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas'>
+      <div class='fa fa-bell-o'></div>
+      <span>Terms of use</span>
+    </a>
+  </li>
+</ul>

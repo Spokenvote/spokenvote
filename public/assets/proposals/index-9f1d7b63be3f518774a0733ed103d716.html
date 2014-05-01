@@ -1,0 +1,90 @@
+<section id='homepage'>
+  <div class='panel panel-default hidden-xs hidden-sm'>
+    <div class='panel-title'>
+      <div class='title pull-left'>
+        <h3>
+          <span>{{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}</span>
+          <span ng-click="clearFilter('user')" ui-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user'>
+            <span>for</span>
+            <span class='tag_item'>
+              <span>{{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}</span>
+              <div class='fa fa-times'></div>
+            </span>
+            <span>&nbsp</span>
+          </span>
+        </h3>
+      </div>
+      <h3 class='btn-group pull-right'>
+        <button btn-radio="'my'" class='btn btn-default' ng-click="setFilter('my')" ng-model='sessionSettings.routeParams.filter' type='button' ui-if='currentUser.id'>
+          <div class='fa sub fa-check-square-o'></div>
+          <span>My Votes</span>
+        </button>
+        <button btn-radio="'active'" class='btn btn-default' ng-click="setFilter('active')" ng-model='sessionSettings.routeParams.filter' type='button'>
+          <div class='fa sub fa-tachometer'></div>
+          <span>&nbsp Active</span>
+        </button>
+        <button btn-radio="'recent'" class='btn btn-default' ng-click="setFilter('recent')" ng-model='sessionSettings.routeParams.filter' type='button'>
+          <div class='fa sub fa-clock-o'></div>
+          <span>&nbsp Recent</span>
+        </button>
+      </h3>
+    </div>
+    <div class='clearfix'></div>
+  </div>
+  <div class='listing-proposals'>
+    <ul ng-repeat='proposal in proposals'>
+      <li class='tree_container' ng-click='showProposal(proposal)'>
+        <div class='topic row'>
+          <div class='list-avatar col-xs-1'>
+            <div class='avatar-sprite' ng-repeat='(key, vote) in proposal.votes | slice:0:4'>
+              <img ng-src='http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&amp;height=20' ui-if='vote.vote.facebook_auth'>
+              <img ng-src='http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&amp;d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}' ui-if='!vote.vote.facebook_auth'>
+            </div>
+          </div>
+          <div class='topic-and-hub col-xs-9 col-md-10'>
+            <div class='proposal' id='prop{{ proposal.id }}'>
+              <a id='showProposalLink' ng-click='showProposal(proposal)'>{{ proposal.statement }}</a>
+            </div>
+            <div class='hub'>
+              <a ng-click='setHub(proposal.hub)'>{{ proposal.hub.short_hub }}</a>
+            </div>
+          </div>
+          <div class='stats col-xs-2 col-md-1'>
+            <div class='counts row'>
+              <div class='vote_count col-xs-6'>
+                <div class='svlabel' tooltip-placement='left' tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals'>
+                  <div class='votes'>{{ proposal.votes_in_tree }}</div>
+                  Votes
+                </div>
+              </div>
+              <div class='prop_count col-xs-6'>
+                <div class='svlabel' tooltip-placement='left' tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals'>
+                  <div class='props'>{{ proposal.related_proposals_count  }}</div>
+                  Props
+                </div>
+              </div>
+            </div>
+            <div class='last_date row'>
+              <div class='date-stamp col-xs-12'>{{ proposal.updated_at }}</div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id='proposalNotFound'>
+    <div class='col-xs-7'>&nbsp;</div>
+    <div class='col-xs-5'>
+      Don't see the topic you're looking for?
+      <a href='#' id='makeProposalLink' ng-click='newTopic()'>Start a New Topic</a>
+    </div>
+    <div class='col-xs-12 col-xs-offset-1' ng-show='!proposals[0]'>
+      <h3>
+        <span>No {{ filterSelection | inflector:humanize }} topics</span>
+        <span ui-if='sessionSettings.actions.hubFilter'>for {{ sessionSettings.actions.hubFilter }}</span>
+        <span ui-if='sessionSettings.actions.userFilter'>for {{ sessionSettings.actions.userFilter }}</span>
+        <span>found.</span>
+      </h3>
+    </div>
+  </div>
+</section>

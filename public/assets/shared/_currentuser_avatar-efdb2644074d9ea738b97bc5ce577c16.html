@@ -1,0 +1,4 @@
+<div class='currentuser-avatar'>
+  <img ng-src='http://graph.facebook.com/{{ currentUser.facebook_auth }}/picture' ui-if='currentUser.facebook_auth'>
+  <img ng-src='http://gravatar.com/avatar/{{ currentUser.gravatar_hash }}.png?s=30&amp;d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}' ui-if='!currentUser.facebook_auth'>
+</div>
