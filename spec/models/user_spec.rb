@@ -31,25 +31,25 @@ describe "Authenticate User" do  #TODO Need some help here understanding if I'm 
     }
   end
 
-  it 'should create a new user' do
+  it 'expect it to create a new user' do
     user = User.from_omniauth(nil, @auth)
-    user.should be_valid
-    user.should be_persisted
+    expect(user).to be_valid
+    expect(user).to be_persisted
   end
 
-  it 'should authenticate a new user' do
+  it 'expect it to authenticate a new user' do
     user = User.from_omniauth(nil, @auth)
     userauth = user.authentications.create(:provider => @auth[:provider], :uid => @auth[:uid], :token => @auth[:token])
-    userauth.should be_valid
-    userauth.should be_persisted
+    expect(userauth).to be_valid
+    expect(userauth).to be_persisted
   end
 
-  #it 'should not authenticate bad auth data' do
-  #  user = User.from_omniauth(nil, @auth)
+  it 'expect it not authenticate bad auth data' do
+    # user = User.from_omniauth(nil, @auth)
   #  # TODO Line below won't run for the exact failure I'm trying to test for.
-  #  userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token])
-  #  userauth.should_not be_valid
-  #end
+  #   userauth = user.authentications.create(:provider => nil, :uid => @auth[:uid], :token => @auth[:token])
+  #   expect(userauth).to_not be_valid
+  end
 
   #it 'should not authenticate bad auth data' do
   #  user = User.from_omniauth(nil, @auth)
@@ -70,50 +70,50 @@ describe "User" do
     }
   end
 
-  it "should create a new user given valid attributes" do
+  it "expect to create a new user given valid attributes" do
     user = User.new(@attr)
-    user.should be_valid
-    user.save.should be_true
+    expect(user).to be_valid
+    expect(user.save).to be_truthy
   end
 
-  it "should NOT require an email address" do
+  it "expect to NOT require an email address" do
     no_email_user = User.new(@attr.merge(:email => nil))
-    no_email_user.should be_valid
+    expect(no_email_user).to be_valid
   end
 
-  it "should accept valid email addresses" do
+  it "expect to accept valid email addresses" do
     addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]
     addresses.each do |address|
       valid_email_user = User.new(@attr.merge(:email => address))
-      valid_email_user.should be_valid
+      expect(valid_email_user).to be_valid
     end
   end
 
-  it "should reject invalid email addresses" do
+  it "expect it to reject invalid email addresses" do
     addresses = %w[user@foo,com user_at_foo.org example.user@foo.]
     addresses.each do |address|
       invalid_email_user = User.new(@attr.merge(:email => address))
-      invalid_email_user.should_not be_valid
+      expect(invalid_email_user).to_not be_valid
     end
   end
 
-  it "should reject duplicate email addresses" do
+  it "expect it to reject duplicate email addresses" do
     User.create!(@attr)
     user_with_duplicate_email = User.new(@attr)
-    user_with_duplicate_email.should_not be_valid
+    expect(user_with_duplicate_email).to_not be_valid
   end
 
-  it "should ACCEPT multiple NULL email addresses" do
+  it "expect it ACCEPT multiple NULL email addresses" do
     User.new(@attr.merge(:email => nil))
     user_with_duplicate_null_email = User.new(@attr.merge(:email => nil))
-    user_with_duplicate_null_email.should be_valid
+    expect(user_with_duplicate_null_email).to be_valid
   end
 
-  it "should reject email addresses identical up to case" do
+  it "expect it to reject email addresses identical up to case" do
     upcased_email = @attr[:email].upcase
     User.create!(@attr.merge(:email => upcased_email))
     user_with_duplicate_email = User.new(@attr)
-    user_with_duplicate_email.should_not be_valid
+    expect(user_with_duplicate_email).to_not be_valid
   end
 
   describe "passwords" do
@@ -121,17 +121,17 @@ describe "User" do
       @user = User.new(@attr)
     end
 
-    it "should have a password attribute" do
-      @user.should respond_to(:password)
+    it "expect it to have a password attribute" do
+      expect(@user).to respond_to(:password)
     end
 
-    it "should have a password confirmation attribute" do
-      @user.should respond_to(:password_confirmation)
+    it "expect it to have a password confirmation attribute" do
+      expect(@user).to respond_to(:password_confirmation)
     end
   end
   #
   #describe "password validations" do          # Depreciating due to Facebook-only strategy
-  #  it "should require a password" do         # TODO Pratik, please remove if you agree.
+  #  it "should require a password" do
   #    User.new(@attr.merge(:password => "", :password_confirmation => "")).should_not be_valid
   #  end
   #
@@ -151,12 +151,12 @@ describe "User" do
       @user = User.create!(@attr)
     end
 
-    it "should have an encrypted password attribute" do
-      @user.should respond_to(:encrypted_password)
+    it "expect it to have an encrypted password attribute" do
+      expect(@user).to respond_to(:encrypted_password)
     end
 
-    it "should set the encrypted password attribute" do
-      @user.encrypted_password.should_not be_blank
+    it "expect it to set the encrypted password attribute" do
+      expect(@user.encrypted_password).to_not be_blank
     end
   end
 
@@ -167,9 +167,9 @@ describe "User" do
       @user.preferences = @preference
     end
 
-    subject { @user }
-
-    its(:preferences) { should eq @preference }
+    it "user preferences expected not be nil" do
+      expect(@user.preferences).to_not be_nil
+    end
   end
 
   describe 'associations' do
@@ -184,14 +184,14 @@ describe "User" do
 
     describe '#voted_proposals' do
       it 'gives list of proposals that the user voted on' do
-        user1.voted_proposals.should match_array([proposal1, proposal2])
+        expect(user1.voted_proposals).to match_array([proposal1, proposal2])
       end
     end
 
     describe '#proposals' do
       it 'gives list of proposals created by the user' do
-        user1.proposals.should match_array([proposal3])
-        user2.proposals.should match_array([proposal1, proposal2])
+        expect(user1.proposals).to match_array([proposal3])
+        expect(user2.proposals).to match_array([proposal1, proposal2])
       end
     end
   end

@@ -3,7 +3,7 @@
     %a.action-links
       .fa.fa-file-text-o
       -#%span.entypo.entypo.entypo-plus
-      %span( ng-click='newTopic()' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start a new topic
+      %span( ng-click='newTopic();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start a new topic
 
   %li
     %accordion( close-others='oneAtATime' )
@@ -30,38 +30,38 @@
             %span Recent
             .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'new'}" )
 
-  %li( href='#' ng-click='userSettings()' ng-show='currentUser.username' )
+  %li( href='#' ng-click='userSettings();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username' )
     %a.action-links
       .fa.fa-wrench
       %span Settings
-  %li( href='#' ng-click='signinAuth()' ng-show='!currentUser.username' )
+  %li( href='#' ng-click='signinAuth();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='!currentUser.username' )
     %a.action-links
       .fa.fa-sign-in
       %span Sign in
-  %li( href='#' ng-click='signOut()' ng-show='currentUser.username' )
+  %li( href='#' ng-click='signOut();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username' )
     %a.action-links
       .fa.fa-sign-out
       %span Sign out
   %li( ng-show='currentUser["is_admin?"]' )
-    %a.action-links( href='/admin' target='_blank' )
+    %a.action-links( href='/admin' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
       .fa.fa-cogs
       %span Admin
   %li
     .hr
   %li
-    %a.category-links( href='/about' )
+    %a.category-links( href='/about' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
       .fa.fa-pagelines
       %span About Spokenvote
   %li
     .hr
   %li
-    %a.category-links( href='http://railsforcharity.github.io/spokenvote/' )
+    %a.category-links( href='http://railsforcharity.github.io/spokenvote/' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
       .fa.fa-github
       %span Developers
   %li.category-links
     .hr
   %li
-    %a.category-links( href='/terms-of-use' )
+    %a.category-links( href='/terms-of-use' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
       .fa.fa-bell-o
       %span Terms of use
 

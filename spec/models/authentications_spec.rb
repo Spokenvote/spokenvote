@@ -28,7 +28,7 @@ describe "Authentication" do
       Authentication.create!(@attr)
       authentication_with_duplicate_attrs = Authentication.new(@attr)
       #authentication_with_duplicate_attrs.should_not be_valid  #TODO Should be NOT, but we may not need this test
-      authentication_with_duplicate_attrs.should be_valid
+      expect(authentication_with_duplicate_attrs).to be_valid
     end
 
   end

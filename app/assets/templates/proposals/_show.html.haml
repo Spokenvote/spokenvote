@@ -1,6 +1,6 @@
 .proposal_container( ui-if='proposal.has_support' )
 
-  .main-proposal
+  .main-proposal( id='prop{{ proposal.id }}' )
     .stats(id='big-percent')
       #big-percent {{ proposal.votes_percentage }}
       %ng-include.pull-right( src="'/assets/shared/_social_buttons.html'" )
@@ -19,7 +19,7 @@
             %i.fa.fa-pencil.fa-2x
 
         %span.hidden-xs.hidden-sm
-          %button( ng-click='edit(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right' )
+          %button( ng-click='delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right' )
             %i.fa.fa-trash-o.fa-2x
         %span.hidden-md.hidden-lg
           %button( ng-click='delete(proposal)' class='btn btn-danger delete' )
