@@ -4,7 +4,6 @@ namespace :votes_count_refresh do
     Proposal.reset_column_information
     Proposal.all.each do |p|
       Proposal.reset_counters(p.id, :votes)
-      # p.update_attribute :votes_count, p.votes.length
     end
     pp "Proposal vote counts have been reset and refreshed"
   end

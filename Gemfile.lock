@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: a460d8d2ab37820c6ac377f4a75fe90b203520d0
+  revision: a25c9231715a4124bd7a303f29feeb381ec88956
   specs:
     activeadmin (1.0.0.pre)
       arbre (~> 1.0)
@@ -296,7 +296,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.1)
-    ransack (1.2.2)
+    ransack (1.2.3)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
