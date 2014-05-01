@@ -23,7 +23,7 @@ describe Hub do
 
   it "should require a group name" do
     no_group_hub = Hub.new(@attr.merge(:group_name => ""))
-    no_group_hub.should_not be_valid
+    expect(no_group_hub).to be_invalid
   end
 
 end

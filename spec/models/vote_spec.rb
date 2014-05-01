@@ -43,10 +43,10 @@ describe Vote do
     let!(:vote3) { create(:vote, :comment => "Once more into the breach", :updated_at => 48.hours.ago, :user => user, :proposal => proposal3) }
 
     it "should return all votes created in the last 24 hours" do
-      Vote.new_votes.should match_array([vote1, vote2])
+      expect(Vote.new_votes).to match_array([vote1, vote2])
     end
   end
 
   subject { vote }
-  it { should respond_to(:find_users_in_tree) }
+  it { expect(:find_users_in_tree).to respond_to }
 end
