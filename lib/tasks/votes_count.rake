@@ -3,7 +3,8 @@ namespace :votes_count_refresh do
   task reset_and_update: :environment do
     Proposal.reset_column_information
     Proposal.all.each do |p|
-      p.update_attribute :votes_count, p.votes.length
+      Proposal.reset_counters(p.id, :votes)
+      # p.update_attribute :votes_count, p.votes.length
     end
     pp "Proposal vote counts have been reset and refreshed"
   end
