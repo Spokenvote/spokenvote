@@ -42,9 +42,11 @@ class Proposal < ActiveRecord::Base
   has_ancestry
 
   def votes_in_tree
-    Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
-      [self.root, self.root.descendants].flatten.map(&:votes_count).sum
-    end
+    # Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
+    # Code above seemed to never expire as of Rails 4
+    # Proper cache should only cache when votes_in_tree > 100 or so
+    [self.root, self.root.descendants].flatten.map(&:votes_count).sum
+    # end
   end
 
   def self_and_descendants
