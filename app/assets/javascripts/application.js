@@ -24,10 +24,10 @@
 // require angular-strap
 // require angular-cookies
 
-//= require ./angular/spokenvote
-//= require_tree ./angular
 //= require angular-rails-templates
 //= require_tree ../templates
+//= require ./angular/spokenvote
+//= require_tree ./angular
 
 //= require ./vendor/add2homeConfig
 //= require add2home
