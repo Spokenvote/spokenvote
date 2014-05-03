@@ -22,21 +22,6 @@ Bundler.require(:default, Rails.env)
 module Spokenvote
   class Application < Rails::Application
 
-    config.assets.paths << Rails.root.join("app", "assets", "templates")
-
-    class HamlTemplate < Tilt::HamlTemplate
-      def prepare
-        @options = @options.merge :format => :html5
-        super
-      end
-    end
-
-    config.before_initialize do |app|
-      require 'sprockets'
-      Sprockets::Engines #force autoloading
-      Sprockets.register_engine '.haml', HamlTemplate
-    end
-
     config.i18n.enforce_available_locales = true
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -46,7 +31,7 @@ module Spokenvote
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/app/services)
-  
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
