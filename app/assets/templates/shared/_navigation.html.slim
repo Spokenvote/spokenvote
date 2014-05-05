@@ -47,7 +47,7 @@
           ul#user_profile.nav.navbar-nav.pull-right
             li.dropdown data-placement='bottom'
               a.dropdown-toggle data-toggle='dropdown'
-                b.white {{ currentUser.first_name || 'Learn' }}
+                b.white() {{ currentUser.first_name || 'Learn' }}
                 b.caret
 
               ul.dropdown-menu role="menu" aria-labelledby="dropdownMenu"
