@@ -3,9 +3,20 @@ class VoterMailerController < ApplicationController
   def vote_notification
     if organize_test_email
       @recipient = User.find(@user_id)
-      @votes = @vote_array.map { |vote_id| Vote.find(vote_id) }
+      # votes = @vote_array.map { |vote_id| Vote.find(vote_id) }
+      # vote_array.each do |vote_id|
+      # votes = Vote.includes(:proposal).where(id: @vote_array)
+      votes = Vote.includes(:proposal).where(id: @vote_array)
+      @proposals = []
+      votes.each do |vote|
+        @proposals << Proposal.find(vote.proposal_id)
+      end
+      # @proposals = Proposal.where(id: votes.proposal_id.to_i)
+      # end
+      # @votes = votes.includes(:proposal)
       if Rails.env.development?
-        render layout: false
+        render layout: false, json: @proposals
+        # render layout: false
       else
         render status: :forbidden
       end
