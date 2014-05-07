@@ -21,11 +21,13 @@ html
             table.content_page.msg-wrap
               tr
                 td
-                  h1 Notifications
-                  hr.hrule
+                  h1.title Notifications
                   /h3 Hi #{ @recipient.first_name },
+              /tr
+                td New votes on your proposal topics.
               tr
-                td There have been new votes on your proposal topics.
+                td
+                  hr.hrule
 
               - for hub in @hubs
                 tr
@@ -33,6 +35,7 @@ html
                     .proposal_hub
                       a.hub href='/proposals?hub=#{ hub.id }'
                         h2 #{ hub.group_name } &ndash; #{ hub.formatted_location }
+
                 - for prop in @props.where(hub_id: hub.id)
                   tr.proposal_container
                     td.main-proposal
@@ -43,10 +46,6 @@ html
                       .proposal_statement
                         h3
                           a href='/proposals/#{prop.id}' = prop.statement
-                    /tr
-                    /  td
-                    /    h4 New Supporters
-
                     tr
                       tr
                         td
@@ -55,10 +54,9 @@ html
                           tr
                             td
                               table.supporting_arguments
-                                - for vote in @votes.where(proposal_id: prop.id)
 
+                                - for vote in @votes.where(proposal_id: prop.id)
                                   tr.support_row
-                                    /here we need to loop for votes on that proposal
                                     td.proposal-person
                                       a.supporter-avatar href='/proposals?user=#{vote.user.id}'
                                         - if vote.facebook_auth
@@ -80,7 +78,3 @@ html
                 tr
                   td
                     hr.hrule
-
-                  /@votes[0].name
-
-                  /-#- taskp = TaskPresenter.new(@task, self)
