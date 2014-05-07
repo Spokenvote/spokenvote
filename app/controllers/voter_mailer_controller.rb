@@ -7,15 +7,22 @@ class VoterMailerController < ApplicationController
       # vote_array.each do |vote_id|
       # votes = Vote.includes(:proposal).where(id: @vote_array)
       votes = Vote.includes(:proposal).where(id: @vote_array)
-      @proposals = []
+      @prop_array = []
       votes.each do |vote|
-        @proposals << Proposal.find(vote.proposal_id)
+        @prop_array << vote.proposal.id
+      end
+      @props = Proposal.includes(:votes).where(id: @prop_array)
+      @votes = []
+      @props.each do |prop|
+        # @prop_array << prop.id
+        # @votes << prop.votes
+        @votes << prop.votes.where(id: @vote_array)
       end
       # @proposals = Proposal.where(id: votes.proposal_id.to_i)
       # end
       # @votes = votes.includes(:proposal)
       if Rails.env.development?
-        render layout: false, json: @proposals
+        render layout: false, json: @votes
         # render layout: false
       else
         render status: :forbidden
@@ -34,7 +41,8 @@ class VoterMailerController < ApplicationController
         end
     else
       @user_id = 44   # Likely need setup for dev's given test data
-      @vote_array = [98,19,31,36,39,69]
+      @vote_array = [74, 7]
+      # @vote_array = [74,7,12,10,11]
     end
   end
 end

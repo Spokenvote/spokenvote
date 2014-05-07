@@ -8,10 +8,10 @@ class ProposalsController < ApplicationController
 
     top_voted_proposal_ids = Proposal.top_voted_proposal_in_tree.map(&:id)
     proposals = Proposal.where(id: top_voted_proposal_ids)
-    # proposals = proposals.where(hub_id: @hub.id) if @hub
-    # proposals = proposals.where(user_id: @user.id) if @user
+    proposals = proposals.where(hub_id: @hub.id) if @hub
+    proposals = proposals.where(user_id: @user.id) if @user
     @proposals = proposals
-    # @proposals = proposals.includes(:hub)
+    @proposals = proposals.includes(:hub)
 
     filter = params[:filter] || 'active'
     if filter == 'active'
