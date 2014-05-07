@@ -9,6 +9,15 @@ Spokenvote::Application.configure do
   # Enable threaded mode
   #config.threadsafe!
 
+  ActionMailer::Base.smtp_settings = {
+      :port =>           '587',
+      :address =>        'smtp.mandrillapp.com',
+      :user_name =>      ENV['MANDRILL_USERNAME'],
+      :password =>       ENV['MANDRILL_APIKEY'],
+      :domain =>         'localhost:3000',
+      :authentication => :plain
+  }
+
   Premailer::Rails.config.merge!(base_url: 'http://staging.spokenvote.org/')
 
   # Full error reports are disabled and caching is turned on

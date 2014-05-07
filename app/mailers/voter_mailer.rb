@@ -3,8 +3,15 @@ class VoterMailer < ActionMailer::Base
 
   def vote_notification(user_id, vote_array)
     @recipient = User.find(user_id)
-    @votes = vote_array.map { |vote_id| Vote.find(vote_id) }
-    # attachments["bluefull.png"] = File.read("#{Rails.root}/app/assets/images/bluefull.png")
+    @votes = Vote.where(id: vote_array)
+    prop_array = []
+    hub_array = []
+    @votes.each do |vote|
+      prop_array << vote.proposal.id
+      hub_array << vote.proposal.hub_id
+    end
+    @props = Proposal.where(id: prop_array).order('votes_count DESC')
+    @hubs = Hub.where(id: hub_array)
     mail(to: "#{@recipient.name} <#{@recipient.email}>", subject: 'New votes have arrived on your topics!')
   end
 end
