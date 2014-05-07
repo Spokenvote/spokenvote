@@ -14,7 +14,7 @@ class VoterMailerController < ApplicationController
         @hub_array << vote.proposal.hub_id
       end
 
-      @props = Proposal.includes(:votes).where(id: @prop_array)
+      @props = Proposal.includes(:votes).where(id: @prop_array).order('votes_count DESC')
       @hubs = Hub.where(id: @hub_array)
       # @votes = []
       # @props.each do |prop|
