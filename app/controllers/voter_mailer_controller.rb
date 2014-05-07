@@ -7,15 +7,16 @@ class VoterMailerController < ApplicationController
       # vote_array.each do |vote_id|
       # votes = Vote.includes(:proposal).where(id: @vote_array)
       @votes = Vote.includes(:proposal).where(id: @vote_array)
-      @prop_array = []
-      @hub_array = []
+
+      prop_array = []
+      hub_array = []
       @votes.each do |vote|
-        @prop_array << vote.proposal.id
-        @hub_array << vote.proposal.hub_id
+        prop_array << vote.proposal.id
+        hub_array << vote.proposal.hub_id
       end
 
-      @props = Proposal.includes(:votes).where(id: @prop_array).order('votes_count DESC')
-      @hubs = Hub.where(id: @hub_array)
+      @props = Proposal.includes(:votes).where(id: prop_array).order('votes_count DESC')
+      @hubs = Hub.where(id: hub_array)
       # @votes = []
       # @props.each do |prop|
       #   # @prop_array << prop.id
@@ -36,7 +37,7 @@ class VoterMailerController < ApplicationController
 
   def organize_test_email
     notify_list = NotificationBuilder.key_value_crossover(NotificationBuilder.create_notify_list)
-    if notify_list.count > 0
+    if notify_list.count > 20
         single_list = []
         single_list << notify_list.first
         single_list.each do |user_id, vote_array|

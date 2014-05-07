@@ -36,7 +36,7 @@ html
                       a.hub href='/proposals?hub=#{ hub.id }'
                         h2 #{ hub.group_name } &ndash; #{ hub.formatted_location }
 
-                - for prop in @props.where(hub_id: hub.id)
+                - for prop in @props.where( hub_id: hub.id )
                   tr.proposal_container
                     td.main-proposal
                       .stats#big-percent
@@ -45,7 +45,7 @@ html
                           == render 'voter_mailer/social_buttons'
                       .proposal_statement
                         h3
-                          a href='/proposals/#{prop.id}' = prop.statement
+                          a href='/proposals/#{ prop.id }' = prop.statement
                     tr
                       tr
                         td
@@ -55,17 +55,17 @@ html
                             td
                               table.supporting_arguments
 
-                                - for vote in @votes.where(proposal_id: prop.id)
+                                - for vote in @votes.where( proposal_id: prop.id )
                                   tr.support_row
                                     td.proposal-person
-                                      a.supporter-avatar href='/proposals?user=#{vote.user.id}'
+                                      a.supporter-avatar href='/proposals?user=#{ vote.user.id }'
                                         - if vote.facebook_auth
                                           img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
                                         - else
                                           img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
                                     td.support-comment
                                       supporter-name
-                                        a href='/proposals?user=#{vote.user.id}' = vote.user.name
+                                        a href='/proposals?user=#{ vote.user.id }' = vote.user.name
                                         | &nbsp;
                                       supporter-text = vote.comment
                                       - if vote.updated_at > 10.months.ago               # Refactoring Candidate
