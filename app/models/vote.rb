@@ -62,7 +62,7 @@ class Vote < ActiveRecord::Base
   end
 
   def self.new_votes
-    last_check = 24.hours.ago
+    last_check = 1.hours.ago
     Vote.where("updated_at >= ?", last_check)
   end
 
