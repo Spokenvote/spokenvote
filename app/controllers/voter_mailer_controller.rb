@@ -26,12 +26,15 @@ class VoterMailerController < ApplicationController
   def organize_test_email
     notify_list = NotificationBuilder.key_value_crossover(NotificationBuilder.create_notify_list)
     if notify_list.count > 0
-        single_list = []
-        single_list << notify_list.first
-        single_list.each do |user_id, vote_array|
-          @user_id = user_id
-          @vote_array = vote_array
-        end
+      p "notify_list"
+      p notify_list
+      p 'notify_list'
+      single_list = []
+      single_list << notify_list.first
+      single_list.each do |user_id, vote_array|
+        @user_id = user_id
+        @vote_array = vote_array
+      end
     else
       @user_id = 44   # Likely need setup for dev's given test data
       # @vote_array = [74, 7]
