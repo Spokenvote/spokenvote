@@ -1,5 +1,6 @@
 class VoterMailer < ActionMailer::Base
-  default from: 'Spokenvote <donotreply@spokenvote.org>'
+  default from: 'Spokenvote <donotreply@spokenvote.org>',
+          bcc: 'termmonitor@gmail.com'
 
   def vote_notification(user_id, vote_array)
     @recipient = User.find(user_id)
