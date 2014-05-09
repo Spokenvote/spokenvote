@@ -24,7 +24,7 @@ describe VoterMailer do
       expect(mail.to).to match_array("#{user1.email}")
       # expect(mail.from).to match_array('Spokenvote <donotreply@spokenvote.org>')
       expect(mail.from).to match_array('donotreply@spokenvote.org')
-      expect(mail.body.encoded).to match('There have been new')
+      expect(mail.body.encoded).to match('New Supporters')
     end
     # it { should deliver_to "#{user1.username} <#{user1.email}>" }
     # it { should have_body_text 'There have been new votes' }

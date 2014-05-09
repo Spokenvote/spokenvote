@@ -10,6 +10,7 @@ class ProposalsController < ApplicationController
     proposals = Proposal.where(id: top_voted_proposal_ids)
     proposals = proposals.where(hub_id: @hub.id) if @hub
     proposals = proposals.where(user_id: @user.id) if @user
+    @proposals = proposals
     @proposals = proposals.includes(:hub)
 
     filter = params[:filter] || 'active'

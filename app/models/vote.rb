@@ -62,7 +62,7 @@ class Vote < ActiveRecord::Base
   end
 
   def self.new_votes
-    last_check = 24.hours.ago
+    last_check = 10.minutes.ago
     Vote.where("updated_at >= ?", last_check)
   end
 
@@ -71,7 +71,7 @@ class Vote < ActiveRecord::Base
     if self.proposal
       self.proposal.all_related_proposals.each do |proposal|
         proposal.votes.each do |vote|
-          if vote.created_at < self.created_at
+          if vote.updated_at < self.updated_at
             users_in_tree << vote.user_id
           end
         end
