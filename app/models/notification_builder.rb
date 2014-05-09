@@ -22,7 +22,7 @@ class NotificationBuilder < ApplicationController
         VoterMailer.vote_notification(user_id, vote_array).deliver
         p 'Sending test votes array.'
       else
-        p 'There are no new votes to notify users about today.'
+        p 'There are no new votes to notify users about.'
       end
     end
   end
