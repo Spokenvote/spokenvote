@@ -17,7 +17,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
               return
           if SessionSettings.openModals.supportProposal is false
             modalInstance = $modal.open
-              templateUrl: '/assets/proposals/_support_modal.html'
+              templateUrl: 'proposals/_support_modal.html'
               controller: 'SupportCtrl'
             modalInstance.opened.then ->
               SessionSettings.openModals.supportProposal = true
@@ -37,7 +37,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
 
           if SessionSettings.openModals.improveProposal is false
             modalInstance = $modal.open
-              templateUrl: '/assets/proposals/_improve_proposal_modal.html'
+              templateUrl: 'proposals/_improve_proposal_modal.html'
               controller: 'ImroveCtrl'
               scope: scope
             modalInstance.opened.then ->
@@ -53,7 +53,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
       else
         if SessionSettings.openModals.editProposal is false
           modalInstance = $modal.open
-            templateUrl: '/assets/proposals/_edit_proposal_modal.html'
+            templateUrl: 'proposals/_edit_proposal_modal.html'
             controller: 'EditProposalCtrl'
             scope: scope
           modalInstance.opened.then ->
@@ -69,7 +69,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
       else
         if SessionSettings.openModals.deleteProposal is false
           modalInstance = $modal.open
-            templateUrl: '/assets/proposals/_delete_proposal_modal.html'
+            templateUrl: 'proposals/_delete_proposal_modal.html'
             controller: 'DeleteProposalCtrl'
             scope: scope
           modalInstance.opened.then ->
@@ -89,7 +89,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
       else
         if SessionSettings.openModals.newProposal is false
           modalInstance = $modal.open
-            templateUrl: '/assets/proposals/_new_proposal_modal.html'
+            templateUrl: 'proposals/_new_proposal_modal.html'
             controller: 'NewProposalCtrl'
   #          scope: scope           # Passed in scope was getting clobbered, so letting it set to $rootscope
           modalInstance.opened.then ->
@@ -100,7 +100,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
     wizard: (scope) ->
       if SessionSettings.openModals.getStarted is false
         modalInstance = $modal.open
-          templateUrl: '/assets/shared/_get_started_modal.html'
+          templateUrl: 'shared/_get_started_modal.html'
           controller: 'GetStartedCtrl'
         #        scope: scope           # Passed in scope was getting clobbered, so letting it set to $rootscope
         modalInstance.opened.then ->
