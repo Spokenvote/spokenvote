@@ -22,6 +22,22 @@ Bundler.require(:default, Rails.env)
 module Spokenvote
   class Application < Rails::Application
 
+    config.assets.paths << Rails.root.join("app", "assets", "templates")
+
+    class HamlTemplate < Tilt::HamlTemplate
+      def prepare
+        @options = @options.merge :format => :html5
+        super
+      end
+    end
+
+    config.before_initialize do |app|
+      require 'sprockets'
+      Sprockets::Engines #force autoloading
+      Sprockets.register_engine '.haml', HamlTemplate
+    end
+
+
     config.i18n.enforce_available_locales = true
 
     # Settings in config/environments/* take precedence over those specified here.
