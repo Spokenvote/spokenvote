@@ -32,7 +32,7 @@ class Proposal < ActiveRecord::Base
   scope :top_voted_proposal_in_tree, lambda {
     top_voted_proposals = []
     Proposal.roots.each do |root_proposal|
-      sorted_list = root_proposal.self_and_descendants.sort { |p1, p2| p2.votes_count <=> p1.votes_count }
+      sorted_list = root_proposal.all_related_proposals.sort { |p1, p2| p2.votes_count <=> p1.votes_count }
       top_voted_proposals << sorted_list.first
     end
     top_voted_proposals.compact.uniq
@@ -42,14 +42,16 @@ class Proposal < ActiveRecord::Base
   has_ancestry
 
   def votes_in_tree
-    Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
-      [self.root, self.root.descendants].flatten.map(&:votes_count).sum
-    end
+    # Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
+    # Code above seemed to never expire as of Rails 4
+    # Proper cache should only cache when votes_in_tree > 100 or so
+    [self.root, self.root.descendants].flatten.map(&:votes_count).sum
+    # end
   end
 
-  def self_and_descendants
-    [self.root, self.root.descendants].flatten
-  end
+  # def self_and_descendants    # dupe of all_related_proposals
+  #   [self.root, self.root.descendants].flatten
+  # end
 
   def related_proposals(related_sort_by = 'Most Votes')
     all_proposals_in_tree = self.all_related_proposals

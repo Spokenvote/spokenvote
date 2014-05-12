@@ -5,6 +5,6 @@ namespace :votes_count_refresh do
     Proposal.all.each do |p|
       Proposal.reset_counters(p.id, :votes)
     end
-    pp "Proposal vote counts have been reset and refreshed"
+    puts "Proposal vote counts have been reset and refreshed"
   end
 end

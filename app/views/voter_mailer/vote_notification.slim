@@ -21,59 +21,60 @@ html
             table.content_page.msg-wrap
               tr
                 td
-                  h1 Notifications
-                  hr.hrule
+                  h1.title Notifications
                   /h3 Hi #{ @recipient.first_name },
+              /tr
+                td New votes on your proposal topics.
               tr
-                td There have been new votes on your proposal topics.
+                td
+                  hr.hrule
 
-              - for vote in @votes
+              - for hub in @hubs
                 tr
                   td
                     .proposal_hub
-                      a.hub href='/proposals?hub=#{vote.proposal.hub.id}'
-                        h2 #{ vote.proposal.hub.group_name } &ndash; #{ vote.proposal.hub.formatted_location }
-                tr.proposal_container
-                  td.main-proposal
-                    .stats#big-percent
-                      #big-percent #{ vote.proposal.votes_percentage }
-                      /.pull-right
-                        == render 'voter_mailer/social_buttons'
-                    .proposal_statement
-                      h3
-                        a href='/proposals/#{vote.proposal.id}' = vote.proposal.statement
-                  /tr
-                  /  td
-                  /    h4 New Supporters
+                      a.hub href='/proposals?hub=#{ hub.id }'
+                        h2 #{ hub.group_name } &ndash; #{ hub.formatted_location }
 
-                  tr
+                - for prop in @props.where( hub_id: hub.id )
+                  tr.proposal_container
+                    td.main-proposal
+                      .stats#big-percent
+                        #big-percent #{ prop.votes_percentage }
+                        /.pull-right
+                          == render 'voter_mailer/social_buttons'
+                      .proposal_statement
+                        h3
+                          a href='/proposals/#{ prop.id }' = prop.statement
                     tr
-                      td
-                        h4 New Supporters
-                      td
-                        tr
-                          td
-                            table.supporting_arguments
-                              tr.support_row
-                                /here we need to loop for votes on that proposal
-                                td.proposal-person
-                                  a.supporter-avatar href='/proposals?user=#{vote.user.id}'
-                                    - if vote.facebook_auth
-                                      img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
-                                    - else
-                                      img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
-                                td.support-comment
-                                  supporter-name
-                                    a href='/proposals?user=#{vote.user.id}' = vote.user.name
-                                    | &nbsp;
-                                  supporter-text = vote.comment
-                                  - if vote.updated_at > 10.months.ago               # Refactoring Candidate
-                                    .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
-                                  - elsif vote.updated_at > 16.months.ago
-                                    .supported_date = 'About a year ago'
-                                  - else
-                                    .supported_date = 'Over a year ago'
+                      tr
+                        td
+                          h4 New Supporters
+                        td
+                          tr
+                            td
+                              table.supporting_arguments
 
-                  /@votes[0].name
+                                - for vote in @votes.where( proposal_id: prop.id )
+                                  tr.support_row
+                                    td.proposal-person
+                                      a.supporter-avatar href='/proposals?user=#{ vote.user.id }'
+                                        - if vote.facebook_auth
+                                          img src="http://graph.facebook.com/#{ vote.facebook_auth }/picture?width=30&height=30"
+                                        - else
+                                          img src="http://gravatar.com/avatar/#{ vote.gravatar_hash }.png?s=30&d=http://www.spokenvote.com/assets/icons/sv-30.png"
+                                    td.support-comment
+                                      supporter-name
+                                        a href='/proposals?user=#{ vote.user.id }' = vote.user.name
+                                        | &nbsp;
+                                      supporter-text = vote.comment
+                                      - if vote.updated_at > 10.months.ago               # Refactoring Candidate
+                                        .supported_date = vote.updated_at.strftime("%b %e, %l:%M%P")
+                                      - elsif vote.updated_at > 16.months.ago
+                                        .supported_date = 'About a year ago'
+                                      - else
+                                        .supported_date = 'Over a year ago'
 
-                  /-#- taskp = TaskPresenter.new(@task, self)
+                tr
+                  td
+                    hr.hrule
