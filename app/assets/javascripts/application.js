@@ -24,6 +24,8 @@
 // require angular-strap
 // require angular-cookies
 
+//= require angular-rails-templates
+//= require_tree ../templates
 //= require ./angular/spokenvote
 //= require_tree ./angular
 

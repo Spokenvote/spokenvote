@@ -3,16 +3,16 @@
     .pull-right( class='close' ng-click='$close()' ) &times;
     %h2.modal-title Start New Topic
 
-    %ng-include( src="'/assets/shared/_selected_hub.html'" )
+    %ng-include( src="'shared/_selected_hub.html'" )
 
   .modal-body
-    %ng-include( src="'/assets/shared/_alert_container.html'" )
+    %ng-include( src="'shared/_alert_container.html'" )
 
     %form( name='newProposalForm' ng-submit='votingService.saveNewProposal(modalInstance)' )
       .newProposal
-        %ng-include( src="'/assets/shared/_change_hub.html'" )
-        %ng-include( src="'/assets/shared/_make_hub.html'" )
-        %ng-include( src="'/assets/shared/_proposal_area.html'" )
+        %ng-include( src="'shared/_change_hub.html'" )
+        %ng-include( src="'shared/_make_hub.html'" )
+        %ng-include( src="'shared/_proposal_area.html'" )
 
   .modal-footer
     %fieldset

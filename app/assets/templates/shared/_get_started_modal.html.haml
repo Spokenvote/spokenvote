@@ -6,10 +6,10 @@
     %h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - New Group
     %h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - New Topic
 
-    %ng-include( src="'/assets/shared/_selected_hub.html'" )
+    %ng-include( src="'shared/_selected_hub.html'" )
 
   .modal-body
-    %ng-include( src="'/assets/shared/_alert_container.html'" )
+    %ng-include( src="'shared/_alert_container.html'" )
 
     .instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
       %h3
@@ -31,9 +31,9 @@
 
     %form( name='newProposalForm' ng-submit='saveNewProposal()' )
       .newProposal
-        %ng-include( src="'/assets/shared/_change_hub.html'" )
-        %ng-include( src="'/assets/shared/_make_hub.html'" )
-        %ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'/assets/shared/_proposal_area.html'" )
+        %ng-include( src="'shared/_change_hub.html'" )
+        %ng-include( src="'shared/_make_hub.html'" )
+        %ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'shared/_proposal_area.html'" )
 
   .modal-footer
     %fieldset
