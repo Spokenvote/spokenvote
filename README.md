@@ -1,5 +1,5 @@
-<center>![Spokenvote Logo](http://cloud.github.com/downloads/railsforcharity/spokenvote/bluefull.png)</center>
-# Spokenvote [![Build Status](https://secure.travis-ci.org/railsforcharity/spokenvote.png)](http://travis-ci.org/railsforcharity/spokenvote)
+<center>![Spokenvote Logo](http://cloud.github.com/downloads/spokenvote/spokenvote/bluefull.png)</center>
+# Spokenvote [![Build Status](https://secure.travis-ci.org/spokenvote/spokenvote.png)](http://travis-ci.org/spokenvote/spokenvote)
 
 ## Introduction
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
@@ -18,7 +18,7 @@ The master instance work-in-progress instance is hosted <a href="http://spokenvo
 ## Getting started
 
 1. Setup your development environment. We recommend (develop and test) against ruby 2.1.1 or higher.
-2. Fork the <a href="https://github.com/railsforcharity/spokenvote" target="_blank">Spokenvote repo</a>.
+2. Fork the <a href="https://github.com/spokenvote/spokenvote" target="_blank">Spokenvote repo</a>.
 3. Clone your fork locally.
 4. Add the master repo as an upstream of yours (see instructions at https://help.github.com/articles/syncing-a-fork)
 
@@ -34,9 +34,9 @@ When doing a larger piece of work, such as the following, please use a feature/t
 The typical work flow for this is:
 
 ### One time setup
- - Add railsforcharity/spokenvote as your upstream using the command
+ - Add spokenvote/spokenvote as your upstream using the command
  ```
-  $ git remote add upstream https://github.com/railsforcharity/spokenvote.git
+  $ git remote add upstream https://github.com/spokenvote/spokenvote.git
  ```
 ### Before starting a new feature
  - Fetch upstream changes to your local git
@@ -90,10 +90,6 @@ If you would like your development environment to utilitze the Google Places API
       export GOOGLE_API_KEY="insert your key value here"
       ```
 
-## Rails for Charity Account
-
-Participation is managed through the task system at http://RailsForCharity.org. Please create an account for yourself on that site and either pick your work from the existing tasks or add new tasks that you'd like to work on and assign to yourself.
-
 ## License
 
 Spokenvote is a public good project distributed under the terms of either the MIT License or the GNU General
@@ -112,9 +108,9 @@ Q. Who is the intended audience for the Spokenvote web application?
 A: At first small groups who need to reach consensus (e.g. non-profits); eventually envisioned to work at the national political level
 
 ## Contributing
-Please see the <a href="https://github.com/railsforcharity/spokenvote/downloads/">current design wireframes here</a>.
+Please see the <a href="https://github.com/spokenvote/spokenvote/downloads/">current design wireframes here</a>.
 
 Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
 
 
-[logo]: https://github.com/railsforcharity/spokenvote/blob/master/app/assets/images/bluefull.png "Logo"
+[logo]: https://github.com/spokenvote/spokenvote/blob/master/app/assets/images/bluefull.png "Logo"
