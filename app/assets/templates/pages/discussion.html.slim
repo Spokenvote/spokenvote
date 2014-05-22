@@ -1,0 +1,10 @@
+section#forum_page
+  .page_title
+    .call_to_action Developer Discussion Forum
+
+  .forum_area
+    iframe#forum_embed frameborder="0" height="700" scrolling="no" src="javascript:void(0)" width="900"
+    javascript:
+      document.getElementById('forum_embed').src = 'https://groups.google.com/forum/embed/?place=forum/spokenvote-dev'
+        + '&showsearch=true&showpopout=true&showtabs=false' ,
+        + '&parenturl=' + encodeURIComponent(window.location.href);
