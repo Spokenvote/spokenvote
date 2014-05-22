@@ -47,7 +47,7 @@
           ul#user_profile.nav.navbar-nav.pull-right
             li.dropdown data-placement='bottom'
               a.dropdown-toggle data-toggle='dropdown'
-                b.white {{ currentUser.first_name || 'Learn' }}
+                b.white() {{ currentUser.first_name || 'Learn' }}
                 b.caret
 
               ul.dropdown-menu role="menu" aria-labelledby="dropdownMenu"
@@ -74,7 +74,7 @@
         .user_area.navbar-btn.col-xs-1
           .avatar.pull-right ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom'
             a href='/proposals?filter=my'
-              ng-include src="'/assets/shared/_currentuser_avatar.html'"
+              ng-include src="'shared/_currentuser_avatar.html'"
 
           .buttons.navbar-btn.pull-right ng-show='!currentUser.username'
             button ng-click='signinAuth()' class='btn btn-info btn-bold'  Sign In

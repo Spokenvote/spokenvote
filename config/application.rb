@@ -37,6 +37,7 @@ module Spokenvote
       Sprockets.register_engine '.haml', HamlTemplate
     end
 
+
     config.i18n.enforce_available_locales = true
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -46,7 +47,7 @@ module Spokenvote
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/app/services)
-  
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -89,7 +90,7 @@ module Spokenvote
     #config.assets.enabled = true   #Defaults True in Rails 4
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '2014.05.15'
 
     # Suggested by Bill 1/3/13: Between these lines and using @import statements in application.css.scss my JHTC app has no trouble on Heroku.
     #config.assets.precompile += ['application.scss.css', 'application.js']

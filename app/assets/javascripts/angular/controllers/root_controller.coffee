@@ -24,7 +24,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
 
     $scope.signinAuth = ->
       modalInstance = $modal.open
-        templateUrl: '/assets/user/_auth_intro_modal.html'
+        templateUrl: 'user/_auth_intro_modal.html'
         windowClass: 'dialog-sm'
       #controller: 'UserSettingsCtrl'
 #      modalInstance.opened.then ->
@@ -38,7 +38,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
     $scope.userSettings = ->
       if SessionSettings.openModals.userSettings is false
         modalInstance = $modal.open
-          templateUrl: '/assets/user/_settings_modal.html'
+          templateUrl: 'user/_settings_modal.html'
           controller: 'UserSettingsCtrl'
         modalInstance.opened.then ->
           SessionSettings.openModals.userSettings = true
@@ -101,7 +101,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
 #              $scope
 #        d = $dialog.dialog(opts)
 #        SessionSettings.openModals.signIn = true
-#        d.open('/assets/shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
+#        d.open('shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
 #          SessionSettings.openModals.signIn = d.isOpen()
 #
 #    $scope.registerModal = ->       # $dialog.dialog no longer supported, must be updated to be used.
@@ -112,7 +112,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
 #              $scope
 #        d = $dialog.dialog(opts)
 #        SessionSettings.openModals.register = true
-#        d.open('/assets/shared/_registration_modal.html', 'RegistrationCtrl').then (result) ->
+#        d.open('shared/_registration_modal.html', 'RegistrationCtrl').then (result) ->
 #          SessionSettings.openModals.register = d.isOpen()
 #
 #    $scope.omniauthSession = SessionService.userOmniauth

@@ -7,23 +7,23 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
   $routeProvider
     .when '/',
-      templateUrl: '/assets/pages/landing.html'
+      templateUrl: 'pages/landing.html'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
-      templateUrl: '/assets/pages/landing.html'
+      templateUrl: 'pages/landing.html'
 
     .when '/proposals',
-      templateUrl: '/assets/proposals/index.html'
+      templateUrl: 'proposals/index.html'
       controller: 'ProposalListCtrl'
       resolve:
         proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
           MultiProposalLoader()
         ]
     .when '/proposals/:proposalId',
-      templateUrl: '/assets/proposals/show.html'
+      templateUrl: 'proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
         proposal: [ 'ProposalLoader', (ProposalLoader) ->
@@ -40,13 +40,13 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         ]
 
     .when '/about',
-      templateUrl: '/assets/pages/about.html'
+      templateUrl: 'pages/about.html'
 
     .when '/terms-of-use',
-      templateUrl: '/assets/pages/terms-of-use.html'
+      templateUrl: 'pages/terms-of-use.html'
 
     .when '/privacy',
-      templateUrl: '/assets/pages/privacy.html'
+      templateUrl: 'pages/privacy.html'
 
     .otherwise
       template: '<h3>Whoops, page not found</h3>'
@@ -65,7 +65,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'spokenvote.templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
