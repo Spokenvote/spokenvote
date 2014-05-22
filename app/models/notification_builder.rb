@@ -4,7 +4,7 @@ class NotificationBuilder < ApplicationController
     notify_list = self.key_value_crossover(self.create_notify_list)
     notify_list = self.check_preferences(notify_list)
     if notify_list.count > 0
-      if Rails.env.development? # We might take this out for some testing where all the emails are needed.
+      if Rails.env.development? and 1 == 2# We might take this out for some testing where all the emails are needed.
         single_list = []
         single_list << notify_list.first
         single_list.each do |user_id, vote_array|
