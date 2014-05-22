@@ -99,7 +99,7 @@ See GPL-LICENSE and MIT-LICENSE for details.
 
 ## Developers
 
-This project is an open source project of Spokenvote.org, supported in large measure by the efforts of RailsForCharity.org.
+This project is an open source project of Spokenvote.org, having received significant support from RailsForCharity.org.
 
 ## FAQ
 

@@ -20,6 +20,6 @@ bundler_args: --without development
 notifications:
   email:
     recipients:
-      - railsforcharity-spokenvote@googlegroups.com
+      - spokenvote-dev@googlegroups.com
     on_success: change
     on_failure: always
