@@ -30,9 +30,12 @@ Spokenvote::Application.configure do
 
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
-    :address =>        'smtp.mandrillapp.com',
-    :user_name =>      ENV['MANDRILL_USERNAME'],
-    :password =>       ENV['MANDRILL_APIKEY'],
+    :address =>        ENV['MAIL_ADDRESS'],
+    # :address =>        'smtp.mandrillapp.com',
+    :user_name =>      ENV['MAIL_USERNAME'],
+    # :user_name =>      ENV['MANDRILL_USERNAME'],
+    :password =>       ENV['MAIL_PASSWORD'],
+    # :password =>       ENV['MANDRILL_APIKEY'],
     :domain =>         'localhost:3000',
     :authentication => :plain
   }
