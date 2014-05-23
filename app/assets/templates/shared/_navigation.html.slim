@@ -59,17 +59,22 @@
                   / Angular should ignore this route and not try to handle it since it has target='_self'
                   a href='/admin' ng-show='currentUser["is_admin?"]' target='_blank'  Admin
                 li
-                  a class="divider" ng-show='currentUser.username'
+                  a class='divider' ng-show='currentUser.username'
                 li
                   a href='#' ng-click='signOut()' ng-show='currentUser.username'  Sign Out
                 li
-                  a class="divider" ng-show='currentUser.username'
+                  a class='divider' ng-show='currentUser.username'
                 li
-                  a href='/about'  About this site
+                  a href='/user-forum' User Forum
+                li
+                  a href='/dev-forum' Developer Forum
+                li
+                  a href='http://spokenvote.github.io/spokenvote/' Github Page
+                li
+                  a class='divider'
                 li
                   a href='/terms-of-use'  Terms of Use
-                li
-                  a href='http://railsforcharity.github.io/spokenvote/'  Developers
+
 
         .user_area.navbar-btn.col-xs-1
           .avatar.pull-right ng-show='currentUser.facebook_auth || currentUser.gravatar_hash' ng-href='/proposals?filter=my'  tooltip='{{currentUser.username}}' tooltip-placement='bottom'

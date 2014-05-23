@@ -39,8 +39,11 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           CurrentUserLoader()
         ]
 
-    .when '/about',
-      templateUrl: 'pages/about.html'
+    .when '/user-forum',
+      templateUrl: 'pages/user-forum.html'
+
+    .when '/dev-forum',
+      templateUrl: 'pages/dev-forum.html'
 
     .when '/terms-of-use',
       templateUrl: 'pages/terms-of-use.html'
