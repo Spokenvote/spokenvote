@@ -49,15 +49,19 @@
   %li
     .hr
   %li
-    %a.category-links( href='/about' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
-      .fa.fa-pagelines
-      %span About Spokenvote
+    %a.category-links( href='/user-forum' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
+      .fa.fa-comments
+      %span User Forum
+  %li
+    %a.category-links( href='/dev-forum' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
+      .fa.fa-stack-overflow
+      %span Developer Forum
   %li
     .hr
   %li
     %a.category-links( href='http://spokenvote.github.io/spokenvote/' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
       .fa.fa-github
-      %span Developers
+      %span Github Page
   %li.category-links
     .hr
   %li
