@@ -68,7 +68,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
