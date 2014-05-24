@@ -1,0 +1,13 @@
+#loading-bar .bar {
+  background: $happy-blue;
+}
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  $happy-blue;
+  border-left-color: $happy-blue;
+}
+#loading-bar .peg {
+  -moz-box-shadow: $happy-blue 1px 0 6px 1px;
+  -ms-box-shadow: $happy-blue 1px 0 6px 1px;
+  -webkit-box-shadow: $happy-blue 1px 0 6px 1px;
+  box-shadow: $happy-blue 1px 0 6px 1px;
+}
