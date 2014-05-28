@@ -45,6 +45,15 @@
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
+  .fade_panel {
+    transition: 1.75s ease-in-out all;
+    opacity: 1;
+
+  }
+  .fade_panel.ng-enter {
+    opacity: 0;
+  }
+
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);

@@ -26,7 +26,7 @@
     .clearfix
 
   .listing-proposals
-    %ul( ng-repeat='proposal in proposals' )
+    %ul.fade_panel( ng-repeat='proposal in proposals' )
       %li.tree_container( ng-click='showProposal(proposal)' )
         .topic.row
           .list-avatar.col-xs-1

@@ -91,7 +91,7 @@ end
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm', '3.5.5.38'
-  gem "airbrake"
+  gem 'airbrake'
   gem 'prerender_rails'
   gem 'fog'
   gem 'ngmin-rails', '~> 0.4.0'
