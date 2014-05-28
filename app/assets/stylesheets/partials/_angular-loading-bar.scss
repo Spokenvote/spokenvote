@@ -1,12 +1,29 @@
 #loading-bar .bar {
   background: $happy-blue;
 //  background: $spring-green;
+//  opacity: .85;
   height: 4px;
   border-bottom-right-radius: 2px;
   border-top-right-radius: 2px;
 }
 
+#loading-bar .peg {
+//  -moz-box-shadow: $happy-blue 1px 0 6px 1px;
+//  -ms-box-shadow: $happy-blue 1px 0 6px 1px;
+//  -webkit-box-shadow: $happy-blue 1px 0 6px 1px;
+  box-shadow: $spring-green 1px 0 6px 1px;
+}
+
 #loading-bar-spinner {
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+  height:100%;
+  width:100%;
+  cursor: not-allowed;
+  filter: alpha(opacity=60);
+  opacity: 0.6;
+
   display: block;
   position: fixed;
   z-index: 2000;
@@ -15,18 +32,12 @@
 }
 
 #loading-bar-spinner .spinner-icon {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
 
   border:  solid 4px transparent;
-  border-radius: 30px;
+  border-radius: 35px;
 
   border-top-color:  $happy-blue;
   border-left-color: $happy-blue;
-}
-#loading-bar .peg {
-  -moz-box-shadow: $happy-blue 1px 0 6px 1px;
-  -ms-box-shadow: $happy-blue 1px 0 6px 1px;
-  -webkit-box-shadow: $happy-blue 1px 0 6px 1px;
-  box-shadow: $happy-blue 1px 0 6px 1px;
 }
