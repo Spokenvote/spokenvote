@@ -4,7 +4,7 @@
 .panel {
   padding: 10px;
   margin: 0;
-  background-color: #e5e5e5;
+  background-color: $panel-background;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
   border: 1px solid #c8c8c8;
   border-color: rgba(0,0,0,0.2);
@@ -16,7 +16,7 @@
     font-size: .65em;
     input {
       color: $chisel-grey;
-      background-color: #e5e5e5;
+      background-color: $panel-background;
       border-style: solid;
       border-width: thin;
     }
