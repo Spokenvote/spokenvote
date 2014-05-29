@@ -12,6 +12,15 @@
   button {
     font-size: .5em;
   }
+  .list-filter {
+    font-size: .65em;
+    input {
+      color: $chisel-grey;
+      background-color: #e5e5e5;
+      border-style: solid;
+      border-width: thin;
+    }
+  }
 }
 
 .proposal_hub {
@@ -45,11 +54,35 @@
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
-  .fade_panel {
-    transition: 1.75s ease-in-out all;
+  .tree_container {
+//    opacity:0;
+    line-height:40px;
+    list-style:none;
+    box-sizing:border-box;
+    transition: 0.75s ease-in-out all;
   }
-  .fade_panel.ng-enter {
-    opacity: 0;
+  .tree_container.ng-move,
+  .tree_container.ng-enter,
+  .tree_container.ng-leave {
+//    opacity: 0;
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+  }
+
+  .tree_container.ng-leave.ng-leave-active,
+  .tree_container.ng-move,
+  .tree_container.ng-enter {
+    opacity:0;
+    max-height:0;
+  }
+
+  .tree_container.ng-leave,
+  .tree_container.ng-move.ng-move-active,
+  .tree_container.ng-enter.ng-enter-active {
+    opacity:1;
+    transition-delay: 0.5s;
+
+    max-height:40px;
   }
 
 //  .fade_panel.ng-enter-active {
@@ -81,7 +114,6 @@
     }
   }
   li.tree_container {
-    //    line-height: 25px;
     border-bottom: 1px solid $rowRuler;
     padding: 0px 10px;
     @media (min-width: $screen-sm-min) {
