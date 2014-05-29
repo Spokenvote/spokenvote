@@ -64,9 +64,9 @@
   .tree_container.ng-move,
   .tree_container.ng-enter,
   .tree_container.ng-leave {
-//    opacity: 0;
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+    opacity: 0;
+//    -webkit-transition:all linear 0.5s;
+//    transition:all linear 0.5s;
   }
 
   .tree_container.ng-leave.ng-leave-active,
@@ -81,11 +81,10 @@
   .tree_container.ng-enter.ng-enter-active {
     opacity:1;
     transition-delay: 0.5s;
-
     max-height:40px;
   }
 
-//  .fade_panel.ng-enter-active {
+//  .tree_container.ng-enter-active {
 //    opacity: 1;
 //    transition-delay: 0.5s;
 //  }
