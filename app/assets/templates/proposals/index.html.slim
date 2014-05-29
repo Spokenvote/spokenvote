@@ -9,7 +9,6 @@ section#homepage
             span( class='tag_item' )
               span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
               .fa.fa-times
-              -#span( class='close_x' ) &times;
             span &nbsp
         .list-filter
           input( type='search' ng-model='q' placeholder="Filter Proposal List" )
