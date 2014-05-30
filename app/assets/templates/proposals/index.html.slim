@@ -12,6 +12,10 @@ section#homepage
             span &nbsp
         .list-filter
           input( type='search' ng-model='q' placeholder="Filter Proposal List" )
+          #proposalsLoading( ng-show='proposalsLoading' )
+            /.col-xs-12.col-xs-offset-1
+            h3
+              span Loading Proposals, please wait.
 
       h3.btn-group.pull-right
         button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
@@ -25,8 +29,8 @@ section#homepage
           span &nbsp Recent
     .clearfix
 
-  ul.listing-proposals
-    li.tree_container( ng-repeat='proposal in proposals | filter:q' ng-click='showProposal(proposal)' )
+  .listing-proposals
+    .tree_container( ng-repeat='proposal in proposals | filter:q' ng-click='showProposal(proposal)' )
       .topic.row
         .list-avatar.col-xs-1
           .avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:4" )
@@ -51,12 +55,12 @@ section#homepage
           .last_date.row
             .date-stamp.col-xs-12 {{ proposal.updated_at }}
 
-  #proposalNotFound
+  #proposalNotFound( ng-show='!proposals[0] && !proposalsLoading' )
     .col-xs-7 &nbsp;
     .col-xs-5
-      Don't see the topic you're looking for?
-      a( id='makeProposalLink' href='#' ng-click='newTopic()' ) Start a New Topic
-    .col-xs-12.col-xs-offset-1( ng-show='!proposals[0]' )
+      .div Don't see the topic you're looking for?
+      .div a( id='makeProposalLink' href='#' ng-click='newTopic()' ) Start a New Topic
+    .col-xs-12.col-xs-offset-1
       h3
         span No {{ filterSelection | inflector:humanize }} topics
         span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}

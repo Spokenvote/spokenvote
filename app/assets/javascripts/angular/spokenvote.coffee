@@ -18,10 +18,10 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when '/proposals',
       templateUrl: 'proposals/index.html'
       controller: 'ProposalListCtrl'
-      resolve:
-        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
-          MultiProposalLoader()
-        ]
+#      resolve:
+#        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
+#          MultiProposalLoader()
+#        ]
     .when '/proposals/:proposalId',
       templateUrl: 'proposals/show.html'
       controller: 'ProposalShowCtrl'
