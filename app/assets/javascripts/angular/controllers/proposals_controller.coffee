@@ -1,19 +1,11 @@
-ProposalListCtrl = [ '$http', '$scope', '$routeParams', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
-  ($http, $scope, $routeParams, $location, MultiProposalLoader, SpokenvoteCookies) ->
+ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
+  ( $scope, $routeParams, $location, MultiProposalLoader, SpokenvoteCookies ) ->
     $scope.proposalsLoading = true
     MultiProposalLoader().then (proposals) ->
       $scope.proposals = proposals
       $scope.proposalsLoading = false
-    #    $scope.posts = proposals
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
-
-#    $http.jsonp("http://www.reddit.com/r/" + "cats" + ".json?limit=50&jsonp=JSON_CALLBACK").success (data) ->
-#      $scope.posts = data.data.children
-
-    $scope.fetch = ->                                #Testing to be removed + http above
-      MultiProposalLoader().then (proposals) ->
-        $scope.posts = proposals
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
