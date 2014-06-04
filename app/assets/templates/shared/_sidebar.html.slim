@@ -1,0 +1,84 @@
+ul( ng-controller='SidebarCtrl' role='menu' )
+  li
+    a.action-links
+      .fa.fa-file-text-o
+      span( ng-click='newTopic();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' tooltip='{{tooltips.newTopic}}' tooltip-placement='bottom' ) Start a new topic
+
+  li
+    accordion( close-others='oneAtATime' )
+      accordion-group( is-open='isopen' )
+        accordion-heading
+          a.action-links
+            .fa.fa-filter
+            span( ng-show='isopen' ) Topic filter
+            span( ng-hide='isopen' ) Filter: {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
+
+        ul.action-links
+          li( type='button' ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}" )
+            .fa.sub.fa-check-square-o
+            | My Votes
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'my'}" )
+          li( type='button' ng-click="setFilter('active');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'active'}" )
+            .fa.sub.fa-tachometer
+            | Active
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'active'}" )
+          li( type='button' ng-click="setFilter('new');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-class="{'active': sessionSettings.routeParams.filter == 'new'}" )
+            .fa.sub.fa-clock-o
+            | Recent
+            .fa.pull-right( ng-class="{'fa-flag-o': sessionSettings.routeParams.filter == 'new'}" )
+
+  li( href='#' ng-click='userSettings();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username' )
+    a.action-links
+      .fa.fa-wrench
+      | Settings
+  li( href='#' ng-click='signinAuth();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='!currentUser.username' )
+    a.action-links
+      .fa.fa-sign-in
+      | Sign in
+  li( href='#' ng-click='signOut();sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' ng-show='currentUser.username' )
+    a.action-links
+      .fa.fa-sign-out
+      | Sign out
+  li( ng-show='currentUser["is_admin?"]' )
+    a.action-links( href='/admin' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
+      .fa.fa-cogs
+      | Admin
+
+  li
+    .hr
+
+  li
+    accordion( close-others='oneAtATime' )
+      accordion-group( is-open='isopen' )
+        accordion-heading
+          a.action-links
+            .fa.fa-group
+            | Community
+        ul.action-links
+          li
+            a.category-links( href='/user-forum' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
+              .fa.fa-comments
+              | User Forum
+          li
+            a.category-links( href='/dev-forum' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
+              .fa.fa-stack-overflow
+              | Developer Forum
+          li
+            a.category-links( href='https://github.com/Spokenvote/spokenvote/issues?state=open' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas')
+              .fa.fa-bug
+              | Open Issues
+
+  li
+    .hr
+
+  li
+    a.category-links( href='http://spokenvote.github.io/spokenvote/' target='_blank' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
+      .fa.fa-github
+      | Github Page
+  li.category-links
+    .hr
+  li
+    a.category-links( href='/terms-of-use' ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' )
+      .fa.fa-bell-o
+      | Terms of use
+

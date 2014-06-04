@@ -56,7 +56,6 @@
                 li
                   a href='#' ng-click='userSettings()'  ng-show='currentUser.username'  Settings
                 li
-                  / Angular should ignore this route and not try to handle it since it has target='_self'
                   a href='/admin' ng-show='currentUser["is_admin?"]' target='_blank'  Admin
                 li
                   a class='divider' ng-show='currentUser.username'
@@ -65,9 +64,13 @@
                 li
                   a class='divider' ng-show='currentUser.username'
                 li
-                  a href='/user-forum' User Forum
+                  a href='/user-forum' target='_blank' User Forum
                 li
-                  a href='/dev-forum' Developer Forum
+                  a href='/dev-forum' target='_blank' Developer Forum
+                li
+                  a href='https://github.com/Spokenvote/spokenvote/issues?state=open' target='_blank' Open Issues
+                li
+                  a class='divider'
                 li
                   a href='http://spokenvote.github.io/spokenvote/' Github Page
                 li
