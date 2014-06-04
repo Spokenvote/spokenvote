@@ -80,7 +80,7 @@ App.Directives = angular.module('spokenvote.directives', [])
 
 #Global Debug Functions
 window.getSrv = (name, element) ->        # angular.element(document).injector() to get the current app injector
-  element = element or "*[ng-app]"
+  element = element or "*[ng-app]"        # so, getSrv exposes the injector
   angular.element(element).injector().get name
 
 window.getScope = (element) ->        # to get the current scope for the element

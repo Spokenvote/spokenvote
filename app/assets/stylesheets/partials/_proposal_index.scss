@@ -237,34 +237,22 @@
   }
 }
 
-#proposalNotFound div {
-  margin-left: 0;
-}
-
-#proposalsLoading {
+.proposalsLoading {
   transition: 0.75s ease-in-out all;
   visibility: visible;
   opacity: 1;
-
 }
 
-#proposalNotFound div:last-child {
-  background-color: #e4e4e4;
-  text-align: center;
-  padding: 3px 10px;
-  -webkit-border-radius: 4px;
+.proposalFooter {
+  .dont-seeit {
+    text-align: right;
+    background-color: #e4e4e4;
+    padding: 3px 10px;
+    -webkit-border-radius: 4px;
+  }
+
+  .no-proposals {
+    text-align: center;
+  }
 }
 
-
-// Depreciated
-
-//.support_container {
-//  @extend .no-gutter;
-//  background: #ddd;
-//  padding: 10px;
-//  margin-bottom: 20px;
-//  h3 {
-//    line-height: normal;
-//    margin-top: 0;
-//  }
-//}
