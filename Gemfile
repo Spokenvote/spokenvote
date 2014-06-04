@@ -54,6 +54,7 @@ gem 'uglifier', '>= 2.4.0'
 
 # Angular
 gem 'angular-rails-templates', '~> 0.1.1'
+gem 'angular-loading-bar-rails'
 
 group :development do
   gem 'taps', :require => false
@@ -90,7 +91,7 @@ end
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm', '3.5.5.38'
-  gem "airbrake"
+  gem 'airbrake'
   gem 'prerender_rails'
   gem 'fog'
   gem 'ngmin-rails', '~> 0.4.0'

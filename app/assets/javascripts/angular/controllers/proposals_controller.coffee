@@ -1,6 +1,9 @@
-ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'proposals', 'SpokenvoteCookies',
-  ($scope, $routeParams, $location, proposals, SpokenvoteCookies) ->
-    $scope.proposals = proposals
+ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
+  ( $scope, $routeParams, $location, MultiProposalLoader, SpokenvoteCookies ) ->
+    $scope.proposalsLoading = true
+    MultiProposalLoader().then (proposals) ->
+      $scope.proposals = proposals
+      $scope.proposalsLoading = false
     $scope.spokenvoteSession = SpokenvoteCookies
     $scope.sessionSettings.actions.detailPage = false
 

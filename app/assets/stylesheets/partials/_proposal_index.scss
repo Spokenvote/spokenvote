@@ -4,13 +4,22 @@
 .panel {
   padding: 10px;
   margin: 0;
-  background-color: #e5e5e5;
+  background-color: $panel-background;
   background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
   border: 1px solid #c8c8c8;
   border-color: rgba(0,0,0,0.2);
   border-radius: 5px;
   button {
     font-size: .5em;
+  }
+  .list-filter {
+    font-size: .65em;
+    input {
+      color: $chisel-grey;
+      background-color: $panel-background;
+      border-style: solid;
+      border-width: thin;
+    }
   }
 }
 
@@ -38,13 +47,70 @@
   }
   .header {
     background-color: #e5e5e5;
-    background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+    background-image: -webkit-linear-gradient(top, #f6f6f6 0%, #e5e5e5 100%);
     padding: 12px 10px 10px 10px;
   }
 }
 
 .listing-proposals {
   -webkit-border-bottom-left-radius: 4px;
+//  list-style: none;
+//    margin-top: -12px;
+  margin-bottom: 0;
+  padding: 0px 0px 0px 0px;
+  .tree_container {
+    -webkit-transition: 0.75s ease-in-out all;
+    -moz-transition: 0.75s ease-in-out all;
+    -o-transition: 0.75s ease-in-out all;
+    transition: 0.75s ease-in-out all;
+
+    border-bottom: 1px solid $rowRuler;
+    padding: 0px 10px;
+    @media (min-width: $screen-sm-min) {
+      padding: 0px 25px;
+    }
+
+    margin-bottom: 0;
+//    padding: 0px 0px 0px 0px;
+    :hover {
+      background-color: $rowHighlight;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+//    list-style:none;
+    //    opacity: 1;
+    box-sizing:border-box;
+
+  }
+//  .tree_container.ng-move,
+//  .tree_container.ng-leave,
+  .tree_container.ng-enter {
+//    -webkit-transition:all linear 2.5s;
+//    transition: all linear 2.5s;
+  }
+
+//  .tree_container.ng-leave.ng-leave-active,
+//  .tree_container.ng-move,
+  .tree_container.ng-enter  {
+  //    transition: all linear 2.5s;
+    opacity: 0;
+    max-height: 0;
+  }
+
+//  .tree_container.ng-leave,
+//  .tree_container.ng-move.ng-move-active,
+  .tree_container.ng-enter.ng-enter-active {
+//    opacity:1;
+//    transition-delay: 2.5s;
+//    max-height:40px;
+  }
+
+  .tree_container.ng-enter-active {
+    opacity: 1;
+    transition-delay: 1.5s;
+  }
+
   .header {
     background-color: #e5e5e5;
     background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
@@ -57,25 +123,24 @@
   .btn-group {
     padding: 5px 0 8px 0px;
   }
-  ul {
-    list-style: none;
-    //    margin-top: -12px;
-    margin-bottom: 0;
-    padding: 0px 0px 0px 0px;
-    :hover {
-      background-color: $rowHighlight;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  }
-  li.tree_container {
-    //    line-height: 25px;
-    border-bottom: 1px solid $rowRuler;
-    padding: 0px 10px;
-    @media (min-width: $screen-sm-min) {
-      padding: 0px 25px;
-    }
-  }
+//  ul {                                 #Removed UL / LI
+//    list-style: none;
+//    //    margin-top: -12px;
+//    margin-bottom: 0;
+//    padding: 0px 0px 0px 0px;
+//    :hover {
+//      background-color: $rowHighlight;
+//      border-radius: 10px;
+//      cursor: pointer;
+//    }
+//  }
+//  li.tree_container {
+//    border-bottom: 1px solid $rowRuler;
+//    padding: 0px 10px;
+//    @media (min-width: $screen-sm-min) {
+//      padding: 0px 25px;
+//    }
+//  }
 
   .topic {
     padding: 10px 7px 5px 7px;
@@ -172,27 +237,22 @@
   }
 }
 
-#proposalNotFound div {
-  margin-left: 0;
+.proposalsLoading {
+  transition: 0.75s ease-in-out all;
+  visibility: visible;
+  opacity: 1;
 }
 
-#proposalNotFound div:last-child {
-  background-color: #e4e4e4;
-  text-align: center;
-  padding: 3px 10px;
-  -webkit-border-radius: 4px;
+.proposalFooter {
+  .dont-seeit {
+    text-align: right;
+    background-color: #e4e4e4;
+    padding: 3px 10px;
+    -webkit-border-radius: 4px;
+  }
+
+  .no-proposals {
+    text-align: center;
+  }
 }
 
-
-// Depreciated
-
-//.support_container {
-//  @extend .no-gutter;
-//  background: #ddd;
-//  padding: 10px;
-//  margin-bottom: 20px;
-//  h3 {
-//    line-height: normal;
-//    margin-top: 0;
-//  }
-//}

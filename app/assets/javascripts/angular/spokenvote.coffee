@@ -18,10 +18,10 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when '/proposals',
       templateUrl: 'proposals/index.html'
       controller: 'ProposalListCtrl'
-      resolve:
-        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
-          MultiProposalLoader()
-        ]
+#      resolve:                                  # Loading in the controller now
+#        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
+#          MultiProposalLoader()
+#        ]
     .when '/proposals/:proposalId',
       templateUrl: 'proposals/show.html'
       controller: 'ProposalShowCtrl'
@@ -68,7 +68,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote', [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
@@ -80,7 +80,7 @@ App.Directives = angular.module('spokenvote.directives', [])
 
 #Global Debug Functions
 window.getSrv = (name, element) ->        # angular.element(document).injector() to get the current app injector
-  element = element or "*[ng-app]"
+  element = element or "*[ng-app]"        # so, getSrv exposes the injector
   angular.element(element).injector().get name
 
 window.getScope = (element) ->        # to get the current scope for the element
