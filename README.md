@@ -1,5 +1,5 @@
-<center>![Spokenvote Logo](http://cloud.github.com/downloads/spokenvote/spokenvote/bluefull.png)</center>
-# Spokenvote [![Build Status](https://secure.travis-ci.org/spokenvote/spokenvote.png)](http://travis-ci.org/spokenvote/spokenvote)
+<center>![Spokenvote Logo](https://raw.github.com/Spokenvote/spokenvote/blob/master/app/assets/images/spokenvote-logo-x3.png)</center>
+# Spokenvote [![Build Status](https://travis-ci.org/Spokenvote/spokenvote.svg?branch=master)]
 
 ## Introduction
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
@@ -108,7 +108,6 @@ Q. Who is the intended audience for the Spokenvote web application?
 A: At first small groups who need to reach consensus (e.g. non-profits); eventually envisioned to work at the national political level
 
 ## Contributing
-Please see the <a href="https://github.com/spokenvote/spokenvote/downloads/">current design wireframes here</a>.
 
 Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
 
