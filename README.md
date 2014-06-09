@@ -110,8 +110,5 @@ A: At first small groups who need to reach consensus (e.g. non-profits); eventua
 
 Please ensure you read [the future] STYLE_GUIDELINES before making any contribution to this project.
 
-
-[logo]: https://github.com/spokenvote/spokenvote/blob/master/app/assets/images/bluefull.png "Logo"
 [logo]: https://github.com/spokenvote/spokenvote/blob/master/app/assets/images/spokenvote_logomeg.png "Logo"
-[logo]: /app/assets/images/spokenvote_logomeg.png "Logo"
 ![Spokenvote Logo](/app/assets/images/spokenvote_logomeg.png)
