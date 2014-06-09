@@ -1,5 +1,4 @@
-
-# ![Spokenvote Logo](/app/assets/images/spokenvote_logomeg.png) Spokenvote ![Build Status](https://travis-ci.org/Spokenvote/spokenvote.svg?branch=master)
+# Spokenvote ![Build Status](https://travis-ci.org/Spokenvote/spokenvote.svg?branch=master)
 
 ## Introduction
 Spokenvote.org is a Web-based social consensus tool for groups of any size, from a local school board to an entire nation’s people, that radically enhances the group’s ability to reach consensus via an intuitive democratic process. Deeply inspired by Wikipedia, Spokenvote is an open-source, non-profit “spark” project that we hope will set off a cascade of change all the way through national politics.
@@ -113,3 +112,6 @@ Please ensure you read [the future] STYLE_GUIDELINES before making any contribut
 
 
 [logo]: https://github.com/spokenvote/spokenvote/blob/master/app/assets/images/bluefull.png "Logo"
+[logo]: https://github.com/spokenvote/spokenvote/blob/master/app/assets/images/spokenvote_logomeg.png "Logo"
+[logo]: /app/assets/images/spokenvote_logomeg.png "Logo"
+![Spokenvote Logo](/app/assets/images/spokenvote_logomeg.png)
