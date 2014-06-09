@@ -1,4 +1,4 @@
-<center>![Spokenvote Logo](/app/assets/images/spokenvote-logo-x3.png)</center>
+![Spokenvote Logo](/app/assets/images/spokenvote_logomeg.png)
 # Spokenvote ![Build Status](https://travis-ci.org/Spokenvote/spokenvote.svg?branch=master)
 
 ## Introduction
