@@ -1,4 +1,4 @@
-<center>![Spokenvote Logo](https://raw.github.com/Spokenvote/spokenvote/blob/master/app/assets/images/spokenvote-logo-x3.png)</center>
+<center>![Spokenvote Logo](https://raw.github.com/Spokenvote/spokenvote/master/app/assets/images/spokenvote-logo-x3.png)</center>
 # Spokenvote ![Build Status](https://travis-ci.org/Spokenvote/spokenvote.svg?branch=master)
 
 ## Introduction
