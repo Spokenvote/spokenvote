@@ -31,8 +31,10 @@ Spokenvote::Application.routes.draw do
 
   get 'currentuser' => 'users#currentuser'
 
-  require 'robots_generator' # Rails 3 does not autoload files in lib
+  require 'robots_generator'
   get '/robots.txt' => RobotsGenerator
+  get 'sitemap.xml' => 'sitemaps#index', format: 'xml', as: :sitemap
+
 
   get 'voter_mailer/vote_notification'
 

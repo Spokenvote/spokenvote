@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 ruby '2.1.1'
 
@@ -54,7 +55,7 @@ gem 'uglifier', '>= 2.4.0'
 
 # Angular
 gem 'angular-rails-templates', '~> 0.1.1'
-gem 'angular-loading-bar-rails'
+gem 'rails-assets-angular-loading-bar'
 
 group :development do
   gem 'taps', :require => false

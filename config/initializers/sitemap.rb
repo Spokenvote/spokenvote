@@ -1,0 +1,1 @@
+SITEMAP_PATH='http://spokenvote-sitemap.s3.amazonaws.com/sitemaps/sitemap.xml.gz'

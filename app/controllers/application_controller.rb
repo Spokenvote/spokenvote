@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def intercept_html_requests
-    if !request.format.json? && !(request.path[0,6] == '/admin') && !(request.path[0,13] == '/voter_mailer')
+    if !request.format.json? && !(request.path[0,6] == '/admin') && !(request.path[0,13] == '/voter_mailer') && !(request.path[0,12] == '/sitemap.xml')
       render('layouts/application')
     end
   end

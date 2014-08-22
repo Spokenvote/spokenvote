@@ -32,22 +32,11 @@ SitemapGenerator::Sitemap.create do
   #
   add '/', changefreq: 'daily', priority: 0.9
   add '/landing', changefreq: 'daily', priority: 0.9
+  add '/user-forum', changefreq: 'daily', priority: 0.9
+  add '/dev-forum', changefreq: 'daily', priority: 0.9
   add '/terms-of-use', changefreq: 'monthly'
   add '/proposals', changefreq: 'daily', priority: 0.9
   Proposal.find_each do |proposal|
     add proposal_path(proposal), :lastmod => proposal.updated_at, priority: 0.7, changefreq: 'daily'
   end
-  #add proposals_path, priority: 0.7, changefreq: 'daily'
-
-  # Examples:
-  #
-  # Add '/articles'
-  #
-  #   add articles_path, :priority => 0.7, :changefreq => 'daily'
-  #
-  # Add all articles:
-  #
-  #   Article.find_each do |article|
-  #     add article_path(article), :lastmod => article.updated_at
-  #   end
 end
