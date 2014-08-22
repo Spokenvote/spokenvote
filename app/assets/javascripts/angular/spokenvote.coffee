@@ -7,21 +7,20 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
   $routeProvider
     .when '/',
+      title: 'Home',
       templateUrl: 'pages/landing.html'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
     .when '/landing',
+      title: 'Home',
       templateUrl: 'pages/landing.html'
 
     .when '/proposals',
       templateUrl: 'proposals/index.html'
       controller: 'ProposalListCtrl'
-#      resolve:                                  # Loading in the controller now
-#        proposals: [ 'MultiProposalLoader', (MultiProposalLoader) ->
-#          MultiProposalLoader()
-#        ]
+
     .when '/proposals/:proposalId',
       templateUrl: 'proposals/show.html'
       controller: 'ProposalShowCtrl'
@@ -68,12 +67,20 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote', [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ]).config(appConfig)
+window.App = angular.module('spokenvote',
+  [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ])
+  .config(appConfig)
 
 servicesConfig = ['$httpProvider', ($httpProvider) ->
   $httpProvider.responseInterceptors.push('errorHttpInterceptor')
 ]
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']).config(servicesConfig).run(['$rootScope', '$location', ($rootScope, $location) -> $rootScope.location = $location])
+App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+  .config(servicesConfig)
+  .run(['$rootScope', '$location', ($rootScope, $location) ->
+    $rootScope.location = $location
+    $rootScope.$on '$routeChangeSuccess', (event, current, previous) ->
+      $rootScope.title = current.$$route.title
+  ])
 
 App.Directives = angular.module('spokenvote.directives', [])
 
