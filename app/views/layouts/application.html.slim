@@ -49,6 +49,9 @@ html ng-app='spokenvote'
                 .pageAlert alert-bar='' alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"'
               ng-view( autoscroll )
 
+        .nav_footer role='navigation'
+          ng-include src="'shared/_footer.html'"
+
     -#- min = Rails.env.production? || Rails.env.staging? ? '.min' : ''  #Nice approach, but generally not needed
     -#                                                                   # since Chrome offers full source mapping to non-min versions.
     - min = '.min'
