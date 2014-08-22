@@ -7,21 +7,23 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
   $routeProvider
     .when '/',
-      title: 'Home',
+      title: 'Online Group Consensus Tool',
+      templateUrl: 'pages/landing.html'
+
+    .when '/landing',
+      title: 'Online Group Consensus Tool',
       templateUrl: 'pages/landing.html'
 
     .when '/admin/authentications',
       controller: 'RootCtrl'
 
-    .when '/landing',
-      title: 'Home',
-      templateUrl: 'pages/landing.html'
-
     .when '/proposals',
+      title: 'Online Group Consensus Tool',
       templateUrl: 'proposals/index.html'
       controller: 'ProposalListCtrl'
 
     .when '/proposals/:proposalId',
+      title: 'Online Group Consensus Tool',
       templateUrl: 'proposals/show.html'
       controller: 'ProposalShowCtrl'
       resolve:
@@ -39,18 +41,23 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         ]
 
     .when '/user-forum',
+      title: 'User Forum for the Online Group Consensus Tool',
       templateUrl: 'pages/user-forum.html'
 
     .when '/dev-forum',
+      title: 'Developer Forum for the Online Group Consensus Tool',
       templateUrl: 'pages/dev-forum.html'
 
     .when '/terms-of-use',
+      title: 'Terms of use for your Online Group Consensus Tool',
       templateUrl: 'pages/terms-of-use.html'
 
     .when '/privacy',
+      title: 'Privacy Notice for your Online Group Consensus Tool',
       templateUrl: 'pages/privacy.html'
 
     .otherwise
+      title: 'Lost in Space for the Online Group Consensus Tool',
       template: '<h3>Whoops, page not found</h3>'
 
   $modalProvider.options =
