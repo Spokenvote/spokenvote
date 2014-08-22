@@ -39,17 +39,4 @@ SitemapGenerator::Sitemap.create do
   Proposal.find_each do |proposal|
     add proposal_path(proposal), :lastmod => proposal.updated_at, priority: 0.7, changefreq: 'daily'
   end
-  #add proposals_path, priority: 0.7, changefreq: 'daily'
-
-  # Examples:
-  #
-  # Add '/articles'
-  #
-  #   add articles_path, :priority => 0.7, :changefreq => 'daily'
-  #
-  # Add all articles:
-  #
-  #   Article.find_each do |article|
-  #     add article_path(article), :lastmod => article.updated_at
-  #   end
 end
