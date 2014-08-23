@@ -4,10 +4,7 @@ html ng-app='spokenvote'
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
 
-    title ng-bind="title + ' | Spokenvote'"
-    /- title = Rails.env.development? || Rails.env.staging? ? 'SV Staging' : 'Spokenvote'
-    /- title= content_for?(:title) ? yield(:title) : "SpokenVote"
-    /title = title
+    title ng-bind='page.title'
     meta content="Spokenvote is a tool to help groups of any size, from a local school board to an entire nation’s people, reach consensus with radical efficiency." name="description"
 
     meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport"
@@ -17,7 +14,7 @@ html ng-app='spokenvote'
     link href="../assets/icons/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="152x152"
     link href="../assets/icons/startup.png" rel="apple-touch-startup-image" sizes="640x1096"
 
-    meta content="{{title}} + ' | Spokenvote'" name="apple-mobile-web-app-title"
+    meta content='{{ page.title }}' name="apple-mobile-web-app-title"
     meta content="yes" name="apple-mobile-web-app-capable"
     meta content="yes" name="mobile-web-app-capable"
     meta content="white" name="apple-mobile-web-app-status-bar-style"

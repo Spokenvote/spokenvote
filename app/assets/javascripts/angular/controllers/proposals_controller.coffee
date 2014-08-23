@@ -1,5 +1,5 @@
-ProposalListCtrl = [ '$scope', '$rootScope', '$routeParams', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
-  ( $scope, $rootScope, $routeParams, $location, MultiProposalLoader, SpokenvoteCookies ) ->
+ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
+  ( $scope, $location, MultiProposalLoader, SpokenvoteCookies ) ->
     $scope.proposalsLoading = true
     MultiProposalLoader().then (proposals) ->
       $scope.proposals = proposals
@@ -9,10 +9,6 @@ ProposalListCtrl = [ '$scope', '$rootScope', '$routeParams', '$location', 'Multi
 
     $scope.setFilter = (filterSelected) ->
       $location.search('filter', filterSelected)
-      console.log '$rootScope.title: ', $rootScope.title
-      console.log '$scope.title: ', $scope.title
-      $rootScope.title = 'dog'
-      console.log '$rootScope.title: ', $rootScope.title
 
     $scope.setHub = (hubSelected) ->
       $location.path('/proposals/').search('hub', hubSelected.id)
@@ -20,7 +16,7 @@ ProposalListCtrl = [ '$scope', '$rootScope', '$routeParams', '$location', 'Multi
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 
-]
+  ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',
   ( $scope, $location , proposal, relatedProposals) ->
