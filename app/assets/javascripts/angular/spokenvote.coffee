@@ -51,11 +51,11 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
             $rootScope.page.setTitle($route.current.title, $route.current.params.proposalId)
           ]
 
-      .when '/currentuser',
-        resolve:
-          currentuser: [ 'CurrentUserLoader', (CurrentUserLoader) ->
-            CurrentUserLoader()
-          ]
+#      .when '/currentuser',
+#        resolve:
+#          currentuser: [ 'CurrentUserLoader', (CurrentUserLoader) ->
+#            CurrentUserLoader()
+#          ]
 
       .when '/user-forum',
         title: 'User Forum',
