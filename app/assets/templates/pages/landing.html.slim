@@ -1,9 +1,10 @@
-section#homepage
+section( itemscope itemtype='http://schema.org/Organization' )
   .page_title
     -#.call_to_action Impact decisions that affect you..
     -#.call_to_action Participate in real decisions that affect you.
     .sv-logo href='/landing'
-      img src='/assets/spokenvote_logomeg.png'
+      img src='/assets/spokenvote_logomeg.png' itemprop='logo'
+      span itemprop='name' content='Spokenvote'
       span.spoken Spoken
       span.vote Vote
 
