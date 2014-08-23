@@ -10,17 +10,21 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       .when '/',
         title: 'Online Group Consensus Tool',
         templateUrl: 'pages/landing.html'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
+          ]
 
       .when '/landing',
         title: 'Online Group Consensus Tool',
         templateUrl: 'pages/landing.html'
         resolve:
-          pageTitle: ($rootScope) ->
-            $rootScope.page.setTitle('test')
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
+          ]
 
-
-      .when '/admin/authentications',
-        controller: 'RootCtrl'
+#      .when '/admin/authentications',
+#        controller: 'RootCtrl'
 
       .when '/proposals',
         title: 'Proposals',
@@ -28,11 +32,11 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         controller: 'ProposalListCtrl'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.params.filter + ' ' + $route.current.title)
+            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
           ]
 
       .when '/proposals/:proposalId',
-        title: 'Online Group Consensus Tool',
+        title: 'Proposal',
         templateUrl: 'proposals/show.html'
         controller: 'ProposalShowCtrl'
         resolve:
@@ -42,6 +46,10 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           relatedProposals: [ 'RelatedProposalsLoader', (RelatedProposalsLoader) ->
             RelatedProposalsLoader()
           ]
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            console.log '$route.current: ', $route.current
+            $rootScope.page.setTitle($route.current.title, $route.current.params.proposalId)
+          ]
 
       .when '/currentuser',
         resolve:
@@ -50,24 +58,44 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/user-forum',
-        title: 'User Forum for the Online Group Consensus Tool',
+        title: 'User Forum',
         templateUrl: 'pages/user-forum.html'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.title)
+          ]
 
       .when '/dev-forum',
-        title: 'Developer Forum for the Online Group Consensus Tool',
+        title: 'Developer Forum',
         templateUrl: 'pages/dev-forum.html'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.title)
+          ]
 
       .when '/terms-of-use',
-        title: 'Terms of use for your Online Group Consensus Tool',
+        title: 'Terms of Use',
         templateUrl: 'pages/terms-of-use.html'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.title)
+          ]
 
       .when '/privacy',
-        title: 'Privacy Notice for your Online Group Consensus Tool',
+        title: 'Privacy Policy',
         templateUrl: 'pages/privacy.html'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.title)
+          ]
 
       .otherwise
-        title: 'Lost in Space for the Online Group Consensus Tool',
+        title: 'Lost in Space',
         template: '<h3>Whoops, page not found</h3>'
+        resolve:
+          pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.setTitle($route.current.title)
+          ]
 
     $modalProvider.options =
       backdrop: true  # 'static' - backdrop is present but modal window is not closed when clicking outside of the modal window.
@@ -96,12 +124,12 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
     $rootScope.location = $location
     $rootScope.page =
       prefix: ''
-      body: ' | ' + 'Online Group Consensus Tool'
-      brand: ' | ' + 'Spokenvote'
+      body: 'Online Group Consensus Tool' +  ' | '
+      brand: 'Spokenvote'
       setTitle: (prefix, body) ->
-        @prefix = if prefix then ' ' + prefix.charAt(0).toUpperCase() + prefix.substring(1) else @prifix
-        @body = if body then ' | ' + body.charAt(0).toUpperCase() + body.substring(1) else @body
-        @title = @prefix + @body + @brand
+        prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
+        body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
+        @title = prefix + body + @brand
   ])
 
 App.Directives = angular.module('spokenvote.directives', [])
