@@ -16,7 +16,10 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
 
-  ]
+    self = this
+    self.test = "kim"
+    console.log 'self: ', self
+]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',
   ( $scope, $location , proposal, relatedProposals) ->

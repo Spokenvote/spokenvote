@@ -1,4 +1,4 @@
-describe "Controllers", ->
+describe "Controllers Test", ->
   $scope = undefined
   ctrl = undefined
   beforeEach module("spokenvote")
@@ -14,12 +14,15 @@ describe "Controllers", ->
       mockBackend = _$httpBackend_
       $scope = $rootScope.$new()
       ctrl = $controller("ProposalListCtrl",
-        $scope: $scope
-        proposals: [ 1, 2, 3 ]
+#        $scope: $scope
+#        proposals: [ 1, 2, 3 ]
       )
     )
-    it "should have list of proposals", ->
-      expect($scope.proposals).toEqual [ 1, 2, 3 ]
+#    it "should have list of proposals", ->
+#      expect($scope.proposals).toEqual [ 1, 2, 3 ]
+
+    it "self.test = kim", ->
+      expect(ctrl.test).toEqual 'kim'
 
   describe "MultiProposalLoader", ->
     mockBackend = undefined
