@@ -15,27 +15,29 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-      "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
-//      "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
-//      "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
-//      "http://code.angularjs.org/1.2.9/angular.min.js",
-      'vendor/assets/javascripts/angular.min.js',
-      'vendor/assets/javascripts/angular-mocks.js',
-      'node_modules/angular-loading-bar/build/loading-bar.js',
-      "http://code.angularjs.org/1.2.9/angular-resource.min.js",
-      "http://code.angularjs.org/1.2.9/angular-route.min.js",
-      "http://code.angularjs.org/1.2.8/angular-animate.min.js",
-      "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
-      "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
-      "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
-//      "http://code.angularjs.org/1.2.9/angular-mocks.js",
+        "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
+        "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
+        "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
+        "http://code.angularjs.org/1.2.9/angular.min.js",
+//        'vendor/assets/javascripts/angular.min.js',
+//        'vendor/assets/javascripts/angular-mocks.js',
+        'vendor/assets/javascripts/angular-ui.js',
+        "http://code.angularjs.org/1.2.9/angular-resource.min.js",
+        "http://code.angularjs.org/1.2.9/angular-route.min.js",
+        "http://code.angularjs.org/1.2.8/angular-animate.min.js",
+        "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
+        "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
+        "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
+        'node_modules/angular-loading-bar/build/loading-bar.js',
+        "http://code.angularjs.org/1.2.9/angular-mocks.js",
 
-      'app/assets/javascripts/angular/spokenvote.coffee',
-//      'app/assets/javascripts/angular/*.coffee',
-      'app/assets/javascripts/angular/controllers/proposals_controller.coffee',
-//      'app/assets/javascripts/angular/**/*.coffee',
+//      'app/assets/javascripts/angular/spokenvote.coffee',
+        'app/assets/javascripts/angular/*.coffee',
+//      'app/assets/javascripts/angular/controllers/proposals_controller.coffee',
+      'app/assets/javascripts/angular/**/*.coffee',
       'test/**/learning_spec.coffee'
 //        'test/**/*spec.coffee'
+//      '*.html'
     ],
 
 
@@ -48,7 +50,13 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '**/*.coffee': ['coffee']
+//      '**/*.html': ['ng-html2js']
     },
+
+//    ngHtml2JsPreprocessor: {
+//          // we want all templates to be loaded in the same module called 'templates'
+//        moduleName: 'templates'
+//      },
 
     coffeePreprocessor: {
       // options passed to the coffee compiler
@@ -94,22 +102,22 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: false
 
-    plugins: [
-        'karma-jasmine',
-        'karma-chrome-launcher',
-        'karma-coffee-preprocessor',
-        'karma-sprockets'
-    ],
-
-    sprocketsPath: [
-      'app/assets/javascripts'
-    ],
-    sprocketsBundles: [
-        'angular-loading-bar.js',
-        'application.js'
-      ]
+//    plugins: [
+//        'karma-jasmine',
+//        'karma-chrome-launcher',
+//        'karma-coffee-preprocessor',
+//        'karma-sprockets'
+//    ],
+//
+//    sprocketsPath: [
+//      'app/assets/javascripts'
+//    ],
+//    sprocketsBundles: [
+//        'angular-loading-bar.js',
+//        'application.js'
+//      ]
 
   });
 };
