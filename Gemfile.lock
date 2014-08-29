@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/JetBrains/intellij-coffee-script-debugger.git
-  revision: 277ae723a565a1a92445ac79d2293a01b7454264
-  specs:
-    intellij-coffee-script-debugger (0.0.1)
-      coffee-script
-      execjs
-      sprockets
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: a25c9231715a4124bd7a303f29feeb381ec88956
   specs:
@@ -412,7 +403,6 @@ DEPENDENCIES
   google_places_autocomplete
   haml-rails
   hirb
-  intellij-coffee-script-debugger!
   lol_dba
   memcachier
   meta_request

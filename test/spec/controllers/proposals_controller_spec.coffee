@@ -1,28 +1,31 @@
 describe "Controllers Test", ->
   $scope = undefined
   ctrl = undefined
-  beforeEach module("spokenvote")
+  beforeEach module 'spokenvote'
+  beforeEach module 'spokenvoteMocks'
+
   beforeEach ->
     @addMatchers toEqualData: (expected) ->
       angular.equals @actual, expected
 
-  describe "ProposalListCtrl", ->
-    mockBackend = undefined
-    proposal = undefined
-    beforeEach inject(($rootScope, $controller, _$httpBackend_, Proposal) ->
-      proposal = Proposal
-      mockBackend = _$httpBackend_
-      $scope = $rootScope.$new()
-      ctrl = $controller("ProposalListCtrl",
-#        $scope: $scope
-#        proposals: [ 1, 2, 3 ]
-      )
-    )
-#    it "should have list of proposals", ->
-#      expect($scope.proposals).toEqual [ 1, 2, 3 ]
+  describe "Initial Validation Test", ->
+    it "should match", ->
+      expect("string").toMatch new RegExp("^string$")
 
-    it "self.test = kim", ->
-      expect(ctrl.test).toEqual 'kim'
+  describe "ProposalListCtrl", ->
+    beforeEach inject ($rootScope, $controller, _$httpBackend_, SessionSettings) ->
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      ctrl = $controller "ProposalListCtrl",
+        $scope: $scope
+
+    it "should have loaded list of proposals", ->
+      $scope.$apply()
+      expect($scope.proposals).toEqual [ 1, 2, 3 ]
+      expect($scope.proposalsLoading).toBe false
+
+    it "should match (Validation second time)", ->
+      expect("string").toMatch new RegExp("^string$")
 
   describe "MultiProposalLoader", ->
     mockBackend = undefined

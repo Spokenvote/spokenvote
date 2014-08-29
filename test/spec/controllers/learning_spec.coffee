@@ -2,15 +2,6 @@ describe "Controllers Test", ->
   $scope = undefined
   ctrl = undefined
   beforeEach module 'spokenvote'
-
-  angular.module 'spokenvoteMocks', []
-    .factory 'MultiProposalLoader', ($q) ->
-      ->
-        delay = $q.defer()
-        proposals = [ 1, 2, 3 ]
-        delay.resolve proposals
-        delay.promise
-
   beforeEach module 'spokenvoteMocks'
 
   beforeEach ->
@@ -22,10 +13,7 @@ describe "Controllers Test", ->
       expect("string").toMatch new RegExp("^string$")
 
   describe "ProposalListCtrl in Learning", ->
-    mockBackend = undefined
-    ctrl = undefined
     beforeEach inject ($rootScope, $controller, _$httpBackend_, SessionSettings) ->
-#      mockBackend = _$httpBackend_
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
       ctrl = $controller "ProposalListCtrl",
