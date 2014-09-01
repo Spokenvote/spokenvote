@@ -98,7 +98,7 @@ module.exports = function(config) {
 //    'client.captureConsole': true,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
