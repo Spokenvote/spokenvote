@@ -24,7 +24,6 @@ describe "API Test", ->
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
-
 #      $rootScope.sessionSettings = SessionSettings
 #      rootScope = $rootScope
 #      $scope.proposals = {}
