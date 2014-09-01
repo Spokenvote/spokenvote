@@ -116,20 +116,20 @@ MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, 
   ->
     delay = $q.defer()
 #    Proposal.query
-    $http(
+    $http
       url: "/proposals"
-      id: '@id'
+#      id: '@id'
       method: "GET"
       params:
         hub: $route.current.params.hub
         filter: $route.current.params.filter
         user: $route.current.params.user
 #    , (proposals) ->
-    ).success (proposals) ->
-      console.log 'proposals: ', proposals
+    .success (proposals) ->
       delay.resolve proposals
 #    , ->
-#      delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
+    .error ->
+      delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
     delay.promise
 ]
 
