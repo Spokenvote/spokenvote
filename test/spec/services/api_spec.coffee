@@ -1,6 +1,7 @@
 describe "API Test", ->
-  $scope = undefined
-  rootScope = undefined
+#  $scope = undefined
+#  rootScope = undefined
+  $httpBackend = undefined
   multiProposalLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
@@ -22,21 +23,15 @@ describe "API Test", ->
       expect("string").toMatch new RegExp("^string$")
 
   describe "MultiProposalLoader should load three proposals", ->
-    $httpBackend = undefined
-#    $scope = undefined
-
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
 
-      $rootScope.sessionSettings = SessionSettings
+#      $rootScope.sessionSettings = SessionSettings
 #      rootScope = $rootScope
 #      $scope.proposals = {}
 
       multiProposalLoader = MultiProposalLoader
       $httpBackend = _$httpBackend_
 
-#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
-      $httpBackend.whenGET('/proposals?filter=active&hub=1&user=42')
-        .respond([ 1, 2, 3 ])
 #      $scope = $rootScope.$new()
 
       afterEach ->
@@ -44,9 +39,13 @@ describe "API Test", ->
         $httpBackend.verifyNoOutstandingRequest()
 
     it "should load list of proposals", ->
-
+#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+      $httpBackend
+        .whenGET '/proposals?filter=active&hub=1&user=42'
+        .respond [ 1, 2, 3 ]
 #      expect($scope.proposals).toBeUndefined()
-      expect(multiProposalLoader()).toBeDefined()
+      expect multiProposalLoader()
+        .toBeDefined()
 
       promise = multiProposalLoader()
       proposals = undefined
@@ -57,7 +56,8 @@ describe "API Test", ->
       # Simulate a server response
       $httpBackend.flush()
 
-      expect(proposals instanceof Array).toBeTruthy()
+      expect proposals instanceof Array
+        .toBeTruthy()
       expect(proposals).toEqual([ 1, 2, 3 ])
 
 #      ready  = false
@@ -98,3 +98,25 @@ describe "API Test", ->
 #      ,
 #        id: 2
 #      ]
+
+
+    it "should reject the promise and respond with error", ->
+      #      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+      $httpBackend
+        .whenGET '/proposals?filter=active&hub=1&user=42'
+        .respond 500
+
+      promise = multiProposalLoader()
+      proposals = undefined
+
+      promise.then (data) ->
+        proposals = data
+
+      promise.then (fruits) ->
+        proposals = fruits
+      , (reason) ->
+        proposals = reason
+
+      $httpBackend.flush()
+      expect proposals
+        .toContain 'Unable'

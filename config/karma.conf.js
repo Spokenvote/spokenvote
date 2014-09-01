@@ -15,13 +15,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-
         "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
         "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
         "http://code.angularjs.org/1.2.9/angular.min.js",
-        'vendor/assets/javascripts/angular-ui.js',
-        'node_modules/angular-loading-bar/build/loading-bar.js',
         "http://code.angularjs.org/1.2.9/angular-resource.min.js",
         "http://code.angularjs.org/1.2.9/angular-route.min.js",
         "http://code.angularjs.org/1.2.8/angular-animate.min.js",
@@ -29,6 +26,9 @@ module.exports = function(config) {
         "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
         "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
         "http://code.angularjs.org/1.2.9/angular-mocks.js",
+
+        'node_modules/angular-loading-bar/build/loading-bar.js',
+        'vendor/assets/javascripts/angular-ui.js',
 
 //        'http://localhost:3000/assets/application.js',
 //        'http://spokenvote.dev/assets/application.js',
@@ -104,8 +104,23 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
+//    browsers: ['Chrome', 'PhantomJS'],
+//    browsers: ['Chrome', 'PhantomJS_custom'],
+//    browsers: ['Chrome', 'PhantomJS', 'PhantomJS_custom'],
 //    browsers: ['Chrome', 'PhantomJS', 'Firefox'],
 
+    customLaunchers: {
+      'PhantomJS_custom': {
+          base: 'PhantomJS',
+          options: {
+              windowName: 'Spokenvote PhantomJS',
+              settings: {
+                  webSecurityEnabled: false
+              }
+          },
+          flags: ['--remote-debugger-port=9000']
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
