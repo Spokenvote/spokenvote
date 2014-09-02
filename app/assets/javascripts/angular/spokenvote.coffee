@@ -112,7 +112,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
   ]
 
 window.App = angular.module('spokenvote',
-  [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap' ])
+  [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap.modal', 'ui.bootstrap.transition' ])
   .config(appConfig)
 
 #window.App = angular.module('spokenvote',
