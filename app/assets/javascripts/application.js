@@ -20,10 +20,14 @@
 
 // require holder           #Don't believe this is in use
 // require viewport.min     #Don't believe we're calling this any more
-// require ui-bootstrap-tpls-0.4.0
 // require angular-strap
-//= require modal
-//= require transition
+
+//= require ui-bootstrap/modal
+//= require ui-bootstrap/transition
+//= require ui-bootstrap/dropdownToggle
+//= require ui-bootstrap/tooltip
+//= require ui-bootstrap/bindHtml
+//= require ui-bootstrap/position
 
 //= require angular-rails-templates
 //= require_tree ../templates
