@@ -27,6 +27,16 @@ html ng-app='spokenvote'
     = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: 'stylesheet'
     = stylesheet_link_tag 'application', media: 'all'
 
+    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
+    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"
+    = javascript_include_tag "//code.angularjs.org/1.2.23/angular.min.js"
+    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-resource.min.js"
+    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-route.min.js"
+    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-animate.min.js"
+    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-cookies.min.js"
+    = javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
+    = javascript_include_tag "application"
+
     = csrf_meta_tags
 
     = yield(:head)
@@ -53,20 +63,20 @@ html ng-app='spokenvote'
     -#- min = Rails.env.production? || Rails.env.staging? ? '.min' : ''  #Nice approach, but generally not needed
     -#                                                                   # since Chrome offers full source mapping to non-min versions.
     - min = '.min'
-    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery#{min}.js"
-    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"
-    -#= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.6/select2#{min}.js"
-    /= javascript_include_tag "//rawgithub.com/ivaynberg/select2/master/select2.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.23/angular#{min}.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-resource#{min}.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-route#{min}.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-animate#{min}.js"
-    = javascript_include_tag "//code.angularjs.org/1.2.23/angular-cookies#{min}.js"
-    /= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls#{min}.js"
-    /= javascript_include_tag "/../bower_components/angular-ui-bootstrap/src/modal/modal.js"
-    /= javascript_include_tag "/../bower_components/angular-ui-bootstrap/src/transition/transition.js"
-    -#= javascript_include_tag '//rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.min.js'
-    -#= javascript_include_tag '//rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.tpl.min.js'
-    = javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
-    -#= javascript_include_tag "https://apis.google.com/js/client.js?onload=load"   # for Google Auth2
-    = javascript_include_tag "application"
+    /= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery#{min}.js"
+    /= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"
+    /-#= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.6/select2#{min}.js"
+    //= javascript_include_tag "//rawgithub.com/ivaynberg/select2/master/select2.js"
+    /= javascript_include_tag "//code.angularjs.org/1.2.23/angular#{min}.js"
+    /= javascript_include_tag "//code.angularjs.org/1.2.23/angular-resource#{min}.js"
+    /= javascript_include_tag "//code.angularjs.org/1.2.23/angular-route#{min}.js"
+    /= javascript_include_tag "//code.angularjs.org/1.2.23/angular-animate#{min}.js"
+    /= javascript_include_tag "//code.angularjs.org/1.2.23/angular-cookies#{min}.js"
+    //= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls#{min}.js"
+    //= javascript_include_tag "/../bower_components/angular-ui-bootstrap/src/modal/modal.js"
+    //= javascript_include_tag "/../bower_components/angular-ui-bootstrap/src/transition/transition.js"
+    /-#= javascript_include_tag '//rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.min.js'
+    /-#= javascript_include_tag '//rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.tpl.min.js'
+    /= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
+    /-#= javascript_include_tag "https://apis.google.com/js/client.js?onload=load"   # for Google Auth2
+    /= javascript_include_tag "application"

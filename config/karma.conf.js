@@ -17,7 +17,7 @@ module.exports = function(config) {
 
         "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
-        "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
+//        "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
 
 //        "http://code.angularjs.org/1.2.23/angular.js",
         'bower_components/angular/angular.js',
@@ -40,6 +40,7 @@ module.exports = function(config) {
 
         'node_modules/angular-loading-bar/build/loading-bar.js',
         'vendor/assets/javascripts/angular-ui.js',
+        'vendor/assets/javascripts/select2-click_leak_fix.js',
 
 //        'http://localhost:3000/assets/application.js',
 //        'http://spokenvote.dev/assets/application.js',
