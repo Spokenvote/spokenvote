@@ -14,9 +14,9 @@ describe "API Test", ->
           filter: 'active'
           user: 42
 
-  beforeEach ->
-    @addMatchers toEqualData: (expected) ->
-      angular.equals @actual, expected
+#  beforeEach ->
+#    @addMatchers toEqualData: (expected) ->
+#      angular.equals @actual, expected
 
   describe "Initial Validation Test", ->
     it "should match", ->

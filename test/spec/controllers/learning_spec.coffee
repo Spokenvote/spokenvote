@@ -4,9 +4,9 @@ describe "Controllers Test", ->
   beforeEach module 'spokenvote'
   beforeEach module 'spokenvoteMocks'
 
-  beforeEach ->
-    @addMatchers toEqualData: (expected) ->
-      angular.equals @actual, expected
+#  beforeEach ->
+#    @addMatchers toEqualData: (expected) ->
+#      angular.equals @actual, expected
 
   describe "Initial Validation Test", ->
     it "should match", ->
