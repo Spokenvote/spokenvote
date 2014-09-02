@@ -114,7 +114,7 @@ ProposalLoader = (Proposal, $route, $q) ->
 
 MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, $q, $http) ->
   ->
-    console.log 'prop: ', Proposal.query
+#    console.log 'prop: ', Proposal.query
     delay = $q.defer()
 #    Proposal.query
     $http
