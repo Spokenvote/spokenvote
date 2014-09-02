@@ -27,6 +27,10 @@ module.exports = function(config) {
         'bower_components/angular-cookies/angular-cookies.js',
         'bower_components/angular-ui-bootstrap/src/modal/modal.js',
         'bower_components/angular-ui-bootstrap/src/transition/transition.js',
+        'bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
+        'bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
+        'bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
+        'bower_components/angular-ui-bootstrap/src/position/position.js',
         'bower_components/angular-mocks/angular-mocks.js',
 
 //        "http://code.angularjs.org/1.2.9/angular.min.js",
