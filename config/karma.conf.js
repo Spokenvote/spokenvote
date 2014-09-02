@@ -19,6 +19,7 @@ module.exports = function(config) {
         "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
         "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
 
+//        "http://code.angularjs.org/1.2.23/angular.js",
         'bower_components/angular/angular.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-route/angular-route.js',
