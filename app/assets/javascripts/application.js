@@ -22,7 +22,8 @@
 // require viewport.min     #Don't believe we're calling this any more
 // require ui-bootstrap-tpls-0.4.0
 // require angular-strap
-// require angular-cookies
+//= require modal
+//= require transition
 
 //= require angular-rails-templates
 //= require_tree ../templates

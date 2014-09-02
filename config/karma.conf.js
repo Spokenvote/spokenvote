@@ -45,6 +45,8 @@ module.exports = function(config) {
 //        'tmp/kr01.js',
 //        'tmp/dir01.js',
 
+        'test/spec/templates/angular-rails-templates.coffee',
+
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
