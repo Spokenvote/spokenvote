@@ -12,7 +12,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
+            $rootScope.page.setTitle $route.current.params.filter, $route.current.title
           ]
 
       .when '/landing',
@@ -20,7 +20,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
+            $rootScope.page.setTitle $route.current.params.filter, $route.current.title
           ]
 
       .when '/proposals',
@@ -29,7 +29,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         controller: 'ProposalListCtrl'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
+            $rootScope.page.setTitle $route.current.params.filter, $route.current.title
           ]
 
       .when '/proposals/:proposalId',
@@ -45,7 +45,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             console.log '$route.current: ', $route.current
-            $rootScope.page.setTitle($route.current.title, $route.current.params.proposalId)
+            $rootScope.page.setTitle $route.current.title, $route.current.params.proposalId
           ]
 
 #      .when '/currentuser',
@@ -59,7 +59,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/user-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.title)
+            $rootScope.page.setTitle $route.current.title
           ]
 
       .when '/dev-forum',
@@ -67,7 +67,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/dev-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.title)
+            $rootScope.page.setTitle $route.current.title
           ]
 
       .when '/terms-of-use',
@@ -75,7 +75,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/terms-of-use.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.title)
+            $rootScope.page.setTitle $route.current.title
           ]
 
       .when '/privacy',
@@ -83,7 +83,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         templateUrl: 'pages/privacy.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.title)
+            $rootScope.page.setTitle $route.current.title
           ]
 
       .otherwise
@@ -91,7 +91,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         template: '<h3>Whoops, page not found</h3>'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.setTitle($route.current.title)
+            $rootScope.page.setTitle $route.current.title
           ]
 
     $modalProvider.options =
@@ -109,19 +109,21 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
   ]
 
 window.App = angular.module('spokenvote',
-  [ 'ngRoute', 'angular-loading-bar', 'templates', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'ui.utils', 'ui.select2', 'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip' ])
-  .config(appConfig)
+  [ 'ngRoute', 'ngAnimate',
+    'angular-loading-bar', 'templates',
+    'ui.select2', 'ui.utils',
+    'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
+    'spokenvote.services', 'spokenvote.directives',
+  ])
+  .config appConfig
 
-#window.App = angular.module('spokenvote',
-#  [ 'ngRoute', 'angular-loading-bar', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'templates', 'ui', 'ui.bootstrap' ])
-#  .config(appConfig)
-
-servicesConfig = ['$httpProvider', ($httpProvider) ->
-  $httpProvider.responseInterceptors.push('errorHttpInterceptor')
+servicesConfig = [ '$httpProvider', ($httpProvider) ->
+  $httpProvider.responseInterceptors.push 'errorHttpInterceptor'
 ]
-App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies'])
+
+App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
   .config(servicesConfig)
-  .run(['$rootScope', '$location', ($rootScope, $location) ->
+  .run ['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location
     $rootScope.page =
       prefix: ''
@@ -131,9 +133,9 @@ App.Services = angular.module('spokenvote.services', ['ngResource', 'ngCookies']
         prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
         body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
         @title = prefix + body + @brand
-  ])
+  ]
 
-App.Directives = angular.module('spokenvote.directives', [])
+App.Directives = angular.module 'spokenvote.directives', []
 
 
 #Global Debug Functions
