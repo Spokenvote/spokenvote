@@ -3,7 +3,7 @@ section
     .panel-title
       .title.pull-left
         h3
-          /span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+          span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
           span( ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
             span() for
             span( class='tag_item' )
@@ -61,6 +61,6 @@ section
       a( id='makeProposalLink' href='#' ng-click='newTopic()' ) Start a New Topic
     .no-proposals.col-xs-12( ng-show='proposals.length == 0' )
       h3
-        /span No {{ filterSelection | inflector:humanize }} topics found&nbsp
+        span No {{ filterSelection | inflector:humanize }} topics found&nbsp
         span( ng-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
         span( ng-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
