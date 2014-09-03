@@ -43,6 +43,7 @@ module.exports = function(config) {
 //        "http://code.angularjs.org/1.2.9/angular-mocks.js",
 
         'node_modules/angular-loading-bar/build/loading-bar.js',
+        'bower_components/angular-ui-utils/ui-utils.js',
 //        'vendor/assets/javascripts/angular-ui.js',
 //        'vendor/assets/javascripts/select2-click_leak_fix.js',
 
