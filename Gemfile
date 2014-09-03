@@ -54,7 +54,7 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '>= 2.4.0'
 
 # Angular
-gem 'angular-rails-templates', '~> 0.1.1'
+gem 'angular-rails-templates', '~> 0.1.3'
 gem 'rails-assets-angular-loading-bar'
 
 group :development do

@@ -90,7 +90,10 @@ module Spokenvote
     #config.assets.enabled = true   #Defaults True in Rails 4
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '2014.08.27'
+    config.assets.version = '2014.08.31'
+    # config.angular_templates.ignore_prefix  = %w(templates/)
+    config.angular_templates.ignore_prefix  = '/assets/'
+
 
     # Suggested by Bill 1/3/13: Between these lines and using @import statements in application.css.scss my JHTC app has no trouble on Heroku.
     #config.assets.precompile += ['application.scss.css', 'application.js']
