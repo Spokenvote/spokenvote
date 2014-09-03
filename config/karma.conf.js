@@ -44,6 +44,7 @@ module.exports = function(config) {
 
         'node_modules/angular-loading-bar/build/loading-bar.js',
         'bower_components/angular-ui-utils/ui-utils.js',
+        'bower_components/angular-ui-select2/src/select2.js',
 //        'vendor/assets/javascripts/angular-ui.js',
 //        'vendor/assets/javascripts/select2-click_leak_fix.js',
 

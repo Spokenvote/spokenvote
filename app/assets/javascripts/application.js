@@ -17,6 +17,7 @@
 
 // require angular-ui
 //= require angular-ui-utils
+//= require angular-ui-select2
 // require select2-click_leak_fix
 
 // require holder           #Don't believe this is in use
