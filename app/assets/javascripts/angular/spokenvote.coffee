@@ -9,7 +9,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     $routeProvider
       .when '/',
         title: 'Online Group Consensus Tool',
-        templateUrl: '/assets/pages/landing.html'
+        templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
@@ -17,18 +17,15 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/landing',
         title: 'Online Group Consensus Tool',
-        templateUrl: '/assets/pages/landing.html'
+        templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.params.filter, $route.current.title)
           ]
 
-#      .when '/admin/authentications',
-#        controller: 'RootCtrl'
-
       .when '/proposals',
         title: 'Proposals',
-        templateUrl: '/assets/proposals/index.html'
+        templateUrl: 'proposals/index.html'
         controller: 'ProposalListCtrl'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -37,7 +34,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/proposals/:proposalId',
         title: 'Proposal',
-        templateUrl: '/assets/proposals/show.html'
+        templateUrl: 'proposals/show.html'
         controller: 'ProposalShowCtrl'
         resolve:
           proposal: [ 'ProposalLoader', (ProposalLoader) ->
@@ -59,7 +56,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/user-forum',
         title: 'User Forum',
-        templateUrl: '/assets/pages/user-forum.html'
+        templateUrl: 'pages/user-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.title)
@@ -67,7 +64,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/dev-forum',
         title: 'Developer Forum',
-        templateUrl: '/assets/pages/dev-forum.html'
+        templateUrl: 'pages/dev-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.title)
@@ -75,7 +72,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/terms-of-use',
         title: 'Terms of Use',
-        templateUrl: '/assets/pages/terms-of-use.html'
+        templateUrl: 'pages/terms-of-use.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.title)
@@ -83,7 +80,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
       .when '/privacy',
         title: 'Privacy Policy',
-        templateUrl: '/assets/pages/privacy.html'
+        templateUrl: 'pages/privacy.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle($route.current.title)
@@ -112,7 +109,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
   ]
 
 window.App = angular.module('spokenvote',
-  [ 'ngRoute', 'angular-loading-bar', 'templates', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'ui', 'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip' ])
+  [ 'ngRoute', 'angular-loading-bar', 'templates', 'ngAnimate', 'spokenvote.services', 'spokenvote.directives', 'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip' ])
   .config(appConfig)
 
 #window.App = angular.module('spokenvote',

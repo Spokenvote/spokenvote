@@ -11,7 +11,7 @@ ul ng-controller='SidebarCtrl' role='menu'
           a.action-links
             .fa.fa-filter
             span ng-show='isopen'  Topic filter
-            span ng-hide='isopen'  Filter: {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
+            /span ng-hide='isopen'  Filter: {{ sessionSettings.routeParams.filter | inflector:humanize }} votes
 
         ul.action-links
           li type='button' ng-click="setFilter('my');sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas" ng-show='currentUser.id' ng-class="{'active': sessionSettings.routeParams.filter == 'my'}"
