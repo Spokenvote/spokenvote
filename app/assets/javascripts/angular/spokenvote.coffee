@@ -93,6 +93,9 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle $route.current.title
           ]
+          prerenderStatusCode: [ '$rootScope', '$route', ($rootScope, $route) ->
+            $rootScope.page.prerenderStatusCode = '404'
+          ]
 
     $modalProvider.options =
       backdrop: true  # 'static' - backdrop is present but modal window is not closed when clicking outside of the modal window.
@@ -133,6 +136,7 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
         body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
         @title = prefix + body + @brand
+      prerenderStatusCode: ''
   ]
 
 App.Directives = angular.module 'spokenvote.directives', []
