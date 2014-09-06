@@ -4,44 +4,64 @@ describe "Dashboard Controller Test", ->
   $location = undefined
   $httpBackend = undefined
   $route = undefined
-  beforeEach module 'spokenvote'
-  beforeEach module 'spokenvoteMocks'
+  provide = undefined
+  $controller = undefined
+#  beforeEach module 'spokenvote'
+#  beforeEach module 'spokenvoteMocks'
 
-  beforeEach module ($provide) ->
-    -> $provide.value '$route',
-      current:
-        params: {}
-#          hub: 1
-#          filter: 'active'
-#          user: 42
-
-  describe "Initial Validation Test", ->
-    it "should match", ->
-      expect("string").toMatch new RegExp("^string$")
+  beforeEach module 'spokenvote', 'spokenvoteMocks', ($provide) ->
+    provide = $provide
+    -> $provide.value '$route', {}
 
   describe "DashboardCtrl", ->
-    beforeEach inject ($rootScope, $controller, _$httpBackend_, _$location_, SessionSettings) ->
+    beforeEach inject ($rootScope, _$controller_, _$httpBackend_, _$location_, SessionSettings) ->
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
-      ctrl = $controller "DashboardCtrl",
-        $scope: $scope
+#      provide.value '$route',
+#        current:
+#          params: {}
       $location = _$location_
       $httpBackend = _$httpBackend_
+      $controller = _$controller_
+#      ctrl = $controller "DashboardCtrl",
+#        $scope: $scope
 
     it 'should have sessionSettings defined', ->
-      expect($scope.sessionSettings).toBeDefined()
+      provide.value '$route',
+        current:
+          params: {}
+      ctrl = $controller "DashboardCtrl",
+        $scope: $scope
+
+      expect $scope.sessionSettings
+        .toBeDefined()
 
     it 'should find $scope.route.current.prerenderStatusCode and it should be defined', ->
-      expect($scope.route.current.prerenderStatusCode).toBeUndefined()
+      expect $scope.route.current.prerenderStatusCode
+        .toBeUndefined()
 
-    it 'should find $scope.route.current.prerenderStatusCode and it should equal 404', ->
-      $httpBackend.expectGET('/hubs/1').respond('200', 'hub1')
+    it 'should not find $scope.route.current.prerenderStatusCode', ->
+      $httpBackend.expectGET '/hubs/2'
+        .respond '200', 'hub1'
+      provide.value '$route',
+        current:
+          prerenderStatusCode: '404'
+          params:
+            hub: '2'
+      ctrl = $controller "DashboardCtrl",
+        $scope: $scope
       $scope.$apply()
 #      $httpBackend.flush()
-      expect($scope.route.current.prerenderStatusCode).toBeUndefined
+      expect $scope.route.current.prerenderStatusCode
+        .toBeUndefined
 
     it 'should find $scope.route.current.prerenderStatusCode and it should equal 404', ->
-      $location.path('/some-bad-url')
-      $route.current.prerenderStatusCode = '404'
+      provide.value '$route',
+        current:
+          prerenderStatusCode: '404'
+          params: {}
+      ctrl = $controller "DashboardCtrl",
+        $scope: $scope
+#      $location.path('/some-bad-url')  # Does not seem to trigger route action
       $scope.$apply()
       expect($scope.route.current.prerenderStatusCode).toEqual('404')
