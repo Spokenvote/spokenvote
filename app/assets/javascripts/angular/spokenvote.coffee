@@ -8,7 +8,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
     $routeProvider
       .when '/',
-        title: 'Online Group Consensus Tool',
+        title: 'Online Group Consensus Tool'
         templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -16,7 +16,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/landing',
-        title: 'Online Group Consensus Tool',
+        title: 'Online Group Consensus Tool'
         templateUrl: 'pages/landing.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -24,7 +24,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/proposals',
-        title: 'Proposals',
+        title: 'Proposals'
         templateUrl: 'proposals/index.html'
         controller: 'ProposalListCtrl'
         resolve:
@@ -33,7 +33,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/proposals/:proposalId',
-        title: 'Proposal',
+        title: 'Proposal'
         templateUrl: 'proposals/show.html'
         controller: 'ProposalShowCtrl'
         resolve:
@@ -55,7 +55,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 #          ]
 
       .when '/user-forum',
-        title: 'User Forum',
+        title: 'User Forum'
         templateUrl: 'pages/user-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -63,7 +63,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/dev-forum',
-        title: 'Developer Forum',
+        title: 'Developer Forum'
         templateUrl: 'pages/dev-forum.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -71,7 +71,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/terms-of-use',
-        title: 'Terms of Use',
+        title: 'Terms of Use'
         templateUrl: 'pages/terms-of-use.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -79,7 +79,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .when '/privacy',
-        title: 'Privacy Policy',
+        title: 'Privacy Policy'
         templateUrl: 'pages/privacy.html'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
@@ -87,14 +87,12 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           ]
 
       .otherwise
-        title: 'Lost in Space',
+        title: 'Lost in Space'
+        prerenderStatusCode: '404'
         template: '<h3>Whoops, page not found</h3>'
         resolve:
           pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
             $rootScope.page.setTitle $route.current.title
-          ]
-          prerenderStatusCode: [ '$rootScope', '$route', ($rootScope, $route) ->
-            $rootScope.page.prerenderStatusCode = '404'
           ]
 
     $modalProvider.options =
@@ -126,8 +124,9 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
   .config(servicesConfig)
-  .run ['$rootScope', '$location', ($rootScope, $location) ->
+  .run ['$rootScope', '$location', '$route', ($rootScope, $location, $route) ->
     $rootScope.location = $location
+#    $rootScope.route = $route
     $rootScope.page =
       prefix: ''
       body: 'Online Group Consensus Tool' +  ' | '
@@ -136,7 +135,7 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
         body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
         @title = prefix + body + @brand
-      prerenderStatusCode: ''
+#      prerenderStatusCode: $route.current.prerenderStatusCode
   ]
 
 App.Directives = angular.module 'spokenvote.directives', []
