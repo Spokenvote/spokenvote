@@ -124,9 +124,10 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
   .config(servicesConfig)
-  .run ['$rootScope', '$location', '$route', ($rootScope, $location, $route) ->
+  .run ['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location
-#    $rootScope.route = $route
+    $rootScope.route =
+      current: {}
     $rootScope.page =
       prefix: ''
       body: 'Online Group Consensus Tool' +  ' | '

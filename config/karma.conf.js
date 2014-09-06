@@ -58,16 +58,16 @@ module.exports = function(config) {
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
-        'test/**/learning_spec.coffee',
-        'test/**/test_spec.coffee',
+//        'test/**/test_spec.coffee',
+//        'test/**/api_spec.coffee'
         'test/**/api_mock.coffee',
-        'test/**/api_spec.coffee'
-//        'test/**/*spec.coffee'
+        'test/**/*spec.coffee'
     ],
 
 
     // list of files to exclude
     exclude: [
+//        'test/spec/z_use_later/**/*.*'
     ],
 
 

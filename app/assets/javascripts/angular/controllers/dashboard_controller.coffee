@@ -4,9 +4,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
   $scope.hubFilter =
     hubFilter: null
 
-#  console.log '$route.current dashboard load: ', $route.current.prerenderStatusCode
-
-#  $scope.route.current dashboard load: ', $route.current.prerenderStatusCode
+  $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
+  console.log '$scope.route.current.prerenderStatusCode dashboard load: ', $scope.route.current.prerenderStatusCode
 
   if $route.current.params.hub? && !$route.current.params.proposalId? 
     $scope.hubFilter =
