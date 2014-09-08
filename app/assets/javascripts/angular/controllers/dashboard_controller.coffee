@@ -22,7 +22,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode
     else
       $scope.route.current.prerenderStatusCode = undefined
-    console.log '$scope.route.current.prerenderStatusCode dashboard $scope.$on: ', $scope.route.current.prerenderStatusCode
+#    console.log '$scope.route.current.prerenderStatusCode dashboard $scope.$on: ', $scope.route.current.prerenderStatusCode
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
