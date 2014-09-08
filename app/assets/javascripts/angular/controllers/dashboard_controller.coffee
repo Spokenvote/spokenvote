@@ -1,10 +1,9 @@
 DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope, $route, $location, CurrentHubLoader ) ->
   $scope.sessionSettings.routeParams = $route.current.params
+  $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
 
   $scope.hubFilter =
     hubFilter: null
-
-  $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
 
   if $route.current.params.hub? && !$route.current.params.proposalId? 
     $scope.hubFilter =
@@ -23,8 +22,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode
     else
       $scope.route.current.prerenderStatusCode = undefined
-
-#    $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
     console.log '$scope.route.current.prerenderStatusCode dashboard $scope.$on: ', $scope.route.current.prerenderStatusCode
 
   $scope.$watch 'hubFilter.hubFilter', ->
