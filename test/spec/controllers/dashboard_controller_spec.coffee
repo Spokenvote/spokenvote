@@ -56,7 +56,7 @@ describe "Dashboard Controller Test", ->
     route = undefined
     $scope = undefined
 
-    it 'should find $scope..prerenderStatusCode to be equal 404', ->
+    it 'should find $scope..prerenderStatusCode to be undefined', ->
       route =
         current:
           params: {}
