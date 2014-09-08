@@ -67,22 +67,22 @@ describe "Dashboard Controller Test", ->
       console.log 'find code: '
       route =
         current:
-#          prerenderStatusCode: '404'
           params: {}
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
       $controller "DashboardCtrl",
         $scope: $scope
         $route: route
-      route =
-        current:
-          prerenderStatusCode: '404'
-          params: {}
-      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
+      expect $scope.route.current.prerenderStatusCode
+      .toEqual undefined
 
-      console.log 'location change in test: '
+#      $scope.$apply()
+      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
+      route.current.prerenderStatusCode = '404'
+
+      console.log 'location change in test ... : '
 #      console.log 'route: ', route
-      $location.path('/some-bad-url')  # Does not seem to trigger route action
+#      $location.path('/some-bad-url')  # Does not seem to trigger route action
 #      locRoute =
 #        current:
 #          prerenderStatusCode: '404'
@@ -90,7 +90,9 @@ describe "Dashboard Controller Test", ->
 #      eachArray = _.toArray($scope)
 #      eachArray.forEach (e) ->
 #        console.log 'e: ', e
+      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
+      expect $scope.route.current.prerenderStatusCode
+        .toEqual '404'
       $scope.$apply()
-#      $scope.$digest()
       expect $scope.route.current.prerenderStatusCode
         .toEqual '404'
