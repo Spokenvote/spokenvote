@@ -3,7 +3,6 @@ describe "Dashboard Controller Test", ->
   $controller = undefined
   $httpBackend = undefined
   $location = undefined
-  route = undefined
   SessionSettings = undefined
   $provide = undefined
 
@@ -54,17 +53,10 @@ describe "Dashboard Controller Test", ->
       expect $scope.route.current.prerenderStatusCode
         .toEqual undefined
 
-#  describe "DashboardCtrl", ->
-#    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _SessionSettings_) ->
-#      $rootScope = _$rootScope_
-#      $httpBackend = _$httpBackend_
-#      $location = _$location_
-##      route = _$route_
-#      $controller = _$controller_
-#      SessionSettings = _SessionSettings_
+    route = undefined
+    $scope = undefined
 
-    it 'should find $scope.route.current.prerenderStatusCode and it should equal 404', ->
-      console.log 'find code: '
+    it 'should find $scope..prerenderStatusCode to be equal 404', ->
       route =
         current:
           params: {}
@@ -73,26 +65,12 @@ describe "Dashboard Controller Test", ->
       $controller "DashboardCtrl",
         $scope: $scope
         $route: route
+      $rootScope.$broadcast('$locationChangeSuccess', 'goodUrl', 'oldUrl')
       expect $scope.route.current.prerenderStatusCode
-      .toEqual undefined
+        .toEqual undefined
 
-#      $scope.$apply()
-      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
+    it 'should find $scope..prerenderStatusCode to be equal 404', ->
       route.current.prerenderStatusCode = '404'
-
-      console.log 'location change in test ... : '
-#      console.log 'route: ', route
-#      $location.path('/some-bad-url')  # Does not seem to trigger route action
-#      locRoute =
-#        current:
-#          prerenderStatusCode: '404'
-#          params: {}
-#      eachArray = _.toArray($scope)
-#      eachArray.forEach (e) ->
-#        console.log 'e: ', e
-      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
-      expect $scope.route.current.prerenderStatusCode
-        .toEqual '404'
       $scope.$apply()
       expect $scope.route.current.prerenderStatusCode
         .toEqual '404'
