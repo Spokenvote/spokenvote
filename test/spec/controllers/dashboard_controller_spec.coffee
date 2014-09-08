@@ -3,6 +3,7 @@ describe "Dashboard Controller Test", ->
   $controller = undefined
   $httpBackend = undefined
   $location = undefined
+  route = undefined
   SessionSettings = undefined
   $provide = undefined
 
@@ -13,8 +14,9 @@ describe "Dashboard Controller Test", ->
   describe "DashboardCtrl", ->
     beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _SessionSettings_) ->
       $rootScope = _$rootScope_
-      $location = _$location_
       $httpBackend = _$httpBackend_
+      $location = _$location_
+#      $route = _$route_
       $controller = _$controller_
       SessionSettings = _SessionSettings_
 
@@ -52,16 +54,43 @@ describe "Dashboard Controller Test", ->
       expect $scope.route.current.prerenderStatusCode
         .toEqual undefined
 
+#  describe "DashboardCtrl", ->
+#    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _SessionSettings_) ->
+#      $rootScope = _$rootScope_
+#      $httpBackend = _$httpBackend_
+#      $location = _$location_
+##      route = _$route_
+#      $controller = _$controller_
+#      SessionSettings = _SessionSettings_
+
     it 'should find $scope.route.current.prerenderStatusCode and it should equal 404', ->
-      $provide.value '$route',
+      console.log 'find code: '
+      route =
         current:
-          prerenderStatusCode: '404'
+#          prerenderStatusCode: '404'
           params: {}
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
       $controller "DashboardCtrl",
         $scope: $scope
-#      $location.path('/some-bad-url')  # Does not seem to trigger route action
+        $route: route
+      route =
+        current:
+          prerenderStatusCode: '404'
+          params: {}
+      $rootScope.$broadcast('$locationChangeSuccess', 'newUrl', 'oldUrl')
+
+      console.log 'location change in test: '
+#      console.log 'route: ', route
+      $location.path('/some-bad-url')  # Does not seem to trigger route action
+#      locRoute =
+#        current:
+#          prerenderStatusCode: '404'
+#          params: {}
+#      eachArray = _.toArray($scope)
+#      eachArray.forEach (e) ->
+#        console.log 'e: ', e
       $scope.$apply()
+#      $scope.$digest()
       expect $scope.route.current.prerenderStatusCode
         .toEqual '404'
