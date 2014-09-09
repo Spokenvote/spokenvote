@@ -55,6 +55,7 @@ module.exports = function(config) {
 
         'test/spec/templates/angular-rails-templates.coffee',
 
+        'app/assets/javascripts/vendor/prerender.coffee',
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
