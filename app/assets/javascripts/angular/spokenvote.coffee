@@ -119,7 +119,8 @@ window.App = angular.module('spokenvote',
   .config appConfig
 
 servicesConfig = [ '$httpProvider', ($httpProvider) ->
-  $httpProvider.responseInterceptors.push 'errorHttpInterceptor'
+  $httpProvider.interceptors.push 'errorHttpInterceptor'
+#  $httpProvider.responseInterceptors.push 'errorHttpInterceptor'
 ]
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])

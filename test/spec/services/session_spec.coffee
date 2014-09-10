@@ -28,7 +28,6 @@ describe "Session Service Test", ->
       expect AlertService.alertMessage
         .toContain 'server was unable'
 
-
     it 'should set error message to AlertService.alertMessage on 500 server response', inject ( AlertService ) ->
       $httpBackend.expectGET endpoint
         .respond 499

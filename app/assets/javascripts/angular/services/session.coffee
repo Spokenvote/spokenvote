@@ -73,15 +73,40 @@ AlertService = ($timeout) ->
 
 # Interceptors
 errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
-  (promise) ->
-    promise.then ((response) ->
-      response
-    ), (response) ->
-      if response.status is 406
-        AlertService.setError "Please sign in to continue."
-        $rootScope.$broadcast "event:loginRequired"
-      else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
-      $q.reject response
+#  (promise) ->             # old, pre 1.3 logic
+#    promise.then (response) ->
+#      response
+#    , (response) ->
+#      if response.status is 406
+#        AlertService.setError "Please sign in to continue."
+#        $rootScope.$broadcast "event:loginRequired"
+#      else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
+#      $q.reject response
+
+#  # optional method       # new, 1.3 logic
+#  request: (config) ->
+#    # do something on success
+#    config
+
+#  # optional method
+#  requestError: (rejection) ->
+#    # do something on error
+#    return responseOrNewPromise  if canRecover(rejection)
+#    $q.reject rejection
+
+#  # optional method
+#  response: (response) ->
+#    # do something on success
+#    response
+
+  responseError: (rejection) ->
+    # do something on error
+      if rejection.status is 406
+        AlertService.setError 'Please sign in to continue.'
+        $rootScope.$broadcast 'event:loginRequired'
+      else AlertService.setError 'The server was unable to process your request.'  if rejection.status >= 400 and rejection.status < 500
+#      return responseOrNewPromise  if canRecover(rejection)
+      $q.reject rejection
 
 
 SessionSettings = ->
