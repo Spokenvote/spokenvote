@@ -1,4 +1,4 @@
-describe "Dashboard Controller Test", ->
+describe 'Dashboard Controller Test', ->
   $rootScope = undefined
   $controller = undefined
   $httpBackend = undefined
@@ -10,12 +10,11 @@ describe "Dashboard Controller Test", ->
     $provide = _$provide_
     -> $provide.value '$route'
 
-  describe "DashboardCtrl", ->
+  describe 'DashboardCtrl', ->
     beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _SessionSettings_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $location = _$location_
-#      $route = _$route_
       $controller = _$controller_
       SessionSettings = _SessionSettings_
 
@@ -25,7 +24,7 @@ describe "Dashboard Controller Test", ->
           params: {}
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
-      ctrl = $controller "DashboardCtrl",
+      $controller "DashboardCtrl",
         $scope: $scope
       $scope.$apply()
       expect $scope.sessionSettings
@@ -47,7 +46,7 @@ describe "Dashboard Controller Test", ->
             hub: '2'
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
-      ctrl = $controller "DashboardCtrl",
+      $controller "DashboardCtrl",
         $scope: $scope
       $httpBackend.flush()
       expect $scope.route.current.prerenderStatusCode

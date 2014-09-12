@@ -24,7 +24,6 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
 
     $scope.$on 'cfpLoadingBar:completed', ->
       window.prerenderReady = true
-      console.log 'window.prerenderReady: ', window.prerenderReady
 
     $scope.signinAuth = ->
       modalInstance = $modal.open
