@@ -1,5 +1,3 @@
 window.prerenderReady = false
 
-setTimeout (->
-  window.prerenderReady = true
-), 5000
+console.log 'Initial window.prerenderReady: ', window.prerenderReady
