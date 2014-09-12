@@ -5,6 +5,7 @@ describe 'Root Controller Test', ->
   $location = undefined
   SessionSettings = undefined
   $provide = undefined
+  endpoint = '/service'
 
   beforeEach module 'spokenvote', 'spokenvoteMocks', (_$provide_) ->
     $provide = _$provide_
@@ -32,6 +33,17 @@ describe 'Root Controller Test', ->
       $scope.$apply()
       expect $scope.sessionSettings
         .toBeDefined()
+
+    it 'window.prerenderReady should be true after AJAX call is complete', ->
+
+      $httpBackend.expectGET endpoint
+        .respond 401
+
+      $http.get endpoint
+      $httpBackend.flush()
+
+      expect window.prerenderReady
+        .toBe true
 
     it 'should find $scope.route.current.prerenderStatusCode and it should be defined', ->          #dupe from dashbard_controller_spec
 #      $rootScope.sessionSettings = SessionSettings

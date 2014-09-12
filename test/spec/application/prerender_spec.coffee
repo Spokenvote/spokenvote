@@ -22,14 +22,3 @@ describe "Prerender Test", ->
     it 'window.prerenderReady should be false', ->
       expect window.prerenderReady
         .toBe false
-
-    it 'window.prerenderReady should be true after AJAX call is complete', ->
-
-      $httpBackend.expectGET endpoint
-        .respond 401
-
-      $http.get endpoint
-      $httpBackend.flush()
-
-      expect window.prerenderReady
-        .toBe true

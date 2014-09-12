@@ -26,9 +26,6 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
       window.prerenderReady = true
       console.log 'window.prerenderReady: ', window.prerenderReady
 
-    console.log 'Any cl: '
-
-
     $scope.signinAuth = ->
       modalInstance = $modal.open
         templateUrl: 'user/_auth_intro_modal.html'
