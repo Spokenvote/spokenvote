@@ -19,8 +19,15 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
         status: true
         xfbml: true
 
-    $scope.$on "event:loginRequired", ->
+    $scope.$on 'event:loginRequired', ->
       $scope.authService.signinFb($scope)
+
+    $scope.$on 'cfpLoadingBar:completed', ->
+      window.prerenderReady = true
+      console.log 'window.prerenderReady: ', window.prerenderReady
+
+    console.log 'Any cl: '
+
 
     $scope.signinAuth = ->
       modalInstance = $modal.open
