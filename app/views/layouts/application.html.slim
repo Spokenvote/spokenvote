@@ -1,5 +1,9 @@
 html ng-app='spokenvote'
   head
+    javascript:
+      window.prerenderReady = false;
+      console.log(window.prerenderReady);
+
     title ng-bind='page.title'
 
     meta content='!' name='fragment'
@@ -27,9 +31,7 @@ html ng-app='spokenvote'
     = stylesheet_link_tag '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', rel: 'stylesheet'
     = stylesheet_link_tag 'application', media: 'all'
 
-    javascript:
-      window.prerenderReady = false;
-      console.log(window.prerenderReady);
+
     /= javascript_include_tag 'vendor/prerender.js'
 
     = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'
