@@ -20,7 +20,7 @@ describe 'Root Controller Test', ->
       SessionSettings = _SessionSettings_
 
     it 'should place sessionSettings on the rootScope', ->
-      $httpBackend.expectGET '/currentuser'
+      $httpBackend.expectGET endpoint
         .respond '200'
       $scope = $rootScope.$new()
       $controller "RootCtrl",
