@@ -3,7 +3,7 @@ describe "Prerender Test", ->
   $http = null
   $httpBackend = null
   # $document = $timeout = result = loadingBar = null
-  $timeout = null
+#  $timeout = null
   $rootScope = null
 
   endpoint = '/service'
@@ -15,7 +15,7 @@ describe "Prerender Test", ->
       $http = _$http_
       $httpBackend = _$httpBackend_
       #    $document = _$document_
-      $timeout = _$timeout_
+#      $timeout = _$timeout_
       $rootScope = _$rootScope_
 
   describe 'prerenderReady Test', ->
@@ -24,8 +24,3 @@ describe "Prerender Test", ->
       expect window.prerenderReady
         .toBe false
 
-    it 'window.prerenderReady should be true after timeout', ->
-      $timeout.flush()
-
-      expect window.prerenderReady
-        .toBe true
