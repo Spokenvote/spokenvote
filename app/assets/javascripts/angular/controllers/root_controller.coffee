@@ -1,5 +1,4 @@
-RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
-  ($scope, $rootScope, $route, $timeout, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
+RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService', ($scope, $rootScope, $route, $timeout, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
     $rootScope.alertService = AlertService
     $rootScope.authService = Auth
     $rootScope.sessionSettings = SessionSettings
