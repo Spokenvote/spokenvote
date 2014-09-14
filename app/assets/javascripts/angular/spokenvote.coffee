@@ -109,14 +109,13 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       cache: true
 ]
 
-window.App = angular.module('spokenvote',
-  [ 'ngRoute', 'ngAnimate',
+window.App = angular.module('spokenvote', [
+    'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
     'ui.select2', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
     'spokenvote.services', 'spokenvote.directives',
-  ])
-  .config appConfig
+]).config appConfig
 
 servicesConfig = [ '$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'errorHttpInterceptor'
@@ -125,7 +124,7 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
   .config(servicesConfig)
-  .run ['$rootScope', '$location', ($rootScope, $location) ->
+  .run( ['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location
     $rootScope.route =
       current: {}
@@ -138,7 +137,7 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
         @title = prefix + body + @brand
 #      prerenderStatusCode: $route.current.prerenderStatusCode
-  ]
+  ])
 
 App.Directives = angular.module 'spokenvote.directives', []
 
