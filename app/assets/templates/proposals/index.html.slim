@@ -1,10 +1,10 @@
-section#homepage
+section
   .panel.panel-default.hidden-xs.hidden-sm
     .panel-title
       .title.pull-left
         h3
           span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
-          span( ui-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
+          span( ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
             span() for
             span( class='tag_item' )
               span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
@@ -18,7 +18,7 @@ section#homepage
               span Loading Proposals, please wait.
 
       h3.btn-group.pull-right
-        button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ui-if='currentUser.id' )
+        button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-if='currentUser.id' )
           .fa.sub.fa-check-square-o
           span My Votes
         button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
@@ -34,8 +34,8 @@ section#homepage
       .topic.row
         .list-avatar.col-xs-1
           .avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:4" )
-            img( ui-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
-            img( ui-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+            img( ng-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
+            img( ng-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
         .topic-and-hub.col-xs-9.col-md-10
           .proposal( id='prop{{ proposal.id }}' )
             a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
@@ -62,5 +62,5 @@ section#homepage
     .no-proposals.col-xs-12( ng-show='proposals.length == 0' )
       h3
         span No {{ filterSelection | inflector:humanize }} topics found&nbsp
-        span( ui-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
-        span( ui-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
+        span( ng-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
+        span( ng-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}

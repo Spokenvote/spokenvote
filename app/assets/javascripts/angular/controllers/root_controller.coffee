@@ -1,5 +1,5 @@
-RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
-  ($scope, $rootScope, $route, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
+RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
+  ($scope, $rootScope, $route, $timeout, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
     $rootScope.alertService = AlertService
     $rootScope.authService = Auth
     $rootScope.sessionSettings = SessionSettings
@@ -19,8 +19,16 @@ RootCtrl = ['$scope', '$rootScope', '$route', 'AlertService', '$location', '$mod
         status: true
         xfbml: true
 
-    $scope.$on "event:loginRequired", ->
+    $scope.$on 'event:loginRequired', ->
       $scope.authService.signinFb($scope)
+
+    $scope.$on 'cfpLoadingBar:completed', ->
+      window.prerenderReady = true
+      console.log 'window.prerenderReady: ', window.prerenderReady
+
+    $timeout ->
+      window.prerenderReady = true
+    , 10000
 
     $scope.signinAuth = ->
       modalInstance = $modal.open

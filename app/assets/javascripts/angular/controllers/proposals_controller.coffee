@@ -1,5 +1,5 @@
-ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
-  ( $scope, $routeParams, $location, MultiProposalLoader, SpokenvoteCookies ) ->
+ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCookies',
+  ( $scope, $location, MultiProposalLoader, SpokenvoteCookies ) ->
     $scope.proposalsLoading = true
     MultiProposalLoader().then (proposals) ->
       $scope.proposals = proposals
@@ -15,7 +15,6 @@ ProposalListCtrl = [ '$scope', '$routeParams', '$location', 'MultiProposalLoader
 
     $scope.$on 'event:proposalsChanged', ->
       $scope.proposals.$query
-
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals',

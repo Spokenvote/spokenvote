@@ -34,6 +34,8 @@ SitemapGenerator::Sitemap.create do
   add '/landing', changefreq: 'daily', priority: 0.9
   add '/user-forum', changefreq: 'daily', priority: 0.9
   add '/dev-forum', changefreq: 'daily', priority: 0.9
+  add '/proposals?filter=recent', changefreq: 'daily', priority: 0.9
+  add '/proposals?filter=active', changefreq: 'daily', priority: 0.9
   add '/terms-of-use', changefreq: 'monthly'
   add '/proposals', changefreq: 'daily', priority: 0.9
   Proposal.find_each do |proposal|

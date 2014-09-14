@@ -1,118 +1,173 @@
 // Karma configuration
-// Generated on Fri Jul 26 2013 17:19:22 GMT-0700 (PDT)
+// Generated on Tue Aug 26 2014 17:39:10 GMT-0700 (PDT)
+
+module.exports = function(config) {
+  config.set({
+
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: '../',
+//    basePath: '../vendor/assets/javascripts),
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['jasmine'],
+
+    // list of files / patterns to load in the browser
+    files: [
+
+        "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
+        "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
+//        "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
+
+//        "http://code.angularjs.org/1.2.23/angular.js",
+        'bower_components/angular/angular.js',
+        'bower_components/angular-resource/angular-resource.js',
+        'bower_components/angular-route/angular-route.js',
+        'bower_components/angular-animate/angular-animate.js',
+        'bower_components/angular-cookies/angular-cookies.js',
+        'bower_components/angular-ui-bootstrap/src/modal/modal.js',
+        'bower_components/angular-ui-bootstrap/src/transition/transition.js',
+        'bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
+        'bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
+        'bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
+        'bower_components/angular-ui-bootstrap/src/position/position.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+
+//        "http://code.angularjs.org/1.2.9/angular.min.js",
+//        "http://code.angularjs.org/1.2.9/angular-resource.min.js",
+//        "http://code.angularjs.org/1.2.9/angular-route.min.js",
+//        "http://code.angularjs.org/1.2.8/angular-animate.min.js",
+//        "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
+//        "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
+//        "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
+//        "http://code.angularjs.org/1.2.9/angular-mocks.js",
+
+        'node_modules/angular-loading-bar/build/loading-bar.js',
+        'bower_components/angular-ui-utils/ui-utils.js',
+        'bower_components/angular-ui-select2/src/select2.js',
+//        'vendor/assets/javascripts/angular-ui.js',
+//        'vendor/assets/javascripts/select2-click_leak_fix.js',
+
+//        'http://localhost:3000/assets/application.js',
+//        'http://spokenvote.dev/assets/application.js',
+//        'tmp/kr01.js',
+//        'tmp/dir01.js',
+
+        'test/spec/templates/angular-rails-templates.coffee',
+
+//        'app/assets/javascripts/vendor/prerender.coffee',
+        'app/assets/javascripts/angular/*.coffee',
+        'app/assets/javascripts/angular/**/*.coffee',
+
+//        'test/**/test_spec.coffee',
+//        'test/**/api_spec.coffee'
+        'test/**/api_mock.coffee',
+        'test/**/*spec.coffee'
+    ],
 
 
-// base path, that will be used to resolve files and exclude
-basePath = '../';
+    // list of files to exclude
+    exclude: [
+//        'test/spec/z_use_later/**/*.*'
+    ],
 
 
-// list of files / patterns to load in the browser
-files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-//  ANGULAR_SCENARIO,
-//  ANGULAR_SCENARIO_ADAPTER,
-
-  "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
-  "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
-  "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
-  "http://code.angularjs.org/1.2.9/angular.min.js",
-  "http://code.angularjs.org/1.2.9/angular-resource.min.js",
-  "http://code.angularjs.org/1.2.9/angular-route.min.js",
-  "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
-    "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
-  "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
-  "http://code.angularjs.org/1.2.9/angular-mocks.js",
-
-//  'vendor/assets/javascripts/jquery-2.0.3.min.js',
-//  'vendor/assets/javascripts/angular.min.js',
-//  'vendor/assets/javascripts/angular-resource.min.js',
-//  'vendor/assets/javascripts/angular-cookies.js',
-//  'vendor/assets/javascripts/angular-strap.js',
-//  'vendor/assets/javascripts/angular-ui.js',
-//  'vendor/assets/javascripts/ui-bootstrap-tpls-0.4.0.js',
-//  'vendor/assets/javascripts/angular-mocks.js',
-
-  'app/assets/javascripts/angular/*.coffee',
-  'app/assets/javascripts/angular/**/*.coffee',
-//  'public/assets/application-8c6d2e04a8bdda9f84de2d5144beeee9.js',
-
-  'test/**/*spec.coffee'
-];
-
-
-// list of files to exclude
-exclude = [
-  
-];
-
-proxies = {'/': 'http://localhost:8000/test/spec/controllers/'};
-
-urlRoot = '/_karma_/';
-
-//preprocessors = {
-//    '**/*.coffee': 'coffee'
-////    '**/*.coffee.erb': 'coffee'
-//};
-
-preprocessors = {
-    '**/*.coffee': 'coffee'
-}
-
-coffeePreprocessor = {
-    // options passed to the coffee compiler
-    options: {
-        bare: true,
-        sourceMap: true
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+//      'app/assets/javascripts/angular/*.coffee': ['coverage'],
+//      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
+//      'app/assets/javascripts/**/*.coffee': ['coverage'],
+//      'test/**/*.coffee': ['coffee'],
+      '**/*.coffee': ['coffee']
+//      'app/assets/javascripts/angular/**/*.coffee': ['coffee']
+//      '**/lib/*.js': 'coverage'
+//      '**/*.js': ['sourcemap']
+//      '**/*.html': ['ng-html2js']
     },
-    // transforming the filenames
-    transformPath: function(path) {
-        return path.replace(/\.js$/, '.coffee');
-    }
-}
+
+//    ngHtml2JsPreprocessor: {
+//          // we want all templates to be loaded in the same module called 'templates'
+//        moduleName: 'templates'
+//      },
+
+    coffeePreprocessor: {
+      // options passed to the coffee compiler
+      options: {
+          bare: true,
+          sourceMap: true
+      },
+      // transforming the filenames
+      transformPath: function(path) {
+          return path.replace(/\.coffee$/, '.js');
+      }
+    },
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['progress', 'coverage'],
 
 
-// test results reporter to use
-// possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+    // web server port
+    port: 8080,
+//    port: 9876,
 
 
-// web server port
-port = 9876;
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
 
 
-// cli runner port
-runnerPort = 9100;
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+//    logLevel: config.LOG_DEBUG,
+//    logLevel: config.LOG_INFO,
+
+//    'client.captureConsole': true,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
 
 
-// enable / disable colors in the output (reporters and logs)
-colors = true;
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome'],
+//    browsers: ['Chrome', 'PhantomJS'],
+//    browsers: ['Chrome', 'PhantomJS_custom'],
+//    browsers: ['Chrome', 'PhantomJS', 'PhantomJS_custom'],
+//    browsers: ['Chrome', 'Firefox'],
 
+    customLaunchers: {
+      'PhantomJS_custom': {
+          base: 'PhantomJS',
+          options: {
+              windowName: 'Spokenvote PhantomJS',
+              settings: {
+                  webSecurityEnabled: false
+              }
+          },
+          flags: ['--remote-debugger-port=9000']
+      }
+    },
 
-// level of logging
-// possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-logLevel = LOG_INFO;
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: false
 
+//    plugins: [
+//        'karma-jasmine',
+//        'karma-chrome-launcher',
+//        'karma-coffee-preprocessor',
+//        'karma-sprockets'
+//    ],
+//
+//    sprocketsPath: [
+//      'app/assets/javascripts'
+//    ],
+//    sprocketsBundles: [
+//        'angular-loading-bar.js',
+//        'application.js'
+//      ]
 
-// enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
-
-
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = ['Chrome'];
-
-
-// If browser does not capture in given timeout [ms], kill it
-captureTimeout = 60000;
-
-
-// Continuous Integration mode
-// if true, it capture browsers, run tests and exit
-singleRun = false;
+  });
+};

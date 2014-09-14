@@ -63,7 +63,7 @@ GEM
       multi_json
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
-    angular-rails-templates (0.1.1)
+    angular-rails-templates (0.1.3)
       railties (>= 3.1)
       sprockets
       tilt
@@ -290,7 +290,17 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.0)
       sprockets-rails (~> 2.0)
+    rails-assets-angular (1.2.23)
     rails-assets-angular-loading-bar (0.5.0)
+    rails-assets-angular-ui-select2 (0.0.5)
+      rails-assets-angular (>= 1.2.0)
+      rails-assets-jquery (>= 1.6.4)
+      rails-assets-select2 (~> 3.4)
+    rails-assets-angular-ui-utils (0.1.1)
+      rails-assets-angular (>= 1.0.2)
+    rails-assets-jquery (2.1.1)
+    rails-assets-select2 (3.5.1)
+      rails-assets-jquery (>= 1.7.1)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -393,7 +403,7 @@ DEPENDENCIES
   add-to-homescreen-rails
   airbrake
   ancestry
-  angular-rails-templates (~> 0.1.1)
+  angular-rails-templates (~> 0.1.3)
   annotate
   better_errors
   binding_of_caller
@@ -436,6 +446,8 @@ DEPENDENCIES
   railroady
   rails (~> 4.1)
   rails-assets-angular-loading-bar
+  rails-assets-angular-ui-select2
+  rails-assets-angular-ui-utils
   rails_12factor
   rspec
   rspec-rails (~> 3.0.0.beta)

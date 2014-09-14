@@ -1,7 +1,6 @@
 'use strict'
 
-appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider',
-  ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
+appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider', ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     $locationProvider.html5Mode true
