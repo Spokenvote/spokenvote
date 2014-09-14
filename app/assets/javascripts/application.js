@@ -33,7 +33,7 @@
 
 //= require angular-rails-templates
 //= require_tree ../templates
-//= require ./angular/spokenvote
+//= require angular/spokenvote.coffee
 //= require_tree ./angular
 
 //= require angular-loading-bar

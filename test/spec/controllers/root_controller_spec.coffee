@@ -54,3 +54,4 @@ describe 'Root Controller Test', ->
 
       expect window.prerenderReady
         .toBe true
+
