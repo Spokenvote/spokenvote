@@ -1,7 +1,6 @@
 'use strict'
 
-appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider',
-  ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
+appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProvider', ($routeProvider, $locationProvider, $httpProvider, $modalProvider) ->
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     $locationProvider.html5Mode true
@@ -107,7 +106,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
         dataType: 'script'
         cache: true
-  ]
+]
 
 window.App = angular.module('spokenvote',
   [ 'ngRoute', 'ngAnimate',

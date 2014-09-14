@@ -72,14 +72,19 @@ module.exports = function(config) {
     ],
 
 
+     // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['progress', 'coverage'],
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
 //      'app/assets/javascripts/angular/*.coffee': ['coverage'],
 //      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
-//      'app/assets/javascripts/**/*.coffee': ['coverage'],
-//      'test/**/*.coffee': ['coffee'],
-      '**/*.coffee': ['coffee']
+      'app/assets/javascripts/**/*.coffee': ['coverage'],
+      'test/**/*.coffee': ['coffee']
+//      '**/*.coffee': ['coffee']
 //      'app/assets/javascripts/angular/**/*.coffee': ['coffee']
 //      '**/lib/*.js': 'coverage'
 //      '**/*.js': ['sourcemap']
@@ -97,16 +102,19 @@ module.exports = function(config) {
           bare: true,
           sourceMap: true
       },
+
+    coverageReporter: {
+        instrumenter: {
+            'app/assets/javascripts/**/*.coffee': 'istanbul' // Force the use of the Istanbul instrumenter to cover CoffeeScript files
+        }
+        // ...
+    },
       // transforming the filenames
       transformPath: function(path) {
           return path.replace(/\.coffee$/, '.js');
       }
     },
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
 
 
     // web server port
