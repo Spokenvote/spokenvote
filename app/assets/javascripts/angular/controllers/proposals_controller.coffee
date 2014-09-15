@@ -80,23 +80,34 @@ RelatedProposalShowCtrl = [ '$scope', ( $scope ) ->
     $scope.relatedProposals.$get()
 
   $scope.related_sorter_dropdown = [
-    text: "By Votes"
-    submenu: [
-      text: "Most Votes"
-      click: "sortRelatedProposals('Most Votes')"
-    ,
-      text: "Least Votes"
-      click: "sortRelatedProposals('Least Votes')"
-    ]
-  ,
-    text: "By Age"
-    submenu: [
-      text: "Most Recently Voted on"
-      click: "sortRelatedProposals('Most Recently Voted on')"
-    ,
-      text: "Oldest Most Recent Vote"
-      click: "sortRelatedProposals('Oldest Most Recent Vote')"
-    ]
+    {
+      text: "By Votes"
+      submenu:
+        [
+          {
+            text: "Most Votes"
+            click: "sortRelatedProposals('Most Votes')"
+          },
+          {
+            text: "Least Votes"
+            click: "sortRelatedProposals('Least Votes')"
+          }
+        ]
+    },
+    {
+      text: "By Age"
+      submenu:
+        [
+          {
+            text: "Most Recently Voted on"
+            click: "sortRelatedProposals('Most Recently Voted on')"
+          },
+          {
+            text: "Oldest Most Recent Vote"
+            click: "sortRelatedProposals('Oldest Most Recent Vote')"
+          }
+        ]
+    }
   ]
 
   $scope.sortRelatedProposals = (related_sort_by) ->

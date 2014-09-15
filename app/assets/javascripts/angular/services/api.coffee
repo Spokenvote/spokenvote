@@ -5,16 +5,18 @@ CurrentUser = ($resource) ->
 Hub = ($resource) ->
   $resource '/hubs/:id',
     id: '@id'
-  ,
-    update:
-      method: 'PUT'
+  , {
+      update:
+        method: 'PUT'
+  }
 
 Vote = ($resource) ->
   $resource '/votes/:id',
     id: '@id'
-  ,
-    update:
-      method: 'PUT'
+  , {
+      update:
+        method: 'PUT'
+  }
 
 Proposal = ($resource) ->
   $resource '/proposals/:id',
