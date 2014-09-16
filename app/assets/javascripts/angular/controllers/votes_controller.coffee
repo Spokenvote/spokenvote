@@ -18,14 +18,16 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', (
 #      $scope.alertService.setJson response.data
 #    )
 
-    vote = Vote.save($scope.sessionSettings.newSupport.save, (response, status, headers, config) ->
-      $rootScope.$broadcast "event:votesChanged"
-      $scope.alertService.setSuccess "Your vote was created with the comment: \"" + response.comment + "\"", $scope, "main"
-      $modalInstance.close response
-      $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.save.proposal_id
-    , (response, status, headers, config) ->
-      $scope.alertService.setCtlResult "Sorry, your vote to support this proposal was not counted.", $scope, "modal"
-      $scope.alertService.setJson response.data
+    vote = Vote.save(
+      ($scope.sessionSettings.newSupport.save
+      ), ((response, status, headers, config) ->
+        $rootScope.$broadcast "event:votesChanged"
+        $scope.alertService.setSuccess "Your vote was created with the comment: \"" + response.comment + "\"", $scope, "main"
+        $modalInstance.close response
+        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.save.proposal_id
+      ), (response, status, headers, config) ->
+        $scope.alertService.setCtlResult "Sorry, your vote to support this proposal was not counted.", $scope, "modal"
+        $scope.alertService.setJson response.data
     )
 ]
 
@@ -48,14 +50,15 @@ ImroveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal'
 
     $scope.alertService.clearAlerts()
 
-    improvedProposal = Proposal.save(improvedProposal
-    ,  (response, status, headers, config) ->
-      $location.path('/proposals/' + response.id)
-      $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-      $modalInstance.close(response)
-    ,  (response, status, headers, config) ->
-      $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
-      $scope.alertService.setJson response.data
+    improvedProposal = Proposal.save(
+      (improvedProposal
+      ),  ((response, status, headers, config) ->
+        $location.path('/proposals/' + response.id)
+        $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+        $modalInstance.close(response)
+      ),  (response, status, headers, config) ->
+        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
+        $scope.alertService.setJson response.data
     )
 ]
 
@@ -76,14 +79,15 @@ EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Pro
   $scope.saveEdit = ->
     $scope.alertService.clearAlerts()
 
-    Proposal.update($scope.editProposal
-    ,  (response, status, headers, config) ->
-      $rootScope.$broadcast 'event:votesChanged'
-      $scope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
-      $modalInstance.close(response)
-    ,  (response, status, headers, config) ->
-      $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
-      $scope.alertService.setJson response.data
+    Proposal.update(
+      ($scope.editProposal
+      ), ((response, status, headers, config) ->
+        $rootScope.$broadcast 'event:votesChanged'
+        $scope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
+        $modalInstance.close(response)
+      ), (response, status, headers, config) ->
+        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
+        $scope.alertService.setJson response.data
     )
 ]
 
@@ -96,14 +100,15 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'P
   $scope.deleteProposal = ->
     $scope.alertService.clearAlerts()
 
-    Proposal.delete($scope.clicked_proposal
-    ,  (response, status, headers, config) ->
-      $scope.alertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', $scope
-      $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
-      $modalInstance.close(response)
-    ,  (response, status, headers, config) ->
-      $scope.alertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
-      $scope.alertService.setJson response.data
+    Proposal.delete(
+      ($scope.clicked_proposal
+      ), ((response, status, headers, config) ->
+        $scope.alertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', $scope
+        $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
+        $modalInstance.close(response)
+      ), (response, status, headers, config) ->
+        $scope.alertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
+        $scope.alertService.setJson response.data
     )
 ]
 

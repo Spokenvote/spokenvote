@@ -153,10 +153,7 @@ SessionSettings = ->
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
       client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'
-      scope: [ 'https://www.googleapis.com/auth/plus.login',
-               'https://www.googleapis.com/auth/plus.me',
-               'https://www.googleapis.com/auth/userinfo.email',
-               'https://www.googleapis.com/auth/userinfo.profile' ]
+      scope: [ 'https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile' ]
 
 # Cookies
 SpokenvoteCookies = ($cookies) ->

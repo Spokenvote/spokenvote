@@ -125,16 +125,17 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
 
     $rootScope.alertService.clearAlerts()
 
-    Proposal.save(newProposal
-    ,  (response, status, headers, config) ->
-      $rootScope.$broadcast 'event:proposalsChanged'
-      $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-      $modalInstance.close(response)
-      SessionSettings.actions.offcanvas = false
-    ,  (response, status, headers, config) ->
-      $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
-      $rootScope.alertService.setJson response.data
+    Proposal.save(
+      (newProposal
+      ), ((response, status, headers, config) ->
+        $rootScope.$broadcast 'event:proposalsChanged'
+        $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
+        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
+        $modalInstance.close(response)
+        SessionSettings.actions.offcanvas = false
+      ),  (response, status, headers, config) ->
+        $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
+        $rootScope.alertService.setJson response.data
     )
 
 ]
