@@ -15,11 +15,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-        "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js",
-        "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js",
-//        "http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js",
-
-//        "http://code.angularjs.org/1.2.23/angular.js",
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/underscore/underscore-min.js',
         'bower_components/angular/angular.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-route/angular-route.js',
@@ -33,44 +30,23 @@ module.exports = function(config) {
         'bower_components/angular-ui-bootstrap/src/position/position.js',
         'bower_components/angular-mocks/angular-mocks.js',
 
-//        "http://code.angularjs.org/1.2.9/angular.min.js",
-//        "http://code.angularjs.org/1.2.9/angular-resource.min.js",
-//        "http://code.angularjs.org/1.2.9/angular-route.min.js",
-//        "http://code.angularjs.org/1.2.8/angular-animate.min.js",
-//        "http://code.angularjs.org/1.2.9/angular-cookies.min.js",
-//        "http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js",
-//        "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places",
-//        "http://code.angularjs.org/1.2.9/angular-mocks.js",
-
         'node_modules/angular-loading-bar/build/loading-bar.js',
         'bower_components/angular-ui-utils/ui-utils.js',
         'bower_components/angular-ui-select2/src/select2.js',
-//        'vendor/assets/javascripts/angular-ui.js',
-//        'vendor/assets/javascripts/select2-click_leak_fix.js',
-
-//        'http://localhost:3000/assets/application.js',
-//        'http://spokenvote.dev/assets/application.js',
-//        'tmp/kr01.js',
-//        'tmp/dir01.js',
 
         'test/spec/templates/angular-rails-templates.coffee',
 
-//        'app/assets/javascripts/vendor/prerender.coffee',
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
-//        'test/**/test_spec.coffee',
-//        'test/**/api_spec.coffee'
         'test/**/api_mock.coffee',
         'test/**/*spec.coffee'
     ],
 
-
     // list of files to exclude
-    exclude: [
-//        'test/spec/z_use_later/**/*.*'
-    ],
-
+//    exclude: [
+////        'test/spec/z_use_later/**/*.*'
+//    ],
 
      // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -81,20 +57,15 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
 //      'app/assets/javascripts/angular/*.coffee': ['coverage'],
+//      'app/assets/javascripts/**/*.coffee': ['coverage'],
 //      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
-      'app/assets/javascripts/**/*.coffee': ['coverage'],
+      'app/assets/javascripts/angular/**/*.coffee': ['coffee'],
       'test/**/*.coffee': ['coffee']
 //      '**/*.coffee': ['coffee']
-//      'app/assets/javascripts/angular/**/*.coffee': ['coffee']
 //      '**/lib/*.js': 'coverage'
 //      '**/*.js': ['sourcemap']
 //      '**/*.html': ['ng-html2js']
     },
-
-//    ngHtml2JsPreprocessor: {
-//          // we want all templates to be loaded in the same module called 'templates'
-//        moduleName: 'templates'
-//      },
 
     coffeePreprocessor: {
       // options passed to the coffee compiler
@@ -103,19 +74,11 @@ module.exports = function(config) {
           sourceMap: true
       },
 
-    coverageReporter: {
-        instrumenter: {
-            'app/assets/javascripts/**/*.coffee': 'istanbul' // Force the use of the Istanbul instrumenter to cover CoffeeScript files
-        }
-        // ...
-    },
       // transforming the filenames
       transformPath: function(path) {
           return path.replace(/\.coffee$/, '.js');
       }
     },
-
-
 
     // web server port
     port: 8080,
@@ -125,17 +88,15 @@ module.exports = function(config) {
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
-
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-//    logLevel: config.LOG_DEBUG,
+    logLevel: config.LOG_DEBUG,
 //    logLevel: config.LOG_INFO,
 
 //    'client.captureConsole': true,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -145,22 +106,22 @@ module.exports = function(config) {
 //    browsers: ['Chrome', 'PhantomJS', 'PhantomJS_custom'],
 //    browsers: ['Chrome', 'Firefox'],
 
-    customLaunchers: {
-      'PhantomJS_custom': {
-          base: 'PhantomJS',
-          options: {
-              windowName: 'Spokenvote PhantomJS',
-              settings: {
-                  webSecurityEnabled: false
-              }
-          },
-          flags: ['--remote-debugger-port=9000']
-      }
-    },
+//    customLaunchers: {
+//      'PhantomJS_custom': {
+//          base: 'PhantomJS',
+//          options: {
+//              windowName: 'Spokenvote PhantomJS',
+//              settings: {
+//                  webSecurityEnabled: false
+//              }
+//          },
+//          flags: ['--remote-debugger-port=9000']
+//      }
+//    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+//    singleRun: false
 
 //    plugins: [
 //        'karma-jasmine',
