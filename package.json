@@ -1,7 +1,7 @@
 {
     "name": "spokenvote",
     "version": "0.2.3",
-    "description": "Group concensus tool.",
+    "description": "Group concensus tool for groups of any size.",
     "main": "spokenvote.coffee",
     "scripts": {
         "test": "./node_modules/.bin/karma start ./config/karma.conf.js --single-run --browsers PhantomJS"
