@@ -4,7 +4,7 @@
     "description": "Group concensus tool.",
     "main": "spokenvote.coffee",
     "scripts": {
-        'test': './node_modules/.bin/karma start --single-run --browsers PhantomJS'
+        "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
     },
 
     "repository": {
@@ -28,7 +28,7 @@
     "dependencies": {},
 
     "devDependencies": {
-        'karma': '~0.8'
+        "karma": "~0.8"
     },
 
 //    "gitHead": "",
