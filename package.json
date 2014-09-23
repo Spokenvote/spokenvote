@@ -1,0 +1,49 @@
+{
+    "name": "spokenvote",
+    "version": "0.2.3",
+    "description": "Group concensus tool for groups of any size.",
+    "main": "spokenvote.coffee",
+    "scripts": {
+        "test": "./node_modules/.bin/karma start ./config/karma.conf.js --single-run --browsers PhantomJS"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/spokenvote/spokenvote.git"
+    },
+
+    "keywords": [
+        "angular",
+        "concensus",
+        "voting",
+        "collaboration",
+        "discussion"
+    ],
+    "author": {
+        "name": "Kim Miller",
+        "email": "termmonitor@gmail.com"
+    },
+    "license": "MIT",
+
+    "dependencies": {},
+
+    "devDependencies": {
+        "karma": "~0.8"
+    },
+
+    "bugs": {
+        "url": "https://github.com/spokenvote/spokenvote/issues"
+    },
+
+    "homepage": "www.spokenvote.org",
+
+    "maintainers": [
+        {
+            "name": "Kim Miller",
+            "email": "termmonitor@gmail.com"
+        }
+    ],
+
+    "directories": {}
+
+}
