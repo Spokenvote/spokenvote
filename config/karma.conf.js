@@ -6,7 +6,6 @@ module.exports = function(config) {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '../',
-//    basePath: '../vendor/assets/javascripts),
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -81,7 +80,6 @@ module.exports = function(config) {
     port: 8080,
 //    port: 9876,
 
-
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
@@ -103,37 +101,22 @@ module.exports = function(config) {
 //    browsers: ['Chrome', 'PhantomJS', 'PhantomJS_custom'],
 //    browsers: ['Chrome', 'Firefox'],
 
-//    customLaunchers: {
-//      'PhantomJS_custom': {
-//          base: 'PhantomJS',
-//          options: {
-//              windowName: 'Spokenvote PhantomJS',
-//              settings: {
-//                  webSecurityEnabled: false
-//              }
-//          },
-//          flags: ['--remote-debugger-port=9000']
-//      }
-//    },
+    customLaunchers: {
+      'PhantomJS_custom': {
+          base: 'PhantomJS',
+          options: {
+              windowName: 'Spokenvote PhantomJS',
+              settings: {
+                  webSecurityEnabled: false
+              }
+          },
+          flags: ['--remote-debugger-port=9000']
+      }
+    }
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
 //    singleRun: false
-
-//    plugins: [
-//        'karma-jasmine',
-//        'karma-chrome-launcher',
-//        'karma-coffee-preprocessor',
-//        'karma-sprockets'
-//    ],
-//
-//    sprocketsPath: [
-//      'app/assets/javascripts'
-//    ],
-//    sprocketsBundles: [
-//        'angular-loading-bar.js',
-//        'application.js'
-//      ]
 
   });
 };
