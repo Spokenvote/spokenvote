@@ -22,7 +22,7 @@ module.exports = function(config) {
         'bower_components/angular-route/angular-route.js',
         'bower_components/angular-animate/angular-animate.js',
         'bower_components/angular-cookies/angular-cookies.js',
-        'node_modules/angular-loading-bar/build/loading-bar.js',
+        'bower_components/angular-loading-bar/build/loading-bar.min.js',
         'bower_components/angular-ui-bootstrap/src/modal/modal.js',
         'bower_components/angular-ui-bootstrap/src/transition/transition.js',
         'bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
