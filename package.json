@@ -31,8 +31,6 @@
         "karma": "~0.8"
     },
 
-//    "gitHead": "",
-
     "bugs": {
         "url": "https://github.com/spokenvote/spokenvote/issues"
     },
