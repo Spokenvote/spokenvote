@@ -56,15 +56,12 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-//      'app/assets/javascripts/angular/*.coffee': ['coverage'],
-//      'app/assets/javascripts/**/*.coffee': ['coverage'],
 //      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
       'app/assets/javascripts/angular/**/*.coffee': ['coffee'],
       'test/**/*.coffee': ['coffee']
 //      '**/*.coffee': ['coffee']
 //      '**/lib/*.js': 'coverage'
 //      '**/*.js': ['sourcemap']
-//      '**/*.html': ['ng-html2js']
     },
 
     coffeePreprocessor: {
