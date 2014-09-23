@@ -14,6 +14,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
+        // app dependencies
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/underscore/underscore-min.js',
         'bower_components/angular/angular.js',
@@ -21,24 +22,26 @@ module.exports = function(config) {
         'bower_components/angular-route/angular-route.js',
         'bower_components/angular-animate/angular-animate.js',
         'bower_components/angular-cookies/angular-cookies.js',
+        'node_modules/angular-loading-bar/build/loading-bar.js',
         'bower_components/angular-ui-bootstrap/src/modal/modal.js',
         'bower_components/angular-ui-bootstrap/src/transition/transition.js',
         'bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
         'bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
         'bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
         'bower_components/angular-ui-bootstrap/src/position/position.js',
-        'bower_components/angular-mocks/angular-mocks.js',
-
-        'node_modules/angular-loading-bar/build/loading-bar.js',
         'bower_components/angular-ui-utils/ui-utils.js',
         'bower_components/angular-ui-select2/src/select2.js',
 
-        'test/spec/templates/angular-rails-templates.coffee',
-
+        // application
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
+        // mocks
+        'bower_components/angular-mocks/angular-mocks.js',
+        'test/spec/templates/angular-rails-templates.coffee',
         'test/**/api_mock.coffee',
+
+        // tests
         'test/**/*spec.coffee'
     ],
 
