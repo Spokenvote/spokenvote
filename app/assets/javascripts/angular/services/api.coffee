@@ -3,25 +3,13 @@ CurrentUser = ($resource) ->
   $resource '/currentuser'
 
 Hub = ($resource) ->
-  $resource '/hubs/:id',
-    id: '@id'
-  ,
-    update:
-      method: 'PUT'
+  $resource '/hubs/:id', {id: '@id'}, {update: {method: 'PUT'} }
 
 Vote = ($resource) ->
-  $resource '/votes/:id',
-    id: '@id'
-  ,
-    update:
-      method: 'PUT'
+  $resource '/votes/:id', id: '@id', update: method: 'PUT'
 
 Proposal = ($resource) ->
-  $resource '/proposals/:id',
-    id: '@id'
-  ,
-    update:
-      method: 'PUT'
+  $resource '/proposals/:id', id: '@id', update: method: 'PUT'
 
 RelatedProposals = ($resource) ->
   $resource '/proposals/:id/related_proposals?related_sort_by=:related_sort_by',
@@ -80,23 +68,26 @@ UserRegistrationResource = ($http) ->
 CurrentUserLoader = (CurrentUser, $route, $q) ->
   ->
     delay = $q.defer()
-    CurrentUser.get {}
-    , (current_user) ->
-      delay.resolve current_user
-    , ->
-      delay.reject 'Unable to locate a current user '
+    CurrentUser.get(
+      ({}
+      ), ((current_user) ->
+        delay.resolve current_user
+      ), ->
+        delay.reject 'Unable to locate a current user '
+    )
     delay.promise
 
 CurrentHubLoader = (Hub, $route, $q) ->
   ->
     delay = $q.defer()
     if $route.current.params.hub
-      Hub.get
-        id: $route.current.params.hub
-      , (hub) ->
-        delay.resolve hub
-      , ->
-        delay.reject 'Unable to locate a hub '
+      Hub.get(
+        (id: $route.current.params.hub
+        ), ((hub) ->
+          delay.resolve hub
+        ), ->
+          delay.reject 'Unable to locate a hub '
+      )
     else
       delay.resolve false
     delay.promise
@@ -104,12 +95,13 @@ CurrentHubLoader = (Hub, $route, $q) ->
 ProposalLoader = (Proposal, $route, $q) ->
   ->
     delay = $q.defer()
-    Proposal.get
-      id: $route.current.params.proposalId
-    , (proposal) ->
-      delay.resolve proposal
-    , ->
-      delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
+    Proposal.get(
+      (id: $route.current.params.proposalId
+      ), ((proposal) ->
+        delay.resolve proposal
+      ), ->
+        delay.reject 'Unable to locate proposal ' + $route.current.params.proposalId
+    )
     delay.promise
 
 MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, $q, $http) ->
@@ -117,7 +109,7 @@ MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, 
 #    console.log 'prop: ', Proposal.query
     delay = $q.defer()
 #    Proposal.query
-    $http
+    $http(
       url: "/proposals"
 #      id: '@id'
       method: "GET"
@@ -126,10 +118,10 @@ MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, 
         filter: $route.current.params.filter
         user: $route.current.params.user
 #    , (proposals) ->
-    .success (proposals) ->
+    ).success((proposals) ->
       delay.resolve proposals
 #    , ->
-    .error ->
+    ).error ->
       delay.reject 'Unable to locate proposals for hub' + $route.current.params.hub
     delay.promise
 ]
@@ -137,24 +129,27 @@ MultiProposalLoader = [ 'Proposal', '$route', '$q', '$http', (Proposal, $route, 
 RelatedProposalsLoader = (RelatedProposals, $route, $q) ->
   ->
     delay = $q.defer()
-    RelatedProposals.get
-      id: $route.current.params.proposalId
-      related_sort_by:  $route.current.params.related_sort_by
-    , (related_proposals) ->
-      delay.resolve related_proposals
-    , ->
-      delay.reject 'Unable to locate related proposals ' + $route.current.params.proposalId
+    RelatedProposals.get(
+      (
+        id: $route.current.params.proposalId
+        related_sort_by:  $route.current.params.related_sort_by
+      ), ((related_proposals) ->
+        delay.resolve related_proposals
+      ), ->
+        delay.reject 'Unable to locate related proposals ' + $route.current.params.proposalId
+    )
     delay.promise
 
 RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
   (clicked_proposal) ->
     delay = $q.defer()
-    RelatedVoteInTree.get
-      id: clicked_proposal.id
-    , (relatedVoteInTree) ->
-      delay.resolve relatedVoteInTree
-    , ->
+    RelatedVoteInTree.get(
+      (id: clicked_proposal.id
+      ), ((relatedVoteInTree) ->
+        delay.resolve relatedVoteInTree
+      ), ->
       delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
+    )
     delay.promise
 
 # Injects

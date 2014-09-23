@@ -1,5 +1,4 @@
-RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService',
-  ($scope, $rootScope, $route, $timeout, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
+RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$location', '$modal', 'Auth', 'SessionService', 'SessionSettings', 'CurrentUserLoader', 'VotingService', ($scope, $rootScope, $route, $timeout, AlertService, $location, $modal, Auth, SessionService, SessionSettings, CurrentUserLoader, VotingService) ->
     $rootScope.alertService = AlertService
     $rootScope.authService = Auth
     $rootScope.sessionSettings = SessionSettings
@@ -26,9 +25,9 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
       window.prerenderReady = true
       console.log 'window.prerenderReady: ', window.prerenderReady
 
-    $timeout ->
+    $timeout (->
       window.prerenderReady = true
-    , 10000
+    ), 10000
 
     $scope.signinAuth = ->
       modalInstance = $modal.open
