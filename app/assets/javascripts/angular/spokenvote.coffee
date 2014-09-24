@@ -17,6 +17,15 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when( '/landing'
       title: 'Online Group Consensus Tool'
       templateUrl: 'pages/landing.html'
+      callToAction: 'Your Group Decisions'
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+    )
+    .when( '/group-consensus-tool'
+      title: 'Group Consensus Tool'
+      templateUrl: 'pages/landing.html'
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
