@@ -3,9 +3,6 @@ language: ruby
 rvm:
   - 2.1.1
 
-# uncomment this line if your project needs to run something other than `rake`:
-script: bundle exec rspec spec
-
 branches:
   only:
     - master
@@ -14,6 +11,16 @@ before_script:
   - psql -c 'create database spokenvote_test;' -U postgres
   - cp config/database.travis.yml config/database.yml
   - rake db:test_prep
+  - npm install karma
+  - npm install karma-jasmine
+  - npm install karma-coverage
+  - npm install karma-phantomjs-launcher
+  - npm install karma-coffee-preprocessor
+
+# uncomment this line if your project needs to run something other than `rake`:
+script:
+  - bundle exec rspec spec
+  - node_modules/karma/bin/karma start config/karma.conf.js --single-run --browsers PhantomJS
 
 bundler_args: --without development
 
