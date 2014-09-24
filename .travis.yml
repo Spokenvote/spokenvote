@@ -13,6 +13,9 @@ before_script:
   - rake db:test_prep
   - npm install karma
   - npm install karma-jasmine
+  - npm install karma-coverage
+  - npm install karma-phantomjs-launcher
+  - npm install karma-coffee-preprocessor
 
 # uncomment this line if your project needs to run something other than `rake`:
 script:

@@ -29,7 +29,10 @@
 
     "devDependencies": {
         "karma": "~0.12",
-        "karma-jasmine": "~0.2"
+        "karma-jasmine": "~0.2",
+        "karma-coverage": "~0.2.6",
+        "karma-phantomjs-launcher": "~0.1.4",
+        "karma-coffee-preprocessor": "~0.2.1"
     },
 
     "bugs": {
