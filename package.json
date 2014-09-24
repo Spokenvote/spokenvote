@@ -28,7 +28,8 @@
     "dependencies": {},
 
     "devDependencies": {
-        "karma": "~0.8"
+        "karma": "~0.12",
+        "karma-jasmine": "~0.2"
     },
 
     "bugs": {
