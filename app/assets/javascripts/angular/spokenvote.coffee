@@ -8,10 +8,14 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
   $routeProvider
     .when( '/'
       title: 'Online Group Consensus Tool'
+      callToAction: 'Your Group Decisions'
       templateUrl: 'pages/landing.html'
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
         ]
     )
     .when( '/landing'
@@ -145,6 +149,8 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
         body = if body then  body.charAt(0).toUpperCase() + body.substring(1) +  ' | ' else @body
         @title = prefix + body + @brand
+      setCallToAction: (callToAction) ->
+        @callToAction = callToAction
 #      prerenderStatusCode: $route.current.prerenderStatusCode
   ])
 

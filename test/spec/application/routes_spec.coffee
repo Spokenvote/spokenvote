@@ -1,19 +1,14 @@
-describe 'Routes ok Test', ->
+describe 'Routes Tests', ->
   $route = undefined
   $rootScope = undefined
   $controller = undefined
   $httpBackend = undefined
   $location = undefined
   SessionSettings = undefined
-#  $provide = undefined
 
   beforeEach module 'spokenvote', 'spokenvoteMocks'
 
-#  beforeEach module 'spokenvote', 'spokenvoteMocks', (_$provide_) ->
-#    $provide = _$provide_
-#    -> $provide.value '$route'
-
-  describe 'Router', ->
+  describe 'Router Testing', ->
     beforeEach inject (_$route_, _$rootScope_, _$controller_, _$httpBackend_, _$location_, _SessionSettings_) ->
       $route = _$route_
       $rootScope = _$rootScope_
@@ -22,9 +17,7 @@ describe 'Routes ok Test', ->
       $controller = _$controller_
       SessionSettings = _SessionSettings_
 
-    it "should map routes to controllers", ->
-  #    module "phonecat"
-  #    inject ($route) ->
+    it 'should map routes to templates, callToAction, controllers, rootscope page titles, and rootscope callToAction', ->
       expect $route.routes['/'].controller
         .toBeUndefined()
       expect $route.routes["/"].templateUrl
@@ -45,14 +38,17 @@ describe 'Routes ok Test', ->
 
       expect $route.current.templateUrl
         .toBe 'pages/landing.html'
+      expect $route.current.callToAction
+        .toBe 'Your Group Decisions'
       expect $route.current.controller
         .toBeUndefined()
       expect $route.current.title
         .toEqual 'Online Group Consensus Tool'
       expect $rootScope.page.title
         .toEqual 'Online Group Consensus Tool | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual 'Your Group Decisions'
 
-#      $httpBackend.expectGET "partials/phone-list.html").respond 200
       $location.path '/otherwise'
       $rootScope.$digest()
 
