@@ -16,7 +16,7 @@ before_script:
 # uncomment this line if your project needs to run something other than `rake`:
 script:
   - bundle exec rspec spec
-  - karma start config/karma.conf.js --single-run --browsers PhantomJS
+  - node_modules/karma/karma start config/karma.conf.js --single-run --browsers PhantomJS
 
 bundler_args: --without development
 
