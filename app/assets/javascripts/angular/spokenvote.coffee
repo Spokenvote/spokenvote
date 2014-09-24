@@ -7,7 +7,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
   $routeProvider
     .when( '/'
-      title: 'Online Group Consensus Tool'
+      title: 'Group Consensus Tool'
       callToAction: 'Your Group Decisions'
       templateUrl: 'pages/landing.html'
       resolve:
@@ -26,13 +26,20 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
         ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
     )
     .when( '/group-consensus-tool'
       title: 'Group Consensus Tool'
       templateUrl: 'pages/landing.html'
+      callToAction: 'Group Consensus Tool'
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
         ]
     )
     .when( '/proposals'
