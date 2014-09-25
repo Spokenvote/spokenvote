@@ -32,6 +32,7 @@ SitemapGenerator::Sitemap.create do
   #
   add '/', changefreq: 'daily', priority: 0.9
   add '/landing', changefreq: 'daily', priority: 0.9
+  add '/group-consensus-tool', changefreq: 'daily', priority: 0.9
   add '/user-forum', changefreq: 'daily', priority: 0.9
   add '/dev-forum', changefreq: 'daily', priority: 0.9
   add '/proposals?filter=recent', changefreq: 'daily', priority: 0.9
