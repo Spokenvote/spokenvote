@@ -23,6 +23,7 @@ module Spokenvote
   class Application < Rails::Application
 
     config.assets.paths << Rails.root.join("app", "assets", "templates")
+    config.assets.paths << Rails.root.join("bower_components")
 
     class HamlTemplate < Tilt::HamlTemplate
       def prepare

@@ -31,6 +31,10 @@
 //= require ui-bootstrap/bindHtml
 //= require ui-bootstrap/position
 
+//= require angular/angular
+//= require angular-resource/angular-resource
+//= require angular-route/angular-route
+
 //= require angular-rails-templates
 //= require_tree ../templates
 //= require angular/spokenvote.coffee
