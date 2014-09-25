@@ -29,6 +29,5 @@ notifications:
     recipients:
       - spokenvote-dev@googlegroups.com
       - termmonitor@gmail.com
-      - kimardenmiller@gmail.com
     on_success: always #change
     on_failure: always

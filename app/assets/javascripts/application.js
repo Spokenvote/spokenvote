@@ -1,5 +1,3 @@
-// require jquery_ujs               # Just jquery, right?
-// require jquery_nested_form       # Not quite sure if we need or don't need.
 
 // require bootstrap/affix
 // require bootstrap/alert
@@ -21,15 +19,9 @@
 //= require angular-animate/angular-animate
 //= require angular-cookies/angular-cookies
 
-// require angular-ui
+// require angular-ui    // below replaces this
 //= require angular-ui-utils
 //= require angular-ui-select2
-// require select2-click_leak_fix
-
-// require holder           #Don't believe this is in use
-// require viewport.min     #Don't believe we're calling this any more
-// require angular-strap
-
 //= require ui-bootstrap/modal
 //= require ui-bootstrap/transition
 //= require ui-bootstrap/dropdownToggle
