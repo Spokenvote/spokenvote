@@ -28,5 +28,6 @@ notifications:
   email:
     recipients:
       - spokenvote-dev@googlegroups.com
-    on_success: change
+      - termmonitor@gmail.com
+    on_success: always #change
     on_failure: always
