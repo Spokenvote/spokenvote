@@ -12,11 +12,15 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
         appId:
           switch $location.host().substring(0,3)
             when 'loc' then '449408378433518'
+            when 'ser' then '449408378433518'
+            when 'spo' then '449408378433518'
             when 'sta' then '122901591225638'
             when 'www' then '374325849312759'
         cookie: true
         status: true
         xfbml: true
+
+      console.log '$location.host(): ', $location.host()
 
     $scope.$on 'event:loginRequired', ->
       $scope.authService.signinFb($scope)
