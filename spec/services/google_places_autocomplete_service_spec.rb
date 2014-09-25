@@ -64,9 +64,21 @@ describe GooglePlacesAutocompleteService do
 			end
 		end 
 
-		context "district search" do 
+		# context "old district search" do
+		# 	if $API_KEY_DEFINED
+		# 		it "locates and does not return entry" do
+		# 			locations = @service.find_regions("Hampton Beach")
+		# 			expect(locations[0][:description]).to eq("Hampton Beach, Hampton, NH, United States")
+		# 			expect(locations[0][:id]).to eq("5f59aebc53bba8ff82b7dc98ea629977e58ebaf8")
+		# 			expect(locations[0][:type]).to eq("District of")
+		# 			expect(locations[0][:reference]).to_not be_nil
+		# 		end
+		# 	end
+		# end
+
+    context "new district search" do
 			if $API_KEY_DEFINED
-				it "locates and does not return entry" do 
+				it "locates and does not return entry" do
 					locations = @service.find_regions("Hampton Beach")
 					expect(locations[0][:description]).to eq("Hampton Beach, Hampton, NH, United States")
 					expect(locations[0][:id]).to eq("5f59aebc53bba8ff82b7dc98ea629977e58ebaf8")
@@ -75,7 +87,8 @@ describe GooglePlacesAutocompleteService do
 				end
 			end
 		end
-	end	
+
+  end
 
 	describe '#get_place_details' do 
 		before do 

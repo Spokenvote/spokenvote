@@ -66,6 +66,8 @@ class GooglePlacesAutocompleteService
    			"Country of"
       when "sublocality"
         "District of"
+      when "sublocality_level_1"
+        "District of"
    		else
    			nil
    		end
