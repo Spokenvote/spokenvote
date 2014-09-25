@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    basePath: '..',
+    basePath: '../../../../../../../../../.rvm/gems/ruby-2.1.1@spokenvote/gems/rails-assets-select2-3.5.1/vendor/assets',
 
 
     // frameworks to use
@@ -21,7 +21,7 @@ module.exports = function(config) {
       'bower_components/select2/select2.js',
       
       // Source Code
-      'src/select2.js',
+      '../src/select2.js',
 
       // Test Specs
       'test/*Spec.js'

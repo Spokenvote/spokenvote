@@ -15,6 +15,12 @@
 //= require bootstrap/transition
 //= require bootstrap/collapse
 
+//= require angular/angular
+//= require angular-resource/angular-resource
+//= require angular-route/angular-route
+//= require angular-animate/angular-animate
+//= require angular-cookies/angular-cookies
+
 // require angular-ui
 //= require angular-ui-utils
 //= require angular-ui-select2
@@ -30,10 +36,6 @@
 //= require ui-bootstrap/tooltip
 //= require ui-bootstrap/bindHtml
 //= require ui-bootstrap/position
-
-//= require angular/angular
-//= require angular-resource/angular-resource
-//= require angular-route/angular-route
 
 //= require angular-rails-templates
 //= require_tree ../templates
