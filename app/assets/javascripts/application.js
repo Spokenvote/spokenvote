@@ -22,12 +22,12 @@
 // require angular-ui    // below replaces this
 //= require angular-ui-utils
 //= require angular-ui-select2
-//= require ui-bootstrap/modal
-//= require ui-bootstrap/transition
-//= require ui-bootstrap/dropdownToggle
-//= require ui-bootstrap/tooltip
-//= require ui-bootstrap/bindHtml
-//= require ui-bootstrap/position
+//= require angular-ui-bootstrap/src/modal/modal
+//= require angular-ui-bootstrap/src/transition/transition
+//= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
+//= require angular-ui-bootstrap/src/tooltip/tooltip
+//= require angular-ui-bootstrap/src/bindHtml/bindHtml
+//= require angular-ui-bootstrap/src/position/position
 
 //= require angular-rails-templates
 //= require_tree ../templates
