@@ -133,7 +133,6 @@ window.App = angular.module('spokenvote', [
 
 servicesConfig = [ '$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'errorHttpInterceptor'
-#  $httpProvider.responseInterceptors.push 'errorHttpInterceptor'
 ]
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
@@ -152,7 +151,6 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         @title = prefix + body + @brand
       setCallToAction: (callToAction) ->
         @callToAction = callToAction
-#      prerenderStatusCode: $route.current.prerenderStatusCode
   ])
 
 App.Directives = angular.module 'spokenvote.directives', []
