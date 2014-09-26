@@ -20,8 +20,8 @@
 //= require angular-cookies/angular-cookies
 
 // require angular-ui    // below replaces this
-//= require angular-ui-utils
-//= require angular-ui-select2
+//= require angular-ui-utils/ui-utils.min
+//= require angular-ui-select2/src/select2
 //= require angular-ui-bootstrap/src/modal/modal
 //= require angular-ui-bootstrap/src/transition/transition
 //= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
@@ -31,7 +31,7 @@
 
 //= require angular-rails-templates
 //= require_tree ../templates
-//= require angular-loading-bar
+//= require angular-loading-bar/src/loading-bar
 //= require angulartics/dist/angulartics.min
 //= require angulartics/dist/angulartics-ga.min
 //= require ./vendor/add2homeConfig

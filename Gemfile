@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
+# source 'https://rails-assets.org'
 
 ruby '2.1.1'
 
@@ -23,8 +23,6 @@ gem 'rack-cache'
 # gem 'jquery-tokeninput-rails'
 
 # UI/Forms
-# gem 'nested_form'
-# gem 'simple_form'
 gem 'haml-rails'
 gem 'slim', '~> 2.0.2'
 gem 'bootstrap-sass', '~> 3.1.0'
@@ -55,9 +53,9 @@ gem 'uglifier', '>= 2.4.0'
 
 # Angular
 gem 'angular-rails-templates', '~> 0.1.3'
-gem 'rails-assets-angular-loading-bar'
-gem 'rails-assets-angular-ui-utils'
-gem 'rails-assets-angular-ui-select2'
+# gem 'rails-assets-angular-loading-bar'    # source 'https://rails-assets.org'
+# gem 'rails-assets-angular-ui-utils'       # source 'https://rails-assets.org'
+# gem 'rails-assets-angular-ui-select2'     # source 'https://rails-assets.org'
 
 group :development do
   gem 'taps', :require => false
