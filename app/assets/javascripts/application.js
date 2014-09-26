@@ -31,9 +31,11 @@
 
 //= require angular-rails-templates
 //= require_tree ../templates
-//= require angular/spokenvote.coffee
-//= require_tree ./angular
-
 //= require angular-loading-bar
+//= require angulartics/dist/angulartics.min
+//= require angulartics/dist/angulartics-ga.min
 //= require ./vendor/add2homeConfig
 //= require add2home
+
+//= require angular/spokenvote.coffee
+//= require_tree ./angular

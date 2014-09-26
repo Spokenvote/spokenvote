@@ -63,16 +63,9 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           RelatedProposalsLoader()
         ]
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-          console.log '$route.current: ', $route.current
           $rootScope.page.setTitle $route.current.title, $route.current.params.proposalId
         ]
       )
-#      .when '/currentuser',
-#        resolve:
-#          currentuser: [ 'CurrentUserLoader', (CurrentUserLoader) ->
-#            CurrentUserLoader()
-#          ]
-
     .when( '/user-forum'
       title: 'User Forum'
       templateUrl: 'pages/user-forum.html'
@@ -135,6 +128,7 @@ window.App = angular.module('spokenvote', [
     'ui.select2', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
     'spokenvote.services', 'spokenvote.directives',
+    'angulartics', 'angulartics.google.analytics'
 ]).config appConfig
 
 servicesConfig = [ '$httpProvider', ($httpProvider) ->

@@ -13,21 +13,19 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
           switch $location.host().substring(0,3)
             when 'loc' then '449408378433518'
             when 'ser' then '449408378433518'
-            when 'spo' then '449408378433518'
+            when 'spo' then '720858044659536'
             when 'sta' then '122901591225638'
             when 'www' then '374325849312759'
         cookie: true
         status: true
         xfbml: true
-
-      console.log '$location.host(): ', $location.host()
+        version: 'v2.1'
 
     $scope.$on 'event:loginRequired', ->
       $scope.authService.signinFb($scope)
 
     $scope.$on 'cfpLoadingBar:completed', ->
       window.prerenderReady = true
-      console.log 'window.prerenderReady: ', window.prerenderReady
 
     $timeout (->
       window.prerenderReady = true

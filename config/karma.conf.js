@@ -31,6 +31,8 @@ module.exports = function(config) {
         'vendor/assets/bower_components/angular-ui-bootstrap/src/position/position.js',
         'vendor/assets/bower_components/angular-ui-utils/ui-utils.js',
         'vendor/assets/bower_components/angular-ui-select2/src/select2.js',
+//        'vendor/assets/bower_components/angulartics/dist/angulartics.min.js',     # not working
+//        'vendor/assets/bower_components/angulartics/dist/angulartics-ga.min.js',  # https://github.com/luisfarzati/angulartics/issues/181
 
         // application
         'app/assets/javascripts/angular/*.coffee',
@@ -38,17 +40,16 @@ module.exports = function(config) {
 
         // mocks
         'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
-        'test/spec/templates/angular-rails-templates.coffee',
-        'test/**/api_mock.coffee',
+        'test/**/*mock.coffee',
 
         // tests
         'test/**/*spec.coffee'
     ],
 
     // list of files to exclude
-//    exclude: [
-////        'test/spec/z_use_later/**/*.*'
-//    ],
+    exclude: [
+//        'test/spec/z_use_later/**/*.*'
+    ],
 
      // test results reporter to use
     // possible values: 'dots', 'progress'
