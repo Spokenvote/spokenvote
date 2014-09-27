@@ -2,11 +2,6 @@ html ng-app='spokenvote'
   head
     javascript:
       window.prerenderReady = false;
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-55176385-1', 'auto');
 
     title ng-bind='page.title'
 
@@ -35,15 +30,14 @@ html ng-app='spokenvote'
     = stylesheet_link_tag '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', rel: 'stylesheet'
     = stylesheet_link_tag 'application', media: 'all'
 
-
-    /= javascript_include_tag 'vendor/prerender.js'
-
     = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'
     = javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js'
 
     = csrf_meta_tags
 
     = yield(:head)
+
+    = javascript_include_tag 'google-analytics'
 
   body ng-controller='RootCtrl'
     .container-fluid
