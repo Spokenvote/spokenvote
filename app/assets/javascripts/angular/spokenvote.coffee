@@ -63,16 +63,9 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           RelatedProposalsLoader()
         ]
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
-          console.log '$route.current: ', $route.current
           $rootScope.page.setTitle $route.current.title, $route.current.params.proposalId
         ]
       )
-#      .when '/currentuser',
-#        resolve:
-#          currentuser: [ 'CurrentUserLoader', (CurrentUserLoader) ->
-#            CurrentUserLoader()
-#          ]
-
     .when( '/user-forum'
       title: 'User Forum'
       templateUrl: 'pages/user-forum.html'
@@ -135,11 +128,11 @@ window.App = angular.module('spokenvote', [
     'ui.select2', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
     'spokenvote.services', 'spokenvote.directives',
+    'angulartics', 'angulartics.google.analytics'
 ]).config appConfig
 
 servicesConfig = [ '$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'errorHttpInterceptor'
-#  $httpProvider.responseInterceptors.push 'errorHttpInterceptor'
 ]
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
@@ -158,7 +151,6 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         @title = prefix + body + @brand
       setCallToAction: (callToAction) ->
         @callToAction = callToAction
-#      prerenderStatusCode: $route.current.prerenderStatusCode
   ])
 
 App.Directives = angular.module 'spokenvote.directives', []

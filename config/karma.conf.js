@@ -15,40 +15,41 @@ module.exports = function(config) {
     files: [
 
         // app dependencies
-        'bower_components/jQuery/dist/jquery.min.js',
-        'bower_components/underscore/underscore-min.js',
-        'bower_components/angular/angular.js',
-        'bower_components/angular-resource/angular-resource.js',
-        'bower_components/angular-route/angular-route.js',
-        'bower_components/angular-animate/angular-animate.js',
-        'bower_components/angular-cookies/angular-cookies.js',
-        'bower_components/angular-loading-bar/build/loading-bar.min.js',
-        'bower_components/angular-ui-bootstrap/src/modal/modal.js',
-        'bower_components/angular-ui-bootstrap/src/transition/transition.js',
-        'bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
-        'bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
-        'bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
-        'bower_components/angular-ui-bootstrap/src/position/position.js',
-        'bower_components/angular-ui-utils/ui-utils.js',
-        'bower_components/angular-ui-select2/src/select2.js',
+        'vendor/assets/bower_components/jQuery/dist/jquery.min.js',
+        'vendor/assets/bower_components/underscore/underscore-min.js',
+        'vendor/assets/bower_components/angular/angular.js',
+        'vendor/assets/bower_components/angular-resource/angular-resource.js',
+        'vendor/assets/bower_components/angular-route/angular-route.js',
+        'vendor/assets/bower_components/angular-animate/angular-animate.js',
+        'vendor/assets/bower_components/angular-cookies/angular-cookies.js',
+        'vendor/assets/bower_components/angular-loading-bar/build/loading-bar.min.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/modal/modal.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/transition/transition.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/position/position.js',
+        'vendor/assets/bower_components/angular-ui-utils/ui-utils.js',
+        'vendor/assets/bower_components/angular-ui-select2/src/select2.js',
+//        'vendor/assets/bower_components/angulartics/dist/angulartics.min.js',     # not working
+//        'vendor/assets/bower_components/angulartics/dist/angulartics-ga.min.js',  # https://github.com/luisfarzati/angulartics/issues/181
 
         // application
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
 
         // mocks
-        'bower_components/angular-mocks/angular-mocks.js',
-        'test/spec/templates/angular-rails-templates.coffee',
-        'test/**/api_mock.coffee',
+        'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
+        'test/**/*mock.coffee',
 
         // tests
         'test/**/*spec.coffee'
     ],
 
     // list of files to exclude
-//    exclude: [
-////        'test/spec/z_use_later/**/*.*'
-//    ],
+    exclude: [
+//        'test/spec/z_use_later/**/*.*'
+    ],
 
      // test results reporter to use
     // possible values: 'dots', 'progress'

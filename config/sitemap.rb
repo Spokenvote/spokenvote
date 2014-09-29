@@ -30,14 +30,20 @@ SitemapGenerator::Sitemap.create do
   # Defaults: :priority => 0.5, :changefreq => 'weekly',
   #           :lastmod => Time.now, :host => default_host
   #
+
+  # SEO Pages
+  add '/group-consensus-tool', changefreq: 'daily', priority: 0.9
+
+  # Nav Pages
   add '/', changefreq: 'daily', priority: 0.9
   add '/landing', changefreq: 'daily', priority: 0.9
   add '/user-forum', changefreq: 'daily', priority: 0.9
   add '/dev-forum', changefreq: 'daily', priority: 0.9
-  add '/proposals?filter=recent', changefreq: 'daily', priority: 0.9
-  add '/proposals?filter=active', changefreq: 'daily', priority: 0.9
   add '/terms-of-use', changefreq: 'monthly'
   add '/proposals', changefreq: 'daily', priority: 0.9
+  add '/proposals?filter=recent', changefreq: 'daily', priority: 0.9
+  add '/proposals?filter=active', changefreq: 'daily', priority: 0.9
+
   Proposal.find_each do |proposal|
     add proposal_path(proposal), :lastmod => proposal.updated_at, priority: 0.7, changefreq: 'daily'
   end
