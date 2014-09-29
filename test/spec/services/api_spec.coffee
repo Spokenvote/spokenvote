@@ -16,10 +16,6 @@ describe "API Test", ->
           filter: 'active'
           user: 42
 
-  describe "Initial Validation Test", ->
-    it "should match", ->
-      expect("string").toMatch new RegExp("^string$")
-
   describe 'Hub $resource should load hubs', ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Hub_) ->
 #      $rootScope.sessionSettings = SessionSettings
@@ -90,7 +86,7 @@ describe "API Test", ->
     it 'should RETRIEVE list of proposals', ->
       $httpBackend
         .expectGET '/proposals'
-        .respond { proposals: [ 1, 2, 3 ] }
+        .respond proposals: [ 1, 2, 3 ]
 
       proposalsResult = Proposal.get()
       $httpBackend.flush()
@@ -103,7 +99,7 @@ describe "API Test", ->
     it 'should RETRIEVE list of proposals accepting FILTER options', ->
       $httpBackend
         .expectGET '/proposals?filter=active&hub=1&user=42'
-        .respond { proposals: [ 5, 8, 11 ] }
+        .respond proposals: [ 5, 8, 11 ]
 
       proposalsResult = Proposal.get
         filter: 'active'
@@ -127,8 +123,8 @@ describe "API Test", ->
             id: '125'
 
       $httpBackend
-      .expectPUT '/proposals/55'
-      .respond editedProposal
+        .expectPUT '/proposals/55'
+        .respond editedProposal
 
       proposalResult = Proposal.update editedProposal
       $httpBackend.flush()
@@ -137,6 +133,22 @@ describe "API Test", ->
         .toBeTruthy()
       expect proposalResult.proposal
         .toEqual editedProposal.proposal
+
+    it 'should DELETE proposal', ->
+      clickedProposal =
+        id: '99'
+
+      $httpBackend
+        .expectDELETE '/proposals/99'
+        .respond status: 'success'
+
+      proposalResult = Proposal.delete clickedProposal
+      $httpBackend.flush()
+
+      expect proposalResult instanceof Object
+        .toBeTruthy()
+      expect proposalResult.status
+        .toEqual 'success'
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
