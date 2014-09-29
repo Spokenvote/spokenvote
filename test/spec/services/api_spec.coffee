@@ -2,6 +2,7 @@ describe "API Test", ->
 #  $scope = undefined
 #  rootScope = undefined
   $httpBackend = undefined
+  Hub = undefined
   multiProposalLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
@@ -17,6 +18,43 @@ describe "API Test", ->
   describe "Initial Validation Test", ->
     it "should match", ->
       expect("string").toMatch new RegExp("^string$")
+
+  describe 'Hub $resource should load hubs', ->
+    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Hub_) ->
+#      $rootScope.sessionSettings = SessionSettings
+#      rootScope = $rootScope
+#      $scope.proposals = {}
+
+      Hub = _Hub_
+      $httpBackend = _$httpBackend_
+
+#      $scope = $rootScope.$new()
+
+      afterEach ->
+        $httpBackend.verifyNoOutstandingExpectation()
+        $httpBackend.verifyNoOutstandingRequest()
+
+    it 'should load list of hubs', ->
+#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+      $httpBackend
+        .whenGET '/hubs?filter=abc'
+        .respond [ 1, 2, 3 ]
+#      expect($scope.proposals).toBeUndefined()
+#      expect Hub()
+#        .toBeDefined()
+
+#      promise = multiProposalLoader()
+      hubs = undefined
+
+#      promise.then (data) ->
+#        proposals = data
+
+      # Simulate a server response
+      $httpBackend.flush()
+
+      expect hubs instanceof Array
+        .toBeTruthy()
+      expect(hubs).toEqual([ 1, 2, 3 ])
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
