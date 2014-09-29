@@ -68,7 +68,7 @@ describe "API Test", ->
         $httpBackend.verifyNoOutstandingExpectation()
         $httpBackend.verifyNoOutstandingRequest()
 
-    it 'should create a new proposal', ->
+    it 'should CREATE a new proposal', ->
       newProposal =
         proposal:
           statement: 'My proposal statement'
@@ -87,7 +87,7 @@ describe "API Test", ->
       expect proposalsResult.proposal
         .toEqual newProposal.proposal
 
-    it 'should load list of proposals', ->
+    it 'should RETRIEVE list of proposals', ->
       $httpBackend
         .expectGET '/proposals'
         .respond { proposals: [ 1, 2, 3 ] }
@@ -100,7 +100,7 @@ describe "API Test", ->
       expect proposalsResult.proposals
         .toEqual [ 1, 2, 3 ]
 
-    it 'should load list of proposals accepting filter options', ->
+    it 'should RETRIEVE list of proposals accepting FILTER options', ->
       $httpBackend
         .expectGET '/proposals?filter=active&hub=1&user=42'
         .respond { proposals: [ 5, 8, 11 ] }
@@ -116,6 +116,27 @@ describe "API Test", ->
         .toBeTruthy()
       expect proposalsResult.proposals
         .toEqual [ 5, 8, 11 ]
+
+    it 'should UPDATE proposal and vote', ->
+      editedProposal =
+        id: '55'
+        proposal:
+          statement: 'My proposal statement'
+          votes_attributes:
+            comment: 'Why you should vote for this proposal'
+            id: '125'
+
+      $httpBackend
+      .expectPUT '/proposals/55'
+      .respond editedProposal
+
+      proposalResult = Proposal.update editedProposal
+      $httpBackend.flush()
+
+      expect proposalResult.proposal instanceof Object
+        .toBeTruthy()
+      expect proposalResult.proposal
+        .toEqual editedProposal.proposal
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
