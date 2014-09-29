@@ -3,6 +3,7 @@ describe "API Test", ->
 #  rootScope = undefined
   $httpBackend = undefined
   Hub = undefined
+  Proposal = undefined
   multiProposalLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
@@ -36,15 +37,63 @@ describe "API Test", ->
 
     it 'should load list of hubs', ->
 #      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
-      $httpBackend
-        .whenGET '/hubs?filter=abc'
-        .respond [ 1, 2, 3 ]
+#      $httpBackend
+#        .whenGET '/hubs'
+#        .whenGET '/hubs?filter=abc'
+#        .respond [ 1, 2, 3 ]
 #      expect($scope.proposals).toBeUndefined()
 #      expect Hub()
 #        .toBeDefined()
 
-#      promise = multiProposalLoader()
-      hubs = undefined
+#      hubsResult = Hub.get(
+#        id: undefined
+#      )
+
+#      promise.then (data) ->
+#        proposals = data
+
+      # Simulate a server response
+#      $httpBackend.flush()
+
+#      expect hubsResult instanceof Array
+#        .toBeTruthy()
+#      expect(hubsResult).toEqual([ 1, 2, 3 ])
+
+  describe 'Proposal $resource should load proposals', ->
+    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Proposal_) ->
+#      $rootScope.sessionSettings = SessionSettings
+#      rootScope = $rootScope
+#      $scope.proposals = {}
+
+      Proposal = _Proposal_
+      $httpBackend = _$httpBackend_
+
+#      $scope = $rootScope.$new()
+
+      afterEach ->
+        $httpBackend.verifyNoOutstandingExpectation()
+        $httpBackend.verifyNoOutstandingRequest()
+
+    it 'should load list of hubs', ->
+#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+      $httpBackend
+        .whenGET '/proposals'
+#        .whenGET '/hubs?filter=abc'
+        .respond { proposals: [ 1, 2, 3 ] }
+#      expect($scope.proposals).toBeUndefined()
+#      expect Hub()
+#        .toBeDefined()
+
+#      proposalsResult = undefined
+
+      proposalsResult = Proposal.get()
+#      Proposal.get(
+#        ({}
+#        ), ((proposal) ->
+#          proposalsResult = proposal
+#        ), ->
+#        'Unable to locate proposal '
+#      )
 
 #      promise.then (data) ->
 #        proposals = data
@@ -52,9 +101,10 @@ describe "API Test", ->
       # Simulate a server response
       $httpBackend.flush()
 
-      expect hubs instanceof Array
+      expect proposalsResult.proposals instanceof Array
         .toBeTruthy()
-      expect(hubs).toEqual([ 1, 2, 3 ])
+      expect proposalsResult.proposals
+        .toEqual [ 1, 2, 3 ]
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
