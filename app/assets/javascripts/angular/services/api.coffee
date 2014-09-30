@@ -1,4 +1,4 @@
-# Rest
+# Resources
 CurrentUser = ($resource) ->
   $resource '/currentuser'
 
@@ -20,7 +20,6 @@ RelatedVoteInTree = ($resource) ->
   $resource '/proposals/:id/related_vote_in_tree',
     id: '@id'
 
-# Resources
 UserOmniauthResource = ($http) ->
   UserOmniauth = (options) ->
     angular.extend this, options
