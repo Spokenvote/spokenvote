@@ -250,3 +250,5 @@ describe "API Resources Tests", ->
         .toBeTruthy()
       expect proposalResult.status
         .toEqual 'success'
+
+#TODO add tests for RelatedProposals, RelatedVoteInTree, UserOmniauthResource, UserRegistrationResource, & UserRegistration
