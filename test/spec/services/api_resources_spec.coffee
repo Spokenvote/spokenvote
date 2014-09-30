@@ -1,59 +1,23 @@
 describe "API Resources Tests", ->
   $httpBackend = undefined
-  Hub = undefined
-  Proposal = undefined
   beforeEach module 'spokenvote'
-#  beforeEach module 'spokenvoteMocks'
-
-  describe 'Hub $resource should load hubs', ->
-    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Hub_) ->
-      Hub = _Hub_
-      $httpBackend = _$httpBackend_
-
-      afterEach ->
-        $httpBackend.verifyNoOutstandingExpectation()
-        $httpBackend.verifyNoOutstandingRequest()
-
-    it 'should load list of hubs', ->
-#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
-#      $httpBackend
-#        .whenGET '/hubs'
-#        .whenGET '/hubs?filter=abc'
-#        .respond [ 1, 2, 3 ]
-#      expect($scope.proposals).toBeUndefined()
-#      expect Hub()
-#        .toBeDefined()
-
-#      hubsResult = Hub.get(
-#        id: undefined
-#      )
-
-#      promise.then (data) ->
-#        proposals = data
-
-      # Simulate a server response
-#      $httpBackend.flush()
-
-#      expect hubsResult instanceof Array
-#        .toBeTruthy()
-#      expect(hubsResult).toEqual([ 1, 2, 3 ])
 
   # Test Hub $resource
-  describe 'Proposal $resource should load, update proposals', ->
+  describe 'Hub $resource should create, load, update, and delete hubs', ->
+    Hub = undefined
     beforeEach inject (_$httpBackend_, _Hub_) ->
       Hub = _Hub_
       $httpBackend = _$httpBackend_
 
-      afterEach ->
-        $httpBackend.verifyNoOutstandingExpectation()
-        $httpBackend.verifyNoOutstandingRequest()
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
 
     it 'should CREATE a new proposal', ->
       newHub =
         hub:
           id: 10
           description: 'My group'
-
 
       $httpBackend
         .expectPOST '/hubs'
@@ -115,15 +79,91 @@ describe "API Resources Tests", ->
       expect hubResult.status
         .toEqual 'success'
 
+  # Test Vote $resource
+  describe 'Vote $resource should create, load, update, and delete votes', ->
+    Vote = undefined
+    beforeEach inject (_$httpBackend_, _Vote_) ->
+      Vote = _Vote_
+      $httpBackend = _$httpBackend_
+
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
+    it 'should CREATE a new vote', ->
+      newSupport =
+        save:
+          comment: 'Why I like this proposal.'
+
+      $httpBackend
+        .expectPOST '/votes'
+        .respond newSupport
+
+      votesResult = Vote.save newSupport
+      $httpBackend.flush()
+
+      expect votesResult.save instanceof Object
+        .toBeTruthy()
+      expect votesResult.save
+        .toEqual newSupport.save
+
+    it 'should RETRIEVE list of votes', ->
+      $httpBackend
+        .expectGET '/votes'
+        .respond votes: [ 1, 2, 3 ]
+
+      votesResult = Vote.get()
+      $httpBackend.flush()
+
+      expect votesResult.votes instanceof Array
+        .toBeTruthy()
+      expect votesResult.votes
+        .toEqual [ 1, 2, 3 ]
+
+    it 'should UPDATE vote', ->
+      editedVote =
+        id: '65'
+        save:
+          comment: 'Edit of why I like this proposal.'
+
+      $httpBackend
+        .expectPUT '/votes/65'
+        .respond editedVote
+
+      voteResult = Vote.update editedVote
+      $httpBackend.flush()
+
+      expect voteResult.save instanceof Object
+        .toBeTruthy()
+      expect voteResult.save
+        .toEqual editedVote.save
+
+    it 'should DELETE vote', ->
+      clickedVote =
+        id: '199'
+
+      $httpBackend
+        .expectDELETE '/votes/199'
+        .respond status: 'success'
+
+      voteResult = Vote.delete clickedVote
+      $httpBackend.flush()
+
+      expect voteResult instanceof Object
+        .toBeTruthy()
+      expect voteResult.status
+        .toEqual 'success'
+
   # Test Proposal $resource
-  describe 'Proposal $resource should load, update proposals', ->
-    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Proposal_) ->
+  describe 'Proposal $resource should create, load, update, and delete proposals', ->
+    Proposal = undefined
+    beforeEach inject (_$httpBackend_, _Proposal_) ->
       Proposal = _Proposal_
       $httpBackend = _$httpBackend_
 
-      afterEach ->
-        $httpBackend.verifyNoOutstandingExpectation()
-        $httpBackend.verifyNoOutstandingRequest()
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
 
     it 'should CREATE a new proposal', ->
       newProposal =
