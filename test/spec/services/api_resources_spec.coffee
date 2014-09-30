@@ -7,7 +7,6 @@ describe "API Resources Tests", ->
 
   describe 'Hub $resource should load hubs', ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Hub_) ->
-
       Hub = _Hub_
       $httpBackend = _$httpBackend_
 
@@ -39,6 +38,84 @@ describe "API Resources Tests", ->
 #        .toBeTruthy()
 #      expect(hubsResult).toEqual([ 1, 2, 3 ])
 
+  # Test Hub $resource
+  describe 'Proposal $resource should load, update proposals', ->
+    beforeEach inject (_$httpBackend_, _Hub_) ->
+      Hub = _Hub_
+      $httpBackend = _$httpBackend_
+
+      afterEach ->
+        $httpBackend.verifyNoOutstandingExpectation()
+        $httpBackend.verifyNoOutstandingRequest()
+
+    it 'should CREATE a new proposal', ->
+      newHub =
+        hub:
+          id: 10
+          description: 'My group'
+
+
+      $httpBackend
+        .expectPOST '/hubs'
+        .respond newHub
+
+      hubsResult = Hub.save newHub
+      $httpBackend.flush()
+
+      expect hubsResult.hub instanceof Object
+        .toBeTruthy()
+      expect hubsResult.hub
+        .toEqual hubsResult.hub
+
+    it 'should RETRIEVE list of hubs', ->
+      $httpBackend
+        .expectGET '/hubs'
+        .respond hubs: [ 1, 2, 3 ]
+
+      hubsResult = Hub.get()
+      $httpBackend.flush()
+
+      expect hubsResult.hubs instanceof Array
+        .toBeTruthy()
+      expect hubsResult.hubs
+        .toEqual [ 1, 2, 3 ]
+
+    it 'should UPDATE hub', ->
+      editedHub =
+        id: '22'
+        hub:
+          id: 22
+          description: 'My group'
+
+      $httpBackend
+        .expectPUT '/hubs/22'
+        .respond editedHub
+
+      hubResult = Hub.update editedHub
+      $httpBackend.flush()
+
+      expect hubResult.hub instanceof Object
+        .toBeTruthy()
+      expect hubResult.hub
+        .toEqual editedHub.hub
+
+    it 'should DELETE hub', ->
+      clickedHub =
+        id: '88'
+
+      $httpBackend
+        .expectDELETE '/hubs/88'
+        .respond status: 'success'
+
+      hubResult = Hub.delete clickedHub
+      $httpBackend.flush()
+
+      expect hubResult instanceof Object
+        .toBeTruthy()
+      expect hubResult.status
+        .toEqual 'success'
+
+  # Test Proposal $resource
   describe 'Proposal $resource should load, update proposals', ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, _Proposal_) ->
       Proposal = _Proposal_
