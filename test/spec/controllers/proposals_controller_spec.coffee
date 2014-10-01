@@ -54,6 +54,7 @@ describe 'Proposals Controllers Test', ->
         signinFb: jasmine.createSpy('authService').and.returnValue promise
       $rootScope.votingService =
         support: jasmine.createSpy('votingService')
+        improve: jasmine.createSpy('votingService')
 
     it 'should initialize scope items', ->
 #      $scope.$apply()
@@ -87,19 +88,36 @@ describe 'Proposals Controllers Test', ->
       expect $scope.socialSharing
         .toBeDefined()
 
-    it 'should invoke signinFb if user tries to support a proposal and is not signed in ', ->
+    it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in ', ->
       $rootScope.currentUser = {}
       $scope.support clicked_proposal
 
       expect $rootScope.authService.signinFb.calls.count()
         .toEqual 1
 
-    it 'should allow signed in Fb user to support a proposal', ->
+    it 'should allow signed in Fb user to SUPPORT a proposal', ->
       $rootScope.currentUser =
         id: 5
       $scope.support clicked_proposal
 
       expect $rootScope.votingService.support.calls.count()
+        .toEqual 1
+      expect $rootScope.authService.signinFb.calls.any()
+        .toBe false
+
+    it 'should invoke signinFb if user tries to IMPROVE a proposal and is not signed in ', ->
+      $rootScope.currentUser = {}
+      $scope.improve clicked_proposal
+
+      expect $rootScope.authService.signinFb.calls.count()
+        .toEqual 1
+
+    it 'should allow signed in Fb user to IMPROVE a proposal', ->
+      $rootScope.currentUser =
+        id: 5
+      $scope.improve clicked_proposal
+
+      expect $rootScope.votingService.improve.calls.count()
         .toEqual 1
       expect $rootScope.authService.signinFb.calls.any()
         .toBe false
