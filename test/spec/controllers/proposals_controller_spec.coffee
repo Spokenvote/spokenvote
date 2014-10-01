@@ -26,26 +26,69 @@ describe 'Proposals Controllers Test', ->
     $rootScope = undefined
     $scope = undefined
     ctrl = undefined
-    mockProposal = {id: 1, statement: 'My Proposal'}
+    mockProposal = undefined
+#    mockProposal = {id: 1, statement: 'My Proposal'}
     mockRelatedProposals = [ 1, 2, 3 ]
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_, _Auth_) ->
       $rootScope = _$rootScope_
+      $rootScope.authService = _Auth_
+      $rootScope.currentUser = {}
       $rootScope.sessionSettings = _SessionSettings_
       $scope = $rootScope.$new()
+      mockProposal = _ProposalLoader_
       ctrl = _$controller_ 'ProposalShowCtrl',
         $scope: $scope
         proposal: mockProposal
         relatedProposals: mockRelatedProposals
+      spyOn $scope, '$broadcast'
+        .and.callThrough()
+      spyOn $scope, 'authService'
+        .and.
 
     it 'should initialize scope items', ->
-      $scope.$apply()
+#      $scope.$apply()
       expect $scope.proposal
         .toEqual mockProposal
       expect $scope.relatedProposals
         .toEqual mockRelatedProposals
       expect $scope.sessionSettings.actions.detailPage
         .toBe true
+      expect $scope.$$listeners      # Not wild about this code, really want it to see 'event:votesChanged' but can't address that exact complex object
+        .toBeDefined()
+
+#    it 'should invoke event:votesChanged when "event:votesChanged" broadcasted', ->
+#      $scope.$broadcast('event:votesChanged')
+#      expect($scope.$broadcast).toHaveBeenCalledWith('event:votesChanged')
+
+      expect $scope.hubView
+        .toBeDefined()
+      expect $scope.setVoter
+        .toBeDefined()
+      expect $scope.support
+        .toBeDefined()
+      expect $scope.improve
+        .toBeDefined()
+      expect $scope.edit
+        .toBeDefined()
+      expect $scope.delete
+        .toBeDefined()
+      expect $scope.tooltips
+        .toBeDefined()
+      expect $scope.socialSharing
+        .toBeDefined()
+
+    it 'should accept proposal support', ->
+      clicked_proposal =
+        id: '17'
+        proposal:
+          statement: 'My proposal statement'
+          votes_attributes:
+            comment: 'Why you should vote for this proposal'
+
+      $scope.support clicked_proposal
+
+
 
 #    it 'should have loaded list of proposals', ->
 #      $scope.$apply()
