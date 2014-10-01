@@ -53,8 +53,10 @@ describe 'Proposals Controllers Test', ->
       $rootScope.authService =
         signinFb: jasmine.createSpy('authService').and.returnValue promise
       $rootScope.votingService =
-        support: jasmine.createSpy('votingService')
-        improve: jasmine.createSpy('votingService')
+        support: jasmine.createSpy('votingService:support')
+        improve: jasmine.createSpy('votingService:improve')
+        edit: jasmine.createSpy('votingService:edit')
+        delete: jasmine.createSpy('votingService:delete')
 
     it 'should initialize scope items', ->
 #      $scope.$apply()
@@ -121,6 +123,26 @@ describe 'Proposals Controllers Test', ->
         .toEqual 1
       expect $rootScope.authService.signinFb.calls.any()
         .toBe false
+
+    it 'should allow user to EDIT a proposal', ->
+#      $rootScope.currentUser =                                         # TODO: Add real tests for edit and delete
+#        id: 5
+      $scope.edit clicked_proposal
+
+      expect $rootScope.votingService.edit.calls.count()
+        .toEqual 1
+#      expect $rootScope.authService.signinFb.calls.any()
+#        .toBe false
+
+    it 'should allow user to DELETE a proposal', ->
+#      $rootScope.currentUser =
+#        id: 5
+      $scope.delete clicked_proposal
+
+      expect $rootScope.votingService.delete.calls.count()
+        .toEqual 1
+#      expect $rootScope.authService.signinFb.calls.any()
+#        .toBe false
 
 #    it 'should have loaded list of proposals', ->
 #      $scope.$apply()
