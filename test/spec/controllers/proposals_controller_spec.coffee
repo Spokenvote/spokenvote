@@ -29,6 +29,13 @@ describe 'Proposals Controllers Test', ->
     mockProposal = undefined
 #    mockProposal = {id: 1, statement: 'My Proposal'}
     mockRelatedProposals = [ 1, 2, 3 ]
+    clicked_proposal =
+      id: '17'
+      proposal:
+        statement: 'My proposal statement'
+        votes_attributes:
+          comment: 'Why you should vote for this proposal'
+
 
     beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_) ->
       $rootScope = _$rootScope_
@@ -42,7 +49,8 @@ describe 'Proposals Controllers Test', ->
         relatedProposals: mockRelatedProposals
       spyOn $scope, '$broadcast'
         .and.callThrough()
-      promise = { then: jasmine.createSpy() }
+      promise =
+        then: jasmine.createSpy()
       $rootScope.authService =
         signinFb: jasmine.createSpy('authService').and.returnValue promise
 
@@ -78,17 +86,11 @@ describe 'Proposals Controllers Test', ->
       expect $scope.socialSharing
         .toBeDefined()
 
-    it 'should accept proposal support', ->
-      clicked_proposal =
-        id: '17'
-        proposal:
-          statement: 'My proposal statement'
-          votes_attributes:
-            comment: 'Why you should vote for this proposal'
-
+    it 'should invoke signinFb if user tries to support a proposal and is not signed in ', ->
       $scope.support clicked_proposal
 
-
+      expect $rootScope.authService.signinFb.calls.count()
+        .toEqual 1
 
 #    it 'should have loaded list of proposals', ->
 #      $scope.$apply()
