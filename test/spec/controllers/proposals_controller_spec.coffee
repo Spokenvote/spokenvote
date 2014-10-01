@@ -39,7 +39,6 @@ describe 'Proposals Controllers Test', ->
 
     beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_) ->
       $rootScope = _$rootScope_
-      $rootScope.currentUser = {}
       $rootScope.sessionSettings = _SessionSettings_
       $scope = $rootScope.$new()
       mockProposal = _ProposalLoader_
@@ -53,6 +52,8 @@ describe 'Proposals Controllers Test', ->
         then: jasmine.createSpy()
       $rootScope.authService =
         signinFb: jasmine.createSpy('authService').and.returnValue promise
+      $rootScope.votingService =
+        support: jasmine.createSpy('votingService')
 
     it 'should initialize scope items', ->
 #      $scope.$apply()
@@ -87,10 +88,21 @@ describe 'Proposals Controllers Test', ->
         .toBeDefined()
 
     it 'should invoke signinFb if user tries to support a proposal and is not signed in ', ->
+      $rootScope.currentUser = {}
       $scope.support clicked_proposal
 
       expect $rootScope.authService.signinFb.calls.count()
         .toEqual 1
+
+    it 'should allow signed in Fb user to support a proposal', ->
+      $rootScope.currentUser =
+        id: 5
+      $scope.support clicked_proposal
+
+      expect $rootScope.votingService.support.calls.count()
+        .toEqual 1
+      expect $rootScope.authService.signinFb.calls.any()
+        .toBe false
 
 #    it 'should have loaded list of proposals', ->
 #      $scope.$apply()
