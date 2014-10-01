@@ -30,9 +30,8 @@ describe 'Proposals Controllers Test', ->
 #    mockProposal = {id: 1, statement: 'My Proposal'}
     mockRelatedProposals = [ 1, 2, 3 ]
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_, _Auth_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_) ->
       $rootScope = _$rootScope_
-      $rootScope.authService = _Auth_
       $rootScope.currentUser = {}
       $rootScope.sessionSettings = _SessionSettings_
       $scope = $rootScope.$new()
@@ -43,8 +42,9 @@ describe 'Proposals Controllers Test', ->
         relatedProposals: mockRelatedProposals
       spyOn $scope, '$broadcast'
         .and.callThrough()
-      spyOn $scope, 'authService'
-        .and.
+      promise = { then: jasmine.createSpy() }
+      $rootScope.authService =
+        signinFb: jasmine.createSpy('authService').and.returnValue promise
 
     it 'should initialize scope items', ->
 #      $scope.$apply()
