@@ -26,8 +26,10 @@ describe 'Proposals Controllers Test', ->
     $rootScope = undefined
     $scope = undefined
     ctrl = undefined
-    mockProposal = undefined
-#    mockProposal = {id: 1, statement: 'My Proposal'}
+#    mockProposal = undefined
+    mockProposal =
+      id: 1
+      statement: 'My Proposal'
     mockRelatedProposals = [ 1, 2, 3 ]
     clicked_proposal =
       id: '17'
@@ -37,17 +39,17 @@ describe 'Proposals Controllers Test', ->
           comment: 'Why you should vote for this proposal'
 
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _ProposalLoader_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
       $rootScope = _$rootScope_
       $rootScope.sessionSettings = _SessionSettings_
       $scope = $rootScope.$new()
-      mockProposal = _ProposalLoader_
       ctrl = _$controller_ 'ProposalShowCtrl',
         $scope: $scope
         proposal: mockProposal
         relatedProposals: mockRelatedProposals
       spyOn $scope, '$broadcast'
         .and.callThrough()
+      $scope.proposal.$get = jasmine.createSpy('proposal:$get')
       promise =
         then: jasmine.createSpy()
       $rootScope.authService =
@@ -68,11 +70,6 @@ describe 'Proposals Controllers Test', ->
         .toBe true
       expect $scope.$$listeners      # Not wild about this code, really want it to see 'event:votesChanged' but can't address that exact complex object
         .toBeDefined()
-
-#    it 'should invoke event:votesChanged when "event:votesChanged" broadcasted', ->
-#      $scope.$broadcast('event:votesChanged')
-#      expect($scope.$broadcast).toHaveBeenCalledWith('event:votesChanged')
-
       expect $scope.hubView
         .toBeDefined()
       expect $scope.setVoter
@@ -89,6 +86,14 @@ describe 'Proposals Controllers Test', ->
         .toBeDefined()
       expect $scope.socialSharing
         .toBeDefined()
+
+    it 'should invoke $scope.proposal.$get() when "event:votesChanged" broadcasted', ->
+      $scope.$broadcast 'event:votesChanged'
+
+      expect $scope.$broadcast
+        .toHaveBeenCalledWith 'event:votesChanged'
+      expect $scope.proposal.$get.calls.count()
+        .toEqual 1
 
     it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in ', ->
       $rootScope.currentUser = {}
