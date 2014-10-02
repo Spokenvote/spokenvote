@@ -24,9 +24,10 @@ describe 'Proposals Controllers Test', ->
 
   describe 'ProposalShowCtrl should  .... ', ->
     $rootScope = undefined
+    $httpBackend = undefined
+    $location = undefined
     $scope = undefined
     ctrl = undefined
-#    mockProposal = undefined
     mockProposal =
       id: 1
       statement: 'My Proposal'
@@ -38,9 +39,10 @@ describe 'Proposals Controllers Test', ->
         votes_attributes:
           comment: 'Why you should vote for this proposal'
 
-
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _$location_) ->
       $rootScope = _$rootScope_
+      $httpBackend = _$httpBackend_
+      $location = _$location_
       $rootScope.sessionSettings = _SessionSettings_
       $scope = $rootScope.$new()
       ctrl = _$controller_ 'ProposalShowCtrl',
@@ -61,7 +63,6 @@ describe 'Proposals Controllers Test', ->
         delete: jasmine.createSpy('votingService:delete')
 
     it 'should initialize scope items', ->
-#      $scope.$apply()
       expect $scope.proposal
         .toEqual mockProposal
       expect $scope.relatedProposals
@@ -94,6 +95,24 @@ describe 'Proposals Controllers Test', ->
         .toHaveBeenCalledWith 'event:votesChanged'
       expect $scope.proposal.$get.calls.count()
         .toEqual 1
+
+    it 'should invoke hubView if selected', ->
+      $scope.proposal.hub =
+        id: 9
+
+      $scope.hubView()
+
+      expect $location.url()
+        .toBe '/proposals?hub=9'
+
+    it 'should invoke hubView if selected', ->
+      $scope.proposal.hub =
+        id: 9
+
+      $scope.hubView()
+
+      expect $location.url()
+        .toBe '/proposals?hub=9'
 
     it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in ', ->
       $rootScope.currentUser = {}
