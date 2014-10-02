@@ -105,14 +105,17 @@ describe 'Proposals Controllers Test', ->
       expect $location.url()
         .toBe '/proposals?hub=9'
 
-    it 'should invoke hubView if selected', ->
-      $scope.proposal.hub =
-        id: 9
+    it 'should invoke setVoter if selected', ->
+      vote =
+        user_id: 11
+        username: 'Democracy Don'
 
-      $scope.hubView()
+      $scope.setVoter vote
 
       expect $location.url()
-        .toBe '/proposals?hub=9'
+        .toBe '/proposals?user=11'
+      expect $scope.sessionSettings.actions.userFilter
+        .toBe 'Democracy Don'
 
     it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in ', ->
       $rootScope.currentUser = {}
