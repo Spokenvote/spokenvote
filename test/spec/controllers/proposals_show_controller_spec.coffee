@@ -1,26 +1,7 @@
-describe 'Proposals Controllers Test', ->
+describe 'Proposal Show Controller Tests', ->
   beforeEach ->
     module 'spokenvote'
-    module 'spokenvoteMocks'
-
-  describe 'ProposalListCtrl perform a Controller tasks ', ->
-    $rootScope = undefined
-    $scope = undefined
-    ctrl = undefined
-
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
-      $rootScope = _$rootScope_
-      $rootScope.sessionSettings = _SessionSettings_
-      $scope = $rootScope.$new()
-      ctrl = _$controller_ 'ProposalListCtrl',
-        $scope: $scope
-
-    it 'should have loaded list of proposals', ->
-      $scope.$apply()
-      expect $scope.proposals
-        .toEqual [ 1, 2, 3 ]
-      expect $scope.proposalsLoading
-        .toBe false
+#    module 'spokenvoteMocks'
 
   describe 'ProposalShowCtrl should perform a Controller tasks', ->
     $rootScope = undefined
@@ -71,6 +52,7 @@ describe 'Proposals Controllers Test', ->
         .toBe true
       expect $scope.$$listeners      # Not wild about this code, really want it to see 'event:votesChanged' but can't address that exact complex object
         .toBeDefined()
+#        .toContain("{event:votesChanged}") # Sure seems this line would work, but does not
       expect $scope.hubView
         .toBeDefined()
       expect $scope.setVoter
@@ -171,9 +153,3 @@ describe 'Proposals Controllers Test', ->
 #      expect $rootScope.authService.signinFb.calls.any()
 #        .toBe false
 
-#    it 'should have loaded list of proposals', ->
-#      $scope.$apply()
-#      expect $scope.proposals
-#        .toEqual [ 1, 2, 3 ]
-#      expect $scope.proposalsLoading
-#        .toBe false
