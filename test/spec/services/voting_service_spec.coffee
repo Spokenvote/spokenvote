@@ -35,8 +35,9 @@ describe 'Voting Service Tests', ->
 #      $location = _$location_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
-        clearAlerts: jasmine.createSpy('alertService:clearAlerts')
-        setInfo: jasmine.createSpy('alertService:setInfo')
+        clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
+        setInfo: jasmine.createSpy 'alertService:setInfo'
+        setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -109,9 +110,33 @@ describe 'Voting Service Tests', ->
       expect $rootScope.alertService.setInfo
         .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
 
-    it 'open modal if user tries to SUPPORT a proposal and is signed in', ->
-#      VotingService.support clicked_proposal
-#
+    it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+      relatedSupport.proposal.id = 8
+      SupportCtrl = jasmine.createSpy('SupportCtrl')
+      VotingService.support clicked_proposal
+
+      $httpBackend
+        .expectGET '/proposals/17/related_vote_in_tree'
+        .respond relatedSupport
+      $httpBackend
+        .expectGET 'proposals/_support_modal.html'
+        .respond 'success'
+      $httpBackend
+        .expectGET 'template/modal/backdrop.html'
+        .respond 'success'
+      $httpBackend
+        .expectGET 'template/modal/window.html'
+        .respond 'success'
+
+      $httpBackend.flush()
+
+      expect $rootScope.sessionSettings.newSupport.related
+        .toEqual jasmine.objectContaining null
+      expect $rootScope.alertService.setInfo
+        .not.toHaveBeenCalled()
+      expect $rootScope.alertService.setInfo
+        .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+
 #      $httpBackend
 #        .expectGET '/proposals/55'
 #        .respond editedProposal
