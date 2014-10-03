@@ -15,7 +15,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
         if SessionSettings.openModals.supportProposal is false
-          console.log 'open modal block: '
           modalInstance = $modal.open
             templateUrl: 'proposals/_support_modal.html'
             controller: 'SupportCtrl'

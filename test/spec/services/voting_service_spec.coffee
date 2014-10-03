@@ -3,11 +3,49 @@ describe 'Voting Service Tests', ->
     module 'spokenvote'
   #    module 'spokenvoteMocks'
 
+#    mockModal =
+##      open: ($q) ->
+#      open:
+#        opened: ($q) ->
+#          ->
+#            delay = $q.defer()
+#            proposals = [ 1, 2, 3 ]
+#            delay.resolve proposals
+#            delay.promise
+
+
+#    mockModal =
+#      open: jasmine.createSpy('modal.open').andReturn(modalInstance)
+#        opened:
+#          then: jasmine.createSpy 'modal.open.opened.then'
+
+#    mockModal.opened:
+#          then: jasmine.createSpy 'modal.open.opened.then'
+
+#    console.log 'mockModal.open.opened: ', mockModal.open.opened.then
+
+
+#    module ($provide) ->
+#      -> $provide.value '$modal',
+#        mockModal
+#        open: jasmine.createSpy 'modal:open'
+#        open: ($q) ->
+##          ->
+#          delay = $q.defer()
+#          proposals = [ 1, 2, 3 ]
+#          delay.resolve proposals
+#          @opened = delay.promise
+
+
   describe 'ProposalShowCtrl should perform a Controller tasks', ->
     $rootScope = undefined
     $httpBackend = undefined
     VotingService = undefined
     $location = undefined
+    $modal = undefined
+    modalInstance = undefined
+    finallyCallback = undefined
+#    $modal = jasmine.createSpy 'modal'
     scope = undefined
     ctrl = undefined
     mockProposal =
@@ -28,9 +66,10 @@ describe 'Voting Service Tests', ->
         votes_attributes:
           comment: 'Why you should vote for this related proposal'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$location_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$location_, _$modal_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
+      $modal = _$modal_
       VotingService = _VotingService_
 #      $location = _$location_
       $rootScope.sessionSettings = _SessionSettings_
@@ -45,8 +84,16 @@ describe 'Voting Service Tests', ->
 #        $scope: $scope
 #        proposal: mockProposal
 #        relatedProposals: mockRelatedProposals
-#      spyOn $scope, '$broadcast'
-#        .and.callThrough()
+      modalInstance =
+        opened:
+          then: (openedCallback) ->
+            openedCallback()
+        result:
+          finally: (callback) ->
+            finallyCallback = callback
+
+      spyOn $modal, 'open'
+        .and.returnValue modalInstance
 #      promise =
 #        then: jasmine.createSpy()
 #      $rootScope.authService =
@@ -111,6 +158,10 @@ describe 'Voting Service Tests', ->
         .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
 
     it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+
+      expect $rootScope.sessionSettings.openModals.supportProposal
+        .toEqual false
+
       relatedSupport.proposal.id = 8
       SupportCtrl = jasmine.createSpy('SupportCtrl')
       VotingService.support clicked_proposal
@@ -118,28 +169,25 @@ describe 'Voting Service Tests', ->
       $httpBackend
         .expectGET '/proposals/17/related_vote_in_tree'
         .respond relatedSupport
-      $httpBackend
-        .expectGET 'proposals/_support_modal.html'
-        .respond 'success'
-      $httpBackend
-        .expectGET 'template/modal/backdrop.html'
-        .respond 'success'
-      $httpBackend
-        .expectGET 'template/modal/window.html'
-        .respond 'success'
 
       $httpBackend.flush()
 
-      expect $rootScope.sessionSettings.newSupport.related
-        .toEqual jasmine.objectContaining null
-      expect $rootScope.alertService.setInfo
-        .not.toHaveBeenCalled()
-      expect $rootScope.alertService.setInfo
-        .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+      openModalArgs =
+        templateUrl: 'proposals/_support_modal.html'
+        controller: 'SupportCtrl'
 
-#      $httpBackend
-#        .expectGET '/proposals/55'
-#        .respond editedProposal
+      expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
+        .not.toEqual 17
+      expect $modal.open
+        .toHaveBeenCalledWith openModalArgs
+      expect modalInstance.opened.then
+        .toHaveBeenCalled
+      expect modalInstance.result.finally
+        .toHaveBeenCalled
+      expect $rootScope.sessionSettings.openModals.supportProposal
+        .toEqual true
 
-#      expect $rootScope.alertService.setInfo.calls.count()
-#        .toEqual 1
+      finallyCallback()
+
+      expect $rootScope.sessionSettings.openModals.supportProposal
+        .toEqual false
