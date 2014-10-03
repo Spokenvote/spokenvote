@@ -9,7 +9,6 @@ describe 'Voting Service Tests', ->
 #    $location = undefined
     $modal = undefined
     modalInstance = undefined
-    finallyCallback = undefined
     scope = undefined
 #    mockProposal =
 #      id: 1
@@ -49,7 +48,7 @@ describe 'Voting Service Tests', ->
             openedCallback()
         result:
           finally: (callback) ->
-            finallyCallback = callback
+            @finallyCallback = callback
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
@@ -140,7 +139,7 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.supportProposal
           .toEqual true
 
-        finallyCallback()
+        modalInstance.result.finallyCallback()
 
         expect $rootScope.sessionSettings.openModals.supportProposal
           .toEqual false
