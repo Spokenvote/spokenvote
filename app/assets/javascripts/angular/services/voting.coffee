@@ -8,15 +8,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
     else
-#      console.log 'RelatedVoteInTreeLoader(clicked_proposal).then: ', RelatedVoteInTreeLoader(clicked_proposal).then
-#      console.log 'RelatedVoteInTreeLoader(clicked_proposal).finally: ', RelatedVoteInTreeLoader(clicked_proposal).finally
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
-#        console.log 'after then: '
         if relatedSupport.id?
-#          console.log 'relatedSupport.id from ctrl: ', relatedSupport.id
           $rootScope.sessionSettings.newSupport.related = relatedSupport
           if relatedSupport.proposal.id == clicked_proposal.id
-#            console.log 'clicked_proposal.id ctrl: ', clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
         if SessionSettings.openModals.supportProposal is false

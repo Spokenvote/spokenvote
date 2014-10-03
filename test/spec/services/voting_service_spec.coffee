@@ -102,10 +102,12 @@ describe 'Voting Service Tests', ->
 
       $httpBackend.flush()
 
+      expect $rootScope.sessionSettings.newSupport.related
+        .toEqual jasmine.objectContaining relatedSupport
       expect $rootScope.alertService.setInfo.calls.count()
         .toEqual 1
       expect $rootScope.alertService.setInfo
-        .toHaveBeenCalledWith(jasmine.any(String), jasmine.any(Object), jasmine.any(String))
+        .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
 
     it 'open modal if user tries to SUPPORT a proposal and is signed in', ->
 #      VotingService.support clicked_proposal
