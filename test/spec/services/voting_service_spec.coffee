@@ -2,7 +2,7 @@ describe 'Voting Service Tests', ->
   beforeEach ->
     module 'spokenvote'
 
-  describe 'ProposalShowCtrl should perform a Controller tasks', ->
+  describe 'VotingService should perform Voting Service tasks', ->
     $rootScope = undefined
     $httpBackend = undefined
     VotingService = undefined
@@ -72,72 +72,75 @@ describe 'Voting Service Tests', ->
       expect VotingService.saveNewProposal
         .toBeDefined()
 
-    it 'should initialize SUPPORT method', ->
-      VotingService.support clicked_proposal
 
-      expect $rootScope.sessionSettings.newSupport.target
-        .toEqual clicked_proposal
-      expect $rootScope.sessionSettings.newSupport.related
-        .toBe null
-      expect $rootScope.alertService.clearAlerts.calls.count()
-        .toEqual 1
+    describe 'SUPPORT method should make checks and open SUPPORT modal', ->
 
-    it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
-      $rootScope.currentUser =
-        id: null
-      VotingService.support clicked_proposal
+      it 'should initialize SUPPORT method', ->
+        VotingService.support clicked_proposal
 
-      expect $rootScope.alertService.setInfo.calls.count()
-        .toEqual 1
+        expect $rootScope.sessionSettings.newSupport.target
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newSupport.related
+          .toBe null
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
 
-    it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
-      relatedSupport.proposal.id = 17
-      VotingService.support clicked_proposal
+      it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
+        $rootScope.currentUser =
+          id: null
+        VotingService.support clicked_proposal
 
-      $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond relatedSupport
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
 
-      $httpBackend.flush()
+      it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
+        relatedSupport.proposal.id = 17
+        VotingService.support clicked_proposal
 
-      expect $rootScope.sessionSettings.newSupport.related
-        .toEqual jasmine.objectContaining relatedSupport
-      expect $rootScope.alertService.setInfo.calls.count()
-        .toEqual 1
-      expect $rootScope.alertService.setInfo
-        .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
 
-    it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+        $httpBackend.flush()
 
-      expect $rootScope.sessionSettings.openModals.supportProposal
-        .toEqual false
+        expect $rootScope.sessionSettings.newSupport.related
+          .toEqual jasmine.objectContaining relatedSupport
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setInfo
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
 
-      relatedSupport.proposal.id = 8
-      SupportCtrl = jasmine.createSpy('SupportCtrl')
-      VotingService.support clicked_proposal
+      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
 
-      $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond relatedSupport
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual false
 
-      $httpBackend.flush()
+        relatedSupport.proposal.id = 8
+        SupportCtrl = jasmine.createSpy('SupportCtrl')
+        VotingService.support clicked_proposal
 
-      openModalArgs =
-        templateUrl: 'proposals/_support_modal.html'
-        controller: 'SupportCtrl'
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
 
-      expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
-        .not.toEqual 17
-      expect $modal.open
-        .toHaveBeenCalledWith openModalArgs
-      expect modalInstance.opened.then
-        .toHaveBeenCalled
-      expect modalInstance.result.finally
-        .toHaveBeenCalled
-      expect $rootScope.sessionSettings.openModals.supportProposal
-        .toEqual true
+        $httpBackend.flush()
 
-      finallyCallback()
+        openModalArgs =
+          templateUrl: 'proposals/_support_modal.html'
+          controller: 'SupportCtrl'
 
-      expect $rootScope.sessionSettings.openModals.supportProposal
-        .toEqual false
+        expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
+          .not.toEqual 17
+        expect $modal.open
+          .toHaveBeenCalledWith openModalArgs
+        expect modalInstance.opened.then
+          .toHaveBeenCalled
+        expect modalInstance.result.finally
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual true
+
+        finallyCallback()
+
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual false
