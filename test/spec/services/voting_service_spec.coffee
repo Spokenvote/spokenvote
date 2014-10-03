@@ -1,57 +1,20 @@
 describe 'Voting Service Tests', ->
   beforeEach ->
     module 'spokenvote'
-  #    module 'spokenvoteMocks'
-
-#    mockModal =
-##      open: ($q) ->
-#      open:
-#        opened: ($q) ->
-#          ->
-#            delay = $q.defer()
-#            proposals = [ 1, 2, 3 ]
-#            delay.resolve proposals
-#            delay.promise
-
-
-#    mockModal =
-#      open: jasmine.createSpy('modal.open').andReturn(modalInstance)
-#        opened:
-#          then: jasmine.createSpy 'modal.open.opened.then'
-
-#    mockModal.opened:
-#          then: jasmine.createSpy 'modal.open.opened.then'
-
-#    console.log 'mockModal.open.opened: ', mockModal.open.opened.then
-
-
-#    module ($provide) ->
-#      -> $provide.value '$modal',
-#        mockModal
-#        open: jasmine.createSpy 'modal:open'
-#        open: ($q) ->
-##          ->
-#          delay = $q.defer()
-#          proposals = [ 1, 2, 3 ]
-#          delay.resolve proposals
-#          @opened = delay.promise
-
 
   describe 'ProposalShowCtrl should perform a Controller tasks', ->
     $rootScope = undefined
     $httpBackend = undefined
     VotingService = undefined
-    $location = undefined
+#    $location = undefined
     $modal = undefined
     modalInstance = undefined
     finallyCallback = undefined
-#    $modal = jasmine.createSpy 'modal'
     scope = undefined
-    ctrl = undefined
-    mockProposal =
-      id: 1
-      statement: 'My Proposal'
-    mockRelatedProposals = [ 1, 2, 3 ]
+#    mockProposal =
+#      id: 1
+#      statement: 'My Proposal'
+#    mockRelatedProposals = [ 1, 2, 3 ]
     clicked_proposal =
       id: 17
       proposal:
@@ -66,7 +29,7 @@ describe 'Voting Service Tests', ->
         votes_attributes:
           comment: 'Why you should vote for this related proposal'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$location_, _$modal_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
@@ -80,10 +43,6 @@ describe 'Voting Service Tests', ->
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
-#      ctrl = _$controller_ 'ProposalShowCtrl',
-#        $scope: $scope
-#        proposal: mockProposal
-#        relatedProposals: mockRelatedProposals
       modalInstance =
         opened:
           then: (openedCallback) ->
@@ -94,15 +53,6 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
-#      promise =
-#        then: jasmine.createSpy()
-#      $rootScope.authService =
-#        signinFb: jasmine.createSpy('authService').and.returnValue promise
-#      $rootScope.votingService =
-#        support: jasmine.createSpy('votingService:support')
-#        improve: jasmine.createSpy('votingService:improve')
-#        edit: jasmine.createSpy('votingService:edit')
-#        delete: jasmine.createSpy('votingService:delete')
 
     it 'should initialize methods', ->
       expect VotingService.support

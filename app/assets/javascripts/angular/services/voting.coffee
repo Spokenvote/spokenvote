@@ -14,14 +14,14 @@ VotingService = [ '$rootScope', '$location', '$modal', 'SessionSettings', 'Relat
           if relatedSupport.proposal.id == clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
-        if SessionSettings.openModals.supportProposal is false
+        if $rootScope.sessionSettings.openModals.supportProposal is false
           modalInstance = $modal.open
             templateUrl: 'proposals/_support_modal.html'
             controller: 'SupportCtrl'
           modalInstance.opened.then ->
-            SessionSettings.openModals.supportProposal = true
+            $rootScope.sessionSettings.openModals.supportProposal = true
           modalInstance.result.finally ->
-            SessionSettings.openModals.supportProposal = false
+            $rootScope.sessionSettings.openModals.supportProposal = false
 
   improve: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
