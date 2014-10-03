@@ -28,7 +28,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     scope.current_user_support = null
     $rootScope.alertService.clearAlerts()
 
-    if !scope.currentUser.id?
+    if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->

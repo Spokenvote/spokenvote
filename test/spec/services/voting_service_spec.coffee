@@ -143,3 +143,76 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.sessionSettings.openModals.supportProposal
           .toEqual false
+
+
+    describe 'IMPROVE method should make checks and open IMPROVE modal', ->
+
+      it 'should initialize IMPROVE method', ->
+        VotingService.improve clicked_proposal
+
+        expect scope.clicked_proposal
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newSupport.related
+          .toBe null
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+
+      it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
+        $rootScope.currentUser =
+          id: null
+        VotingService.support clicked_proposal
+
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+
+      it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
+        relatedSupport.proposal.id = 17
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.newSupport.related
+          .toEqual jasmine.objectContaining relatedSupport
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setInfo
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+
+      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual false
+
+        relatedSupport.proposal.id = 8
+        SupportCtrl = jasmine.createSpy('SupportCtrl')
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
+
+        $httpBackend.flush()
+
+        openModalArgs =
+          templateUrl: 'proposals/_support_modal.html'
+          controller: 'SupportCtrl'
+
+        expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
+          .not.toEqual 17
+        expect $modal.open
+          .toHaveBeenCalledWith openModalArgs
+        expect modalInstance.opened.then
+          .toHaveBeenCalled
+        expect modalInstance.result.finally
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual true
+
+        modalInstance.result.finallyCallback()
+
+        expect $rootScope.sessionSettings.openModals.supportProposal
+          .toEqual false
