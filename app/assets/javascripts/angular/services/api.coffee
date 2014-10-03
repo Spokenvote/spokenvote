@@ -143,12 +143,12 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
   (clicked_proposal) ->
     delay = $q.defer()
     RelatedVoteInTree.get(
-      (id: clicked_proposal.id
-      ), ((relatedVoteInTree) ->
-        delay.resolve relatedVoteInTree
+      ( id: clicked_proposal.id
+      ), ((related_voteInTree) ->
+        delay.resolve related_voteInTree
       ), ->
-      delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
-    )
+        delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
+      )
     delay.promise
 
 # Injects

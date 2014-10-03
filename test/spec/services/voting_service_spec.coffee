@@ -8,18 +8,25 @@ describe 'Voting Service Tests', ->
     $httpBackend = undefined
     VotingService = undefined
     $location = undefined
-    $scope = undefined
+    scope = undefined
     ctrl = undefined
     mockProposal =
       id: 1
       statement: 'My Proposal'
     mockRelatedProposals = [ 1, 2, 3 ]
     clicked_proposal =
-      id: '17'
+      id: 17
       proposal:
         statement: 'My proposal statement'
         votes_attributes:
           comment: 'Why you should vote for this proposal'
+    relatedSupport =
+      id: 122
+      proposal:
+        id: 8
+        statement: 'Related proposal statement'
+        votes_attributes:
+          comment: 'Why you should vote for this related proposal'
 
     beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$location_) ->
       $rootScope = _$rootScope_
@@ -29,7 +36,10 @@ describe 'Voting Service Tests', ->
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
         clearAlerts: jasmine.createSpy('alertService:clearAlerts')
-#      $scope = $rootScope.$new()
+        setInfo: jasmine.createSpy('alertService:setInfo')
+      $rootScope.currentUser =
+        id: 5
+      scope = $rootScope.$new()
 #      ctrl = _$controller_ 'ProposalShowCtrl',
 #        $scope: $scope
 #        proposal: mockProposal
@@ -64,9 +74,45 @@ describe 'Voting Service Tests', ->
       expect VotingService.saveNewProposal
         .toBeDefined()
 
-    it 'should respond to SUPPORT method', ->
+    it 'should initialize SUPPORT method', ->
       VotingService.support clicked_proposal
 
-#      expect $rootScope.sessionSettings.newSupport.target
+      expect $rootScope.sessionSettings.newSupport.target
+        .toEqual clicked_proposal
+      expect $rootScope.sessionSettings.newSupport.related
+        .toBe null
+      expect $rootScope.alertService.clearAlerts.calls.count()
+        .toEqual 1
 
+    it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
+      $rootScope.currentUser =
+        id: null
+      VotingService.support clicked_proposal
 
+      expect $rootScope.alertService.setInfo.calls.count()
+        .toEqual 1
+
+    it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
+      relatedSupport.proposal.id = 17
+      VotingService.support clicked_proposal
+
+      $httpBackend
+        .expectGET '/proposals/17/related_vote_in_tree'
+        .respond relatedSupport
+
+      $httpBackend.flush()
+
+      expect $rootScope.alertService.setInfo.calls.count()
+        .toEqual 1
+      expect $rootScope.alertService.setInfo
+        .toHaveBeenCalledWith(jasmine.any(String), jasmine.any(Object), jasmine.any(String))
+
+    it 'open modal if user tries to SUPPORT a proposal and is signed in', ->
+#      VotingService.support clicked_proposal
+#
+#      $httpBackend
+#        .expectGET '/proposals/55'
+#        .respond editedProposal
+
+#      expect $rootScope.alertService.setInfo.calls.count()
+#        .toEqual 1

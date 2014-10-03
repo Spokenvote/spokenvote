@@ -99,7 +99,7 @@ describe 'Proposal Show Controller Tests', ->
       expect $scope.sessionSettings.actions.userFilter
         .toBe 'Democracy Don'
 
-    it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in ', ->
+    it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
       $rootScope.currentUser = {}
       $scope.support clicked_proposal
 
