@@ -96,6 +96,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
+        $rootScope.sessionSettings.newSupport.related = null
         VotingService.support clicked_proposal
 
         $httpBackend
@@ -162,6 +163,7 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
+        $rootScope.sessionSettings.newSupport.related = null
         VotingService.improve scope, clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
@@ -169,7 +171,8 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        VotingService.support clicked_proposal
+        scope.current_user_support = null
+        VotingService.improve scope, clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -177,12 +180,8 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newSupport.related
-          .toEqual jasmine.objectContaining relatedSupport
-        expect $rootScope.alertService.setInfo.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setInfo
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect scope.current_user_support
+          .toEqual 'related_proposal'
 
       it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
 
