@@ -1,2 +1,2 @@
 # Spokenvote Dev's should set up their own settings here
-rvm 2.1.1@spokenvote
+# rvm 2.1.1@spokenvote    # Trying w/o this setting as of 10/5/14 to see if I really need it.

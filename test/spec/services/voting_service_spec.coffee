@@ -32,6 +32,8 @@ describe 'Voting Service Tests', ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
+#      $modal =
+#        open: jasmine.createSpy 'modal:setCtlResult'
       VotingService = _VotingService_
 #      $location = _$location_
       $rootScope.sessionSettings = _SessionSettings_
@@ -148,19 +150,19 @@ describe 'Voting Service Tests', ->
     describe 'IMPROVE method should make checks and open IMPROVE modal', ->
 
       it 'should initialize IMPROVE method', ->
-        VotingService.improve clicked_proposal
+        VotingService.improve scope, clicked_proposal
 
         expect scope.clicked_proposal
           .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.newSupport.related
-          .toBe null
+        expect scope.current_user_support
+          .toEqual null
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        VotingService.support clicked_proposal
+        VotingService.improve scope, clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
