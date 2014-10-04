@@ -185,12 +185,12 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
+        expect $rootScope.sessionSettings.openModals.improveProposal
           .toEqual false
 
         relatedSupport.proposal.id = 8
         SupportCtrl = jasmine.createSpy('SupportCtrl')
-        VotingService.support clicked_proposal
+        VotingService.improve scope, clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -199,21 +199,20 @@ describe 'Voting Service Tests', ->
         $httpBackend.flush()
 
         openModalArgs =
-          templateUrl: 'proposals/_support_modal.html'
-          controller: 'SupportCtrl'
+          templateUrl: 'proposals/_improve_proposal_modal.html'
+          controller: 'ImroveCtrl'
+          scope: scope
 
-        expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
-          .not.toEqual 17
         expect $modal.open
           .toHaveBeenCalledWith openModalArgs
         expect modalInstance.opened.then
           .toHaveBeenCalled
         expect modalInstance.result.finally
           .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.supportProposal
+        expect $rootScope.sessionSettings.openModals.improveProposal
           .toEqual true
 
         modalInstance.result.finallyCallback()
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
+        expect $rootScope.sessionSettings.openModals.improveProposal
           .toEqual false
