@@ -48,13 +48,13 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     scope.clicked_proposal = clicked_proposal
 
     if !scope.currentUser.id?
-      $rootScope.alertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+      $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
     else
       if $rootScope.sessionSettings.openModals.editProposal is false
         modalInstance = $modal.open
           templateUrl: 'proposals/_edit_proposal_modal.html'
           controller: 'EditProposalCtrl'
-          scope: scope
+          scope: scope      # Optional to pass the scope here?
         modalInstance.opened.then ->
           $rootScope.sessionSettings.openModals.editProposal = true
         modalInstance.result.finally ->
@@ -64,13 +64,13 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     scope.clicked_proposal = clicked_proposal
 
     if !scope.currentUser.id?
-      $rootScope.alertService.setInfo 'To proceed you need to sign in.', scope, 'main'
+      $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
     else
       if $rootScope.sessionSettings.openModals.deleteProposal is false
         modalInstance = $modal.open
           templateUrl: 'proposals/_delete_proposal_modal.html'
           controller: 'DeleteProposalCtrl'
-          scope: scope
+          scope: scope       # Optional to pass the scope here?
         modalInstance.opened.then ->
           $rootScope.sessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
