@@ -200,7 +200,7 @@ describe 'Voting Service Tests', ->
 
         openModalArgs =
           templateUrl: 'proposals/_improve_proposal_modal.html'
-          controller: 'ImroveCtrl'
+          controller: 'ImproveCtrl'
           scope: scope
 
         expect $modal.open

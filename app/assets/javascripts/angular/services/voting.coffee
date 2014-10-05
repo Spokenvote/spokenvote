@@ -37,7 +37,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         if $rootScope.sessionSettings.openModals.improveProposal is false
           modalInstance = $modal.open
             templateUrl: 'proposals/_improve_proposal_modal.html'
-            controller: 'ImroveCtrl'
+            controller: 'ImproveCtrl'
             scope: scope
           modalInstance.opened.then ->
             $rootScope.sessionSettings.openModals.improveProposal = true
