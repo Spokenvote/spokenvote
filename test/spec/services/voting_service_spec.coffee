@@ -6,6 +6,7 @@ describe 'Voting Service Tests', ->
     $rootScope = undefined
     $httpBackend = undefined
     VotingService = undefined
+    Proposal = undefined
 #    $location = undefined
     $modal = undefined
     modalInstance = undefined
@@ -28,14 +29,12 @@ describe 'Voting Service Tests', ->
         votes_attributes:
           comment: 'Why you should vote for this related proposal'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _Proposal_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
-#      $modal =
-#        open: jasmine.createSpy 'modal:setCtlResult'
       VotingService = _VotingService_
-#      $location = _$location_
+      Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
         clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
@@ -435,6 +434,9 @@ describe 'Voting Service Tests', ->
 #            finallyCallback: ->
 #              $rootScope.sessionSettings.openModals.newProposal = false
 
+        spyOn Proposal, 'save'
+          .and.returnValue status: 'Success'
+
         VotingService.saveNewProposal modalInstance
 
         expect $rootScope.alertService.clearAlerts.calls.count()
@@ -445,6 +447,8 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
         expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
           .toContain 'location appears to be invalid'
+        expect Proposal.save
+          .not.toHaveBeenCalled()
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes.id = null
@@ -456,12 +460,18 @@ describe 'Voting Service Tests', ->
 #            finallyCallback: ->
 #              $rootScope.sessionSettings.openModals.newProposal = false
 
+        spyOn Proposal, 'save'
+          .and.returnValue 'Success'
+
         VotingService.saveNewProposal modalInstance
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()
           .toEqual 0
+
+        expect Proposal.save
+          .toHaveBeenCalled()
 
       it 'should check for a current HUB and use it if it exists', ->
         $rootScope.sessionSettings.hub_attributes =
