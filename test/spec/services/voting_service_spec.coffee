@@ -451,8 +451,10 @@ describe 'Voting Service Tests', ->
           .not.toHaveBeenCalled()
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes.id = null
-        $rootScope.sessionSettings.hub_attributes.formatted_location = 'Atlanta, GA'
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          formatted_location: 'Atlanta, GA'
+        $rootScope.sessionSettings.actions.searchTerm = 'New Group Name'
         $rootScope.sessionSettings.openModals.newProposal = true
 
 #        modalInstance:
@@ -469,60 +471,47 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()
           .toEqual 0
-
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
         expect Proposal.save
           .toHaveBeenCalled()
 
-      it 'should check for a current HUB and use it if it exists', ->
+      it 'should check for EXISTING HUB, FIND one, and save the New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
-          id: 3
-          name: 'A sample group'
+          id: 12
+          formatted_location: 'Atlanta, GA'
 
-        VotingService.new()
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          comment: 'A million reasons to vote for this guy!'
 
-        expect $rootScope.sessionSettings.actions.changeHub
-          .toEqual false
+        $rootScope.sessionSettings.openModals.newProposal = true
 
-      it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
-        $rootScope.sessionSettings.hub_attributes = {}
-        $rootScope.sessionSettings.actions.searchTerm = 'some recent search term'
+        expectedProposalSaveArgs =
+          proposal:
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              comment: 'A million reasons to vote for this guy!'
+            hub_id: 12
+            hub_attributes:
+              id: 12
+              formatted_location: 'Atlanta, GA'
 
-        VotingService.new()
+#        modalInstance:
+#          result:
+#            finallyCallback: ->
+#              $rootScope.sessionSettings.openModals.newProposal = false
 
-        expect $rootScope.sessionSettings.actions.changeHub
-          .toEqual true
-        expect $rootScope.sessionSettings.actions.searchTerm
-          .toEqual null
+        spyOn Proposal, 'save'
+          .and.returnValue 'Success'
 
-      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
-        VotingService.new()
+        VotingService.saveNewProposal modalInstance
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
-
-      it 'should open NEW modal', ->
-
-        expect $rootScope.sessionSettings.openModals.newProposal
-          .toEqual false
-
-        VotingService.new()
-
-        openModalArgs =
-          templateUrl: 'proposals/_new_proposal_modal.html'
-          controller: 'NewProposalCtrl'
-
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.newProposal
-          .toEqual true
-
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.newProposal
-          .toEqual false
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect Proposal.save
+          .toHaveBeenCalled()
+        expect Proposal.save.calls.mostRecent().args[0]
+          .toEqual expectedProposalSaveArgs
