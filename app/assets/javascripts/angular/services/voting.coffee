@@ -114,8 +114,14 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
   saveNewProposal: ($modalInstance) ->
+    $rootScope.alertService.clearAlerts()
+
     if !$rootScope.sessionSettings.hub_attributes.id?
-      $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.searchTerm
+      if $rootScope.sessionSettings.hub_attributes.formatted_location?
+        $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.searchTerm
+        return
+      else
+        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'modal'
     newProposal =
       proposal:
         statement: $rootScope.sessionSettings.newProposal.statement
@@ -123,8 +129,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           comment: $rootScope.sessionSettings.newProposal.comment
         hub_id: $rootScope.sessionSettings.hub_attributes.id
         hub_attributes: $rootScope.sessionSettings.hub_attributes
-
-    $rootScope.alertService.clearAlerts()
 
     Proposal.save(
       (newProposal

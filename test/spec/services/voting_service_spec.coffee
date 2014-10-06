@@ -425,11 +425,43 @@ describe 'Voting Service Tests', ->
 
     describe 'saveNewProposal method should SAVE New Proposal', ->
 
-      it 'should initialize NEW method by clearing alerts', ->
-        VotingService.new()
+      it 'should check for NEW HUB and REJECT an invalid Hub Location if saving a New Hub', ->
+        $rootScope.sessionSettings.hub_attributes.id = null
+        $rootScope.sessionSettings.hub_attributes.formatted_location = null
+        $rootScope.sessionSettings.openModals.newProposal = true
+
+#        modalInstance:
+#          result:
+#            finallyCallback: ->
+#              $rootScope.sessionSettings.openModals.newProposal = false
+
+        VotingService.saveNewProposal modalInstance
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'location appears to be invalid'
+
+      it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
+        $rootScope.sessionSettings.hub_attributes.id = null
+        $rootScope.sessionSettings.hub_attributes.formatted_location = 'Atlanta, GA'
+        $rootScope.sessionSettings.openModals.newProposal = true
+
+#        modalInstance:
+#          result:
+#            finallyCallback: ->
+#              $rootScope.sessionSettings.openModals.newProposal = false
+
+        VotingService.saveNewProposal modalInstance
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
 
       it 'should check for a current HUB and use it if it exists', ->
         $rootScope.sessionSettings.hub_attributes =
