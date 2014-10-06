@@ -42,6 +42,7 @@ describe 'Voting Service Tests', ->
         setInfo: jasmine.createSpy 'alertService:setInfo'
         setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
+        setJson: jasmine.createSpy 'alertService:setJson'
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -504,7 +505,7 @@ describe 'Voting Service Tests', ->
         expect Proposal.save.calls.mostRecent().args[0]
           .toEqual expectedProposalSaveArgs
 
-      it 'Proposal.save should save the New Proposal and execute SUCCESS callback', ->
+      it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
         $rootScope.sessionSettings.openModals.newProposal = true
@@ -531,3 +532,28 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith response
         expect $rootScope.sessionSettings.actions.offcanvas
           .toEqual false
+
+      it 'Proposal.save should execute correct FAILURE callback', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+        $rootScope.sessionSettings.openModals.newProposal = true
+
+        response =
+          data: 'There was a server error!'
+
+        spyOn Proposal, 'save'
+          .and.returnValue status: 'Error'
+
+        VotingService.saveNewProposal modalInstance
+        Proposal.save.calls.mostRecent().args[2] response
+
+        expect Proposal.save
+          .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+        expect $rootScope.alertService.setJson.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
+          .toContain response.data
