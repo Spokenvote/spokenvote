@@ -7,7 +7,7 @@ describe 'Voting Service Tests', ->
     $httpBackend = undefined
     VotingService = undefined
     Proposal = undefined
-#    $location = undefined
+    $location = undefined
     $modal = undefined
     modalInstance = undefined
     scope = undefined
@@ -29,10 +29,11 @@ describe 'Voting Service Tests', ->
         votes_attributes:
           comment: 'Why you should vote for this related proposal'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _Proposal_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
+      $location = _$location_
       VotingService = _VotingService_
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
@@ -40,6 +41,7 @@ describe 'Voting Service Tests', ->
         clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
         setInfo: jasmine.createSpy 'alertService:setInfo'
         setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
+        setSuccess: jasmine.createSpy 'alertService:setSuccess'
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -50,6 +52,7 @@ describe 'Voting Service Tests', ->
         result:
           finally: (callback) ->
             @finallyCallback = callback
+        close: jasmine.createSpy 'modalInstance.close'
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
@@ -429,11 +432,6 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.hub_attributes.formatted_location = null
         $rootScope.sessionSettings.openModals.newProposal = true
 
-#        modalInstance:
-#          result:
-#            finallyCallback: ->
-#              $rootScope.sessionSettings.openModals.newProposal = false
-
         spyOn Proposal, 'save'
           .and.returnValue status: 'Success'
 
@@ -456,11 +454,6 @@ describe 'Voting Service Tests', ->
           formatted_location: 'Atlanta, GA'
         $rootScope.sessionSettings.actions.searchTerm = 'New Group Name'
         $rootScope.sessionSettings.openModals.newProposal = true
-
-#        modalInstance:
-#          result:
-#            finallyCallback: ->
-#              $rootScope.sessionSettings.openModals.newProposal = false
 
         spyOn Proposal, 'save'
           .and.returnValue 'Success'
@@ -497,11 +490,6 @@ describe 'Voting Service Tests', ->
               id: 12
               formatted_location: 'Atlanta, GA'
 
-#        modalInstance:
-#          result:
-#            finallyCallback: ->
-#              $rootScope.sessionSettings.openModals.newProposal = false
-
         spyOn Proposal, 'save'
           .and.returnValue 'Success'
 
@@ -515,3 +503,31 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalled()
         expect Proposal.save.calls.mostRecent().args[0]
           .toEqual expectedProposalSaveArgs
+
+      it 'Proposal.save should save the New Proposal and execute SUCCESS callback', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+        $rootScope.sessionSettings.openModals.newProposal = true
+
+        response =
+          id: 2045
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn Proposal, 'save'
+          .and.returnValue status: 'Success'
+
+        VotingService.saveNewProposal modalInstance
+        Proposal.save.calls.mostRecent().args[1] response
+
+        expect Proposal.save
+          .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+          .toContain response.statement
+        expect $location.url()
+          .toEqual '/proposals/2045?filter=my#navigationBar'
+        expect modalInstance.close
+          .toHaveBeenCalledWith response
+        expect $rootScope.sessionSettings.actions.offcanvas
+          .toEqual false
