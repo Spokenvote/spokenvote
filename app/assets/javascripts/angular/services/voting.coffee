@@ -109,7 +109,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.sessionSettings.openModals.getStarted = false
 
   changeHub: (request) ->
-    if request = true and $rootScope.sessionSettings.actions.changeHub != 'new'
+    if request is true and $rootScope.sessionSettings.actions.changeHub != 'new'
       $rootScope.sessionSettings.actions.newProposalHub = null
       $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 

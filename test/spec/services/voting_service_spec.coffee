@@ -395,7 +395,35 @@ describe 'Voting Service Tests', ->
           .toEqual false
 
 
-    describe 'NEW method should make checks and open New Proposal modal', ->
+
+    describe 'CHANGHUB method should detect request and change to New Hub mode', ->
+
+      it 'should not respond to a request with no args', ->
+
+        $rootScope.sessionSettings.actions.newProposalHub = true
+        $rootScope.sessionSettings.actions.changeHub = false
+
+        VotingService.changeHub()
+
+        expect $rootScope.sessionSettings.actions.newProposalHub
+          .toEqual true
+        expect $rootScope.sessionSettings.actions.changeHub
+          .toEqual false
+
+      it 'should  respond to a request with "true" arg', ->
+
+        $rootScope.sessionSettings.actions.newProposalHub = true
+        $rootScope.sessionSettings.actions.changeHub = false
+
+        VotingService.changeHub true
+
+        expect $rootScope.sessionSettings.actions.newProposalHub
+          .toEqual null
+        expect $rootScope.sessionSettings.actions.changeHub
+          .toEqual true
+
+
+    describe 'saveNewProposal method should SAVE New Proposal', ->
 
       it 'should initialize NEW method by clearing alerts', ->
         VotingService.new()
