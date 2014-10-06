@@ -346,7 +346,97 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.newProposal
           .toEqual false
 
-#        relatedSupport.proposal.id = 8
+        VotingService.new()
+
+        openModalArgs =
+          templateUrl: 'proposals/_new_proposal_modal.html'
+          controller: 'NewProposalCtrl'
+
+        expect $modal.open
+          .toHaveBeenCalledWith openModalArgs
+        expect modalInstance.opened.then
+          .toHaveBeenCalled
+        expect modalInstance.result.finally
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.openModals.newProposal
+          .toEqual true
+
+        modalInstance.result.finallyCallback()
+
+        expect $rootScope.sessionSettings.openModals.newProposal
+          .toEqual false
+
+
+    describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
+
+      it 'should open WIZARD modal', ->
+
+        expect $rootScope.sessionSettings.openModals.getStarted
+          .toEqual false
+
+        VotingService.wizard()
+
+        openModalArgs =
+          templateUrl: 'shared/_get_started_modal.html'
+          controller: 'GetStartedCtrl'
+
+        expect $modal.open
+          .toHaveBeenCalledWith openModalArgs
+        expect modalInstance.opened.then
+          .toHaveBeenCalled
+        expect modalInstance.result.finally
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.openModals.getStarted
+          .toEqual true
+
+        modalInstance.result.finallyCallback()
+
+        expect $rootScope.sessionSettings.openModals.getStarted
+          .toEqual false
+
+
+    describe 'NEW method should make checks and open New Proposal modal', ->
+
+      it 'should initialize NEW method by clearing alerts', ->
+        VotingService.new()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+
+      it 'should check for a current HUB and use it if it exists', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 3
+          name: 'A sample group'
+
+        VotingService.new()
+
+        expect $rootScope.sessionSettings.actions.changeHub
+          .toEqual false
+
+      it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
+        $rootScope.sessionSettings.hub_attributes = {}
+        $rootScope.sessionSettings.actions.searchTerm = 'some recent search term'
+
+        VotingService.new()
+
+        expect $rootScope.sessionSettings.actions.changeHub
+          .toEqual true
+        expect $rootScope.sessionSettings.actions.searchTerm
+          .toEqual null
+
+      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
+        $rootScope.currentUser =
+          id: null
+        VotingService.new()
+
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+
+      it 'should open NEW modal', ->
+
+        expect $rootScope.sessionSettings.openModals.newProposal
+          .toEqual false
+
         VotingService.new()
 
         openModalArgs =
