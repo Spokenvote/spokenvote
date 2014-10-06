@@ -336,23 +336,22 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        VotingService.edit scope, clicked_proposal
+        VotingService.new()
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
 
       it 'should open NEW modal', ->
 
-        expect $rootScope.sessionSettings.openModals.deleteProposal
+        expect $rootScope.sessionSettings.openModals.newProposal
           .toEqual false
 
-        relatedSupport.proposal.id = 8
-        VotingService.delete scope, clicked_proposal
+#        relatedSupport.proposal.id = 8
+        VotingService.new()
 
         openModalArgs =
-          templateUrl: 'proposals/_delete_proposal_modal.html'
-          controller: 'DeleteProposalCtrl'
-          scope: scope
+          templateUrl: 'proposals/_new_proposal_modal.html'
+          controller: 'NewProposalCtrl'
 
         expect $modal.open
           .toHaveBeenCalledWith openModalArgs
@@ -360,10 +359,10 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalled
         expect modalInstance.result.finally
           .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.deleteProposal
+        expect $rootScope.sessionSettings.openModals.newProposal
           .toEqual true
 
         modalInstance.result.finallyCallback()
 
-        expect $rootScope.sessionSettings.openModals.deleteProposal
+        expect $rootScope.sessionSettings.openModals.newProposal
           .toEqual false
