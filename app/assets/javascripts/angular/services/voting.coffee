@@ -78,6 +78,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   new: (scope) ->
     $rootScope.alertService.clearAlerts()
+
     if $rootScope.sessionSettings.hub_attributes.id?
       $rootScope.sessionSettings.actions.changeHub = false
     else
