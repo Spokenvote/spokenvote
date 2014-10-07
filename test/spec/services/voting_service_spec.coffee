@@ -11,10 +11,6 @@ describe 'Voting Service Tests', ->
     $modal = undefined
     modalInstance = undefined
     scope = undefined
-#    mockProposal =
-#      id: 1
-#      statement: 'My Proposal'
-#    mockRelatedProposals = [ 1, 2, 3 ]
     clicked_proposal =
       id: 17
       proposal:
