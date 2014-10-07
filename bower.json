@@ -34,6 +34,7 @@
     "jQuery": "~2.1.1",
     "underscore": "~1.7.0",
     "angular-loading-bar": "~0.6.0",
-    "angulartics": "~0.16.5"
+    "angulartics": "~0.16.5",
+    "jquery": "~2.1.1"
   }
 }
