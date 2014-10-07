@@ -31,7 +31,7 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', (
     )
 ]
 
-ImroveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
+ImproveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
   $scope.alertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
@@ -107,7 +107,7 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'P
         $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
         $modalInstance.close(response)
       ), (response, status, headers, config) ->
-        $scope.alertService.setCtlResult 'Sorry, your  proposal could not be deleted.', $scope
+        $scope.alertService.setCtlResult 'Sorry, your proposal could not be deleted.', $scope
         $scope.alertService.setJson response.data
     )
 ]
@@ -118,7 +118,7 @@ NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
 
 # Register
 App.controller 'SupportCtrl', SupportCtrl
-App.controller 'ImroveCtrl', ImroveCtrl
+App.controller 'ImproveCtrl', ImproveCtrl
 App.controller 'EditProposalCtrl', EditProposalCtrl
 App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
 App.controller 'NewProposalCtrl', NewProposalCtrl

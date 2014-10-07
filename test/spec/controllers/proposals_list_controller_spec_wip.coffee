@@ -1,4 +1,4 @@
-describe "Controllers Test", ->
+describe "List Controller Tests", ->
   $scope = undefined
   ctrl = undefined
   beforeEach module 'spokenvote'
@@ -7,10 +7,6 @@ describe "Controllers Test", ->
   beforeEach ->
     @addMatchers toEqualData: (expected) ->
       angular.equals @actual, expected
-
-  describe "Initial Validation Test", ->
-    it "should match", ->
-      expect("string").toMatch new RegExp("^string$")
 
   describe "ProposalListCtrl", ->
     beforeEach inject ($rootScope, $controller, _$httpBackend_, SessionSettings) ->

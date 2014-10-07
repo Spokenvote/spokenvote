@@ -11,7 +11,7 @@
 // require bootstrap/tab
 
 //= require bootstrap/transition
-//= require bootstrap/collapse
+// require bootstrap/collapse
 
 //= require angular/angular
 //= require angular-resource/angular-resource
@@ -23,6 +23,7 @@
 //= require angular-ui-utils/ui-utils.min
 //= require angular-ui-select2/src/select2
 //= require angular-ui-bootstrap/src/modal/modal
+// require angular-ui-bootstrap/src/collapse/collapse
 //= require angular-ui-bootstrap/src/transition/transition
 //= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
 //= require angular-ui-bootstrap/src/tooltip/tooltip

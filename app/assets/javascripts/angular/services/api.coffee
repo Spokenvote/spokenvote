@@ -1,4 +1,4 @@
-# Rest
+# Resources
 CurrentUser = ($resource) ->
   $resource '/currentuser'
 
@@ -6,10 +6,10 @@ Hub = ($resource) ->
   $resource '/hubs/:id', {id: '@id'}, {update: {method: 'PUT'} }
 
 Vote = ($resource) ->
-  $resource '/votes/:id', id: '@id', update: method: 'PUT'
+  $resource '/votes/:id', id: '@id', { update: method: 'PUT' }
 
 Proposal = ($resource) ->
-  $resource '/proposals/:id', id: '@id', update: method: 'PUT'
+  $resource '/proposals/:id', id: '@id', { update: method: 'PUT' }
 
 RelatedProposals = ($resource) ->
   $resource '/proposals/:id/related_proposals?related_sort_by=:related_sort_by',
@@ -20,7 +20,6 @@ RelatedVoteInTree = ($resource) ->
   $resource '/proposals/:id/related_vote_in_tree',
     id: '@id'
 
-# Resources
 UserOmniauthResource = ($http) ->
   UserOmniauth = (options) ->
     angular.extend this, options
@@ -144,12 +143,12 @@ RelatedVoteInTreeLoader = (RelatedVoteInTree, $q) ->
   (clicked_proposal) ->
     delay = $q.defer()
     RelatedVoteInTree.get(
-      (id: clicked_proposal.id
-      ), ((relatedVoteInTree) ->
-        delay.resolve relatedVoteInTree
+      ( id: clicked_proposal.id
+      ), ((related_voteInTree) ->
+        delay.resolve related_voteInTree
       ), ->
-      delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
-    )
+        delay.reject 'Unable to find any related votes in the tree for proposal: ' + clicked_proposal.id
+      )
     delay.promise
 
 # Injects

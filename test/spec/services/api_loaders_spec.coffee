@@ -2,6 +2,8 @@ describe "API Test", ->
 #  $scope = undefined
 #  rootScope = undefined
   $httpBackend = undefined
+  Hub = undefined
+  Proposal = undefined
   multiProposalLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
@@ -13,10 +15,6 @@ describe "API Test", ->
           hub: 1
           filter: 'active'
           user: 42
-
-  describe "Initial Validation Test", ->
-    it "should match", ->
-      expect("string").toMatch new RegExp("^string$")
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->

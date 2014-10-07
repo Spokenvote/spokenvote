@@ -22,7 +22,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode
     else
       $scope.route.current.prerenderStatusCode = undefined
-#    console.log '$scope.route.current.prerenderStatusCode dashboard $scope.$on: ', $scope.route.current.prerenderStatusCode
 
   $scope.$watch 'hubFilter.hubFilter', ->
     if $scope.hubFilter.hubFilter == null
@@ -83,7 +82,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
           $scope.sessionSettings.actions.changeHub = 'new'
         searchedHub.term
       else if not _.isEmpty searchedHub
-        console.log 'else'
+#        console.log 'else'  # Initial hub can't display bug: Really might not be solvable.
         $scope.sessionSettings.hub_attributes = searchedHub
         $scope.sessionSettings.actions.changeHub = false
         $scope.sessionSettings.actions.selectHub = true
