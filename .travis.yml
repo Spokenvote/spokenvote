@@ -12,10 +12,10 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - rake db:test_prep
   - npm install karma
-  - npm install karma-jasmine
-  - npm install karma-coverage
+  - npm install karma-jasmine@2_0
   - npm install karma-phantomjs-launcher
   - npm install karma-coffee-preprocessor
+  - npm install karma-coverage
 
 # uncomment this line if your project needs to run something other than `rake`:
 script:
