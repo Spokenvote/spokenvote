@@ -34,12 +34,16 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       title: 'Group Consensus Tool'
       templateUrl: 'pages/landing.html'
       callToAction: 'Group Consensus Tool'
+      summary: "The Spokenvote group consensus tool gives groups a tool to reach consensus quickly and efficiently, from group consensus for a local school board to group consensus for an entire nation’s people. This group consensus tool radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient tool."
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
         ]
         setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
         ]
     )
     .when( '/online-group-consensus-tool'
@@ -163,6 +167,8 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         @title = prefix + body + @brand
       setCallToAction: (callToAction) ->
         @callToAction = callToAction
+      setSummary: (summary) ->
+        @summary = summary
   ])
 
 App.Directives = angular.module 'spokenvote.directives', []
