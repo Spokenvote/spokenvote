@@ -121,10 +121,18 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .otherwise(
       title: 'Lost in Space'
       prerenderStatusCode: '404'
-      template: '<h3>Whoops, page not found</h3>'
+      callToAction: 'Group Consensus Tool'
+      summary: "The Spokenvote group consensus tool gives groups a tool to reach consensus quickly and efficiently, from group consensus for a local school board to group consensus for an entire nation’s people. This group consensus tool radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient tool."
+      template: '<div class="call_to_action page_title">Whoops, {{ page.callToAction }} not found</div></br><h4 class="summary page_title">{{ page.summary }}</h4>'
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
         ]
     )
 
@@ -163,7 +171,7 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
       current: {}
     $rootScope.page =
       prefix: ''
-      body: 'Online Group Consensus Tool' +  ' | '
+      body: 'Group Consensus Tool' +  ' | '
       brand: 'Spokenvote'
       setTitle: (prefix, body) ->
         prefix = if prefix then prefix.charAt(0).toUpperCase() + prefix.substring(1) + ' | ' else @prefix
