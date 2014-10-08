@@ -19,8 +19,7 @@ SitemapGenerator::Sitemap.sitemaps_host = "http://#{ENV['FOG_DIRECTORY']}.s3.ama
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
-  # Put links creation logic here.
-  #
+
   # The root path '/' and sitemap index file are added automatically for you.
   # Links are added to the Sitemap in the order they are specified.
   #
@@ -32,17 +31,18 @@ SitemapGenerator::Sitemap.create do
   #
 
   # SEO Pages
-  add '/group-consensus-tool', changefreq: 'daily', priority: 0.9
+  add '/group-consensus-tool', changefreq: 'daily', priority: 0.7
+  add '/online-group-consensus-tool', changefreq: 'daily', priority: 0.7
 
   # Nav Pages
-  add '/', changefreq: 'daily', priority: 0.9
-  add '/landing', changefreq: 'daily', priority: 0.9
-  add '/user-forum', changefreq: 'daily', priority: 0.9
-  add '/dev-forum', changefreq: 'daily', priority: 0.9
-  add '/terms-of-use', changefreq: 'monthly'
-  add '/proposals', changefreq: 'daily', priority: 0.9
-  add '/proposals?filter=recent', changefreq: 'daily', priority: 0.9
-  add '/proposals?filter=active', changefreq: 'daily', priority: 0.9
+  add '/', changefreq: 'daily', priority: 1.0
+  add '/landing', changefreq: 'daily', priority: 1.0
+  add '/dev-forum', changefreq: 'daily', priority: 0.7
+  add '/user-forum', changefreq: 'daily', priority: 0.6
+  add '/proposals', changefreq: 'daily', priority: 0.5
+  add '/proposals?filter=recent', changefreq: 'daily', priority: 0.3
+  add '/proposals?filter=active', changefreq: 'daily', priority: 0.3
+  add '/terms-of-use', changefreq: 'monthly', priority: 0.2
 
   Proposal.find_each do |proposal|
     add proposal_path(proposal), :lastmod => proposal.updated_at, priority: 0.7, changefreq: 'daily'
