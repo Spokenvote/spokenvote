@@ -138,6 +138,54 @@ describe 'Routes Tests', ->
       expect $rootScope.page.summary
         .toContain ' group voting tool gives groups '
 
+    it '/reach-consensus path should map route to correct template, page title, callToAction, and summary, but undefined controller', ->
+
+      $httpBackend.expectGET 'pages/landing.html'
+        .respond 200
+      $location.path '/reach-consensus'
+      $rootScope.$digest()
+
+      expect $route.current.templateUrl
+        .toBe 'pages/landing.html'
+      expect $route.current.controller
+        .toBeUndefined()
+      expect $route.current.title
+        .toEqual 'Reach Consensus'
+      expect $route.current.callToAction
+        .toBe 'Reach Consensus'
+      expect $route.current.summary
+        .toContain 'Reach consensus quickly and efficiently. '
+      expect $rootScope.page.title
+        .toEqual 'Reach Consensus | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual 'Reach Consensus'
+      expect $rootScope.page.summary
+        .toContain 'Reach consensus quickly and efficiently. '
+
+    it '/group-consensus path should map route to correct template, page title, callToAction, and summary, but undefined controller', ->
+
+      $httpBackend.expectGET 'pages/landing.html'
+        .respond 200
+      $location.path '/group-consensus'
+      $rootScope.$digest()
+
+      expect $route.current.templateUrl
+        .toBe 'pages/landing.html'
+      expect $route.current.controller
+        .toBeUndefined()
+      expect $route.current.title
+        .toEqual 'Group Consensus'
+      expect $route.current.callToAction
+        .toBe 'Group Consensus'
+      expect $route.current.summary
+        .toContain 'Group consensus: quick and efficient. '
+      expect $rootScope.page.title
+        .toEqual 'Group Consensus | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual 'Group Consensus'
+      expect $rootScope.page.summary
+        .toContain 'Group consensus: quick and efficient. '
+
     it 'bad urls should map route to page title, but undefined callToAction, template, and summary, but undefined controller', ->
 
       $location.path '/bad-url'

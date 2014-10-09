@@ -62,11 +62,43 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           $rootScope.page.setSummary $route.current.summary
         ]
     )
-     .when( '/voting-tool'
+    .when( '/voting-tool'
       title: 'Voting Tool'
       templateUrl: 'pages/landing.html'
       callToAction: 'Group Voting Tool'
-      summary: "This group voting tool gives groups a voting tool to reach consensus quickly and efficiently. The voting tool works for consensus in groups like a local school board to consensus for an entire nation’s people. Spokenvote's voting tool radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient voting tool."
+      summary: "This group voting tool gives groups a voting tool to reach consensus quickly and efficiently. The voting tool works for consensus in groups like a local school board to consensus for an entire nation’s people. Spokenvote's voting tool radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient tool for voting."
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
+        ]
+    )
+    .when( '/reach-consensus'
+      title: 'Reach Consensus'
+      templateUrl: 'pages/landing.html'
+      callToAction: 'Reach Consensus'
+      summary: "Reach consensus quickly and efficiently. Spokenvote is a voting tool that lets you reach consensus in small groups, reach consensus in medium sized groups, or reach consensus for an entire nation’s people. Regardless, reaching consensus is radically enhanced by the group’s ability to reach consensus in an intuitive, democratic process using a fun, efficient voting tool."
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
+        ]
+    )
+    .when( '/group-consensus'
+      title: 'Group Consensus'
+      templateUrl: 'pages/landing.html'
+      callToAction: 'Group Consensus'
+      summary: "Group consensus: quick and efficient. Spokenvote is a voting tool for small group consensus, medium sized group consensus, or group consensus for an entire nation’s people. Group consensus has never been easier. Radically enhanced group consensus is intuitive, democratic, and fun using this efficient group consensus tool."
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title

@@ -33,6 +33,8 @@ SitemapGenerator::Sitemap.create do
   # SEO Pages
   add '/group-consensus-tool', changefreq: 'daily', priority: 0.7
   add '/online-group-consensus-tool', changefreq: 'daily', priority: 0.7
+  add '/voting-tool', changefreq: 'daily', priority: 0.7
+  add '/reach-consensus', changefreq: 'daily', priority: 0.7
 
   # Nav Pages
   add '/', changefreq: 'daily', priority: 1.0
