@@ -62,6 +62,22 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           $rootScope.page.setSummary $route.current.summary
         ]
     )
+     .when( '/voting-tool'
+      title: 'Voting Tool'
+      templateUrl: 'pages/landing.html'
+      callToAction: 'Group Voting Tool'
+      summary: "This group voting tool gives groups a voting tool to reach consensus quickly and efficiently. The voting tool works for consensus in groups like a local school board to consensus for an entire nation’s people. Spokenvote's voting tool radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient voting tool."
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
+        ]
+    )
     .when( '/proposals'
       title: 'Proposals'
       templateUrl: 'proposals/index.html'

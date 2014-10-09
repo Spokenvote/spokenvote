@@ -106,13 +106,37 @@ describe 'Routes Tests', ->
       expect $route.current.callToAction
         .toBe 'Online Group Consensus Tool'
       expect $route.current.summary
-        .toContain ' group consensus tool gives groups '
+        .toContain ' Spokenvote online group consensus tool '
       expect $rootScope.page.title
         .toEqual 'Online Group Consensus Tool | Spokenvote'
       expect $rootScope.page.callToAction
         .toEqual 'Online Group Consensus Tool'
       expect $rootScope.page.summary
         .toContain ' Spokenvote online group consensus tool '
+
+    it '/voting-tool path should map route to correct template, page title, callToAction, and summary, but undefined controller', ->
+
+      $httpBackend.expectGET 'pages/landing.html'
+        .respond 200
+      $location.path '/voting-tool'
+      $rootScope.$digest()
+
+      expect $route.current.templateUrl
+        .toBe 'pages/landing.html'
+      expect $route.current.controller
+        .toBeUndefined()
+      expect $route.current.title
+        .toEqual 'Voting Tool'
+      expect $route.current.callToAction
+        .toBe 'Group Voting Tool'
+      expect $route.current.summary
+        .toContain ' group voting tool gives groups '
+      expect $rootScope.page.title
+        .toEqual 'Voting Tool | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual 'Group Voting Tool'
+      expect $rootScope.page.summary
+        .toContain ' group voting tool gives groups '
 
     it 'bad urls should map route to page title, but undefined callToAction, template, and summary, but undefined controller', ->
 
