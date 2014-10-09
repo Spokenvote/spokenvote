@@ -98,7 +98,23 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       title: 'Group Consensus'
       templateUrl: 'pages/landing.html'
       callToAction: 'Group Consensus'
-      summary: "Group consensus: quick and efficient. Spokenvote is a voting tool for small group consensus, medium sized group consensus, or group consensus for an entire nation’s people. Group consensus has never been easier. Radically enhanced group consensus is intuitive, democratic, and fun using this efficient group consensus tool."
+      summary: "Group consensus: quick and efficient. Spokenvote is a voting tool for small group consensus, medium-sized group consensus, or group consensus for an entire nation’s people. Group consensus has never been easier. Radically enhanced group consensus is intuitive, democratic, and fun using this efficient group consensus tool."
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
+        ]
+    )
+    .when( '/collaborative-decision'
+      title: 'Collaborative Decision'
+      templateUrl: 'pages/landing.html'
+      callToAction: 'Collaborative Decision'
+      summary: "Quick and efficient collaborative decisions. Spokenvote is a voting tool for small collaborative decision, medium sized collaborative decision, or collaborative decision-making for an entire nation’s people. Collaborative decision has never been easier. Collaborative decisions become intuitive, democratic, and fun using this efficient collaborative decision tool."
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title

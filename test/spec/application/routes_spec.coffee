@@ -186,6 +186,33 @@ describe 'Routes Tests', ->
       expect $rootScope.page.summary
         .toContain 'Group consensus: quick and efficient. '
 
+    it '/collaborative-decision path should map route to correct template, page title, callToAction, and summary, but undefined controller', ->
+
+      $httpBackend.expectGET 'pages/landing.html'
+        .respond 200
+      $location.path '/collaborative-decision'
+      $rootScope.$digest()
+
+      pageTheme = 'Collaborative Decision'
+      summaryTheme = 'Quick and efficient collaborative decisions. '
+
+      expect $route.current.templateUrl
+        .toBe 'pages/landing.html'
+      expect $route.current.controller
+        .toBeUndefined()
+      expect $route.current.title
+        .toEqual pageTheme
+      expect $route.current.callToAction
+        .toBe pageTheme
+      expect $route.current.summary
+        .toContain summaryTheme
+      expect $rootScope.page.title
+        .toEqual pageTheme + ' | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual pageTheme
+      expect $rootScope.page.summary
+        .toContain summaryTheme
+
     it 'bad urls should map route to page title, but undefined callToAction, template, and summary, but undefined controller', ->
 
       $location.path '/bad-url'
