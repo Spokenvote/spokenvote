@@ -36,6 +36,7 @@ SitemapGenerator::Sitemap.create do
   add '/voting-tool', changefreq: 'daily', priority: 0.7
   add '/reach-consensus', changefreq: 'daily', priority: 0.7
   add '/group-consensus', changefreq: 'daily', priority: 0.7
+  add '/collaborative-decision', changefreq: 'daily', priority: 0.7
 
   # Nav Pages
   add '/', changefreq: 'daily', priority: 1.0
