@@ -1,4 +1,4 @@
-DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope, $route, $location, CurrentHubLoader ) ->
+DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout', ( $scope, $route, $location, CurrentHubLoader, $timeout ) ->
   $scope.sessionSettings.routeParams = $route.current.params
   $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
 
@@ -7,6 +7,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
       when 'active' then 'Most Active Proposals. Also choose most recent or my proposals on Spokenvote.'
       when 'recent' then 'Most Recent Proposals. Also choose most active or my proposals on Spokenvote.'
       when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
+  $timeout (-> $scope.page.metaDescription = null), 6000
 
   $scope.hubFilter =
     hubFilter: null
@@ -17,7 +18,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope,
 
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
-    $scope.page.metaDescription = undefined
     if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
       CurrentHubLoader().then (paramHub) ->
         $scope.sessionSettings.hub_attributes = paramHub
