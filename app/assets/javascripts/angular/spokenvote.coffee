@@ -245,6 +245,7 @@ App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies'
         @callToAction = callToAction
       setSummary: (summary) ->
         @summary = summary
+      metaDescription: undefined
   ])
 
 App.Directives = angular.module 'spokenvote.directives', []
