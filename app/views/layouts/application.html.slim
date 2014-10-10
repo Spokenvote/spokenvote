@@ -54,7 +54,7 @@ html ng-app='spokenvote'
             #mainContent.container
               #alertContainer
                 .pageAlert alert-bar='' alertmessageclear='alertService.alertClass' ng-hide='alertService.alertDestination=="modal"'
-                .summary ng-show='page.metaDescription '{{ page.metaDescription }}
+                .summary ng-show='page.metaDescription' {{ page.metaDescription }}
               ng-view( autoscroll )
 
         .nav_footer role='navigation'

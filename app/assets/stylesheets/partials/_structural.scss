@@ -309,6 +309,11 @@ h1.form-horizontal {
   line-height: 1;
   padding: 1% 0 1% 0;
   text-align: center;
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+.summary.ng-hide {
+  opacity:0;
 }
 
 .tag_line {
