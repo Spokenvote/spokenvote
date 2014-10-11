@@ -1,6 +1,13 @@
-DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', ( $scope, $route, $location, CurrentHubLoader ) ->
+DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout', ( $scope, $route, $location, CurrentHubLoader, $timeout ) ->
   $scope.sessionSettings.routeParams = $route.current.params
   $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode if $route.current.prerenderStatusCode?
+
+  $scope.page.metaDescription =
+    switch $route.current.params.filter
+      when 'active' then 'Most Active Proposals. Also choose most recent or my proposals on Spokenvote.'
+      when 'recent' then 'Most Recent Proposals. Also choose most active or my proposals on Spokenvote.'
+      when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
+  $timeout (-> $scope.page.metaDescription = null), 6000
 
   $scope.hubFilter =
     hubFilter: null

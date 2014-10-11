@@ -27,9 +27,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
   $scope.$on 'cfpLoadingBar:completed', ->
     window.prerenderReady = true
 
-  $timeout (->
-    window.prerenderReady = true
-  ), 10000
+  $timeout ( -> window.prerenderReady = true ), 10000
 
   $scope.signinAuth = ->
     modalInstance = $modal.open
