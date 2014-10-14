@@ -30,6 +30,22 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           $rootScope.page.setCallToAction $route.current.callToAction
         ]
     )
+     .when( '/home'
+      title: 'Decision Platform'
+      templateUrl: 'pages/landing.html'
+      callToAction: 'Your Decision Platform'
+      summary: "The Spokenvote decision platform gives groups a decision platform to reach consensus quickly and efficiently, from a decision platform for a local school board a decision platform for an entire nation’s people. Spokenvote's decision platform radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient decision platform."
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+        setSummary: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setSummary $route.current.summary
+        ]
+    )
     .when( '/group-consensus-tool'
       title: 'Group Consensus Tool'
       templateUrl: 'pages/landing.html'
