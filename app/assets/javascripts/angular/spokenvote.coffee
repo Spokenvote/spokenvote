@@ -34,7 +34,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       title: 'Decision Platform'
       templateUrl: 'pages/landing.html'
       callToAction: 'Your Decision Platform'
-      summary: "The Spokenvote decision platform gives groups a decision platform to reach consensus quickly and efficiently, from a decision platform for a local school board a decision platform for an entire nation’s people. Spokenvote's decision platform radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient decision platform."
+      summary: "The Spokenvote decision platform gives groups a decision platform to reach consensus quickly and efficiently, from a decision platform for a local school board to a decision platform for an entire nation’s people. Spokenvote's decision platform radically enhances a group’s ability to reach consensus via an intuitive democratic process using a fun, efficient decision platform."
       resolve:
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
