@@ -7,7 +7,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 
   $routeProvider
     .when( '/'
-      title: 'Group Consensus Tool'
+      title: 'Group Consensus Collaboration Tool'
       callToAction: 'Your Group Decisions'
       templateUrl: 'pages/landing.html'
       resolve:
@@ -19,7 +19,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
         ]
     )
     .when( '/landing'
-      title: 'Group Consensus Tool'
+      title: 'Group Consensus Voting Tool'
       templateUrl: 'pages/landing.html'
       callToAction: 'Your Group Decisions'
       resolve:
