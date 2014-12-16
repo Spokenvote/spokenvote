@@ -36,9 +36,9 @@ describe 'Routes Tests', ->
       expect $route.current.controller
         .toBeUndefined()
       expect $route.current.title
-        .toEqual 'Group Consensus Tool'
+        .toEqual 'Group Consensus Collaboration Tool'
       expect $rootScope.page.title
-        .toEqual 'Group Consensus Tool | Spokenvote'
+        .toEqual 'Group Consensus Collaboration Tool | Spokenvote'
       expect $rootScope.page.callToAction
         .toEqual 'Your Group Decisions'
       expect $rootScope.page.summary
@@ -58,13 +58,37 @@ describe 'Routes Tests', ->
       expect $route.current.controller
         .toBeUndefined()
       expect $route.current.title
-        .toEqual 'Group Consensus Tool'
+        .toEqual 'Group Consensus Voting Tool'
       expect $rootScope.page.title
-        .toEqual 'Group Consensus Tool | Spokenvote'
+        .toEqual 'Group Consensus Voting Tool | Spokenvote'
       expect $rootScope.page.callToAction
         .toEqual 'Your Group Decisions'
       expect $rootScope.page.summary
         .toBeUndefined()
+
+    it '/home path should map route to correct template and page title, but undefined callToAction, and template, but undefined controller and summary', ->
+
+      $httpBackend.expectGET 'pages/landing.html'
+        .respond 200
+      $location.path '/home'
+      $rootScope.$digest()
+
+      expect $route.current.templateUrl
+        .toBe 'pages/landing.html'
+      expect $route.current.callToAction
+        .toBe 'Your Decision Platform'
+      expect $route.current.controller
+        .toBeUndefined()
+      expect $route.current.title
+        .toEqual 'Decision Platform'
+      expect $route.current.summary
+        .toContain ' Spokenvote decision platform gives groups '
+      expect $rootScope.page.title
+        .toEqual 'Decision Platform | Spokenvote'
+      expect $rootScope.page.callToAction
+        .toEqual 'Your Decision Platform'
+      expect $rootScope.page.summary
+        .toContain ' Spokenvote decision platform gives groups '
 
     it '/group-consensus-tool path should map route to correct template, page title, callToAction, and summary, but undefined controller', ->
 
