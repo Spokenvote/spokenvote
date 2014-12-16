@@ -36,9 +36,9 @@ describe 'Routes Tests', ->
       expect $route.current.controller
         .toBeUndefined()
       expect $route.current.title
-        .toEqual 'Group Consensus Tool'
+        .toEqual 'Group Consensus Collaboration Tool'
       expect $rootScope.page.title
-        .toEqual 'Group Consensus Tool | Spokenvote'
+        .toEqual 'Group Consensus Collaboration Tool | Spokenvote'
       expect $rootScope.page.callToAction
         .toEqual 'Your Group Decisions'
       expect $rootScope.page.summary
@@ -58,9 +58,9 @@ describe 'Routes Tests', ->
       expect $route.current.controller
         .toBeUndefined()
       expect $route.current.title
-        .toEqual 'Group Consensus Tool'
+        .toEqual 'Group Consensus Voting Tool'
       expect $rootScope.page.title
-        .toEqual 'Group Consensus Tool | Spokenvote'
+        .toEqual 'Group Consensus Voting Tool | Spokenvote'
       expect $rootScope.page.callToAction
         .toEqual 'Your Group Decisions'
       expect $rootScope.page.summary
