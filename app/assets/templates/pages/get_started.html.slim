@@ -1,0 +1,49 @@
+#getStartedModal__Placeholder ng-controller='GetStartedCtrl'
+  .modal-header
+    .pull-right( class='close' ng-click='$close()' ) &times;
+    h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find Group
+    h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find Topic
+    h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - New Group
+    h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - New Topic
+
+    ng-include( src="'shared/_selected_hub.html'" )
+
+  .modal-body
+    ng-include( src="'shared/_alert_container.html'" )
+
+    .instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
+      h3
+        span We found
+        span( ng-click='changeHub(true)' ) your group!
+      h5.hint-text
+        .fa.fa-lightbulb-o
+        span-red Hint!
+        span If the group shown above is not the group you wanted, just click the name to search again.
+
+    .instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup' )
+      h3
+        span Going to
+        span( ng-click='changeHub(true)' ) {{ sessionSettings.hub_attributes.group_name }} ...
+      h5.hint-text
+        .fa.fa-lightbulb-o
+        span-red Hint!
+        span If you don't see the Topic you want on the next screen, just select Start New Topic.
+
+    form( name='newProposalForm' ng-submit='saveNewProposal()' )
+      .newProposal
+        ng-include( src="'shared/_change_hub.html'" )
+        ng-include( src="'shared/_make_hub.html'" )
+        ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'shared/_proposal_area.html'" )
+
+  .modal-footer
+    fieldset
+      .form-group
+        .controls
+          button( ng-show='sessionSettings.actions.changeHub == false && !sessionSettings.hub_attributes.id'
+            ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' ng-disabled='!newProposalForm.$valid' ) Save your New proposal
+          button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid'
+            ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+          button( ng-show='sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup'
+            ng-click='goToGroup("hint")' class='btn btn-primary btn-bold' ) Go to {{ sessionSettings.hub_attributes.group_name }}
+          button( ng-show='sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup == "hint"'
+            ng-click='$close()' class='btn btn-primary btn-bold' ) Ok, got it. Go to {{ sessionSettings.hub_attributes.group_name }}.

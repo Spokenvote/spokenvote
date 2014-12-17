@@ -30,6 +30,18 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           $rootScope.page.setCallToAction $route.current.callToAction
         ]
     )
+    .when( '/start'
+      title: 'Group Consensus Voting Tool'
+      templateUrl: 'pages/get_started.html'
+      callToAction: 'Start Making Group Decisions'
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+    )
      .when( '/home'
       title: 'Decision Platform'
       templateUrl: 'pages/landing.html'
