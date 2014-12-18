@@ -1,4 +1,4 @@
-#getStartedModal__Placeholder ng-controller='GetStartedCtrl'
+.getStarted ng-controller='GetStartedController'
   .modal-header
     .pull-right( class='close' ng-click='$close()' ) &times;
     h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find Group
@@ -7,6 +7,8 @@
     h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - New Topic
 
     ng-include( src="'shared/_selected_hub.html'" )
+
+    textarea( id='proposal_statement' name='statement' class='full-width' ng-model='sessionSettings.newProposal.statement' required ng-minLength='15' ng-maxLength='140' )
 
   .modal-body
     ng-include( src="'shared/_alert_container.html'" )
