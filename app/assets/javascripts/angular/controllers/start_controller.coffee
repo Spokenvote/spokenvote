@@ -7,11 +7,11 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $locat
   #  $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
 
-#  Focus('newProposalHub2')
-  $timeout ->
-    jQuery ->
+  Focus('proposal_statement')
+#  $timeout ->
+#    jQuery ->
 #      $('#newProposalHub').select2('open')
-      $('#newProposalHub').select2('focus', true)
+#      $('#newProposalHub').select2('focus', true)
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
