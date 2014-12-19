@@ -117,6 +117,7 @@ SessionSettings = ->
     hubFilter: 'All Groups'
     userFilter: null
     changeHub: false
+    newProposal: null
     newProposalHub: null
     searchTerm: null
     wizardToGroup: null

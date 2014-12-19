@@ -1,13 +1,10 @@
-#GetStartedCtrl = [ '$scope', '$location', '$modalInstance', ( $scope, $location, $modalInstance ) ->
-GetStartedController = [ '$scope', '$location', 'Focus', ( $scope, $location, Focus ) ->
+GetStartedController = [ '$scope', '$location', '$modalInstance', ( $scope, $location, $modalInstance ) ->
   $scope.alertService.clearAlerts()
-#  $scope.modalInstance = $modalInstance
+  $scope.modalInstance = $modalInstance
   $scope.sessionSettings.hub_attributes.id = null
   $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
-
-  Focus('proposal_statement')
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
