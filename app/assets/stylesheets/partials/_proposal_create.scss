@@ -1,5 +1,12 @@
 .proposal-area {
-  height: 150px;
+  textarea {
+    height: 2em;
+    margin-bottom: 0;
+  }
+  .next-step {
+    color: $smokeyLebel;
+    font-size: .5em;
+  }
 }
 
 .btn-newTopic {

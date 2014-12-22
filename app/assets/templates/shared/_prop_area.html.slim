@@ -6,6 +6,7 @@
   .form-group ng-show='sessionSettings.actions.newProposal == "prop"'
     textarea( id='proposal_statement' name='statement' class='full-width proposal-area' ng-model='sessionSettings.newProposal.statement' required ng-minLength='5' ng-maxLength='140'
       placeholder='What is your proposal?' )
+    .next-step ng-show='newProposalForm.statement.$valid' Press <strong><i>Return</i></strong> to create your proposal
     .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && sessionSettings.newProposal.statement.length > 120' ) {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
     /.length_counter.error-text( ng-show='newProposalForm.statement.$invalid && !newProposalForm.statement.$error.minlength && !newProposalForm.statement.$error.maxlength' )
       .fa.fa-warning
