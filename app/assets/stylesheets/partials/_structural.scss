@@ -370,24 +370,24 @@ h1.form-horizontal {
 
 // Angular-specific Styles
 
-//ng-valid
-input.ng-invalid.ng-dirty {
-  border-color: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-}
+//ng-valid               Commedted Dec 22, 2014 for clener look
+//input.ng-invalid.ng-dirty {
+//  border-color: #e9322d !important;
+//  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+//  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+//  box-shadow: 0 0 6px #f8b9b7 !important;
+//}
 
-textarea.ng-invalid.ng-dirty {
-  border: 1px solid $error-text-red !important;
-  outline: none;
-
-  //  border-color: #e9322d !important;
-  //  border: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-}
+//textarea.ng-invalid.ng-dirty {
+//  border: 1px solid $error-text-red !important;
+//  outline: none;
+//
+//  //  border-color: #e9322d !important;
+//  //  border: #e9322d !important;
+//  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+//  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+//  box-shadow: 0 0 6px #f8b9b7 !important;
+//}
 
 //ng-pristine
 
