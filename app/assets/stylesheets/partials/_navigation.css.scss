@@ -74,38 +74,20 @@ header.visible-xs {
   text-align: center;
 
   .sv-logo, a.sv-logo {
-//    font-size: 2.1em;
-//    @media (min-width: $screen-lg-min) {
-//      font-size: 2.5em;
-//    }
-//    text-decoration: none;
-//    font-weight: 600;
-//    font-family: $logoTypeFace;
-//    letter-spacing: -1px;
-    @media (max-width: $screen-sm-max) {
-      position: absolute;
-      right: 33%;
-    }
-//    &:hover span.vote, &:hover span.spoken {
-//      color: $smokeyLebel;
-//      cursor: pointer;
-//    }
-//    span.spoken {
-//      color: $happy-blue;
-//    }
-//    span.vote {
-//      color: $spring-green;
-//      margin-left: -3px;
+    position: absolute;       // Dec 22, 2014 Set to all sizes
+    right: 33%;
+//    @media (max-width: $screen-sm-max) {
+//      position: absolute;
+//      right: 33%;
 //    }
   }
 
-  @media (max-width: $screen-sm-max) {
-    float: none;
-    background-color: $airbnbBackgroundWhite;
-//    background-color: $iPhoneHearderWhite;
-    //    border-color: $iPhoneHearderWhite;
-//    color: $googlePanelGrey
-  }
+  float: none;       // Dec 22, 2014 Set to all sizes
+  background-color: $airbnbBackgroundWhite;
+//  @media (max-width: $screen-sm-max) {
+//    float: none;
+//    background-color: $airbnbBackgroundWhite;
+//  }
   @media (min-width: $screen-md-min) {
     padding: 0;
   }
