@@ -1,7 +1,16 @@
 .proposal-area {
-  textarea {
-    height: 2em;
-    margin-bottom: 0;
+  .proposal-text {
+    margin: 0;
+    padding: 0;
+    height: 1.6em;
+    font-size: 1em;
+  }
+  .comment-text {
+    margin: 0;
+    padding: 0;
+    height: 1.6em;
+    font-size: .5em;
+
   }
   .next-step {
     color: $smokeyLebel;

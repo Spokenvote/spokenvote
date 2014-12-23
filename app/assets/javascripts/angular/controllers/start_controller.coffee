@@ -2,7 +2,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $locat
   $scope.alertService.clearAlerts()
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
-  $scope.sessionSettings.actions.newProposal = 'prop'
+  $scope.sessionSettings.actions.newProposal.prop = 'active'
   console.log '$scope.sessionSettings.actions.newProposal: ', $scope.sessionSettings.actions.newProposal
   #  $scope.sessionSettings.actions.changeHub = true
   $scope.sessionSettings.actions.wizardToGroup = null
@@ -12,6 +12,11 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $locat
 #    jQuery ->
 #      $('#newProposalHub').select2('open')
 #      $('#newProposalHub').select2('focus', true)
+
+  $scope.commentStep = ->
+    $scope.sessionSettings.actions.newProposal.comment = true
+    $scope.sessionSettings.actions.newProposal.prop = 'complete'
+    Focus('vote_comment')
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
