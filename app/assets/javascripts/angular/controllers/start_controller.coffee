@@ -14,9 +14,14 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $locat
 #      $('#newProposalHub').select2('focus', true)
 
   $scope.commentStep = ->
-    $scope.sessionSettings.actions.newProposal.comment = true
     $scope.sessionSettings.actions.newProposal.prop = 'complete'
+    $scope.sessionSettings.actions.newProposal.comment = 'active'
     Focus('vote_comment')
+
+  $scope.hubStep = ->
+    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+    $scope.sessionSettings.actions.newProposal.hub = 'active'
+    Focus('vote_hub')
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
