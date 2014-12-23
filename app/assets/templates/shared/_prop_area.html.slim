@@ -20,7 +20,7 @@
 
   .form-group ng-show='sessionSettings.actions.newProposal.comment'
     textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.comment' required ng-minLength='5' ng-maxLength='280'
-    placeholder="Explain why this proposal is a good idea if you wish." )
+    placeholder='Optional: Explain why this proposal is a good idea.' )
     .next-step ng-show='sessionSettings.actions.newProposal.comment' Press <strong><i>Return</i></strong> to continue
     .length_counter.happy-text( ng-show='newProposalForm.comment.$valid' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
     .length_counter.error-text( ng-show='newProposalForm.comment.$invalid && !newProposalForm.comment.$error.minlength && !newProposalForm.comment.$error.maxlength' )
