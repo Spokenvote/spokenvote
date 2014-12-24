@@ -1,4 +1,4 @@
-StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $location, Focus, $timeout ) ->
+StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scope, $location, Focus, $timeout, $http ) ->
   $scope.alertService.clearAlerts()
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
@@ -29,6 +29,32 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', ( $scope, $locat
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
+#  $scope.disabled = `undefined`
+#  $scope.enable = ->
+#    $scope.disabled = false
+#
+#  $scope.disable = ->
+#    $scope.disabled = true
+#
+#  $scope.clear = ->
+#    $scope.address.selected = `undefined`
+
+  $scope.address = {}
+  $scope.refreshAddresses = (hub_filter) ->
+    params =
+      hub_filter: hub_filter
+#      address: address
+#      sensor: false
+
+
+#    $http.get("http://maps.googleapis.com/maps/api/geocode/json",
+    $http.get("/hubs",
+      params: params
+#      params: params
+    ).then (response) ->
+#      $scope.addresses = response.data.results
+      $scope.addresses = response.data
+#      $scope.$log.log response.data
 ]
 
 App.controller 'StartController', StartController
