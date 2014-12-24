@@ -1,5 +1,6 @@
 #topBar ng-controller='DashboardCtrl'
-  header.navbar.navbar-default.hidden-md.hidden-lg
+  /header.navbar.navbar-default.hidden-md.hidden-lg
+  header.navbar.navbar-default
     .navbar-header
       button.navbar-toggle.pull-left ng-click='sessionSettings.actions.offcanvas=!sessionSettings.actions.offcanvas' type='button' ng-hide='sessionSettings.actions.detailPage == true'
         span.sr-only Toggle navigation
@@ -20,7 +21,7 @@
       .hub_search-xs role='search'
         hidden_field_tag id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter'
 
-  header.navbar.navbar-inverse.navbar-fixed-top.hidden-xs.hidden-sm
+  /header.navbar.navbar-inverse.navbar-fixed-top.hidden-xs.hidden-sm
     .container
       .row
         .navbar-header.col-xs-2

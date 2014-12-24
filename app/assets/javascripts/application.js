@@ -18,10 +18,12 @@
 //= require angular-route/angular-route
 //= require angular-animate/angular-animate
 //= require angular-cookies/angular-cookies
+//= require angular-sanitize/angular-sanitize
 
 // require angular-ui    // below replaces this
 //= require angular-ui-utils/ui-utils.min
 //= require angular-ui-select2/src/select2
+//= require angular-ui-select/dist/select
 //= require angular-ui-bootstrap/src/modal/modal
 // require angular-ui-bootstrap/src/collapse/collapse
 //= require angular-ui-bootstrap/src/transition/transition

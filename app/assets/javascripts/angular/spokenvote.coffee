@@ -30,6 +30,18 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
           $rootScope.page.setCallToAction $route.current.callToAction
         ]
     )
+    .when( '/start'
+      title: 'Group Consensus Voting Tool'
+      templateUrl: 'pages/get_started.html'
+      callToAction: 'Start Making Group Decisions'
+      resolve:
+        pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setTitle $route.current.params.filter, $route.current.title
+        ]
+        setCallToAction: [ '$rootScope', '$route', ($rootScope, $route) ->
+          $rootScope.page.setCallToAction $route.current.callToAction
+        ]
+    )
      .when( '/home'
       title: 'Decision Platform'
       templateUrl: 'pages/landing.html'
@@ -233,7 +245,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 window.App = angular.module('spokenvote', [
     'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
-    'ui.select2', 'ui.utils',
+    'ui.select2', 'ui.select', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
     'spokenvote.services', 'spokenvote.directives',
     'angulartics', 'angulartics.google.analytics'
@@ -243,7 +255,7 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'errorHttpInterceptor'
 ]
 
-App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
+App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies', 'ngSanitize' ])
   .config(servicesConfig)
   .run( ['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location

@@ -1,16 +1,17 @@
 {
   "name": "angular",
-  "version": "1.2.23",
+  "version": "1.2.29-build.587+sha.d60fbcc",
   "main": "./angular.js",
+  "ignore": [],
   "dependencies": {},
   "homepage": "https://github.com/angular/bower-angular",
-  "_release": "1.2.23",
+  "_release": "1.2.29-build.587+sha.d60fbcc",
   "_resolution": {
     "type": "version",
-    "tag": "v1.2.23",
-    "commit": "53716560a512e598c32c5dbc70b2e41a793443e9"
+    "tag": "v1.2.29-build.587+sha.d60fbcc",
+    "commit": "733b1c5f78b04b04016b7d9315c55550364f3025"
   },
   "_source": "git://github.com/angular/bower-angular.git",
-  "_target": "1.2.23",
+  "_target": "1.2.29-build.587+sha.d60fbcc",
   "_originalSource": "angular"
 }

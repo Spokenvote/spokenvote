@@ -60,12 +60,17 @@ input {
 }
 
 textarea {
+  background-color: inherit;
   border: none;
   padding: 5px;
   border-radius: 4px;
   height: 60px;
   margin: 5px 0 -3px 0;
+  &:focus {
+    outline: none;
+    }
 }
+
 
 .full-width {
   width: 100%;
@@ -273,10 +278,10 @@ h1.form-horizontal {
 
 .sv-logo, a.sv-logo {
   color: $happy-blue;
-
-  font-size: 2.1em;
+  font-size: 1.9em;
+//  font-size: 2.1em;         // Dec 22, 2014 Set to all sizes
   @media (min-width: $screen-lg-min) {
-    font-size: 2.5em;
+//    font-size: 2.5em;       // Dec 22, 2014 Set to all sizes
   }
   text-decoration: none;
   font-weight: 600;
@@ -365,24 +370,24 @@ h1.form-horizontal {
 
 // Angular-specific Styles
 
-//ng-valid
-input.ng-invalid.ng-dirty {
-  border-color: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-}
+//ng-valid               Commedted Dec 22, 2014 for clener look
+//input.ng-invalid.ng-dirty {
+//  border-color: #e9322d !important;
+//  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+//  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+//  box-shadow: 0 0 6px #f8b9b7 !important;
+//}
 
-textarea.ng-invalid.ng-dirty {
-  border: 1px solid $error-text-red !important;
-  outline: none;
-
-  //  border-color: #e9322d !important;
-  //  border: #e9322d !important;
-  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
-  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
-  box-shadow: 0 0 6px #f8b9b7 !important;
-}
+//textarea.ng-invalid.ng-dirty {
+//  border: 1px solid $error-text-red !important;
+//  outline: none;
+//
+//  //  border-color: #e9322d !important;
+//  //  border: #e9322d !important;
+//  -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+//  -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+//  box-shadow: 0 0 6px #f8b9b7 !important;
+//}
 
 //ng-pristine
 

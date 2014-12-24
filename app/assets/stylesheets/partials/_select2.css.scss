@@ -27,7 +27,7 @@
       margin-right: 12px;
       vertical-align: middle;
       @media (min-width: $screen-md-min) {
-        text-align: left;
+//        text-align: left;       // Dec 22, 2014 Set to all sizes
       }
       @media (min-width: $grid-float-breakpoint) {
         padding: 5px;

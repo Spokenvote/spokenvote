@@ -1,0 +1,45 @@
+.proposal-area( ng-hide='sessionSettings.actions.changeHub' )
+  /.instructions
+    .avatar
+      ng-include( src="'shared/_currentuser_avatar.html'" )
+    h5 Enter your proposal and explain why others should support it!
+  .form-group ng-show='sessionSettings.actions.newProposal.prop'
+    textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' required ng-minLength='5' ng-maxLength='140'
+      placeholder='What is your proposal?' ng-enter='commentStep()' )
+    .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.newProposal.prop === "active"' Press <strong><i>Return</i></strong> to create your proposal
+    .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && sessionSettings.newProposal.statement.length > 120' ) {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
+    /.length_counter.error-text( ng-show='newProposalForm.statement.$invalid && !newProposalForm.statement.$error.minlength && !newProposalForm.statement.$error.maxlength' )
+      .fa.fa-warning
+      span Required
+    /.length_counter.error-text( ng-show="newProposalForm.statement.$error.minlength" )
+      .fa.fa-warning
+      span Too Short
+    .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
+      .fa.fa-warning
+      span Too Long
+
+  .form-group ng-show='sessionSettings.actions.newProposal.comment'
+    textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.comment' required ng-minLength='5' ng-maxLength='280'
+    placeholder='Optional: Explain why this proposal is a good idea.' ng-enter='hubStep()' )
+    .next-step ng-show='sessionSettings.actions.newProposal.comment === "active"' Press <strong><i>Return</i></strong> to continue
+    .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+    /.length_counter.error-text( ng-show='newProposalForm.comment.$invalid && !newProposalForm.comment.$error.minlength && !newProposalForm.comment.$error.maxlength' )
+      .fa.fa-warning
+      span  Required
+    /.length_counter.error-text( ng-show="newProposalForm.comment.$error.minlength" )
+      .fa.fa-warning
+      span Too Short
+    .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
+      .fa.fa-warning
+      span Too Long
+
+  .form-group ng-show='sessionSettings.actions.newProposal.hub'
+    textarea( id='vote_hub' name='hub' class='full-width comment-text' ng-model='sessionSettings.hub_attributes.group_name' required ng-minLength='5' ng-maxLength='280'
+    placeholder='Who should see your proposal?' )
+    .next-step ng-show='sessionSettings.actions.newProposal.hub' Press <strong><i>Return</i></strong> to continue
+
+    /.length_counter.happy-text( ng-show='newProposalForm.hub.$valid' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+
+    .length_counter.error-text( ng-show="newProposalForm.hub.$error.maxlength" )
+      .fa.fa-warning
+      span Too Long
