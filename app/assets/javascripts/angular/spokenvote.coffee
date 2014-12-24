@@ -257,7 +257,8 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies', 'ngSanitize' ])
   .config(servicesConfig)
-  .run( ['$rootScope', '$location', ($rootScope, $location) ->
+  .run( ['$rootScope', '$location', '$log', ($rootScope, $location, $log) ->
+    $rootScope.$log = $log
     $rootScope.location = $location
     $rootScope.route =
       current: {}
