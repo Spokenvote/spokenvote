@@ -245,7 +245,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
 window.App = angular.module('spokenvote', [
     'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
-    'ui.select2', 'ui.utils',
+    'ui.select2', 'ui.select', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
     'spokenvote.services', 'spokenvote.directives',
     'angulartics', 'angulartics.google.analytics'
@@ -255,7 +255,7 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'errorHttpInterceptor'
 ]
 
-App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies' ])
+App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies', 'ngSanitize' ])
   .config(servicesConfig)
   .run( ['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location
