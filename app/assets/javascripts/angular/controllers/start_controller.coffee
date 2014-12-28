@@ -29,32 +29,28 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 
-#  $scope.disabled = `undefined`
-#  $scope.enable = ->
-#    $scope.disabled = false
-#
-#  $scope.disable = ->
-#    $scope.disabled = true
-#
-#  $scope.clear = ->
-#    $scope.address.selected = `undefined`
+  $scope.disabled = `undefined`
+
+  $scope.enable = ->
+    $scope.disabled = false
+
+  $scope.disable = ->
+    $scope.disabled = true
+
+  $scope.clear = ->
+    $scope.address.selected = `undefined`
 
   $scope.address = {}
   $scope.refreshAddresses = (hub_filter) ->
-    params =
-      hub_filter: hub_filter
-#      address: address
-#      sensor: false
+    if hub_filter.length > 1
+      params =
+        hub_filter: hub_filter
 
-
-#    $http.get("http://maps.googleapis.com/maps/api/geocode/json",
-    $http.get("/hubs",
-      params: params
-#      params: params
-    ).then (response) ->
-#      $scope.addresses = response.data.results
-      $scope.addresses = response.data
-#      $scope.$log.log response.data
+      $http.get("/hubs",
+        params: params
+      ).then (response) ->
+        $scope.addresses = response.data
+  #      $scope.$log.log response.data
 ]
 
 App.controller 'StartController', StartController

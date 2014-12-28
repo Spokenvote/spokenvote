@@ -44,12 +44,11 @@
       .fa.fa-warning
       span Too Long
 
-/p Selected:  {{address.selected.full_hub}}
+  /p Selected:  {{address.selected.full_hub}}
 
-ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
-  ui-select-match(placeholder="Enter an address...") {{$select.selected.full_hub}}
-  ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
-    div ng-bind-html="address.full_hub | highlight: $select.search"
+  ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
+    ui-select-match(placeholder="Enter an address...") {{$select.selected.full_hub}}
+    ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
+      div ng-bind-html="address.full_hub | highlight: $select.search"
 
-p {{ address }}
-p {{ addresses }}
+  /p {{ addresses }}

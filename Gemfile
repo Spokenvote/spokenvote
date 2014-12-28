@@ -25,7 +25,7 @@ gem 'rack-cache'
 # UI/Forms
 gem 'haml-rails'
 gem 'slim', '~> 2.0.2'
-gem 'bootstrap-sass', '~> 3.1.0'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
 gem 'activeadmin', github: 'gregbell/active_admin'
