@@ -49,7 +49,7 @@
   /.form-group ng-show='sessionSettings.actions.newProposal.hub'
   .form-group
     /ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
-    ui-select(class='vote_hub' ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;")
+    ui-select(class='vote_hub' ng-disabled="disabled" ng-model="address.selected" reset-search-input="false")
       ui-select-match(id='vote_hub' placeholder='Who should see your proposal? ...') {{$select.selected.full_hub}}
       ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
         div ng-bind-html="address.full_hub | highlight: $select.search"
