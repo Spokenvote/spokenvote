@@ -15,7 +15,7 @@ body {
 
 .container-fluid {
   max-width: $container-fluid-max-width;
-  padding: 0 15px;
+  padding: 0 $container-fluid-right-left-padding;
   overflow-x: hidden;
 }
 
