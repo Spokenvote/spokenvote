@@ -3,9 +3,19 @@
     border: none;
     background-color: inherit;
     color: inherit;
+    .caret {
+      display: none;
+    }
 
   }
+  .btn-default-focus {
+    color: inherit;
+    background-color: inherit;
+    outline: none;
+    box-shadow: none;
+  }
   input {
+    background-color: inherit;
     margin: 0;
     padding: 0;
     height: 1.6em;

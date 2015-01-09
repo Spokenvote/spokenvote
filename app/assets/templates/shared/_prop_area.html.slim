@@ -33,9 +33,9 @@
       .fa.fa-warning
       span Too Long
 
-  .form-group ng-show='sessionSettings.actions.newProposal.hub'
-    textarea( id='vote_hub' name='hub' class='full-width comment-text' ng-model='sessionSettings.hub_attributes.group_name' required ng-minLength='5' ng-maxLength='280'
-    placeholder='Who should see your proposal?' )
+  /.form-group ng-show='sessionSettings.actions.newProposal.hub'
+    textarea( name='hub' class='full-width comment-text' ng-model='sessionSettings.hub_attributes.group_name' required ng-minLength='5' ng-maxLength='280' placeholder='Who should see your proposal?' )
+    /textarea( id='vote_hub' name='hub' class='full-width comment-text' ng-model='sessionSettings.hub_attributes.group_name' required ng-minLength='5' ng-maxLength='280' placeholder='Who should see your proposal?' )
     .next-step ng-show='sessionSettings.actions.newProposal.hub' Press <strong><i>Return</i></strong> to continue
 
     /.length_counter.happy-text( ng-show='newProposalForm.hub.$valid' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
@@ -46,9 +46,12 @@
 
   /p Selected:  {{address.selected.full_hub}}
 
-  ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
-    ui-select-match(placeholder="Enter an address...") {{$select.selected.full_hub}}
-    ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
-      div ng-bind-html="address.full_hub | highlight: $select.search"
+  /.form-group ng-show='sessionSettings.actions.newProposal.hub'
+  .form-group
+    /ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
+    ui-select(class='vote_hub' ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;")
+      ui-select-match(id='vote_hub' placeholder='Who should see your proposal? ...') {{$select.selected.full_hub}}
+      ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
+        div ng-bind-html="address.full_hub | highlight: $select.search"
 
   /p {{ addresses }}

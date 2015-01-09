@@ -17,11 +17,13 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
     $scope.sessionSettings.actions.newProposal.prop = 'complete'
     $scope.sessionSettings.actions.newProposal.comment = 'active'
     Focus('vote_comment')
+#    Focus('comment-text')
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.newProposal.hub = 'active'
     Focus('vote_hub')
+#    Focus('ui-select-search')
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
