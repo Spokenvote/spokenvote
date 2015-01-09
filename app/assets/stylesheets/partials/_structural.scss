@@ -278,8 +278,13 @@ h1.form-horizontal {
 }
 
 .sv-logo, a.sv-logo {
+  display: inline-block;
   color: $happy-blue;
-  font-size: 1.9em;
+  font-size: 1.5em;
+//  height: 50px;
+  line-height: 51px;
+  white-space: nowrap;
+//  font-size: 1.9em;
 //  font-size: 2.1em;         // Dec 22, 2014 Set to all sizes
   @media (min-width: $screen-lg-min) {
 //    font-size: 2.5em;       // Dec 22, 2014 Set to all sizes
