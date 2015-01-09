@@ -1,19 +1,19 @@
 .getStarted ng-controller='StartController'
   .user-header
     /.pull-right( class='close' ng-click='$close()' ) &times;
-    h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find Group
-    h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find Topic
-    h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - New Group
+    /h2( ng-show='sessionSettings.actions.changeHub == true' ) Step 1 - Find Group
+    /h2( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id' ) Step 2 - Find Topic
+    /h2( ng-show='sessionSettings.actions.changeHub == "new"' ) Step 2 - New Group
     /h2( ng-show='!sessionSettings.actions.changeHub && !sessionSettings.hub_attributes.id' ) Step 3 - New Topic
 
-    ng-include( src="'shared/_selected_hub.html'" )
+    /ng-include( src="'shared/_selected_hub.html'" )
 
     /textarea( id='newProposalHub2' name='statement' class='full-width' ng-model='sessionSettings.newProposal.statement' required ng-minLength='15' ng-maxLength='140' )
 
   .user-body
     ng-include( src="'shared/_alert_container.html'" )
 
-    .instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
+    /.instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
       h3
         span We found
         span( ng-click='changeHub(true)' ) your group!
@@ -22,7 +22,7 @@
         span-red Hint!
         span If the group shown above is not the group you wanted, just click the name to search again.
 
-    .instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup' )
+    /.instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && sessionSettings.actions.wizardToGroup' )
       h3
         span Going to
         span( ng-click='changeHub(true)' ) {{ sessionSettings.hub_attributes.group_name }} ...
@@ -35,7 +35,8 @@
       .newProposal
         ng-include( src="'shared/_change_hub.html'" )
         ng-include( src="'shared/_make_hub.html'" )
-        ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'shared/_prop_area.html'" )
+        ng-include src="'shared/_prop_area.html'"
+        /ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'shared/_prop_area.html'" )
 
   /.user-footer
     fieldset

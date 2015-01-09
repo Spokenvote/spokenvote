@@ -47,11 +47,11 @@
   /p Selected:  {{address.selected.full_hub}}
 
   /.form-group ng-show='sessionSettings.actions.newProposal.hub'
-  .form-group
+  .form-group ng-controller='HubController'
     /ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
-    ui-select(class='vote_hub' ng-disabled="disabled" ng-model="address.selected" reset-search-input="false")
+    ui-select(class='vote_hub' ng-disabled="disabled" ng-model='hubFilter.selected' on-select='setHub($item, $model)' reset-search-input="false")
       ui-select-match(id='vote_hub' placeholder='Who should see your proposal? ...') {{$select.selected.full_hub}}
-      ui-select-choices refresh="refreshAddresses($select.search)" refresh-delay="0" repeat="address in addresses track by $index"
-        div ng-bind-html="address.full_hub | highlight: $select.search"
+      ui-select-choices refresh="refreshHubs($select.search)" refresh-delay="0" repeat="hub in hubs track by $index"
+        div ng-bind-html="hub.full_hub | highlight: $select.search"
 
   /p {{ addresses }}

@@ -42,8 +42,8 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
   $scope.clear = ->
     $scope.address.selected = `undefined`
 
-  $scope.address = {}
-  $scope.refreshAddresses = (hub_filter) ->
+  $scope.hubFilter = {}
+  $scope.refreshHubs = (hub_filter) ->
     if hub_filter.length > 1
       params =
         hub_filter: hub_filter
@@ -51,8 +51,10 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
       $http.get("/hubs",
         params: params
       ).then (response) ->
-        $scope.addresses = response.data
+        $scope.hubs = response.data
   #      $scope.$log.log response.data
+
+
 ]
 
 App.controller 'StartController', StartController
