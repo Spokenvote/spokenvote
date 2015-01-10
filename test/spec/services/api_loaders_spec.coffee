@@ -5,6 +5,7 @@ describe "API Test", ->
   Hub = undefined
   Proposal = undefined
   multiProposalLoader = undefined
+  currentHubLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
 
@@ -15,6 +16,30 @@ describe "API Test", ->
           hub: 1
           filter: 'active'
           user: 42
+
+  describe "CurrentHubLoader should load current hub", ->
+    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, CurrentHubLoader) ->
+#      $rootScope.sessionSettings = SessionSettings
+#      rootScope = $rootScope
+#      $scope.proposals = {}
+
+      currentHubLoader = CurrentHubLoader
+      $httpBackend = _$httpBackend_
+
+#      $scope = $rootScope.$new()
+
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+#      $httpBackend.verifyNoOutstandingRequest()
+
+    it "should load list of proposals", ->
+#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+      $httpBackend.expectGET '/hubs/1'
+        .respond [ 1, 2, 3 ]
+#      expect($scope.proposals).toBeUndefined()
+      expect currentHubLoader()
+        .toBeDefined()
+
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
