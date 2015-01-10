@@ -30,29 +30,28 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
       $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
-
-  $scope.disabled = `undefined`
-
-  $scope.enable = ->
-    $scope.disabled = false
-
-  $scope.disable = ->
-    $scope.disabled = true
-
-  $scope.clear = ->
-    $scope.address.selected = `undefined`
-
-  $scope.hubFilter = {}
-  $scope.refreshHubs = (hub_filter) ->
-    if hub_filter.length > 1
-      params =
-        hub_filter: hub_filter
-
-      $http.get("/hubs",
-        params: params
-      ).then (response) ->
-        $scope.hubs = response.data
-  #      $scope.$log.log response.data
+#
+#  $scope.disabled = `undefined`
+#
+#  $scope.enable = ->
+#    $scope.disabled = false
+#
+#  $scope.disable = ->
+#    $scope.disabled = true
+#
+#  $scope.clear = ->
+#    $scope.address.selected = `undefined`
+#
+#  $scope.hubFilter = {}
+#  $scope.refreshHubs = (hub_filter) ->
+#    if hub_filter.length > 1
+#      params =
+#        hub_filter: hub_filter
+#
+#      $http.get("/hubs",
+#        params: params
+#      ).then (response) ->
+#        $scope.hubs = response.data
 
 
 ]

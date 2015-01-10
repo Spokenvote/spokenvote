@@ -76,6 +76,21 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
     )
     delay.promise
 
+SelectHubLoader = (Hub, $route, $q) ->
+  (params) ->
+    delay = $q.defer()
+    if params
+      Hub.get(
+        (params: params
+        ), ((hubs) ->
+          delay.resolve hubs
+        ), ->
+          delay.reject 'Unable to locate a hub '
+      )
+    else
+      delay.resolve false
+    delay.promise
+
 CurrentHubLoader = (Hub, $route, $q) ->
   ->
     delay = $q.defer()
@@ -178,6 +193,7 @@ App.Services.factory 'Vote', Vote
 App.Services.factory 'Proposal', Proposal
 
 App.Services.factory 'CurrentHubLoader', CurrentHubLoader
+App.Services.factory 'SelectHubLoader', SelectHubLoader
 App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree
 
