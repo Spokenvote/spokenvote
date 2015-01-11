@@ -76,20 +76,37 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
     )
     delay.promise
 
-SelectHubLoader = (Hub, $route, $q) ->
-  (params) ->
+SelectHubLoader = ($http, $route, $q) ->
+  (hub_filter) ->
     delay = $q.defer()
-    if params
-      Hub.get(
-        (params: params
-        ), ((hubs) ->
-          delay.resolve hubs
-        ), ->
-          delay.reject 'Unable to locate a hub '
-      )
+    if hub_filter
+      $http.get('/hubs',
+        params:
+          hub_filter: hub_filter
+      ).then (hubs) ->
+        delay.resolve hubs.data
+      , ->
+        delay.reject 'Unable to locate a hubs'
+
     else
       delay.resolve false
     delay.promise
+
+#
+#SelectHubLoader = (Hub, $route, $q) ->
+#  (params) ->
+#    delay = $q.defer()
+#    if params
+#      Hub.query(
+#        (params: params
+#        ), ((hubs) ->
+#          delay.resolve hubs
+#        ), ->
+#          delay.reject 'Unable to locate a hub '
+#      )
+#    else
+#      delay.resolve false
+#    delay.promise
 
 CurrentHubLoader = (Hub, $route, $q) ->
   ->

@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', ($scope, $rootScope, $log, $http, SelectHubLoader) ->
+HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hub', ($scope, $rootScope, $log, $http, SelectHubLoader, Hub) ->
 
   $scope.disabled = `undefined`
 
@@ -17,14 +17,23 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', ($s
       params =
         hub_filter: hub_filter
 
-#      SelectHubLoader(params).then (response) ->
-#        $log.log response
-#        $scope.hubs = response.data
+#      Hub.query(
+#        (params: params
+#        ), ((hubs) ->
+#          $log.log hubs
+#          $scope.hubs = hubs
+#        ), ->
+#          'Unable to locate a hub '
+#      )
 
-      $http.get("/hubs",
-        params: params
-      ).then (response) ->
-        $scope.hubs = response.data
+      SelectHubLoader(hub_filter).then (response) ->
+        $log.log response
+        $scope.hubs = response
+
+#      $http.get("/hubs",
+#        params: params
+#      ).then (response) ->
+#        $scope.hubs = response.data
 
 
   $rootScope.setHub = (item, model) ->

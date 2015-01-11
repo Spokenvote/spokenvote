@@ -79,15 +79,16 @@ describe "API Test", ->
 
       promise = proposalLoader()
 
-      promise.then (data) ->
-        proposals = data
+#      promise.then (data) ->
+#        proposals = data
 
       $httpBackend.flush()
 
     it "ProposalLoader promise should return an array", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {}
+        .respond {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
 
+#      proposal = proposalLoader()
       promise = proposalLoader()
 
       proposal = undefined
@@ -95,13 +96,14 @@ describe "API Test", ->
         proposal = data
 
       $httpBackend.flush()
-      console.log 'proposal: ', proposal
+      console.log 'proposal: ', proposal.proposal
 
       expect proposal instanceof Object
         .toBeTruthy()
-#      expect(proposals).toEqual([ 1, 2, 3 ])
+      expect(proposal).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
 
-#    it "should reject the promise and respond with error", ->
+
+  #    it "should reject the promise and respond with error", ->
 #      $httpBackend.expectGET '/proposals?filter=active&hub=1&user=42'
 #        .respond 500
 #
