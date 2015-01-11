@@ -27,7 +27,7 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
 #      )
 
       SelectHubLoader(hub_filter).then (response) ->
-        $log.log response
+#        $log.log response
         $scope.hubs = response
 
 #      $http.get("/hubs",

@@ -1,5 +1,5 @@
 describe "API Test", ->
-  $scope = undefined
+#  $scope = undefined
 #  rootScope = undefined
   $httpBackend = undefined
   Hub = undefined
@@ -20,27 +20,28 @@ describe "API Test", ->
             user: 42
 
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, CurrentHubLoader) ->
-#      $rootScope.sessionSettings = SessionSettings
-#      rootScope = $rootScope
-#      $scope.proposals = {}
-
       currentHubLoader = CurrentHubLoader
       $httpBackend = _$httpBackend_
-
-#      $scope = $rootScope.$new()
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
       $httpBackend.verifyNoOutstandingRequest()
 
-    it "should load list of hubs", ->
+    it "should load the current hub", ->
       $httpBackend.expectGET '/hubs/1'
-        .respond {}
+        .respond {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
 
-      expect currentHubLoader()
-        .toBeDefined()
+      promise = currentHubLoader()
+      hub = undefined
+
+      promise.then (data) ->
+        hub = data
 
       $httpBackend.flush()
+
+      expect hub instanceof Object
+        .toBeTruthy()
+      expect(hub).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
 
 
   describe "ProposalLoader should load a proposal", ->
@@ -51,13 +52,8 @@ describe "API Test", ->
             proposalId: 23
 
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, ProposalLoader) ->
-#      rootScope = $rootScope
-#      rootScope.sessionSettings = SessionSettings
-
       proposalLoader = ProposalLoader
       $httpBackend = _$httpBackend_
-      $scope = $rootScope.$new()
-      $scope.proposals = undefined
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -65,9 +61,7 @@ describe "API Test", ->
 
     it "should load a proposal", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {}
-
-      expect($scope.proposals).toBeUndefined()
+        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
       expect proposalLoader()
         .toBeDefined()
 
@@ -75,20 +69,19 @@ describe "API Test", ->
 
     it "ProposalLoader should return a promise", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {}
+        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
 
       promise = proposalLoader()
 
-#      promise.then (data) ->
-#        proposals = data
+      promise.then (data) ->
+        proposals = data
 
       $httpBackend.flush()
 
-    it "ProposalLoader promise should return an array", ->
+    it "ProposalLoader promise should return a proposal", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
+        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
 
-#      proposal = proposalLoader()
       promise = proposalLoader()
 
       proposal = undefined
@@ -96,32 +89,27 @@ describe "API Test", ->
         proposal = data
 
       $httpBackend.flush()
-      console.log 'proposal: ', proposal.proposal
 
       expect proposal instanceof Object
         .toBeTruthy()
-      expect(proposal).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
+      expect(proposal).toEqual jasmine.objectContaining {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
 
+    it "should reject the promise and respond with error", ->
+      $httpBackend.expectGET '/proposals/23'
+        .respond 500
 
-  #    it "should reject the promise and respond with error", ->
-#      $httpBackend.expectGET '/proposals?filter=active&hub=1&user=42'
-#        .respond 500
-#
-#      promise = multiProposalLoader()
-#      proposals = undefined
-#
-#      promise.then (data) ->
-#        proposals = data
-#
-#      promise.then (fruits) ->
-#        proposals = fruits
-#      , (reason) ->
-#        proposals = reason
-#
-#      $httpBackend.flush()
-#
-#      expect proposals
-#        .toContain 'Unable'
+      promise = proposalLoader()
+      proposal = undefined
+
+      promise.then (fruits) ->
+        proposal = fruits
+      , (reason) ->
+        proposal = reason
+
+      $httpBackend.flush()
+
+      expect proposal
+        .toContain 'Unable'
 
 
   describe "MultiProposalLoader should load three proposals", ->
@@ -134,13 +122,8 @@ describe "API Test", ->
             user: 42
 
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
-#      rootScope = $rootScope
-#      rootScope.sessionSettings = SessionSettings
-
       multiProposalLoader = MultiProposalLoader
       $httpBackend = _$httpBackend_
-      $scope = $rootScope.$new()
-      $scope.proposals = undefined
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -148,9 +131,8 @@ describe "API Test", ->
 
     it "should load list of proposals", ->
       $httpBackend.expectGET '/proposals?filter=active&hub=1&user=42'
-        .respond [ 1, 2, 3 ]
+        .respond [ "id":23,"statement 23":"Hacker Dojo", "id":24,"statement24":"Hacker Dojo", "id":25,"statement 25":"Hacker Dojo" ]
 
-      expect($scope.proposals).toBeUndefined()
       expect multiProposalLoader()
         .toBeDefined()
 
@@ -158,18 +140,18 @@ describe "API Test", ->
 
     it "MultiProposalLoader should return a promise", ->
       $httpBackend.expectGET '/proposals?filter=active&hub=1&user=42'
-        .respond [ 1, 2, 3 ]
+        .respond [ "id":23,"statement 23":"Hacker Dojo", "id":24,"statement24":"Hacker Dojo", "id":25,"statement 25":"Hacker Dojo" ]
 
       promise = multiProposalLoader()
 
-      promise.then (data) ->
-        proposals = data
+      expect promise.then instanceof Object
+        .toBeTruthy()
 
       $httpBackend.flush()
 
     it "MultiProposalLoader promise should return an array", ->
       $httpBackend.expectGET '/proposals?filter=active&hub=1&user=42'
-        .respond [ 1, 2, 3 ]
+        .respond [ "id":23,"statement 23":"Hacker Dojo", "id":24,"statement24":"Hacker Dojo", "id":25,"statement 25":"Hacker Dojo" ]
 
       promise = multiProposalLoader()
 
@@ -181,7 +163,7 @@ describe "API Test", ->
 
       expect proposals instanceof Array
         .toBeTruthy()
-      expect(proposals).toEqual([ 1, 2, 3 ])
+      expect(proposals).toEqual [ "id":23,"statement 23":"Hacker Dojo", "id":24,"statement24":"Hacker Dojo", "id":25,"statement 25":"Hacker Dojo" ]
 
 
     it "should reject the promise and respond with error", ->
@@ -190,9 +172,6 @@ describe "API Test", ->
 
       promise = multiProposalLoader()
       proposals = undefined
-
-      promise.then (data) ->
-        proposals = data
 
       promise.then (fruits) ->
         proposals = fruits

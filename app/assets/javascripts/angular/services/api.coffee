@@ -76,7 +76,7 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
     )
     delay.promise
 
-SelectHubLoader = ($http, $route, $q) ->
+SelectHubLoader = ($http, $q) ->
   (hub_filter) ->
     delay = $q.defer()
     if hub_filter
