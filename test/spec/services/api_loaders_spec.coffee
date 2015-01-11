@@ -1,5 +1,5 @@
 describe "API Test", ->
-#  $scope = undefined
+  $scope = undefined
 #  rootScope = undefined
   $httpBackend = undefined
   Hub = undefined
@@ -43,85 +43,57 @@ describe "API Test", ->
 
   describe "MultiProposalLoader should load three proposals", ->
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, MultiProposalLoader) ->
-#      $rootScope.sessionSettings = SessionSettings
 #      rootScope = $rootScope
-#      $scope.proposals = {}
+#      rootScope.sessionSettings = SessionSettings
 
       multiProposalLoader = MultiProposalLoader
       $httpBackend = _$httpBackend_
+      $scope = $rootScope.$new()
+      $scope.proposals = undefined
 
-#      $scope = $rootScope.$new()
-
-      afterEach ->
-        $httpBackend.verifyNoOutstandingExpectation()
-        $httpBackend.verifyNoOutstandingRequest()
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
 
     it "should load list of proposals", ->
-#      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
-      $httpBackend
-        .whenGET '/proposals?filter=active&hub=1&user=42'
+      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
         .respond [ 1, 2, 3 ]
-#      expect($scope.proposals).toBeUndefined()
+      expect($scope.proposals).toBeUndefined()
       expect multiProposalLoader()
         .toBeDefined()
 
+      $httpBackend.flush()
+
+    it "MultiProposalLoader should return a promise", ->
+      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+        .respond [ 1, 2, 3 ]
+
       promise = multiProposalLoader()
-      proposals = undefined
 
       promise.then (data) ->
         proposals = data
 
-      # Simulate a server response
+      $httpBackend.flush()
+
+    it "MultiProposalLoader promise should return an array", ->
+      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
+        .respond [ 1, 2, 3 ]
+
+      promise = multiProposalLoader()
+
+      proposals = undefined
+      promise.then (data) ->
+        proposals = data
+
       $httpBackend.flush()
 
       expect proposals instanceof Array
         .toBeTruthy()
       expect(proposals).toEqual([ 1, 2, 3 ])
 
-#      ready  = false
-#      result = undefined
-#      runs ->
-#        defer = multiProposalLoader()
-#        console.log "defer: ", defer
-#        defer.then (onResponse = (data) ->
-#          result = data
-#          ready = true # continue test runner
-#        ), onError = (fault) ->
-#          ready = true # continue test runner
-#        $httpBackend.flush()
-#
-#      waitsFor ->
-#        result
-#
-#      # Run the code that checks the expectations…
-#      runs ->
-#        console.log 'result: ', result.$promise.finally
-#        expect(result.valid).toBeEqual 1
-#        expect(result.level).toBeEqual "awesome"
-
-#      $httpBackend.expectGET("/assets/pages/landing.html").respond []
-#      proposals = undefined
-#      promise = loader(
-##        $routeParams
-##        $route:
-##          current: {}
-#      )
-#      promise.then (prop) ->
-#        proposals = prop
-#
-#      expect(proposals).toBeUndefined()
-#      $httpBackend.flush()
-#      expect(proposals).toEqualData [
-#        id: 1
-#      ,
-#        id: 2
-#      ]
-
 
     it "should reject the promise and respond with error", ->
-      #      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
-      $httpBackend
-        .whenGET '/proposals?filter=active&hub=1&user=42'
+      $httpBackend.expectGET('/proposals?filter=active&hub=1&user=42')
         .respond 500
 
       promise = multiProposalLoader()
@@ -136,5 +108,6 @@ describe "API Test", ->
         proposals = reason
 
       $httpBackend.flush()
+
       expect proposals
         .toContain 'Unable'
