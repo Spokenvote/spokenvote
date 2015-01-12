@@ -10,7 +10,7 @@ describe "API Test", ->
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
 
-  describe "CurrentHubLoader should load current hub", ->
+  describe "CurrentHubLoader should respond to requests", ->
     beforeEach module ($provide) ->
       -> $provide.value '$route',
         current:
@@ -27,9 +27,9 @@ describe "API Test", ->
       $httpBackend.verifyNoOutstandingExpectation()
       $httpBackend.verifyNoOutstandingRequest()
 
-    it "should load the current hub", ->
+    it "CurrentHubLoader should load the current hub", ->
       $httpBackend.expectGET '/hubs/1'
-        .respond {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
+        .respond {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z"}
 
       promise = currentHubLoader()
       hub = undefined
@@ -41,7 +41,35 @@ describe "API Test", ->
 
       expect hub instanceof Object
         .toBeTruthy()
-      expect(hub).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z","location_id":"bb51f066ff3fd0b033db94b4e6172da84b8ae111","formatted_location":"Mountain View, CA","full_hub":"Hacker Dojo - Mountain View, CA","short_hub":"Hacker Dojo","select_id":1}
+      expect(hub).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z"}
+
+    it "CurrentHubLoader should return a promise", ->
+      $httpBackend.expectGET '/hubs/1'
+      .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+
+      promise = currentHubLoader()
+
+      promise.then (data) ->
+        hub = data
+
+      $httpBackend.flush()
+
+    it "should reject the promise and respond with error", ->
+      $httpBackend.expectGET '/hubs/1'
+      .respond 500
+
+      promise = currentHubLoader()
+      proposal = undefined
+
+      promise.then (fruits) ->
+        proposal = fruits
+      , (reason) ->
+        proposal = reason
+
+      $httpBackend.flush()
+
+      expect proposal
+      .toContain 'Unable'
 
 
   describe "ProposalLoader should load a proposal", ->
