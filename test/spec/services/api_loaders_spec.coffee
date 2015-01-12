@@ -5,6 +5,7 @@ describe "API Test", ->
   multiProposalLoader = undefined
   proposalLoader = undefined
   currentHubLoader = undefined
+  selectHubLoader = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
 
@@ -71,13 +72,6 @@ describe "API Test", ->
 
 
   describe "SelectHubLoader should respond to requests", ->
-#    beforeEach module ($provide) ->
-#      -> $provide.value '$route',
-#        current:
-#          params:
-#            hub: 1
-#            filter: 'active'
-#            user: 42
 
     beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, SelectHubLoader) ->
       selectHubLoader = SelectHubLoader
@@ -88,7 +82,7 @@ describe "API Test", ->
       $httpBackend.verifyNoOutstandingRequest()
 
     it "CurrentHubLoader should load the current hub", ->
-      $httpBackend.expectGET '/hubs'
+      $httpBackend.expectGET '/hubs?hub_filter=ha'
         .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
 
       hub_filter = 'ha'
@@ -105,10 +99,11 @@ describe "API Test", ->
       expect(hub).toEqual jasmine.objectContaining [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
 
     it "CurrentHubLoader should return a promise", ->
-      $httpBackend.expectGET '/hubs/1'
-      .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+      $httpBackend.expectGET '/hubs?hub_filter=ha'
+      .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
 
-      promise = currentHubLoader()
+      hub_filter = 'ha'
+      promise = selectHubLoader(hub_filter)
 
       promise.then (data) ->
         hub = data
@@ -116,10 +111,11 @@ describe "API Test", ->
       $httpBackend.flush()
 
     it "should reject the promise and respond with error", ->
-      $httpBackend.expectGET '/hubs/1'
+      $httpBackend.expectGET '/hubs?hub_filter=ha'
       .respond 500
 
-      promise = currentHubLoader()
+      hub_filter = 'ha'
+      promise = selectHubLoader(hub_filter)
       proposal = undefined
 
       promise.then (fruits) ->
