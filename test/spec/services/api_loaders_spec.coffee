@@ -1,6 +1,4 @@
 describe "API Test", ->
-#  $scope = undefined
-#  rootScope = undefined
   $httpBackend = undefined
   Hub = undefined
   Proposal = undefined
@@ -42,6 +40,69 @@ describe "API Test", ->
       expect hub instanceof Object
         .toBeTruthy()
       expect(hub).toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z"}
+
+    it "CurrentHubLoader should return a promise", ->
+      $httpBackend.expectGET '/hubs/1'
+      .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+
+      promise = currentHubLoader()
+
+      promise.then (data) ->
+        hub = data
+
+      $httpBackend.flush()
+
+    it "should reject the promise and respond with error", ->
+      $httpBackend.expectGET '/hubs/1'
+      .respond 500
+
+      promise = currentHubLoader()
+      proposal = undefined
+
+      promise.then (fruits) ->
+        proposal = fruits
+      , (reason) ->
+        proposal = reason
+
+      $httpBackend.flush()
+
+      expect proposal
+      .toContain 'Unable'
+
+
+  describe "SelectHubLoader should respond to requests", ->
+#    beforeEach module ($provide) ->
+#      -> $provide.value '$route',
+#        current:
+#          params:
+#            hub: 1
+#            filter: 'active'
+#            user: 42
+
+    beforeEach inject (_$httpBackend_, $rootScope, $controller, SessionSettings, SelectHubLoader) ->
+      selectHubLoader = SelectHubLoader
+      $httpBackend = _$httpBackend_
+
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
+    it "CurrentHubLoader should load the current hub", ->
+      $httpBackend.expectGET '/hubs'
+        .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
+
+      hub_filter = 'ha'
+      promise = selectHubLoader(hub_filter)
+      hub = undefined
+
+      promise.then (data) ->
+        hub = data
+
+      $httpBackend.flush()
+
+      expect hub instanceof Object
+        .toBeTruthy()
+      expect(hub).toEqual jasmine.objectContaining [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
 
     it "CurrentHubLoader should return a promise", ->
       $httpBackend.expectGET '/hubs/1'
