@@ -1,4 +1,6 @@
-describe "List Controller Tests", ->
+# Much of this functionality moved to voting service; tests need a rewrite
+
+describe "Proposal Controller Tests", ->
   $scope = undefined
   ctrl = undefined
   beforeEach module 'spokenvote'
@@ -8,67 +10,6 @@ describe "List Controller Tests", ->
     @addMatchers toEqualData: (expected) ->
       angular.equals @actual, expected
 
-  describe "ProposalListCtrl", ->
-    beforeEach inject ($rootScope, $controller, _$httpBackend_, SessionSettings) ->
-      $rootScope.sessionSettings = SessionSettings
-      $scope = $rootScope.$new()
-      ctrl = $controller "ProposalListCtrl",
-        $scope: $scope
-
-    it "should have loaded list of proposals", ->
-      $scope.$apply()
-      expect($scope.proposals).toEqual [ 1, 2, 3 ]
-      expect($scope.proposalsLoading).toBe false
-
-    it "should match (Validation second time)", ->
-      expect("string").toMatch new RegExp("^string$")
-
-  describe "MultiProposalLoader", ->
-    mockBackend = undefined
-    proposal = undefined
-    loader = undefined
-    routeParams = undefined
-    beforeEach inject((_$httpBackend_, Proposal, MultiProposalLoader, $location, $routeParams, $route) ->
-      proposal = Proposal
-      mockBackend = _$httpBackend_
-      loader = MultiProposalLoader
-
-      $location.path('/proposals')
-      $location.search('hub', 1)
-      $location.search('filter', 'active')
-      $location.search('user', 42)
-
-      routeParams = $route
-#      routeParams =
-#        current:
-#          params: {}
-#            hub: 1
-#            filter: 'active'
-#            user: 42
-    )
-    it "should load list of proposals", ->
-      mockBackend.expectGET("/proposals").respond [
-        id: 1
-      ,
-        id: 2
-      ]
-      mockBackend.expectGET("/assets/pages/landing.html").respond []
-      proposals = undefined
-      promise = loader(
-#        $routeParams
-#        $route:
-#          current: {}
-      )
-      promise.then (prop) ->
-        proposals = prop
-
-      expect(proposals).toBeUndefined()
-      mockBackend.flush()
-      expect(proposals).toEqualData [
-        id: 1
-      ,
-        id: 2
-      ]
 
   describe "NewProposalCtrl", ->
     mockBackend = undefined

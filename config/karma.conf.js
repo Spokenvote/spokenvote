@@ -47,6 +47,8 @@ module.exports = function(config) {
 
         // tests
         'test/**/*spec.coffee'
+        //'test/spec/controllers/start_controller_spec.coffee'
+        //'test/spec/services/api_loaders_spec.coffee'
     ],
 
     // list of files to exclude

@@ -93,7 +93,7 @@ SelectHubLoader = ($http, $q) ->
     delay.promise
 
 #
-#SelectHubLoader = (Hub, $route, $q) ->
+#SelectHubLoader = (Hub, $route, $q) ->          # ui-select does not seem to like ngResource
 #  (params) ->
 #    delay = $q.defer()
 #    if params

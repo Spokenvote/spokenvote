@@ -3,9 +3,9 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
   $scope.sessionSettings.actions.newProposal.prop = 'active'
-  console.log '$scope.sessionSettings.actions.newProposal: ', $scope.sessionSettings.actions.newProposal
+#  console.log '$scope.sessionSettings.actions.newProposal: ', $scope.sessionSettings.actions.newProposal
   #  $scope.sessionSettings.actions.changeHub = true
-  $scope.sessionSettings.actions.wizardToGroup = null
+#  $scope.sessionSettings.actions.wizardToGroup = null
 
   Focus('proposal_statement')
 #  $timeout ->
