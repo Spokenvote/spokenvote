@@ -8,10 +8,10 @@ describe 'StartController Tests', ->
   describe 'StartController performs its Controller tasks ', ->
     $rootScope = undefined
     $scope = undefined
-    ctrl = undefined
-    Focus = jasmine.createSpy 'Focus'
+    $controller = undefined
+    Focus = undefined
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _Focus_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
       $rootScope = _$rootScope_
       $rootScope.sessionSettings = _SessionSettings_
       #      $location = _$location_
@@ -26,29 +26,17 @@ describe 'StartController Tests', ->
       $rootScope.currentUser =
         id: 5
       $scope = $rootScope.$new()
-#      Focus = _Focus_
-      spyOn window, 'Focus'
-#      Focus = jasmine.createSpy()
+      Focus = jasmine.createSpy 'Focus'
 
-      ctrl = _$controller_ 'StartController',
+      $controller = _$controller_ 'StartController',
         $scope: $scope
-
+        Focus: Focus
 
     it 'StartController should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
       expect $scope.sessionSettings.actions.newProposal.prop
         .toEqual 'active'
-
-#      expect window.Focus
-#        .toHaveBeenCalledWith('proposal_statement')
-#      expect Focus.calls.count()
-#        .toEqual 1
-#      expect Focus.fakeMethod.calls.count()
-#        .toEqual 1
-#      expect VotingService.support
-#        .toBeDefined()
-
       expect Focus
         .toBeDefined()
       expect $scope.commentStep
@@ -58,4 +46,8 @@ describe 'StartController Tests', ->
       expect $scope.hubStep
         .toBeDefined()
 
-
+    it 'StartController should focus proposal statement', ->
+      expect Focus
+        .toHaveBeenCalledWith('proposal_statement')
+      expect Focus.calls.count()
+        .toEqual 1
