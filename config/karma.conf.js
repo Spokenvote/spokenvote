@@ -39,7 +39,8 @@ module.exports = function(config) {
         // application
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
-
+        //'app/assets/templates/**/*.html.slim',  // see http://codetunes.com/2014/karma-on-rails/
+                                                  // Angular-Rails discussion: https://github.com/pitr/angular-rails-templates/issues/63#issuecomment-69788362
         // mocks
         'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
         'test/**/*mock.coffee',
@@ -64,6 +65,8 @@ module.exports = function(config) {
 //      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
       'app/assets/javascripts/angular/**/*.coffee': ['coffee'],
       'test/**/*.coffee': ['coffee']
+      //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
+
 //      '**/*.coffee': ['coffee']
 //      '**/lib/*.js': 'coverage'
 //      '**/*.js': ['sourcemap']
@@ -81,6 +84,11 @@ module.exports = function(config) {
           return path.replace(/\.coffee$/, '.js');
       }
     },
+
+      //ngHtml2JsPreprocessor: {                   // see http://codetunes.com/2014/karma-on-rails/
+      //    stripPrefix: 'app/assets/templates/',
+      //    stripSufix: '.slim'
+      //},
 
     // web server port
     port: 8080,
