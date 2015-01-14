@@ -25,6 +25,13 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
     Focus('vote_hub')
 #    Focus('ui-select-search')
 
+  $scope.finishProp = ->
+    console.log 'hi from finishProp '
+    $scope.sessionSettings.actions.newProposal.hub = 'complete'
+#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+#    Focus('vote_hub')
+#    Focus('ui-select-search')
+
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
       $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')
