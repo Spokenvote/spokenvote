@@ -2,7 +2,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
   $scope.alertService.clearAlerts()
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
-  $scope.sessionSettings.actions.newProposal.prop = 'active'
+#  $scope.sessionSettings.actions.newProposal.focus = 'prop'
 #  console.log '$scope.sessionSettings.actions.newProposal: ', $scope.sessionSettings.actions.newProposal
   #  $scope.sessionSettings.actions.changeHub = true
 #  $scope.sessionSettings.actions.wizardToGroup = null
@@ -14,21 +14,23 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 #      $('#newProposalHub').select2('focus', true)
 
   $scope.commentStep = ->
-    $scope.sessionSettings.actions.newProposal.prop = 'complete'
+#    $scope.sessionSettings.actions.newProposal.prop = 'complete'
     $scope.sessionSettings.actions.newProposal.comment = 'active'
+#    $scope.sessionSettings.actions.newProposal.focus = 'comment'
     Focus('vote_comment')
-#    Focus('comment-text')
+  #    Focus('comment-text')
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
-    $scope.sessionSettings.actions.newProposal.hub = 'active'
+#    $scope.sessionSettings.actions.newProposal.hub = 'active'
+    $scope.sessionSettings.actions.newProposal.focus = 'hub'
     Focus('vote_hub')
 #    Focus('ui-select-search')
 
   $scope.finishProp = ->
 #    console.log 'hi from finishProp '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
-#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+    $scope.sessionSettings.actions.newProposal.focus = 'none'
 #    Focus('vote_hub')
 #    Focus('ui-select-search')
 

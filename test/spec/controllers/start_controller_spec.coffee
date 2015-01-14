@@ -35,8 +35,8 @@ describe 'StartController Tests', ->
     it 'StartController should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
-      expect $scope.sessionSettings.actions.newProposal.prop
-        .toEqual 'active'
+#      expect $scope.sessionSettings.actions.newProposal.prop
+#        .toEqual 'active'
       expect Focus
         .toBeDefined()
       expect $scope.commentStep
