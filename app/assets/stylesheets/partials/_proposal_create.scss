@@ -44,6 +44,9 @@
     font-size: 20px;
 //    font-size: .5em;
     resize: none;
+    &.ng-valid {
+      color: $soft-grey;
+    }
   }
   .vote_hub {
     input {
