@@ -26,7 +26,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 #    Focus('ui-select-search')
 
   $scope.finishProp = ->
-    console.log 'hi from finishProp '
+#    console.log 'hi from finishProp '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
 #    $scope.sessionSettings.actions.newProposal.comment = 'complete'
 #    Focus('vote_hub')
@@ -37,30 +37,6 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
       $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
-#
-#  $scope.disabled = `undefined`
-#
-#  $scope.enable = ->
-#    $scope.disabled = false
-#
-#  $scope.disable = ->
-#    $scope.disabled = true
-#
-#  $scope.clear = ->
-#    $scope.address.selected = `undefined`
-#
-#  $scope.hubFilter = {}
-#  $scope.refreshHubs = (hub_filter) ->
-#    if hub_filter.length > 1
-#      params =
-#        hub_filter: hub_filter
-#
-#      $http.get("/hubs",
-#        params: params
-#      ).then (response) ->
-#        $scope.hubs = response.data
-
-
 ]
 
 App.controller 'StartController', StartController

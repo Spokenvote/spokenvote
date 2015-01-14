@@ -39,7 +39,7 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
   $rootScope.setHub = (item, model) ->
     $rootScope.eventResult = {item: item, model: model}
     $rootScope.sessionSettings.hub_attributes = item
-    $log.log 'hi from setHub', item
+#    $log.log 'hi from setHub', item
 
 
 #  $scope.clearFilter = (filter) ->

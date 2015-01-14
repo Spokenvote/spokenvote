@@ -45,6 +45,8 @@ describe 'StartController Tests', ->
         .toBeDefined()
       expect $scope.hubStep
         .toBeDefined()
+      expect $scope.finishProp
+        .toBeDefined()
 
     it 'StartController should focus proposal statement', ->
       expect Focus
