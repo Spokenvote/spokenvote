@@ -2,7 +2,7 @@
 // content_pages elements
 
 .content_page {
-  padding: $gridGutterWidth / 2;
+  padding: $narrowGutterWidth / 2;
   font-weight: inherit;
   h2 {
     margin-top: 5px;
@@ -24,7 +24,7 @@
     }
   }
   .content_div {
-    margin-bottom: $gridGutterWidth;
+    margin-bottom: $narrowGutterWidth;
   }
   #totalVoteLabel {
     margin: -12px -10px -8px 0;

@@ -15,13 +15,12 @@ body {
 
 .container-fluid {
   max-width: $container-fluid-max-width;
-  padding: 0 $container-fluid-right-left-padding;
+  padding: 0 ($grid-gutter-width / 2);
   overflow-x: hidden;
 }
 
 #main {
   overflow: visible;
-//  background: url(noisy_grid.png);
   min-height: 1200px;
   @media (min-width: $screen-md-min) {
     padding-top: 5%;
@@ -32,11 +31,15 @@ body {
 }
 
 #mainContent {
-  padding: $gridGutterWidth * .5;
-  @media (min-width: $screen-md-min) {
-    padding: $gridGutterWidth * 2;
-  }
-  margin-bottom: $gridGutterWidth * 2;
+  padding: $grid-gutter-width / 2;     // added for new $mobile-all-setting
+//  @media (min-width: $screen-md-min) {
+//    padding: $gridGutterWidth * 2;
+//  }
+//  padding: $gridGutterWidth * .5;
+//  @media (min-width: $screen-md-min) {
+//    padding: $gridGutterWidth * 2;
+//  }
+  margin-bottom: $narrowGutterWidth * 2;
   position: relative;
 }
 
@@ -148,7 +151,7 @@ a {
 }
 
 h2 {
-  margin-bottom: ($gridGutterWidth * 0.6);
+  margin-bottom: ($narrowGutterWidth * 0.6);
   font-size: 1.8em;
 }
 
@@ -160,7 +163,7 @@ h3 {
 // Alert Elements
 
 .alert {
-  margin-left: $gridGutterWidth;
+  margin-left: $narrowGutterWidth;
   margin-bottom: 0;
   @include border-radius(0);
   text-align: center;
@@ -250,12 +253,12 @@ h3 {
 }
 
 h1.form-horizontal {
-  padding-left: ($gridGutterWidth * 8);
+  padding-left: ($narrowGutterWidth * 8);
 }
 
 .label-large {
   font-size: 16px;
-  padding: ($gridGutterWidth/4) ($gridGutterWidth * 0.4) ($gridGutterWidth * 0.3);
+  padding: ($narrowGutterWidth/4) ($narrowGutterWidth * 0.4) ($narrowGutterWidth * 0.3);
   border: 1px solid #dddddd;
 }
 
@@ -399,9 +402,9 @@ h1.form-horizontal {
 
 //ng-dirty
 .input-below-text {
-  margin-top: ($gridGutterWidth * -0.5);
-  margin-bottom: ($gridGutterWidth * 0.5);
-  margin-left: ($gridGutterWidth * 0.2);
+  margin-top: ($narrowGutterWidth * -0.5);
+  margin-bottom: ($narrowGutterWidth * 0.5);
+  margin-left: ($narrowGutterWidth * 0.2);
 }
 
 

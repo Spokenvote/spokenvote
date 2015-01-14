@@ -1,3 +1,34 @@
+.newProposal {
+  color: $tally-blue;
+  font-size: 1.7em;
+  .changehub {
+    .selecthub {
+      text-align: center;
+      padding: 2%;
+    }
+  }
+  .makeHub {
+    h3 {
+      color: $happy-blue;
+      font-size: 135%;
+      margin: 0;
+      padding: 5px;
+    }
+    .input-area {
+      padding: 0 15px;
+      width: 287px;
+      min-width: 70%;
+      input {
+        width: 100%;
+        margin-top: 5px;
+      }
+      .length_counter.happy-text a.link {
+        color: $alert-blue;
+      }
+    }
+  }
+}
+
 .proposal-area {
   .proposal-text {
     margin: 0;
@@ -65,33 +96,3 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.newProposal {
-  color: $tally-blue;
-  font-size: 1.7em;
-  .changehub {
-    .selecthub {
-      text-align: center;
-      padding: 2%;
-    }
-  }
-  .makeHub {
-    h3 {
-      color: $happy-blue;
-      font-size: 135%;
-      margin: 0;
-      padding: 5px;
-    }
-    .input-area {
-      padding: 0 15px;
-      width: 287px;
-      min-width: 70%;
-      input {
-        width: 100%;
-        margin-top: 5px;
-      }
-      .length_counter.happy-text a.link {
-        color: $alert-blue;
-      }
-    }
-  }
-}

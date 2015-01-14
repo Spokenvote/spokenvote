@@ -1,13 +1,23 @@
 // Media Variables
-$container-fluid-right-left-padding: 15px;
-$container-fluid-max-width: 510px + $container-fluid-right-left-padding * 2;
-//$container-large-desktop: 900;
-//$grid-float-breakpoint: 800;
-//$grid-float-breakpoint: 1500px;
+//$container-fluid-right-left-padding: 15px;
+
+//== Container sizes
+$mobile-all-setting:                  500px;
+$grid-gutter-width:                   30px;
+$container-fluid-max-width:           $mobile-all-setting + $grid-gutter-width;
+
+//## Define the maximum width of `.container` for different screen sizes.
+// Small screen / tablet
+$container-tablet:                    (($mobile-all-setting + $grid-gutter-width)) !default;   // original: ((500px + $grid-gutter-width))
+
+// Medium screen / desktop
+$container-desktop:                   (($mobile-all-setting + $grid-gutter-width)) !default;   // original: ((940px + $grid-gutter-width))
+
+// Large screen / wide desktop
+$container-large-desktop:             (($mobile-all-setting + $grid-gutter-width)) !default;  // original: ((1140px + $grid-gutter-width))
 
 
 // Color Variables
-
 $twitterBlack:                        #252525;
 
 $airbnbBackgroundWhite:               #eaebeb;
@@ -21,30 +31,30 @@ $iPhoneHearderBrightWhiteTransparent: rgba(237, 241, 242, 0.75);
 
 
 // Spokenvote Colors
-$happy-blue: #1c85f6;
-$spring-green: #50D050;
-$tally-blue: #4F8EF7;
-$panel-background: #e5e5e5;
-$modal-body-off-white: #DFDFDF;
-$googlePanelGreyLettering: #cecece;
-$chisel-grey: #c1c1c1;
-$soft-grey: rgba(132, 132, 132, 0.75);
-$smokeyLebel: rgba(153, 153, 153, 0.46);
-$basic-brown: #444;
-$soft-brown-text: #555555;
-$theranos-grey: #65676b;
-$facebook-blue: #3b5998;
-$alert-blue: #284784;
-$error-text-red: #b94a48;
-$attention-red: #9d261d;
-$tag-blue: rgba(28, 133, 246, 0.25);
+$happy-blue:                          #1c85f6;
+$spring-green:                        #50D050;
+$tally-blue:                          #4F8EF7;
+$panel-background:                    #e5e5e5;
+$modal-body-off-white:                #DFDFDF;
+$googlePanelGreyLettering:            #cecece;
+$chisel-grey:                         #c1c1c1;
+$soft-grey:                           rgba(132, 132, 132, 0.75);
+$smokeyLebel:                         rgba(153, 153, 153, 0.46);
+$basic-brown:                         #444;
+$soft-brown-text:                     #555555;
+$theranos-grey:                       #65676b;
+$facebook-blue:                       #3b5998;
+$alert-blue:                          #284784;
+$error-text-red:                      #b94a48;
+$attention-red:                       #9d261d;
+$tag-blue:                            rgba(28, 133, 246, 0.25);
 
-$rowHighlight: rgba(240, 240, 255, 0.45);
-$rowRuler: rgba(68, 68, 68, 0.35);
+$rowHighlight:                        rgba(240, 240, 255, 0.45);
+$rowRuler:                            rgba(68, 68, 68, 0.35);
 
 $googlePanelGrey:                     #252626;
 
-$gridGutterWidth:                     10px !default;
+$narrowGutterWidth:                   10px !default;   // changed above for new $mobile-all-setting
 
 //$headingsColor: #315c99;
 //$headingsColor: #444;
@@ -67,5 +77,5 @@ $logoTypeFace:                        'Yanone Kaffeesatz', sans-serif;
 
 // Modal Variables
 
-$modal-title-padding: 2.8%;
+$modal-title-padding:                  2.8%;
 
