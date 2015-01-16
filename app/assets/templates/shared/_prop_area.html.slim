@@ -1,21 +1,10 @@
 .proposal-area( ng-hide='sessionSettings.actions.changeHub' )
-  /.instructions
-    .avatar
-      ng-include( src="'shared/_currentuser_avatar.html'" )
-    h5 Enter your proposal and explain why others should support it!
-  /.form-group ng-show='sessionSettings.actions.newProposal.focus == "prop"'
   .form-group
     textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
       ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
       ng-enter='commentStep()' ng-focus='sessionSettings.actions.newProposal.focus = "prop"' )
     .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.newProposal.focus === "prop"' Press <strong><i>Return</i></strong> to create your proposal
     .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && sessionSettings.newProposal.statement.length > 120' ) {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
-    /.length_counter.error-text( ng-show='newProposalForm.statement.$invalid && !newProposalForm.statement.$error.minlength && !newProposalForm.statement.$error.maxlength' )
-      .fa.fa-warning
-      span Required
-    /.length_counter.error-text( ng-show="newProposalForm.statement.$error.minlength" )
-      .fa.fa-warning
-      span Too Short
     .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
       .fa.fa-warning
       span Too Long
@@ -26,21 +15,13 @@
       ng-enter='hubStep()' ng-focus='sessionSettings.actions.newProposal.focus = "comment"' )
     .next-step ng-show='sessionSettings.actions.newProposal.focus === "comment"' Press <strong><i>Enter</i></strong> to continue
     .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
-    /.length_counter.error-text( ng-show='newProposalForm.comment.$invalid && !newProposalForm.comment.$error.minlength && !newProposalForm.comment.$error.maxlength' )
-      .fa.fa-warning
-      span  Required
-    /.length_counter.error-text( ng-show="newProposalForm.comment.$error.minlength" )
-      .fa.fa-warning
-      span Too Short
     .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
       .fa.fa-warning
       span Too Long
 
-  .form-group ng-controller='HubController' ng-show='sessionSettings.actions.newProposal.focus == "hub"'
-    /ui-select(ng-disabled="disabled" ng-model="address.selected" reset-search-input="false" style="width: 300px;" theme="bootstrap")
-    ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
-      ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()' {{$select.selected.full_hub}}
-      ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
-        div ng-bind-html='hub.full_hub | highlight: $select.search'
-
-  /p {{ addresses }}
+  .form-group( ng-controller='HubController' ng-show='sessionSettings.actions.newProposal.focus == "hub"' )
+    div(ui-select-wrapper)
+      ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
+        ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()' {{$select.selected.full_hub}}
+        ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
+          div ng-bind-html='hub.full_hub | highlight: $select.search'

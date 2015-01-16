@@ -7,6 +7,9 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
   #  $scope.sessionSettings.actions.changeHub = true
 #  $scope.sessionSettings.actions.wizardToGroup = null
 
+  uiSelect = angular.element 'ui-select-wrapper'
+#  console.log 'uiSelect: ', uiSelect.focusser[0]
+
   Focus('proposal_statement')
 #  $timeout ->
 #    jQuery ->
@@ -24,7 +27,8 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
 #    $scope.sessionSettings.actions.newProposal.hub = 'active'
     $scope.sessionSettings.actions.newProposal.focus = 'hub'
-    Focus('vote_hub')
+#    Focus('vote_hub')
+#    uiSelect.focusser[0].focus()
 #    Focus('ui-select-search')
 
   $scope.finishProp = ->
