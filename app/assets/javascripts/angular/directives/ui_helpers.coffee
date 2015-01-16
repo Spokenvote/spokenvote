@@ -11,7 +11,8 @@ ngEnter =  ->
 autoGrow = ->
   (scope, element, attrs) ->
     update = ->
-      element.css 'height', 'auto'
+      if element[0].scrollWidth > element.outerWidth isBreaking = true else isBreaking = false
+      element.css 'height', 'auto' if isBreaking
       height = element[0].scrollHeight
       element.css 'height', height + 'px'  if height > 0
     scope.$watch attrs.ngModel, update
