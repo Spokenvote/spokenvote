@@ -138,6 +138,7 @@ SessionSettings = ->
   searchedHub: {}
   routeParams: {}
   hub_attributes: {}
+#  hubFilter: {}
   newProposal: {}
   newSupport:
     target: {}

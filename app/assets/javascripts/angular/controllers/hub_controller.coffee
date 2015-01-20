@@ -12,6 +12,8 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
     $scope.address.selected = `undefined`
 
   $scope.hubFilter = {}
+#  $scope.sessionSettings.hubFilter = {}
+
   $scope.refreshHubs = (hub_filter) ->
     if hub_filter.length > 1
       params =
