@@ -18,8 +18,8 @@
         button.navbar-toggle type='button'
           .fa.fa-pencil-square-o.fa-2x
 
-      span ng-show='sessionSettings.hubFilter.id'
-        ng-include src="'shared/_current_hub.html'"
+      .currentHub ng-show='sessionSettings.hubFilter.id'
+        ng-include src="'shared/_select_hub.html'"
 
       /.currentHub
         span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )

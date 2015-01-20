@@ -21,7 +21,7 @@
 
   /.form-group ng-show='sessionSettings.actions.newProposal.focus == "hub"'
   .form-group ng-hide='sessionSettings.hubFilter.id'
-    ng-include src="'shared/_current_hub.html'"
+    ng-include src="'shared/_select_hub.html'"
     /div( ui-select-wrapper ng-controller='HubController' )
     /  /ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
     /  ui-select class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
