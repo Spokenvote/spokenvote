@@ -1,9 +1,18 @@
 .currentHub
-  span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )
+  /span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )
+  span href='#'
 
-    .groupName( ng-show='sessionSettings.hub_attributes.id' )
+    /.groupName ng-show='sessionSettings.hubFilter.id'
+    .groupName
       /i class='glyphicon glyphicon-pencil'
-      span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hub_attributes.full_hub }}
+      /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
+
+      div( ui-select-wrapper ng-controller='HubController' )
+        /ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
+        ui-select class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
+          ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()' {{$select.selected.full_hub}}
+          ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
+            div ng-bind-html='hub.full_hub | highlight: $select.search'
 
     /.groupName( ng-show='!sessionSettings.hub_attributes.id && sessionSettings.hub_attributes.location_id' )
       i( class='glyphicon glyphicon-pencil' )

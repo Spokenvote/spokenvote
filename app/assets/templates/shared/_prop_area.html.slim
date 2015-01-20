@@ -20,10 +20,11 @@
       span Too Long
 
   /.form-group ng-show='sessionSettings.actions.newProposal.focus == "hub"'
-  .form-group
-    div( ui-select-wrapper ng-controller='HubController' )
-      /ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
-      ui-select class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
-        ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()' {{$select.selected.full_hub}}
-        ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
-          div ng-bind-html='hub.full_hub | highlight: $select.search'
+  .form-group ng-hide='sessionSettings.hubFilter.id'
+    ng-include src="'shared/_current_hub.html'"
+    /div( ui-select-wrapper ng-controller='HubController' )
+    /  /ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
+    /  ui-select class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false'
+    /    ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()' {{$select.selected.full_hub}}
+    /    ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
+    /      div ng-bind-html='hub.full_hub | highlight: $select.search'
