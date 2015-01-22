@@ -44,6 +44,9 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
     $rootScope.sessionSettings.hub_attributes = item
 #    $log.log 'hi from setHub', item
 
+  $scope.createSearchChoice = (newHub) ->
+    console.log 'newHub: ', newHub
+    {full_hub: newHub}
 
 #  $scope.clearFilter = (filter) ->
 #    $location.search(filter, null)
