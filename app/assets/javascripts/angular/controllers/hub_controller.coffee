@@ -1,6 +1,6 @@
 HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hub', ($scope, $rootScope, $log, $http, SelectHubLoader, Hub) ->
 
-  $scope.disabled = `undefined`
+  $scope.disabled = undefined
 
   $scope.enable = ->
     $scope.disabled = false
@@ -12,15 +12,12 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
     $event.stopPropagation()
     $scope.sessionSettings.hubFilter = undefined
 
-#  $scope.hubFilter = {}
-#  $scope.sessionSettings.hubFilter = {}
-
   $scope.refreshHubs = (hub_filter) ->
     if hub_filter.length > 1
       params =
         hub_filter: hub_filter
 
-#      Hub.query(
+#      Hub.query(                   # Using $Resource, question pending
 #        (params: params
 #        ), ((hubs) ->
 #          $log.log hubs
@@ -33,15 +30,13 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
 #        $log.log response
         $scope.hubs = response
 
-#      $http.get("/hubs",
-#        params: params
-#      ).then (response) ->
-#        $scope.hubs = response.data
-
 
   $rootScope.setHub = (item, model) ->
-    $rootScope.eventResult = {item: item, model: model}
+    $rootScope.eventResult = {item: item, model: model}      # What does this line do?
     $rootScope.sessionSettings.hub_attributes = item
+    $rootScope.sessionSettings.hub_attributes.id = item.select_id
+  #    $scope.sessionSettings.actions.changeHub = false
+  #    $scope.sessionSettings.actions.selectHub = true
 #    $log.log 'hi from setHub', item
 
   $scope.createSearchChoice = (newHub) ->

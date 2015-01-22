@@ -10,7 +10,7 @@
       div( ui-select-wrapper )
 
         /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
-        ui-select( class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false' )
+        ui-select( name='hubFilter' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false' required )
           ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()'
             span {{ $select.selected.full_hub }}
             span class='close' ng-click='clear($event)' &nbsp &times
