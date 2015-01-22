@@ -25,8 +25,8 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
-#    $scope.sessionSettings.actions.newProposal.hub = 'active'
-    $scope.sessionSettings.actions.newProposal.focus = 'hub'
+    $scope.sessionSettings.actions.newProposal.hub = 'active'
+#    $scope.sessionSettings.actions.newProposal.focus = 'hub'
 #    Focus('vote_hub')
 #    uiSelect.focusser[0].focus()
 #    Focus('ui-select-search')
@@ -34,7 +34,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
   $scope.finishProp = ->
 #    console.log 'hi from finishProp '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
-    $scope.sessionSettings.actions.newProposal.focus = 'none'
+#    $scope.sessionSettings.actions.newProposal.focus = 'none'
 #    Focus('vote_hub')
 #    Focus('ui-select-search')
 

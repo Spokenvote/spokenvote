@@ -57,6 +57,12 @@ body {
   }
 }
 
+.close {
+  float: none;
+  vertical-align: top;
+  line-height: .5;
+}
+
 input {
   border: none;
   padding: 5px;

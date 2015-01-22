@@ -1,4 +1,4 @@
-.proposal-area( ng-hide='sessionSettings.actions.changeHub' )
+.proposal-area ng-hide='sessionSettings.actions.changeHub'
   .form-group
     textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
       ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
@@ -20,7 +20,8 @@
       span Too Long
 
   /.form-group ng-show='sessionSettings.actions.newProposal.focus == "hub"'
-  .form-group ng-hide='sessionSettings.hubFilter.id'
+  /.form-group ng-hide='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.focus != "hub"'
+  .form-group ng-show='sessionSettings.actions.newProposal.hub == "active"'
     ng-include src="'shared/_select_hub.html'"
     /div( ui-select-wrapper ng-controller='HubController' )
     /  /ui-select class='vote_hub' ng-disabled='disabled' ng-model='hubFilter.selected' on-select='setHub($item, $model); finishProp()' reset-search-input='false'

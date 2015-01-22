@@ -8,10 +8,11 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
   $scope.disable = ->
     $scope.disabled = true
 
-  $scope.clear = ->
-    $scope.address.selected = `undefined`
+  $scope.clear = ($event) ->
+    $event.stopPropagation()
+    $scope.sessionSettings.hubFilter = undefined
 
-  $scope.hubFilter = {}
+#  $scope.hubFilter = {}
 #  $scope.sessionSettings.hubFilter = {}
 
   $scope.refreshHubs = (hub_filter) ->
