@@ -3,7 +3,7 @@
   span href='#'
 
     /.groupName ng-show='sessionSettings.hubFilter.id'
-    .groupName
+    .groupName ng-show='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.hub == "complete"'
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
@@ -17,7 +17,8 @@
           ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
             div ng-bind-html='hub.full_hub | highlight: $select.search'
 
-      span ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
+    .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
+      span
         span() for
         span( class='tag_item' )
           span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
