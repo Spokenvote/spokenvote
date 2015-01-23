@@ -16,14 +16,12 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
     $scope.hubFilter =
       hubFilter: true
 
-  if $route.current.params.hub?
+  if $route.current.params.hub?                                            # Newer UI-Select logic
     CurrentHubLoader().then (paramHub) ->
 #      console.log 'Init paramHub: ', paramHub
       $scope.sessionSettings.hubFilter = paramHub
       $scope.sessionSettings.hub_attributes = paramHub
       $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Need to keep setting this?
-
-
 
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
@@ -33,7 +31,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
         console.log 'paramHub: ', paramHub
         $scope.sessionSettings.hub_attributes = paramHub
         $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
+        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes      #Causing a loop
     else if !$route.current.params.hub?
       $scope.hubFilter.hubFilter = null
     if $route.current.prerenderStatusCode
@@ -41,15 +39,15 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
     else
       $scope.route.current.prerenderStatusCode = undefined
 
-  $scope.$watch 'hubFilter.hubFilter', ->
-    console.log '$watch: '
-    if $scope.hubFilter.hubFilter == null
-      $location.search('hub', null) if $location.path() == '/proposals'
-      $scope.sessionSettings.actions.hubFilter = 'All Groups'
-    else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
-      $scope.sessionSettings.actions.selectHub = false
-      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
-      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
+#  $scope.$watch 'hubFilter.hubFilter', ->
+#    console.log '$watch: '
+#    if $scope.hubFilter.hubFilter == null
+#      $location.search('hub', null) if $location.path() == '/proposals'
+#      $scope.sessionSettings.actions.hubFilter = 'All Groups'
+#    else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
+#      $scope.sessionSettings.actions.selectHub = false
+#      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
+#      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1

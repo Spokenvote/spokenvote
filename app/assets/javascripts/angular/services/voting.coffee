@@ -135,7 +135,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:proposalsChanged'
         $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
+        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
+#        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
         $modalInstance.close(response)
         $rootScope.sessionSettings.actions.offcanvas = false
       ),  (response, status, headers, config) ->

@@ -40,7 +40,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 
   $scope.goToGroup = (action) ->
     if $scope.sessionSettings.hub_attributes.id?
-      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')
+#      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id).hash('navigationBar')      # Angular empty hash bug
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.group_name
       $scope.sessionSettings.actions.wizardToGroup = action
 ]

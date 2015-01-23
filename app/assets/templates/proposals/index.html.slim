@@ -1,21 +1,22 @@
 section
+  .proposalsLoading ng-show='proposalsLoading'
+    h3 Loading Proposals, please wait.
   .panel.panel-default.hidden-xs.hidden-sm
     .panel-title
       .title.pull-left
-        h3
-          span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
-          span( ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')" )
+        /h3
+          /span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+          span ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
             span() for
             span( class='tag_item' )
               span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
               .fa.fa-times
             span &nbsp
         .list-filter
-          input( type='search' ng-model='q' placeholder="Filter Proposal List" )
-          .proposalsLoading( ng-show='proposalsLoading' )
-            /.col-xs-12.col-xs-offset-1
-            h3
-              span Loading Proposals, please wait.
+          input type='search' ng-model='q' placeholder="Filter Proposal List"
+          /.proposalsLoading ng-show='proposalsLoading'
+          /  h3
+          /    span Loading Proposals, please wait.
 
       h3.btn-group.pull-right
         button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-if='currentUser.id' )
