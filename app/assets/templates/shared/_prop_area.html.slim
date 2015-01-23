@@ -24,9 +24,10 @@
   .form-group ng-show='sessionSettings.actions.newProposal.hub == "active"'
     ng-include src="'shared/_select_hub.html'"
 
-  fieldset
-    .control-group
-      .controls
-        button ng-show='newProposalForm.$valid' ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' Save your New proposal
-        /button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid'
-          ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
+  .dialog-footer
+    fieldset
+      .control-group
+        .controls
+          button ng-show='newProposalForm.$valid' ng-click='votingService.saveNewProposal(modalInstance)' class='btn btn-primary btn-bold' Publish
+          /button( ng-show='sessionSettings.actions.changeHub == "new"' ng-disabled='!newProposalForm.formatted_location.$valid || !newProposalForm.group_name.$valid'
+            ng-click='sessionSettings.actions.changeHub = false' class='btn btn-primary btn-bold' ) Continue
