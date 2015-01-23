@@ -12,14 +12,25 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
   $scope.hubFilter =
     hubFilter: null
 
-  if $route.current.params.hub? && !$route.current.params.proposalId? 
+  if $route.current.params.hub? && !$route.current.params.proposalId?      # Older Select2 logic
     $scope.hubFilter =
       hubFilter: true
 
+  if $route.current.params.hub?
+    CurrentHubLoader().then (paramHub) ->
+#      console.log 'Init paramHub: ', paramHub
+      $scope.sessionSettings.hubFilter = paramHub
+      $scope.sessionSettings.hub_attributes = paramHub
+      $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Need to keep setting this?
+
+
+
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
+    console.log '$locationChangeSuccess: '
     if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
       CurrentHubLoader().then (paramHub) ->
+        console.log 'paramHub: ', paramHub
         $scope.sessionSettings.hub_attributes = paramHub
         $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
         $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
@@ -31,6 +42,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.route.current.prerenderStatusCode = undefined
 
   $scope.$watch 'hubFilter.hubFilter', ->
+    console.log '$watch: '
     if $scope.hubFilter.hubFilter == null
       $location.search('hub', null) if $location.path() == '/proposals'
       $scope.sessionSettings.actions.hubFilter = 'All Groups'

@@ -13,7 +13,7 @@
         ui-select( name='hubFilter' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false' required )
           ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()'
             span {{ $select.selected.full_hub }}
-            span class='close' ng-click='clear($event)' &nbsp &times
+            span class='close' ng-click='clear($event)' &times
           ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
             div ng-bind-html='hub.full_hub | highlight: $select.search'
 
