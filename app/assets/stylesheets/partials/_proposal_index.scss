@@ -12,15 +12,24 @@
   button {
     font-size: .5em;
   }
-  .list-filter {
-    font-size: .65em;
-    input {
-      color: $chisel-grey;
-      background-color: $panel-background;
-      border-style: solid;
-      border-width: thin;
-    }
+}
+
+.list-filter {
+  font-size: .65em;
+  input {
+    color: $chisel-grey;
+    background-color: $panel-background;
+    border-style: solid;
+    border-width: thin;
   }
+//  button {
+//    color: #c1c1c1;
+//
+//  }
+  .btn.active, .btn:active {
+    background-color: $panel-background;
+  }
+
 }
 
 .proposal_hub {

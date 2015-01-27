@@ -31,6 +31,7 @@
 //= require angular-ui-bootstrap/src/tooltip/tooltip
 //= require angular-ui-bootstrap/src/bindHtml/bindHtml
 //= require angular-ui-bootstrap/src/position/position
+//= require angular-ui-bootstrap/src/buttons/buttons
 
 //= require angular-rails-templates
 //= require_tree ../templates

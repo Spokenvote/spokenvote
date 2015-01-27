@@ -1,31 +1,35 @@
 section
   .proposalsLoading ng-show='proposalsLoading'
     h3 Loading Proposals, please wait.
-  .panel.panel-default.hidden-xs.hidden-sm
+  /.panel.panel-default.hidden-xs.hidden-sm
     .panel-title
-      .title.pull-left
-        /h3
-          /span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
-          span ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
-            span() for
-            span( class='tag_item' )
-              span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
-              .fa.fa-times
-            span &nbsp
-        .list-filter
-          input type='search' ng-model='q' placeholder="Filter Proposal List"
-          /.proposalsLoading ng-show='proposalsLoading'
-          /  h3
-          /    span Loading Proposals, please wait.
-
-      h3.btn-group.pull-right
-        button( type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-if='currentUser.id' )
+  /.title.pull-left
+  .title
+    /h3
+      /span {{ sessionSettings.routeParams.filter | inflector:humanize }} Topics for {{ sessionSettings.actions.hubFilter }}
+      span ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
+        span() for
+        span( class='tag_item' )
+          span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
+          .fa.fa-times
+        span &nbsp
+    .list-filter
+      .pull-left
+        input type='search' ng-model='q' placeholder="Filter Proposal List"
+        /.proposalsLoading ng-show='proposalsLoading'
+        /  h3
+        /    span Loading Proposals, please wait.
+      span {{ sessionSettings.routeParams.filter }}
+      /h3.btn-group.pull-right
+      btn-group.pull-right
+        /button type='button' ng-click="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-if='currentUser.id'
+        label class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-click="setFilter('my')" ng-if='currentUser.id'
           .fa.sub.fa-check-square-o
           span My Votes
-        button( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
+        label( type='button' ng-click="setFilter('active')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'active'" )
           .fa.sub.fa-tachometer
           span &nbsp Active
-        button( type='button' ng-click="setFilter('recent')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'recent'" )
+        label( type='button' ng-click="setFilter('recent')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'recent'" )
           .fa.sub.fa-clock-o
           span &nbsp Recent
     .clearfix
