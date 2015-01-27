@@ -34,37 +34,37 @@ section
     .clearfix
 
   .listing-proposals
-    .tree_container( ng-repeat='proposal in proposals | filter:q' ng-click='showProposal(proposal)' )
+    .tree_container ng-repeat='proposal in proposals | filter:q' ng-click='showProposal(proposal)'
       .topic.row
         .list-avatar.col-xs-1
-          .avatar-sprite( ng-repeat="(key, vote) in proposal.votes | slice:0:4" )
-            img( ng-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20" )
-            img( ng-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}" )
+          .avatar-sprite ng-repeat="(key, vote) in proposal.votes | slice:0:4"
+            img ng-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20"
+            img ng-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
         .topic-and-hub.col-xs-9.col-md-10
-          .proposal( id='prop{{ proposal.id }}' )
-            a( id='showProposalLink' ng-click='showProposal(proposal)' ) {{ proposal.statement }}
+          .proposal id='prop{{ proposal.id }}'
+            a id='showProposalLink' ng-click='showProposal(proposal)'  {{ proposal.statement }}
           .hub
-            a( ng-click='setHub(proposal.hub)' ) {{ proposal.hub.short_hub }}
+            a ng-click='setHub(proposal.hub)'  {{ proposal.hub.short_hub }}
 
         .stats.col-xs-2.col-md-1
           .counts.row
             .vote_count.col-xs-6
-              .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
+              .svlabel tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left'
                 .votes {{ proposal.votes_in_tree }}
                 Votes
             .prop_count.col-xs-6
-              .svlabel( tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left' )
+              .svlabel tooltip='{{proposal.votes_in_tree}} votes on {{proposal.related_proposals_count}} proposals' tooltip-placement='left'
                 .props {{ proposal.related_proposals_count  }}
                 Props
           .last_date.row
             .date-stamp.col-xs-12 {{ proposal.updated_at }}
 
-  .proposalFooter( ng-show='!proposalsLoading' )
+  .proposalFooter ng-show='!proposalsLoading'
     .dont-seeit.pull-right
       | Don't see the topic you're looking for? &nbsp
-      a( id='makeProposalLink' href='#' ng-click='newTopic()' ) Start a New Topic
-    .no-proposals.col-xs-12( ng-show='proposals.length == 0' )
+      a id='makeProposalLink' href='#' ng-click='newTopic()'  Start a New Topic
+    .no-proposals.col-xs-12 ng-show='proposals.length == 0'
       h3
         span No {{ filterSelection | inflector:humanize }} topics found&nbsp
-        span( ng-if='sessionSettings.actions.hubFilter' ) for {{ sessionSettings.actions.hubFilter }}
-        span( ng-if='sessionSettings.actions.userFilter' ) for {{ sessionSettings.actions.userFilter }}
+        span ng-if='sessionSettings.actions.hubFilter'  for {{ sessionSettings.actions.hubFilter }}
+        span ng-if='sessionSettings.actions.userFilter'  for {{ sessionSettings.actions.userFilter }}
