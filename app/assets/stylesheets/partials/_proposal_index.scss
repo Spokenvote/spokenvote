@@ -1,33 +1,53 @@
 
 // Proposal Index
 
-.panel {
-  padding: 10px;
-  margin: 0;
-  background-color: $panel-background;
-  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
-  border: 1px solid #c8c8c8;
-  border-color: rgba(0,0,0,0.2);
-  border-radius: 5px;
-  button {
-    font-size: .5em;
-  }
-}
+//.panel {
+//  padding: 10px;
+//  margin: 0;
+//  background-color: $panel-background;
+//  background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+//  border: 1px solid #c8c8c8;
+//  border-color: rgba(0,0,0,0.2);
+//  border-radius: 5px;
+//  button {
+//    font-size: .5em;
+//  }
+//}
 
 .list-filter {
   font-size: .65em;
   input {
-    color: $chisel-grey;
+    color: $tally-blue;
     background-color: $panel-background;
     border-style: solid;
+    border-color: $chisel-grey;
     border-width: thin;
+    &:active {
+      box-shadow: none;
+    }
+    &:focus {
+      box-shadow: none;
+//      background-color: yellow;
+//      border: none;
+      outline: none;
+
+    }
   }
 //  button {
 //    color: #c1c1c1;
 //
 //  }
+  .btn {
+    color: $chisel-grey;
+    font-size: inherit;
+    background-color: $panel-background;
+    border-style: solid;
+    border-width: thin;
+  }
   .btn.active, .btn:active {
     background-color: $panel-background;
+    color: $theranos-grey;
+
   }
 
 }
@@ -247,9 +267,15 @@
 }
 
 .proposalsLoading {
+  text-align: center;
+  color: $theranos-grey;
+  -webkit-transition: 0.75s ease-in-out all;
+  -moz-transition: 0.75s ease-in-out all;
+  -o-transition: 0.75s ease-in-out all;
   transition: 0.75s ease-in-out all;
-  visibility: visible;
-  opacity: 1;
+//  transition: 0.75s ease-in-out all;
+//  visibility: visible;
+//  opacity: 1;
 }
 
 .proposalFooter {

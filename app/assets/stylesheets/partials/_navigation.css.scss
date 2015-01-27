@@ -95,6 +95,7 @@ header.visible-xs {
     color: $soft-grey;
     display: inline-block;
     margin: 4px;
+    padding: 10px 5px;
     .icon-bar {
       background-color: $soft-grey;
       @media (min-width: $screen-sm-min) {

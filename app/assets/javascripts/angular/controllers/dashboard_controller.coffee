@@ -7,7 +7,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       when 'active' then 'Most Active Proposals. Also choose most recent or my proposals on Spokenvote.'
       when 'recent' then 'Most Recent Proposals. Also choose most active or my proposals on Spokenvote.'
       when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
-  $timeout (-> $scope.page.metaDescription = null), 6000
+  $timeout (-> $scope.page.metaDescription = null), 4000
 
   $scope.hubFilter =
     hubFilter: null

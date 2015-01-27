@@ -22,16 +22,16 @@ body {
 #main {
   overflow: visible;
   min-height: 1200px;
-  @media (min-width: $screen-md-min) {
-    padding-top: 5%;
-  }
+//  @media (min-width: $screen-md-min) {
+//    padding-top: 5%;
+//  }
   .content {
     overflow: visible;
   }
 }
 
 #mainContent {
-  padding: $grid-gutter-width / 2;     // added for new $mobile-all-setting
+  padding: $grid-gutter-width / 3;     // added for new $mobile-all-setting
 //  @media (min-width: $screen-md-min) {
 //    padding: $gridGutterWidth * 2;
 //  }
@@ -209,6 +209,14 @@ h3 {
     list-style-type: none;
     margin-left: auto;
     margin-right: auto;
+  }
+  .summary {
+    color: $theranos-grey;
+    -webkit-transition: 0.75s ease-in-out all;
+    -moz-transition: 0.75s ease-in-out all;
+    -o-transition: 0.75s ease-in-out all;
+    transition: 1.75s ease-in-out all;
+
   }
 }
 
