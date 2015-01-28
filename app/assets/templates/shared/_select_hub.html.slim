@@ -3,7 +3,8 @@
   span href='#'
 
     /.groupName ng-show='sessionSettings.hubFilter.id'
-    .groupName ng-show='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.hub == "complete"'
+    /.groupName ng-show='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.hub == "complete"'
+    .groupName ng-hide='sessionSettings.actions.newProposal.hub === "waiting"'
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
@@ -11,7 +12,8 @@
 
         /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
         ui-select( name='hubFilter' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false' required )
-          ui-select-match id='vote_hub' placeholder='Who should see your proposal? ...' ng-enter='finishProp()'
+          ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}' ng-enter='finishProp()'
+            span class='fa fa-search' &nbsp
             span {{ $select.selected.full_hub }}
             span class='close' ng-click='clear($event)' &times
           ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'

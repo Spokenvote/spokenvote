@@ -1,5 +1,7 @@
 StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scope, $location, Focus, $timeout, $http ) ->
   $scope.alertService.clearAlerts()
+  $scope.sessionSettings.actions.newProposal.hub = 'waiting'
+  $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
 #  $scope.sessionSettings.actions.newProposal.focus = 'prop'
