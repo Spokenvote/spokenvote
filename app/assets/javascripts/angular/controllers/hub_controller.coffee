@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hub', ($scope, $rootScope, $log, $http, SelectHubLoader, Hub) ->
+HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub) ->
 
   $scope.disabled = undefined
 
@@ -36,11 +36,15 @@ HubController = ['$scope', '$rootScope', '$log', '$http', 'SelectHubLoader', 'Hu
 
   $rootScope.setHub = (item, model) ->
     $rootScope.eventResult = {item: item, model: model}      # What does this line do?
+    item.id = item.select_id
     $rootScope.sessionSettings.hub_attributes = item
-    $rootScope.sessionSettings.hub_attributes.id = item.select_id
+
+#    $scope.sessionSettings.actions.selectHub = false
+    $location.search('hub', item.id)
+    $location.path('/proposals')  unless $location.path() == '/start'
+    $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
   #    $scope.sessionSettings.actions.changeHub = false
   #    $scope.sessionSettings.actions.selectHub = true
-#    $log.log 'hi from setHub', item
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub: ', newHub

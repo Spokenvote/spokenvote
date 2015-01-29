@@ -28,19 +28,19 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
     console.log '$locationChangeSuccess: '
     if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
       CurrentHubLoader().then (paramHub) ->
-        console.log 'paramHub: ', paramHub
-        $scope.sessionSettings.hub_attributes = paramHub
-        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes      #Causing a loop
-    else if !$route.current.params.hub?
-      $scope.hubFilter.hubFilter = null
+        console.log 'Old $locationChangeSuccess commented out. Still need it?: ', paramHub
+#        $scope.sessionSettings.hub_attributes = paramHub
+#        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
+#        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
+#    else if !$route.current.params.hub?
+#      $scope.hubFilter.hubFilter = null
     if $route.current.prerenderStatusCode
       $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode
     else
       $scope.route.current.prerenderStatusCode = undefined
 
-#  $scope.$watch 'hubFilter.hubFilter', ->
-#    console.log '$watch: '
+#  $scope.$watch 'hubFilter.hubFilter', ->                             # New UI Select logic
+#    console.log '$location.path(): ', $location.path()
 #    if $scope.hubFilter.hubFilter == null
 #      $location.search('hub', null) if $location.path() == '/proposals'
 #      $scope.sessionSettings.actions.hubFilter = 'All Groups'
