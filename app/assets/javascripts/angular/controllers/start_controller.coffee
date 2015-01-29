@@ -1,6 +1,7 @@
 StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scope, $location, Focus, $timeout, $http ) ->
   $scope.alertService.clearAlerts()
-  $scope.sessionSettings.actions.newProposal.hub = 'waiting'
+#  $scope.sessionSettings.actions.newProposal.hub = 'waiting'  unless $scope.sessionSettings.hub_attributes.id
+  $scope.sessionSettings.actions.newProposal.started = true
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 #  $scope.sessionSettings.hub_attributes.id = null
 #  $scope.sessionSettings.actions.newProposalHub = null
@@ -12,11 +13,7 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
   uiSelect = angular.element 'ui-select-wrapper'
 #  console.log 'uiSelect: ', uiSelect.focusser[0]
 
-  Focus('proposal_statement')
-#  $timeout ->
-#    jQuery ->
-#      $('#newProposalHub').select2('open')
-#      $('#newProposalHub').select2('focus', true)
+  Focus 'proposal_statement'
 
   $scope.commentStep = ->
 #    $scope.sessionSettings.actions.newProposal.prop = 'complete'
@@ -27,8 +24,10 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
-    $scope.sessionSettings.actions.newProposal.hub = 'active' if $scope.sessionSettings.actions.newProposal.hub isnt 'complete'
-    $scope.sessionSettings.actions.newProposal.focus = 'hub'
+    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
+    console.log '$scope.sessionSettings.actions.newProposal.hub: ', $scope.sessionSettings.actions.newProposal.hub
+  #    $scope.sessionSettings.actions.newProposal.hub = 'active' if $scope.sessionSettings.actions.newProposal.hub isnt 'complete'
+#    $scope.sessionSettings.actions.newProposal.focus = 'hub'
 #    Focus('vote_hub')
 #    uiSelect.focusser[0].focus()
 #    Focus('ui-select-search')

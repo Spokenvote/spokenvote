@@ -11,6 +11,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $scope.clear = ($event) ->
     $event.stopPropagation()
     $scope.sessionSettings.hubFilter = undefined
+    $scope.sessionSettings.hub_attributes = {}
     $location.search('hub', null) if $location.path() == '/proposals'
     $scope.sessionSettings.actions.hubFilter = 'All Groups'
 

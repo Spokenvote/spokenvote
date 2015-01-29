@@ -11,7 +11,7 @@
     /textarea( id='newProposalHub2' name='statement' class='full-width' ng-model='sessionSettings.newProposal.statement' required ng-minLength='15' ng-maxLength='140' )
 
   .user-body
-    ng-include( src="'shared/_alert_container.html'" )
+    ng-include src="'shared/_alert_container.html'"
 
     /.instructions( ng-show='!sessionSettings.actions.changeHub && sessionSettings.hub_attributes.id && !sessionSettings.actions.wizardToGroup' )
       h3
@@ -31,7 +31,7 @@
         span-red Hint!
         span If you don't see the Topic you want on the next screen, just select Start New Topic.
 
-    form( name='newProposalForm' ng-submit='saveNewProposal()' )
+    form name='newProposalForm' ng-submit='saveNewProposal()'
       .newProposal
         /ng-include( src="'shared/_change_hub.html'" )
         /ng-include( src="'shared/_make_hub.html'" )

@@ -4,7 +4,8 @@
 
     /.groupName ng-show='sessionSettings.hubFilter.id'
     /.groupName ng-show='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.hub == "complete"'
-    .groupName ng-hide='sessionSettings.actions.newProposal.hub === "waiting"'
+    /.groupName ng-hide='sessionSettings.actions.newProposal.hub === "waiting" && !sessionSettings.hub_attributes.id'
+    .groupName
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
