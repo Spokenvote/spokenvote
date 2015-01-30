@@ -114,17 +114,19 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-    hubFilter: 'All Groups'
-    userFilter: null
     changeHub: false
+    detailPage: false
+    focus: null
+    hubFilter: 'All Groups'
     hubPlaceholder: 'Search for your Group ...'
+    hubShow: true
+    userFilter: null
     newProposal: {}
     newProposalHub: null
-    searchTerm: null
-    wizardToGroup: null
-    selectHub: false
     offcanvas: false
-    detailPage: false
+    searchTerm: null
+    selectHub: false
+    wizardToGroup: null
   openModals:
     signIn: false
     register: false

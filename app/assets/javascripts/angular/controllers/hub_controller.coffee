@@ -12,8 +12,10 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     $event.stopPropagation()
     $scope.sessionSettings.hubFilter = undefined
     $scope.sessionSettings.hub_attributes = {}
-    $location.search('hub', null) if $location.path() == '/proposals'
+    $location.search('hub', null)
+#    $location.search('hub', null) if $location.path() == '/proposals'
     $scope.sessionSettings.actions.hubFilter = 'All Groups'
+    $scope.sessionSettings.actions.hubShow = true
 
 
   $scope.refreshHubs = (hub_filter) ->
@@ -39,10 +41,11 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     $rootScope.eventResult = {item: item, model: model}      # What does this line do?
     item.id = item.select_id
     $rootScope.sessionSettings.hub_attributes = item
-
-#    $scope.sessionSettings.actions.selectHub = false
+    $scope.sessionSettings.actions.hubShow = true
+    #    $scope.sessionSettings.actions.selectHub = false
     $location.search('hub', item.id)
     $location.path('/proposals')  unless $location.path() == '/start'
+#    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
     $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
   #    $scope.sessionSettings.actions.changeHub = false
   #    $scope.sessionSettings.actions.selectHub = true

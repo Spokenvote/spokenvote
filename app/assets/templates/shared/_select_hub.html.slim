@@ -1,15 +1,10 @@
 .selectHub ng-controller='HubController'
-  /span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )
   span href='#'
-
-    /.groupName ng-show='sessionSettings.hubFilter.id'
-    /.groupName ng-show='sessionSettings.hubFilter.id || sessionSettings.actions.newProposal.hub == "complete"'
-    /.groupName ng-hide='sessionSettings.actions.newProposal.hub === "waiting" && !sessionSettings.hub_attributes.id'
     .groupName
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
-      div( ng-focus='sessionSettings.actions.newProposal.focus = "hub"' ui-select-wrapper )
+      div( ui-select-wrapper )
 
         /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
         ui-select( name='hubFilter' class='vote_hub'
@@ -30,9 +25,3 @@
           span {{ sessionSettings.actions.userFilter || sessionSettings.routeParams.user }}
           .fa.fa-times
         span &nbsp
-
-    /.groupName( ng-show='!sessionSettings.hub_attributes.id && sessionSettings.hub_attributes.location_id' )
-      i( class='glyphicon glyphicon-pencil' )
-      span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='left' ) {{ sessionSettings.actions.searchTerm }}
-
-    /.groupLocation( show='sessionSettings.hub_attributes.formatted_location' ) {{ sessionSettings.hub_attributes.formatted_location }}

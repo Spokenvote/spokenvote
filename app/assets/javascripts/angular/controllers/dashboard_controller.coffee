@@ -22,6 +22,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.sessionSettings.hubFilter = paramHub
       $scope.sessionSettings.hub_attributes = paramHub
       $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Need to keep setting this?
+      $scope.sessionSettings.actions.hubShow = true
 
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
