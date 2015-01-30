@@ -1,5 +1,5 @@
 StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', '$route', ( $scope, $location, Focus, $timeout, $http, $route ) ->
-  console.log 'StartController restarting'
+#  console.log 'StartController restarting'
   $scope.alertService.clearAlerts()
 #  $scope.sessionSettings.actions.newProposal.hub = 'waiting'  unless $scope.sessionSettings.hub_attributes.id
   $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
@@ -16,6 +16,9 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', '$route
 
 #  focusser = angular.element "<input class='ui-select-focusser ui-select-offscreen' type='text' aria-haspopup='true' role='button' />"
 #  console.log 'focusser focus: ', focusser.focus()
+
+  $scope.test = ->
+    console.log 'test: '
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'publish'

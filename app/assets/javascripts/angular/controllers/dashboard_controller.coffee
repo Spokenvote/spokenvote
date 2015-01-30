@@ -26,10 +26,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
 
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
-    console.log '$locationChangeSuccess: '
-    if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
-      CurrentHubLoader().then (paramHub) ->
-        console.log 'Old $locationChangeSuccess commented out. Still need it?: ', paramHub
+#    console.log '$locationChangeSuccess: '
+#    if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
+#      console.log 'hub call disabled: '
+    # CurrentHubLoader().then (paramHub) ->
+#        console.log 'Old $locationChangeSuccess commented out. Still need it?: ', paramHub
 #        $scope.sessionSettings.hub_attributes = paramHub
 #        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
 #        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes

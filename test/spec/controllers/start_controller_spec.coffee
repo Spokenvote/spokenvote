@@ -1,6 +1,9 @@
 describe 'StartController Tests', ->
-  beforeEach module 'spokenvote', 'spokenvoteMocks'
-#  beforeEach module 'spokenvoteMocks'
+  $provide = undefined
+  beforeEach module 'spokenvote', 'spokenvoteMocks', (_$provide_) ->
+    $provide = _$provide_
+    -> $provide.value '$route'
+
   $httpBackend = undefined
   beforeEach inject (_$httpBackend_) ->
     $httpBackend = _$httpBackend_
@@ -27,6 +30,11 @@ describe 'StartController Tests', ->
         id: 5
       $scope = $rootScope.$new()
       Focus = jasmine.createSpy 'Focus'
+
+      $provide.value '$route',
+        current:
+          params:
+            hub: '2'
 
       $controller = _$controller_ 'StartController',
         $scope: $scope

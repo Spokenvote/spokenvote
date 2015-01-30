@@ -26,5 +26,6 @@
     fieldset
       .control-group
         .controls
-          button id='publish' ng-click='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
+          button id='publish' ng-enter='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
+          /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
           .next-step Press <strong><i>Enter</i></strong> to publish your proposal.

@@ -76,9 +76,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.deleteProposal = false
 
-  new: (scope) ->
+#  new: (scope) ->
+  new: ->
     $rootScope.alertService.clearAlerts()
-
+    $rootScope.sessionSettings.actions.newProposal.started = false
 #    if $rootScope.sessionSettings.hub_attributes.id?
 #      $rootScope.sessionSettings.actions.changeHub = false
 #    else
@@ -113,7 +114,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.sessionSettings.actions.newProposalHub = null
       $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
-  saveNewProposal: ($modalInstance) ->
+#  saveNewProposal: ($modalInstance) ->
+  saveNewProposal: ->
+#    console.log 'voting service: saveNewProposal'
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.sessionSettings.hub_attributes.id?
@@ -137,7 +140,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
         $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
 #        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-        $modalInstance.close(response)
+#        $modalInstance.close(response)
         $rootScope.sessionSettings.actions.offcanvas = false
       ),  (response, status, headers, config) ->
         $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
