@@ -7,6 +7,7 @@
       div( ui-select-wrapper )
 
         /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
+          # not working as of Jan 30, 2015 ui-select( name='hubFilter' class='vote_hub' uiselect-autofocus='open'
         ui-select( name='hubFilter' class='vote_hub'
             ng-disabled='disabled' ng-model='sessionSettings.hubFilter'
             on-select='setHub($item, $model); finishProp()'

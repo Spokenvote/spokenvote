@@ -14,6 +14,9 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', '$route
   uiSelect = angular.element 'ui-select-wrapper'
 #  console.log 'uiSelect: ', uiSelect.focusser[0]
 
+#  focusser = angular.element "<input class='ui-select-focusser ui-select-offscreen' type='text' aria-haspopup='true' role='button' />"
+#  console.log 'focusser focus: ', focusser.focus()
+
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'publish'
     Focus 'publish'
@@ -38,9 +41,10 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', '$route
       $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
   #    $scope.sessionSettings.actions.newProposal.hub = 'active' if $scope.sessionSettings.actions.newProposal.hub isnt 'complete'
+#    focusser.focus()
   #    Focus('vote_hub')
-  #    uiSelect.focusser[0].focus()
   #    Focus('ui-select-search')
+  #    uiSelect.focusser[0].focus()
 
   $scope.finishProp = ->
 #    console.log 'hi from finishProp '

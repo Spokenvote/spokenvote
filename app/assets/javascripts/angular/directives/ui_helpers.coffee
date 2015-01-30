@@ -24,14 +24,27 @@ autoGrow = ->
 
 uiSelectWrapper = ->
   link: (scope, element, attrs) ->
-    uiSelectController = element.children().controller('uiSelect')
-#    uiSelectController = element.children()
+#    uiSelectController = element.children().controller('uiSelect')
+    uiSelectController = element.children()
 #    uiSelectController.kim = "hi"
-    console.log 'uiSelectController: ', uiSelectController
+#    console.log 'uiSelectWrapper Directive Log: ', uiSelectController
     uiSelectController
+
+uiselectAutofocus = ($timeout) ->            # not working as of Jan 30, 2015
+  restrict: "A"
+  require: "uiSelect"
+  link: (scope, elem, attr) ->
+    $timeout (->
+      input = elem.find("input")
+      console.log 'input: ', input
+      input.click()  if attr.uiselectAutofocus is "open"
+      input.focus()
+    ), 4000
+
 
 
 # Register
 App.Directives.directive 'ngEnter', ngEnter
 App.Directives.directive 'autoGrow', autoGrow
 App.Directives.directive 'uiSelectWrapper', uiSelectWrapper
+App.Directives.directive 'uiselectAutofocus', uiselectAutofocus

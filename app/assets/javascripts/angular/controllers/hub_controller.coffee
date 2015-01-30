@@ -51,7 +51,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   #    $scope.sessionSettings.actions.selectHub = true
 
   $scope.createSearchChoice = (newHub) ->
-    console.log 'newHub: ', newHub
+    console.log 'newHub in HubController: ', newHub
     {full_hub: newHub}
 
 #  $scope.clearFilter = (filter) ->
