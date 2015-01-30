@@ -9,10 +9,13 @@
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
-      div( ui-select-wrapper )
+      div( ng-focus='sessionSettings.actions.newProposal.focus = "hub"' ui-select-wrapper )
 
         /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
-        ui-select( name='hubFilter' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' on-select='setHub($item, $model); finishProp()' reset-search-input='false' required )
+        ui-select( name='hubFilter' class='vote_hub'
+            ng-disabled='disabled' ng-model='sessionSettings.hubFilter'
+            on-select='setHub($item, $model); finishProp()'
+            reset-search-input='false' required )
           ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}' ng-enter='finishProp()'
             span class='fa fa-search' &nbsp
             span {{ $select.selected.full_hub }}

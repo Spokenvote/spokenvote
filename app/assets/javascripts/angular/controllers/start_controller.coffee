@@ -19,23 +19,28 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$http', ( $scop
 #    $scope.sessionSettings.actions.newProposal.prop = 'complete'
     $scope.sessionSettings.actions.newProposal.comment = 'active'
 #    $scope.sessionSettings.actions.newProposal.focus = 'comment'
-    Focus('vote_comment')
+    Focus 'vote_comment'
   #    Focus('comment-text')
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
-    console.log '$scope.sessionSettings.actions.newProposal.hub: ', $scope.sessionSettings.actions.newProposal.hub
+    console.log '$scope.sessionSettings.actions.newProposal.comment: ', $scope.sessionSettings.actions.newProposal.comment
+    if $scope.newProposalForm.$valid
+      $scope.sessionSettings.actions.newProposal.focus = 'publish'
+      Focus 'publish'
+    else
   #    $scope.sessionSettings.actions.newProposal.hub = 'active' if $scope.sessionSettings.actions.newProposal.hub isnt 'complete'
-#    $scope.sessionSettings.actions.newProposal.focus = 'hub'
-#    Focus('vote_hub')
-#    uiSelect.focusser[0].focus()
-#    Focus('ui-select-search')
+  #    Focus('vote_hub')
+  #    uiSelect.focusser[0].focus()
+  #    Focus('ui-select-search')
 
   $scope.finishProp = ->
 #    console.log 'hi from finishProp '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
-#    $scope.sessionSettings.actions.newProposal.focus = 'none'
+    Focus 'publish'
+
+  #    $scope.sessionSettings.actions.newProposal.focus = 'none'
 #    Focus('vote_hub')
 #    Focus('ui-select-search')
 
