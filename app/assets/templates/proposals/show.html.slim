@@ -1,9 +1,9 @@
 .content_page
   #totalVoteLabel
-    span.label
-      | {{ proposal.votes_in_tree }}
+    .label
+      | {{ proposal.votes_in_tree }} &nbsp
       ng-pluralize count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}"
-      on {{ proposal.related_proposals_count + 1 }}
+      | &nbsp on {{ proposal.related_proposals_count + 1 }} &nbsp
       ng-pluralize count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}"
 
   .proposal_hub
