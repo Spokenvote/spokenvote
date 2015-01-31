@@ -20,6 +20,7 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', ( $s
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
+  $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

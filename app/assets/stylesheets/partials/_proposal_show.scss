@@ -39,8 +39,8 @@
       margin: 0 -2px;
       padding-top: 5px;
       .label {
-        background-color: $chisel-grey;
-        font-size: 1em;
+        background-color: $modal-body-off-white;
+        font-size: .7em;
       }
     }
   }
@@ -222,7 +222,7 @@
 #relatedProposals{
   margin-top: 1%;
   .relatedProposalsTitle {
-    font-size: 2em;
+    font-size: 1em;
     line-height: 110%;
     font-weight: bold;
     color: $alert-blue;
