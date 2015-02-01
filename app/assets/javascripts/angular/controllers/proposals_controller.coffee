@@ -25,8 +25,8 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', ( $s
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
-  $scope.hubView = ->
-    $location.path('/proposals').search('hub', $scope.proposal.hub.id)
+#  $scope.hubView = ->
+#    $location.path('/proposals').search('hub', $scope.proposal.hub.id)
 
   $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)

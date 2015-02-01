@@ -33,8 +33,11 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when( '/start'
       title: 'Group Consensus Voting Tool'
       templateUrl: 'pages/get_started.html'
+      controller: 'StartController'
       callToAction: 'Start Making Group Decisions'
       resolve:
+        proposal: -> []
+        relatedProposals: -> []
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
         ]

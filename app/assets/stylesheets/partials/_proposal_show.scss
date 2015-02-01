@@ -26,7 +26,7 @@
   .content_div {
     margin-bottom: $narrowGutterWidth;
   }
-  #totalVoteLabel {
+  .totalVoteLabel {
     margin: -12px -10px -8px 0;
     text-align: right;
     .label {
@@ -219,7 +219,7 @@
   -webkit-font-smoothing: antialiased;
 }
 
-#relatedProposals{
+.relatedProposals{
   margin-top: 1%;
   .relatedProposalsTitle {
     font-size: 1em;

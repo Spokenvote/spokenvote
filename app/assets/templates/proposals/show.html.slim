@@ -1,5 +1,5 @@
 .content_page
-  #totalVoteLabel
+  .totalVoteLabel
     .label
       | {{ proposal.votes_in_tree }} &nbsp
       ng-pluralize count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}"
@@ -11,14 +11,15 @@
       h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
   ng-include src="'proposals/_show.html'"
+  /ng-include src="'shared/_prop_area.html'"
 
   .hr
 
-  #relatedProposals ng-controller='RelatedProposalShowCtrl'
+  .relatedProposals ng-controller='RelatedProposalShowCtrl'
     .related-header
       .relatedSorter.pull-right
         .btn-group ng-show='proposal.related_proposals_count > 1'
-          button type='button' class='btn'   {{ selectedSort || "Sort Proposals" }}
+          button type='button' class='btn' {{ selectedSort || "Sort Proposals" }}
           button type='button' class='btn' bs-dropdown='related_sorter_dropdown'
             span class='caret'
 
