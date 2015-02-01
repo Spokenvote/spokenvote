@@ -1,11 +1,13 @@
 StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', 'proposal', ( $scope, $location, Focus, $timeout, $route, proposal ) ->
 #  console.log 'StartController restarting'
   $scope.proposal = proposal
-
   $scope.alertService.clearAlerts()
-  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
+
+#  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
+  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
+
   uiSelect = angular.element 'ui-select-wrapper'
 
   #  $scope.sessionSettings.actions.newProposal.hub = 'waiting'  unless $scope.sessionSettings.hub_attributes.id

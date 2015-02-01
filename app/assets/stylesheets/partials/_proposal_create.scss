@@ -1,4 +1,4 @@
-.newProposal {
+.newProposal {                            // Entire newProposal class probably obsolete
   color: $tally-blue;
   font-size: 1.7em;
   .changehub {
@@ -43,6 +43,9 @@
 }
 
 .proposal-area {
+  color: $tally-blue;
+  font-size: 1.7em;
+
   .proposal-text {
     margin: 0;
     padding: 0;

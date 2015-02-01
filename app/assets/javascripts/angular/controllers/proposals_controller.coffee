@@ -16,11 +16,42 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
     $scope.proposals.$query
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', ( $scope, $location , proposal, relatedProposals) ->
-  $scope.proposal = proposal
+ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
+  $scope.sessionSettings.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
-  $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
+  if proposal.id
+    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
+  else
+    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
+
+  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
+  $scope.sessionSettings.actions.newProposal.started = true
+
+  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
+    $scope.sessionSettings.actions.focus = 'publish'
+    Focus 'publish'
+  else
+    Focus 'proposal_statement'
+
+  $scope.commentStep = ->
+    $scope.sessionSettings.actions.newProposal.comment = 'active'
+    Focus 'vote_comment'
+
+  $scope.hubStep = ->
+    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
+    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
+      $scope.sessionSettings.actions.focus = 'publish'
+      Focus 'publish'
+    else if $scope.sessionSettings.hub_attributes.id
+      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+
+  $scope.finishProp = ->
+    $scope.sessionSettings.actions.newProposal.hub = 'complete'
+    $scope.sessionSettings.actions.focus = 'publish'
+    Focus 'publish'
+
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

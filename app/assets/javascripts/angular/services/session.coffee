@@ -127,6 +127,7 @@ SessionSettings = ->
     searchTerm: null
     selectHub: false
     wizardToGroup: null
+  hub_attributes: {}
   openModals:
     signIn: false
     register: false
@@ -138,10 +139,9 @@ SessionSettings = ->
     editProposal: false
     deleteProposal: false
     getStarted: false
+  proposal: null
   searchedHub: {}
   routeParams: {}
-  hub_attributes: {}
-#  hubFilter: {}
   newProposal: {}
   newSupport:
     target: {}
