@@ -1,8 +1,8 @@
-.proposal_container ng-if='sessionSettings.proposal.has_support'
+.proposal_container ng-if='proposal.has_support'
 
-  .main-proposal id='prop{{ sessionSettings.proposal.id }}'
+  .main-proposal id='prop{{ proposal.id }}'
     .stats id='big-percent'
-      #big-percent {{ sessionsettings.proposal.votes_percentage }}
+      #big-percent {{ proposal.votes_percentage }}
       ng-include.pull-right src="'shared/_social_buttons.html'"
 
     /.proposal_statement
@@ -11,21 +11,21 @@
 
     .proposal-area
       .form-group
-        textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.proposal.statement' auto-grow required
+        textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
           ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
           ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
         .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
-        .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && sessionSettings.newProposal.statement.length > 120' ) {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
+        .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
         .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
           .fa.fa-warning
           span Too Long
 
       .form-group ng-show='sessionSettings.actions.newProposal.comment'
-        textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.comment' auto-grow
+        textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='proposal.comment' auto-grow
           ng-minLength='5' ng-maxLength='280' placeholder='Optional: Explain why this proposal is a good idea.'
           ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
         .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
-        .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+        .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
         .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
           .fa.fa-warning
           span Too Long
@@ -42,7 +42,7 @@
               .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
 
     .improve_support_buttons
-      .edit.btn-group ng-show='currentUser && sessionsettings.proposal.is_editable && sessionsettings.proposal.user_id == currentUser.id'
+      .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         span.hidden-xs.hidden-sm
           button ng-click='edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='right'
             i.fa.fa-pencil.fa-2x
@@ -57,7 +57,7 @@
           button ng-click='delete(proposal)' class='btn btn-danger delete'
             i.fa.fa-trash-o.fa-2x
 
-      .vote_buttons_container ng-hide='currentUser && sessionsettings.proposal.is_editable && sessionsettings.proposal.user_id == currentUser.id'
+      .vote_buttons_container ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         span.hidden-xs.hidden-sm
           button ng-click='support(proposal)' class='btn btn-support btn-bold main' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
             i.fa.fa-thumbs-o-up.fa-2x
@@ -76,13 +76,13 @@
             -#Improve
 
   .supporting_arguments
-    h3 ng-show='sessionsettings.proposal.has_support'
+    h3 ng-show='proposal.has_support'
       Supporters
       votes
-        | ({{ sessionsettings.proposal.votes_count }} &nbsp
-      votes ng-pluralize='' count='sessionsettings.proposal.votes_count' when="{'0': 'Vote count error', '1': 'Vote)', 'other': 'Votes)'}"  ({{sessionsettings.proposal.votes_count}} votes)
+        | ({{ proposal.votes_count }} &nbsp
+      votes ng-pluralize='' count='proposal.votes_count' when="{'0': 'Vote count error', '1': 'Vote)', 'other': 'Votes)'}"  ({{proposal.votes_count}} votes)
 
-    .row.support_row ng-repeat="(key, vote) in sessionsettings.proposal.votes"
+    .row.support_row ng-repeat="(key, vote) in proposal.votes"
       .proposal-person.col-xs-2
         .supporter-avatar
           img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30"

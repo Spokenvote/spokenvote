@@ -28,6 +28,7 @@
         span ng-show='proposal.related_proposals_count < 1' No alternative proposals yet
 
     ng-include src="'proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0"
+    /ng-include src="'proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0"
 
   /h3 ng-show='proposal.related_proposals_count < 1'  There are no alternative proposals yet.
   /h3 ng-show='proposal.related_proposals_count < 1'  None so far.
