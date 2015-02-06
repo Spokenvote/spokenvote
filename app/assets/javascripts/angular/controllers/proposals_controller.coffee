@@ -17,6 +17,9 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
+  uiSelect = angular.element 'ui-select-wrapper'
+  console.log 'uiSelect: ', uiSelect.focusser[0]
+
 #  $scope.sessionSettings.proposal = proposal
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
@@ -47,6 +50,8 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
       Focus 'publish'
     else if $scope.sessionSettings.hub_attributes.id
       $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+
+    console.log 'uiSelect: ', uiSelect.focusser[0]
 
   $scope.finishProp = ->
     $scope.sessionSettings.actions.newProposal.hub = 'complete'

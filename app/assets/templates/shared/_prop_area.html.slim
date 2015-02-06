@@ -19,7 +19,8 @@
       .fa.fa-warning
       span Too Long
 
-  .form-group ng-show='sessionSettings.actions.newProposal.hub == "active"'
+  /.form-group ng-show='sessionSettings.actions.newProposal.hub == "active"'
+  .form-group ng-show='sessionSettings.actions.focus === "hub"'
     ng-include src="'shared/_select_hub.html'"
 
   .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'

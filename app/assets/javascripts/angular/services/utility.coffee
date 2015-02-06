@@ -1,12 +1,9 @@
-Focus = ($timeout, $log) ->
+Focus = ($timeout) ->
   (id) ->
     $timeout ->
-      element = document.getElementById(id)
+      element = angular.element id
       element.focus()  if element
-
-#      class_el = document.getElementsByClassName(id)
-#      class_el.focus()  if element
-#      $log.log class_el
+      console.log 'Focus Utility element: ', element
 
 # Register
 App.Services.factory 'Focus', Focus
