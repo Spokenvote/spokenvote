@@ -39,14 +39,14 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', 'propo
     Focus '#vote_comment'
 
   $scope.hubStep = ->
-#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
-#    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
+    $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.focus = 'hub'
-#    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
-#      $scope.sessionSettings.actions.focus = 'publish'
-#      Focus '#publish'
-#    else if $scope.sessionSettings.hub_attributes.id
-#      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+    #    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
+    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
+      $scope.sessionSettings.actions.focus = 'publish'
+      Focus '#publish'
+    else if $scope.sessionSettings.hub_attributes.id
+      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
     console.log 'hubstep: '
 

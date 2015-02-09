@@ -22,13 +22,16 @@ autoGrow = ->
     attrs.$set 'ngTrim', 'false'
 
 
-uiSelectWrapper = ->
+uiSelectWrapper = ($timeout) ->
   link: (scope, element, attrs) ->
-#    uiSelectController = element.children().controller('uiSelect')
-    uiSelectController = element.children()
+    uiSelectController = element.children().controller('uiSelect')
+#    uiSelectController = element.children()
 #    uiSelectController.kim = "hi"
 #    console.log 'uiSelectWrapper Directive Log: ', uiSelectController
-    uiSelectController
+    $timeout ->
+      uiSelectController
+      console.log 'uiSelectWrapper Directive Log: ', uiSelectController
+    , 550
 
 uiselectAutofocus = ($timeout) ->            # not working as of Jan 30, 2015
   restrict: "A"
