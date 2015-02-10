@@ -49,24 +49,32 @@
 
 // Proposal Show
 
+.shares {
+  a {
+    font-size: .5em;
+  }
+}
+
 .main-proposal {
   .stats {
-    float: right;
-    padding-left: 14px;
+//    float: right;                // Feb 9, 2015 show changes
+//    padding-left: 14px;
 //    margin-top: -2px;
-    #big-percent {
-      text-align: right;
+    .big-percent {
+      text-align: left;
+//      text-align: right;
       margin: -8px 0 0 0;
-      font-size: 2.2em;
+      font-size: 1.5em;
+//      font-size: 2.2em;
       font-weight: bold;
       color: $happy-blue;
     }
-    .shares {
-      padding: 0 5px 5px 5px;
-      a {
-        font-size: .9em;
-      }
-    }
+//    .shares {                  // Feb 9, 2015 show changes
+//      padding: 0 5px 5px 5px;
+//      a {
+//        font-size: .9em;
+//      }
+//    }
   }
 }
 
@@ -76,6 +84,8 @@
 }
 
 .proposal_statement {
+  padding: 0 10px 0 5px;
+
   .originalProposal {
     background: lightgray;
     border-radius: 4px;

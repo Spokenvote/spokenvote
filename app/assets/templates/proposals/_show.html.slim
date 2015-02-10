@@ -1,15 +1,21 @@
 .proposal_container ng-if='proposal.has_support'
 
-  .main-proposal id='prop{{ proposal.id }}'
-    .stats id='big-percent'
-      #big-percent {{ proposal.votes_percentage }}
-      ng-include.pull-right src="'shared/_social_buttons.html'"
+  .main-proposal.row id='prop{{ proposal.id }}'
+    .stats.col-xs-2
+      .big-percent {{ proposal.votes_percentage }}
+      .improve_support_buttons
+        button ng-click='support(proposal)' class='btn btn-support btn-bold main'
+          i.fa.fa-thumbs-o-up.fa-2x
+        button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
+          i.fa.fa-code-fork.fa-2x
 
-    /.proposal_statement
+      /ng-include.pull-right src="'shared/_social_buttons.html'"
+
+    .proposal_statement.col-xs-10 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
       h3
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
-    .proposal-area
+    .proposal-area.col-xs-10 ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
       .form-group
         textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
           ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
@@ -57,7 +63,7 @@
           button ng-click='delete(proposal)' class='btn btn-danger delete'
             i.fa.fa-trash-o.fa-2x
 
-      .vote_buttons_container ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
+      /.vote_buttons_container ng-hide='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         span.hidden-xs.hidden-sm
           button ng-click='support(proposal)' class='btn btn-support btn-bold main' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
             i.fa.fa-thumbs-o-up.fa-2x
@@ -81,6 +87,7 @@
       votes
         | ({{ proposal.votes_count }} &nbsp
       votes ng-pluralize='' count='proposal.votes_count' when="{'0': 'Vote count error', '1': 'Vote)', 'other': 'Votes)'}"  ({{proposal.votes_count}} votes)
+      ng-include.pull-right src="'shared/_social_buttons.html'"
 
     .row.support_row ng-repeat="(key, vote) in proposal.votes"
       .proposal-person.col-xs-2

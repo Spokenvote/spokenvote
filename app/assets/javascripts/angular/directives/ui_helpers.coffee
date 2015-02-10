@@ -33,6 +33,19 @@ uiSelectWrapper = ($timeout) ->
       console.log 'uiSelectWrapper Directive Log: ', uiSelectController
     , 550
 
+#uiSelectWrapper = ($timeout) ->
+#  restrict: "AE"
+#  scope:
+#    focus: "="
+#
+#  link: (scope, element, attrs) ->
+#    uiSelectController = element.children().controller("uiSelect")
+#    console.log 'uiSelectController Rosen: ', uiSelectController
+#    if scope.focus
+#      $timeout (->
+#        uiSelectController.activate false, true
+#      ), 50
+
 uiselectAutofocus = ($timeout) ->            # not working as of Jan 30, 2015
   restrict: "A"
   require: "uiSelect"

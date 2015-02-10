@@ -17,8 +17,8 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
-  uiSelect = angular.element 'ui-select-wrapper'
-  console.log 'uiSelect: ', uiSelect.focusser[0]
+#  uiSelect = angular.element 'ui-select-wrapper'
+#  console.log 'uiSelect: ', uiSelect.children().controller()
 
 #  $scope.sessionSettings.proposal = proposal
   $scope.proposal = proposal
