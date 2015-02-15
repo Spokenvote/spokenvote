@@ -5,9 +5,11 @@
 @import 'bootstrap';
 @import 'compass';
 @import 'angular-loading-bar/src/loading-bar';
+@import 'angular-ui-select/dist/select';
 @import 'add2home';
 
 @import 'partials/select2';
+@import 'partials/ui-select';
 @import 'partials/angular-loading-bar';
 @import 'partials/add2home';
 
@@ -15,6 +17,7 @@
 @import 'partials/off_canvas';
 @import 'partials/navigation';
 @import 'partials/modals';
+@import 'partials/hub';
 @import 'partials/content_pages';
 @import 'partials/proposal_index';
 @import 'partials/proposal_create';

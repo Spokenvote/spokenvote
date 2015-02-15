@@ -1,4 +1,3 @@
-
 // Navigation Styles
 
 #topBar {
@@ -74,8 +73,7 @@ header.visible-xs {
   text-align: center;
 
   .sv-logo, a.sv-logo {
-    position: absolute;       // Dec 22, 2014 Set to all sizes
-    right: 0;
+    right: 0;                   // Dec 22, 2014 Set to all sizes
     left: 0;
     //    @media (max-width: $screen-sm-max) {
 //      position: absolute;
@@ -97,6 +95,7 @@ header.visible-xs {
     color: $soft-grey;
     display: inline-block;
     margin: 4px;
+    padding: 10px 5px;
     .icon-bar {
       background-color: $soft-grey;
       @media (min-width: $screen-sm-min) {

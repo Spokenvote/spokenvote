@@ -30,6 +30,7 @@ module.exports = function(config) {
         'vendor/assets/bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
         'vendor/assets/bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
         'vendor/assets/bower_components/angular-ui-bootstrap/src/position/position.js',
+        'vendor/assets/bower_components/angular-ui-bootstrap/src/buttons/buttons.js',
         'vendor/assets/bower_components/angular-ui-utils/ui-utils.js',
         'vendor/assets/bower_components/angular-ui-select2/src/select2.js',
         'vendor/assets/bower_components/angular-ui-select/dist/select.js',
@@ -39,13 +40,16 @@ module.exports = function(config) {
         // application
         'app/assets/javascripts/angular/*.coffee',
         'app/assets/javascripts/angular/**/*.coffee',
-
+        //'app/assets/templates/**/*.html.slim',  // see http://codetunes.com/2014/karma-on-rails/
+                                                  // Angular-Rails discussion: https://github.com/pitr/angular-rails-templates/issues/63#issuecomment-69788362
         // mocks
         'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
         'test/**/*mock.coffee',
 
         // tests
         'test/**/*spec.coffee'
+        //'test/spec/controllers/start_controller_spec.coffee'
+        //'test/spec/services/api_loaders_spec.coffee'
     ],
 
     // list of files to exclude
@@ -64,6 +68,8 @@ module.exports = function(config) {
 //      'app/assets/javascripts/angular/**/*.coffee': ['coverage'],
       'app/assets/javascripts/angular/**/*.coffee': ['coffee'],
       'test/**/*.coffee': ['coffee']
+      //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
+
 //      '**/*.coffee': ['coffee']
 //      '**/lib/*.js': 'coverage'
 //      '**/*.js': ['sourcemap']
@@ -82,6 +88,11 @@ module.exports = function(config) {
       }
     },
 
+      //ngHtml2JsPreprocessor: {                   // see http://codetunes.com/2014/karma-on-rails/
+      //    stripPrefix: 'app/assets/templates/',
+      //    stripSufix: '.slim'
+      //},
+
     // web server port
     port: 8080,
 //    port: 9876,
@@ -97,7 +108,7 @@ module.exports = function(config) {
 //    'client.captureConsole': true,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher

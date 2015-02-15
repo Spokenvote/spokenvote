@@ -8,33 +8,33 @@
 
 // Login elements
 .login_providers {
-  margin-bottom: $gridGutterWidth;
+  margin-bottom: $narrowGutterWidth;
 }
 
 .login_form {
   background-color: #DFDFDF;
-  padding-top: ($gridGutterWidth * 0.05);
+  padding-top: ($narrowGutterWidth * 0.05);
   form {
     margin: 0;
   }
   .form-group {
-    margin-left: ($gridGutterWidth * 0.75);
+    margin-left: ($narrowGutterWidth * 0.75);
     margin-bottom: 0;
   }
   [type="text"], [type="email"], [type="password"] {
-    width: ($gridGutterWidth * 17.75);
+    width: ($narrowGutterWidth * 17.75);
   }
   label {
     font-weight: normal;
   }
   .btn {
-    margin-bottom: ($gridGutterWidth/2);
+    margin-bottom: ($narrowGutterWidth/2);
   }
   #forgotLink, #loginModal & .btn {
-    margin-left: ($gridGutterWidth * 1.05);
+    margin-left: ($narrowGutterWidth * 1.05);
   }
   #forgotLink {
-    padding-bottom: ($gridGutterWidth/2);
+    padding-bottom: ($narrowGutterWidth/2);
     a, a:visited {
       color: #ADADAD;
       text-decoration: underline;
@@ -43,11 +43,11 @@
 }
 
 #loginModal, #registrationModal {
-  width: ($gridGutterWidth * 20);
-  margin-left: ($gridGutterWidth * -10);
+  width: ($narrowGutterWidth * 20);
+  margin-left: ($narrowGutterWidth * -10);
 
   .modal-body {
-    width: ($gridGutterWidth * 20);
+    width: ($narrowGutterWidth * 20);
     @include background(linear-gradient(center top, #FFFFFF, #F5F5F5) repeat scroll 0 0 transparent);
     @include box-shadow(0 0 3px #FFFFFF inset, 0 2px 2px -2px rgba(0, 0, 0, 0.2));
     padding: 0;
@@ -65,7 +65,7 @@
 }
 
 .fb-button-container-centered {
-  padding: $gridGutterWidth $gridGutterWidth 0;
+  padding: $narrowGutterWidth $narrowGutterWidth 0;
   text-align: center;
   .fb-button {
     @include inline-block;
@@ -89,22 +89,22 @@
     display: block;
   }
   .fb-button-left {
-    width: ($gridGutterWidth * 2);
+    width: ($narrowGutterWidth * 2);
   }
   .fb-button-center {
-    width: ($gridGutterWidth * 12.6);
+    width: ($narrowGutterWidth * 12.6);
     text-align: center;
     background-color: #6385BA;
-    background-position: left ($gridGutterWidth * -2);
+    background-position: left ($narrowGutterWidth * -2);
     background-repeat: repeat-x;
     color: #FFFFFF;
     font-size: 16px;
     line-height: 40px;
-    padding: 0 ($gridGutterWidth/4) 0 ($gridGutterWidth * 0.4);
+    padding: 0 ($narrowGutterWidth/4) 0 ($narrowGutterWidth * 0.4);
   }
   .fb-button-right {
-    background-position: 100% ($gridGutterWidth * -4);
-    width: ($gridGutterWidth * 0.3);
+    background-position: 100% ($narrowGutterWidth * -4);
+    width: ($narrowGutterWidth * 0.3);
   }
 }
 

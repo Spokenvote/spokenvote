@@ -14,28 +14,32 @@ body {
 }
 
 .container-fluid {
-  padding: 0 15px;
+  max-width: $container-fluid-max-width;
+  padding: 0 ($grid-gutter-width / 2);
   overflow-x: hidden;
 }
 
 #main {
   overflow: visible;
-//  background: url(noisy_grid.png);
   min-height: 1200px;
-  @media (min-width: $screen-md-min) {
-    padding-top: 5%;
-  }
+//  @media (min-width: $screen-md-min) {
+//    padding-top: 5%;
+//  }
   .content {
     overflow: visible;
   }
 }
 
 #mainContent {
-  padding: $gridGutterWidth * .5;
-  @media (min-width: $screen-md-min) {
-    padding: $gridGutterWidth * 2;
-  }
-  margin-bottom: $gridGutterWidth * 2;
+  padding: $grid-gutter-width / 3;     // added for new $mobile-all-setting
+//  @media (min-width: $screen-md-min) {
+//    padding: $gridGutterWidth * 2;
+//  }
+//  padding: $gridGutterWidth * .5;
+//  @media (min-width: $screen-md-min) {
+//    padding: $gridGutterWidth * 2;
+//  }
+  margin-bottom: $narrowGutterWidth * 2;
   position: relative;
 }
 
@@ -53,6 +57,12 @@ body {
   }
 }
 
+.close {
+  float: none;
+  vertical-align: top;
+  line-height: .5;
+}
+
 input {
   border: none;
   padding: 5px;
@@ -63,8 +73,8 @@ textarea {
   background-color: inherit;
   border: none;
   padding: 5px;
-  border-radius: 4px;
-  height: 60px;
+//  border-radius: 4px;
+  height: 50px;
   margin: 5px 0 -3px 0;
   &:focus {
     outline: none;
@@ -147,7 +157,7 @@ a {
 }
 
 h2 {
-  margin-bottom: ($gridGutterWidth * 0.6);
+  margin-bottom: ($narrowGutterWidth * 0.6);
   font-size: 1.8em;
 }
 
@@ -159,7 +169,7 @@ h3 {
 // Alert Elements
 
 .alert {
-  margin-left: $gridGutterWidth;
+  margin-left: $narrowGutterWidth;
   margin-bottom: 0;
   @include border-radius(0);
   text-align: center;
@@ -199,6 +209,14 @@ h3 {
     list-style-type: none;
     margin-left: auto;
     margin-right: auto;
+  }
+  .summary {
+    color: $theranos-grey;
+    -webkit-transition: 0.75s ease-in-out all;
+    -moz-transition: 0.75s ease-in-out all;
+    -o-transition: 0.75s ease-in-out all;
+    transition: 1.75s ease-in-out all;
+
   }
 }
 
@@ -249,12 +267,12 @@ h3 {
 }
 
 h1.form-horizontal {
-  padding-left: ($gridGutterWidth * 8);
+  padding-left: ($narrowGutterWidth * 8);
 }
 
 .label-large {
   font-size: 16px;
-  padding: ($gridGutterWidth/4) ($gridGutterWidth * 0.4) ($gridGutterWidth * 0.3);
+  padding: ($narrowGutterWidth/4) ($narrowGutterWidth * 0.4) ($narrowGutterWidth * 0.3);
   border: 1px solid #dddddd;
 }
 
@@ -277,8 +295,13 @@ h1.form-horizontal {
 }
 
 .sv-logo, a.sv-logo {
+  display: inline-block;
   color: $happy-blue;
-  font-size: 1.9em;
+  font-size: 1.5em;
+//  height: 50px;
+  line-height: 51px;
+  white-space: nowrap;
+//  font-size: 1.9em;
 //  font-size: 2.1em;         // Dec 22, 2014 Set to all sizes
   @media (min-width: $screen-lg-min) {
 //    font-size: 2.5em;       // Dec 22, 2014 Set to all sizes
@@ -393,9 +416,9 @@ h1.form-horizontal {
 
 //ng-dirty
 .input-below-text {
-  margin-top: ($gridGutterWidth * -0.5);
-  margin-bottom: ($gridGutterWidth * 0.5);
-  margin-left: ($gridGutterWidth * 0.2);
+  margin-top: ($narrowGutterWidth * -0.5);
+  margin-bottom: ($narrowGutterWidth * 0.5);
+  margin-left: ($narrowGutterWidth * 0.2);
 }
 
 

@@ -63,11 +63,13 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
     $rootScope.sessionSettings.routeParams.user = null
 
   $scope.showProposal = (proposal) ->
-    $location.path('/proposals/' + proposal.id).hash('navigationBar')
+    $location.path('/proposals/' + proposal.id)        # Angular empty hash bug
+#    $location.path('/proposals/' + proposal.id).hash('navigationBar')
 
   $scope.backtoTopics = ->
     $scope.sessionSettings.routeParams = $route.current.params
-    $location.path('/proposals').hash('prop'+$scope.sessionSettings.routeParams.proposalId)
+    $location.path('/proposals')    # Angular empty hash bug
+#    $location.path('/proposals').hash('prop'+$scope.sessionSettings.routeParams.proposalId)
 
   $scope.newTopic = ->
     if $scope.currentUser.id?

@@ -76,26 +76,27 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.deleteProposal = false
 
-  new: (scope) ->
+#  new: (scope) ->
+  new: ->
     $rootScope.alertService.clearAlerts()
-
-    if $rootScope.sessionSettings.hub_attributes.id?
-      $rootScope.sessionSettings.actions.changeHub = false
-    else
-      $rootScope.sessionSettings.actions.changeHub = true
-      $rootScope.sessionSettings.actions.searchTerm = null
+    $rootScope.sessionSettings.actions.newProposal.started = false
+#    if $rootScope.sessionSettings.hub_attributes.id?
+#      $rootScope.sessionSettings.actions.changeHub = false
+#    else
+#      $rootScope.sessionSettings.actions.changeHub = true
+#      $rootScope.sessionSettings.actions.searchTerm = null
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
     else
-      if $rootScope.sessionSettings.openModals.newProposal is false
-        modalInstance = $modal.open
-          templateUrl: 'proposals/_new_proposal_modal.html'
-          controller: 'NewProposalCtrl'
-#          scope: scope           # Passed in scope was getting clobbered, so letting it set to $rootscope
-        modalInstance.opened.then ->
-          $rootScope.sessionSettings.openModals.newProposal = true
-        modalInstance.result.finally ->
-          $rootScope.sessionSettings.openModals.newProposal = false
+      $location.path '/start'
+#      if $rootScope.sessionSettings.openModals.newProposal is false
+#        modalInstance = $modal.open
+#          templateUrl: 'proposals/_new_proposal_modal.html'
+#          controller: 'NewProposalCtrl'
+#        modalInstance.opened.then ->
+#          $rootScope.sessionSettings.openModals.newProposal = true
+#        modalInstance.result.finally ->
+#          $rootScope.sessionSettings.openModals.newProposal = false
 
   wizard: (scope) ->
     if $rootScope.sessionSettings.openModals.getStarted is false
@@ -113,7 +114,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.sessionSettings.actions.newProposalHub = null
       $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
-  saveNewProposal: ($modalInstance) ->
+#  saveNewProposal: ($modalInstance) ->
+  saveNewProposal: ->
+#    console.log 'voting service: saveNewProposal'
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.sessionSettings.hub_attributes.id?
@@ -135,8 +138,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:proposalsChanged'
         $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-        $modalInstance.close(response)
+        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
+#        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
+#        $modalInstance.close(response)
         $rootScope.sessionSettings.actions.offcanvas = false
       ),  (response, status, headers, config) ->
         $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'

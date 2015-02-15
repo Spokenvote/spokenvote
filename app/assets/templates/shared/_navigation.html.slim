@@ -18,7 +18,17 @@
         button.navbar-toggle type='button'
           .fa.fa-pencil-square-o.fa-2x
 
-      .hub_search-xs role='search'
+      /.currentHub ng-hide='sessionSettings.actions.newProposal.started === true && !sessionSettings.hub_attributes.id'
+      .currentHub ng-show='sessionSettings.actions.hubShow'
+        ng-include src="'shared/_select_hub.html'"
+
+      /.currentHub
+        span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )
+          .groupName( ng-show='sessionSettings.hub_attributes.id' )
+            i( class='glyphicon glyphicon-pencil' )
+            span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='left' ) {{ sessionSettings.hub_attributes.group_name }}
+
+      /.hub_search-xs role='search'
         hidden_field_tag id='hub_filter' ui-select2='hubFilterSelect2' ng-model='hubFilter.hubFilter'
 
   /header.navbar.navbar-inverse.navbar-fixed-top.hidden-xs.hidden-sm

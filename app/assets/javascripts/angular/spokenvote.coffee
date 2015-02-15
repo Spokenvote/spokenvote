@@ -33,8 +33,11 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     .when( '/start'
       title: 'Group Consensus Voting Tool'
       templateUrl: 'pages/get_started.html'
+      controller: 'StartController'
       callToAction: 'Start Making Group Decisions'
       resolve:
+        proposal: -> []
+        relatedProposals: -> []
         pageTitle: [ '$rootScope', '$route', ($rootScope, $route) ->
           $rootScope.page.setTitle $route.current.params.filter, $route.current.title
         ]
@@ -246,7 +249,7 @@ window.App = angular.module('spokenvote', [
     'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
     'ui.select2', 'ui.select', 'ui.utils',
-    'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip'
+    'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip', 'ui.bootstrap.buttons'
     'spokenvote.services', 'spokenvote.directives',
     'angulartics', 'angulartics.google.analytics'
 ]).config appConfig
@@ -257,7 +260,8 @@ servicesConfig = [ '$httpProvider', ($httpProvider) ->
 
 App.Services = angular.module('spokenvote.services', [ 'ngResource', 'ngCookies', 'ngSanitize' ])
   .config(servicesConfig)
-  .run( ['$rootScope', '$location', ($rootScope, $location) ->
+  .run( ['$rootScope', '$location', '$log', ($rootScope, $location, $log) ->
+    $rootScope.$log = $log
     $rootScope.location = $location
     $rootScope.route =
       current: {}

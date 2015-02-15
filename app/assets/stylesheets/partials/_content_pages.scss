@@ -20,18 +20,18 @@
 
 .static_page {
   @extend .col-xs-11;
-  margin-left: $gridGutterWidth;
+  margin-left: $narrowGutterWidth;
   h1 {
-    margin-bottom: ($gridGutterWidth * 2.25);
-    font-size: ($gridGutterWidth *2);
+    margin-bottom: ($narrowGutterWidth * 2.25);
+    font-size: ($narrowGutterWidth *2);
     color: #315D99;
   }
   h2 {
-    margin-top: ($gridGutterWidth * 1.5);
+    margin-top: ($narrowGutterWidth * 1.5);
     color: #555;
   }
   h3 {
-    margin-bottom: $gridGutterWidth;
+    margin-bottom: $narrowGutterWidth;
     font-size: 20px;
   }
   h4 {

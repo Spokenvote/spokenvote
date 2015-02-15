@@ -1,0 +1,37 @@
+.content_page
+  .totalVoteLabel
+    .label
+      | {{ proposal.votes_in_tree }} &nbsp
+      ng-pluralize count="proposal.votes_in_tree" when="{'0': 'Vote count error', '1': 'Vote', 'other': 'Votes'}"
+      | &nbsp on {{ proposal.related_proposals_count + 1 }} &nbsp
+      ng-pluralize count="proposal.related_proposals_count + 1" when="{'0': 'Proposal count error', '1': 'Proposal', 'other': 'Proposals'}"
+
+  /.proposal_hub
+    a.hub ng-click="hubView()" href='#'
+      h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
+
+  form name='newProposalForm' ng-submit='saveNewProposal()'
+    ng-include src="'proposals/_show.html'"
+
+  .hr
+
+  .relatedProposals ng-controller='RelatedProposalShowCtrl'
+    .related-header
+      .relatedSorter.pull-right
+        .btn-group ng-show='proposal.related_proposals_count > 1'
+          button type='button' class='btn' {{ selectedSort || "Sort Proposals" }}
+          button type='button' class='btn' bs-dropdown='related_sorter_dropdown'
+            span class='caret'
+
+      .relatedProposalsTitle
+        span ng-show='proposal.related_proposals_count > 0' Alternative Proposals
+        span ng-show='proposal.related_proposals_count < 1' No alternative proposals yet
+
+    ng-include src="'proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0"
+    /ng-include src="'proposals/_show.html'" ng-repeat="(key, proposal) in relatedProposals.related_proposals" ng-show="proposal.related_proposals_count > 0"
+
+  /h3 ng-show='proposal.related_proposals_count < 1'  There are no alternative proposals yet.
+  /h3 ng-show='proposal.related_proposals_count < 1'  None so far.
+
+
+

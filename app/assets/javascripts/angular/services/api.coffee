@@ -76,6 +76,38 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
     )
     delay.promise
 
+SelectHubLoader = ($http, $q) ->
+  (hub_filter) ->
+    delay = $q.defer()
+    if hub_filter
+      $http.get('/hubs',
+        params:
+          hub_filter: hub_filter
+      ).then (hubs) ->
+        delay.resolve hubs.data
+      , ->
+        delay.reject 'Unable to locate a hubs'
+
+    else
+      delay.resolve false
+    delay.promise
+
+#
+#SelectHubLoader = (Hub, $route, $q) ->          # ui-select does not seem to like ngResource
+#  (params) ->
+#    delay = $q.defer()
+#    if params
+#      Hub.query(
+#        (params: params
+#        ), ((hubs) ->
+#          delay.resolve hubs
+#        ), ->
+#          delay.reject 'Unable to locate a hub '
+#      )
+#    else
+#      delay.resolve false
+#    delay.promise
+
 CurrentHubLoader = (Hub, $route, $q) ->
   ->
     delay = $q.defer()
@@ -178,6 +210,7 @@ App.Services.factory 'Vote', Vote
 App.Services.factory 'Proposal', Proposal
 
 App.Services.factory 'CurrentHubLoader', CurrentHubLoader
+App.Services.factory 'SelectHubLoader', SelectHubLoader
 App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree
 

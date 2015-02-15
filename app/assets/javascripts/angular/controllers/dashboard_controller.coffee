@@ -7,37 +7,49 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       when 'active' then 'Most Active Proposals. Also choose most recent or my proposals on Spokenvote.'
       when 'recent' then 'Most Recent Proposals. Also choose most active or my proposals on Spokenvote.'
       when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
-  $timeout (-> $scope.page.metaDescription = null), 6000
+  $timeout (-> $scope.page.metaDescription = null), 4000
 
   $scope.hubFilter =
     hubFilter: null
 
-  if $route.current.params.hub? && !$route.current.params.proposalId? 
+  if $route.current.params.hub? && !$route.current.params.proposalId?      # Older Select2 logic
     $scope.hubFilter =
       hubFilter: true
 
+  if $route.current.params.hub?                                            # Newer UI-Select logic
+    CurrentHubLoader().then (paramHub) ->
+#      console.log 'Init paramHub: ', paramHub
+      $scope.sessionSettings.hubFilter = paramHub
+      $scope.sessionSettings.hub_attributes = paramHub
+      $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Need to keep setting this?
+      $scope.sessionSettings.actions.hubShow = true
+
   # needed to keep hub selection text box in sync if value of hubFilter changes
   $scope.$on '$locationChangeSuccess', ->
-    if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
-      CurrentHubLoader().then (paramHub) ->
-        $scope.sessionSettings.hub_attributes = paramHub
-        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
-        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
-    else if !$route.current.params.hub?
-      $scope.hubFilter.hubFilter = null
+#    console.log '$locationChangeSuccess: '
+#    if $route.current.params.hub? and ($scope.hubFilter.hubFilter is null or (String($scope.hubFilter.hubFilter.select_id) != String($route.current.params.hub)))
+#      console.log 'hub call disabled: '
+    # CurrentHubLoader().then (paramHub) ->
+#        console.log 'Old $locationChangeSuccess commented out. Still need it?: ', paramHub
+#        $scope.sessionSettings.hub_attributes = paramHub
+#        $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id
+#        $scope.hubFilter.hubFilter = $scope.sessionSettings.hub_attributes
+#    else if !$route.current.params.hub?
+#      $scope.hubFilter.hubFilter = null
     if $route.current.prerenderStatusCode
       $scope.route.current.prerenderStatusCode = $route.current.prerenderStatusCode
     else
       $scope.route.current.prerenderStatusCode = undefined
 
-  $scope.$watch 'hubFilter.hubFilter', ->
-    if $scope.hubFilter.hubFilter == null
-      $location.search('hub', null) if $location.path() == '/proposals'
-      $scope.sessionSettings.actions.hubFilter = 'All Groups'
-    else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
-      $scope.sessionSettings.actions.selectHub = false
-      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
-      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
+#  $scope.$watch 'hubFilter.hubFilter', ->                             # New UI Select logic
+#    console.log '$location.path(): ', $location.path()
+#    if $scope.hubFilter.hubFilter == null
+#      $location.search('hub', null) if $location.path() == '/proposals'
+#      $scope.sessionSettings.actions.hubFilter = 'All Groups'
+#    else if $scope.sessionSettings.hub_attributes.id? and $scope.sessionSettings.actions.selectHub == true
+#      $scope.sessionSettings.actions.selectHub = false
+#      $location.path('/proposals').search('hub', $scope.sessionSettings.hub_attributes.id)
+#      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
 
   $scope.hubFilterSelect2 =
     minimumInputLength: 1
