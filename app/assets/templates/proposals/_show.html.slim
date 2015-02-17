@@ -2,8 +2,9 @@
 
   .main-proposal.row id='prop{{ proposal.id }}'
     .stats.col-xs-2
-      .big-percent {{ proposal.votes_percentage }}
       .improve_support_buttons
+        i.fa.fa-sort-up
+        .big-percent {{ proposal.votes_percentage }}%
         /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
           i.fa.fa-thumbs-o-up.fa-2x
         /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'

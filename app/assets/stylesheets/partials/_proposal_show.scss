@@ -60,12 +60,20 @@
 //    float: right;                // Feb 9, 2015 show changes
 //    padding-left: 14px;
 //    margin-top: -2px;
+    text-align: center;
+    .fa {
+      font-size: 1.25em;
+      padding-top: .2em;
+      margin-bottom: -8px;
+    }
     .big-percent {
-      text-align: left;
-//      text-align: right;
-      margin: -8px 0 0 0;
-      font-size: 1.5em;
+      font-size: .8em;
+      //      text-align: left;
+      //      text-align: right;
+      //      margin: -8px 0 0 0;
+//      font-size: 1.5em;
 //      font-size: 2.2em;
+      margin: 0 auto;
       font-weight: bold;
       color: $happy-blue;
     }
@@ -169,14 +177,17 @@
 }
 
 .improve_support_buttons {
-  float: left;
-  width: 30px;
-  height: 38px;
+//  width: 30px;
+//  height: 38px;
+  width: 2em;
+  height: 3em;
   color: #ccc;
   border: 1px solid #ccc;
   border-radius: 3px;
-  margin-right: 12px;
   text-align: center;
+  margin: 0 auto;
+  //  margin-right: 12px;
+  //  float: left;
 
 //  padding: 5px;
 
