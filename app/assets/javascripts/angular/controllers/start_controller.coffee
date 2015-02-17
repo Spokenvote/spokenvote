@@ -1,6 +1,7 @@
-StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', 'proposal', ( $scope, $location, Focus, $timeout, $route, proposal ) ->
+#StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', 'proposal', ( $scope, $location, Focus, $timeout, $route, proposal ) ->
+StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $scope, $location, Focus, $timeout, $route ) ->
 #  console.log 'StartController restarting'
-  $scope.proposal = proposal
+#  $scope.proposal = proposal
   $scope.alertService.clearAlerts()
 
 #  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
