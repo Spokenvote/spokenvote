@@ -72,11 +72,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails'
+  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'populator'
-  gem 'rspec'
+  # gem 'rspec'       # Seems duplication with rspec-rails present
   gem 'spork'
   gem 'shoulda-matchers'
   gem 'railroady'
