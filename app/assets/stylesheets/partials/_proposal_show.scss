@@ -169,7 +169,17 @@
 }
 
 .improve_support_buttons {
-  padding: 5px;
+  float: left;
+  width: 30px;
+  height: 38px;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 12px;
+  text-align: center;
+
+//  padding: 5px;
+
   .btn-support {
     background-color: hsl(211, 92%, 46%) !important;
     background-repeat: repeat-x;

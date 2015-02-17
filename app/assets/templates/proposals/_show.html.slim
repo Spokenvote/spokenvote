@@ -4,9 +4,9 @@
     .stats.col-xs-2
       .big-percent {{ proposal.votes_percentage }}
       .improve_support_buttons
-        button ng-click='support(proposal)' class='btn btn-support btn-bold main'
+        /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
           i.fa.fa-thumbs-o-up.fa-2x
-        button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
+        /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
           i.fa.fa-code-fork.fa-2x
 
       /ng-include.pull-right src="'shared/_social_buttons.html'"
@@ -47,7 +47,7 @@
               /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
               .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
 
-    .improve_support_buttons
+    /.improve_support_buttons
       .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         span.hidden-xs.hidden-sm
           button ng-click='edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='right'
