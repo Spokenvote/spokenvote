@@ -4,7 +4,9 @@
     .stats.col-xs-2
       .improve_support_buttons
         i.fa.fa-sort-up
-        .big-percent {{ proposal.votes_percentage }}%
+        .big-percent
+          | {{ proposal.votes_percentage }}
+          span.pct %
         /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
           i.fa.fa-thumbs-o-up.fa-2x
         /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'

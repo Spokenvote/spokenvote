@@ -68,6 +68,12 @@
     }
     .big-percent {
       font-size: .8em;
+//      padding-left: .25em;
+      .pct {
+        font-size: .5em;
+        vertical-align: super;
+        margin-right: -1em;
+      }
       //      text-align: left;
       //      text-align: right;
       //      margin: -8px 0 0 0;
@@ -180,7 +186,7 @@
 //  width: 30px;
 //  height: 38px;
   width: 2em;
-  height: 3em;
+//  height: 3em;
   color: #ccc;
   border: 1px solid #ccc;
   border-radius: 3px;
