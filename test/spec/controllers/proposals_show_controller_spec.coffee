@@ -52,8 +52,8 @@ describe 'Proposal Show Controller Tests', ->
       expect $scope.$$listeners      # Not wild about this code, really want it to see 'event:votesChanged' but can't address that exact complex object
         .toBeDefined()
 #        .toContain("{event:votesChanged}") # Sure seems this line would work, but does not
-      expect $scope.hubView
-        .toBeDefined()
+#      expect $scope.hubView
+#        .toBeDefined()
       expect $scope.setVoter
         .toBeDefined()
       expect $scope.support
@@ -77,14 +77,14 @@ describe 'Proposal Show Controller Tests', ->
       expect $scope.proposal.$get.calls.count()
         .toEqual 1
 
-    it 'should invoke hubView if selected', ->
-      $scope.proposal.hub =
-        id: 9
-
-      $scope.hubView()
-
-      expect $location.url()
-        .toBe '/proposals?hub=9'
+#    it 'should invoke hubView if selected', ->
+#      $scope.proposal.hub =
+#        id: 9
+#
+#      $scope.hubView()
+#
+#      expect $location.url()
+#        .toBe '/proposals?hub=9'
 
     it 'should invoke setVoter if selected', ->
       vote =
