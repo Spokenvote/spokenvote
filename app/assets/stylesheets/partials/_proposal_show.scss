@@ -57,31 +57,46 @@
 
 .main-proposal {
   .stats {
-//    float: right;                // Feb 9, 2015 show changes
-//    padding-left: 14px;
-//    margin-top: -2px;
+    //    float: right;                // Feb 9, 2015 show changes
+    //    padding-left: 14px;
+    //    margin-top: -2px;
+    //  width: 30px;
+    //  height: 38px;
+    //  height: 3em;
+    //  margin-right: 12px;
+    //  float: left;
+  }
+  .box {
     text-align: center;
-    .fa {
+    width: 2em;
+    color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 5 auto;
+  }
+  .votes {
+    color: $soft-grey;
+    .fa.fa-sort-up {
       font-size: 1.25em;
-      padding-top: .2em;
+      padding-top: .1em;
       margin-bottom: -8px;
     }
     .big-percent {
       font-size: .8em;
-//      padding-left: .25em;
+      margin: -.15em auto 0;
+      font-weight: bold;
       .pct {
         font-size: .5em;
         vertical-align: super;
         margin-right: -1em;
       }
+      //      padding-left: .25em;
       //      text-align: left;
       //      text-align: right;
       //      margin: -8px 0 0 0;
 //      font-size: 1.5em;
 //      font-size: 2.2em;
-      margin: 0 auto;
-      font-weight: bold;
-      color: $happy-blue;
+//      color: $happy-blue;
     }
 //    .shares {                  // Feb 9, 2015 show changes
 //      padding: 0 5px 5px 5px;
@@ -89,6 +104,18 @@
 //        font-size: .9em;
 //      }
 //    }
+  }
+  .fork {
+    text-align: center;
+    width: 2em;
+    color: $soft-grey;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 5 auto;
+    .fa.fa-lightbulb-o {
+      font-size: 1.25em;
+      padding: 1px;
+    }
   }
 }
 
@@ -183,18 +210,6 @@
 }
 
 .improve_support_buttons {
-//  width: 30px;
-//  height: 38px;
-  width: 2em;
-//  height: 3em;
-  color: #ccc;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  text-align: center;
-  margin: 0 auto;
-  //  margin-right: 12px;
-  //  float: left;
-
 //  padding: 5px;
 
   .btn-support {

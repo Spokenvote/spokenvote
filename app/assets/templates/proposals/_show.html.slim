@@ -1,17 +1,19 @@
 .proposal_container ng-if='proposal.has_support'
 
   .main-proposal.row id='prop{{ proposal.id }}'
-    .stats.col-xs-2
+    .col-xs-2
       .improve_support_buttons
-        i.fa.fa-sort-up
-        .big-percent
-          | {{ proposal.votes_percentage }}
-          span.pct %
-        /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
-          i.fa.fa-thumbs-o-up.fa-2x
-        /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
-          i.fa.fa-code-fork.fa-2x
-
+        .votes.box
+          i.fa.fa-sort-up
+          .big-percent
+            | {{ proposal.votes_percentage }}
+            span.pct %
+          /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
+            i.fa.fa-thumbs-o-up.fa-2x
+          /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
+            i.fa.fa-code-fork.fa-2x
+        .fork
+          i.fa.fa-lightbulb-o
       /ng-include.pull-right src="'shared/_social_buttons.html'"
 
     .proposal_statement.col-xs-10 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
