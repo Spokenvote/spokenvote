@@ -101,7 +101,7 @@
 
     margin-bottom: 0;
 //    padding: 0px 0px 0px 0px;
-    :hover {
+    &:hover {
       background-color: $rowHighlight;
       border-radius: 10px;
       cursor: pointer;

@@ -58,6 +58,6 @@ describe 'StartController Tests', ->
 
     it 'StartController should focus proposal statement', ->
       expect Focus
-        .toHaveBeenCalledWith('proposal_statement')
+        .toHaveBeenCalledWith '#proposal_statement'
       expect Focus.calls.count()
         .toEqual 1

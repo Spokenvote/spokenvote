@@ -11,7 +11,7 @@
 #  formatted_location :string(255)
 #
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Hub do
   before(:each) do
