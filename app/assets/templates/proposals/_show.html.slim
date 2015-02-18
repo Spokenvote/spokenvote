@@ -3,9 +3,9 @@
   .main-proposal.row id='prop{{ proposal.id }}'
     .col-xs-2
       .improve_support_buttons
-        .votes.box
+        .votes.box ng-click='support(proposal)'
           i.fa.fa-sort-up
-          .big-percent ng-click='support(proposal)'
+          .big-percent
             | {{ proposal.votes_percentage }}
             span.pct %
           /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
@@ -16,45 +16,55 @@
           i.fa.fa-lightbulb-o
       /ng-include.pull-right src="'shared/_social_buttons.html'"
 
-    .proposal_statement.col-xs-10 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
-      h3
+    .col-xs-10.proposal_statement
+      h3 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
-    /form name='newProposalForm' ng-submit='saveNewProposal()'
-      .newProposal
-        ng-include src="'shared/_prop_area.html'"
+      form name='newProposalForm' ng-submit='saveNewProposal()'
+        /.newProposal
+          ng-include src="'shared/_prop_area.html'"
 
-    .proposal-area.col-xs-10
-      .form-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
-        textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
-          ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
-          ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
-        .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
-        .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
-        .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
-          .fa.fa-warning
-          span Too Long
+        .proposal-area
+          .form-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
+            textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
+              ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
+              ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
+            .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
+            .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
+            .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
+              .fa.fa-warning
+              span Too Long
 
-      .form-group ng-show='sessionSettings.actions.newProposal.comment'
-        textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='proposal.comment' auto-grow
-          ng-minLength='5' ng-maxLength='280' placeholder='Optional: Explain why this proposal is a good idea.'
-          ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
-        .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
-        .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
-        .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
-          .fa.fa-warning
-          span Too Long
+  .supporting_arguments.proposal-area ng-show='sessionSettings.actions.newProposal.comment && proposal.id === sessionSettings.newSupport.target.id'
+    .row.support_row
+      .proposal-person.col-xs-2
+        .supporter-avatar
+          /img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30"
+          /img ng-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
+          ng-include src="'shared/_currentuser_avatar.html'"
+      .support-comment.col-xs-10
+        supporter-text
 
-      .form-group ng-show='sessionSettings.actions.focus === "hub"'
-        ng-include src="'shared/_select_hub.html'"
+          .form-group
+            textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='proposal.comment' auto-grow
+              ng-minLength='5' ng-maxLength='280' placeholder='Optionally: Explain for others why this proposal is a good idea.'
+              ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
+            .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
+            .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
+            .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
+              .fa.fa-warning
+              span Too Long
 
-      .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
-        fieldset
-          .control-group
-            .controls
-              button id='publish' ng-enter='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
-              /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
-              .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
+          .form-group ng-show='sessionSettings.actions.focus === "hub"'
+            ng-include src="'shared/_select_hub.html'"
+
+          .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
+            fieldset
+              .control-group
+                .controls
+                  button id='publish' ng-enter='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
+                  /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
+                  .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
 
     /.improve_support_buttons
       .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'

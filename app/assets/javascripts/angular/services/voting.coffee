@@ -1,4 +1,4 @@
-VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
 
   support: ( clicked_proposal ) ->
     $rootScope.sessionSettings.newSupport.target = clicked_proposal
@@ -15,7 +15,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
         $rootScope.sessionSettings.actions.newProposal.comment = true
-        console.log 'hi: '
+        $rootScope.sessionSettings.actions.focus = 'comment'
+        Focus '#vote_comment'
 
 #        if $rootScope.sessionSettings.openModals.supportProposal is false
 #          modalInstance = $modal.open
