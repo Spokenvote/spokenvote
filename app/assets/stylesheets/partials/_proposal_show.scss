@@ -69,13 +69,19 @@
   .box {
     text-align: center;
     width: 2em;
-    color: #ccc;
+    color: $soft-grey;
     border: 1px solid #ccc;
     border-radius: 3px;
     margin: 5 auto;
+    &:hover {
+      border: 1px solid #4F8EF7;
+      color: #4F8EF7;
+      cursor: pointer;
+    }
   }
   .votes {
-    color: $soft-grey;
+//    color: $soft-grey;
+
     .fa.fa-sort-up {
       font-size: 1.25em;
       padding-top: .1em;
@@ -88,7 +94,7 @@
       .pct {
         font-size: .5em;
         vertical-align: super;
-        margin-right: -1em;
+        margin-right: -.8em;
       }
       //      padding-left: .25em;
       //      text-align: left;
@@ -106,12 +112,8 @@
 //    }
   }
   .fork {
-    text-align: center;
-    width: 2em;
-    color: $soft-grey;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin: 5 auto;
+    border: 1px solid $superLightBoxGrey;
+//    border: 1px solid rgba(204, 204, 204, 0.78);
     .fa.fa-lightbulb-o {
       font-size: 1.25em;
       padding: 1px;
@@ -177,7 +179,7 @@
     padding-top: 10px;
   }
   votes {
-    font-size: 80%;
+    font-size: 50%;
     font-weight: normal;
     color: $soft-grey;
   }

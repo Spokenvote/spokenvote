@@ -5,14 +5,14 @@
       .improve_support_buttons
         .votes.box
           i.fa.fa-sort-up
-          .big-percent
+          .big-percent ng-click='support(proposal)'
             | {{ proposal.votes_percentage }}
             span.pct %
           /button ng-click='support(proposal)' class='btn btn-support btn-bold main'
             i.fa.fa-thumbs-o-up.fa-2x
           /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
             i.fa.fa-code-fork.fa-2x
-        .fork
+        .fork.box
           i.fa.fa-lightbulb-o
       /ng-include.pull-right src="'shared/_social_buttons.html'"
 
@@ -20,8 +20,12 @@
       h3
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
-    .proposal-area.col-xs-10 ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
-      .form-group
+    /form name='newProposalForm' ng-submit='saveNewProposal()'
+      .newProposal
+        ng-include src="'shared/_prop_area.html'"
+
+    .proposal-area.col-xs-10
+      .form-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
           ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
           ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )

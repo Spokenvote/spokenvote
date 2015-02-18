@@ -14,14 +14,17 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           if relatedSupport.proposal.id == clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
-        if $rootScope.sessionSettings.openModals.supportProposal is false
-          modalInstance = $modal.open
-            templateUrl: 'proposals/_support_modal.html'
-            controller: 'SupportCtrl'
-          modalInstance.opened.then ->
-            $rootScope.sessionSettings.openModals.supportProposal = true
-          modalInstance.result.finally ->
-            $rootScope.sessionSettings.openModals.supportProposal = false
+        $rootScope.sessionSettings.actions.newProposal.comment = true
+        console.log 'hi: '
+
+#        if $rootScope.sessionSettings.openModals.supportProposal is false
+#          modalInstance = $modal.open
+#            templateUrl: 'proposals/_support_modal.html'
+#            controller: 'SupportCtrl'
+#          modalInstance.opened.then ->
+#            $rootScope.sessionSettings.openModals.supportProposal = true
+#          modalInstance.result.finally ->
+#            $rootScope.sessionSettings.openModals.supportProposal = false
 
   improve: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
