@@ -15,7 +15,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
         $rootScope.sessionSettings.actions.newProposal.comment = true
-        $rootScope.sessionSettings.actions.focus = 'comment'
         Focus '#vote_comment'
 
 #        if $rootScope.sessionSettings.openModals.supportProposal is false

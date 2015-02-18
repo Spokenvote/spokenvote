@@ -39,26 +39,24 @@
     .row.support_row
       .proposal-person.col-xs-2
         .supporter-avatar
-          /img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30"
-          /img ng-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
           ng-include src="'shared/_currentuser_avatar.html'"
       .support-comment.col-xs-10
         supporter-text
 
-          .form-group
-            textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='proposal.comment' auto-grow
-              ng-minLength='5' ng-maxLength='280' placeholder='Optionally: Explain for others why this proposal is a good idea.'
-              ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
-            .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
+          .form-group ng-controller='SupportCtrl'
+            textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
+              ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
+              ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )
+            .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to cast your vote!
             .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
             .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
               .fa.fa-warning
               span Too Long
 
-          .form-group ng-show='sessionSettings.actions.focus === "hub"'
+          /.form-group ng-show='sessionSettings.actions.focus === "hub"'
             ng-include src="'shared/_select_hub.html'"
 
-          .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
+          /.dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
             fieldset
               .control-group
                 .controls

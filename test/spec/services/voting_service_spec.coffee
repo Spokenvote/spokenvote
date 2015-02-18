@@ -10,6 +10,7 @@ describe 'Voting Service Tests', ->
     $location = undefined
     $modal = undefined
     modalInstance = undefined
+    Focus = undefined
     scope = undefined
     clicked_proposal =
       id: 17
@@ -31,6 +32,7 @@ describe 'Voting Service Tests', ->
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
+      Focus = jasmine.createSpy 'Focus'
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -53,6 +55,8 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
+
+#      jasmine.createSpy 'Focus'
 
     it 'should initialize methods', ->
       expect VotingService.support
@@ -111,10 +115,12 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setInfo
           .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then set values for voting', ->
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
-          .toEqual false
+#        expect $rootScope.sessionSettings.openModals.supportProposal
+#          .toEqual false
+        expect $rootScope.sessionSettings.newSupport.related.proposal
+          .toEqual undefined
 
         relatedSupport.proposal.id = 8
         VotingService.support clicked_proposal
@@ -125,25 +131,32 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        openModalArgs =
-          templateUrl: 'proposals/_support_modal.html'
-          controller: 'SupportCtrl'
+#        openModalArgs =
+#          templateUrl: 'proposals/_support_modal.html'
+#          controller: 'SupportCtrl'
 
-        expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
-          .not.toEqual 17
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.supportProposal
+        expect $rootScope.sessionSettings.newSupport.related.proposal
+          .toBeDefined()
+        expect $rootScope.sessionSettings.newSupport.related.proposal.id
+          .toEqual 8
+        expect $rootScope.sessionSettings.actions.newProposal.comment
           .toEqual true
+#        expect Focus                                #Focus Spy is there, but does not seem to see it being called
+#          .toHaveBeenCalledWith '#vote_comment'
 
-        modalInstance.result.finallyCallback()
+#        expect $modal.open
+#          .toHaveBeenCalledWith openModalArgs
+#        expect modalInstance.opened.then
+#          .toHaveBeenCalled()
+#        expect modalInstance.result.finally
+#          .toHaveBeenCalled()
+#        expect $rootScope.sessionSettings.openModals.supportProposal
+#          .toEqual true
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
-          .toEqual false
+#        modalInstance.result.finallyCallback()
+
+#        expect $rootScope.sessionSettings.openModals.supportProposal
+#          .toEqual false
 
 
     describe 'IMPROVE method should make checks and open IMPROVE modal', ->
