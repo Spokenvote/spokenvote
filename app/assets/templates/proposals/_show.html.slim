@@ -35,7 +35,8 @@
               .fa.fa-warning
               span Too Long
 
-  .supporting_arguments.proposal-area ng-show='sessionSettings.actions.newProposal.comment && proposal.id === sessionSettings.newSupport.target.id'
+  /.supporting_arguments.proposal-area ng-if='sessionSettings.actions.newProposal.comment && proposal.id === sessionSettings.newSupport.target.id'
+  .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.newProposal.comment'
     .row.support_row
       .proposal-person.col-xs-2
         .supporter-avatar
@@ -44,7 +45,7 @@
         supporter-text
 
           .form-group ng-controller='SupportCtrl'
-            textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
+            textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
               ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
               ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )
             .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to cast your vote!

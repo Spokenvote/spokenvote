@@ -119,8 +119,8 @@ describe 'Voting Service Tests', ->
 
 #        expect $rootScope.sessionSettings.openModals.supportProposal
 #          .toEqual false
-        expect $rootScope.sessionSettings.newSupport.related.proposal
-          .toEqual undefined
+        expect $rootScope.sessionSettings.newSupport.related
+          .toEqual null
 
         relatedSupport.proposal.id = 8
         VotingService.support clicked_proposal
@@ -140,7 +140,7 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.newSupport.related.proposal.id
           .toEqual 8
         expect $rootScope.sessionSettings.actions.newProposal.comment
-          .toEqual true
+          .toEqual 17
 #        expect Focus                                #Focus Spy is there, but does not seem to see it being called
 #          .toHaveBeenCalledWith '#vote_comment'
 
@@ -459,9 +459,10 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Success'
+          .and.returnValue status: '422'
 
-        VotingService.saveNewProposal modalInstance
+#        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -484,7 +485,8 @@ describe 'Voting Service Tests', ->
         spyOn Proposal, 'save'
           .and.returnValue 'Success'
 
-        VotingService.saveNewProposal modalInstance
+#        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1

@@ -2,7 +2,7 @@
 SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
   if $rootScope.sessionSettings.newSupport.related?
-    $scope.alertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'modal'
+    $scope.alertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
 
   $scope.saveSupport = ->
     $scope.alertService.clearAlerts()
@@ -25,6 +25,7 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location
         $rootScope.$broadcast "event:votesChanged"
         $scope.alertService.setSuccess "Your vote was created with the comment: \"" + response.comment + "\"", $scope, "main"
 #        $modalInstance.close response
+        $scope.sessionSettings.actions.newProposal.comment = null
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
       ), (response, status, headers, config) ->
