@@ -3,7 +3,7 @@ describe 'Proposal Improve Controller Tests', ->
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
 
-  describe 'ImproveCtrl should perform a Controller tasks', ->
+  describe 'ImproveController should perform a Controller tasks', ->
     $rootScope = undefined
     $controller = undefined
     $httpBackend = undefined
@@ -47,7 +47,7 @@ describe 'Proposal Improve Controller Tests', ->
       $scope.clicked_proposal =
         statement: clicked_proposal.proposal.statement
 
-      ctrl = $controller 'ImproveCtrl',
+      ctrl = $controller 'ImproveController',
         $scope: $scope
 
       $scope.improved_proposal = improved_proposal
@@ -78,7 +78,7 @@ describe 'Proposal Improve Controller Tests', ->
         $scope.clicked_proposal =
           statement: clicked_proposal.proposal.statement
 
-        ctrl = $controller 'ImproveCtrl',
+        ctrl = $controller 'ImproveController',
           $scope: $scope
 
         expect $scope.current_user_support

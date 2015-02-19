@@ -34,7 +34,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 ]
 
 #ImproveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
-ImproveCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
+ImproveController = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
   $scope.alertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
@@ -123,7 +123,7 @@ NewProposalCtrl = [ '$scope', ($scope ) ->
 
 # Register
 App.controller 'SupportController', SupportController
-App.controller 'ImproveCtrl', ImproveCtrl
+App.controller 'ImproveController', ImproveController
 App.controller 'EditProposalCtrl', EditProposalCtrl
 App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
 App.controller 'NewProposalCtrl', NewProposalCtrl
