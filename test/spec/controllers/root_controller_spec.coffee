@@ -54,68 +54,162 @@ describe 'Root Controller Test', ->
       $scope = $rootScope.$new()
       $controller "RootCtrl",
         $scope: $scope
+#        window:
+#          fbAsyncInit: jasmine.createSpy('window:fbAsyncInit')
 #        CurrentUserLoader: CurrentUserLoader
 
       $httpBackend.expectGET endpoint
         .respond '200', current_user
       $httpBackend.flush()
-#      $scope.$apply()
 
-    it 'should place initial Objects on the RootScope', ->
+    describe 'should initialize controller properly with all objects', ->
 
-      expect $scope.alertService
-        .toBeDefined()
-      expect $scope.authService
-        .toBeDefined()
-      expect $scope.sessionSettings
-        .toBeDefined()
-      expect $scope.votingService
-        .toBeDefined()
+      it 'should place initial Objects on the RootScope', ->
 
-    it 'Current User should load', ->
+        expect $scope.alertService
+          .toBeDefined()
+        expect $scope.authService
+          .toBeDefined()
+        expect $scope.sessionSettings
+          .toBeDefined()
+        expect $scope.votingService
+          .toBeDefined()
+        expect $scope.signinAuth
+          .toBeDefined()
+        expect $scope.userSettings
+          .toBeDefined()
+        expect $scope.signOut
+          .toBeDefined()
+        expect $scope.clearFilter
+          .toBeDefined()
+        expect $scope.showProposal
+          .toBeDefined()
+        expect $scope.backtoTopics
+          .toBeDefined()
+        expect $scope.newTopic
+          .toBeDefined()
+        expect $scope.getStarted
+          .toBeDefined()
+        expect $scope.rootTips
+          .toBeDefined()
 
-#      promise = $scope.currentUser
+    describe 'should load Current User', ->
 
-#      proposal = undefined
-#      promise.then (data) ->
-#        $scope.currentUser = data
+      it 'Current User should load', ->
 
-#      $httpBackend.flush()
-#      $httpBackend.expectGET endpoint
-#        .respond 200, current_user
-#      $scope = $rootScope.$new()
-#      $controller "RootCtrl",
-#        $scope: $scope
-#      $scope.$apply()
-#      console.log '$scope.currentUser in test: ', $scope.currentUser       # TODO Have not yet figured out promises in this context
-      expect $scope.currentUser
-        .toBeDefined()
-#      expect $scope.currentUser
-#        .toEqual current_user
+  #      promise = $scope.currentUser
+
+  #      proposal = undefined
+  #      promise.then (data) ->
+  #        $scope.currentUser = data
+
+  #      $httpBackend.flush()
+  #      $httpBackend.expectGET endpoint
+  #        .respond 200, current_user
+  #      $scope = $rootScope.$new()
+  #      $controller "RootCtrl",
+  #        $scope: $scope
+  #      $scope.$apply()
+  #      console.log '$scope.currentUser in test: ', $scope.currentUser       # TODO Have not yet figured out promises in this context
+        expect $scope.currentUser
+          .toBeDefined()
+  #      expect $scope.currentUser
+  #        .toEqual current_user
 
 
-    it 'window.prerenderReady should be true after AJAX call is complete', ->
-      $httpBackend.expectGET endpoint
-        .respond 200
-      $scope = $rootScope.$new()
-      $controller "RootCtrl",
-        $scope: $scope
-      $httpBackend.flush()
+    describe 'should call Facebook Sign in', ->
 
-      expect window.prerenderReady
-        .toBe true
+      it 'should call window.fbAsyncInit', ->
 
-    it 'window.prerenderReady should be true after timeout', ->
-      $httpBackend.expectGET endpoint
-        .respond '200'
-      $scope = $rootScope.$new()
-      $controller 'RootCtrl',
-        $scope: $scope
-      $httpBackend.flush()
+  #      expect window.fbAsyncInit       # Can I even spy on things on window?
+  #        .toHaveBeenCalled()
 
-      window.prerenderReady = false     # Manually set to false so the timeout can set it back to true and test will be valid
-      $timeout.flush()
 
-      expect window.prerenderReady
-        .toBe true
+    describe 'should SIGN USER OUT when requested', ->
+
+      it 'should POST DELETE when user signs out', ->
+
+        $scope.signOut()
+
+        $httpBackend.expectDELETE '/users/logout'
+          .respond 200
+
+        $httpBackend.flush()
+
+        expect $scope.userOmniauth
+          .toBeUndefined()
+
+      it 'should REMOVE USER when user signs out', ->
+
+        $scope.signOut()
+
+        $httpBackend.expectDELETE '/users/logout'
+          .respond 200
+
+        $httpBackend.flush()
+
+        expect $scope.currentUser
+          .toEqual {}
+
+      it 'should go to ROOT when user signs out', ->
+
+        $location.url '/proposals'
+
+        expect $location.url()
+          .toEqual '/proposals'
+
+        $scope.signOut()
+
+        $httpBackend.expectDELETE '/users/logout'
+          .respond 200
+
+        $httpBackend.flush()
+
+        expect $location.url()
+          .toEqual '/'
+
+      it 'should fire INFO MESSAGE when user signs out', ->
+
+        $scope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
+
+        expect $scope.alertService.setInfo.calls.count()
+          .toEqual 0
+
+        $scope.signOut()
+
+        $httpBackend.expectDELETE '/users/logout'
+          .respond 200
+
+        $httpBackend.flush()
+
+        expect $scope.alertService.setInfo.calls.count()
+          .toEqual 1
+
+
+    describe 'should initialize PRERENDER properly', ->
+
+      it 'window.prerenderReady should be true after AJAX call is complete', ->
+        $httpBackend.expectGET endpoint
+          .respond 200
+        $scope = $rootScope.$new()
+        $controller "RootCtrl",
+          $scope: $scope
+        $httpBackend.flush()
+
+        expect window.prerenderReady
+          .toBe true
+
+      it 'window.prerenderReady should be true after timeout', ->
+        $httpBackend.expectGET endpoint
+          .respond '200'
+        $scope = $rootScope.$new()
+        $controller 'RootCtrl',
+          $scope: $scope
+        $httpBackend.flush()
+
+        window.prerenderReady = false     # Manually set to false so the timeout can set it back to true and test will be valid
+        $timeout.flush()
+
+        expect window.prerenderReady
+          .toBe true
 
