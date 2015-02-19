@@ -33,14 +33,8 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
     modalInstance = $modal.open
       templateUrl: 'user/_auth_intro_modal.html'
       windowClass: 'dialog-sm'
-    #controller: 'UserSettingsCtrl'
-#      modalInstance.opened.then ->
-#        SessionSettings.openModals.fbIntro = true
     modalInstance.result.then (result) ->
       $scope.authService.signinFb($scope)
-#      modalInstance.result.finally ->
-#        SessionSettings.openModals.fbIntro = false
-
 
   $scope.userSettings = ->
     if SessionSettings.openModals.userSettings is false
