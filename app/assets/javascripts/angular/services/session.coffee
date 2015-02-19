@@ -144,9 +144,9 @@ SessionSettings = ->
   routeParams: {}
   newProposal: {}
   newSupport:
-    target: null
     related: null
-    save: null
+    target: null
+    vote: null
   lastLocation:
     location_id: null
     formatted_location: null

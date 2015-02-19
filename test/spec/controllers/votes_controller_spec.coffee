@@ -1,14 +1,7 @@
-# Much of this functionality moved to voting service; tests need a rewrite
 
 describe 'Proposal Controller Tests', ->
-#  $scope = undefined
-#  ctrl = undefined
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
-
-#  beforeEach ->
-#    @addMatchers toEqualData: (expected) ->
-#      angular.equals @actual, expected
 
   describe 'SupportCtrl should perform a Controller tasks', ->
     $rootScope = undefined
@@ -25,10 +18,13 @@ describe 'Proposal Controller Tests', ->
         votes_attributes:
           comment: 'Why you should vote for this related proposal'
 
-#    clicked_proposal =
-#      id: '17'
-#      proposal:
-#        statement: 'My proposal statement'
+    new_vote =
+      comment: 'Why you should vote for this proposal'
+
+    clicked_proposal =
+      id: '17'
+      proposal:
+        statement: 'My proposal statement'
 #        votes_attributes:
 #          comment: 'Why you should vote for this proposal'
 
@@ -44,7 +40,9 @@ describe 'Proposal Controller Tests', ->
         setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
         setJson: jasmine.createSpy 'alertService:setJson'
-
+      $scope = $rootScope.$new()
+      ctrl = $controller 'SupportCtrl',
+        $scope: $scope
 #      spyOn($scope, '$broadcast').and.callThrough()
 #      $scope.proposal.$get = jasmine.createSpy('proposal:$get')
 #      promise =
@@ -61,9 +59,9 @@ describe 'Proposal Controller Tests', ->
     describe 'should initialize properly with NO related support', ->
       it 'should initialize scope items', ->
 
-        $scope = $rootScope.$new()
-        ctrl = $controller 'SupportCtrl',
-          $scope: $scope
+#        $scope = $rootScope.$new()
+#        ctrl = $controller 'SupportCtrl',
+#          $scope: $scope
 
         expect $scope.sessionSettings.newSupport.related
           .toEqual null
@@ -74,6 +72,9 @@ describe 'Proposal Controller Tests', ->
 
       it 'should initialize properly WITH related support', ->
 
+        $rootScope.alertService =
+          clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
+          setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
         $scope = $rootScope.$new()
         $scope.sessionSettings.newSupport.related = relatedSupport
         ctrl = $controller 'SupportCtrl',
@@ -87,29 +88,42 @@ describe 'Proposal Controller Tests', ->
           .toEqual 1
 
 
-    describe 'saveNewProposal method should SAVE New Proposal', ->
+    describe 'saveSupport method should SAVE Support', ->
 
-  #    it 'should check for NEW HUB and REJECT an invalid Hub Location if saving a New Hub', ->
-  #      $rootScope.sessionSettings.hub_attributes.id = null
-  #      $rootScope.sessionSettings.hub_attributes.formatted_location = null
-  #      $rootScope.sessionSettings.openModals.newProposal = true
-  #
-  #      spyOn Proposal, 'save'
-  #      .and.returnValue status: '422'
-  #
-  #      #        VotingService.saveNewProposal modalInstance
-  #      VotingService.saveNewProposal()
-  #
-  #      expect $rootScope.alertService.clearAlerts.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setCtlResult.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setCtlResult
-  #      .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-  #      expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-  #      .toContain 'location appears to be invalid'
-  #      expect Proposal.save
-  #      .not.toHaveBeenCalled()
+      it 'should check for NEW HUB and REJECT an invalid Hub Location if saving a New Hub', ->
+
+        $scope.sessionSettings.newSupport.vote = new_vote
+        $scope.sessionSettings.newSupport.target = clicked_proposal
+        $rootScope.alertService =
+          clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
+          setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
+
+        spyOn $scope, 'saveSupport'
+          .and.callThrough()
+#          .and.returnValue 'Success'
+
+        spyOn($rootScope, '$broadcast')
+          .and.callThrough()
+
+
+        $scope.saveSupport()
+#        mockBackend.flush()
+
+
+        expect $scope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $scope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect $scope.sessionSettings.newSupport.vote.proposal_id
+          .toEqual $scope.sessionSettings.newSupport.target.id
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:votesChanged'
+#        expect $rootScope.alertService.setCtlResult
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+#          .toContain 'location appears to be invalid'
+        expect $scope.saveSupport
+          .toHaveBeenCalled()
 
   #    it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
   #      $rootScope.sessionSettings.hub_attributes =
