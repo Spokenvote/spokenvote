@@ -1,5 +1,5 @@
 #SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', ( $scope, $location, $rootScope, $modalInstance, Vote ) ->
-SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
+SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
   if $rootScope.sessionSettings.newSupport.related?
     $scope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
@@ -24,7 +24,6 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-#        $modalInstance.close response
         $scope.sessionSettings.actions.newProposal.comment = null
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
@@ -39,7 +38,7 @@ ImproveCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $locat
   $scope.alertService.clearAlerts()
 
   if $scope.current_user_support == 'related_proposal'
-    $scope.alertService.setCtlResult 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'modal'
+    $scope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'main'
 
   $scope.improvedProposal =
     statement: $scope.clicked_proposal.statement
@@ -59,9 +58,8 @@ ImproveCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $locat
       ),  ((response, status, headers, config) ->
         $location.path('/proposals/' + response.id)
         $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-#        $modalInstance.close(response)
       ),  (response, status, headers, config) ->
-        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'modal'
+        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
         $scope.alertService.setJson response.data
     )
 ]
@@ -124,7 +122,7 @@ NewProposalCtrl = [ '$scope', ($scope ) ->
 ]
 
 # Register
-App.controller 'SupportCtrl', SupportCtrl
+App.controller 'SupportController', SupportController
 App.controller 'ImproveCtrl', ImproveCtrl
 App.controller 'EditProposalCtrl', EditProposalCtrl
 App.controller 'DeleteProposalCtrl', DeleteProposalCtrl

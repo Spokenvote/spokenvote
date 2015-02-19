@@ -1,9 +1,9 @@
 
-describe 'Proposal Controller Tests', ->
+describe 'Proposal Support Controller Tests', ->
   beforeEach module 'spokenvote'
 #  beforeEach module 'spokenvoteMocks'
 
-  describe 'SupportCtrl should perform a Controller tasks', ->
+  describe 'SupportController should perform a Controller tasks', ->
     $rootScope = undefined
     $controller = undefined
     $httpBackend = undefined
@@ -52,7 +52,7 @@ describe 'Proposal Controller Tests', ->
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
         setJson: jasmine.createSpy 'alertService:setJson'
       $scope = $rootScope.$new()
-      ctrl = $controller 'SupportCtrl',
+      ctrl = $controller 'SupportController',
         $scope: $scope
       $scope.sessionSettings.newSupport.vote = new_vote
       $scope.sessionSettings.newSupport.target = clicked_proposal
@@ -79,7 +79,7 @@ describe 'Proposal Controller Tests', ->
         $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
         $scope = $rootScope.$new()
         $scope.sessionSettings.newSupport.related = relatedSupport
-        ctrl = $controller 'SupportCtrl',
+        ctrl = $controller 'SupportController',
           $scope: $scope
 
         expect $scope.sessionSettings.newSupport.related
@@ -230,6 +230,8 @@ describe 'Proposal Controller Tests', ->
           .toHaveBeenCalledWith jasmine.any(Object)
         expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
           .toEqual comment: [ "can't be blank" ]
+
+    describe 'saveSupport method', ->
 
 
 #  describe "NewProposalCtrl", ->
