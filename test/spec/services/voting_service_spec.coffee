@@ -568,12 +568,19 @@ describe 'Voting Service Tests', ->
         response =
           id: 2045
           statement: 'An awesome new proposal. Vote for it!'
+#          comment: 'A million reasons to vote for this guy!'
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Success'
+          .and.callThrough()
 
         VotingService.saveNewProposal()
-        Proposal.save.calls.mostRecent().args[1] response
+#        Proposal.save.calls.mostRecent().args[1] response
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201, response
+
+        $httpBackend.flush()
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
@@ -581,28 +588,50 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain response.statement
+        expect $rootScope.sessionSettings.actions.offcanvas
+          .toEqual false
+
+      it 'Proposal.save should save the New Proposal and navigate to the correct LOCATION', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+
+        response =
+          id: 2045
+          statement: 'An awesome new proposal. Vote for it!'
+#          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201, response
+
+        $httpBackend.flush()
+
         expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
           .toEqual '/proposals/2045?filter=my'
 #        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
 #          .toEqual '/proposals/2045?filter=my#navigationBar'
 #        expect modalInstance.close
 #          .toHaveBeenCalledWith response
-        expect $rootScope.sessionSettings.actions.offcanvas
-          .toEqual false
 
-      it 'Proposal.save should execute correct FAILURE callback', ->
+      it 'Proposal.save should execute correct FAILURE callback and ALERTS', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
-        $rootScope.sessionSettings.openModals.newProposal = true
 
         response =
           data: 'There was a server error!'
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Error'
+          .and.callThrough()
 
-        VotingService.saveNewProposal modalInstance
-        Proposal.save.calls.mostRecent().args[2] response
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 422, response
+
+        $httpBackend.flush()
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
@@ -613,4 +642,4 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setJson.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
-          .toContain response.data
+          .toEqual response
