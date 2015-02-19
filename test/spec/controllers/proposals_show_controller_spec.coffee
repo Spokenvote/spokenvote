@@ -42,6 +42,10 @@ describe 'Proposal Show Controller Tests', ->
         edit: jasmine.createSpy('votingService:edit')
         delete: jasmine.createSpy('votingService:delete')
 
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
     it 'should initialize scope items', ->
       expect $scope.proposal
         .toEqual mockProposal

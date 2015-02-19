@@ -99,7 +99,7 @@ describe "API Test", ->
 
     it "SelectHubLoader should return a promise", ->
       $httpBackend.expectGET '/hubs?hub_filter=ha'
-      .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
+        .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
 
       hub_filter = 'ha'
       promise = selectHubLoader(hub_filter)

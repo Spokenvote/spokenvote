@@ -5,6 +5,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
   $rootScope.votingService = VotingService
   CurrentUserLoader().then (current_user) ->
     $rootScope.currentUser = current_user
+#    console.log 'current_user: ', current_user
     $location.path('/proposals').search('filter', 'my') if $rootScope.currentUser.username? and $location.path() == '/'
 
   window.fbAsyncInit = ->

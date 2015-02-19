@@ -57,6 +57,10 @@ describe 'Proposal Controller Tests', ->
       $scope.sessionSettings.newSupport.vote = new_vote
       $scope.sessionSettings.newSupport.target = clicked_proposal
 
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
 
     describe 'should initialize properly with NO related support', ->
 
@@ -94,11 +98,18 @@ describe 'Proposal Controller Tests', ->
         $rootScope.alertService =
           clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
           setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
+          setSuccess: jasmine.createSpy 'alertService:setSuccess'
 
         spyOn $scope, 'saveSupport'
           .and.callThrough()
 
         $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 200
+
+        $httpBackend.flush()
 
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
