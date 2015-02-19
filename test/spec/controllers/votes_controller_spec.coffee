@@ -28,6 +28,16 @@ describe 'Proposal Controller Tests', ->
 #        votes_attributes:
 #          comment: 'Why you should vote for this proposal'
 
+    saved_vote =
+      id: 87
+      proposal_id: 6
+      comment: "Want to see that response one more time ..."
+      user_id: 44
+      created_at: "2013-07-15T03:41:12.747Z"
+      updated_at: "2015-02-19T12:46:13.196Z"
+      ip_address: "127.0.0.1"
+      username: "Kim Miller"
+
     beforeEach inject ( _$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _$location_ ) ->
       $rootScope = _$rootScope_
       $controller = _$controller_
@@ -43,6 +53,9 @@ describe 'Proposal Controller Tests', ->
       $scope = $rootScope.$new()
       ctrl = $controller 'SupportCtrl',
         $scope: $scope
+      $scope.sessionSettings.newSupport.vote = new_vote
+      $scope.sessionSettings.newSupport.target = clicked_proposal
+
 #      spyOn($scope, '$broadcast').and.callThrough()
 #      $scope.proposal.$get = jasmine.createSpy('proposal:$get')
 #      promise =
@@ -57,11 +70,8 @@ describe 'Proposal Controller Tests', ->
 
 
     describe 'should initialize properly with NO related support', ->
-      it 'should initialize scope items', ->
 
-#        $scope = $rootScope.$new()
-#        ctrl = $controller 'SupportCtrl',
-#          $scope: $scope
+      it 'should initialize scope items', ->
 
         expect $scope.sessionSettings.newSupport.related
           .toEqual null
@@ -88,27 +98,18 @@ describe 'Proposal Controller Tests', ->
           .toEqual 1
 
 
-    describe 'saveSupport method should SAVE Support', ->
+    describe 'saveSupport method', ->
 
-      it 'should check for NEW HUB and REJECT an invalid Hub Location if saving a New Hub', ->
+      it 'should properly initialize before saving Support', ->
 
-        $scope.sessionSettings.newSupport.vote = new_vote
-        $scope.sessionSettings.newSupport.target = clicked_proposal
         $rootScope.alertService =
           clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
           setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
 
         spyOn $scope, 'saveSupport'
           .and.callThrough()
-#          .and.returnValue 'Success'
-
-        spyOn($rootScope, '$broadcast')
-          .and.callThrough()
-
 
         $scope.saveSupport()
-#        mockBackend.flush()
-
 
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -116,100 +117,66 @@ describe 'Proposal Controller Tests', ->
           .toEqual 0
         expect $scope.sessionSettings.newSupport.vote.proposal_id
           .toEqual $scope.sessionSettings.newSupport.target.id
-        expect $rootScope.$broadcast
-          .toHaveBeenCalledWith 'event:votesChanged'
-#        expect $rootScope.alertService.setCtlResult
-#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-#          .toContain 'location appears to be invalid'
         expect $scope.saveSupport
           .toHaveBeenCalled()
 
-  #    it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
-  #      $rootScope.sessionSettings.hub_attributes =
-  #        id: null
-  #        formatted_location: 'Atlanta, GA'
-  #      $rootScope.sessionSettings.actions.searchTerm = 'New Group Name'
-  #      $rootScope.sessionSettings.openModals.newProposal = true
-  #
-  #      spyOn Proposal, 'save'
-  #      .and.returnValue 'Success'
-  #
-  #      #        VotingService.saveNewProposal modalInstance
-  #      VotingService.saveNewProposal()
-  #
-  #      expect $rootScope.alertService.clearAlerts.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setCtlResult.calls.count()
-  #      .toEqual 0
-  #      expect $rootScope.alertService.setCtlResult.calls.count()
-  #      .toEqual 0
-  #      expect Proposal.save
-  #      .toHaveBeenCalled()
-  #
-  #    it 'should check for EXISTING HUB, FIND one, and save the New Proposal', ->
-  #      $rootScope.sessionSettings.hub_attributes =
-  #        id: 12
-  #        formatted_location: 'Atlanta, GA'
-  #
-  #      $rootScope.sessionSettings.newProposal =
-  #        statement: 'An awesome new proposal. Vote for it!'
-  #        comment: 'A million reasons to vote for this guy!'
-  #
-  #      $rootScope.sessionSettings.openModals.newProposal = true
-  #
-  #      expectedProposalSaveArgs =
-  #        proposal:
-  #          statement: 'An awesome new proposal. Vote for it!'
-  #          votes_attributes:
-  #            comment: 'A million reasons to vote for this guy!'
-  #          hub_id: 12
-  #          hub_attributes:
-  #            id: 12
-  #            formatted_location: 'Atlanta, GA'
-  #
-  #      spyOn Proposal, 'save'
-  #      .and.returnValue 'Success'
-  #
-  #      VotingService.saveNewProposal modalInstance
-  #
-  #      expect $rootScope.alertService.clearAlerts.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setCtlResult.calls.count()
-  #      .toEqual 0
-  #      expect Proposal.save
-  #      .toHaveBeenCalled()
-  #      expect Proposal.save.calls.mostRecent().args[0]
-  #      .toEqual expectedProposalSaveArgs
-  #
-  #    it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
-  #      $rootScope.sessionSettings.hub_attributes =
-  #        id: 12
-  #      $rootScope.sessionSettings.openModals.newProposal = true
-  #
-  #      response =
-  #        id: 2045
-  #        statement: 'An awesome new proposal. Vote for it!'
-  #
-  #      spyOn Proposal, 'save'
-  #      .and.returnValue status: 'Success'
-  #
-  #      VotingService.saveNewProposal()
-  #      Proposal.save.calls.mostRecent().args[1] response
-  #
-  #      expect Proposal.save
-  #      .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
-  #      expect $rootScope.alertService.setSuccess.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-  #      .toContain response.statement
-  #      #        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
-  #      #          .toEqual '/proposals/2045?filter=my#navigationBar'
-  #      #        expect modalInstance.close
-  #      #          .toHaveBeenCalledWith response
-  #      expect $rootScope.sessionSettings.actions.offcanvas
-  #      .toEqual false
-  #
+      it 'should issue POST saving Support', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 200
+
+        $httpBackend.flush()
+
+      it 'should broadcast "event:votesChanged" saving Support', ->
+
+        spyOn($rootScope, '$broadcast')
+          .and.callThrough()
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 201
+
+        $httpBackend.flush()
+
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:votesChanged'
+
+      it 'should send alert "Vote Saved" saving Support', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 200
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setSuccess
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+          .toContain 'Your vote was created with the comment:'
+
+      it 'should properly find vote comment in response while saving Support', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 200
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setSuccess
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+          .toContain 'Want to see that response one more time ...'
+
+
   #    it 'Proposal.save should execute correct FAILURE callback', ->
   #      $rootScope.sessionSettings.hub_attributes =
   #        id: 12
