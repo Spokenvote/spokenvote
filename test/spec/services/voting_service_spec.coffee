@@ -459,9 +459,7 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
-          .and.returnValue status: '422'
 
-#        VotingService.saveNewProposal modalInstance
         VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
@@ -483,21 +481,17 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
-          .and.returnValue 'Success'
 
-#        VotingService.saveNewProposal modalInstance
         VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()
           .toEqual 0
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 0
         expect Proposal.save
           .toHaveBeenCalled()
 
-      it 'should check for EXISTING HUB, FIND one, and save the New Proposal', ->
+      it 'should check for EXISTING HUB, FIND one, and pass correct args to the SAVE New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
           formatted_location: 'Atlanta, GA'
@@ -505,8 +499,6 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
           comment: 'A million reasons to vote for this guy!'
-
-        $rootScope.sessionSettings.openModals.newProposal = true
 
         expectedProposalSaveArgs =
           proposal:
@@ -519,23 +511,59 @@ describe 'Voting Service Tests', ->
               formatted_location: 'Atlanta, GA'
 
         spyOn Proposal, 'save'
-          .and.returnValue 'Success'
+          .and.callThrough()
 
-        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 0
         expect Proposal.save
           .toHaveBeenCalled()
         expect Proposal.save.calls.mostRecent().args[0]
           .toEqual expectedProposalSaveArgs
 
+      it 'should check for exiting hub, find one, and POST the New Proposal', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+      it 'should check for exiting hub, find one, save and ALERT the New Proposal was saved', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+
       it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
-        $rootScope.sessionSettings.openModals.newProposal = true
 
         response =
           id: 2045
@@ -544,7 +572,6 @@ describe 'Voting Service Tests', ->
         spyOn Proposal, 'save'
           .and.returnValue status: 'Success'
 
-#        VotingService.saveNewProposal modalInstance
         VotingService.saveNewProposal()
         Proposal.save.calls.mostRecent().args[1] response
 
@@ -554,6 +581,8 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain response.statement
+        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
+          .toEqual '/proposals/2045?filter=my'
 #        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
 #          .toEqual '/proposals/2045?filter=my#navigationBar'
 #        expect modalInstance.close

@@ -126,7 +126,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       if $rootScope.sessionSettings.hub_attributes.formatted_location? and $rootScope.sessionSettings.actions.searchTerm?
         $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.searchTerm
       else
-        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'modal'
+        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
         return
     newProposal =
       proposal:

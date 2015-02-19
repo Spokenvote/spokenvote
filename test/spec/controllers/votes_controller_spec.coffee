@@ -25,8 +25,6 @@ describe 'Proposal Controller Tests', ->
       id: '17'
       proposal:
         statement: 'My proposal statement'
-#        votes_attributes:
-#          comment: 'Why you should vote for this proposal'
 
     saved_vote =
       id: 87
@@ -37,6 +35,9 @@ describe 'Proposal Controller Tests', ->
       updated_at: "2015-02-19T12:46:13.196Z"
       ip_address: "127.0.0.1"
       username: "Kim Miller"
+
+    failed_vote =
+      comment:  ["can't be blank"]
 
     beforeEach inject ( _$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _$location_ ) ->
       $rootScope = _$rootScope_
@@ -55,18 +56,6 @@ describe 'Proposal Controller Tests', ->
         $scope: $scope
       $scope.sessionSettings.newSupport.vote = new_vote
       $scope.sessionSettings.newSupport.target = clicked_proposal
-
-#      spyOn($scope, '$broadcast').and.callThrough()
-#      $scope.proposal.$get = jasmine.createSpy('proposal:$get')
-#      promise =
-#        then: jasmine.createSpy()
-#      $rootScope.authService =
-#        signinFb: jasmine.createSpy('authService').and.returnValue promise
-#      $rootScope.votingService =
-#        support: jasmine.createSpy('votingService:support')
-#        improve: jasmine.createSpy('votingService:improve')
-#        edit: jasmine.createSpy('votingService:edit')
-#        delete: jasmine.createSpy('votingService:delete')
 
 
     describe 'should initialize properly with NO related support', ->
@@ -120,7 +109,7 @@ describe 'Proposal Controller Tests', ->
         expect $scope.saveSupport
           .toHaveBeenCalled()
 
-      it 'should issue POST saving Support', ->
+      it 'should issue POST while saving Support', ->
 
         $scope.saveSupport()
 
@@ -130,7 +119,7 @@ describe 'Proposal Controller Tests', ->
 
         $httpBackend.flush()
 
-      it 'should broadcast "event:votesChanged" saving Support', ->
+      it 'should broadcast "event:votesChanged" while saving Support', ->
 
         spyOn($rootScope, '$broadcast')
           .and.callThrough()
@@ -146,13 +135,13 @@ describe 'Proposal Controller Tests', ->
         expect $rootScope.$broadcast
           .toHaveBeenCalledWith 'event:votesChanged'
 
-      it 'should send alert "Vote Saved" saving Support', ->
+      it 'should send alert "Vote Saved" while saving Support', ->
 
         $scope.saveSupport()
 
         $httpBackend
           .expectPOST '/votes'
-          .respond saved_vote, 200
+          .respond saved_vote, 201
 
         $httpBackend.flush()
 
@@ -167,7 +156,7 @@ describe 'Proposal Controller Tests', ->
 
         $httpBackend
           .expectPOST '/votes'
-          .respond saved_vote, 200
+          .respond saved_vote, 201
 
         $httpBackend.flush()
 
@@ -176,33 +165,61 @@ describe 'Proposal Controller Tests', ->
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain 'Want to see that response one more time ...'
 
+      it 'should turn off comment box while saving Support', ->
 
-  #    it 'Proposal.save should execute correct FAILURE callback', ->
-  #      $rootScope.sessionSettings.hub_attributes =
-  #        id: 12
-  #      $rootScope.sessionSettings.openModals.newProposal = true
-  #
-  #      response =
-  #        data: 'There was a server error!'
-  #
-  #      spyOn Proposal, 'save'
-  #      .and.returnValue status: 'Error'
-  #
-  #      VotingService.saveNewProposal modalInstance
-  #      Proposal.save.calls.mostRecent().args[2] response
-  #
-  #      expect Proposal.save
-  #      .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
-  #      expect $rootScope.alertService.setCtlResult.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-  #      .toContain 'Sorry'
-  #      expect $rootScope.alertService.setJson.calls.count()
-  #      .toEqual 1
-  #      expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
-  #      .toContain response.data
+        $scope.saveSupport()
 
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 201
 
+        $httpBackend.flush()
+
+        expect $scope.sessionSettings.actions.newProposal.comment
+          .toEqual null
+
+      it 'should navigate to new proposal while saving Support', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond saved_vote, 201
+
+        $httpBackend.flush()
+
+        expect $location.url()
+          .toEqual '/proposals/6'
+
+      it 'should send alert "Sorry, your vote was not saved" if saving Support fails', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond 422, failed_vote
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setCtlResult
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry, your vote to support this proposal was not counted.'
+
+      it 'should return JSON data in alert "Sorry, your vote was not saved" if saving Support fails', ->
+
+        $scope.saveSupport()
+
+        $httpBackend
+          .expectPOST '/votes'
+          .respond 422, failed_vote
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setJson
+          .toHaveBeenCalledWith jasmine.any(Object)
+        expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
+          .toEqual comment: [ "can't be blank" ]
 
 
 #  describe "NewProposalCtrl", ->

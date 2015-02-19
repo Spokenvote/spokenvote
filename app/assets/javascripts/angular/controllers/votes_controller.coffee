@@ -22,8 +22,8 @@ SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location
     vote = Vote.save(
       ($scope.sessionSettings.newSupport.vote
       ), ((response, status, headers, config) ->
-        $rootScope.$broadcast "event:votesChanged"
-        $scope.alertService.setSuccess "Your vote was created with the comment: \"" + response.comment + "\"", $scope, "main"
+        $rootScope.$broadcast 'event:votesChanged'
+        $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
 #        $modalInstance.close response
         $scope.sessionSettings.actions.newProposal.comment = null
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
