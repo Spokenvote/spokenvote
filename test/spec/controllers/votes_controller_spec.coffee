@@ -75,9 +75,8 @@ describe 'Proposal Controller Tests', ->
 
       it 'should initialize properly WITH related support', ->
 
-        $rootScope.alertService =
-          clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
-          setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
+        $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
+        $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
         $scope = $rootScope.$new()
         $scope.sessionSettings.newSupport.related = relatedSupport
         ctrl = $controller 'SupportCtrl',
@@ -87,7 +86,7 @@ describe 'Proposal Controller Tests', ->
           .toEqual relatedSupport
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
-        expect $scope.alertService.setCtlResult.calls.count()
+        expect $scope.alertService.setInfo.calls.count()
           .toEqual 1
 
 

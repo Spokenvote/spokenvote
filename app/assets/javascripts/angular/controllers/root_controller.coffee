@@ -56,7 +56,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
     SessionService.userOmniauth.$destroy()
     $rootScope.currentUser = {}
     $location.path('/').search('')
-    AlertService.setInfo 'You are signed out of Spokenvote.', $scope, 'main'
+    $scope.alertService.setInfo 'You are signed out of Spokenvote.', $scope, 'main'
 
   $scope.clearFilter = (filter) ->
     $location.search(filter, null)

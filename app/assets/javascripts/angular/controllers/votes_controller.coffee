@@ -2,7 +2,7 @@
 SupportCtrl = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
   if $rootScope.sessionSettings.newSupport.related?
-    $scope.alertService.setCtlResult 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
+    $scope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
 
   $scope.saveSupport = ->
     $scope.alertService.clearAlerts()
