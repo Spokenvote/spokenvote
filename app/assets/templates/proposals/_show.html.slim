@@ -50,7 +50,6 @@
                 .fa.fa-warning
                 span Too Long
 
-    /.supporting_arguments.proposal-area ng-if='sessionSettings.actions.newProposal.comment && proposal.id === sessionSettings.newSupport.target.id'
     .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.vote.comment.id'
       .row.support_row
         .proposal-person.col-xs-2
@@ -59,16 +58,22 @@
         .support-comment.col-xs-10
           supporter-text
 
-            .form-group ng-controller='SupportController'
+            .form-group ng-if='sessionSettings.actions.proposal.vote === "support"' ng-controller='SupportController'
               textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
                 ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
                 ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )
               .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your improved version!
 
-              .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
-              .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
-                .fa.fa-warning
-                span Too Long
+            .form-group ng-if='sessionSettings.actions.proposal.vote === "improve"'
+              textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
+                ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
+                ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )
+              .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your improved version!
+
+            .length_counter.happy-text( ng-show='newProposalForm.comment.$valid && proposal.statement.length > 220' ) {{ 280 - proposal.comment.length }} characters remaining
+            .length_counter.error-text( ng-show="newProposalForm.comment.$error.maxlength" )
+              .fa.fa-warning
+              span Too Long
 
             /.form-group ng-show='sessionSettings.actions.focus === "hub"'
               ng-include src="'shared/_select_hub.html'"

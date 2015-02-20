@@ -77,7 +77,7 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
 
 
-    describe 'SUPPORT method should make checks and open SUPPORT modal', ->
+    describe 'SUPPORT method should make checks and open SUPPORT row', ->
 
       it 'should initialize SUPPORT method', ->
         VotingService.support clicked_proposal
@@ -86,6 +86,8 @@ describe 'Voting Service Tests', ->
           .toEqual clicked_proposal
         expect $rootScope.sessionSettings.newSupport.related
           .toBe null
+        expect $rootScope.sessionSettings.actions.proposal.vote
+          .toEqual 'support'
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
@@ -159,7 +161,7 @@ describe 'Voting Service Tests', ->
 #          .toEqual false
 
 
-    describe 'IMPROVE method should make checks and open IMPROVE modal', ->
+    describe 'IMPROVE method should make checks and open IMPROVE area', ->
 
       it 'should initialize IMPROVE method', ->
         VotingService.improve scope, clicked_proposal
@@ -168,6 +170,8 @@ describe 'Voting Service Tests', ->
 #          .toEqual clicked_proposal
 #        expect scope.current_user_support
 #          .toEqual null
+        expect $rootScope.sessionSettings.actions.proposal.vote
+          .toEqual 'improve'
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 

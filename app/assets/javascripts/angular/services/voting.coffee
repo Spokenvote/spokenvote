@@ -1,6 +1,7 @@
 VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
 
   support: ( clicked_proposal ) ->
+    $rootScope.sessionSettings.actions.proposal.vote = 'support'
     $rootScope.sessionSettings.newSupport.target = clicked_proposal
     $rootScope.sessionSettings.newSupport.related = null
     $rootScope.alertService.clearAlerts()
@@ -30,6 +31,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   improve: ( clicked_proposal ) ->
 #    scope.clicked_proposal = clicked_proposal
 #    scope.current_user_support = null
+    $rootScope.sessionSettings.actions.proposal.vote = 'improve'
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.currentUser.id?
