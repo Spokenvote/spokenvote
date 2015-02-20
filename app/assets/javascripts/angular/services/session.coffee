@@ -127,6 +127,11 @@ SessionSettings = ->
     searchTerm: null
     selectHub: false
     userFilter: null
+    vote:
+      comment:
+        id: null
+        support: null
+        improve: null
     wizardToGroup: null
   hub_attributes: {}
   openModals:

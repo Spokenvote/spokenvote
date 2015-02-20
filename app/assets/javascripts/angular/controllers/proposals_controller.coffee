@@ -38,9 +38,10 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   else
     Focus 'proposal_statement'
 
-  $scope.commentStep = ->
-    $scope.sessionSettings.actions.newProposal.comment = 'active'
-    Focus 'vote_comment'
+  $scope.commentStep = (proposal_id) ->
+    console.log 'comment step: '
+    $scope.sessionSettings.actions.vote.comment.id = proposal_id
+    Focus '#new_vote_comment'
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'

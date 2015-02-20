@@ -185,7 +185,7 @@ describe 'Proposal Support Controller Tests', ->
 
         $httpBackend.flush()
 
-        expect $scope.sessionSettings.actions.newProposal.comment
+        expect $scope.sessionSettings.actions.vote.comment.id
           .toEqual null
 
       it 'should navigate to new proposal while saving Support', ->
