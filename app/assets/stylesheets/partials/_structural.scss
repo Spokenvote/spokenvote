@@ -144,6 +144,8 @@ textarea {
 .currentuser-avatar {
   img {
     @include border-radius(2px);
+    margin: 5px auto;
+    width: 50px;
   }
 }
 
