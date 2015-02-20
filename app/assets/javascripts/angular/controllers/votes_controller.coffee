@@ -37,11 +37,12 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 ImproveController = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
   $scope.alertService.clearAlerts()
 
-  if $scope.current_user_support == 'related_proposal'
-    $scope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'main'
+#  if $scope.current_user_support == 'related_proposal'
+#    $scope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'main'
 
   $scope.improvedProposal =
-    statement: $scope.clicked_proposal.statement
+    statement: $scope.sessionSettings.actions.improveProposal.statement
+#    statement: $scope.clicked_proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =

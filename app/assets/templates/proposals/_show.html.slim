@@ -12,7 +12,7 @@
             i.fa.fa-thumbs-o-up.fa-2x
           /button ng-click='improve(proposal)' class='btn btn-improve btn-bold main'
             i.fa.fa-code-fork.fa-2x
-        .fork.box
+        .fork.box ng-click='improve(proposal)'
           i.fa.fa-lightbulb-o
       /ng-include.pull-right src="'shared/_social_buttons.html'"
 
@@ -21,12 +21,30 @@
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
       form name='newProposalForm' ng-submit='saveNewProposal()'
+        .proposal-area ng-if='( proposal.is_editable && proposal.user_id == currentUser.id )'
+          .form-group
+            textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
+              ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
+              ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
+            .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
+            .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
+            .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
+              .fa.fa-warning
+              span Too Long
+
+  .main-proposal.row ng-if='sessionSettings.actions.improveProposal.id == proposal.id'
+    .proposal-person.col-xs-2
+      .supporter-avatar
+        ng-include src="'shared/_currentuser_avatar.html'"
+
+    .col-xs-10.proposal_statement
+      form name='newProposalForm' ng-submit='saveNewProposal()'
         /.newProposal
           ng-include src="'shared/_prop_area.html'"
 
         .proposal-area
-          .form-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
-            textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
+          .form-group ng-controller='ImproveController'
+            textarea( id='improved_proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
               ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
               ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
             .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
@@ -44,7 +62,7 @@
       .support-comment.col-xs-10
         supporter-text
 
-          .form-group ng-controller='SupportCtrl'
+          .form-group ng-controller='SupportController'
             textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
               ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
               ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )

@@ -120,17 +120,18 @@ SessionSettings = ->
     hubFilter: 'All Groups'
     hubPlaceholder: 'Search for your Group ...'
     hubShow: true
-    userFilter: null
+    improveProposal: null
     newProposal: {}
     newProposalHub: null
     offcanvas: false
     searchTerm: null
     selectHub: false
+    userFilter: null
     wizardToGroup: null
   hub_attributes: {}
   openModals:
     signIn: false
-    register: false
+#    register: false
     register: false
     userSettings: false
     supportProposal: false

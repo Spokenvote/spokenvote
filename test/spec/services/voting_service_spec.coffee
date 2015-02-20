@@ -164,10 +164,10 @@ describe 'Voting Service Tests', ->
       it 'should initialize IMPROVE method', ->
         VotingService.improve scope, clicked_proposal
 
-        expect scope.clicked_proposal
-          .toEqual clicked_proposal
-        expect scope.current_user_support
-          .toEqual null
+#        expect scope.clicked_proposal
+#          .toEqual clicked_proposal
+#        expect scope.current_user_support
+#          .toEqual null
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
@@ -183,7 +183,8 @@ describe 'Voting Service Tests', ->
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
         scope.current_user_support = null
-        VotingService.improve scope, clicked_proposal
+        VotingService.improve clicked_proposal
+#        VotingService.improve scope, clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -191,16 +192,24 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect scope.current_user_support
-          .toEqual 'related_proposal'
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setInfo
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'We found support from you on another proposal.'
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+#        expect scope.current_user_support
+#          .toEqual 'related_proposal'
 
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual false
+      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open Improve area', ->
+
+#        expect $rootScope.sessionSettings.openModals.improveProposal
+#          .toEqual false
 
         relatedSupport.proposal.id = 8
-        VotingService.improve scope, clicked_proposal
+        VotingService.improve clicked_proposal
+#        VotingService.improve scope, clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -213,19 +222,19 @@ describe 'Voting Service Tests', ->
           controller: 'ImproveCtrl'
           scope: scope
 
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual true
+#        expect $modal.open
+#          .toHaveBeenCalledWith openModalArgs
+#        expect modalInstance.opened.then
+#          .toHaveBeenCalled
+#        expect modalInstance.result.finally
+#          .toHaveBeenCalled
+#        expect $rootScope.sessionSettings.openModals.improveProposal
+#          .toEqual true
 
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual false
+#        modalInstance.result.finallyCallback()
+#
+#        expect $rootScope.sessionSettings.openModals.improveProposal
+#          .toEqual false
 
 
     describe 'EDIT method should make checks and open EDIT modal', ->

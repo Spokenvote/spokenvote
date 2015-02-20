@@ -78,10 +78,12 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 
   $scope.improve = ( clicked_proposal ) ->
     if $scope.currentUser.id?
-      $scope.votingService.improve $scope, clicked_proposal
+      $scope.votingService.improve clicked_proposal
+#      $scope.votingService.improve $scope, clicked_proposal
     else
       $scope.authService.signinFb($scope).then ->
-        $scope.votingService.improve $scope, clicked_proposal
+        $scope.votingService.improve clicked_proposal
+#        $scope.votingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     $scope.votingService.edit $scope, clicked_proposal
