@@ -47,7 +47,7 @@
             textarea( id='improved_proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
               ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
               ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
-            .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Return</i></strong> to continue ...
+            .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to publish your improved version!
             .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
             .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
               .fa.fa-warning
