@@ -126,13 +126,10 @@ SessionSettings = ->
     offcanvas: false
     proposal:
       id:  null
-      mode: null
+      vote: null
     searchTerm: null
     selectHub: false
     userFilter: null
-    vote:
-      comment:
-        id: null
     wizardToGroup: null
   hub_attributes: {}
   openModals:

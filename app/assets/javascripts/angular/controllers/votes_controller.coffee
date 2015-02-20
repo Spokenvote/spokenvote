@@ -24,7 +24,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-        $scope.sessionSettings.actions.vote.comment.id = null
+        $scope.sessionSettings.actions.vote.id = null
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
       ), (response, status, headers, config) ->

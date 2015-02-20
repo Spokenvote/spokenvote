@@ -141,7 +141,7 @@ describe 'Voting Service Tests', ->
           .toBeDefined()
         expect $rootScope.sessionSettings.newSupport.related.proposal.id
           .toEqual 8
-        expect $rootScope.sessionSettings.actions.vote.comment.id
+        expect $rootScope.sessionSettings.actions.vote.id
           .toEqual 17
 #        expect Focus                                #Focus Spy is there, but does not seem to see it being called
 #          .toHaveBeenCalledWith '#vote_comment'

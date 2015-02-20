@@ -31,7 +31,7 @@
   .improve_proposal_container
     .main-proposal.row ng-if='sessionSettings.actions.improveProposal.id == proposal.id'
       .proposal-person.col-xs-2
-        .supporter-avatar ng-hide='sessionSettings.actions.vote.comment.id'
+        .supporter-avatar ng-hide='sessionSettings.actions.vote.id'
           ng-include src="'shared/_currentuser_avatar.html'"
 
       .col-xs-10.proposal_statement
@@ -50,7 +50,7 @@
                 .fa.fa-warning
                 span Too Long
 
-    .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.vote.comment.id'
+    .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.vote.id'
       .row.support_row
         .proposal-person.col-xs-2
           .supporter-avatar
