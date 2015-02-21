@@ -120,7 +120,8 @@ SessionSettings = ->
     hubFilter: 'All Groups'
     hubPlaceholder: 'Search for your Group ...'
     hubShow: true
-    improveProposal: null
+    improveProposal:
+      parent: null
     newProposal: {}
     newProposalHub: null
     offcanvas: false

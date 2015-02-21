@@ -15,7 +15,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           if relatedSupport.proposal.id == clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
-        $rootScope.sessionSettings.actions.vote.id = clicked_proposal.id
+        $rootScope.sessionSettings.actions.proposal.id = clicked_proposal.id
         Focus '#new_vote_comment'
 
 #        if $rootScope.sessionSettings.openModals.supportProposal is false
@@ -31,6 +31,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   improve: ( clicked_proposal ) ->
 #    scope.clicked_proposal = clicked_proposal
 #    scope.current_user_support = null
+    $rootScope.sessionSettings.actions.improveProposal = clicked_proposal
     $rootScope.sessionSettings.actions.proposal.vote = 'improve'
     $rootScope.alertService.clearAlerts()
 
@@ -42,7 +43,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
 
-        $rootScope.sessionSettings.actions.improveProposal = clicked_proposal
+#        $rootScope.sessionSettings.actions.improveProposal = clicked_proposal
         Focus '#improved_proposal_statement'
 
 #        if $rootScope.sessionSettings.openModals.improveProposal is false
