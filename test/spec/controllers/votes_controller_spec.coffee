@@ -55,7 +55,7 @@ describe 'Proposal Support Controller Tests', ->
       ctrl = $controller 'SupportController',
         $scope: $scope
       $scope.sessionSettings.newSupport.vote = new_vote
-      $scope.sessionSettings.newSupport.target = clicked_proposal
+      $scope.sessionSettings.vote.target = clicked_proposal
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -66,8 +66,8 @@ describe 'Proposal Support Controller Tests', ->
 
       it 'should initialize scope items', ->
 
-        expect $scope.sessionSettings.newSupport.related
-          .toEqual null
+        expect $scope.sessionSettings.vote.related_exists
+          .toEqual undefined
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $scope.alertService.setCtlResult.calls.count()
@@ -78,11 +78,11 @@ describe 'Proposal Support Controller Tests', ->
         $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
         $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
         $scope = $rootScope.$new()
-        $scope.sessionSettings.newSupport.related = relatedSupport
+        $scope.sessionSettings.vote.related_exists = relatedSupport
         ctrl = $controller 'SupportController',
           $scope: $scope
 
-        expect $scope.sessionSettings.newSupport.related
+        expect $scope.sessionSettings.vote.related_exists
           .toEqual relatedSupport
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -114,8 +114,8 @@ describe 'Proposal Support Controller Tests', ->
           .toEqual 1
         expect $scope.alertService.setCtlResult.calls.count()
           .toEqual 0
-        expect $scope.sessionSettings.newSupport.vote.proposal_id
-          .toEqual $scope.sessionSettings.newSupport.target.id
+        expect $scope.vote.proposal_id
+          .toEqual $scope.sessionSettings.vote.target.id
         expect $scope.saveSupport
           .toHaveBeenCalled()
 

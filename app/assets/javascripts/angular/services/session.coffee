@@ -145,6 +145,9 @@ SessionSettings = ->
     deleteProposal: false
     getStarted: false
   proposal: null
+  vote: {}
+#    related_exists: null
+#    target: null
   searchedHub: {}
   routeParams: {}
   newProposal: {}

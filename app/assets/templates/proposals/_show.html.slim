@@ -29,7 +29,7 @@
               span Too Long
 
   .improve_proposal_container
-    .main-proposal.row ng-if='sessionSettings.actions.improveProposal.id == proposal.id'
+    .main-proposal.row ng-if='sessionSettings.vote.parent.id == proposal.id'
       .proposal-person.col-xs-2
         .supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
           ng-include src="'shared/_currentuser_avatar.html'"
@@ -67,7 +67,8 @@
           form name='supportProposalForm' ng-submit='saveSupport()'
             supporter-text
               .form-group ng-if='sessionSettings.actions.proposal.vote === "support"'
-                textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
+                /textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
+                textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='vote.comment' auto-grow
                   ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
                   ng-enter='saveSupport()' ng-focus='sessionSettings.actions.focus = "comment"' )
                 .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your improved version!

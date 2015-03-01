@@ -82,9 +82,9 @@ describe 'Voting Service Tests', ->
       it 'should initialize SUPPORT method', ->
         VotingService.support clicked_proposal
 
-        expect $rootScope.sessionSettings.newSupport.target
+        expect $rootScope.sessionSettings.vote.target
           .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.newSupport.related
+        expect $rootScope.sessionSettings.vote.related_exists
           .toBe null
         expect $rootScope.sessionSettings.actions.proposal.vote
           .toEqual 'support'
@@ -101,7 +101,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        $rootScope.sessionSettings.newSupport.related = null
+        $rootScope.sessionSettings.vote.related_exists = null
         VotingService.support clicked_proposal
 
         $httpBackend
@@ -110,7 +110,7 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newSupport.related
+        expect $rootScope.sessionSettings.vote.related_exists
           .toEqual jasmine.objectContaining relatedSupport
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
@@ -121,8 +121,8 @@ describe 'Voting Service Tests', ->
 
 #        expect $rootScope.sessionSettings.openModals.supportProposal
 #          .toEqual false
-        expect $rootScope.sessionSettings.newSupport.related
-          .toEqual null
+        expect $rootScope.sessionSettings.vote.related_exists
+          .toEqual undefined
 
         relatedSupport.proposal.id = 8
         VotingService.support clicked_proposal
@@ -137,9 +137,9 @@ describe 'Voting Service Tests', ->
 #          templateUrl: 'proposals/_support_modal.html'
 #          controller: 'SupportCtrl'
 
-        expect $rootScope.sessionSettings.newSupport.related.proposal
+        expect $rootScope.sessionSettings.vote.related_exists.proposal
           .toBeDefined()
-        expect $rootScope.sessionSettings.newSupport.related.proposal.id
+        expect $rootScope.sessionSettings.vote.related_exists.proposal.id
           .toEqual 8
         expect $rootScope.sessionSettings.actions.proposal.id
           .toEqual 17
@@ -178,7 +178,7 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        $rootScope.sessionSettings.newSupport.related = null
+        $rootScope.sessionSettings.vote.related_exists = null
         VotingService.improve scope, clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()

@@ -1,9 +1,10 @@
 VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
 
   support: ( clicked_proposal ) ->
+    $rootScope.sessionSettings.vote =
+      target: clicked_proposal
     $rootScope.sessionSettings.actions.proposal.vote = 'support'
-    $rootScope.sessionSettings.newSupport.target = clicked_proposal
-    $rootScope.sessionSettings.newSupport.related = null
+    $rootScope.sessionSettings.vote.related_exists = null
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.currentUser.id?
@@ -11,7 +12,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
-          $rootScope.sessionSettings.newSupport.related = relatedSupport
+          $rootScope.sessionSettings.vote.related_exists = relatedSupport
           if relatedSupport.proposal.id == clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
@@ -31,7 +32,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   improve: ( clicked_proposal ) ->
 #    scope.clicked_proposal = clicked_proposal
 #    scope.current_user_support = null
-    $rootScope.sessionSettings.actions.improveProposal = clicked_proposal
+    $rootScope.sessionSettings.vote =
+      parent: clicked_proposal
     $rootScope.sessionSettings.actions.proposal.vote = 'improve'
     $rootScope.alertService.clearAlerts()
 
@@ -43,7 +45,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
 
-#        $rootScope.sessionSettings.actions.improveProposal = clicked_proposal
+#        $rootScope.sessionSettings.vote.parent = clicked_proposal
         Focus '#improved_proposal_statement'
 
 #        if $rootScope.sessionSettings.openModals.improveProposal is false

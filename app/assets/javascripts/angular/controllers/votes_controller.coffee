@@ -1,12 +1,14 @@
 #SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', ( $scope, $location, $rootScope, $modalInstance, Vote ) ->
 SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
-  if $rootScope.sessionSettings.newSupport.related?
+  if $rootScope.sessionSettings.vote.related_exists?
     $scope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
 
   $scope.saveSupport = ->
     $scope.alertService.clearAlerts()
-    $rootScope.sessionSettings.newSupport.vote.proposal_id = $rootScope.sessionSettings.newSupport.target.id
+#    $rootScope.sessionSettings.newSupport.vote.proposal_id = $rootScope.sessionSettings.vote.target.id
+    $scope.vote =
+      proposal_id: $rootScope.sessionSettings.vote.target.id
 
 #    vote = Vote.save($scope.sessionSettings.newSupport.vote
 #    ,  (response, status, headers, config) ->
@@ -20,7 +22,8 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 #    )
 
     vote = Vote.save(
-      ($scope.sessionSettings.newSupport.vote
+#      ($scope.sessionSettings.newSupport.vote
+      ($scope.vote
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
@@ -41,13 +44,13 @@ ImproveController = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, 
 #    $scope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'main'
 
   $scope.improvedProposal =
-    statement: $scope.sessionSettings.actions.improveProposal.statement
+    statement: $scope.sessionSettings.vote.parent.statement
 #    statement: $scope.clicked_proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =
       proposal:
-        parent_id: $scope.sessionSettings.actions.improveProposal.id
+        parent_id: $scope.sessionSettings.vote.parent.id
         statement: $scope.improvedProposal.statement
         votes_attributes:
           comment: $scope.improvedProposal.comment
