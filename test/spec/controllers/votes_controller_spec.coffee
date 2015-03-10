@@ -10,6 +10,7 @@ describe 'Proposal Votes Controllers Tests', ->
     $location = undefined
     $scope = undefined
     ctrl = undefined
+    Vote = undefined
     relatedSupport =
       id: 122
       proposal:
@@ -39,12 +40,13 @@ describe 'Proposal Votes Controllers Tests', ->
     failed_vote =
       comment:  ["can't be blank"]
 
-    beforeEach inject ( _$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _$location_ ) ->
+    beforeEach inject ( _$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _$location_, _Vote_ ) ->
       $rootScope = _$rootScope_
       $controller = _$controller_
       $httpBackend = _$httpBackend_
-      $location = _$location_
       $rootScope.sessionSettings = _SessionSettings_
+      $location = _$location_
+      Vote = _Vote_
       $rootScope.alertService =
         clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
         setInfo: jasmine.createSpy 'alertService:setInfo'
@@ -54,7 +56,7 @@ describe 'Proposal Votes Controllers Tests', ->
       $scope = $rootScope.$new()
       ctrl = $controller 'SupportController',
         $scope: $scope
-      $scope.sessionSettings.newSupport.vote = new_vote
+#      $scope.sessionSettings.newSupport.vote = new_vote
       $scope.sessionSettings.vote.target = clicked_proposal
 
     afterEach ->
@@ -90,7 +92,6 @@ describe 'Proposal Votes Controllers Tests', ->
           expect $scope.alertService.setInfo.calls.count()
             .toEqual 1
 
-
       describe 'saveSupport method', ->
 
         it 'should properly initialize during saving Support', ->
@@ -115,8 +116,6 @@ describe 'Proposal Votes Controllers Tests', ->
             .toEqual 1
           expect $scope.alertService.setCtlResult.calls.count()
             .toEqual 0
-  #        expect $scope.vote.proposal_id
-  #          .toEqual $scope.sessionSettings.vote.target.id
           expect $scope.saveSupport
             .toHaveBeenCalled()
 
@@ -175,6 +174,24 @@ describe 'Proposal Votes Controllers Tests', ->
             .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
           expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
             .toContain 'Want to see that response one more time ...'
+
+        it 'should properly find correct proposal to which to attach vote', ->
+
+          spyOn Vote, 'save'
+            .and.callThrough()
+
+          $scope.saveSupport()
+
+          $httpBackend
+            .expectPOST '/votes'
+            .respond saved_vote, 201
+
+          $httpBackend.flush()
+
+          expect Vote.save.calls.count()
+            .toEqual 1
+          expect Vote.save.calls.mostRecent().args[0].proposal_id
+            .toEqual '17'
 
         it 'should turn off comment box while saving Support', ->
 

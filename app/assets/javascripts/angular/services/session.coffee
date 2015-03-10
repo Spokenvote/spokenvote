@@ -151,10 +151,10 @@ SessionSettings = ->
   searchedHub: {}
   routeParams: {}
   newProposal: {}
-  newSupport:
-    related: null
-    target: null
-    vote: null
+#  newSupport:
+#    related: null
+#    target: null
+#    vote: null
   lastLocation:
     location_id: null
     formatted_location: null
