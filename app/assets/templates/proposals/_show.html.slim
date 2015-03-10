@@ -31,7 +31,8 @@
   .improve_proposal_container
     .main-proposal.row ng-if='sessionSettings.vote.parent.id == proposal.id'
       .proposal-person.col-xs-2
-        .supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
+        /.supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
+        .supporter-avatar
           ng-include src="'shared/_currentuser_avatar.html'"
 
       .proposal_statement.col-xs-10 ng-controller='ImproveController'
@@ -41,14 +42,14 @@
               textarea( id='improved_proposal_statement' name='statement' class='full-width proposal-text' ng-model='improvedProposal.statement' auto-grow required
                 ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
                 ng-enter='commentStep(proposal.id)' ng-focus='sessionSettings.actions.focus = "prop"' )
-              .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to continue ...
+              .next-step ng-show='improvedProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to continue ...
               .length_counter.happy-text ng-show='improvedProposalForm.statement.$valid && proposal.statement.length > 120' {{ 140 - proposal.statement.length }} characters remaining
               .length_counter.error-text ng-show="improvedProposalForm.statement.$error.maxlength"
                 .fa.fa-warning
                 span Too Long
 
             /.form-group ng-if='sessionSettings.actions.proposal.vote === "improve"'
-            .form-group ng-if='sessionSettings.vote.target'
+            .form-group ng-show='sessionSettings.actions.focus === "comment"'
               textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='improvedProposal.comment' auto-grow
                 ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
                 ng-enter='saveImprovement()' ng-focus='sessionSettings.actions.focus = "comment"' )

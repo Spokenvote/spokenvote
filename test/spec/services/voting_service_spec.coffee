@@ -85,7 +85,7 @@ describe 'Voting Service Tests', ->
         VotingService.support clicked_proposal
 
         expect $rootScope.sessionSettings.vote.target
-          .toEqual clicked_proposal
+          .toBe undefined
         expect $rootScope.sessionSettings.vote.related_existing
           .toBe undefined
 #        expect $rootScope.sessionSettings.actions.proposal.vote
@@ -139,12 +139,14 @@ describe 'Voting Service Tests', ->
 #          templateUrl: 'proposals/_support_modal.html'
 #          controller: 'SupportCtrl'
 
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
         expect $rootScope.sessionSettings.vote.related_existing.proposal
           .toBeDefined()
         expect $rootScope.sessionSettings.vote.related_existing.proposal.id
           .toEqual 8
-        expect $rootScope.sessionSettings.actions.proposal.id
-          .toEqual 17
+#        expect $rootScope.sessionSettings.actions.proposal.id
+#          .toEqual 17
 #        expect Focus                                #Focus Spy is there, but does not seem to see it being called
 #          .toHaveBeenCalledWith '#vote_comment'
 
