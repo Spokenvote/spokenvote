@@ -58,7 +58,8 @@
                 .fa.fa-warning
                 span Too Long
 
-    .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.proposal.id'
+    /.supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.actions.proposal.id'
+    .supporting_arguments.proposal-area ng-if='proposal.id === sessionSettings.vote.target.id'
       .row.support_row
         .proposal-person.col-xs-2
           .supporter-avatar
@@ -68,7 +69,8 @@
           form name='supportProposalForm' ng-submit='saveSupport()'
             supporter-text
               /.form-group ng-if='sessionSettings.actions.proposal.vote === "support"'
-              .form-group ng-if='sessionSettings.vote.target'
+              /.form-group ng-if='sessionSettings.vote.target'
+              .form-group
                 /textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newSupport.vote.comment' auto-grow
                 textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='vote.comment' auto-grow
                   ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
