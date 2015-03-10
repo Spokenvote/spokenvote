@@ -25,8 +25,10 @@ describe 'Voting Service Tests', ->
       proposal:
         id: 8
         statement: 'Related proposal statement'
-        votes_attributes:
-          comment: 'Why you should vote for this related proposal'
+        hub:
+          id: 1
+          group_name: 'Hacker Dojo'
+          formatted_location: 'Mountain View, CA'
 
     beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
       $rootScope = _$rootScope_
