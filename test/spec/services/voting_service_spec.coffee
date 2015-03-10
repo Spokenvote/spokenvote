@@ -20,6 +20,8 @@ describe 'Voting Service Tests', ->
           comment: 'Why you should vote for this proposal'
     relatedSupport =
       id: 122
+      comment: 'Have to give reason now ...'
+      created_at: '2013-10-31 23:36:57 UTC'
       proposal:
         id: 8
         statement: 'Related proposal statement'
@@ -84,10 +86,10 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.sessionSettings.vote.target
           .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.vote.related_exists
-          .toBe null
-        expect $rootScope.sessionSettings.actions.proposal.vote
-          .toEqual 'support'
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBe undefined
+#        expect $rootScope.sessionSettings.actions.proposal.vote
+#          .toEqual 'support'
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
@@ -101,7 +103,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        $rootScope.sessionSettings.vote.related_exists = null
+        $rootScope.sessionSettings.vote.related_existing = null
         VotingService.support clicked_proposal
 
         $httpBackend
@@ -110,7 +112,7 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.related_exists
+        expect $rootScope.sessionSettings.vote.related_existing
           .toEqual jasmine.objectContaining relatedSupport
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
@@ -121,7 +123,7 @@ describe 'Voting Service Tests', ->
 
 #        expect $rootScope.sessionSettings.openModals.supportProposal
 #          .toEqual false
-        expect $rootScope.sessionSettings.vote.related_exists
+        expect $rootScope.sessionSettings.vote.related_existing
           .toEqual undefined
 
         relatedSupport.proposal.id = 8
@@ -137,9 +139,9 @@ describe 'Voting Service Tests', ->
 #          templateUrl: 'proposals/_support_modal.html'
 #          controller: 'SupportCtrl'
 
-        expect $rootScope.sessionSettings.vote.related_exists.proposal
+        expect $rootScope.sessionSettings.vote.related_existing.proposal
           .toBeDefined()
-        expect $rootScope.sessionSettings.vote.related_exists.proposal.id
+        expect $rootScope.sessionSettings.vote.related_existing.proposal.id
           .toEqual 8
         expect $rootScope.sessionSettings.actions.proposal.id
           .toEqual 17
@@ -164,25 +166,44 @@ describe 'Voting Service Tests', ->
     describe 'IMPROVE method should make checks and open IMPROVE area', ->
 
       it 'should initialize IMPROVE method', ->
-        VotingService.improve scope, clicked_proposal
+        VotingService.improve clicked_proposal
 
-#        expect scope.clicked_proposal
-#          .toEqual clicked_proposal
-#        expect scope.current_user_support
-#          .toEqual null
-        expect $rootScope.sessionSettings.actions.proposal.vote
-          .toEqual 'improve'
+        expect $rootScope.sessionSettings.vote.parent
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toEqual undefined
+#        expect $rootScope.sessionSettings.actions.proposal.vote
+#          .toEqual 'improve'
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        $rootScope.sessionSettings.vote.related_exists = null
-        VotingService.improve scope, clicked_proposal
+        $rootScope.sessionSettings.vote.related_existing = null
+        VotingService.improve clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
+
+      it 'should check and NOT find an existing vote from this user on this proposal', ->
+#        relatedSupport = null
+#        scope.current_user_support = null
+        VotingService.improve clicked_proposal
+#        VotingService.improve scope, clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 0
+#        expect $rootScope.alertService.setInfo
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+#          .toContain 'We found support from you on another proposal.'
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
@@ -221,10 +242,10 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        openModalArgs =
-          templateUrl: 'proposals/_improve_proposal_modal.html'
-          controller: 'ImproveCtrl'
-          scope: scope
+#        openModalArgs =
+#          templateUrl: 'proposals/_improve_proposal_modal.html'
+#          controller: 'ImproveCtrl'
+#          scope: scope
 
 #        expect $modal.open
 #          .toHaveBeenCalledWith openModalArgs

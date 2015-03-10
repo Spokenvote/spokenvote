@@ -1,7 +1,7 @@
 #SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', ( $scope, $location, $rootScope, $modalInstance, Vote ) ->
 SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
-  if $rootScope.sessionSettings.vote.related_exists?
+  if $rootScope.sessionSettings.vote.related_existing?
     $scope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
 
   $scope.saveSupport = ->
@@ -27,7 +27,8 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-        $scope.sessionSettings.actions.proposal.id = null
+#        $scope.sessionSettings.actions.proposal.id = null
+        $scope.sessionSettings.vote = {}
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
       ), (response, status, headers, config) ->
@@ -62,6 +63,7 @@ ImproveController = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, 
       ),  ((response, status, headers, config) ->
         $location.path('/proposals/' + response.id)
         $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+        $scope.sessionSettings.vote = {}
       ),  (response, status, headers, config) ->
         $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
         $scope.alertService.setJson response.data

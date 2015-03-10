@@ -3,8 +3,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   support: ( clicked_proposal ) ->
     $rootScope.sessionSettings.vote =
       target: clicked_proposal
-    $rootScope.sessionSettings.actions.proposal.vote = 'support'
-    $rootScope.sessionSettings.vote.related_exists = null
+#    $rootScope.sessionSettings.actions.proposal.vote = 'support'
+#    $rootScope.sessionSettings.vote.related_existing = null
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.currentUser.id?
@@ -12,7 +12,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
-          $rootScope.sessionSettings.vote.related_exists = relatedSupport
+          $rootScope.sessionSettings.vote.related_existing = relatedSupport
           if relatedSupport.proposal.id == clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
@@ -34,7 +34,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #    scope.current_user_support = null
     $rootScope.sessionSettings.vote =
       parent: clicked_proposal
-    $rootScope.sessionSettings.actions.proposal.vote = 'improve'
+#    $rootScope.sessionSettings.actions.proposal.vote = 'improve'
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.currentUser.id?
@@ -44,8 +44,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #        scope.current_user_support = 'related_proposal' if relatedSupport.id?
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
-
-#        $rootScope.sessionSettings.vote.parent = clicked_proposal
+          $rootScope.sessionSettings.vote.related_existing = relatedSupport
         Focus '#improved_proposal_statement'
 
 #        if $rootScope.sessionSettings.openModals.improveProposal is false

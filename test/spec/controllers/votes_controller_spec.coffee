@@ -66,7 +66,7 @@ describe 'Proposal Support Controller Tests', ->
 
       it 'should initialize scope items', ->
 
-        expect $scope.sessionSettings.vote.related_exists
+        expect $scope.sessionSettings.vote.related_existing
           .toEqual undefined
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -78,11 +78,11 @@ describe 'Proposal Support Controller Tests', ->
         $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
         $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
         $scope = $rootScope.$new()
-        $scope.sessionSettings.vote.related_exists = relatedSupport
+        $scope.sessionSettings.vote.related_existing = relatedSupport
         ctrl = $controller 'SupportController',
           $scope: $scope
 
-        expect $scope.sessionSettings.vote.related_exists
+        expect $scope.sessionSettings.vote.related_existing
           .toEqual relatedSupport
         expect $scope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -92,7 +92,7 @@ describe 'Proposal Support Controller Tests', ->
 
     describe 'saveSupport method', ->
 
-      it 'should properly initialize before saving Support', ->
+      it 'should properly initialize during saving Support', ->
 
         $rootScope.alertService =
           clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
@@ -114,8 +114,8 @@ describe 'Proposal Support Controller Tests', ->
           .toEqual 1
         expect $scope.alertService.setCtlResult.calls.count()
           .toEqual 0
-        expect $scope.vote.proposal_id
-          .toEqual $scope.sessionSettings.vote.target.id
+#        expect $scope.vote.proposal_id
+#          .toEqual $scope.sessionSettings.vote.target.id
         expect $scope.saveSupport
           .toHaveBeenCalled()
 
