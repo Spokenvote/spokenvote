@@ -29,6 +29,7 @@ describe 'Voting Service Tests', ->
           id: 1
           group_name: 'Hacker Dojo'
           formatted_location: 'Mountain View, CA'
+    testTrash = 'Trash should should get killed'
 
     beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
       $rootScope = _$rootScope_
@@ -106,7 +107,7 @@ describe 'Voting Service Tests', ->
 
       it 'should initialize support method with clean Session vote object', ->
 
-        $rootScope.sessionSettings.vote.testTrash = 'kill this trash'
+        $rootScope.sessionSettings.vote.testTrash = 'Trash should should get killed'
 
         VotingService.support clicked_proposal
 
@@ -188,6 +189,21 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
+      it 'should initialize improve method with clean Session vote object', ->
+
+        $rootScope.sessionSettings.vote.extraTrashObject = testTrash
+
+        VotingService.improve clicked_proposal
+
+        $httpBackend
+        .expectGET '/proposals/17/related_vote_in_tree'
+        .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.extraTrashObject
+          .toBe undefined
+
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
@@ -213,7 +229,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        scope.current_user_support = null
+#        scope.current_user_support = null
         VotingService.improve clicked_proposal
 
         $httpBackend

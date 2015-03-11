@@ -1,11 +1,8 @@
 VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
 
   support: ( clicked_proposal ) ->
-    $rootScope.sessionSettings.vote = {}
-#      target: clicked_proposal
-#    $rootScope.sessionSettings.actions.proposal.vote = 'support'
-#    $rootScope.sessionSettings.vote.related_existing = null
     $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.vote = {}
 
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
@@ -20,34 +17,20 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         Focus '#new_vote_comment'
 
 
-#  improve: ( scope, clicked_proposal ) ->
   improve: ( clicked_proposal ) ->
-#    scope.clicked_proposal = clicked_proposal
-#    scope.current_user_support = null
-    $rootScope.sessionSettings.vote =
-      parent: clicked_proposal
-#    $rootScope.sessionSettings.actions.proposal.vote = 'improve'
     $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.vote = {}
 
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', $rootScope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
-#        scope.current_user_support = 'related_proposal' if relatedSupport.id?
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
+        $rootScope.sessionSettings.vote.parent = clicked_proposal
         Focus '#improved_proposal_statement'
 
-#        if $rootScope.sessionSettings.openModals.improveProposal is false
-#          modalInstance = $modal.open
-#            templateUrl: 'proposals/_improve_proposal_modal.html'
-#            controller: 'ImproveCtrl'
-#            scope: scope
-#          modalInstance.opened.then ->
-#            $rootScope.sessionSettings.openModals.improveProposal = true
-#          modalInstance.result.finally ->
-#            $rootScope.sessionSettings.openModals.improveProposal = false
 
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal

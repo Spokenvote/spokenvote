@@ -1,4 +1,3 @@
-#SupportCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Vote', ( $scope, $location, $rootScope, $modalInstance, Vote ) ->
 SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
   $scope.alertService.clearAlerts()
   $scope.vote = {}
@@ -24,16 +23,10 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
     )
 ]
 
-#ImproveCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
-ImproveController = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
+ImproveController = [ '$scope', '$location', 'Proposal', ($scope, $location, Proposal) ->
   $scope.alertService.clearAlerts()
-
-#  if $scope.current_user_support == 'related_proposal'
-#    $scope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $scope, 'main'
-
   $scope.improvedProposal =
     statement: $scope.sessionSettings.vote.parent.statement
-#    statement: $scope.clicked_proposal.statement
 
   $scope.saveImprovement = ->
     improvedProposal =
