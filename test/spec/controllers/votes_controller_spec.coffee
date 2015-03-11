@@ -56,7 +56,6 @@ describe 'Proposal Votes Controllers Tests', ->
       $scope = $rootScope.$new()
       ctrl = $controller 'SupportController',
         $scope: $scope
-#      $scope.sessionSettings.newSupport.vote = new_vote
       $scope.sessionSettings.vote.target = clicked_proposal
 
     afterEach ->
@@ -75,12 +74,13 @@ describe 'Proposal Votes Controllers Tests', ->
             .toEqual 1
           expect $scope.alertService.setCtlResult.calls.count()
             .toEqual 0
+          expect $scope.vote
+            .toEqual {}
 
         it 'should initialize properly WITH related support', ->
 
           $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
           $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
-          $scope = $rootScope.$new()
           $scope.sessionSettings.vote.related_existing = relatedSupport
           ctrl = $controller 'SupportController',
             $scope: $scope
@@ -91,6 +91,15 @@ describe 'Proposal Votes Controllers Tests', ->
             .toEqual 1
           expect $scope.alertService.setInfo.calls.count()
             .toEqual 1
+
+        it 'should initialize properly reset the vote object', ->
+
+          $scope.vote = new_vote
+          ctrl = $controller 'SupportController',
+            $scope: $scope
+
+          expect $scope.vote
+            .toEqual {}
 
       describe 'saveSupport method', ->
 
