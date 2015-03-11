@@ -125,9 +125,9 @@ SessionSettings = ->
     newProposal: {}
     newProposalHub: null
     offcanvas: false
-    proposal:
-      id:  null
-      vote: null
+#    proposal:
+#      id:  null
+#      vote: null
     searchTerm: null
     selectHub: false
     userFilter: null
@@ -135,7 +135,6 @@ SessionSettings = ->
   hub_attributes: {}
   openModals:
     signIn: false
-#    register: false
     register: false
     userSettings: false
     supportProposal: false

@@ -8,27 +8,13 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 
   $scope.saveSupport = ->
     $scope.alertService.clearAlerts()
-#    $rootScope.sessionSettings.newSupport.vote.proposal_id = $rootScope.sessionSettings.vote.target.id
-    $scope.vote.proposal_id = $rootScope.sessionSettings.vote.target.id
-
-#    vote = Vote.save($scope.sessionSettings.newSupport.vote
-#    ,  (response, status, headers, config) ->
-#      $rootScope.$broadcast 'event:votesChanged'
-#      $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-#      $modalInstance.close(response)
-#      $location.path('/proposals/' + response.proposal_id).hash('prop' + $rootScope.sessionSettings.newSupport.vote.proposal_id)
-#    ,  (response, status, headers, config) ->
-#      $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'modal'
-#      $scope.alertService.setJson response.data
-#    )
+    $scope.vote.proposal_id = $scope.sessionSettings.vote.target.id
 
     vote = Vote.save(
-#      ($scope.sessionSettings.newSupport.vote
       ($scope.vote
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
-#        $scope.sessionSettings.actions.proposal.id = null
         $scope.sessionSettings.vote = {}
         $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id

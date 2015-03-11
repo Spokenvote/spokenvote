@@ -87,7 +87,7 @@ describe 'Voting Service Tests', ->
 
     describe 'SUPPORT method should make checks and open SUPPORT row', ->
 
-      it 'should initialize SUPPORT method', ->
+      it 'should initialize Support method', ->
 
         VotingService.support clicked_proposal
 
@@ -103,6 +103,21 @@ describe 'Voting Service Tests', ->
           .toBe undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
+
+      it 'should initialize support method with clean Session vote object', ->
+
+        $rootScope.sessionSettings.vote.testTrash = 'kill this trash'
+
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.testTrash
+          .toBe undefined
 
       it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
         $rootScope.currentUser =
