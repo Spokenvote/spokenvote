@@ -9,10 +9,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
-          $rootScope.sessionSettings.vote.related_existing = relatedSupport
-          if relatedSupport.proposal.id == clicked_proposal.id
+          if relatedSupport.proposal.id is clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
+          $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
+          $rootScope.sessionSettings.vote.related_existing = relatedSupport
         $rootScope.sessionSettings.vote.target = clicked_proposal
         Focus '#new_vote_comment'
 

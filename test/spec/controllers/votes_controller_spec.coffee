@@ -89,31 +89,16 @@ describe 'Proposal Votes Controllers Tests', ->
         $scope.sessionSettings.vote =
           target: clicked_proposal
 
-#      it 'should initialize properly with NO related support', ->
-#
-#        expect $scope.sessionSettings.vote.related_existing
-#          .toEqual undefined
-#        expect $scope.alertService.clearAlerts.calls.count()
-#          .toEqual 1
-#        expect $scope.alertService.setInfo.calls.count()
-#          .toEqual 0
-#        expect $scope.vote
-#          .toEqual {}
-#
-#      it 'should initialize properly WITH related support', ->
-#
-#        $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
-#        $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
-#        $scope.sessionSettings.vote.related_existing = relatedSupport
-#        ctrl = $controller 'SupportController',
-#          $scope: $scope
-#
-#        expect $scope.sessionSettings.vote.related_existing
-#          .toEqual relatedSupport
-#        expect $scope.alertService.clearAlerts.calls.count()
-#          .toEqual 1
-#        expect $scope.alertService.setInfo.calls.count()
-#          .toEqual 1
+      it 'should initialize properly', ->
+
+        expect $scope.sessionSettings.vote.related_existing
+          .toEqual undefined
+        expect $scope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $scope.alertService.setInfo.calls.count()
+          .toEqual 0
+        expect $scope.vote
+          .toEqual {}
 
       it 'should initialize properly reset the vote object', ->
 

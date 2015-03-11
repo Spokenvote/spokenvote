@@ -2,33 +2,31 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
   $scope.alertService.clearAlerts()
   $scope.vote = {}
 
-  if $rootScope.sessionSettings.vote.related_existing?
-    $scope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $scope, 'main'
-
   $scope.saveSupport = ->
     $scope.alertService.clearAlerts()
     $scope.vote.proposal_id = $scope.sessionSettings.vote.target.id
 
     vote = Vote.save(
       ($scope.vote
-      ), ((response, status, headers, config) ->
+      ), (( response, status, headers, config ) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your vote was created with the comment: \"' + response.comment + '\"', $scope, 'main'
         $scope.sessionSettings.vote = {}
-        $location.path("/proposals/" + response.proposal_id)    # Angular empty hash bug
+        $location.path( "/proposals/" + response.proposal_id )    # Angular empty hash bug
 #        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
-      ), (response, status, headers, config) ->
+      ), ( response, status, headers, config ) ->
         $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'main'
         $scope.alertService.setJson response.data
     )
 ]
 
-ImproveController = [ '$scope', '$location', 'Proposal', ($scope, $location, Proposal) ->
+ImproveController = [ '$scope', '$location', 'Proposal', ( $scope, $location, Proposal ) ->
   $scope.alertService.clearAlerts()
   $scope.improvedProposal =
     statement: $scope.sessionSettings.vote.parent.statement
 
   $scope.saveImprovement = ->
+    $scope.alertService.clearAlerts()
     improvedProposal =
       proposal:
         parent_id: $scope.sessionSettings.vote.parent.id
@@ -36,15 +34,13 @@ ImproveController = [ '$scope', '$location', 'Proposal', ($scope, $location, Pro
         votes_attributes:
           comment: $scope.improvedProposal.comment
 
-    $scope.alertService.clearAlerts()
-
     improvedProposal = Proposal.save(
       (improvedProposal
-      ),  ((response, status, headers, config) ->
-        $location.path('/proposals/' + response.id)
+      ),  (( response, status, headers, config ) ->
+        $location.path( '/proposals/' + response.id )
         $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
         $scope.sessionSettings.vote = {}
-      ),  (response, status, headers, config) ->
+      ),  ( response, status, headers, config ) ->
         $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
         $scope.alertService.setJson response.data
     )

@@ -86,7 +86,7 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
 
 
-    describe 'SUPPORT method should make checks and open SUPPORT row', ->
+    describe 'SUPPORT method should make checks and open SUPPORT area', ->
 
       it 'should initialize Support method', ->
 
@@ -141,14 +141,14 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.related_existing
-          .toEqual jasmine.objectContaining relatedSupport
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setInfo
           .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'Good news, it looks as if you have already supported this proposal.'
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then set values for voting', ->
+      it 'should check and FIND related support, but NOT from this user on THIS proposal, then set values for voting', ->
 
         expect $rootScope.sessionSettings.vote.related_existing
           .toEqual undefined
@@ -168,6 +168,41 @@ describe 'Voting Service Tests', ->
           .toBeDefined()
         expect $rootScope.sessionSettings.vote.related_existing.proposal.id
           .toEqual 8
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'We found support from you on another proposal.'
+
+      it 'should check and find NO related support from this user on this proposal, then set values for voting', ->
+
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBeUndefined()
+
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBeUndefined()
+
+      it 'should open Support area', ->
+
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.parent
+          .toEqual undefined
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
 
 
     describe 'IMPROVE method should make checks and open IMPROVE area', ->
@@ -228,8 +263,6 @@ describe 'Voting Service Tests', ->
           .toEqual 0
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
-        relatedSupport.proposal.id = 17
-#        scope.current_user_support = null
         VotingService.improve clicked_proposal
 
         $httpBackend
@@ -245,15 +278,8 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
           .toContain 'We found support from you on another proposal.'
 
-#        expect scope.current_user_support
-#          .toEqual 'related_proposal'
+      it 'should open Improve area', ->
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open Improve area', ->
-
-#        expect $rootScope.sessionSettings.openModals.improveProposal
-#          .toEqual false
-
-        relatedSupport.proposal.id = 8
         VotingService.improve clicked_proposal
 
         $httpBackend
@@ -262,24 +288,10 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-#        openModalArgs =
-#          templateUrl: 'proposals/_improve_proposal_modal.html'
-#          controller: 'ImproveCtrl'
-#          scope: scope
-
-#        expect $modal.open
-#          .toHaveBeenCalledWith openModalArgs
-#        expect modalInstance.opened.then
-#          .toHaveBeenCalled
-#        expect modalInstance.result.finally
-#          .toHaveBeenCalled
-#        expect $rootScope.sessionSettings.openModals.improveProposal
-#          .toEqual true
-
-#        modalInstance.result.finallyCallback()
-#
-#        expect $rootScope.sessionSettings.openModals.improveProposal
-#          .toEqual false
+        expect $rootScope.sessionSettings.vote.parent
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual undefined
 
 
     describe 'EDIT method should make checks and open EDIT modal', ->
