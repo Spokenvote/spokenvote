@@ -1,8 +1,8 @@
 Focus = ($timeout) ->
   (id) ->
     $timeout ->
-      element = angular.element id
-      element.focus()  if element
+      element = angular.element( document.querySelector id )
+      element[0].focus()  if element
 #      console.log 'Focus Utility element: ', element
 
 # Register
