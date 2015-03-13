@@ -4,7 +4,10 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $sco
 #  $scope.proposal = proposal
   $scope.alertService.clearAlerts()
 
-#  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
+  $scope.$on 'focusHubFilter', ->
+    console.log 'focusHubFilter Triggered '
+
+  #  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
@@ -39,6 +42,10 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $sco
 #      element.focus()
     Focus '#vote_comment'
 
+  $scope.setInputFocus = ->
+    $scope.$broadcast 'focusHubFilter'
+
+
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.focus = 'hub'
@@ -49,13 +56,14 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $sco
     else if $scope.sessionSettings.hub_attributes.id
       $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
-    console.log 'hubstep: '
-
+#    console.log 'hubstep: '
+    $scope.$broadcast 'focusHubFilter'
 #    Focus '.ui-select-focusser'
 
-    $timeout ->
-      element = angular.element '.ui-select-focusser'
-      element.focus()  if element
+
+#    $timeout ->
+#      element = angular.element '.ui-select-focusser'
+#      element.focus()  if element
 
 #    $timeout ->
 #      Focus 'input.ui-select-focusser'
