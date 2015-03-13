@@ -38,9 +38,11 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   else
     Focus 'proposal_statement'
 
-  $scope.commentStep = ->
-    $scope.sessionSettings.actions.newProposal.comment = 'active'
-    Focus 'vote_comment'
+  $scope.commentStep = ( proposal_id)  ->
+    console.log 'comment step: '
+    $scope.sessionSettings.actions.focus = 'comment'
+#    $scope.sessionSettings.actions.proposal.id = proposal_id
+    Focus '#new_vote_comment'
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
@@ -78,10 +80,12 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 
   $scope.improve = ( clicked_proposal ) ->
     if $scope.currentUser.id?
-      $scope.votingService.improve $scope, clicked_proposal
+      $scope.votingService.improve clicked_proposal
+#      $scope.votingService.improve $scope, clicked_proposal
     else
       $scope.authService.signinFb($scope).then ->
-        $scope.votingService.improve $scope, clicked_proposal
+        $scope.votingService.improve clicked_proposal
+#        $scope.votingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     $scope.votingService.edit $scope, clicked_proposal

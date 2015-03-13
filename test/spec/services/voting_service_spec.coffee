@@ -10,6 +10,7 @@ describe 'Voting Service Tests', ->
     $location = undefined
     $modal = undefined
     modalInstance = undefined
+    Focus = undefined
     scope = undefined
     clicked_proposal =
       id: 17
@@ -19,11 +20,16 @@ describe 'Voting Service Tests', ->
           comment: 'Why you should vote for this proposal'
     relatedSupport =
       id: 122
+      comment: 'Have to give reason now ...'
+      created_at: '2013-10-31 23:36:57 UTC'
       proposal:
         id: 8
         statement: 'Related proposal statement'
-        votes_attributes:
-          comment: 'Why you should vote for this related proposal'
+        hub:
+          id: 1
+          group_name: 'Hacker Dojo'
+          formatted_location: 'Mountain View, CA'
+    testTrash = 'Trash should should get killed'
 
     beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
       $rootScope = _$rootScope_
@@ -31,6 +37,7 @@ describe 'Voting Service Tests', ->
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
+      Focus = jasmine.createSpy 'Focus'
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -54,6 +61,12 @@ describe 'Voting Service Tests', ->
       spyOn $modal, 'open'
         .and.returnValue modalInstance
 
+#      jasmine.createSpy 'Focus'
+
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
     it 'should initialize methods', ->
       expect VotingService.support
         .toBeDefined()
@@ -73,21 +86,44 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
 
 
-    describe 'SUPPORT method should make checks and open SUPPORT modal', ->
+    describe 'SUPPORT method should make checks and open SUPPORT area', ->
 
-      it 'should initialize SUPPORT method', ->
+      it 'should initialize Support method', ->
+
         VotingService.support clicked_proposal
 
-        expect $rootScope.sessionSettings.newSupport.target
-          .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.newSupport.related
-          .toBe null
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.target
+          .toBe clicked_proposal
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBe undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
+
+      it 'should initialize support method with clean Session vote object', ->
+
+        $rootScope.sessionSettings.vote.testTrash = 'Trash should should get killed'
+
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.testTrash
+          .toBe undefined
 
       it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
+
         VotingService.support clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
@@ -95,7 +131,8 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        $rootScope.sessionSettings.newSupport.related = null
+        $rootScope.sessionSettings.vote.related_existing = null
+
         VotingService.support clicked_proposal
 
         $httpBackend
@@ -104,17 +141,17 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newSupport.related
-          .toEqual jasmine.objectContaining relatedSupport
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setInfo
           .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'Good news, it looks as if you have already supported this proposal.'
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+      it 'should check and FIND related support, but NOT from this user on THIS proposal, then set values for voting', ->
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
-          .toEqual false
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toEqual undefined
 
         relatedSupport.proposal.id = 8
         VotingService.support clicked_proposal
@@ -125,52 +162,108 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        openModalArgs =
-          templateUrl: 'proposals/_support_modal.html'
-          controller: 'SupportCtrl'
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.related_existing.proposal
+          .toBeDefined()
+        expect $rootScope.sessionSettings.vote.related_existing.proposal.id
+          .toEqual 8
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'We found support from you on another proposal.'
 
-        expect $rootScope.sessionSettings.newSupport.related.proposal.id    # Probably not relevant
-          .not.toEqual 17
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.supportProposal
-          .toEqual true
+      it 'should check and find NO related support from this user on this proposal, then set values for voting', ->
 
-        modalInstance.result.finallyCallback()
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBeUndefined()
 
-        expect $rootScope.sessionSettings.openModals.supportProposal
-          .toEqual false
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toBeUndefined()
+
+      it 'should open Support area', ->
+
+        VotingService.support clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond relatedSupport
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.parent
+          .toEqual undefined
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual clicked_proposal
 
 
-    describe 'IMPROVE method should make checks and open IMPROVE modal', ->
+    describe 'IMPROVE method should make checks and open IMPROVE area', ->
 
       it 'should initialize IMPROVE method', ->
-        VotingService.improve scope, clicked_proposal
 
-        expect scope.clicked_proposal
+        VotingService.improve clicked_proposal
+
+        $httpBackend
+        .expectGET '/proposals/17/related_vote_in_tree'
+        .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.parent
           .toEqual clicked_proposal
-        expect scope.current_user_support
-          .toEqual null
+        expect $rootScope.sessionSettings.vote.related_existing
+          .toEqual undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
+
+      it 'should initialize improve method with clean Session vote object', ->
+
+        $rootScope.sessionSettings.vote.extraTrashObject = testTrash
+
+        VotingService.improve clicked_proposal
+
+        $httpBackend
+        .expectGET '/proposals/17/related_vote_in_tree'
+        .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.vote.extraTrashObject
+          .toBe undefined
 
       it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        $rootScope.sessionSettings.newSupport.related = null
-        VotingService.improve scope, clicked_proposal
+        $rootScope.sessionSettings.vote.related_existing = null
+
+        VotingService.improve clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
 
+      it 'should check and NOT find an existing vote from this user on this proposal', ->
+
+        VotingService.improve clicked_proposal
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 0
+
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
-        relatedSupport.proposal.id = 17
-        scope.current_user_support = null
-        VotingService.improve scope, clicked_proposal
+        VotingService.improve clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -178,16 +271,16 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect scope.current_user_support
-          .toEqual 'related_proposal'
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setInfo
+          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+        expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
+          .toContain 'We found support from you on another proposal.'
 
-      it 'should check and FIND NO existing vote from THIS user on THIS proposal, then open modal', ->
+      it 'should open Improve area', ->
 
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual false
-
-        relatedSupport.proposal.id = 8
-        VotingService.improve scope, clicked_proposal
+        VotingService.improve clicked_proposal
 
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
@@ -195,24 +288,10 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        openModalArgs =
-          templateUrl: 'proposals/_improve_proposal_modal.html'
-          controller: 'ImproveCtrl'
-          scope: scope
-
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual true
-
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.improveProposal
-          .toEqual false
+        expect $rootScope.sessionSettings.vote.parent
+          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.vote.target
+          .toEqual undefined
 
 
     describe 'EDIT method should make checks and open EDIT modal', ->
@@ -446,9 +525,8 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Success'
 
-        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -469,20 +547,17 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
-          .and.returnValue 'Success'
 
-        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()
           .toEqual 0
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 0
         expect Proposal.save
           .toHaveBeenCalled()
 
-      it 'should check for EXISTING HUB, FIND one, and save the New Proposal', ->
+      it 'should check for EXISTING HUB, FIND one, and pass correct args to the SAVE New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
           formatted_location: 'Atlanta, GA'
@@ -490,8 +565,6 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
           comment: 'A million reasons to vote for this guy!'
-
-        $rootScope.sessionSettings.openModals.newProposal = true
 
         expectedProposalSaveArgs =
           proposal:
@@ -504,34 +577,82 @@ describe 'Voting Service Tests', ->
               formatted_location: 'Atlanta, GA'
 
         spyOn Proposal, 'save'
-          .and.returnValue 'Success'
+          .and.callThrough()
 
-        VotingService.saveNewProposal modalInstance
+        VotingService.saveNewProposal()
 
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 0
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond relatedSupport
+
+        $httpBackend.flush()
+
         expect Proposal.save
           .toHaveBeenCalled()
         expect Proposal.save.calls.mostRecent().args[0]
           .toEqual expectedProposalSaveArgs
 
+      it 'should check for exiting hub, find one, and POST the New Proposal', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+      it 'should check for exiting hub, find one, save and ALERT the New Proposal was saved', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+
       it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
-        $rootScope.sessionSettings.openModals.newProposal = true
 
         response =
           id: 2045
           statement: 'An awesome new proposal. Vote for it!'
+#          comment: 'A million reasons to vote for this guy!'
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Success'
+          .and.callThrough()
 
-#        VotingService.saveNewProposal modalInstance
         VotingService.saveNewProposal()
-        Proposal.save.calls.mostRecent().args[1] response
+#        Proposal.save.calls.mostRecent().args[1] response
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201, response
+
+        $httpBackend.flush()
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
@@ -539,26 +660,48 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain response.statement
-#        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
-#          .toEqual '/proposals/2045?filter=my#navigationBar'
-#        expect modalInstance.close
-#          .toHaveBeenCalledWith response
         expect $rootScope.sessionSettings.actions.offcanvas
           .toEqual false
 
-      it 'Proposal.save should execute correct FAILURE callback', ->
+      it 'Proposal.save should save the New Proposal and navigate to the correct LOCATION', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
-        $rootScope.sessionSettings.openModals.newProposal = true
+
+        response =
+          id: 2045
+          statement: 'An awesome new proposal. Vote for it!'
+#          comment: 'A million reasons to vote for this guy!'
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201, response
+
+        $httpBackend.flush()
+
+        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
+          .toEqual '/proposals/2045?filter=my'
+#        expect $location.url()                               # TODO bug in Angular 1.29 that will be fixed with 1.3
+#          .toEqual '/proposals/2045?filter=my#navigationBar'
+
+      it 'Proposal.save should execute correct FAILURE callback and ALERTS', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
 
         response =
           data: 'There was a server error!'
 
         spyOn Proposal, 'save'
-          .and.returnValue status: 'Error'
+          .and.callThrough()
 
-        VotingService.saveNewProposal modalInstance
-        Proposal.save.calls.mostRecent().args[2] response
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 422, response
+
+        $httpBackend.flush()
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
@@ -569,4 +712,4 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setJson.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
-          .toContain response.data
+          .toEqual response

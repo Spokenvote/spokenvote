@@ -57,17 +57,52 @@
 
 .main-proposal {
   .stats {
-//    float: right;                // Feb 9, 2015 show changes
-//    padding-left: 14px;
-//    margin-top: -2px;
+    //    float: right;                // Feb 9, 2015 show changes
+    //    padding-left: 14px;
+    //    margin-top: -2px;
+    //  width: 30px;
+    //  height: 38px;
+    //  height: 3em;
+    //  margin-right: 12px;
+    //  float: left;
+  }
+  .box {
+    text-align: center;
+    width: 2em;
+    color: $soft-grey;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 5 auto;
+    &:hover {
+      border: 1px solid #4F8EF7;
+      color: #4F8EF7;
+      cursor: pointer;
+    }
+  }
+  .votes {
+//    color: $soft-grey;
+
+    .fa.fa-sort-up {
+      font-size: 1.25em;
+      padding-top: .1em;
+      margin-bottom: -8px;
+    }
     .big-percent {
-      text-align: left;
-//      text-align: right;
-      margin: -8px 0 0 0;
-      font-size: 1.5em;
-//      font-size: 2.2em;
+      font-size: .8em;
+      margin: -.15em auto 0;
       font-weight: bold;
-      color: $happy-blue;
+      .pct {
+        font-size: .5em;
+        vertical-align: super;
+        margin-right: -.8em;
+      }
+      //      padding-left: .25em;
+      //      text-align: left;
+      //      text-align: right;
+      //      margin: -8px 0 0 0;
+//      font-size: 1.5em;
+//      font-size: 2.2em;
+//      color: $happy-blue;
     }
 //    .shares {                  // Feb 9, 2015 show changes
 //      padding: 0 5px 5px 5px;
@@ -75,6 +110,14 @@
 //        font-size: .9em;
 //      }
 //    }
+  }
+  .fork {
+    border: 1px solid $superLightBoxGrey;
+//    border: 1px solid rgba(204, 204, 204, 0.78);
+    .fa.fa-lightbulb-o {
+      font-size: 1.25em;
+      padding: 1px;
+    }
   }
 }
 
@@ -115,7 +158,8 @@
 }
 
 .supporter-avatar {
-  float: left;
+//  float: left;
+  width: 100%;
   //margin-right: 13px;
   img {
     @include border-radius(3px);
@@ -136,7 +180,7 @@
     padding-top: 10px;
   }
   votes {
-    font-size: 80%;
+    font-size: 50%;
     font-weight: normal;
     color: $soft-grey;
   }
@@ -169,7 +213,8 @@
 }
 
 .improve_support_buttons {
-  padding: 5px;
+//  padding: 5px;
+
   .btn-support {
     background-color: hsl(211, 92%, 46%) !important;
     background-repeat: repeat-x;

@@ -1,48 +1,37 @@
-VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
 
   support: ( clicked_proposal ) ->
-    $rootScope.sessionSettings.newSupport.target = clicked_proposal
-    $rootScope.sessionSettings.newSupport.related = null
     $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.vote = {}
 
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
-          $rootScope.sessionSettings.newSupport.related = relatedSupport
-          if relatedSupport.proposal.id == clicked_proposal.id
+          if relatedSupport.proposal.id is clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
             return
-        if $rootScope.sessionSettings.openModals.supportProposal is false
-          modalInstance = $modal.open
-            templateUrl: 'proposals/_support_modal.html'
-            controller: 'SupportCtrl'
-          modalInstance.opened.then ->
-            $rootScope.sessionSettings.openModals.supportProposal = true
-          modalInstance.result.finally ->
-            $rootScope.sessionSettings.openModals.supportProposal = false
+          $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
+          $rootScope.sessionSettings.vote.related_existing = relatedSupport
+        $rootScope.sessionSettings.vote.target = clicked_proposal
+        Focus '#new_vote_comment'
 
-  improve: ( scope, clicked_proposal ) ->
-    scope.clicked_proposal = clicked_proposal
-    scope.current_user_support = null
+
+  improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.vote = {}
 
     if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', scope, 'main'
+      $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', $rootScope, 'main'
     else
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
-        scope.current_user_support = 'related_proposal' if relatedSupport.id?
+        if relatedSupport.id?
+          $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
+          $rootScope.sessionSettings.vote.related_existing = relatedSupport
+        $rootScope.sessionSettings.vote.parent = clicked_proposal
+        Focus '#improved_proposal_statement'
 
-        if $rootScope.sessionSettings.openModals.improveProposal is false
-          modalInstance = $modal.open
-            templateUrl: 'proposals/_improve_proposal_modal.html'
-            controller: 'ImproveCtrl'
-            scope: scope
-          modalInstance.opened.then ->
-            $rootScope.sessionSettings.openModals.improveProposal = true
-          modalInstance.result.finally ->
-            $rootScope.sessionSettings.openModals.improveProposal = false
 
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
@@ -123,7 +112,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       if $rootScope.sessionSettings.hub_attributes.formatted_location? and $rootScope.sessionSettings.actions.searchTerm?
         $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.searchTerm
       else
-        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'modal'
+        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
         return
     newProposal =
       proposal:

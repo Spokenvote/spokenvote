@@ -144,6 +144,8 @@ textarea {
 .currentuser-avatar {
   img {
     @include border-radius(2px);
+    margin: 5px auto;
+    width: 50px;
   }
 }
 
@@ -190,11 +192,13 @@ h3 {
 #alertContainer {
 
   .pageAlert {
-    @extend .col-xs-9;
+    @extend .col-xs-11;
+//    @extend .col-xs-9;
+    max-width: $container-fluid-max-width;
     position: fixed;
     opacity: .95;
     z-index: 20000;
-    left: 12.5%;
+//    left: 12.5%;
   }
 
   .modalAlert {

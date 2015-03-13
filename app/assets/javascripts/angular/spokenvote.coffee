@@ -32,7 +32,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     )
     .when( '/start'
       title: 'Group Consensus Voting Tool'
-      templateUrl: 'pages/get_started.html'
+      templateUrl: 'proposals/get_started.html'
       controller: 'StartController'
       callToAction: 'Start Making Group Decisions'
       resolve:

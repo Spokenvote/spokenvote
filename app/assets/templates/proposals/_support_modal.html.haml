@@ -6,9 +6,9 @@
     .selectedHub
       %span
         .groupName
-          {{ sessionSettings.newSupport.target.hub.group_name }}
+          {{ sessionSettings.vote.target.hub.group_name }}
         .groupLocation
-          {{ sessionSettings.newSupport.target.hub.formatted_location }}
+          {{ sessionSettings.vote.target.hub.formatted_location }}
 
   .modal-body
     #alertContainer
@@ -24,7 +24,7 @@
         .form-group
           %h5 Proposal Statement
           .originalProposal
-            %h4 {{ sessionSettings.newSupport.target.statement }}
+            %h4 {{ sessionSettings.vote.target.statement }}
 
         .text_input
           .form-group

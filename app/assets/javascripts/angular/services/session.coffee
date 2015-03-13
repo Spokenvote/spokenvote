@@ -120,17 +120,21 @@ SessionSettings = ->
     hubFilter: 'All Groups'
     hubPlaceholder: 'Search for your Group ...'
     hubShow: true
-    userFilter: null
+    improveProposal:
+      parent: null
     newProposal: {}
     newProposalHub: null
     offcanvas: false
+#    proposal:
+#      id:  null
+#      vote: null
     searchTerm: null
     selectHub: false
+    userFilter: null
     wizardToGroup: null
   hub_attributes: {}
   openModals:
     signIn: false
-    register: false
     register: false
     userSettings: false
     supportProposal: false
@@ -140,13 +144,16 @@ SessionSettings = ->
     deleteProposal: false
     getStarted: false
   proposal: null
+  vote: {}
+#    related_exists: null
+#    target: null
   searchedHub: {}
   routeParams: {}
   newProposal: {}
-  newSupport:
-    target: {}
-    related: {}
-    save: {}
+#  newSupport:
+#    related: null
+#    target: null
+#    vote: null
   lastLocation:
     location_id: null
     formatted_location: null
