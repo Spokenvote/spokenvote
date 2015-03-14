@@ -236,13 +236,16 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
     keyboard: true
     windowClass: ''  # additional CSS class(es) to be added to a modal window template
 
-  jQuery ->
-    $('body').prepend('<div id="fb-root"></div>')
+  angular.element( document.querySelector 'body' )
+    .prepend '<div id="fb-root"></div>'
 
-    $.ajax
-      url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
-      dataType: 'script'
-      cache: true
+#  jQuery ->
+#    $('body').prepend('<div id="fb-root"></div>')
+
+#    $.ajax
+#      url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
+#      dataType: 'script'
+#      cache: true
 ]
 
 window.App = angular.module('spokenvote', [

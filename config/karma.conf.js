@@ -15,7 +15,7 @@ module.exports = function(config) {
     files: [
 
         // app dependencies
-        'vendor/assets/bower_components/jQuery/dist/jquery.min.js',
+        //'vendor/assets/bower_components/jQuery/dist/jquery.min.js',
         'vendor/assets/bower_components/underscore/underscore-min.js',
         'vendor/assets/bower_components/angular/angular.js',
         'vendor/assets/bower_components/angular-resource/angular-resource.js',

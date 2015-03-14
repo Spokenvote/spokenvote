@@ -10,7 +10,7 @@
 // require bootstrap/popover
 // require bootstrap/tab
 
-//= require bootstrap/transition
+// require bootstrap/transition     // Removed Mar 13, 2015. Not sure was even being used, think not.
 // require bootstrap/collapse
 
 //= require angular/angular

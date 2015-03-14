@@ -87,8 +87,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
         $scope.sessionSettings.hub_attributes = {}
         $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
         $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
-        angular.element('.select2-dropdown-open').select2 'close'
-        angular.element('#newProposalHub').select2('data', null)
+#        angular.element('.select2-dropdown-open').select2 'close'   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
+#        angular.element('#newProposalHub').select2('data', null)   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
         if !$scope.currentUser.id?
           $scope.authService.signinFb($scope).then ->
             if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
@@ -134,8 +134,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.sessionSettings.hub_attributes = {}
       $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
       $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
-      angular.element('.select2-dropdown-open').select2 'close'
-      angular.element('#newProposalHub').select2('data', null)
+#      angular.element('.select2-dropdown-open').select2 'close'   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
+#      angular.element('#newProposalHub').select2('data', null)   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
       if !$scope.currentUser.id?
         $scope.authService.signinFb($scope).then ->
           if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
