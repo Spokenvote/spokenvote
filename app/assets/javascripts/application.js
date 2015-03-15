@@ -20,18 +20,19 @@
 //= require angular-cookies/angular-cookies
 //= require angular-sanitize/angular-sanitize
 
+// require angular-ui-select2/src/select2
+
 // require angular-ui    // below replaces this
 //= require angular-ui-utils/ui-utils.min
-//= require angular-ui-select2/src/select2
 //= require angular-ui-select/dist/select
 //= require angular-ui-bootstrap/src/modal/modal
-// require angular-ui-bootstrap/src/collapse/collapse
 //= require angular-ui-bootstrap/src/transition/transition
 //= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
 //= require angular-ui-bootstrap/src/tooltip/tooltip
 //= require angular-ui-bootstrap/src/bindHtml/bindHtml
 //= require angular-ui-bootstrap/src/position/position
 //= require angular-ui-bootstrap/src/buttons/buttons
+// require angular-ui-bootstrap/src/collapse/collapse
 
 //= require angular-rails-templates
 //= require_tree ../templates

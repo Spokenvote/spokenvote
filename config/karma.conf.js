@@ -32,7 +32,7 @@ module.exports = function(config) {
         'vendor/assets/bower_components/angular-ui-bootstrap/src/position/position.js',
         'vendor/assets/bower_components/angular-ui-bootstrap/src/buttons/buttons.js',
         'vendor/assets/bower_components/angular-ui-utils/ui-utils.js',
-        'vendor/assets/bower_components/angular-ui-select2/src/select2.js',
+        //'vendor/assets/bower_components/angular-ui-select2/src/select2.js',
         'vendor/assets/bower_components/angular-ui-select/dist/select.js',
 //        'vendor/assets/bower_components/angulartics/dist/angulartics.min.js',     # not working
 //        'vendor/assets/bower_components/angulartics/dist/angulartics-ga.min.js',  # https://github.com/luisfarzati/angulartics/issues/181
