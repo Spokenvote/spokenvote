@@ -34,11 +34,11 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
 
-  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
-    $scope.sessionSettings.actions.focus = 'publish'
-    Focus 'publish'
-  else
-    Focus '#proposal_statement'
+#  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
+#    $scope.sessionSettings.actions.focus = 'publish'
+#    Focus '#publish'
+#  else
+#    Focus '#proposal_statement'
 
   $scope.commentStep = ( proposal_id)  ->
     console.log 'comment step: '

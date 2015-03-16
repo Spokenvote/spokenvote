@@ -239,19 +239,13 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
   angular.element( document.querySelector 'body' )
     .prepend '<div id="fb-root"></div>'
 
-#  jQuery ->
-#    $('body').prepend('<div id="fb-root"></div>')
-
-#    $.ajax
-#      url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
-#      dataType: 'script'
-#      cache: true
 ]
 
 window.App = angular.module('spokenvote', [
     'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
-    'ui.select2', 'ui.select', 'ui.utils',
+    'ui.select', 'ui.utils',
+#    'ui.select2', 'ui.select', 'ui.utils',
     'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip', 'ui.bootstrap.buttons'
     'spokenvote.services', 'spokenvote.directives',
     'angulartics', 'angulartics.google.analytics'

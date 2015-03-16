@@ -4,6 +4,7 @@ html ng-app='spokenvote'
       window.prerenderReady = false;
 
     title ng-bind='page.title'
+    base href='/'
 
     meta content='!' name='fragment'
     meta ng-if='route.current.prerenderStatusCode' name='prerender-status-code' content='{{ route.current.prerenderStatusCode }}'
