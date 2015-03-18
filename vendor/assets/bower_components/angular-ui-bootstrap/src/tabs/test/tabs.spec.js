@@ -37,26 +37,23 @@ describe('tabs', function() {
       scope.deselectFirst = jasmine.createSpy();
       scope.deselectSecond = jasmine.createSpy();
       elm = $compile([
-        '<div>',
-        '  <tabset class="hello" data-pizza="pepperoni">',
-        '    <tab heading="First Tab {{first}}" active="actives.one" select="selectFirst()" deselect="deselectFirst()">',
-        '      first content is {{first}}',
-        '    </tab>',
-        '    <tab active="actives.two" select="selectSecond()" deselect="deselectSecond()">',
-        '      <tab-heading><b>Second</b> Tab {{second}}</tab-heading>',
-        '      second content is {{second}}',
-        '    </tab>',
-        '  </tabset>',
-        '</div>'
+        '<tabset class="hello" data-pizza="pepperoni">',
+        '  <tab heading="First Tab {{first}}" active="actives.one" select="selectFirst()" deselect="deselectFirst()">',
+        '    first content is {{first}}',
+        '  </tab>',
+        '  <tab active="actives.two" select="selectSecond()" deselect="deselectSecond()">',
+        '    <tab-heading><b>Second</b> Tab {{second}}</tab-heading>',
+        '    second content is {{second}}',
+        '  </tab>',
+        '</tabset>'
       ].join('\n'))(scope);
       scope.$apply();
       return elm;
     }));
 
     it('should pass class and other attributes on to tab template', function() {
-      var tabbable = elm.find('.tabbable');
-      expect(tabbable).toHaveClass('hello');
-      expect(tabbable.attr('data-pizza')).toBe('pepperoni');
+      expect(elm).toHaveClass('hello');
+      expect(elm.attr('data-pizza')).toBe('pepperoni');
     });
 
     it('should create clickable titles', function() {
@@ -73,7 +70,7 @@ describe('tabs', function() {
       expect(titles().eq(0)).toHaveClass('active');
       expect(titles().eq(1)).not.toHaveClass('active');
       expect(scope.actives.one).toBe(true);
-      expect(scope.actives.two).toBe(false);
+      expect(scope.actives.two).toBeFalsy();
     });
 
     it('should change active on click', function() {
@@ -99,7 +96,6 @@ describe('tabs', function() {
       titles().eq(1).find('a').click();
       expect(scope.deselectFirst).toHaveBeenCalled();
     });
-
   });
 
   describe('basics with initial active tab', function() {
@@ -150,6 +146,48 @@ describe('tabs', function() {
     it('should make tab titles and set active tab active', function() {
       expect(titles().length).toBe(scope.tabs.length);
       expectTabActive(scope.tabs[2]);
+    });
+  });
+
+  describe('tab callback order', function() {
+    var execOrder;
+    beforeEach(inject(function($compile, $rootScope) {
+      scope = $rootScope.$new();
+      execOrder = [];
+      scope.actives = {};
+
+      scope.execute = function(id) {
+        execOrder.push(id);
+      };
+
+      elm = $compile([
+        '<div>',
+        '  <tabset class="hello" data-pizza="pepperoni">',
+        '    <tab heading="First Tab" active="actives.one" select="execute(\'select1\')" deselect="execute(\'deselect1\')"></tab>',
+        '    <tab select="execute(\'select2\')" deselect="execute(\'deselect2\')"></tab>',
+        '  </tabset>',
+        '</div>'
+      ].join('\n'))(scope);
+      scope.$apply();
+      return elm;
+    }));
+
+    it('should call select  for the first tab', function() {
+        expect(execOrder).toEqual([ 'select1' ]);
+    });
+
+    it('should call deselect, then select', function() {
+          execOrder = [];
+
+          // Select second tab
+          titles().eq(1).find('a').click();
+          expect(execOrder).toEqual([ 'deselect1', 'select2' ]);
+
+          execOrder = [];
+
+          // Select again first tab
+          titles().eq(0).find('a').click();
+          expect(execOrder).toEqual([ 'deselect2', 'select1' ]);
     });
   });
 
@@ -232,7 +270,7 @@ describe('tabs', function() {
   describe('advanced tab-heading element', function() {
     beforeEach(inject(function($compile, $rootScope, $sce) {
       scope = $rootScope.$new();
-      scope.myHtml = $sce.trustAsHtml("<b>hello</b>, there!");
+      scope.myHtml = $sce.trustAsHtml('<b>hello</b>, there!');
       scope.value = true;
       elm = $compile([
         '<tabset>',
@@ -253,7 +291,7 @@ describe('tabs', function() {
     }
 
     it('should create a heading bound to myHtml', function() {
-      expect(heading().eq(0).html()).toBe("<b>hello</b>, there!");
+      expect(heading().eq(0).html()).toBe('<b>hello</b>, there!');
     });
 
     it('should hide and show the heading depending on value', function() {
@@ -278,9 +316,9 @@ describe('tabs', function() {
     beforeEach(inject(function($compile, $rootScope) {
       scope = $rootScope.$new();
       scope.tabs = [
-        { title:"Title 1", available:true },
-        { title:"Title 2", available:true },
-        { title:"Title 3", available:true }
+        { title:'Title 1', available:true },
+        { title:'Title 2', available:true },
+        { title:'Title 3', available:true }
       ];
       elm = $compile([
         '<tabset>',
@@ -332,28 +370,32 @@ describe('tabs', function() {
       scope.$apply('tabs[2].available=true');
       scope.$digest();
       expect(titles().length).toBe(9);
-      expect(titles().eq(0).text().trim()).toBe("first");
-      expect(titles().eq(1).text().trim()).toBe("Title 1");
-      expect(titles().eq(2).text().trim()).toBe("Title 2");
-      expect(titles().eq(3).text().trim()).toBe("Title 3");
-      expect(titles().eq(4).text().trim()).toBe("mid");
-      expect(titles().eq(5).text().trim()).toBe("Second Title 1");
-      expect(titles().eq(6).text().trim()).toBe("Second Title 2");
-      expect(titles().eq(7).text().trim()).toBe("Second Title 3");
-      expect(titles().eq(8).text().trim()).toBe("last");
+      expect(titles().eq(0).text().trim()).toBe('first');
+      expect(titles().eq(1).text().trim()).toBe('Title 1');
+      expect(titles().eq(2).text().trim()).toBe('Title 2');
+      expect(titles().eq(3).text().trim()).toBe('Title 3');
+      expect(titles().eq(4).text().trim()).toBe('mid');
+      expect(titles().eq(5).text().trim()).toBe('Second Title 1');
+      expect(titles().eq(6).text().trim()).toBe('Second Title 2');
+      expect(titles().eq(7).text().trim()).toBe('Second Title 3');
+      expect(titles().eq(8).text().trim()).toBe('last');
     });
   });
 
   describe('tabset controller', function() {
     function mockTab(isActive) {
-      return { active: !!isActive };
+      return {
+        active: !!isActive,
+        onSelect : angular.noop,
+        onDeselect : angular.noop
+      };
     }
 
     var ctrl;
     beforeEach(inject(function($controller, $rootScope) {
       scope = $rootScope;
       //instantiate the controller stand-alone, without the directive
-      ctrl = $controller('TabsetController', {$scope: scope, $element: null});
+      ctrl = $controller('TabsetController', {$scope: scope});
     }));
 
 
@@ -433,7 +475,7 @@ describe('tabs', function() {
 
     it('should remove title tabs when elements are destroyed and change selection', inject(function($controller, $compile, $rootScope) {
       scope = $rootScope.$new();
-      elm = $compile("<tabset><tab heading='1'>Hello</tab><tab ng-repeat='i in list' heading='tab {{i}}'>content {{i}}</tab></tabset>")(scope);
+      elm = $compile('<tabset><tab heading="1">Hello</tab><tab ng-repeat="i in list" heading="tab {{i}}">content {{i}}</tab></tabset>')(scope);
       scope.$apply();
 
       expectTitles(['1']);
@@ -470,6 +512,45 @@ describe('tabs', function() {
       // New 2nd tab is now selected
       expect(titles().eq(1)).toHaveClass('active');
       expect(contents().eq(1)).toHaveClass('active');
+    }));
+
+    it('should not select tabs when being destroyed', inject(function($controller, $compile, $rootScope){
+      var selectList = [],
+          deselectList = [],
+          getTab = function(active){
+            return {
+              active: active,
+              select : function(){
+                selectList.push('select');
+              },
+              deselect : function(){
+                deselectList.push('deselect');
+              }
+            };
+          };
+
+      scope = $rootScope.$new();
+      scope.tabs = [
+        getTab(true),
+        getTab(false)
+      ];
+      elm = $compile([
+        '<tabset>',
+        '  <tab ng-repeat="t in tabs" active="t.active" select="t.select()" deselect="t.deselect()">',
+        '    <tab-heading><b>heading</b> {{index}}</tab-heading>',
+        '    content {{$index}}',
+        '  </tab>',
+        '</tabset>'
+      ].join('\n'))(scope);
+      scope.$apply();
+
+      // The first tab is selected the during the initial $digest.
+      expect(selectList.length).toEqual(1);
+
+      // Destroy the tabs - we should not trigger selection/deselection any more.
+      scope.$destroy();
+      expect(selectList.length).toEqual(1);
+      expect(deselectList.length).toEqual(0);
     }));
   });
 
@@ -564,7 +645,7 @@ describe('tabs', function() {
       scope = $rootScope.$new();
       scope.navType = 'pills';
 
-      elm = $compile('<tabset type="navType"></tabset>')(scope);
+      elm = $compile('<tabset type="{{navType}}"></tabset>')(scope);
       scope.$apply();
     }));
 
@@ -635,15 +716,15 @@ describe('tabs', function() {
       var scope = $rootScope.$new();
       elm = $compile([
         '<div>',
-        '  <tabset>',
+        '  <tabset class="tabbable">',
         '    <tab heading="Tab 1">',
-        '      <tabset>',
+        '      <tabset class="tabbable">',
         '        <tab heading="Tab 1A">',
         '        </tab>',
         '      </tabset>',
         '    </tab>',
         '    <tab heading="Tab 2">',
-        '      <tabset>',
+        '      <tabset class="tabbable">',
         '        <tab heading="Tab 2A">',
         '        </tab>',
         '      </tabset>',
@@ -665,9 +746,9 @@ describe('tabs', function() {
       scope.tab2aaText = '456';
       elm = $compile([
         '<div>',
-        '  <tabset>',
+        '  <tabset class="tabbable">',
         '    <tab heading="Tab 1">',
-        '      <tabset>',
+        '      <tabset class="tabbable">',
         '        <tab heading="{{ tab1aHead }}">',
         '          {{ tab1aText }}',
         '        </tab>',
@@ -675,9 +756,9 @@ describe('tabs', function() {
         '      <span class="tab-1">{{ tab1Text }}</span>',
         '    </tab>',
         '    <tab heading="Tab 2">',
-        '      <tabset>',
+        '      <tabset class="tabbable">',
         '        <tab heading="Tab 2A">',
-        '          <tabset>',
+        '          <tabset class="tabbable">',
         '            <tab heading="Tab 2AA">',
         '              <span class="tab-2aa">{{ tab2aaText }}</span>',
         '            </tab>',

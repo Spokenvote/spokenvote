@@ -16,6 +16,7 @@ files = [
 
 // list of files to exclude
 exclude = [
+  'src/**/docs/*'
 ];
 
 // Start these browsers, currently available:
@@ -32,6 +33,8 @@ browsers = [
 // test results reporter to use
 // possible values: dots || progress
 reporters = ['progress'];
+
+reportSlowerThan = 100;
 
 // web server port
 port = 9018;
