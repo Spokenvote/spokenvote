@@ -19,7 +19,6 @@
       .fa.fa-warning
       span Too Long
 
-  /.form-group ng-show='sessionSettings.actions.newProposal.hub == "active"'
   .form-group ng-show='sessionSettings.actions.focus === "hub"'
     ng-include src="'shared/_select_hub.html'"
 
@@ -28,5 +27,4 @@
       .control-group
         .controls
           button id='publish' ng-enter='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
-          /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
           .next-step Press <strong><i>Enter</i></strong> to publish your proposal.

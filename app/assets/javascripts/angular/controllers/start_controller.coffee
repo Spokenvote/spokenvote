@@ -1,11 +1,8 @@
 #StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', 'proposal', ( $scope, $location, Focus, $timeout, $route, proposal ) ->
-StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $scope, $location, Focus, $timeout, $route ) ->
+StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$route', ( $rootScope, $scope, $location, Focus, $timeout, $route ) ->
 #  console.log 'StartController restarting'
 #  $scope.proposal = proposal
   $scope.alertService.clearAlerts()
-
-  $scope.$on 'focusHubFilter', ->
-    console.log 'focusHubFilter Triggered '
 
   #  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
@@ -42,8 +39,12 @@ StartController = [ '$scope', '$location', 'Focus', '$timeout', '$route', ( $sco
 #      element.focus()
     Focus '#vote_comment'
 
-  $scope.setInputFocus = ->
-    $scope.$broadcast 'focusHubFilter'
+
+#  $scope.$on 'focusHubFilter', ->
+#    console.log 'focusHubFilter Triggered '
+#
+#  $scope.setInputFocus = ->
+#    $rootScope.$broadcast 'focusHubFilter'
 
 
   $scope.hubStep = ->

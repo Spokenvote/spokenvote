@@ -1,7 +1,7 @@
 .selectHub ng-controller='HubController'
   span href='#'
     .groupName
-      button class='btn' ng-click='setInputFocus()' Set Focus
+      /button class='btn' ng-click='setInputFocus()' Set Focus
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
@@ -10,7 +10,7 @@
         / not working as of Jan 30, 2015 ui-select( name='hubFilter' class='vote_hub' uiselect-autofocus='open'
 
     /div(ui-select-wrapper)
-    ui-select( focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
+    ui-select( tagging='tagTransform' focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
         ng-disabled='disabled' ng-model='sessionSettings.hubFilter'
         on-select='setHub($item, $model); finishProp()'
         reset-search-input='false' required )
@@ -18,9 +18,10 @@
         span class='fa fa-search' &nbsp
         span {{ $select.selected.full_hub }}
         span class='close' ng-click='clear($event)' &times
-      ui-select-choices refresh='refreshHubs($select.search)' refresh-delay='0' repeat='hub in hubs track by $index'
-        div ng-bind-html='hub.full_hub | highlight: $select.search'
-
+      ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'
+        div ng-if='hub.isTag' ng-bind-html='hub.full_hub +" <small>(add new)</small>"| highlight: $select.search'
+        div ng-if='!hub.isTag' ng-bind-html='hub.full_hub | highlight: $select.search'
+    p {{ sessionSettings.hubFilter }}
     .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
       span
         span() for

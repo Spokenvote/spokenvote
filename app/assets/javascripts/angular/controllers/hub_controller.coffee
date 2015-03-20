@@ -17,6 +17,11 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     $scope.sessionSettings.actions.hubFilter = 'All Groups'
     $scope.sessionSettings.actions.hubShow = true
 
+#  $scope.$on 'focusHubFilter', ->
+#    console.log 'focusHubFilter Triggered '
+#
+#  $scope.setInputFocus = ->
+#    $rootScope.$broadcast 'focusHubFilter'
 
   $scope.refreshHubs = (hub_filter) ->
     if hub_filter.length > 1
@@ -53,6 +58,12 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub
     {full_hub: newHub}
+
+  $scope.tagTransform = (newTag) ->
+    item =
+      full_hub: newTag
+
+    item
 
 #  $scope.clearFilter = (filter) ->
 #    $location.search(filter, null)
