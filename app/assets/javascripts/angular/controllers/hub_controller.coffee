@@ -47,13 +47,28 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     item.id = item.select_id
     $rootScope.sessionSettings.hub_attributes = item
     $scope.sessionSettings.actions.hubShow = true
-    #    $scope.sessionSettings.actions.selectHub = false
     $location.search('hub', item.id)
     $location.path('/proposals')  unless $location.path() == '/start'
 #    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
     $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
   #    $scope.sessionSettings.actions.changeHub = false
   #    $scope.sessionSettings.actions.selectHub = true
+
+    if item.isTag
+      console.log 'item.isTag: ', item
+      $scope.sessionSettings.actions.searchTerm = item.full_hub
+      currentHub = $scope.sessionSettings.hub_attributes
+      $scope.sessionSettings.hub_attributes = {}
+      $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
+      $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+      if !$scope.currentUser.id?
+        $scope.authService.signinFb($scope).then ->
+          $scope.votingService.new()  unless $location.path() == '/start'
+          $scope.sessionSettings.actions.changeHub = 'new'
+      else
+        $scope.votingService.new()  unless $location.path() == '/start'
+        $scope.sessionSettings.actions.changeHub = 'new'
+
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub
