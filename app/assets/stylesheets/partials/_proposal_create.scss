@@ -10,7 +10,7 @@
   .makeHub {
     h3 {
       color: $happy-blue;
-      font-size: 135%;
+//      font-size: 135%;
       margin: 0;
       padding: 5px;
     }
@@ -19,6 +19,7 @@
       width: 287px;
       min-width: 70%;
       input {
+        font-size: 20px;
         width: 100%;
         margin-top: 5px;
       }

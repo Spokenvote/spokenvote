@@ -19,7 +19,7 @@
           .fa.fa-pencil-square-o.fa-2x
 
       /.currentHub ng-hide='sessionSettings.actions.newProposal.started === true && !sessionSettings.hub_attributes.id'
-      .currentHub ng-show='sessionSettings.actions.hubShow'
+      .currentHub ng-if='sessionSettings.actions.hubShow'
         ng-include src="'shared/_select_hub.html'"
 
       /.currentHub
