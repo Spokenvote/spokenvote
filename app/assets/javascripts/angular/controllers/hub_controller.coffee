@@ -45,6 +45,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $rootScope.setHub = (item, model) ->
     if item.isTag
       $scope.sessionSettings.actions.hubShow = false
+      $scope.sessionSettings.actions.hubCreate = true
     #      console.log 'item.isTag: ', item
       $scope.sessionSettings.actions.searchTerm = item.full_hub
       currentHub = $scope.sessionSettings.hub_attributes

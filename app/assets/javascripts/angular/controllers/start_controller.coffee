@@ -84,9 +84,10 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 #      uiSelectCtl.activate(false, true)
 
   $scope.finishProp = ->
+    console.log 'finishProp: '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
     $scope.sessionSettings.actions.focus = 'publish'
-    Focus '#publish'
+    $timeout (-> Focus '#publish'), 500
 
   #    $scope.sessionSettings.actions.newProposal.hub = 'active' if $scope.sessionSettings.actions.newProposal.hub isnt 'complete'
 #    focusser.focus()

@@ -22,7 +22,8 @@
       .fa.fa-warning
 
     input( name='formatted_location' id='hub_formatted_location' type='text' class='input-xlarge'
-      placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required )
+      placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required
+      ng-enter='finishProp()' ng-focus='sessionSettings.actions.focus = "hub"'  )
     .length_counter.error-text( ng-hide='newProposalForm.formatted_location.$valid' )
       span Choose a valid location from list. &nbsp
       .fa.fa-warning
@@ -31,7 +32,7 @@
       a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
 
   .hint-text
-    p
+    /p
     h3 Creating a new group
     h5
       .fa.fa-lightbulb-o
