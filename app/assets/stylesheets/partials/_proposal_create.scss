@@ -19,9 +19,13 @@
       width: 287px;
       min-width: 70%;
       input {
+        background-color: inherit;
         font-size: 20px;
         width: 100%;
         margin-top: 5px;
+        &:focus {
+          outline: none;
+        }
       }
       .length_counter.happy-text a.link {
         color: $alert-blue;

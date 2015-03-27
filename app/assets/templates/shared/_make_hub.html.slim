@@ -28,12 +28,13 @@
       span Choose a valid location from list. &nbsp
       .fa.fa-warning
     /.length_counter.happy-text( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
-    .length_counter.happy-text ng-show='newProposalForm.formatted_location.$valid'
-      a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
+    .length_counter.happy-text ng-show='newProposalForm.formatted_location.$valid && sessionSettings.actions.focus === "hub"'
+      span Group Location Valid
+      /a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
 
   .hint-text
     /p
-    h3 Creating a new group
+    h3 You will create a new group
     h5
       .fa.fa-lightbulb-o
       span-red &nbsp Hint! &nbsp
