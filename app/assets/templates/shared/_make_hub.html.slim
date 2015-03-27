@@ -1,4 +1,5 @@
-.makeHub ng-show='sessionSettings.actions.changeHub == "new"'
+/.makeHub ng-show='sessionSettings.actions.changeHub == "new"'
+form.makeHub name='newHubForm' ng-show='sessionSettings.actions.hubCreate'
 
   /h5.hint-text
     .fa.fa-lightbulb-o
@@ -24,11 +25,11 @@
     input( name='formatted_location' id='hub_formatted_location' type='text' class='input-xlarge'
       placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required
       ng-enter='finishProp()' ng-focus='sessionSettings.actions.focus = "hub"'  )
-    .length_counter.error-text( ng-hide='newProposalForm.formatted_location.$valid' )
+    .length_counter.error-text ng-hide='newHubForm.formatted_location.$valid'
       span Choose a valid location from list. &nbsp
       .fa.fa-warning
     /.length_counter.happy-text( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
-    .length_counter.happy-text ng-show='newProposalForm.formatted_location.$valid && sessionSettings.actions.focus === "hub"'
+    .length_counter.happy-text ng-show='newHubForm.formatted_location.$valid && sessionSettings.actions.focus === "hub"'
       span Group Location Valid
       /a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
 

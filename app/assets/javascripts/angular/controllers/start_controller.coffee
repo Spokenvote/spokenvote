@@ -40,9 +40,9 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
     Focus '#vote_comment'
 
 
-#  $scope.$on 'focusHubFilter', ->
-#    console.log 'focusHubFilter Triggered '
-#
+  $rootScope.$on 'focusHubFilter', ->
+    console.log '$rootScope: focusHubFilter Triggered '
+
 #  $scope.setInputFocus = ->
 #    $rootScope.$broadcast 'focusHubFilter'
 
@@ -50,6 +50,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.focus = 'hub'
+    $scope.sessionSettings.actions.hubShow = true
     #    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
     if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
       $scope.sessionSettings.actions.focus = 'publish'
@@ -58,7 +59,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
       $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
 #    console.log 'hubstep: '
-    $scope.$broadcast 'focusHubFilter'
+    $rootScope.$broadcast 'focusHubFilter'
 #    Focus '.ui-select-focusser'
 
 

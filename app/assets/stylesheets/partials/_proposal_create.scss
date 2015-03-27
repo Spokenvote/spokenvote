@@ -1,37 +1,37 @@
 .newProposal {                            // Entire newProposal class probably obsolete
   color: $tally-blue;
   font-size: 1.7em;
-  .changehub {
-    .selecthub {
-      text-align: center;
-      padding: 2%;
-    }
-  }
-  .makeHub {
-    h3 {
-      color: $happy-blue;
-//      font-size: 135%;
-      margin: 0;
-//      padding: 5px;
-    }
-    .input-area {
-      padding: 0 15px;
-      width: 287px;
-      min-width: 70%;
-      input {
-        background-color: inherit;
-        font-size: 20px;
-        width: 100%;
-        margin-top: 5px;
-        &:focus {
-          outline: none;
-        }
-      }
-      .length_counter.happy-text a.link {
-        color: $alert-blue;
-      }
-    }
-  }
+//  .changehub {
+//    .selecthub {
+//      text-align: center;
+//      padding: 2%;
+//    }
+//  }
+//  .makeHub {
+//    h3 {
+//      color: $happy-blue;
+////      font-size: 135%;
+//      margin: 0;
+////      padding: 5px;
+//    }
+//    .input-area {
+//      padding: 0 15px;
+//      width: 287px;
+//      min-width: 70%;
+//      input {
+//        background-color: inherit;
+//        font-size: 20px;
+//        width: 100%;
+//        margin-top: 5px;
+//        &:focus {
+//          outline: none;
+//        }
+//      }
+//      .length_counter.happy-text a.link {
+//        color: $alert-blue;
+//      }
+//    }
+//  }
 }
 
 .dialog-footer {
