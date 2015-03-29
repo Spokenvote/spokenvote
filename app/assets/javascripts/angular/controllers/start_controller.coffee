@@ -84,7 +84,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 #      uiSelectCtl.open = true
 #      uiSelectCtl.activate(false, true)
 
-  $scope.finishProp = ->
+  $rootScope.finishProp = ->
     console.log 'finishProp: '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
     $scope.sessionSettings.actions.focus = 'publish'

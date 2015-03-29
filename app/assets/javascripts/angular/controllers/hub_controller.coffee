@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus) ->
+HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', '$timeout', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus, $timeout) ->
 
   $scope.disabled = undefined
 
@@ -91,6 +91,12 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #  $scope.clearFilter = (filter) ->
 #    $location.search(filter, null)
 #    $rootScope.sessionSettings.routeParams.user = null
+
+#  $scope.finishProp = ->
+#    console.log 'finishProp: '
+#    $scope.sessionSettings.actions.newProposal.hub = 'complete'
+#    $scope.sessionSettings.actions.focus = 'publish'
+#    $timeout (-> Focus '#publish'), 500
 
 ]
 
