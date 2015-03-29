@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', '$timeout', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus, $timeout) ->
+HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus) ->
 
   $scope.disabled = undefined
 
@@ -47,7 +47,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #      $scope.sessionSettings.actions.hubShow = false
 #      $scope.sessionSettings.actions.hubCreate = true
     #      console.log 'item.isTag: ', item
-      $scope.sessionSettings.actions.searchTerm = item.full_hub
+#      $scope.sessionSettings.actions.searchTerm = item.full_hub
       currentHub = $scope.sessionSettings.hub_attributes
       $scope.sessionSettings.hub_attributes = {}
       $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
@@ -56,12 +56,12 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
         $scope.authService.signinFb($scope).then ->
           $scope.votingService.new()  unless $location.path() == '/start'
 #          $scope.sessionSettings.actions.changeHub = 'new'
-          $scope.sessionSettings.actions.hubCreate = true
+          $scope.sessionSettings.actions.hubCreate = item.full_hub
           Focus '#hub_formatted_location'
       else
         $scope.votingService.new()  unless $location.path() == '/start'
 #        $scope.sessionSettings.actions.changeHub = 'new'
-        $scope.sessionSettings.actions.hubCreate = true
+        $scope.sessionSettings.actions.hubCreate = item.full_hub
 #        console.log '$scope.sessionSettings.actions.changeHub: ', $scope.sessionSettings.actions.changeHub
         Focus '#hub_formatted_location'
     else
@@ -91,12 +91,6 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #  $scope.clearFilter = (filter) ->
 #    $location.search(filter, null)
 #    $rootScope.sessionSettings.routeParams.user = null
-
-#  $scope.finishProp = ->
-#    console.log 'finishProp: '
-#    $scope.sessionSettings.actions.newProposal.hub = 'complete'
-#    $scope.sessionSettings.actions.focus = 'publish'
-#    $timeout (-> Focus '#publish'), 500
 
 ]
 

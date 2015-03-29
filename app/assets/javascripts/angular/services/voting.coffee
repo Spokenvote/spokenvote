@@ -109,8 +109,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     $rootScope.alertService.clearAlerts()
 
     if !$rootScope.sessionSettings.hub_attributes.id?
-      if $rootScope.sessionSettings.hub_attributes.formatted_location? and $rootScope.sessionSettings.actions.searchTerm?
-        $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.searchTerm
+      if $rootScope.sessionSettings.hub_attributes.formatted_location? and $rootScope.sessionSettings.actions.hubCreate?
+        $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.hubCreate
       else
         $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
         return

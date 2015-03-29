@@ -128,7 +128,7 @@ SessionSettings = ->
 #    proposal:
 #      id:  null
 #      vote: null
-    searchTerm: null
+#    searchTerm: null
     selectHub: false
     userFilter: null
     wizardToGroup: null
