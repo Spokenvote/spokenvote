@@ -1,0 +1,42 @@
+/.makeHub ng-show='sessionSettings.actions.changeHub == "new"'
+form.makeHub name='newHubForm' ng-show='sessionSettings.actions.hubCreate'
+
+  /h5.hint-text
+    .fa.fa-lightbulb-o
+    span-red Hint! &nbsp
+    span Double-check to make sure your group does not already exist by trying alternate spellings above.
+
+  /h3 Create new group
+  .input-area
+
+    /input( name="group_name" id='group_name' type='text' class='input-xlarge'
+      placeholder='Enter your new group name' ng-model='sessionSettings.actions.searchTerm' ng-minlength='3'  ng-maxLength='50' )
+    /.length_counter.happy-text( ng-show='newProposalForm.group_name.$valid' ) {{ 50 - sessionSettings.actions.searchTerm.length }} more characters allowed
+    /.length_counter.error-text( ng-show='newProposalForm.group_name.$invalid && !newProposalForm.group_name.$error.minlength && !newProposalForm.group_name.$error.maxlength' )
+      span Required
+      .fa.fa-warning
+    /.length_counter.error-text( ng-show="newProposalForm.group_name.$error.minlength" )
+      span Too Short
+      .fa.fa-warning
+    /.length_counter.error-text( ng-show="newProposalForm.group_name.$error.maxlength" )
+      spanToo Long
+      .fa.fa-warning
+
+    input( name='formatted_location' id='hub_formatted_location' type='text' class='input-xlarge'
+      placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required
+      ng-enter='finishProp()' ng-focus='sessionSettings.actions.focus = "hub"'  )
+    .length_counter.error-text ng-hide='newHubForm.formatted_location.$valid'
+      span Choose a valid location from list. &nbsp
+      .fa.fa-warning
+    /.length_counter.happy-text( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
+    .length_counter.happy-text ng-show='newHubForm.formatted_location.$valid && sessionSettings.actions.focus === "hub"'
+      span Group Location Valid
+      /a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
+
+  .hint-text
+    /p
+    h3 You are about to create the new group above
+    h5
+      .fa.fa-lightbulb-o
+      span-red &nbsp Hint! &nbsp
+      span Double-check to make sure your group does not already exist by trying alternate spellings above.

@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub) ->
+HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus) ->
 
   $scope.disabled = undefined
 
@@ -17,6 +17,11 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     $scope.sessionSettings.actions.hubFilter = 'All Groups'
     $scope.sessionSettings.actions.hubShow = true
 
+#  $scope.$on 'focusHubFilter', ->
+#    console.log 'focusHubFilter Triggered '
+#
+#  $scope.setInputFocus = ->
+#    $rootScope.$broadcast 'focusHubFilter'
 
   $scope.refreshHubs = (hub_filter) ->
     if hub_filter.length > 1
@@ -38,21 +43,50 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 
 
   $rootScope.setHub = (item, model) ->
-    $rootScope.eventResult = {item: item, model: model}      # What does this line do?
-    item.id = item.select_id
-    $rootScope.sessionSettings.hub_attributes = item
-    $scope.sessionSettings.actions.hubShow = true
-    #    $scope.sessionSettings.actions.selectHub = false
-    $location.search('hub', item.id)
-    $location.path('/proposals')  unless $location.path() == '/start'
-#    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
-    $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
-  #    $scope.sessionSettings.actions.changeHub = false
+    if item.isTag
+#      $scope.sessionSettings.actions.hubShow = false
+#      $scope.sessionSettings.actions.hubCreate = true
+    #      console.log 'item.isTag: ', item
+      $scope.sessionSettings.actions.searchTerm = item.full_hub
+      currentHub = $scope.sessionSettings.hub_attributes
+      $scope.sessionSettings.hub_attributes = {}
+      $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
+      $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+      if !$scope.currentUser.id?
+        $scope.authService.signinFb($scope).then ->
+          $scope.votingService.new()  unless $location.path() == '/start'
+#          $scope.sessionSettings.actions.changeHub = 'new'
+          $scope.sessionSettings.actions.hubCreate = true
+          Focus '#hub_formatted_location'
+      else
+        $scope.votingService.new()  unless $location.path() == '/start'
+#        $scope.sessionSettings.actions.changeHub = 'new'
+        $scope.sessionSettings.actions.hubCreate = true
+#        console.log '$scope.sessionSettings.actions.changeHub: ', $scope.sessionSettings.actions.changeHub
+        Focus '#hub_formatted_location'
+    else
+      $rootScope.eventResult = {item: item, model: model}      # What does this line do?
+      item.id = item.select_id
+      $rootScope.sessionSettings.hub_attributes = item
+      $scope.sessionSettings.actions.hubShow = true
+      $location.search('hub', item.id)
+      $location.path('/proposals')  unless $location.path() == '/start'
+      #    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
+      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
+#      $scope.sessionSettings.actions.changeHub = false
+      $scope.sessionSettings.actions.hubCreate = true
   #    $scope.sessionSettings.actions.selectHub = true
+
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub
     {full_hub: newHub}
+
+  $scope.tagTransform = (newTag) ->
+    item =
+      full_hub: newTag
+
+    item
 
 #  $scope.clearFilter = (filter) ->
 #    $location.search(filter, null)

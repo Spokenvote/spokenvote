@@ -7,7 +7,7 @@ describe('pager directive', function () {
     $rootScope = _$rootScope_;
     $rootScope.total = 47; // 5 pages
     $rootScope.currentPage = 3;
-    element = $compile('<pager total-items="total" page="currentPage"></pager>')($rootScope);
+    element = $compile('<pager total-items="total" ng-model="currentPage"></pager>')($rootScope);
     $rootScope.$digest();
   }));
 
@@ -78,13 +78,13 @@ describe('pager directive', function () {
     expect($rootScope.currentPage).toBe(5);
   });
 
-  it('executes the `on-select-page` expression when an element is clicked', function() {
+  it('executes the `ng-change` expression when an element is clicked', function() {
     $rootScope.selectPageHandler = jasmine.createSpy('selectPageHandler');
-    element = $compile('<pager total-items="total" page="currentPage" on-select-page="selectPageHandler(page)"></pager>')($rootScope);
+    element = $compile('<pager total-items="total" ng-model="currentPage" ng-change="selectPageHandler()"></pager>')($rootScope);
     $rootScope.$digest();
 
     clickPaginationEl(-1);
-    expect($rootScope.selectPageHandler).toHaveBeenCalledWith(4);
+    expect($rootScope.selectPageHandler).toHaveBeenCalled();
   });
 
   it('does not changes the number of pages when `total-items` changes', function() {
@@ -97,11 +97,11 @@ describe('pager directive', function () {
   });
 
   describe('`items-per-page`', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.perpage = 5;
-      element = $compile('<pager total-items="total" items-per-page="perpage" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pager total-items="total" items-per-page="perpage" ng-model="currentPage"></pager>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('does not change the number of pages', function() {
       expect(getPaginationBarSize()).toBe(2);
@@ -116,7 +116,7 @@ describe('pager directive', function () {
       expect($rootScope.currentPage).toBe(2);
       expect(getPaginationBarSize()).toBe(2);
       expect(getPaginationEl(0)).not.toHaveClass('disabled');
-      expect(getPaginationEl(1)).toHaveClass('disabled');
+      expect(getPaginationEl(-1)).toHaveClass('disabled');
     });
   });
 
@@ -131,11 +131,11 @@ describe('pager directive', function () {
   });
 
   describe('`num-pages`', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.numpg = null;
-      element = $compile('<pager total-items="total" page="currentPage" num-pages="numpg"></pager>')($rootScope);
+      element = $compile('<pager total-items="total" ng-model="currentPage" num-pages="numpg"></pager>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('equals to total number of pages', function() {
       expect($rootScope.numpg).toBe(5);
@@ -149,7 +149,7 @@ describe('pager directive', function () {
       pagerConfig.previousText = 'PR';
       pagerConfig.nextText = 'NE';
       pagerConfig.align = false;
-      element = $compile('<pager total-items="total" page="currentPage"></pager>')($rootScope);
+      element = $compile('<pager total-items="total" ng-model="currentPage"></pager>')($rootScope);
       $rootScope.$digest();
     }));
     afterEach(inject(function(pagerConfig) {
@@ -169,10 +169,10 @@ describe('pager directive', function () {
   });
 
   describe('override configuration from attributes', function () {
-    beforeEach(inject(function() {
-      element = $compile('<pager align="false" previous-text="<" next-text=">" total-items="total" page="currentPage"></pager>')($rootScope);
+    beforeEach(function() {
+      element = $compile('<pager align="false" previous-text="<" next-text=">" total-items="total" ng-model="currentPage"></pager>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains 2 li elements', function() {
       expect(getPaginationBarSize()).toBe(2);
@@ -191,7 +191,7 @@ describe('pager directive', function () {
     it('changes "previous" & "next" text from interpolated attributes', function() {
       $rootScope.previousText = '<<';
       $rootScope.nextText = '>>';
-      element = $compile('<pager align="false" previous-text="{{previousText}}" next-text="{{nextText}}" total-items="total" page="currentPage"></pager>')($rootScope);
+      element = $compile('<pager align="false" previous-text="{{previousText}}" next-text="{{nextText}}" total-items="total" ng-model="currentPage"></pager>')($rootScope);
       $rootScope.$digest();
 
       expect(getPaginationEl(0).text()).toBe('<<');

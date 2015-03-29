@@ -1,12 +1,12 @@
 describe('rating directive', function () {
-  var $rootScope, element;
+  var $rootScope, $compile, element;
   beforeEach(module('ui.bootstrap.rating'));
   beforeEach(module('template/rating/rating.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     $rootScope.rate = 3;
-    element = $compile('<rating value="rate"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate"></rating>')($rootScope);
     $rootScope.$digest();
   }));
 
@@ -27,12 +27,20 @@ describe('rating directive', function () {
     return state;
   }
 
+  function triggerKeyDown(keyCode) {
+    var e = $.Event('keydown');
+    e.which = keyCode;
+    element.trigger(e);
+  }
+
   it('contains the default number of icons', function() {
     expect(getStars().length).toBe(5);
+    expect(element.attr('aria-valuemax')).toBe('5');
   });
 
   it('initializes the default star icons as selected', function() {
     expect(getState()).toEqual([true, true, true, false, false]);
+    expect(element.attr('aria-valuenow')).toBe('3');
   });
 
   it('handles correctly the click event', function() {
@@ -40,11 +48,13 @@ describe('rating directive', function () {
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, false, false, false]);
     expect($rootScope.rate).toBe(2);
+    expect(element.attr('aria-valuenow')).toBe('2');
 
     getStar(5).click();
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, true, true, true]);
     expect($rootScope.rate).toBe(5);
+    expect(element.attr('aria-valuenow')).toBe('5');
   });
 
   it('handles correctly the hover event', function() {
@@ -68,25 +78,28 @@ describe('rating directive', function () {
     $rootScope.$digest();
 
     expect(getState()).toEqual([true, true, false, false, false]);
+    expect(element.attr('aria-valuenow')).toBe('2');
   });
 
   it('shows different number of icons when `max` attribute is set', function() {
-    element = $compile('<rating value="rate" max="7"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate" max="7"></rating>')($rootScope);
     $rootScope.$digest();
 
     expect(getStars().length).toBe(7);
+    expect(element.attr('aria-valuemax')).toBe('7');
   });
 
   it('shows different number of icons when `max` attribute is from scope variable', function() {
     $rootScope.max = 15;
-    element = $compile('<rating value="rate" max="max"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate" max="max"></rating>')($rootScope);
     $rootScope.$digest();
     expect(getStars().length).toBe(15);
+    expect(element.attr('aria-valuemax')).toBe('15');
   });
 
   it('handles readonly attribute', function() {
     $rootScope.isReadonly = true;
-    element = $compile('<rating value="rate" readonly="isReadonly"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate" readonly="isReadonly"></rating>')($rootScope);
     $rootScope.$digest();
 
     expect(getState()).toEqual([true, true, true, false, false]);
@@ -106,7 +119,7 @@ describe('rating directive', function () {
 
   it('should fire onHover', function() {
     $rootScope.hoveringOver = jasmine.createSpy('hoveringOver');
-    element = $compile('<rating value="rate" on-hover="hoveringOver(value)"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate" on-hover="hoveringOver(value)"></rating>')($rootScope);
     $rootScope.$digest();
 
     getStar(3).trigger('mouseover');
@@ -116,7 +129,7 @@ describe('rating directive', function () {
 
   it('should fire onLeave', function() {
     $rootScope.leaving = jasmine.createSpy('leaving');
-    element = $compile('<rating value="rate" on-leave="leaving()"></rating>')($rootScope);
+    element = $compile('<rating ng-model="rate" on-leave="leaving()"></rating>')($rootScope);
     $rootScope.$digest();
 
     element.trigger('mouseleave');
@@ -124,11 +137,48 @@ describe('rating directive', function () {
     expect($rootScope.leaving).toHaveBeenCalled();
   });
 
+  describe('keyboard navigation', function() {
+    it('supports arrow keys', function() {
+      triggerKeyDown(38);
+      expect($rootScope.rate).toBe(4);
+
+      triggerKeyDown(37);
+      expect($rootScope.rate).toBe(3);
+      triggerKeyDown(40);
+      expect($rootScope.rate).toBe(2);
+
+      triggerKeyDown(39);
+      expect($rootScope.rate).toBe(3);
+    });
+
+    it('can get zero value but not negative', function() {
+      $rootScope.rate = 1;
+      $rootScope.$digest();
+
+      triggerKeyDown(37);
+      expect($rootScope.rate).toBe(0);
+
+      triggerKeyDown(37);
+      expect($rootScope.rate).toBe(0);
+    });
+
+    it('cannot get value above max', function() {
+      $rootScope.rate = 4;
+      $rootScope.$digest();
+
+      triggerKeyDown(38);
+      expect($rootScope.rate).toBe(5);
+
+      triggerKeyDown(38);
+      expect($rootScope.rate).toBe(5);
+    });
+  });
+
   describe('custom states', function() {
     beforeEach(inject(function() {
       $rootScope.classOn = 'icon-ok-sign';
       $rootScope.classOff = 'icon-ok-circle';
-      element = $compile('<rating value="rate" state-on="classOn" state-off="classOff"></rating>')($rootScope);
+      element = $compile('<rating ng-model="rate" state-on="classOn" state-off="classOff"></rating>')($rootScope);
       $rootScope.$digest();
     }));
 
@@ -145,12 +195,13 @@ describe('rating directive', function () {
         {stateOn: 'heart'},
         {stateOff: 'off'}
       ];
-      element = $compile('<rating value="rate" rating-states="states"></rating>')($rootScope);
+      element = $compile('<rating ng-model="rate" rating-states="states"></rating>')($rootScope);
       $rootScope.$digest();
     }));
 
     it('should define number of icon elements', function () {
-      expect(getStars().length).toBe($rootScope.states.length);
+      expect(getStars().length).toBe(4);
+      expect(element.attr('aria-valuemax')).toBe('4');
     });
 
     it('handles each icon', function() {
@@ -175,7 +226,7 @@ describe('rating directive', function () {
       ratingConfig.max = 10;
       ratingConfig.stateOn = 'on';
       ratingConfig.stateOff = 'off';
-      element = $compile('<rating value="rate"></rating>')($rootScope);
+      element = $compile('<rating ng-model="rate"></rating>')($rootScope);
       $rootScope.$digest();
     }));
     afterEach(inject(function(ratingConfig) {

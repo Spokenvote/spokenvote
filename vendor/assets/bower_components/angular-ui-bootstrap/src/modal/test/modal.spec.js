@@ -1,9 +1,9 @@
 describe('$modal', function () {
-  var $rootScope, $document, $compile, $templateCache, $timeout, $q;
+  var $controllerProvider, $rootScope, $document, $compile, $templateCache, $timeout, $q;
   var $modal, $modalProvider;
 
   var triggerKeyDown = function (element, keyCode) {
-    var e = $.Event("keydown");
+    var e = $.Event('keydown');
     e.which = keyCode;
     element.trigger(e);
   };
@@ -19,7 +19,8 @@ describe('$modal', function () {
   beforeEach(module('ui.bootstrap.modal'));
   beforeEach(module('template/modal/backdrop.html'));
   beforeEach(module('template/modal/window.html'));
-  beforeEach(module(function(_$modalProvider_){
+  beforeEach(module(function(_$controllerProvider_, _$modalProvider_){
+    $controllerProvider = _$controllerProvider_;
     $modalProvider = _$modalProvider_;
   }));
 
@@ -33,13 +34,13 @@ describe('$modal', function () {
     $modal = _$modal_;
   }));
 
-  beforeEach(inject(function ($rootScope) {
+  beforeEach(function () {
     this.addMatchers({
 
       toBeResolvedWith: function(value) {
         var resolved;
         this.message = function() {
-          return "Expected '" + angular.mock.dump(this.actual) + "' to be resolved with '" + value + "'.";
+          return 'Expected "' + angular.mock.dump(this.actual) + '" to be resolved with "' + value + '".';
         };
         this.actual.then(function(result){
           resolved = result;
@@ -52,7 +53,7 @@ describe('$modal', function () {
       toBeRejectedWith: function(value) {
         var rejected;
         this.message = function() {
-          return "Expected '" + angular.mock.dump(this.actual) + "' to be rejected with '" + value + "'.";
+          return 'Expected "' + angular.mock.dump(this.actual) + '" to be rejected with "' + value + '".';
         };
         this.actual.then(angular.noop, function(reason){
           rejected = reason;
@@ -67,7 +68,7 @@ describe('$modal', function () {
         var contentToCompare, modalDomEls = this.actual.find('body > div.modal > div.modal-dialog > div.modal-content');
 
         this.message = function() {
-          return "Expected '" + angular.mock.dump(modalDomEls) + "' to be open with '" + content + "'.";
+          return '"Expected "' + angular.mock.dump(modalDomEls) + '" to be open with "' + content + '".';
         };
 
         contentToCompare = selector ? modalDomEls.find(selector) : modalDomEls;
@@ -84,13 +85,13 @@ describe('$modal', function () {
 
         var backdropDomEls = this.actual.find('body > div.modal-backdrop');
         this.message = function() {
-          return "Expected '" + angular.mock.dump(backdropDomEls) + "' to be a backdrop element'.";
+          return 'Expected "' + angular.mock.dump(backdropDomEls) + '" to be a backdrop element".';
         };
 
         return backdropDomEls.length === 1;
       }
     });
-  }));
+  });
 
   afterEach(function () {
     var body = $document.find('body');
@@ -107,6 +108,7 @@ describe('$modal', function () {
 
   function close(modal, result) {
     modal.close(result);
+    $timeout.flush();
     $rootScope.$digest();
   }
 
@@ -132,6 +134,36 @@ describe('$modal', function () {
 
       waitForBackdropAnimation();
       expect($document).not.toHaveBackdrop();
+    });
+
+    it('should not throw an exception on a second dismiss', function () {
+
+      var modal = open({template: '<div>Content</div>'});
+
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithContent('Content', 'div');
+      expect($document).toHaveBackdrop();
+
+      dismiss(modal, 'closing in test');
+
+      expect($document).toHaveModalsOpen(0);
+
+      dismiss(modal, 'closing in test');
+    });
+
+    it('should not throw an exception on a second close', function () {
+
+      var modal = open({template: '<div>Content</div>'});
+
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithContent('Content', 'div');
+      expect($document).toHaveBackdrop();
+
+      close(modal, 'closing in test');
+
+      expect($document).toHaveModalsOpen(0);
+
+      close(modal, 'closing in test');
     });
 
     it('should open a modal from templateUrl', function () {
@@ -248,18 +280,62 @@ describe('$modal', function () {
         expect($document).toHaveModalOpenWithContent('Whitespaces', 'div');
       });
 
+      it('should accept template as a function', function () {
+        open({template: function() {
+          return '<div>From a function</div>';
+        }});
+
+        expect($document).toHaveModalOpenWithContent('From a function', 'div');
+      });
+
+      it('should not fail if a templateUrl as a function', function () {
+
+        $templateCache.put('whitespace.html', '  <div>Whitespaces</div>  ');
+        open({templateUrl: function(){
+          return 'whitespace.html';
+        }});
+        expect($document).toHaveModalOpenWithContent('Whitespaces', 'div');
+      });
+
     });
 
-    describe('controllers', function () {
+    describe('controller', function () {
 
       it('should accept controllers and inject modal instances', function () {
-
         var TestCtrl = function($scope, $modalInstance) {
           $scope.fromCtrl = 'Content from ctrl';
           $scope.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
         };
 
-        var modal = open({template: '<div>{{fromCtrl}} {{isModalInstance}}</div>', controller: TestCtrl});
+        open({template: '<div>{{fromCtrl}} {{isModalInstance}}</div>', controller: TestCtrl});
+        expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
+      });
+
+      it('should accept controllerAs alias', function () {
+        $controllerProvider.register('TestCtrl', function($modalInstance) {
+          this.fromCtrl = 'Content from ctrl';
+          this.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
+        });
+
+        open({template: '<div>{{test.fromCtrl}} {{test.isModalInstance}}</div>', controller: 'TestCtrl as test'});
+        expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
+      });
+
+      it('should respect the controllerAs property as an alternative for the controller-as syntax', function () {
+        $controllerProvider.register('TestCtrl', function($modalInstance) {
+          this.fromCtrl = 'Content from ctrl';
+          this.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
+        });
+
+        open({template: '<div>{{test.fromCtrl}} {{test.isModalInstance}}</div>', controller: 'TestCtrl', controllerAs: 'test'});
+        expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
+      });
+
+      it('should allow defining in-place controller-as controllers', function () {
+        open({template: '<div>{{test.fromCtrl}} {{test.isModalInstance}}</div>', controller: function($modalInstance) {
+          this.fromCtrl = 'Content from ctrl';
+          this.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
+        }, controllerAs: 'test'});
         expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
       });
     });
@@ -335,7 +411,7 @@ describe('$modal', function () {
 
     describe('scope', function () {
 
-      it('should custom scope if provided', function () {
+      it('should use custom scope if provided', function () {
         var $scope = $rootScope.$new();
         $scope.fromScope = 'Content from custom scope';
         open({
@@ -343,6 +419,17 @@ describe('$modal', function () {
           scope: $scope
         });
         expect($document).toHaveModalOpenWithContent('Content from custom scope', 'div');
+      });
+
+      it('should create and use child of $rootScope if custom scope not provided', function () {
+
+        var scopeTailBefore = $rootScope.$$childTail;
+
+        $rootScope.fromScope = 'Content from root scope';
+        open({
+          template: '<div>{{fromScope}}</div>'
+        });
+        expect($document).toHaveModalOpenWithContent('Content from root scope', 'div');
       });
     });
 
@@ -407,6 +494,18 @@ describe('$modal', function () {
         expect(backdropEl).not.toHaveClass('in');
 
       });
+
+      describe('custom backdrop classes', function () {
+
+        it('should support additional backdrop class as string', function () {
+          open({
+            template: '<div>With custom backdrop class</div>',
+            backdropClass: 'additional'
+          });
+
+          expect($document.find('div.modal-backdrop')).toHaveClass('additional');
+        });
+      });
     });
 
     describe('custom window classes', function () {
@@ -418,6 +517,27 @@ describe('$modal', function () {
         });
 
         expect($document.find('div.modal')).toHaveClass('additional');
+      });
+    });
+
+    describe('size', function () {
+
+      it('should support creating small modal dialogs', function () {
+        open({
+          template: '<div>Small modal dialog</div>',
+          size: 'sm'
+        });
+
+        expect($document.find('div.modal-dialog')).toHaveClass('modal-sm');
+      });
+
+      it('should support creating large modal dialogs', function () {
+        open({
+          template: '<div>Large modal dialog</div>',
+          size: 'lg'
+        });
+
+        expect($document.find('div.modal-dialog')).toHaveClass('modal-lg');
       });
     });
   });

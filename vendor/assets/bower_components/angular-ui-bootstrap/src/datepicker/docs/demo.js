@@ -1,13 +1,8 @@
-var DatepickerDemoCtrl = function ($scope) {
+angular.module('ui.bootstrap.demo').controller('DatepickerDemoCtrl', function ($scope) {
   $scope.today = function() {
     $scope.dt = new Date();
   };
   $scope.today();
-
-  $scope.showWeeks = true;
-  $scope.toggleWeeks = function () {
-    $scope.showWeeks = ! $scope.showWeeks;
-  };
 
   $scope.clear = function () {
     $scope.dt = null;
@@ -19,7 +14,7 @@ var DatepickerDemoCtrl = function ($scope) {
   };
 
   $scope.toggleMin = function() {
-    $scope.minDate = ( $scope.minDate ) ? null : new Date();
+    $scope.minDate = $scope.minDate ? null : new Date();
   };
   $scope.toggleMin();
 
@@ -31,10 +26,10 @@ var DatepickerDemoCtrl = function ($scope) {
   };
 
   $scope.dateOptions = {
-    'year-format': "'yy'",
-    'starting-day': 1
+    formatYear: 'yy',
+    startingDay: 1
   };
 
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];
-};
+});

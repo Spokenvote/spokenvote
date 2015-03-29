@@ -79,4 +79,35 @@
     color: $happy-blue;
     cursor: pointer;
   }
+
+  .makeHub {
+    h3 {
+      color: $happy-blue;
+      //      font-size: 135%;
+      margin: 0;
+      //      padding: 5px;
+    }
+    .input-area {
+//      padding: 0 15px;
+//      width: 287px;
+//      min-width: 70%;
+      input {
+        text-align: center;
+        background-color: inherit;
+        font-size: 20px;
+        width: 100%;
+        margin-top: 5px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .length_counter {
+        text-align: center;
+        .happy-text a.link {
+          color: $alert-blue;
+        }
+      }
+    }
+  }
+
 }

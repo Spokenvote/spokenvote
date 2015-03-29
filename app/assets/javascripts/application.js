@@ -21,10 +21,10 @@
 //= require angular-sanitize/angular-sanitize
 
 // require angular-ui-select2/src/select2
+// require angular-ui-utils/ui-utils.min    // Removed Mar 18, 2015 believing inflector was all we were using, so capitalize should work in place
+//= require angular-ui-select/dist/select
 
 // require angular-ui    // below replaces this
-//= require angular-ui-utils/ui-utils.min
-//= require angular-ui-select/dist/select
 //= require angular-ui-bootstrap/src/modal/modal
 //= require angular-ui-bootstrap/src/transition/transition
 //= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle

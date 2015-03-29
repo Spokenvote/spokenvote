@@ -2,13 +2,16 @@
 // Search box formatting
 
 .select2-container {
-  .select2-choice {
+  width: 100%;           // Mar 27, 2015 under ui-select, covers whole screen
+.select2-choice {
     height: 32px;
     line-height: 32px;
     border: none;
     box-shadow: none;
     outline: none;
-    background: $googlePanelGreyLettering;
+    color: inherit;
+    background: inherit;
+//    background: $googlePanelGreyLettering;
     abbr {
       right: 13px;
     }
@@ -42,18 +45,23 @@
 
 .select2-search {
   input {
-    background: $chisel-grey;
+    background: inherit;
+//    background: $chisel-grey;
     border: none;
     border-radius: 2px;
   }
 }
 
 .select2-drop-active {
-  background-color: $googlePanelGreyLettering;
+  background-color: $airbnbBackgroundWhite;
+//  background-color: $googlePanelGreyLettering;
   border: none;
   box-shadow: none;
+  .select2-results {
+    max-height: none;
+  }
 }
-.select2-no-results {
-  background: none !important;
-  color: #999 !important;
-}
+//.select2-no-results {
+//  background: none !important;
+//  color: #999 !important;
+//}

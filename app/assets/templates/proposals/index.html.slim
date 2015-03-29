@@ -65,6 +65,7 @@ section
       a id='makeProposalLink' href='#' ng-click='newTopic()'  Start a New Topic
     .no-proposals.col-xs-12 ng-show='proposals.length == 0'
       h3
-        span No {{ filterSelection | inflector:humanize }} topics found&nbsp
+        // Mar 18, 2015 Replaced inflector:humanize with capitalize to remove angular-ui-utils
+        span No {{ filterSelection | capitalize }} topics found&nbsp
         span ng-if='sessionSettings.actions.hubFilter'  for {{ sessionSettings.actions.hubFilter }}
         span ng-if='sessionSettings.actions.userFilter'  for {{ sessionSettings.actions.userFilter }}
