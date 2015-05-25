@@ -22,12 +22,14 @@ class Vote < ActiveRecord::Base
   default_scope { order(:updated_at => :desc) }
 
   # Validations
-  validates :comment, :user, :proposal, presence: true
+  validates :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
   # last argument needs converting to a lamda for Rails4
 
   # Delegations
   delegate :username, :email, :gravatar_hash, :facebook_auth, to: :user
+
+  before_save :normalize_empty_comments
 
   def self.find_related_vote_in_tree_for_user(a_proposal_in_tree, user)
     proposals = a_proposal_in_tree.related_proposals
@@ -78,5 +80,9 @@ class Vote < ActiveRecord::Base
       end
      end
     users_in_tree
+  end
+
+  def normalize_empty_comments
+    self.comment = self.comment.presence
   end
 end
