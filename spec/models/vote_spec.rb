@@ -31,7 +31,9 @@ describe Vote do
     end
 
     it "should save empty-string comments as null" do
-      vote = FactoryGirl.create(vote)
+      user = create(:user)
+      proposal = create(:proposal, hub: create(:hub), user: user)
+      vote = create(:vote, proposal: proposal, user: user)
       vote.comment = ''
       vote.save!
 
