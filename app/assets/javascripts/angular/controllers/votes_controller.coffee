@@ -13,7 +13,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
         if response.comment is null
           responseMessage = "Your vote was recorded without a comment"
         else
-          responseMessage = "Your vote was created with the comment: ""#{response.comment}"""
+          responseMessage = "Your vote was created with the comment: \"#{response.comment}\""
         $scope.alertService.setSuccess responseMessage, $scope, 'main'
         $scope.sessionSettings.vote = {}
         $location.path( "/proposals/" + response.proposal_id )    # Angular empty hash bug
