@@ -41,7 +41,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 
 
   $rootScope.$on 'focusHubFilter', ->
-    console.log '$rootScope: focusHubFilter Triggered '
+    console.log '$rootScope: focusHubFilter Triggered line 44'
 
 #  $scope.setInputFocus = ->
 #    $rootScope.$broadcast 'focusHubFilter'

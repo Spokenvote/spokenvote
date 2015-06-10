@@ -3,11 +3,14 @@
     border: none;
     background-color: inherit;
     color: inherit;
+    width: inherit;
+
     .caret {
       display: none;
     }
 
-  }
+    }
+
   .btn-default-focus {
     outline: none;
     color: inherit;

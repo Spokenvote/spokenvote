@@ -1,6 +1,6 @@
 .selectHub ng-controller='HubController'
   span href='#'
-    .groupName
+    /.groupName
       /button class='btn' ng-click='setInputFocus()' Set Focus
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
@@ -13,9 +13,11 @@
     /ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}' ng-enter='finishProp()'
 
     /div(ui-select-wrapper)
+    /ui-select( tagging='tagTransform' focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
+              theme='select2'
     ui-select( tagging='tagTransform' focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
         ng-disabled='disabled' ng-model='sessionSettings.hubFilter'
-        on-select='setHub($item, $model)' theme='select2'
+        on-select='setHub($item, $model)'
         reset-search-input='false' required )
       ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
         span class='fa fa-search' &nbsp

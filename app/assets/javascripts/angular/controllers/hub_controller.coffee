@@ -74,7 +74,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
       #    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
       $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
 #      $scope.sessionSettings.actions.changeHub = false
-      $scope.sessionSettings.actions.hubCreate = true
+#      $scope.sessionSettings.actions.hubCreate = true
   #    $scope.sessionSettings.actions.selectHub = true
 
 
@@ -83,6 +83,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     {full_hub: newHub}
 
   $scope.tagTransform = (newTag) ->
+    console.log 'newTag: ', newTag
     item =
       full_hub: newTag
 
