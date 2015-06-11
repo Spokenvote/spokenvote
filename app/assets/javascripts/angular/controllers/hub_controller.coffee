@@ -8,6 +8,8 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $scope.disable = ->
     $scope.disabled = true
 
+  $scope.minNewHubLength = $scope.sessionSettings.spokenvote_attributes.minNewHubLength
+
   $scope.clear = ($event) ->
     $event.stopPropagation()
     $scope.sessionSettings.hubFilter = undefined
@@ -27,24 +29,15 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     if hub_filter.length > 1
       params =
         hub_filter: hub_filter
-
-#      Hub.query(                   # Using $Resource, question pending
-#        (params: params
-#        ), ((hubs) ->
-#          $log.log hubs
-#          $scope.hubs = hubs
-#        ), ->
-#          'Unable to locate a hub '
-#      )
-
       SelectHubLoader(hub_filter).then (response) ->
-#        $log.log response
         $scope.hubs = response
 
 
   $rootScope.setHub = (item, model) ->
-    if item.isTag
-#      $scope.sessionSettings.actions.hubShow = false
+    console.log 'setHub: ', item.full_hub.length
+    if item.isTag and item.full_hub.length >= $scope.minNewHubLength
+      console.log 'isTag: '
+      #      $scope.sessionSettings.actions.hubShow = false
 #      $scope.sessionSettings.actions.hubCreate = true
     #      console.log 'item.isTag: ', item
 #      $scope.sessionSettings.actions.searchTerm = item.full_hub
@@ -64,6 +57,8 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
         $scope.sessionSettings.actions.hubCreate = item.full_hub
 #        console.log '$scope.sessionSettings.actions.changeHub: ', $scope.sessionSettings.actions.changeHub
         Focus '#hub_formatted_location'
+    else if item.isTag
+      $scope.sessionSettings.hubFilter = null
     else
       $rootScope.eventResult = {item: item, model: model}      # What does this line do?
       item.id = item.select_id
@@ -83,10 +78,9 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     {full_hub: newHub}
 
   $scope.tagTransform = (newTag) ->
-    console.log 'newTag: ', newTag
+#    console.log 'newTag: ', newTag
     item =
       full_hub: newTag
-
     item
 
 #  $scope.clearFilter = (filter) ->

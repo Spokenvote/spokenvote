@@ -162,6 +162,7 @@ SessionSettings = ->
     facebookRootUrl: 'http://www.facebook.com/sharer.php?u='
     googleRootUrl: 'https://plus.google.com/share?url='
   spokenvote_attributes:
+    minNewHubLength: 3
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
       client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'

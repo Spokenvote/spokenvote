@@ -1,32 +1,27 @@
-.selectHub ng-controller='HubController'
-  span href='#'
-    /.groupName
+/span href='#'
+  /.groupName
       /button class='btn' ng-click='setInputFocus()' Set Focus
       /i class='glyphicon glyphicon-pencil'
       /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
-    // Was not working for me
-      /ui-select( multiple tagging='createSearchChoice' class='vote_hub' ng-disabled='disabled' ng-model='sessionSettings.hubFilter' )
-        / not working as of Jan 30, 2015 ui-select( name='hubFilter' class='vote_hub' uiselect-autofocus='open'
+.selectHub ng-controller='HubController'
+  ui-select(
+    name='hubFilter'
+    class='vote_hub'
+    ng-disabled='disabled'
+    ng-model='sessionSettings.hubFilter'
+    tagging='tagTransform'
+    on-select='setHub($item, $model)'
+    focus-on='focusHubFilter'
+    required )
+    ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
+      span class='fa fa-search' &nbsp
+      span {{ $select.selected.full_hub }}
+      span class='close' ng-click='clear($event)' &times
+    ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'
+      div ng-if='hub.full_hub.length >= minNewHubLength && hub.isTag' ng-bind-html='hub.full_hub +" <small>(add new)</small>"| highlight: $select.search'
+      div ng-if='!hub.isTag' ng-bind-html='hub.full_hub | highlight: $select.search'
 
-    /on-select='setHub($item, $model); finishProp()'
-    /ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}' ng-enter='finishProp()'
-
-    /div(ui-select-wrapper)
-    /ui-select( tagging='tagTransform' focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
-              theme='select2'
-    ui-select( tagging='tagTransform' focus-on='focusHubFilter' name='hubFilter' class='vote_hub'
-        ng-disabled='disabled' ng-model='sessionSettings.hubFilter'
-        on-select='setHub($item, $model)'
-        reset-search-input='false' required )
-      ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
-        span class='fa fa-search' &nbsp
-        span {{ $select.selected.full_hub }}
-        span class='close' ng-click='clear($event)' &times
-      ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'
-        div ng-if='hub.isTag' ng-bind-html='hub.full_hub +" <small>(add new)</small>"| highlight: $select.search'
-        div ng-if='!hub.isTag' ng-bind-html='hub.full_hub | highlight: $select.search'
-    /p {{ sessionSettings.hubFilter }}
     .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
       span
         span() for
