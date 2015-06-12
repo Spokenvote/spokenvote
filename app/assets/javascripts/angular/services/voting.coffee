@@ -68,8 +68,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #  new: (scope) ->
   new: ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.actions.newProposal.started = false
-#    if $rootScope.sessionSettings.hub_attributes.id?
+#    $rootScope.sessionSettings.actions.newProposal.started = false     # Jun 12, 2015  why would this make any sense.
+    #    if $rootScope.sessionSettings.hub_attributes.id?
 #      $rootScope.sessionSettings.actions.changeHub = false
 #    else
 #      $rootScope.sessionSettings.actions.changeHub = true

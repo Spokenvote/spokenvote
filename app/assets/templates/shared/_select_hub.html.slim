@@ -1,8 +1,5 @@
 /span href='#'
   /.groupName
-      /button class='btn' ng-click='setInputFocus()' Set Focus
-      /i class='glyphicon glyphicon-pencil'
-      /span( tooltip-html-unsafe='{{ rootTips.newHub }}' tooltip-placement='bottom' ) {{ sessionSettings.hubFilter.full_hub }}
 
 .selectHub ng-controller='HubController'
   ui-select(
@@ -13,16 +10,18 @@
     tagging='tagTransform'
     on-select='setHub($item, $model)'
     focus-on='focusHubFilter'
+    ng-minlength='3'
+    ng-maxLength='50'
     required )
     ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
       span class='fa fa-search' &nbsp
       span {{ $select.selected.full_hub }}
       span class='close' ng-click='clear($event)' &times
     ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'
-      div ng-if='hub.full_hub.length >= minNewHubLength && hub.isTag' ng-bind-html='hub.full_hub +" <small>(add new)</small>"| highlight: $select.search'
+      div ng-if='hub.full_hub.length >= minNewHubLength && hub.isTag' ng-bind-html='hub.full_hub + "<small> (add new, " + (50 - hub.full_hub.length) + ")</small>"| highlight: $select.search'
       div ng-if='!hub.isTag' ng-bind-html='hub.full_hub | highlight: $select.search'
 
-    .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
+  .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
       span
         span() for
         span( class='tag_item' )
@@ -30,4 +29,4 @@
           .fa.fa-times
         span &nbsp
 
-    ng-include src="'shared/_make_hub.html'"
+  ng-include src="'shared/_make_hub.html'"

@@ -25,10 +25,6 @@
       .fa.fa-warning
       span Too Short
 
-  /.form-group ng-show='sessionSettings.actions.focus === "hub" || sessionSettings.actions.hubCreate'
-    ng-include src="'shared/_select_hub.html'"
-    .next-step ng-show='sessionSettings.actions.focus === "hub" && newProposalForm.formatted_location.$valid' Press <strong><i>Enter</i></strong> to continue ...
-
   .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
     fieldset
       .control-group

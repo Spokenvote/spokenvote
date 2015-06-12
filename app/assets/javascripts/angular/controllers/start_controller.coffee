@@ -5,12 +5,10 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
   $scope.alertService.clearAlerts()
 
   #  $scope.sessionSettings.actions.hubShow = false  unless $route.current.params.hub or $scope.sessionSettings.actions.newProposal.started
-  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
+  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.hub_attributes.full_hub or $scope.sessionSettings.actions.newProposal.started
+#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
-
-#  uiSelect = angular.element 'ui-select-wrapper'
-#  console.log 'uiSelect: ', uiSelect.focusser[0]
 
   #  $scope.sessionSettings.actions.newProposal.hub = 'waiting'  unless $scope.sessionSettings.hub_attributes.id
   #  $scope.sessionSettings.hub_attributes.id = null
@@ -18,9 +16,6 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 #  console.log '$scope.sessionSettings.actions.newProposal: ', $scope.sessionSettings.actions.newProposal
   #  $scope.sessionSettings.actions.changeHub = true
 #  $scope.sessionSettings.actions.wizardToGroup = null
-
-#  focusser = angular.element "<input class='ui-select-focusser ui-select-offscreen' type='text' aria-haspopup='true' role='button' />"
-#  console.log 'focusser focus: ', focusser.focus()
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'publish'
