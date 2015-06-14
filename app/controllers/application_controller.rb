@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   after_filter  :set_csrf_cookie_for_ng
 
-  layout :nil
+  layout :application
 
   def index
     # render layout: 'application', nothing: true
@@ -27,9 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def intercept_html_requests
-    if !request.format.json? && !(request.path[0,6] == '/admin') && !(request.path[0,13] == '/voter_mailer') && !(request.path[0,12] == '/sitemap.xml')
-      render('layouts/application')
-    end
+    # render('layouts/application') unless request.format.json?
   end
 
   def authenticate_admin_user!
