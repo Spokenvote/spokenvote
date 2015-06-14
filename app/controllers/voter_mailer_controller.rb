@@ -1,5 +1,4 @@
 class VoterMailerController < ApplicationController
-  skip_before_action :intercept_html_requests
 
   def vote_notification
     if organize_test_email
