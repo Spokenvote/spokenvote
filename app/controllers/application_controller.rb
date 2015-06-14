@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   after_filter  :set_csrf_cookie_for_ng
 
-  layout :application
+  layout "application"
 
   def index
     # render layout: 'application', nothing: true
