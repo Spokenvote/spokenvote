@@ -11,6 +11,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $scope.minNewHubLength = $scope.sessionSettings.spokenvote_attributes.minNewHubLength
 
   $scope.clear = ($event) ->
+    console.log '... clear ...: '
     $event.stopPropagation()
     $scope.sessionSettings.hubFilter = undefined
     $scope.sessionSettings.hub_attributes = {}
