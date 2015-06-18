@@ -8,7 +8,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
   $scope.disable = ->
     $scope.disabled = true
 
-  $scope.minNewHubLength = $scope.sessionSettings.spokenvote_attributes.minNewHubLength
+#  $scope.minimumHubNameLength = $scope.sessionSettings.spokenvote_attributes.minimumHubNameLength
 
   $scope.clear = ($event) ->
 #    console.log '... clear ...: '
@@ -29,24 +29,24 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 
   $rootScope.setHub = (item, model) ->
     console.log 'setHub: ', item.full_hub.length
-    if item.isTag and item.full_hub.length >= $scope.minNewHubLength
+    if item.isTag and item.full_hub.length >= $scope.sessionSettings.spokenvote_attributes.minimumHubNameLength
       console.log 'isTag: $scope.sessionSettings.hub_attributes', $scope.sessionSettings.hub_attributes
 #      $scope.sessionSettings.actions.hubCreate = true    # TODO Eliminating actions.hubCreate
       currentHub = $scope.sessionSettings.hub_attributes
       $scope.sessionSettings.hub_attributes =
-        group_name: item.full_hub
+#        group_name: item.full_hub
         location_id: currentHub.location_id
         formatted_location: currentHub.formatted_location
       if !$scope.currentUser.id?
         $scope.authService.signinFb($scope).then ->
           $scope.votingService.new()  unless $location.path() == '/start'
 #          $scope.sessionSettings.actions.changeHub = 'new'
-          $scope.sessionSettings.actions.hubCreate = item.full_hub    # TODO Eliminating actions.hubCreate
+#          $scope.sessionSettings.actions.hubCreate = item.full_hub    # TODO Eliminating actions.hubCreate
           Focus '#hub_formatted_location'
       else
         $scope.votingService.new()  unless $location.path() is '/start'
 #        $scope.sessionSettings.actions.changeHub = 'new'
-        $scope.sessionSettings.actions.hubCreate = item.full_hub    # TODO Eliminating actions.hubCreate
+#        $scope.sessionSettings.actions.hubCreate = item.full_hub    # TODO Eliminating actions.hubCreate
 #        console.log '$scope.sessionSettings.actions.changeHub: ', $scope.sessionSettings.actions.changeHub
         Focus '#hub_formatted_location'
     else if item.isTag

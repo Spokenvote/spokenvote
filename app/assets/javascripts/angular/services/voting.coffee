@@ -103,17 +103,21 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.sessionSettings.actions.newProposalHub = null
       $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
-#  saveNewProposal: ($modalInstance) ->
   saveNewProposal: ->
 #    console.log 'voting service: saveNewProposal'
     $rootScope.alertService.clearAlerts()
 
-    if !$rootScope.sessionSettings.hub_attributes.id?
-      if $rootScope.sessionSettings.hub_attributes.formatted_location? and $rootScope.sessionSettings.actions.hubCreate?
-        $rootScope.sessionSettings.hub_attributes.group_name = $rootScope.sessionSettings.actions.hubCreate
-      else
+    if not $rootScope.sessionSettings.hub_attributes.id
+      if not $rootScope.sessionSettings.hub_attributes.formatted_location
         $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
         return
+      if not $rootScope.sessionSettings.hub_attributes.group_name
+        $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
+        return
+      if $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
+        $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
+        return
+
     newProposal =
       proposal:
         statement: $rootScope.sessionSettings.newProposal.statement
@@ -127,9 +131,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:proposalsChanged'
         $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
-#        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-#        $modalInstance.close(response)
+#        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
+        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
         $rootScope.sessionSettings.actions.offcanvas = false
       ),  (response, status, headers, config) ->
         $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'

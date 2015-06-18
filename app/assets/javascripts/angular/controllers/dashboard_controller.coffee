@@ -42,8 +42,8 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.route.current.prerenderStatusCode = undefined
     if $location.path() isnt '/start'
       $scope.sessionSettings.actions.hubShow = true
-#      $scope.sessionSettings.actions.hubCreate = null
-      $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
+#      $scope.sessionSettings.actions.hubCreate = null
+#      $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
       $scope.sessionSettings.hubFilter = null  if $scope.sessionSettings.hubFilter and $scope.sessionSettings.hubFilter.isTag
 
 #  $scope.$watch 'hubFilter.hubFilter', ->                             # New UI Select logic

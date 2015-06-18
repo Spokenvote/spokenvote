@@ -16,7 +16,7 @@
       span {{ $select.selected.full_hub }}
       span class='close' ng-click='clear($event)' &times
     ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'
-      div ng-if='hub.full_hub.length >= minNewHubLength && hub.isTag' ng-bind-html='hub.full_hub + "<small> (add new, " + (50 - hub.full_hub.length) + ")</small>"| highlight: $select.search'
+      div ng-if='hub.full_hub.length >= sessionSettings.spokenvote_attributes.minimumHubNameLength && hub.isTag' ng-bind-html='hub.full_hub + "<small> (add new, " + (50 - hub.full_hub.length) + ")</small>"| highlight: $select.search'
       div ng-if='!hub.isTag' ng-bind-html='hub.full_hub | highlight: $select.search'
 
   .forUser ng-if='sessionSettings.actions.userFilter || sessionSettings.routeParams.user' ng-click="clearFilter('user')"
