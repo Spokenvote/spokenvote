@@ -132,7 +132,7 @@ SessionSettings = ->
     selectHub: false
     userFilter: null
     wizardToGroup: null
-  hub_attributes: {}
+#  hub_attributes: {}
   hubFilter: null
   openModals:
     signIn: false

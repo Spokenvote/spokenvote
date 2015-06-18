@@ -9,12 +9,12 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
   $timeout (-> $scope.page.metaDescription = null), 4000
 
-  $scope.hubFilter =
-    hubFilter: null
-
-  if $route.current.params.hub? && !$route.current.params.proposalId?      # Older Select2 logic
-    $scope.hubFilter =
-      hubFilter: true
+#  $scope.hubFilter =
+#    hubFilter: null
+#
+#  if $route.current.params.hub? && !$route.current.params.proposalId?      # Older Select2 logic
+#    $scope.hubFilter =
+#      hubFilter: true
 
   if $route.current.params.hub?                                            # Newer UI-Select logic
     CurrentHubLoader().then (paramHub) ->
@@ -42,7 +42,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.route.current.prerenderStatusCode = undefined
     if $location.path() isnt '/start'
       $scope.sessionSettings.actions.hubShow = true
-      $scope.sessionSettings.actions.hubCreate = null
+#      $scope.sessionSettings.actions.hubCreate = null
       $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
       $scope.sessionSettings.hubFilter = null  if $scope.sessionSettings.hubFilter and $scope.sessionSettings.hubFilter.isTag
 
@@ -89,9 +89,9 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
         console.log searchedHub
         $scope.sessionSettings.actions.searchTerm = searchedHub.term
         currentHub = $scope.sessionSettings.hub_attributes
-        $scope.sessionSettings.hub_attributes = {}
-        $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
-        $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+        $scope.sessionSettings.hub_attributes =
+          location_id: currentHub.location_id
+          formatted_location: currentHub.formatted_location
 #        angular.element('.select2-dropdown-open').select2 'close'   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
 #        angular.element('#newProposalHub').select2('data', null)   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
         if !$scope.currentUser.id?
@@ -136,9 +136,9 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
   App.navCreateHub = ->
     $scope.$apply ->
       currentHub = $scope.sessionSettings.hub_attributes
-      $scope.sessionSettings.hub_attributes = {}
-      $scope.sessionSettings.hub_attributes.location_id = currentHub.location_id
-      $scope.sessionSettings.hub_attributes.formatted_location = currentHub.formatted_location
+      $scope.sessionSettings.hub_attributes =
+        location_id: currentHub.location_id
+        formatted_location: currentHub.formatted_location
 #      angular.element('.select2-dropdown-open').select2 'close'   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
 #      angular.element('#newProposalHub').select2('data', null)   # Mar 13, 2015 Looking up elements via selectors is not supported by jqLite!
       if !$scope.currentUser.id?

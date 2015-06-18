@@ -401,7 +401,7 @@ describe 'Voting Service Tests', ->
           .toEqual false
 
       it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
-        $rootScope.sessionSettings.hub_attributes = {}
+        $rootScope.sessionSettings.hub_attributes = null
         $rootScope.sessionSettings.actions.hubCreate = 'some recent search term'
 
         VotingService.new()
@@ -520,9 +520,11 @@ describe 'Voting Service Tests', ->
     describe 'saveNewProposal method should SAVE New Proposal', ->
 
       it 'should check for NEW HUB and REJECT an invalid Hub Location if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes.id = null
-        $rootScope.sessionSettings.hub_attributes.formatted_location = null
-        $rootScope.sessionSettings.openModals.newProposal = true
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          full_hub: 'Some Wonderful Hub Name'
+          formatted_location: null
+#        $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'
 
