@@ -12,7 +12,8 @@
     focus-on='focusHubFilter'
       )
     ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
-      span class='fa fa-search' &nbsp
+      span class='fa fa-search'
+      span class='whiteStrip' &nbsp
       span {{ $select.selected.full_hub }}
       span class='close' ng-click='clear($event)' &times
     ui-select-choices repeat='hub in hubs track by $index' refresh='refreshHubs($select.search)' refresh-delay='0'

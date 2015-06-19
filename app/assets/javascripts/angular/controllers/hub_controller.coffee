@@ -15,7 +15,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     $scope.sessionSettings.hub_attributes = null
     $location.search('hub', null)
 #    $location.search('hub', null) if $location.path() == '/proposals'
-    $scope.sessionSettings.actions.hubFilter = 'All Groups'
+#    $scope.sessionSettings.actions.hubFilter = 'All Groups'
     $scope.sessionSettings.actions.hubShow = true
 
   $scope.refreshHubs = (hub_filter) ->
@@ -56,12 +56,9 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #      $rootScope.sessionSettings.hub_attributes = item
 #      $scope.sessionSettings.actions.hubShow = true                                                # Need this?
       $location.search('hub', item.id)
-      $location.path('/proposals')  unless $location.path() == '/start'
+      $location.path('/proposals')  unless $location.path() is '/start'
       #    $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
-      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub    # Need this?
-#      $scope.sessionSettings.actions.changeHub = false
-  #    $scope.sessionSettings.actions.selectHub = true
-
+#      $scope.sessionSettings.actions.hubFilter = $scope.sessionSettings.hub_attributes.short_hub
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub

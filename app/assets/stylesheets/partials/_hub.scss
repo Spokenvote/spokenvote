@@ -4,6 +4,7 @@
   color: $soft-grey;
   text-decoration: none;
 
+
   :hover {
     color: $happy-blue;
     cursor: pointer;
@@ -17,7 +18,12 @@
     .btn {
       font-size: 20px;
       color: inherit;
-      padding-left: 45px;
+      //padding-left: 45px;
+      margin-right: -40px;
+      background-color: $modal-body-off-white;
+      opacity: 0.85;
+      border-radius: 5px;
+      padding: 3px;
     }
     .btn-default {
       &:active {

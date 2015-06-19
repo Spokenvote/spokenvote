@@ -98,10 +98,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       modalInstance.result.finally ->
         $rootScope.sessionSettings.openModals.getStarted = false
 
-  changeHub: (request) ->
-    if request is true and $rootScope.sessionSettings.actions.changeHub != 'new'
-      $rootScope.sessionSettings.actions.newProposalHub = null
-      $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
+#  changeHub: (request) ->
+#    if request is true and $rootScope.sessionSettings.actions.changeHub != 'new'
+#      $rootScope.sessionSettings.actions.newProposalHub = null
+#      $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
   saveNewProposal: ->
 #    console.log 'voting service: saveNewProposal'

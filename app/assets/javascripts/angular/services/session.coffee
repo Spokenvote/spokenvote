@@ -114,7 +114,7 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-    changeHub: false
+#    changeHub: false
     detailPage: false
     focus: null
     hubFilter: 'All Groups'

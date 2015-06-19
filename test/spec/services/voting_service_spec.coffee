@@ -80,8 +80,8 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.wizard
         .toBeDefined()
-      expect VotingService.changeHub
-        .toBeDefined()
+#      expect VotingService.changeHub
+#        .toBeDefined()
       expect VotingService.saveNewProposal
         .toBeDefined()
 
@@ -382,23 +382,23 @@ describe 'Voting Service Tests', ->
           .toEqual false
 
 
-    describe 'NEW method should make checks and open New Proposal modal', ->
-
-      it 'should initialize NEW method by clearing alerts', ->
-        VotingService.new()
-
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-
-      it 'should check for a current HUB and use it if it exists', ->
-        $rootScope.sessionSettings.hub_attributes =
-          id: 3
-          name: 'A sample group'
-
-        VotingService.new()
-
-        expect $rootScope.sessionSettings.actions.changeHub
-          .toEqual false
+#    describe 'NEW method should make checks and open New Proposal modal', ->
+#
+#      it 'should initialize NEW method by clearing alerts', ->
+#        VotingService.new()
+#
+#        expect $rootScope.alertService.clearAlerts.calls.count()
+#          .toEqual 1
+#
+#      it 'should check for a current HUB and use it if it exists', ->
+#        $rootScope.sessionSettings.hub_attributes =
+#          id: 3
+#          name: 'A sample group'
+#
+#        VotingService.new()
+#
+#        expect $rootScope.sessionSettings.actions.changeHub
+#          .toEqual false
 
       it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
         $rootScope.sessionSettings.hub_attributes = null
@@ -490,31 +490,31 @@ describe 'Voting Service Tests', ->
 
 
 
-    describe 'CHANGHUB method should detect request and change to New Hub mode', ->
-
-      it 'should not respond to a request with no args', ->
-
-        $rootScope.sessionSettings.actions.newProposalHub = true
-        $rootScope.sessionSettings.actions.changeHub = false
-
-        VotingService.changeHub()
-
-        expect $rootScope.sessionSettings.actions.newProposalHub
-          .toEqual true
-        expect $rootScope.sessionSettings.actions.changeHub
-          .toEqual false
-
-      it 'should  respond to a request with "true" arg', ->
-
-        $rootScope.sessionSettings.actions.newProposalHub = true
-        $rootScope.sessionSettings.actions.changeHub = false
-
-        VotingService.changeHub true
-
-        expect $rootScope.sessionSettings.actions.newProposalHub
-          .toEqual null
-        expect $rootScope.sessionSettings.actions.changeHub
-          .toEqual true
+#    describe 'CHANGHUB method should detect request and change to New Hub mode', ->
+#
+#      it 'should not respond to a request with no args', ->
+#
+#        $rootScope.sessionSettings.actions.newProposalHub = true
+#        $rootScope.sessionSettings.actions.changeHub = false
+#
+#        VotingService.changeHub()
+#
+#        expect $rootScope.sessionSettings.actions.newProposalHub
+#          .toEqual true
+#        expect $rootScope.sessionSettings.actions.changeHub
+#          .toEqual false
+#
+#      it 'should  respond to a request with "true" arg', ->
+#
+#        $rootScope.sessionSettings.actions.newProposalHub = true
+#        $rootScope.sessionSettings.actions.changeHub = false
+#
+#        VotingService.changeHub true
+#
+#        expect $rootScope.sessionSettings.actions.newProposalHub
+#          .toEqual null
+#        expect $rootScope.sessionSettings.actions.changeHub
+#          .toEqual true
 
 
     describe 'saveNewProposal method should SAVE New Proposal', ->
