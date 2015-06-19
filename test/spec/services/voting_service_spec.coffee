@@ -402,7 +402,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
         $rootScope.sessionSettings.hub_attributes = null
-        $rootScope.sessionSettings.actions.hubCreate = 'some recent search term'
+#        $rootScope.sessionSettings.actions.hubCreate = 'some recent search term'
 
         VotingService.new()
 
@@ -587,7 +587,7 @@ describe 'Voting Service Tests', ->
           id: null
           group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
-        $rootScope.sessionSettings.actions.hubCreate = 'New Group Name'
+#        $rootScope.sessionSettings.actions.hubCreate = 'New Group Name'
         $rootScope.sessionSettings.openModals.newProposal = true
 
         spyOn Proposal, 'save'

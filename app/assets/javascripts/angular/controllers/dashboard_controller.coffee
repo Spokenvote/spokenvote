@@ -19,7 +19,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
   if $route.current.params.hub?                                            # Newer UI-Select logic
     CurrentHubLoader().then (paramHub) ->
 #      console.log 'Init paramHub: ', paramHub
-      $scope.sessionSettings.hubFilter = paramHub
+#      $scope.sessionSettings.hubFilter = paramHub
       $scope.sessionSettings.hub_attributes = paramHub
       $scope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Need to keep setting this?
       $scope.sessionSettings.actions.hubShow = true
@@ -44,7 +44,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.sessionSettings.actions.hubShow = true
 #      $scope.sessionSettings.actions.hubCreate = null
 #      $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
-      $scope.sessionSettings.hubFilter = null  if $scope.sessionSettings.hubFilter and $scope.sessionSettings.hubFilter.isTag
+      $scope.sessionSettings.hub_attributes = null  if $scope.sessionSettings.hub_attributes and $scope.sessionSettings.hub_attributes.isTag
 
 #  $scope.$watch 'hubFilter.hubFilter', ->                             # New UI Select logic
 #    console.log '$location.path(): ', $location.path()
@@ -116,9 +116,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
 
     formatNoMatches: (term) ->
       $scope.sessionSettings.actions.searchTerm = term
-#      The below sort of coded + injecting $compileProvider would be involved to move the "App." reference below inside of Angular; probably not worth trying to be that "pure"
-#      $compile('No matches. If you are the first person to use this Group, please <button id="tempkim" ng-click="navCreateHub()" >create it</button>.')($scope)
-#      'No matches. If you are the first person to use this Group, <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >create it</a>.'
       'Not here? <a id="navCreateHub" onclick="App.navCreateHub()" href="javascript:" >Click here to create it</a>.'
 
     id: (obj) ->
@@ -149,9 +146,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       else
         $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
         $scope.sessionSettings.actions.changeHub = 'new'
-
-#  $scope.clearHubFilter = ->  # Should be automatic now.
-#    $scope.hubFilter.hubFilter = null
 
   $scope.tooltips =
     navMenu: 'Menu'

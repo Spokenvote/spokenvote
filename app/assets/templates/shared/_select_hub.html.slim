@@ -4,13 +4,13 @@
 .selectHub ng-controller='HubController'
   ui-select(
     name='hubFilter'
-    class='vote_hub'
+    class='fullHub'
     ng-disabled='disabled'
-    ng-model='sessionSettings.hubFilter'
+    ng-model='sessionSettings.hub_attributes'
     tagging='tagTransform'
     on-select='setHub($item, $model)'
     focus-on='focusHubFilter'
-     )
+      )
     ui-select-match id='vote_hub' placeholder='{{ sessionSettings.actions.hubPlaceholder }}'
       span class='fa fa-search' &nbsp
       span {{ $select.selected.full_hub }}
@@ -27,4 +27,4 @@
           .fa.fa-times
         span &nbsp
 
-  ng-include src="'shared/_make_hub.html'"
+  ng-include src="'shared/_select_hub_location.html'"
