@@ -29,6 +29,11 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
       $scope.sessionSettings.hub_attributes = null  if $scope.sessionSettings.hub_attributes and $scope.sessionSettings.hub_attributes.isTag
 
+  $scope.tooltips =
+    navMenu: 'Menu'
+    backtoTopics: 'Return to Topic list'
+    newTopic: 'Start a New Topic'
+
 #  $scope.$watch 'hubFilter.hubFilter', ->                             # Automatic in new UI Select logic
 #    console.log '$location.path(): ', $location.path()
 #    if $scope.hubFilter.hubFilter == null
@@ -130,10 +135,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
 #        $scope.votingService.new() if !$scope.sessionSettings.openModals.newProposal and !$scope.sessionSettings.openModals.getStarted
 #        $scope.sessionSettings.actions.changeHub = 'new'
 
-  $scope.tooltips =
-    navMenu: 'Menu'
-    backtoTopics: 'Return to Topic list'
-    newTopic: 'Start a New Topic'
 
 ]
 

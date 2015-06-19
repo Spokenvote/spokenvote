@@ -117,7 +117,7 @@ SessionSettings = ->
 #    changeHub: false
     detailPage: false
     focus: null
-    hubFilter: 'All Groups'
+#    hubFilter: 'All Groups'
     hubPlaceholder: 'Search for your Group ...'
     hubShow: true
     improveProposal:

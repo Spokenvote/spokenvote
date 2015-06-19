@@ -17,12 +17,6 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
-#  proposal_statement = angular.element(document.querySelector 'proposal_statement')
-#  console.log 'proposal_statement: ', proposal_statement
-  #  uiSelect = angular.element 'ui-select-wrapper'
-#  console.log 'uiSelect: ', uiSelect.children().controller()
-
-#  $scope.sessionSettings.proposal = proposal
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
@@ -34,16 +28,9 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
 
-#  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
-#    $scope.sessionSettings.actions.focus = 'publish'
-#    Focus '#publish'
-#  else
-#    Focus '#proposal_statement'
-
   $scope.commentStep = ( proposal_id)  ->
     console.log 'comment step: '
     $scope.sessionSettings.actions.focus = 'comment'
-#    $scope.sessionSettings.actions.proposal.id = proposal_id
     Focus '#new_vote_comment'
 
   $scope.hubStep = ->
@@ -55,19 +42,13 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
     else if $scope.sessionSettings.hub_attributes.id
       $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
-#    console.log 'uiSelect: ', uiSelect.focusser[0]
-
   $scope.finishProp = ->
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
     $scope.sessionSettings.actions.focus = 'publish'
     Focus 'publish'
 
-
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
-
-#  $scope.hubView = ->
-#    $location.path('/proposals').search('hub', $scope.proposal.hub.id)
 
   $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)

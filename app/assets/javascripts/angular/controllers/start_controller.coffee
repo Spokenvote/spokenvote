@@ -28,9 +28,6 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
     $scope.sessionSettings.actions.newProposal.comment = 'active'
     Focus '#vote_comment'
 
-#  $rootScope.$on 'focusHubFilter', ->
-#    console.log '$rootScope: focusHubFilter Triggered line 44'
-
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $scope.sessionSettings.actions.focus = 'hub'
@@ -47,7 +44,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
       $rootScope.$broadcast 'focusHubFilter'
 
   $rootScope.finishProp = ->
-    console.log 'finishProp: '
+#    console.log 'finishProp: '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
     $scope.sessionSettings.actions.focus = 'publish'
     $timeout (-> Focus '#publish'), 500
