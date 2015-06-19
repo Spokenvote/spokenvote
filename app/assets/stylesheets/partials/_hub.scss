@@ -57,11 +57,18 @@
         }
       }
       .length_counter {
+        padding: 0 5px 5px 5px;
+        margin-top: -5px;
         text-align: center;
         .happy-text a.link {
           color: $alert-blue;
         }
       }
+    }
+    .hint-text {
+      background-color: $superLightBoxGrey;
+      opacity: 0.45;
+      border-radius: 8px;
     }
   }
 }
