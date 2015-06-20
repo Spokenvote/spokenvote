@@ -20,7 +20,7 @@ class ProposalsController < ApplicationController
 
     @proposals = filter_proposals(proposals, params[:filter].presence)
 
-    if provided_user_id
+    if provided_user_id.present?
       user = User.find(provided_user_id)
 
       user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)

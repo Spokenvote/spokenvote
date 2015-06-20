@@ -9,11 +9,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.nil?
       user = User.new(:email => email)
-      user.authentications.build(:provider => provider, :uid => uid, :token => token)
+      user.authentications.build(provider: provider, uid: uid, token: token)
       #user.skip_confirmation!
 
       if user.save!
-        user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
+        user.create_avatar(remote_image_url: avatar_url) rescue nil  # Dont fail if we're unable to save avatar
         render json: {success: true, redirect: new_user_registration_url}
         #flash.notice = 'Thanks for joining Spokenvote!'
         #custom_sign_in_and_redirect(user)
