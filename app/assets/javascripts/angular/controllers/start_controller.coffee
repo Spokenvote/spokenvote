@@ -4,6 +4,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.hub_attributes or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
+  $scope.sessionSettings.actions.hubSeekOnSearch = false
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?

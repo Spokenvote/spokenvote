@@ -6,14 +6,14 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
   $scope.spokenvoteSession = SpokenvoteCookies
   $scope.sessionSettings.actions.detailPage = false
 
+  $scope.$on 'event:proposalsChanged', ->
+    $scope.proposals.$query
+
   $scope.setFilter = (filterSelected) ->
     $location.search('filter', filterSelected)
 
   $scope.setHub = (hubSelected) ->
     $location.path('/proposals/').search('hub', hubSelected.id)
-
-  $scope.$on 'event:proposalsChanged', ->
-    $scope.proposals.$query
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
@@ -28,12 +28,15 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
 
-  $scope.commentStep = ( proposal_id)  ->                             # WHen Editing or Improving
-    console.log 'comment step: '
+  $scope.$on 'event:votesChanged', ->
+    $scope.proposal.$get()
+
+  $scope.commentStep = ( proposal_id)  ->                             # Refactor Proposal Area Ticket
+#    console.log 'comment step: '
     $scope.sessionSettings.actions.focus = 'comment'
     Focus '#new_vote_comment'
 
-#  $scope.hubStep = ->                                                 # Why did I put hubStep here?
+#  $scope.hubStep = ->                                                # Why did I put hubStep here?
 #    $scope.sessionSettings.actions.newProposal.comment = 'complete'
 #    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
 #    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
@@ -42,13 +45,10 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 #    else if $scope.sessionSettings.hub_attributes.id
 #      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
-  $scope.finishProp = ->
-    $scope.sessionSettings.actions.newProposal.hub = 'complete'
-    $scope.sessionSettings.actions.focus = 'publish'
-    Focus 'publish'
-
-  $scope.$on 'event:votesChanged', ->
-    $scope.proposal.$get()
+#  $scope.finishProp = ->                                             # Proposal Edit, Improve and New should share a similar final save UX
+#    $scope.sessionSettings.actions.newProposal.hub = 'complete'
+#    $scope.sessionSettings.actions.focus = 'publish'
+#    Focus 'publish'
 
   $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)

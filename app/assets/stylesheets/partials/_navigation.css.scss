@@ -109,12 +109,22 @@ header.visible-xs {
     padding: 1px 9px 1px 9px;
     color: $happy-blue;
   }
-  .new-proposal {
+  .hub-search {
     .navbar-toggle {
       width: 44px;
+      padding: 0;
+      .fa {
+        font-size: 1.35em;
+        padding: 4px;
+      }
+    }
+  }
+  .new-proposal {
+    .navbar-toggle {
+      width: 48px;
       padding: 0px;
       .fa {
-        padding-top: 4px;
+        padding: 4px 0 0 4px;
       }
     }
   }

@@ -118,7 +118,8 @@ SessionSettings = ->
     detailPage: false
     focus: null
 #    hubFilter: 'All Groups'
-    hubPlaceholder: 'Search for your Group ...'
+    hubSeekOnSearch: true
+    hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     improveProposal:
       parent: null

@@ -38,8 +38,8 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #      $rootScope.eventResult = {item: item, model: model}      # What does this line do?
       item.id = item.select_id
       $location.search('hub', item.id)
-      $location.path('/proposals')  unless $location.path() is '/start'
-#      $location.path('/proposals').search('hub', item.id)  unless $location.path() == '/start'
+      $location.path('/proposals')  if $scope.sessionSettings.actions.hubSeekOnSearch is true
+  #      $location.path('/proposals')  unless $location.path() is '/start'
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub

@@ -9,10 +9,6 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       when 'my' then 'My Voted Proposals. Also choose most recent or most active on Spokenvote.'
   $timeout (-> $scope.page.metaDescription = null), 4000
 
-  $scope.landing = ->
-    $location.url '/landing'
-    $scope.sessionSettings.hub_attributes = null
-
   if $route.current.params.hub?
     CurrentHubLoader().then (paramHub) ->
       $scope.sessionSettings.hub_attributes = paramHub
@@ -26,8 +22,19 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.route.current.prerenderStatusCode = undefined
     if $location.path() isnt '/start'
       $scope.sessionSettings.actions.hubShow = true
-      $scope.sessionSettings.actions.hubPlaceholder = 'Search for your Group ...'
+      $scope.sessionSettings.actions.hubSeekOnSearch = true
+      $scope.sessionSettings.actions.hubPlaceholder = 'Search to find your Group ...'
       $scope.sessionSettings.hub_attributes = null  if $scope.sessionSettings.hub_attributes and $scope.sessionSettings.hub_attributes.isTag
+
+  $scope.landing = ->
+    $location.url '/landing'
+    $scope.sessionSettings.hub_attributes = null
+
+  $scope.hubSearch = ->
+    $scope.sessionSettings.actions.hubShow = true
+    $scope.sessionSettings.actions.hubSeekOnSearch = true
+    $scope.sessionSettings.actions.hubPlaceholder = 'Search to find your Group ...'
+    $scope.$broadcast 'focusHubFilter'
 
   $scope.tooltips =
     navMenu: 'Menu'
