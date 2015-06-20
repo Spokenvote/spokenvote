@@ -20,7 +20,7 @@
 
       /.currentHub ng-hide='sessionSettings.actions.newProposal.started === true && !sessionSettings.hub_attributes.id'
       .currentHub ng-show='sessionSettings.actions.hubShow'
-        ng-include src="'shared/_select_hub.html'"
+        ng-include src="'hubs/select_hub.html'"
 
       /.currentHub
         span( ng-show='sessionSettings.hub_attributes.id || sessionSettings.actions.searchTerm' ng-click='votingService.changeHub(true)' href='#' )

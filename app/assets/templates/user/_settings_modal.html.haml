@@ -14,7 +14,7 @@
     %form( name='userSettingsForm' )
       .instructions
         .avatar
-          %ng-include( src="'shared/_currentuser_avatar.html'" )
+          %ng-include( src="'user/_currentuser_avatar.html'" )
         %h5 At this time your settings all come from Facebook and should be edited there. Very soon some awesome social graph features will be added, and this window is where you will configure them.
       %input( id='user_full_name' type='text' class='half-width' ng-model='currentUser.name' required ng-minLength='5' ng-maxLength='50'
         placeholder='Your full name' ng-disabled='true' )

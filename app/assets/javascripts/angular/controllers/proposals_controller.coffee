@@ -28,19 +28,19 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
 
-  $scope.commentStep = ( proposal_id)  ->
+  $scope.commentStep = ( proposal_id)  ->                             # WHen Editing or Improving
     console.log 'comment step: '
     $scope.sessionSettings.actions.focus = 'comment'
     Focus '#new_vote_comment'
 
-  $scope.hubStep = ->
-    $scope.sessionSettings.actions.newProposal.comment = 'complete'
-    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
-    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
-      $scope.sessionSettings.actions.focus = 'publish'
-      Focus 'publish'
-    else if $scope.sessionSettings.hub_attributes.id
-      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+#  $scope.hubStep = ->                                                 # Why did I put hubStep here?
+#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+#    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
+#    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
+#      $scope.sessionSettings.actions.focus = 'publish'
+#      Focus 'publish'
+#    else if $scope.sessionSettings.hub_attributes.id
+#      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
   $scope.finishProp = ->
     $scope.sessionSettings.actions.newProposal.hub = 'complete'

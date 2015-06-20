@@ -1,12 +1,7 @@
-/.getStarted ng-controller='StartController'
 .getStarted
   .user-header
 
   .user-body
-    ng-include src="'shared/_alert_container.html'"
-
     form name='newProposalForm' ng-submit='saveNewProposal()'
       .newProposal
-        /ng-include( src="'shared/_make_hub.html'" )
-        ng-include src="'shared/_prop_area.html'"
-        /ng-include( ng-hide='sessionSettings.hub_attributes.id' src="'shared/_prop_area.html'" )
+        ng-include src="'proposals/_prop_area.html'"
