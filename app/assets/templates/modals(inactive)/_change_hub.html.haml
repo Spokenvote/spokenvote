@@ -1,0 +1,11 @@
+.changehub( ng-hide='!sessionSettings.actions.changeHub' )
+
+  .instructions
+    .avatar
+      %ng-include( src="'user/_currentuser_avatar.html'" )
+    %h5 Enter the group you would like to influence.
+
+  .selecthub( ng-controller='DashboardCtrl' role='search' )
+    %hidden_field_tag(id='newProposalHub' ui-select2='hubFilterSelect2' ng-model='sessionSettings.actions.newProposalHub')
+
+    %textarea( id='newProposalHub2' name='statement' class='full-width' ng-model='sessionSettings.newProposal.statement' required ng-minLength='15' ng-maxLength='140' )

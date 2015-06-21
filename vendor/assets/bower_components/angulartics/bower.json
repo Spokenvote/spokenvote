@@ -12,7 +12,6 @@
     "src/angulartics-kissmetrics.js",
     "src/angulartics-mixpanel.js",
     "src/angulartics-piwik.js",
-    "src/angulartics-scroll.js",
     "src/angulartics-segmentio.js",
     "src/angulartics-splunk.js",
     "src/angulartics-woopra.js",
@@ -20,7 +19,6 @@
   ],
   "dependencies": {
     "angular": ">= 1.1.5",
-    "jquery-waypoints": "~v2.0.3",
     "SHA-1": "*"
   },
   "devDependencies": {

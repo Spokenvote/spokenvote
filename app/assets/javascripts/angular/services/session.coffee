@@ -114,11 +114,12 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-    changeHub: false
+#    changeHub: false
     detailPage: false
     focus: null
-    hubFilter: 'All Groups'
-    hubPlaceholder: 'Search for your Group ...'
+#    hubFilter: 'All Groups'
+    hubSeekOnSearch: true
+    hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     improveProposal:
       parent: null
@@ -128,11 +129,12 @@ SessionSettings = ->
 #    proposal:
 #      id:  null
 #      vote: null
-    searchTerm: null
+#    searchTerm: null
     selectHub: false
     userFilter: null
     wizardToGroup: null
-  hub_attributes: {}
+  hub_attributes: null
+#  hubFilter: null
   openModals:
     signIn: false
     register: false
@@ -162,6 +164,7 @@ SessionSettings = ->
     facebookRootUrl: 'http://www.facebook.com/sharer.php?u='
     googleRootUrl: 'https://plus.google.com/share?url='
   spokenvote_attributes:
+    minimumHubNameLength: 3
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
       client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'

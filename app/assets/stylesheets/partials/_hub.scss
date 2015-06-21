@@ -1,113 +1,90 @@
 // Current Hub Elements
 
-.vote_hub {
-  input {
-    font-size: 20px;
-  }
-  .btn {
-    font-size: 20px;
-    color: inherit;
-    padding: 0;
-//    text-align: left;
-  }
-  .btn-default {
-    &:active {
-      box-shadow: none;
-    }
-  }
-  .form-control {
-    border: none;
-    box-shadow: none;
-
-  }
-  .form-control:focus {
-    box-shadow: none;
-  }
-  .dropdown-menu {
-    box-shadow: none;
-    border: none;
-    background-color: $airbnbBackgroundWhite;
-    margin-left: -15px;
-  }
-}
-
-
 .currentHub {
-//  font-family: $logoTypeFace;
-//  color: $basic-brown !important;
   color: $soft-grey;
-//  text-align: right;
-//  margin-left: 30px;
   text-decoration: none;
-//  margin-top: -10px;
-//  @media (max-width: $grid-float-breakpoint-max) {
-//    margin-top: -5px;
-//  }
-  .groupName {
-//    font-size: 20px;
-    .btn-group {
-      text-align: center;
-    }
-//    padding-left: 50px;
-    //    margin-right: 3px;
-    i {
-      font-size: 14px;
-    }
-    .vote_hub {
-      .btn {
-        font-size: 18px;
-        display: inline-block;
-        float: none;
 
-      }
-      input {
-//        padding-left: 20%;
-      }
-      .form-control {
-//        text-align: center;
-        color: $tally-blue;
-      }
-    }
-  }
-  .groupLocation {
-    font-size: 14px;
-    margin-top: -4px;
-    margin-bottom: -6px;
-    margin-right: 3px;
-  }
+
   :hover {
     color: $happy-blue;
     cursor: pointer;
   }
 
-  .makeHub {
+  .fullHub {
+    height: 30px;
+    input {
+      font-size: 20px;
+    }
+    .btn {
+      font-size: 20px;
+      color: inherit;
+      //padding-left: 45px;
+      margin-right: -40px;
+      background-color: $modal-body-off-white;
+      opacity: 0.85;
+      border-radius: 5px;
+      padding: 3px;
+    }
+    .btn-default {
+      &:active {
+        box-shadow: none;
+      }
+    }
+    .form-control {
+      border: none;
+      box-shadow: none;
+    }
+    .form-control:focus {
+      box-shadow: none;
+    }
+    .dropdown-menu {
+      box-shadow: none;
+      border: none;
+      background-color: $airbnbBackgroundWhite;
+      margin-left: -15px;
+    }
+  }
+
+  .newHubLocation {
+    margin-bottom: 0;
+
     h3 {
       color: $happy-blue;
-      //      font-size: 135%;
       margin: 0;
-      //      padding: 5px;
     }
+
     .input-area {
-//      padding: 0 15px;
-//      width: 287px;
-//      min-width: 70%;
       input {
         text-align: center;
         background-color: inherit;
-        font-size: 20px;
+        font-size: .9em;
         width: 100%;
-        margin-top: 5px;
         &:focus {
           outline: none;
         }
       }
       .length_counter {
+        padding: 0 5px 5px 5px;
+        margin-top: -5px;
         text-align: center;
         .happy-text a.link {
           color: $alert-blue;
         }
       }
     }
+    .hint-text {
+      background-color: $modal-body-off-white;
+      opacity: 0.55;
+      border-radius: 8px;
+      h5 {
+        margin: 0;
+        padding: 5px;
+      }
+    }
   }
-
 }
+
+
+
+
+
