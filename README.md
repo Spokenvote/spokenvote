@@ -12,7 +12,16 @@ The central idea behind Spokenvote is to spontaneously capture people’s opinio
 * Simple and elegant reporting back to the group to see where consensus stands at a glance
 * Integration with Facebook and G+ to pull credentials and push user activity
 
-The master instance work-in-progress instance is hosted <a href="http://spokenvote.herokuapp.com/">on Heroku</a>.
+## How It Works
+
+The model uses trees of related proposals, where related means forked from each other. The rules are:
+
+ - Voters can have only one vote in each tree.
+ - Further voting or forking in a tree results in user's votes getting "moved".
+ - The index page shows only the top-voted proposal for each tree.
+
+The live instance is <a href="http://spokenvote.org/"> hosted here</a>.
+The work-in-progress staging instance is <a href="http://staging.spokenvote.org/"> hosted here</a>.
 
 ## Getting started
 

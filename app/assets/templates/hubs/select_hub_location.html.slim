@@ -1,0 +1,20 @@
+form.newHubLocation name='newHubLocationForm' ng-show='sessionSettings.hub_attributes.isTag'
+  .input-area
+
+    input( name='formatted_location' id='hub_formatted_location' type='text' class='input-xlarge'
+      placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required
+      ng-enter='finishProp()' ng-focus='sessionSettings.actions.focus = "hub"'  )
+    .length_counter.error-text ng-hide='newHubLocationForm.formatted_location.$valid'
+      span Choose a valid location from list. &nbsp
+      .fa.fa-warning
+    /.length_counter.happy-text( ng-show='newProposalForm.formatted_location.$valid && newProposalForm.group_name.$valid' )
+    .length_counter.happy-text ng-show='newHubLocationForm.formatted_location.$valid && sessionSettings.actions.focus === "hub"'
+      span Group Location Valid
+      /a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
+
+  .hint-text
+    h3 You are about to create a new group.
+    h5
+      .fa.fa-lightbulb-o
+      span-red &nbsp Hint! &nbsp
+      span Double-check to make sure your group does not already exist by trying alternate spellings above.

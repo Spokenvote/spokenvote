@@ -117,7 +117,7 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
 #              $scope
 #        d = $dialog.dialog(opts)
 #        SessionSettings.openModals.signIn = true
-#        d.open('shared/_sign_in_modal.html', 'SessionCtrl').then (result) ->
+#        d.open('user/_sign_in_modal.html', 'SessionCtrl').then (result) ->
 #          SessionSettings.openModals.signIn = d.isOpen()
 #
 #    $scope.registerModal = ->       # $dialog.dialog no longer supported, must be updated to be used.

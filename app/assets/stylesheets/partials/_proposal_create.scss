@@ -79,31 +79,31 @@
       color: $soft-grey;
     }
   }
-  .vote_hub {
-    input {
+//  .vote_hub {                      // Jun 10, 2015 Commented out
+//    input {
       //      font-size: 20px;
-    }
+//    }
     .btn {
       //      font-size: 20px;
       //      color: inherit;
       //      padding: 0;
-      text-align: left;
-    }
-    .form-control {
+//      text-align: left;
+//    }
+//    .form-control {
       //      border: none;
       //      box-shadow: none;
 
     }
-    .form-control:focus {
+//    .form-control:focus {
       //      box-shadow: none;
-    }
-    .dropdown-menu {
+//    }
+//    .dropdown-menu {
       //      box-shadow: none;
       //      border: none;
       //      background-color: inherit;
       //      margin-left: -15px;
-    }
-  }
+//    }
+//  }
 
   .next-step {
     color: $smokeyLebel;

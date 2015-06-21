@@ -3,11 +3,14 @@
     border: none;
     background-color: inherit;
     color: inherit;
+    width: inherit;
+
     .caret {
       display: none;
     }
 
-  }
+    }
+
   .btn-default-focus {
     outline: none;
     color: inherit;
@@ -21,6 +24,8 @@
     height: 1.6em;
     font-size: .75em;
     color: inherit;
-
+  }
+  .ui-select-match {
+    text-align: inherit;
   }
 }
