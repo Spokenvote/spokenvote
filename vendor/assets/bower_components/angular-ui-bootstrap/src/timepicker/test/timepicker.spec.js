@@ -1,5 +1,5 @@
 describe('timepicker directive', function () {
-  var $rootScope, element;
+  var $rootScope, $compile, element;
 
   beforeEach(module('ui.bootstrap.timepicker'));
   beforeEach(module('template/timepicker/timepicker.html'));
@@ -64,7 +64,7 @@ describe('timepicker directive', function () {
     e.wheelDelta = delta;
     return e;
   }
-  
+
   function wheelThatOtherMouse(delta) {
     var e = $.Event('wheel');
     e.deltaY = delta;
@@ -136,7 +136,7 @@ describe('timepicker directive', function () {
     expect(getTimeState()).toEqual(['02', '39', 'PM']);
     expect(getModelState()).toEqual([14, 39]);
   });
-  
+
   it('meridian button has correct type', function() {
     var button = getMeridianButton();
     expect(button.attr('type')).toBe('button');
@@ -485,7 +485,7 @@ describe('timepicker directive', function () {
       expect(getTimeState()).toEqual(['02', '00', 'PM']);
       expect(getModelState()).toEqual([14, 0]);
     });
-    
+
     it('responds properly on "wheel" events with configurable steps', function() {
       var inputs = element.find('input');
       var hoursEl = inputs.eq(0), minutesEl = inputs.eq(1);
@@ -598,6 +598,20 @@ describe('timepicker directive', function () {
       $rootScope.time = newTime(2, 40);
       $rootScope.$digest();
       expect(getTimeState()[2]).toBe('am');
+    });
+  });
+
+  describe('`readonly-input` attribute', function() {
+    beforeEach(inject(function() {
+      $rootScope.meridiansArray = ['am', 'pm'];
+      element = $compile('<timepicker ng-model="time" readonly-input="true"></timepicker>')($rootScope);
+      $rootScope.$digest();
+    }));
+
+    it('should make inputs readonly', function () {
+      var inputs = element.find('input');
+      expect(inputs.eq(0).attr('readonly')).toBe('readonly');
+      expect(inputs.eq(1).attr('readonly')).toBe('readonly');
     });
   });
 
@@ -778,7 +792,7 @@ describe('timepicker directive', function () {
 
   describe('when model is not a Date', function() {
     beforeEach(inject(function() {
-      eelement = $compile('<timepicker ng-model="time"></timepicker>')($rootScope);
+      element = $compile('<timepicker ng-model="time"></timepicker>')($rootScope);
     }));
 
     it('should not be invalid when the model is null', function() {

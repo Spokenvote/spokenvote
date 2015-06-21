@@ -24,9 +24,11 @@ angular.module('ui.bootstrap.buttons', [])
 
       //ui->model
       element.bind(buttonsCtrl.toggleEvent, function () {
-        if (!element.hasClass(buttonsCtrl.activeClass)) {
+        var isActive = element.hasClass(buttonsCtrl.activeClass);
+
+        if (!isActive || angular.isDefined(attrs.uncheckable)) {
           scope.$apply(function () {
-            ngModelCtrl.$setViewValue(scope.$eval(attrs.btnRadio));
+            ngModelCtrl.$setViewValue(isActive ? null : scope.$eval(attrs.btnRadio));
             ngModelCtrl.$render();
           });
         }
@@ -49,7 +51,7 @@ angular.module('ui.bootstrap.buttons', [])
       function getFalseValue() {
         return getCheckboxValue(attrs.btnCheckboxFalse, false);
       }
-      
+
       function getCheckboxValue(attributeValue, defaultValue) {
         var val = scope.$eval(attributeValue);
         return angular.isDefined(val) ? val : defaultValue;

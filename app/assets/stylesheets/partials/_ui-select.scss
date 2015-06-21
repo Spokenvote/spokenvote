@@ -3,15 +3,18 @@
     border: none;
     background-color: inherit;
     color: inherit;
+    width: inherit;
+
     .caret {
       display: none;
     }
 
-  }
+    }
+
   .btn-default-focus {
+    outline: none;
     color: inherit;
     background-color: inherit;
-    outline: none;
     box-shadow: none;
   }
   input {
@@ -21,6 +24,8 @@
     height: 1.6em;
     font-size: .75em;
     color: inherit;
-
+  }
+  .ui-select-match {
+    text-align: inherit;
   }
 }

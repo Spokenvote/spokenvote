@@ -1,13 +1,25 @@
 describe('carousel', function() {
-  beforeEach(module('ui.bootstrap.carousel'));
+  beforeEach(module('ui.bootstrap.carousel', function($compileProvider, $provide) {
+    angular.forEach(['ngSwipeLeft', 'ngSwipeRight'], makeMock);
+    function makeMock(name) {
+      $provide.value(name + 'Directive', []); //remove existing directive if it exists
+      $compileProvider.directive(name, function() {
+        return function(scope, element, attr) {
+          element.on(name, function() {
+            scope.$apply(attr[name]);
+          });
+        };
+      });
+    }
+  }));
   beforeEach(module('template/carousel/carousel.html', 'template/carousel/slide.html'));
-  
-  var $rootScope, $compile, $controller, $timeout;
-  beforeEach(inject(function(_$rootScope_, _$compile_, _$controller_, _$timeout_) {
+
+  var $rootScope, $compile, $controller, $interval;
+  beforeEach(inject(function(_$rootScope_, _$compile_, _$controller_, _$interval_) {
     $rootScope = _$rootScope_;
     $compile = _$compile_;
     $controller = _$controller_;
-    $timeout = _$timeout_;
+    $interval = _$interval_;
   }));
 
   describe('basics', function() {
@@ -24,7 +36,7 @@ describe('carousel', function() {
           '<slide ng-repeat="slide in slides" active="slide.active">' +
             '{{slide.content}}' +
           '</slide>' +
-        '</carousel>' 
+        '</carousel>'
       )(scope);
       scope.interval = 5000;
       scope.nopause = undefined;
@@ -60,7 +72,7 @@ describe('carousel', function() {
       var indicators = elm.find('ol.carousel-indicators > li');
       expect(indicators.length).toBe(3);
     });
-    
+
     it('should hide navigation when only one slide', function () {
       scope.slides=[{active:false,content:'one'}];
       scope.$apply();
@@ -69,25 +81,25 @@ describe('carousel', function() {
             '<slide ng-repeat="slide in slides" active="slide.active">' +
               '{{slide.content}}' +
             '</slide>' +
-          '</carousel>' 
+          '</carousel>'
         )(scope);
       var indicators = elm.find('ol.carousel-indicators > li');
       expect(indicators.length).toBe(0);
-      
+
       var navNext = elm.find('a.right');
       expect(navNext.length).toBe(0);
-      
+
       var navPrev = elm.find('a.left');
       expect(navPrev.length).toBe(0);
     });
-    
-    it('should show navigation when there are 3 slides', function () {  
+
+    it('should show navigation when there are 3 slides', function () {
       var indicators = elm.find('ol.carousel-indicators > li');
       expect(indicators.length).not.toBe(0);
-      
+
       var navNext = elm.find('a.right');
       expect(navNext.length).not.toBe(0);
-      
+
       var navPrev = elm.find('a.left');
       expect(navPrev.length).not.toBe(0);
     });
@@ -114,6 +126,20 @@ describe('carousel', function() {
       testSlideActive(0);
     });
 
+    describe('swiping', function() {
+      it('should go next on swipeLeft', function() {
+        testSlideActive(0);
+        elm.triggerHandler('ngSwipeLeft');
+        testSlideActive(1);
+      });
+
+      it('should go prev on swipeRight', function() {
+        testSlideActive(0);
+        elm.triggerHandler('ngSwipeRight');
+        testSlideActive(2);
+      });
+    });
+
     it('should select a slide when clicking on slide indicators', function () {
       var indicators = elm.find('ol.carousel-indicators > li');
       indicators.eq(1).click();
@@ -122,16 +148,18 @@ describe('carousel', function() {
 
     it('shouldnt go forward if interval is NaN or negative', function() {
       testSlideActive(0);
+      var previousInterval = scope.interval;
       scope.$apply('interval = -1');
-      //no timeout to flush, interval watch doesn't make a new one when interval is invalid
+      $interval.flush(previousInterval);
       testSlideActive(0);
       scope.$apply('interval = 1000');
-      $timeout.flush();
+      $interval.flush(1000);
       testSlideActive(1);
       scope.$apply('interval = false');
+      $interval.flush(1000);
       testSlideActive(1);
       scope.$apply('interval = 1000');
-      $timeout.flush();
+      $interval.flush(1000);
       testSlideActive(2);
     });
 
@@ -156,36 +184,37 @@ describe('carousel', function() {
 
     it('should be playing by default and cycle through slides', function() {
       testSlideActive(0);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(1);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(2);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(0);
     });
 
     it('should pause and play on mouseover', function() {
       testSlideActive(0);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(1);
       elm.trigger('mouseenter');
-      expect($timeout.flush).toThrow();//pause should cancel current timeout
+      testSlideActive(1);
+      $interval.flush(scope.interval);
       testSlideActive(1);
       elm.trigger('mouseleave');
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(2);
     });
-    
+
     it('should not pause on mouseover if noPause', function() {
       scope.$apply('nopause = true');
       testSlideActive(0);
       elm.trigger('mouseenter');
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(1);
       elm.trigger('mouseleave');
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(2);
-    });    
+    });
 
     it('should remove slide from dom and change active slide', function() {
       scope.$apply('slides[2].active = true');
@@ -193,7 +222,7 @@ describe('carousel', function() {
       scope.$apply('slides.splice(0,1)');
       expect(elm.find('div.item').length).toBe(2);
       testSlideActive(1);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(0);
       scope.$apply('slides.splice(1,1)');
       expect(elm.find('div.item').length).toBe(1);
@@ -227,14 +256,15 @@ describe('carousel', function() {
 
     it('issue 1414 - should not continue running timers after scope is destroyed', function() {
       testSlideActive(0);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(1);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(2);
-      $timeout.flush();
+      $interval.flush(scope.interval);
       testSlideActive(0);
+      spyOn($interval, 'cancel').andCallThrough();
       scope.$destroy();
-      expect($timeout.flush).toThrow('No deferred tasks to be flushed');
+      expect($interval.cancel).toHaveBeenCalled();
     });
 
   });
@@ -255,15 +285,15 @@ describe('carousel', function() {
     describe('addSlide', function() {
       it('should set first slide to active = true and the rest to false', function() {
         angular.forEach(ctrl.slides, function(slide, i) {
-          if (i !== 0) { 
-            expect(slide.active).not.toBe(true); 
+          if (i !== 0) {
+            expect(slide.active).not.toBe(true);
           } else {
             expect(slide.active).toBe(true);
           }
         });
       });
 
-      it('should add new slide and change active to true if active is true on the added slide', function() { 
+      it('should add new slide and change active to true if active is true on the added slide', function() {
         var newSlide = {active: true};
         expect(ctrl.slides.length).toBe(4);
         ctrl.addSlide(newSlide);
@@ -272,7 +302,7 @@ describe('carousel', function() {
         expect(ctrl.slides[0].active).toBe(false);
       });
 
-      it('should add a new slide and not change the active slide', function() { 
+      it('should add a new slide and not change the active slide', function() {
         var newSlide = {active: false};
         expect(ctrl.slides.length).toBe(4);
         ctrl.addSlide(newSlide);
@@ -300,12 +330,12 @@ describe('carousel', function() {
         scope.interval = 2000;
         scope.$digest();
 
-        $timeout.flush();
+        $interval.flush(scope.interval);
         expect(scope.next.calls.length).toBe(1);
 
         scope.$destroy();
 
-        $timeout.flush(scope.interval);
+        $interval.flush(scope.interval);
         expect(scope.next.calls.length).toBe(1);
       });
     });

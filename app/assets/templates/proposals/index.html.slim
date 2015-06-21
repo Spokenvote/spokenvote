@@ -20,7 +20,6 @@ section
         /  h3
         /    span Loading Proposals, please wait.
 
-      /h3.btn-group.pull-right
       .btn-group.pull-right
         label ng-change="setFilter('my')" class='btn btn-default' ng-model='sessionSettings.routeParams.filter' btn-radio="'my'" ng-if='currentUser.id'
           .fa.sub.fa-check-square-o
@@ -60,11 +59,12 @@ section
             .date-stamp.col-xs-12 {{ proposal.updated_at }}
 
   .proposalFooter ng-show='!proposalsLoading'
-    .dont-seeit.pull-right
+    /.dont-seeit.pull-right
       | Don't see the topic you're looking for? &nbsp
       a id='makeProposalLink' href='#' ng-click='newTopic()'  Start a New Topic
-    .no-proposals.col-xs-12 ng-show='proposals.length == 0'
+    .no-proposals.col-xs-12 ng-show='proposals.length === 0'
       h3
-        span No {{ filterSelection | inflector:humanize }} topics found&nbsp
-        span ng-if='sessionSettings.actions.hubFilter'  for {{ sessionSettings.actions.hubFilter }}
+        // Mar 18, 2015 Replaced inflector:humanize with capitalize to remove angular-ui-utils
+        span No {{ filterSelection | capitalize }} topics found&nbsp
+        span ng-if='sessionSettings.hub_attributes'  for {{ sessionSettings.hub_attributes.full_hub }}
         span ng-if='sessionSettings.actions.userFilter'  for {{ sessionSettings.actions.userFilter }}

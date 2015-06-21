@@ -3,12 +3,12 @@
   .main-proposal.row id='prop{{ proposal.id }}'
     .col-xs-2
       .improve_support_buttons
-        .votes.box ng-click='support(proposal)'
+        .votes.box ng-click='support(proposal)' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
           i.fa.fa-sort-up
           .big-percent
             | {{ proposal.votes_percentage }}
             span.pct %
-        .fork.box ng-click='improve(proposal)'
+        .fork.box ng-click='improve(proposal)' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right'
           i.fa.fa-lightbulb-o
 
     .col-xs-10.proposal_statement
@@ -33,7 +33,7 @@
       .proposal-person.col-xs-2
         /.supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
         .supporter-avatar
-          ng-include src="'shared/_currentuser_avatar.html'"
+          ng-include src="'user/_currentuser_avatar.html'"
 
       .proposal_statement.col-xs-10 ng-controller='ImproveController'
         form name='improvedProposalForm' ng-submit='saveImprovement()'
@@ -64,7 +64,7 @@
       .row.support_row
         .proposal-person.col-xs-2
           .supporter-avatar
-            ng-include src="'shared/_currentuser_avatar.html'"
+            ng-include src="'user/_currentuser_avatar.html'"
 
         .support-comment.col-xs-10 ng-controller='SupportController'
           form name='supportProposalForm' ng-submit='saveSupport()'

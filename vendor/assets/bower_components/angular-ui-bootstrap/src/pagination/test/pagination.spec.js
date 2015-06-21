@@ -7,7 +7,7 @@ describe('pagination directive', function () {
     $rootScope = _$rootScope_;
     $rootScope.total = 47; // 5 pages
     $rootScope.currentPage = 3;
-    element = $compile('<pagination total-items="total" page="currentPage"></pagination>')($rootScope);
+    element = $compile('<pagination total-items="total" ng-model="currentPage"></pagination>')($rootScope);
     $rootScope.$digest();
   }));
 
@@ -123,11 +123,11 @@ describe('pagination directive', function () {
   });
 
   describe('`items-per-page`', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.perpage = 5;
-      element = $compile('<pagination total-items="total" items-per-page="perpage" page="currentPage" on-select-page="selectPageHandler(page)"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" items-per-page="perpage" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('changes the number of pages', function() {
       expect(getPaginationBarSize()).toBe(12);
@@ -165,16 +165,16 @@ describe('pagination directive', function () {
     });
   });
 
-  describe('executes `on-select-page` expression', function () {
-    beforeEach(inject(function() {
+  describe('executes  `ng-change` expression', function () {
+    beforeEach(function() {
       $rootScope.selectPageHandler = jasmine.createSpy('selectPageHandler');
-      element = $compile('<pagination total-items="total" page="currentPage" on-select-page="selectPageHandler(page)"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" ng-model="currentPage" ng-change="selectPageHandler()"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('when an element is clicked', function() {
       clickPaginationEl(2);
-      expect($rootScope.selectPageHandler).toHaveBeenCalledWith(2);
+      expect($rootScope.selectPageHandler).toHaveBeenCalled();
     });
   });
 
@@ -186,7 +186,7 @@ describe('pagination directive', function () {
       updateCurrentPage('04');
       expect(getPaginationEl(4)).toHaveClass('active');
     });
-    
+
     it('defaults to 1 if non-numeric', function() {
       updateCurrentPage('pizza');
       expect(getPaginationEl(1)).toHaveClass('active');
@@ -194,13 +194,13 @@ describe('pagination directive', function () {
   });
 
   describe('with `max-size` option', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.total = 98; // 10 pages
       $rootScope.currentPage = 3;
       $rootScope.maxSize = 5;
-      element = $compile('<pagination total-items="total" page="currentPage" max-size="maxSize"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" ng-model="currentPage" max-size="maxSize"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains maxsize + 2 li elements', function() {
       expect(getPaginationBarSize()).toBe($rootScope.maxSize + 2);
@@ -230,7 +230,7 @@ describe('pagination directive', function () {
       clickPaginationEl(0);
 
       expect($rootScope.currentPage).toBe(6);
-     expect(getPaginationEl(3)).toHaveClass('active');
+      expect(getPaginationEl(3)).toHaveClass('active');
       expect(getPaginationEl(3).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -262,14 +262,14 @@ describe('pagination directive', function () {
   });
 
   describe('with `max-size` option & no `rotate`', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.total = 115; // 12 pages
       $rootScope.currentPage = 7;
       $rootScope.maxSize = 5;
       $rootScope.rotate = false;
-      element = $compile('<pagination total-items="total" page="currentPage" max-size="maxSize" rotate="rotate"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" ng-model="currentPage" max-size="maxSize" rotate="rotate"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains maxsize + 4 elements', function() {
       expect(getPaginationBarSize()).toBe($rootScope.maxSize + 4);
@@ -325,10 +325,10 @@ describe('pagination directive', function () {
   });
 
   describe('pagination directive with `boundary-links`', function () {
-    beforeEach(inject(function() {
-      element = $compile('<pagination boundary-links="true" total-items="total" page="currentPage"></pagination>')($rootScope);
+    beforeEach(function() {
+      element = $compile('<pagination boundary-links="true" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains num-pages + 4 li elements', function() {
       expect(getPaginationBarSize()).toBe(9);
@@ -381,7 +381,7 @@ describe('pagination directive', function () {
     });
 
     it('changes "first" & "last" text from attributes', function() {
-      element = $compile('<pagination boundary-links="true" first-text="<<<" last-text=">>>" total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination boundary-links="true" first-text="<<<" last-text=">>>" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
 
       expect(getPaginationEl(0).text()).toBe('<<<');
@@ -389,7 +389,7 @@ describe('pagination directive', function () {
     });
 
     it('changes "previous" & "next" text from attributes', function() {
-      element = $compile('<pagination boundary-links="true" previous-text="<<" next-text=">>" total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination boundary-links="true" previous-text="<<" next-text=">>" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
 
       expect(getPaginationEl(1).text()).toBe('<<');
@@ -399,7 +399,7 @@ describe('pagination directive', function () {
     it('changes "first" & "last" text from interpolated attributes', function() {
       $rootScope.myfirstText = '<<<';
       $rootScope.mylastText = '>>>';
-      element = $compile('<pagination boundary-links="true" first-text="{{myfirstText}}" last-text="{{mylastText}}" total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination boundary-links="true" first-text="{{myfirstText}}" last-text="{{mylastText}}" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
 
       expect(getPaginationEl(0).text()).toBe('<<<');
@@ -409,7 +409,7 @@ describe('pagination directive', function () {
     it('changes "previous" & "next" text from interpolated attributes', function() {
       $rootScope.previousText = '<<';
       $rootScope.nextText = '>>';
-      element = $compile('<pagination boundary-links="true" previous-text="{{previousText}}" next-text="{{nextText}}" total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination boundary-links="true" previous-text="{{previousText}}" next-text="{{nextText}}" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
 
       expect(getPaginationEl(1).text()).toBe('<<');
@@ -418,10 +418,10 @@ describe('pagination directive', function () {
   });
 
   describe('pagination directive with just number links', function () {
-    beforeEach(inject(function() {
-      element = $compile('<pagination direction-links="false" total-items="total" page="currentPage"></pagination>')($rootScope);
+    beforeEach(function() {
+      element = $compile('<pagination direction-links="false" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains num-pages li elements', function() {
       expect(getPaginationBarSize()).toBe(5);
@@ -469,11 +469,11 @@ describe('pagination directive', function () {
   });
 
   describe('with just boundary & number links', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.directions = false;
-      element = $compile('<pagination boundary-links="true" direction-links="directions" total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination boundary-links="true" direction-links="directions" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains number of pages + 2 li elements', function() {
       expect(getPaginationBarSize()).toBe(7);
@@ -501,11 +501,11 @@ describe('pagination directive', function () {
   });
 
   describe('`num-pages`', function () {
-    beforeEach(inject(function() {
+    beforeEach(function() {
       $rootScope.numpg = null;
-      element = $compile('<pagination total-items="total" page="currentPage" num-pages="numpg"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" ng-model="currentPage" num-pages="numpg"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('equals to total number of pages', function() {
       expect($rootScope.numpg).toBe(5);
@@ -529,41 +529,54 @@ describe('pagination directive', function () {
   });
 
   describe('setting `paginationConfig`', function() {
-    var originalConfig = {};
-    beforeEach(inject(function(paginationConfig) {
-      angular.extend(originalConfig, paginationConfig);
-      paginationConfig.itemsPerPage = 5;
+    var originalConfig, paginationConfig;
+    beforeEach(inject(function(_paginationConfig_) {
+      originalConfig = angular.copy(_paginationConfig_);
+      paginationConfig = _paginationConfig_;
+    }));
+    afterEach(inject(function(paginationConfig) {
+      // return it to the original stat
+      angular.copy(originalConfig, paginationConfig);
+    }));
+
+    it('should change paging text', function () {
       paginationConfig.boundaryLinks = true;
       paginationConfig.directionLinks = true;
       paginationConfig.firstText = 'FI';
       paginationConfig.previousText = 'PR';
       paginationConfig.nextText = 'NE';
       paginationConfig.lastText = 'LA';
-      element = $compile('<pagination total-items="total" page="currentPage"></pagination>')($rootScope);
+      element = $compile('<pagination total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
-    afterEach(inject(function(paginationConfig) {
-      // return it to the original stat
-      angular.extend(paginationConfig, originalConfig);
-    }));
 
-    it('should change paging text', function () {
       expect(getPaginationEl(0).text()).toBe('FI');
       expect(getPaginationEl(1).text()).toBe('PR');
       expect(getPaginationEl(-2).text()).toBe('NE');
       expect(getPaginationEl(-1).text()).toBe('LA');
     });
 
-    it('contains number of pages + 4 li elements', function() {
-      expect(getPaginationBarSize()).toBe(14);
+    it('contains number of pages + 2 li elements', function() {
+      paginationConfig.itemsPerPage = 5;
+      element = $compile('<pagination total-items="total" ng-model="currentPage"></pagination>')($rootScope);
+      $rootScope.$digest();
+
+      expect(getPaginationBarSize()).toBe(12);
+    });
+
+    it('should take maxSize defaults into account', function () {
+      paginationConfig.maxSize = 2;
+      element = $compile('<pagination total-items="total" ng-model="currentPage"></pagination>')($rootScope);
+      $rootScope.$digest();
+
+      expect(getPaginationBarSize()).toBe(4);
     });
   });
 
   describe('override configuration from attributes', function () {
-    beforeEach(inject(function() {
-      element = $compile('<pagination boundary-links="true" first-text="<<" previous-text="<" next-text=">" last-text=">>" total-items="total" page="currentPage"></pagination>')($rootScope);
+    beforeEach(function() {
+      element = $compile('<pagination boundary-links="true" first-text="<<" previous-text="<" next-text=">" last-text=">>" total-items="total" ng-model="currentPage"></pagination>')($rootScope);
       $rootScope.$digest();
-    }));
+    });
 
     it('contains number of pages + 4 li elements', function() {
       expect(getPaginationBarSize()).toBe(9);

@@ -21,6 +21,9 @@ The typeahead directives provide several attributes:
    :
    Comprehension Angular expression (see [select directive](http://docs.angularjs.org/api/ng.directive:select))
 
+* `typeahead-append-to-body` <i class="glyphicon glyphicon-eye-open"></i>
+   _(Defaults: false)_ : Should the typeahead popup be appended to $body instead of the parent element?
+
 * `typeahead-editable` <i class="glyphicon glyphicon-eye-open"></i>
    _(Defaults: true)_ :
    Should it restrict model values to the ones selected from the popup only ?
@@ -37,7 +40,7 @@ The typeahead directives provide several attributes:
    _(Defaults: 1)_ :
    Minimal no of characters that needs to be entered before typeahead kicks-in
 
-* `typeahead-on-select` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-on-select($item, $model, $label)`
    _(Defaults: null)_ :
    A callback executed when a match is selected
 
@@ -48,3 +51,7 @@ The typeahead directives provide several attributes:
 * `typeahead-wait-ms` <i class="glyphicon glyphicon-eye-open"></i>
    _(Defaults: 0)_ :
    Minimal wait time after last character typed before typeahead kicks-in
+
+* `typeahead-focus-first`
+   _(Defaults: true)_ :
+   Should the first match automatically be focused as you type?

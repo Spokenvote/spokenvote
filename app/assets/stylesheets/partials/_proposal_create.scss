@@ -1,32 +1,37 @@
 .newProposal {                            // Entire newProposal class probably obsolete
   color: $tally-blue;
   font-size: 1.7em;
-  .changehub {
-    .selecthub {
-      text-align: center;
-      padding: 2%;
-    }
-  }
-  .makeHub {
-    h3 {
-      color: $happy-blue;
-      font-size: 135%;
-      margin: 0;
-      padding: 5px;
-    }
-    .input-area {
-      padding: 0 15px;
-      width: 287px;
-      min-width: 70%;
-      input {
-        width: 100%;
-        margin-top: 5px;
-      }
-      .length_counter.happy-text a.link {
-        color: $alert-blue;
-      }
-    }
-  }
+//  .changehub {
+//    .selecthub {
+//      text-align: center;
+//      padding: 2%;
+//    }
+//  }
+//  .makeHub {
+//    h3 {
+//      color: $happy-blue;
+////      font-size: 135%;
+//      margin: 0;
+////      padding: 5px;
+//    }
+//    .input-area {
+//      padding: 0 15px;
+//      width: 287px;
+//      min-width: 70%;
+//      input {
+//        background-color: inherit;
+//        font-size: 20px;
+//        width: 100%;
+//        margin-top: 5px;
+//        &:focus {
+//          outline: none;
+//        }
+//      }
+//      .length_counter.happy-text a.link {
+//        color: $alert-blue;
+//      }
+//    }
+//  }
 }
 
 .dialog-footer {
@@ -74,31 +79,31 @@
       color: $soft-grey;
     }
   }
-  .vote_hub {
-    input {
+//  .vote_hub {                      // Jun 10, 2015 Commented out
+//    input {
       //      font-size: 20px;
-    }
+//    }
     .btn {
       //      font-size: 20px;
       //      color: inherit;
       //      padding: 0;
-      text-align: left;
-    }
-    .form-control {
+//      text-align: left;
+//    }
+//    .form-control {
       //      border: none;
       //      box-shadow: none;
 
     }
-    .form-control:focus {
+//    .form-control:focus {
       //      box-shadow: none;
-    }
-    .dropdown-menu {
+//    }
+//    .dropdown-menu {
       //      box-shadow: none;
       //      border: none;
       //      background-color: inherit;
       //      margin-left: -15px;
-    }
-  }
+//    }
+//  }
 
   .next-step {
     color: $smokeyLebel;
