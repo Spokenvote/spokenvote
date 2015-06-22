@@ -144,7 +144,9 @@
       .support-comment.col-xs-10
         supporter-name
           a ng-href='#' ng-click='setVoter(vote)'   {{ vote.username }}
-        supporter-text
+        supporter-text ng-if='vote.comment != null'
           | {{ vote.comment }}
+        supporter-text ng-if='vote.comment == null'
+          | No comment.
         .supported_date
           | {{ vote.updated_at }}
