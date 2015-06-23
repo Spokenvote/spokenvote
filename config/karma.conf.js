@@ -65,7 +65,7 @@ module.exports = function(config) {
     preprocessors: {
       'app/assets/javascripts/angular/**/*.coffee': 'coffee',
       //'app/assets/javascripts/angular/**/*.coffee': 'coverage',   // Not working as of Jun 22, 2015
-      'test/**/*.coffee': 'coffee'
+      'test/**/*.coffee': 'coverage'
       //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
     },
 
