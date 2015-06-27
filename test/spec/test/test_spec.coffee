@@ -12,6 +12,13 @@ describe 'Validation Test', ->
       expect true
         .toMatch true
 
-    it 'should work', ->
-      expect plus(1, 2)
-        .toMatch 3
+#    it 'should work', ->
+#      expect plus(1, 2)
+#        .toMatch 3
+
+#  describe 'minus', ->
+#
+#    it 'should work', ->
+#      expect minus(1, 2)
+#        .toMatch -1
+

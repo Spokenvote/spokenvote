@@ -43,11 +43,13 @@ module.exports = function(config) {
         'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
         'test/**/*mock.coffee',
 
-        // tests
-        'test/**/*spec.coffee',
-
         // plus test
-        'app/assets/javascripts/plus.coffee'
+        //'app/assets/javascripts/plus.coffee',
+
+        // tests
+        'test/**/*spec.coffee'
+
+
     ],
 
     // list of files to exclude
@@ -66,15 +68,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'app/assets/javascripts/plus.coffee': 'coverage',
-      'app/assets/javascripts/angular/**/*.coffee': 'coffee',
+      //'app/assets/javascripts/plus.coffee': 'coverage',
+      'app/assets/javascripts/angular/**/*.coffee': 'coverage',
       //'app/assets/javascripts/angular/**/*.coffee': 'coverage',   // Not working as of Jun 22, 2015
       'test/**/*.coffee': 'coffee'
       //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
     },
 
     coverageReporter: {
-      //type: 'text-summary'
+      //type: 'text-summary',               # TODO Turn off once Rubymine starts working?
       type : 'html', dir : 'coverage/',
       instrumenters: {
           ibrik: require('ibrik')
