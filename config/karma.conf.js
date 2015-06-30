@@ -68,9 +68,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      //'app/assets/javascripts/plus.coffee': 'coverage',
-      'app/assets/javascripts/angular/**/*.coffee': 'coverage',
-      //'app/assets/javascripts/angular/**/*.coffee': 'coverage',   // Not working as of Jun 22, 2015
+      'app/assets/javascripts/angular/**/*.coffee': 'coffee',
+      //'app/assets/javascripts/angular/**/*.coffee': 'coverage',
       'test/**/*.coffee': 'coffee'
       //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
     },
