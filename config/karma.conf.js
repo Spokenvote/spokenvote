@@ -69,20 +69,8 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'app/assets/javascripts/angular/**/*.coffee': 'coffee',
-      //'app/assets/javascripts/angular/**/*.coffee': 'coverage',
       'test/**/*.coffee': 'coffee'
       //'**/*.slim': ['slim', 'ng-html2js']     // see http://codetunes.com/2014/karma-on-rails/
-    },
-
-    coverageReporter: {
-      //type: 'text-summary',               # TODO Turn off once Rubymine starts working?
-      type : 'html', dir : 'coverage/',
-      instrumenters: {
-          ibrik: require('ibrik')
-      },
-      instrumenter: {
-          '**/*.coffee': 'ibrik'
-      }
     },
 
     // test results reporter to use
@@ -127,15 +115,11 @@ module.exports = function(config) {
 //    'client.captureConsole': true,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    //autoWatch: true,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-//    browsers: ['Chrome'],
     browsers: ['Chrome', 'PhantomJS']
-//    browsers: ['Chrome', 'PhantomJS_custom'],
-//    browsers: ['Chrome', 'PhantomJS', 'PhantomJS_custom'],
-//    browsers: ['Chrome', 'Firefox'],
 
       // Disabled Jun 22, 2015
     //customLaunchers: {
