@@ -30,12 +30,27 @@ describe 'Dashboard Controller Test', ->
       expect $scope.sessionSettings
         .toBeDefined()
 
-    it 'should find $scope.route.current.prerenderStatusCode and it should be defined', ->
+    it 'should find $scope.route.current.prerenderStatusCode and it should be undefined', ->
       $rootScope.sessionSettings = SessionSettings
       $scope = $rootScope.$new()
       $scope.$apply()
       expect $scope.route.current.prerenderStatusCode
-        .toEqual undefined
+      .toEqual undefined
+
+    it 'should find $scope.route.current.prerenderStatusCode and it should be defined', ->
+      $provide.value '$route',
+        current:
+          params: {}
+          prerenderStatusCode: '404'
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      $controller "DashboardCtrl",
+        $scope: $scope
+      $scope.$apply()
+      expect $scope.route.current.prerenderStatusCode
+        .toBeDefined()
+      expect $scope.route.current.prerenderStatusCode
+        .toEqual '404'
 
     it 'should not find $scope.route.current.prerenderStatusCode', ->
       $httpBackend.expectGET '/hubs/2'
@@ -73,3 +88,61 @@ describe 'Dashboard Controller Test', ->
       $scope.$apply()
       expect $scope.route.current.prerenderStatusCode
         .toEqual '404'
+
+    it 'should find $scope.page.metaDescription and it should be Undefined', ->
+      $provide.value '$route',
+        current:
+          params: {}
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      $controller "DashboardCtrl",
+        $scope: $scope
+      $scope.$apply()
+      expect $scope.page.metaDescription
+        .toBeUndefined()
+
+    it 'should find $scope.page.metaDescription and it should be defined', ->
+      $provide.value '$route',
+        current:
+          params:
+            filter: 'active'
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      $controller "DashboardCtrl",
+        $scope: $scope
+      $scope.$apply()
+      expect $scope.page.metaDescription
+        .toBeDefined()
+      expect $scope.page.metaDescription
+        .toContain 'Active'
+
+    it 'should find $scope.page.metaDescription and it should be defined', ->
+      $provide.value '$route',
+        current:
+          params:
+            filter: 'recent'
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      $controller "DashboardCtrl",
+        $scope: $scope
+      $scope.$apply()
+      expect $scope.page.metaDescription
+        .toBeDefined()
+      expect $scope.page.metaDescription
+        .toContain 'Recent'
+
+    it 'should find $scope.page.metaDescription and it should be defined', ->
+      $provide.value '$route',
+        current:
+          params:
+            filter: 'my'
+      $rootScope.sessionSettings = SessionSettings
+      $scope = $rootScope.$new()
+      $controller "DashboardCtrl",
+        $scope: $scope
+      $scope.$apply()
+      expect $scope.page.metaDescription
+        .toBeDefined()
+      expect $scope.page.metaDescription
+        .toContain 'My'
+
