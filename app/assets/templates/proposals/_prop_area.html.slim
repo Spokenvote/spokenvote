@@ -13,11 +13,11 @@
       span Too Short
 
   .form-group ng-show='sessionSettings.actions.newProposal.comment'
-    textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.comment' auto-grow
+    textarea( id='vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.votes_attributes.comment' auto-grow
       ng-minLength='5' ng-maxLength='280' placeholder='Optional: Explain why this proposal is a good idea.'
       ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
     .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
-    .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220'  {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+    .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220'  {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
     .length_counter.error-text ng-show="newProposalForm.comment.$error.maxlength"
       .fa.fa-warning
       span Too Long

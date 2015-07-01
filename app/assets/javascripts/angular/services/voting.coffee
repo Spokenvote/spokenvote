@@ -29,7 +29,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
-        $rootScope.sessionSettings.vote.parent = clicked_proposal
+#        $rootScope.sessionSettings.vote.parent = clicked_proposal  # TODO Obolete, may be deleted.
+        $rootScope.sessionSettings.newProposal =
+          parent_id: clicked_proposal.id
+          votes_attributes:
+            comment: clicked_proposal.statement
         Focus '#improved_proposal_statement'
 
 
@@ -71,6 +75,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
     else
+      $rootScope.sessionSettings.newProposal =
+        votes_attributes:    # Needed for Commentless Voting
+          comment: undefined
       $location.path '/start'
 
   wizard: (scope) ->
@@ -104,12 +111,17 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         return
 
     newProposal =
-      proposal:
-        statement: $rootScope.sessionSettings.newProposal.statement
-        votes_attributes:
-          comment: $rootScope.sessionSettings.newProposal.comment
-        hub_id: $rootScope.sessionSettings.hub_attributes.id
-        hub_attributes: $rootScope.sessionSettings.hub_attributes
+      proposal: $rootScope.sessionSettings.newProposal
+    newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+    newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+
+#    newProposal =
+#      newProposal:
+#        statement: $rootScope.sessionSettings.newProposal.statement
+#        votes_attributes:
+#          comment: $rootScope.sessionSettings.newProposal.comment
+#        hub_id: $rootScope.sessionSettings.hub_attributes.id
+#        hub_attributes: $rootScope.sessionSettings.hub_attributes
 
     Proposal.save(
       (newProposal

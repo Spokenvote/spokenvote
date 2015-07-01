@@ -27,7 +27,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 ImproveController = [ '$scope', '$location', 'Proposal', ( $scope, $location, Proposal ) ->
   $scope.alertService.clearAlerts()
   $scope.improvedProposal =
-    statement: $scope.sessionSettings.vote.parent.statement
+    statement: $scope.sessionSettings.vote.parent.statement  # TODO Obolete, may be deleted.
 
   $scope.saveImprovement = ->
     $scope.alertService.clearAlerts()

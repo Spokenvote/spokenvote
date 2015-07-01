@@ -212,13 +212,13 @@ describe 'Voting Service Tests', ->
         VotingService.improve clicked_proposal
 
         $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond null
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.parent
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal.parent_id
+          .toEqual clicked_proposal.id
         expect $rootScope.sessionSettings.vote.related_existing
           .toEqual undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
@@ -288,8 +288,8 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.parent
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal.parent_id
+          .toEqual clicked_proposal.id
         expect $rootScope.sessionSettings.vote.target
           .toEqual undefined
 
@@ -609,7 +609,8 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
-          comment: 'A million reasons to vote for this guy!'
+          votes_attributes:
+            comment: 'A million reasons to vote for this guy!'
 
         expectedProposalSaveArgs =
           proposal:
@@ -674,6 +675,34 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+
+      it 'should allow COMMENTLESS VOTING and save New Proposal with undefined comment', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          votes_attributes:
+            comment: undefined
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+        expect $rootScope.sessionSettings.newProposal.votes_attributes.comment
+          .toBeUndefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()

@@ -151,7 +151,10 @@ SessionSettings = ->
 #    target: null
   searchedHub: {}
   routeParams: {}
-  newProposal: {}
+#  newProposal: {}
+  newProposal:
+    votes_attributes:     # Needed for Commentless Voting
+      comment: undefined
 #  newSupport:
 #    related: null
 #    target: null
