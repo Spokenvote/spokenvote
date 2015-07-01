@@ -27,7 +27,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
       $scope.sessionSettings.hub_attributes = null  if $scope.sessionSettings.hub_attributes and $scope.sessionSettings.hub_attributes.isTag
 
   $scope.landing = ->
-    $location.url '/landing'
+    $location.path '/landing'
     $scope.sessionSettings.hub_attributes = null
 
   $scope.hubSearch = ->

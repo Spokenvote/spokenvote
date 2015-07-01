@@ -30,7 +30,8 @@ describe 'Proposal Show Controller Tests', ->
         $scope: $scope
         proposal: mockProposal
         relatedProposals: mockRelatedProposals
-      spyOn($scope, '$broadcast').and.callThrough()
+      spyOn $scope, '$broadcast'
+        .and.callThrough()
       $scope.proposal.$get = jasmine.createSpy('proposal:$get')
       promise =
         then: jasmine.createSpy()
