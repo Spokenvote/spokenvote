@@ -86,7 +86,7 @@ describe 'Dashboard Controller Test', ->
         $controller "DashboardCtrl",
           $scope: $scope
           $route: route
-        $rootScope.$broadcast('$locationChangeSuccess', 'goodUrl', 'oldUrl')
+        $rootScope.$broadcast '$locationChangeSuccess', 'goodUrl', 'oldUrl'
         expect $scope.route.current.prerenderStatusCode
           .toEqual undefined
 
@@ -249,12 +249,6 @@ describe 'Dashboard Controller Test', ->
         $location.path '/landing'
         $rootScope.$broadcast '$locationChangeSuccess', '/start', 'oldUrl'
 
-#        expect $scope.sessionSettings.actions.hubShow
-#          .toEqual true
-#        expect $scope.sessionSettings.actions.hubSeekOnSearch
-#          .toEqual true
-#        expect $scope.sessionSettings.actions.hubPlaceholder
-#          .toContain 'Search to find your Group ...'
         expect $scope.sessionSettings.hub_attributes.full_hub
           .toEqual 'Some great hub'
 
@@ -307,6 +301,8 @@ describe 'Dashboard Controller Test', ->
         expect $scope.hubSearch
          .toBeDefined()
 
+        spyOn $scope, '$broadcast'
+
         $scope.sessionSettings.actions =
           hubShow: false
           hubSeekOnSearch: false
@@ -320,6 +316,8 @@ describe 'Dashboard Controller Test', ->
           .toEqual true
         expect $scope.sessionSettings.actions.hubPlaceholder
           .toContain 'Search to find'
+        expect $scope.$broadcast
+          .toHaveBeenCalledWith 'focusHubFilter'
 
 
 
