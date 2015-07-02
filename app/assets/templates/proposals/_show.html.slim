@@ -53,7 +53,7 @@
             .form-group ng-show='sessionSettings.actions.focus === "comment"'
               textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.votes_attributes.comment' auto-grow
                 ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
-                ng-enter='saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
+                ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
               .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your improved version!
               .length_counter.happy-text ng-show='improvedProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
               .length_counter.error-text ng-show="improvedProposalForm.comment.$error.maxlength"
