@@ -24,31 +24,31 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
     )
 ]
 
-ImproveController = [ '$scope', '$location', 'Proposal', ( $scope, $location, Proposal ) ->
-  $scope.alertService.clearAlerts()
-  $scope.improvedProposal =
-    statement: $scope.sessionSettings.vote.parent.statement  # TODO Obolete, may be deleted.
-
-  $scope.saveImprovement = ->
-    $scope.alertService.clearAlerts()
-    improvedProposal =
-      proposal:
-        parent_id: $scope.sessionSettings.vote.parent.id
-        statement: $scope.improvedProposal.statement
-        votes_attributes:
-          comment: $scope.improvedProposal.comment
-
-    improvedProposal = Proposal.save(
-      (improvedProposal
-      ),  (( response, status, headers, config ) ->
-        $location.path( '/proposals/' + response.id )
-        $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-        $scope.sessionSettings.vote = {}
-      ),  ( response, status, headers, config ) ->
-        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
-        $scope.alertService.setJson response.data
-    )
-]
+#ImproveController = [ '$scope', '$location', 'Proposal', ( $scope, $location, Proposal ) ->
+#  $scope.alertService.clearAlerts()
+##  $scope.improvedProposal =
+##    statement: $scope.sessionSettings.vote.parent.statement  # TODO Obolete, may be deleted.
+#
+#  $scope.saveImprovement = ->
+#    $scope.alertService.clearAlerts()
+#    improvedProposal =
+#      proposal:
+#        parent_id: $scope.sessionSettings.vote.parent.id
+#        statement: $scope.improvedProposal.statement
+#        votes_attributes:
+#          comment: $scope.improvedProposal.comment
+#
+#    improvedProposal = Proposal.save(
+#      (improvedProposal
+#      ),  (( response, status, headers, config ) ->
+#        $location.path( '/proposals/' + response.id )
+#        $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
+#        $scope.sessionSettings.vote = {}
+#      ),  ( response, status, headers, config ) ->
+#        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
+#        $scope.alertService.setJson response.data
+#    )
+#]
 
 #EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
 EditProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
@@ -109,7 +109,7 @@ NewProposalCtrl = [ '$scope', ($scope ) ->
 
 # Register
 App.controller 'SupportController', SupportController
-App.controller 'ImproveController', ImproveController
+#App.controller 'ImproveController', ImproveController
 App.controller 'EditProposalCtrl', EditProposalCtrl
 App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
 App.controller 'NewProposalCtrl', NewProposalCtrl
