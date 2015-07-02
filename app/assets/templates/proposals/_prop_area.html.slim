@@ -1,11 +1,11 @@
 .proposal-area
   .form-group
     textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
-      ng-minLength='5' ng-maxLength='140' placeholder='Your proposal?'
+      ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
       ng-enter='commentStep(proposal.id)' ng-focus='sessionSettings.actions.focus = "prop"' )
     .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to continue ...
-    .length_counter.happy-text ng-show='sessionSettings.newProposal.statement.$valid && sessionSettings.newProposal.statement.length > 120' {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
-    .length_counter.error-text ng-show="sessionSettings.newProposal.statement.$error.maxlength"
+    .length_counter.happy-text ng-show='newProposalForm.statement.$valid && sessionSettings.newProposal.statement.length > 120' {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
+    .length_counter.error-text ng-show="newProposalForm.statement.$error.maxlength"
       .fa.fa-warning
       span Too Long
     .length_counter.error-text ng-show='newProposalForm.statement.$error.minlength && sessionSettings.actions.focus != "prop"'
@@ -14,10 +14,10 @@
 
   .form-group ng-show='sessionSettings.actions.newProposal.comment'
     textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.votes_attributes.comment' auto-grow
-      ng-minLength='5' ng-maxLength='280' placeholder='Optional: Explain why this proposal is a good idea.'
+      ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
       ng-enter='hubStep()' ng-focus='sessionSettings.actions.focus = "comment"' )
-    .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to continue ...
-    .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220'  {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
+    .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your proposal!
+    .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
     .length_counter.error-text ng-show="newProposalForm.comment.$error.maxlength"
       .fa.fa-warning
       span Too Long
@@ -25,10 +25,9 @@
       .fa.fa-warning
       span Too Short
 
-  .dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
+  /.dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
     fieldset
       .control-group
         .controls
-          /button id='publish' ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "publish"' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
           button id='publish' ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "publish"' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
           .next-step Press <strong><i>Enter</i></strong> to publish your proposal.

@@ -43,7 +43,7 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 #      $scope.sessionSettings.actions.focus = 'publish'
 #      Focus 'publish'
 #    else if $scope.sessionSettings.hub_attributes.id
-#      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+#      $scope.alertService.setErrorMsg 'The proposal is not quite right, too short perhaps?', $scope, 'main'
 
 #  $scope.finishProp = ->                                             # Proposal Edit, Improve and New should share a similar final save UX
 #    $scope.sessionSettings.actions.newProposal.hub = 'complete'

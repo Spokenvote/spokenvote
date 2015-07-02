@@ -95,6 +95,23 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #      $rootScope.sessionSettings.actions.newProposalHub = null
 #      $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
+  commentStep: ->
+    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
+    Focus '#new_vote_comment'
+
+  hubStep: ->
+#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
+    $rootScope.sessionSettings.actions.focus = 'hub'
+    $rootScope.sessionSettings.actions.hubShow = true
+    if $rootScope.sessionSettings.hub_attributes
+      if $rootScope.sessionSettings.newProposal.statement
+#        $rootScope.sessionSettings.actions.focus = 'publish'
+        Focus '#new_vote_comment'
+      else
+        $rootScope.alertService.setCtlResult 'The proposal is not quite right, too short perhaps?', $rootScope, 'main'
+    else
+      $rootScope.$broadcast 'focusHubFilter'
+
   saveNewProposal: ->
 #    console.log 'voting service: saveNewProposal'
     $rootScope.alertService.clearAlerts()
@@ -102,12 +119,15 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     if not $rootScope.sessionSettings.hub_attributes.id
       if not $rootScope.sessionSettings.hub_attributes.formatted_location
         $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
+        this.hubStep()
         return
       if not $rootScope.sessionSettings.hub_attributes.group_name
         $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
+        this.hubStep()
         return
       if $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
         $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
+        this.hubStep()
         return
 
     newProposal =

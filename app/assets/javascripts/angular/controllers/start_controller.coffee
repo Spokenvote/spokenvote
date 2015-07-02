@@ -9,9 +9,9 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'publish'
-    Focus '#publish'
+    Focus '#new_vote_comment'
   else
-    Focus '#proposal_statement'
+    Focus '#new_proposal_statement'
 
   $scope.commentStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'active'
@@ -24,17 +24,17 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
     if $scope.sessionSettings.hub_attributes
       if $scope.newProposalForm.$valid
         $scope.sessionSettings.actions.focus = 'publish'
-        Focus '#publish'
+        Focus '#new_vote_comment'
       else
-        $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
+        $scope.alertService.setErrorMsg 'The proposal is not quite right, too short perhaps?', $scope, 'main'
     else
       $rootScope.$broadcast 'focusHubFilter'
 
   $rootScope.finishProp = ->
-#    console.log 'finishProp: '
+    console.log 'finishProp: '
     $scope.sessionSettings.actions.newProposal.hub = 'complete'
     $scope.sessionSettings.actions.focus = 'publish'
-    $timeout (-> Focus '#publish'), 500
+    $timeout (-> Focus '#new_vote_comment'), 500
 
 ]
 

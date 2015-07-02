@@ -56,7 +56,6 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
       item =
         full_hub: newTag
     item
-
 ]
 
 App.controller 'HubController', HubController
