@@ -35,19 +35,21 @@
         .supporter-avatar
           ng-include src="'user/_currentuser_avatar.html'"
 
-      /.proposal_statement.col-xs-10 ng-controller='ImproveController'
       .proposal_statement.col-xs-10
-        form name='improvedProposalForm' ng-submit='saveImprovement()'
+        form name='newProposalForm' ng-submit='saveNewProposal()'
           .proposal-area
             .form-group
-              textarea( id='improved_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
+              textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
                 ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
                 ng-enter='commentStep(proposal.id)' ng-focus='sessionSettings.actions.focus = "prop"' )
-              .next-step ng-show='improvedProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to continue ...
-              .length_counter.happy-text ng-show='improvedProposalForm.statement.$valid && proposal.statement.length > 120' {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
-              .length_counter.error-text ng-show="improvedProposalForm.statement.$error.maxlength"
+              .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to continue ...
+              .length_counter.happy-text ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' {{ 140 - sessionSettings.newProposal.statement.length }} characters remaining
+              .length_counter.error-text ng-show="newProposalForm.statement.$error.maxlength"
                 .fa.fa-warning
                 span Too Long
+              .length_counter.error-text ng-show='newProposalForm.statement.$error.minlength && sessionSettings.actions.focus != "prop"'
+                .fa.fa-warning
+                span Too Short
 
             /.form-group ng-if='sessionSettings.actions.proposal.vote === "improve"'
             .form-group ng-show='sessionSettings.actions.focus === "comment"'
@@ -55,8 +57,8 @@
                 ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
                 ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
               .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your improved version!
-              .length_counter.happy-text ng-show='improvedProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
-              .length_counter.error-text ng-show="improvedProposalForm.comment.$error.maxlength"
+              .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
+              .length_counter.error-text ng-show="newProposalForm.comment.$error.maxlength"
                 .fa.fa-warning
                 span Too Long
 

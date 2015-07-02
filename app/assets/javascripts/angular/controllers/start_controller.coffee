@@ -15,7 +15,7 @@ StartController = [ '$rootScope', '$scope', '$location', 'Focus', '$timeout', '$
 
   $scope.commentStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'active'
-    Focus '#vote_comment'
+    Focus '#new_vote_comment'
 
   $scope.hubStep = ->
     $scope.sessionSettings.actions.newProposal.comment = 'complete'

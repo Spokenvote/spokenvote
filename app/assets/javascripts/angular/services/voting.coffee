@@ -34,7 +34,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           parent_id: clicked_proposal.id
           votes_attributes:
             comment: clicked_proposal.statement
-        Focus '#improved_proposal_statement'
+        Focus '#new_proposal_statement'
 
 
   edit: ( scope, clicked_proposal ) ->
