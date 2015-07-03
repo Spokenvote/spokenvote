@@ -117,6 +117,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.alertService.setCtlResult 'The proposal is not quite right, too short perhaps?', $rootScope, 'main'
     else
       $rootScope.$broadcast 'focusHubFilter'
+#      $rootScope.$select.activate()
 
   saveNewProposal: ->
 #    console.log 'voting service: saveNewProposal'

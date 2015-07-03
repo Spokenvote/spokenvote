@@ -1,7 +1,8 @@
 .ui-select-container {
   .btn {
-    border: none;
-    background-color: inherit;
+    //border: none;
+    background-color: $modal-body-off-white;
+    //background-color: inherit;
     color: inherit;
     width: inherit;
 
@@ -16,6 +17,13 @@
     color: inherit;
     background-color: inherit;
     box-shadow: none;
+    .btn {
+      outline: thick;
+      border-color: $tally-blue;
+      border-style: ridge;
+      border-width: 2px;
+      background-color: transparent;
+    }
   }
   input {
     background-color: inherit;
