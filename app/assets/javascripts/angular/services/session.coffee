@@ -114,49 +114,35 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-#    changeHub: false
     detailPage: false
     focus: null
-#    hubFilter: 'All Groups'
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     improveProposal:
       propStepText: ''
       commentStepText: ''
-#      parent: null
     newProposal: {}
     newProposalHub: null
     offcanvas: false
-#    proposal:
-#      id:  null
-#      vote: null
-#    searchTerm: null
     selectHub: false
     userFilter: null
     wizardToGroup: null
   hub_attributes: null
-#  hubFilter: null
   openModals:
-    signIn: false
-    register: false
-    userSettings: false
-    supportProposal: false
-    improveProposal: false
-    newProposal: false
+#    signIn: false
+#    register: false
+#    userSettings: false
+#    supportProposal: false
+#    improveProposal: false
+#    newProposal: false
     editProposal: false
     deleteProposal: false
-    getStarted: false
+#    getStarted: false
   proposal: null
   vote: {}
-#    related_exists: null
-#    target: null
   searchedHub: {}
   routeParams: {}
-#  newProposal: {}
-#  newProposal:
-#    votes_attributes:     # Needed for Commentless Voting
-#      comment: undefined
   newProposal: {}
 #  newSupport:
 #    related: null

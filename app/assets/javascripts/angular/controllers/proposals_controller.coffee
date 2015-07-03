@@ -31,24 +31,6 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
-#  $scope.commentStep = ( proposal_id)  ->                             # Refactor Proposal Area Ticket
-#    $scope.sessionSettings.actions.focus = 'comment'
-#    Focus '#new_vote_comment'
-
-#  $scope.hubStep = ->                                                # Why did I put hubStep here?
-#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
-#    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
-#    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
-#      $scope.sessionSettings.actions.focus = 'publish'
-#      Focus 'publish'
-#    else if $scope.sessionSettings.hub_attributes.id
-#      $scope.alertService.setErrorMsg 'The proposal is not quite right, too short perhaps?', $scope, 'main'
-
-#  $scope.finishProp = ->                                             # Proposal Edit, Improve and New should share a similar final save UX
-#    $scope.sessionSettings.actions.newProposal.hub = 'complete'
-#    $scope.sessionSettings.actions.focus = 'publish'
-#    Focus 'publish'
-
   $scope.setVoter = ( vote ) ->
     $location.path('/proposals').search('user', vote.user_id)
     $scope.sessionSettings.actions.userFilter = vote.username
