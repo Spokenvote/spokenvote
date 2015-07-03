@@ -20,13 +20,18 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
-  if proposal.id
-    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
-  else
-    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 
-  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
-  $scope.sessionSettings.actions.newProposal.started = true
+  if not $scope.sessionSettings.hub_attributes
+    $scope.sessionSettings.hub_attributes = proposal.hub
+    $location.search('hub', proposal.hub.id)
+
+  #  if proposal.id
+#    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
+#  else
+#    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
+#
+#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
+#  $scope.sessionSettings.actions.newProposal.started = true
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

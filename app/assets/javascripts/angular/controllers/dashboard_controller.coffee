@@ -34,7 +34,7 @@ DashboardCtrl = [ '$scope', '$route', '$location', 'CurrentHubLoader', '$timeout
     $scope.sessionSettings.actions.hubShow = true
     $scope.sessionSettings.actions.hubSeekOnSearch = true
     $scope.sessionSettings.hub_attributes = undefined
-    $scope.sessionSettings.actions.hubPlaceholder = 'Start typing to go to Group ...'
+    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
     $scope.$broadcast 'focusHubFilter'
 
   $scope.tooltips =

@@ -13,7 +13,7 @@ child :user do
 end
 
 child :hub do
-  attributes :id, :group_name, :formatted_location
+  attributes :id, :group_name, :formatted_location, :full_hub
 end
 
 child :votes do
