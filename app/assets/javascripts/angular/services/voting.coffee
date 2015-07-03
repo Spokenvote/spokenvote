@@ -4,10 +4,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}
 
-    if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
-    else
-      RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
+    startSupport = RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
           if relatedSupport.proposal.id is clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
@@ -17,11 +14,18 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.sessionSettings.vote.target = clicked_proposal
         Focus '#new_vote_comment'
 
+    if $rootScope.currentUser.id
+      startSupport
+    else
+      $rootScope.authService.signinFb($rootScope).then ->
+        startSupport
+#      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
+
 
   improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}
-
+    console.log 'service improve: '
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', $rootScope, 'main'
     else

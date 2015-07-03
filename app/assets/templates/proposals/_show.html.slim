@@ -3,7 +3,7 @@
   .main-proposal.row id='prop{{ proposal.id }}'
     .col-xs-2
       .improve_support_buttons
-        .votes.box ng-click='support(proposal)' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
+        .votes.box ng-click='votingService.support(proposal)' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
           i.fa.fa-sort-up
           .big-percent
             | {{ proposal.votes_percentage }}

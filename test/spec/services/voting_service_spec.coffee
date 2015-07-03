@@ -46,6 +46,10 @@ describe 'Voting Service Tests', ->
         setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
         setJson: jasmine.createSpy 'alertService:setJson'
+      promise =
+        then: jasmine.createSpy()
+      $rootScope.authService =
+        signinFb: jasmine.createSpy('authService').and.returnValue promise
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -120,14 +124,28 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.vote.testTrash
           .toBe undefined
 
-      it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
+      it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
+        $rootScope.currentUser = {}
 
         VotingService.support clicked_proposal
 
-        expect $rootScope.alertService.setInfo.calls.count()
-          .toEqual 1
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.authService.signinFb.calls.count()
+         .toEqual 1
+
+#      it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
+#        $rootScope.currentUser =
+#          id: null
+#
+#        VotingService.support clicked_proposal
+#
+#        expect $rootScope.alertService.setInfo.calls.count()
+#          .toEqual 1
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17

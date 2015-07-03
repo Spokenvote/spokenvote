@@ -23,7 +23,7 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 
   if not $scope.sessionSettings.hub_attributes
     $scope.sessionSettings.hub_attributes = proposal.hub
-    $location.search('hub', proposal.hub.id)
+    $location.search 'hub', proposal.hub.id
 
   #  if proposal.id
 #    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
@@ -37,24 +37,25 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
     $scope.proposal.$get()
 
   $scope.setVoter = ( vote ) ->
-    $location.path('/proposals').search('user', vote.user_id)
+    $location
+      .path '/proposals'
+      .search 'user', vote.user_id
     $scope.sessionSettings.actions.userFilter = vote.username
 
-  $scope.support = ( clicked_proposal ) ->
-    if $scope.currentUser.id?
-      $scope.votingService.support clicked_proposal
-    else
-      $scope.authService.signinFb($scope).then ->
-        $scope.votingService.support clicked_proposal
+#  $scope.support = ( clicked_proposal ) ->
+#    if $scope.currentUser.id?
+#      $scope.votingService.support clicked_proposal
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        $scope.votingService.support clicked_proposal
 
   $scope.improve = ( clicked_proposal ) ->
+    console.log 'clt improve: '
     if $scope.currentUser.id?
       $scope.votingService.improve clicked_proposal
-#      $scope.votingService.improve $scope, clicked_proposal
     else
       $scope.authService.signinFb($scope).then ->
         $scope.votingService.improve clicked_proposal
-#        $scope.votingService.improve $scope, clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     $scope.votingService.edit $scope, clicked_proposal

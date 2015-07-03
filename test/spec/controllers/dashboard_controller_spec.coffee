@@ -315,7 +315,7 @@ describe 'Dashboard Controller Test', ->
         expect $scope.sessionSettings.actions.hubSeekOnSearch
           .toEqual true
         expect $scope.sessionSettings.actions.hubPlaceholder
-          .toContain 'Search to find'
+          .toContain 'ind'
         expect $scope.$broadcast
           .toHaveBeenCalledWith 'focusHubFilter'
 
