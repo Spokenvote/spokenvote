@@ -16,15 +16,15 @@
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
       / Editing Statement
-      form name='newProposalForm' ng-submit='saveNewProposal()'
+      form name='editProposalForm' ng-submit='saveNewProposal()'
         .proposal-area ng-if='( proposal.is_editable && proposal.user_id == currentUser.id )'
           .form-group
             textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
               ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
               ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
-            .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to save your changes.
-            .length_counter.happy-text( ng-show='newProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
-            .length_counter.error-text( ng-show="newProposalForm.statement.$error.maxlength" )
+            .next-step ng-show='editProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to save your changes.
+            .length_counter.happy-text( ng-show='editProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
+            .length_counter.error-text( ng-show="editProposalForm.statement.$error.maxlength" )
               .fa.fa-warning
               span Too Long
 
@@ -36,7 +36,8 @@
           ng-include src="'user/_currentuser_avatar.html'"
 
       .proposal_statement.col-xs-10
-        form name='newProposalForm' ng-submit='saveNewProposal()'
+        ng-include src="'proposals/_prop_area.html'"
+        /form name='newProposalForm' ng-submit='saveNewProposal()'
           .proposal-area
             .form-group
               textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required

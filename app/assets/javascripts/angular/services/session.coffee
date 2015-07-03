@@ -122,7 +122,9 @@ SessionSettings = ->
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     improveProposal:
-      parent: null
+      propStepText: ''
+      commentStepText: ''
+#      parent: null
     newProposal: {}
     newProposalHub: null
     offcanvas: false
@@ -152,9 +154,10 @@ SessionSettings = ->
   searchedHub: {}
   routeParams: {}
 #  newProposal: {}
-  newProposal:
-    votes_attributes:     # Needed for Commentless Voting
-      comment: undefined
+#  newProposal:
+#    votes_attributes:     # Needed for Commentless Voting
+#      comment: undefined
+  newProposal: {}
 #  newSupport:
 #    related: null
 #    target: null

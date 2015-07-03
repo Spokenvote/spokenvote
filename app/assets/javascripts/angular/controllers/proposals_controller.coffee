@@ -31,10 +31,9 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
-  $scope.commentStep = ( proposal_id)  ->                             # Refactor Proposal Area Ticket
-#    console.log 'comment step: '
-    $scope.sessionSettings.actions.focus = 'comment'
-    Focus '#new_vote_comment'
+#  $scope.commentStep = ( proposal_id)  ->                             # Refactor Proposal Area Ticket
+#    $scope.sessionSettings.actions.focus = 'comment'
+#    Focus '#new_vote_comment'
 
 #  $scope.hubStep = ->                                                # Why did I put hubStep here?
 #    $scope.sessionSettings.actions.newProposal.comment = 'complete'

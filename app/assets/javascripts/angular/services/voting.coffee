@@ -32,10 +32,23 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #        $rootScope.sessionSettings.vote.parent = clicked_proposal  # TODO Obolete, may be deleted.
         $rootScope.sessionSettings.newProposal =
           parent_id: clicked_proposal.id
+          statement: clicked_proposal.statement
           votes_attributes:
-            comment: clicked_proposal.statement
+            comment: undefined
+        $rootScope.sessionSettings.actions.improveProposal.propStepText =
+          'Edit or start over to make your <strong><i>New</i></strong> proposal.'
         Focus '#new_proposal_statement'
 
+  new: ->
+    $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.actions.newProposal.started = false
+    if !$rootScope.currentUser.id?
+      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
+    else
+#      $rootScope.sessionSettings.newProposal =
+#        votes_attributes:    # Needed for Commentless Voting
+#          comment: undefined
+     $location.path '/start'
 
   edit: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
@@ -69,26 +82,15 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.deleteProposal = false
 
-  new: ->
-    $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.actions.newProposal.started = false
-    if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
-    else
-      $rootScope.sessionSettings.newProposal =
-        votes_attributes:    # Needed for Commentless Voting
-          comment: undefined
-      $location.path '/start'
-
-  wizard: (scope) ->
-    if $rootScope.sessionSettings.openModals.getStarted is false
-      modalInstance = $modal.open
-        templateUrl: 'shared/_get_started_modal.html'
-        controller: 'GetStartedCtrl'
-      modalInstance.opened.then ->
-        $rootScope.sessionSettings.openModals.getStarted = true
-      modalInstance.result.finally ->
-        $rootScope.sessionSettings.openModals.getStarted = false
+#  wizard: (scope) ->
+#    if $rootScope.sessionSettings.openModals.getStarted is false
+#      modalInstance = $modal.open
+#        templateUrl: 'shared/_get_started_modal.html'
+#        controller: 'GetStartedCtrl'
+#      modalInstance.opened.then ->
+#        $rootScope.sessionSettings.openModals.getStarted = true
+#      modalInstance.result.finally ->
+#        $rootScope.sessionSettings.openModals.getStarted = false
 
 #  changeHub: (request) ->
 #    if request is true and $rootScope.sessionSettings.actions.changeHub != 'new'
@@ -96,7 +98,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #      $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
   commentStep: ->
-    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
+    console.log 'comment step: '
+#    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
+    $rootScope.sessionSettings.actions.focus = 'comment'
     Focus '#new_vote_comment'
 
   hubStep: ->
@@ -106,7 +110,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     if $rootScope.sessionSettings.hub_attributes
       if $rootScope.sessionSettings.newProposal.statement
 #        $rootScope.sessionSettings.actions.focus = 'publish'
-        Focus '#new_vote_comment'
+#        Focus '#new_vote_comment'
+#        this.commentStep(proposal.id)
+        this.commentStep()
       else
         $rootScope.alertService.setCtlResult 'The proposal is not quite right, too short perhaps?', $rootScope, 'main'
     else
@@ -130,6 +136,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         this.hubStep()
         return
 
+    if not $rootScope.sessionSettings.newProposal.votes_attributes or not $rootScope.sessionSettings.newProposal.votes_attributes.comment
+      $rootScope.sessionSettings.newProposal.votes_attributes =
+        comment: undefined            # Needed for Commentless Voting
+
     newProposal =
       proposal: $rootScope.sessionSettings.newProposal
     newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
@@ -148,9 +158,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       ), ((response, status, headers, config) ->
         $rootScope.$broadcast 'event:proposalsChanged'
         $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-#        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my')   # Angular empty hash bug
         $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
         $rootScope.sessionSettings.actions.offcanvas = false
+        $rootScope.sessionSettings.newProposal = {}
       ),  (response, status, headers, config) ->
         $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
         $rootScope.alertService.setJson response.data

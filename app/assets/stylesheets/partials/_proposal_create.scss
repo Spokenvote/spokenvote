@@ -47,6 +47,10 @@
 //  }
 }
 
+.next-step {
+  color: $smokeyLebel;
+  font-size: 20px;
+}
 .proposal-area {
   color: $tally-blue;
   font-size: 1.7em;
@@ -105,10 +109,7 @@
 //    }
 //  }
 
-  .next-step {
-    color: $smokeyLebel;
-    font-size: .5em;
-  }
+
 }
 
 .btn-newTopic {

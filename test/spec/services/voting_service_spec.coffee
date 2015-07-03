@@ -78,8 +78,8 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.new
         .toBeDefined()
-      expect VotingService.wizard
-        .toBeDefined()
+#      expect VotingService.wizard
+#        .toBeDefined()
 #      expect VotingService.changeHub
 #        .toBeDefined()
       expect VotingService.saveNewProposal
@@ -463,31 +463,30 @@ describe 'Voting Service Tests', ->
 
     describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
 
-      it 'should open WIZARD modal', ->
-
-        expect $rootScope.sessionSettings.openModals.getStarted
-          .toEqual false
-
-        VotingService.wizard()
-
-        openModalArgs =
-          templateUrl: 'shared/_get_started_modal.html'
-          controller: 'GetStartedCtrl'
-
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.getStarted
-          .toEqual true
-
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.getStarted
-          .toEqual false
-
+#      it 'should open WIZARD modal', ->
+#
+#        expect $rootScope.sessionSettings.openModals.getStarted
+#          .toEqual false
+#
+#        VotingService.wizard()
+#
+#        openModalArgs =
+#          templateUrl: 'shared/_get_started_modal.html'
+#          controller: 'GetStartedCtrl'
+#
+#        expect $modal.open
+#          .toHaveBeenCalledWith openModalArgs
+#        expect modalInstance.opened.then
+#          .toHaveBeenCalled
+#        expect modalInstance.result.finally
+#          .toHaveBeenCalled
+#        expect $rootScope.sessionSettings.openModals.getStarted
+#          .toEqual true
+#
+#        modalInstance.result.finallyCallback()
+#
+#        expect $rootScope.sessionSettings.openModals.getStarted
+#          .toEqual false
 
 
 #    describe 'CHANGHUB method should detect request and change to New Hub mode', ->
@@ -516,71 +515,71 @@ describe 'Voting Service Tests', ->
 #        expect $rootScope.sessionSettings.actions.changeHub
 #          .toEqual true
 
+#Jul 2, 2015
+#    describe 'saveNewProposal method should SAVE New Proposal', ->
+#
+#      it 'should check for NEW HUB and REJECT an invalid Hub LOCATION if saving a New Hub', ->
+#        $rootScope.sessionSettings.hub_attributes =
+#          id: null
+#          group_name: 'Some Wonderful Hub Name'
+#          formatted_location: null
+#
+#        spyOn Proposal, 'save'
+#
+#        VotingService.saveNewProposal()
+#
+#        expect $rootScope.alertService.clearAlerts.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+#          .toContain 'location appears to be invalid'
+#        expect Proposal.save
+#          .not.toHaveBeenCalled()
 
-    describe 'saveNewProposal method should SAVE New Proposal', ->
+#      it 'should check for NEW HUB and REJECT a MISSING Hub NAME if saving a New Hub', ->
+#        $rootScope.sessionSettings.hub_attributes =
+#          id: null
+#          group_name: null
+#          formatted_location: 'Atlanta, GA'
+#
+#        spyOn Proposal, 'save'
+#
+#        VotingService.saveNewProposal()
+#
+#        expect $rootScope.alertService.clearAlerts.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+#          .toContain 'name appears to be missing'
+#        expect Proposal.save
+#          .not.toHaveBeenCalled()
 
-      it 'should check for NEW HUB and REJECT an invalid Hub LOCATION if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes =
-          id: null
-          group_name: 'Some Wonderful Hub Name'
-          formatted_location: null
-
-        spyOn Proposal, 'save'
-
-        VotingService.saveNewProposal()
-
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'location appears to be invalid'
-        expect Proposal.save
-          .not.toHaveBeenCalled()
-
-      it 'should check for NEW HUB and REJECT a MISSING Hub NAME if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes =
-          id: null
-          group_name: null
-          formatted_location: 'Atlanta, GA'
-
-        spyOn Proposal, 'save'
-
-        VotingService.saveNewProposal()
-
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'name appears to be missing'
-        expect Proposal.save
-          .not.toHaveBeenCalled()
-
-      it 'should check for NEW HUB and REJECT a TOO-SHORT Hub NAME if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes =
-          id: null
-          group_name: 'Da'
-          formatted_location: 'Atlanta, GA'
-
-        spyOn Proposal, 'save'
-
-        VotingService.saveNewProposal()
-
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'name appears to be invalid'
-        expect Proposal.save
-          .not.toHaveBeenCalled()
+#      it 'should check for NEW HUB and REJECT a TOO-SHORT Hub NAME if saving a New Hub', ->
+#        $rootScope.sessionSettings.hub_attributes =
+#          id: null
+#          group_name: 'Da'
+#          formatted_location: 'Atlanta, GA'
+#
+#        spyOn Proposal, 'save'
+#
+#        VotingService.saveNewProposal()
+#
+#        expect $rootScope.alertService.clearAlerts.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult.calls.count()
+#          .toEqual 1
+#        expect $rootScope.alertService.setCtlResult
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+#          .toContain 'name appears to be invalid'
+#        expect Proposal.save
+#          .not.toHaveBeenCalled()
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -701,8 +700,8 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newProposal.votes_attributes.comment
-          .toBeUndefined
+#        expect $rootScope.sessionSettings.newProposal.votes_attributes.comment
+#          .toBeUndefined     # changed logic Jul 2, 2015
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()

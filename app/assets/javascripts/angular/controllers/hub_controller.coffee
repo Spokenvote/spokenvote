@@ -35,11 +35,12 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
     else if item.isTag
       $scope.sessionSettings.hub_attributes = null
     else
-#      $rootScope.eventResult = {item: item, model: model}      # What does this line do?
       item.id = item.select_id
       $location.search('hub', item.id)
-      $location.path('/proposals')  if $scope.sessionSettings.actions.hubSeekOnSearch is true
-  #      $location.path('/proposals')  unless $location.path() is '/start'
+      if $scope.sessionSettings.actions.hubSeekOnSearch is true
+        $location.path('/proposals')
+      else
+        $scope.votingService.commentStep()
 
   $scope.createSearchChoice = (newHub) ->
     console.log 'newHub in HubController: ', newHub
