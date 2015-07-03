@@ -1,7 +1,7 @@
 .ui-select-container {
   .btn {
     //border: none;
-    background-color: $modal-body-off-white;
+    background-color: $modal-body-off-white-50;
     //background-color: inherit;
     color: inherit;
     width: inherit;
@@ -10,7 +10,7 @@
       display: none;
     }
 
-    }
+  }
 
   .btn-default-focus {
     outline: none;
@@ -19,11 +19,15 @@
     box-shadow: none;
     .btn {
       outline: thick;
-      border-color: $tally-blue;
-      border-style: ridge;
+      border-style: dashed;
       border-width: 2px;
-      background-color: transparent;
+      border-color: $search-box-outline;
+      background-color: $search-box-highlighter;
+      //background-color: transparent;
     }
+  }
+  .form-control {
+    border: none;
   }
   input {
     background-color: inherit;
