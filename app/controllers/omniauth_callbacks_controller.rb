@@ -25,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       # If we ever use this code we'll want to verify that the authentication record belongs to this user only
 
-      user.authentications.create(:provider => provider, :uid => uid, :token => token) if !authentication # Regular signed up user, allow him this omniauth signup also
+      user.authentications.create(provider: provider, uid: uid, token: token) unless authentication # Regular signed up user, allow him this omniauth signup also
       #flash.notice = 'Signed in successfully!'
       render json: {success: true, status: 'signed_in'}
       custom_sign_in_and_redirect user

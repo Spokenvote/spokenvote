@@ -8,10 +8,10 @@ class HubsController < ApplicationController
 
     filter_hubs(hub_filter, location_id_filter)
 
-    found_hubs = @hubs.map { |h| h.attributes.slice(:group_name, :formatted_location) }
+    found_hubs = @hubs.map(&:attributes).map { |h| h.slice(:group_name, :formatted_location) }
 
     # Add google place matches to list of hubs if they dont already exist in our DB
-    if hub_filter.presence 
+    if hub_filter.present?
       begin
         GooglePlacesAutocompleteService.new.find_regions(hub_filter).each do |l|
           unless found_hubs.include?(group_name: l[:type], formatted_location: l[:description])
@@ -47,7 +47,7 @@ class HubsController < ApplicationController
             @hub = {}
           end
         rescue ArgumentError => e
-          pp "WARNING: Could not use google service to find hub details. Error: #{e.message}"
+          flash[:warning] = "WARNING: Could not use google service to find hub details. Error: #{e.message}"
         end
       end
     else
@@ -64,9 +64,8 @@ class HubsController < ApplicationController
   # GET /hubs/new.json
   def new
     @hub = Hub.new
-    if params[:requested_group].presence
-      @hub.group_name = params[:requested_group]
-    end
+  
+    @hub.group_name = params[:requested_group] if params[:requested_group].present?
 
     respond_to do |format|
       format.html # new.html.erb
@@ -127,11 +126,11 @@ class HubsController < ApplicationController
 
   def filter_hubs(hub_filter, location_id_filter)
     @hubs = Hub.all
-    if hub_filter.presence && location_id_filter.presence
+    if hub_filter.present? && location_id_filter.present?
       @hubs = @hubs.where('group_name ilike ?', "%#{hub_filter}%").where(formatted_location: location_id_filter)
-    elsif hub_filter.presence
+    elsif hub_filter.present?
       @hubs = @hubs.where('formatted_location ilike ? OR group_name ilike ?', "%#{hub_filter}%", "%#{hub_filter}%")
-    elsif location_id_filter.presence
+    elsif location_id_filter.present?
       @hubs = @hubs.where(location_id: location_id_filter)
     end
 

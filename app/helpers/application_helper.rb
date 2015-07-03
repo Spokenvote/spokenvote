@@ -6,15 +6,19 @@ module ApplicationHelper
   end
 
   def items_count_badge(items, title_text = '')
-    badge_class = 'badge'
-    if items.between?(3,5)
-      badge_class += ' badge-inverse'
-    elsif items.between?(6,8)
-      badge_class += ' badge-info'
-    elsif items > 8
-      badge_class += ' badge-success'
+    badge_classes = ['badge']
+    case
+    when items.between?(3,5)
+      badge_classes << 'badge-inverse'
+    when items.between?(6,8)
+      badge_classes << 'badge-info'
+    when items > 8
+      badge_classes << 'badge-success'
     end
-    if title_text == ''
+
+    badge_class = badge_classes.join(' ')
+
+    if title_text.empty?
       content_tag(:div, items, :class => badge_class)
     else
       content_tag(:div, items, :class => badge_class, :title => title_text, :rel => 'tooltip')

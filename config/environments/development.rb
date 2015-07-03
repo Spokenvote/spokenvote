@@ -28,6 +28,9 @@ Spokenvote::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.test_user_id = 44 # Likely need setup for dev's given test data
+  config.test_vote_ids = [ 74, 7, 12, 10, 11, 57, 54 ]
+
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
     :address =>        ENV['MAIL_ADDRESS'],

@@ -93,7 +93,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
 
-    redirect_to action: :index, status: 200
+    redirect_to action: :index, status: :ok
   end
 
   # GET /proposals/:id/related_proposals.json
@@ -134,7 +134,7 @@ class ProposalsController < ApplicationController
 
   def proposal_params
     if parent_proposal
-      params[:proposal].merge!(parent_id: @parent.id, hub_id: @parent.hub.id)
+      params[:proposal].merge!(parent_id: parent_proposal.id, hub_id: parent_proposal.hub.id)
       params.require(:proposal).permit(:statement, :parent_id, :hub_id)
     else
       if existing_hub
