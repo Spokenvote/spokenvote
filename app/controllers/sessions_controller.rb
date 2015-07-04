@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
   end
 end
 
-
+# TODO  Code comments can be deleted.
 #   *** Depreciated in favor of the authentications_controller.rb ***
 #  def create
 #    resource = warden.authenticate!(scope: resource_name, recall: 'sessions#failure')

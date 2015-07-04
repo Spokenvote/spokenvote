@@ -78,7 +78,7 @@ class ProposalsController < ApplicationController
     #if params[:proposal][:votes_attributes][:comment].match(/\n/)
     #  params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
     #end
-
+    # TODO  Code comments can be deleted.
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
         format.json { render json: @proposal.to_json(methods: 'supporting_statement'), status: :ok }
@@ -153,7 +153,7 @@ class ProposalsController < ApplicationController
       @hub ||= Hub.find_by_id(params[:proposal][:hub_id])
     end
   end
-
+  # TODO  Code comments can be deleted.
   #def fetch_more(proposal_id, page, offset)
   #  records_limit = 10
   #  page_number = (params[:page].presence || 0).to_i

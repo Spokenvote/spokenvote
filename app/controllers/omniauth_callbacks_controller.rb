@@ -11,7 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user = User.new(:email => email)
       user.authentications.build(:provider => provider, :uid => uid, :token => token)
       #user.skip_confirmation!
-
+      # TODO  Code comments can be deleted.... all in file
       if user.save!
         user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
         render json: {success: true, redirect: new_user_registration_url}

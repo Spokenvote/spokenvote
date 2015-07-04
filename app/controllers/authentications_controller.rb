@@ -1,7 +1,7 @@
 class AuthenticationsController < Devise::SessionsController
   def create
     @new_user_saved = false
-
+    # TODO  Code comments can be deleted.
     # Try to find authentication first
     authentication = Authentication.find_by_provider_and_uid(auth_params[:provider], auth_params[:uid] )
     try_existing_user = User.find_by_id(authentication.try(:user_id)) || User.find_by_email(auth_params[:email])

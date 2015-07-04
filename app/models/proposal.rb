@@ -41,7 +41,7 @@ class Proposal < ActiveRecord::Base
   # Other
   has_ancestry
 
-  def votes_in_tree
+  def votes_in_tree                    # TODO  Is this issue worth a quick fix before deleting these comments?
     # Rails.cache.fetch("/proposal/#{self.root.id}/votes_in_tree/#{updated_at}", :expires_at => 5.minutes) do
     # Code above seemed to never expire as of Rails 4
     # Proper cache should only cache when votes_in_tree > 100 or so
@@ -49,7 +49,7 @@ class Proposal < ActiveRecord::Base
     # end
   end
 
-  # def self_and_descendants    # dupe of all_related_proposals
+  # def self_and_descendants    # dupe of all_related_proposals        # TODO  Code comments can be deleted.
   #   [self.root, self.root.descendants].flatten
   # end
 
@@ -91,7 +91,7 @@ class Proposal < ActiveRecord::Base
 
   def votes_percentage
     (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round
-    # sprintf('%d%%', (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round)
+    # sprintf('%d%%', (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round)    # TODO  Code comments can be deleted.
   end
 
   def editable?(current_user)

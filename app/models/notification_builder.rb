@@ -30,7 +30,7 @@ class NotificationBuilder < ApplicationController
   # However, the mailer will want the inverse pairing, a key of a user.id and the vote.ids that she needs to be informed about.
   # So one must crack open each hash and convert it across
   # This is done in the key_value_crossover
-
+  # TODO  Code comments can be deleted.
   def self.check_preferences(notify_list)
     # Stubbed this out for now
     notify_list

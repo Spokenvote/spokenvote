@@ -18,14 +18,14 @@
 #  name                   :string(255)
 #
 
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base               # TODO  Code comments can be deleted... all in file
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
-  # Setup accessible (or protected) attributes for your model
+  # Setup accessible (or protected) attributes for your model        # TODO  This todo worth a quick fix now?
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
   # attr_accessible :title, :body
 

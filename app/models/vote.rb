@@ -24,7 +24,7 @@ class Vote < ActiveRecord::Base
   # Validations
   validates :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
-  # last argument needs converting to a lamda for Rails4
+  # last argument needs converting to a lamda for Rails4        # TODO  Code comments can be deleted.
 
   # Delegations
   delegate :username, :email, :gravatar_hash, :facebook_auth, to: :user

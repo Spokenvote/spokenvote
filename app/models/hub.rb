@@ -13,7 +13,7 @@
 
 class Hub < ActiveRecord::Base
   #attr_accessible :description, :location_id, :group_name, :formatted_location, :full_hub, :short_hub
-
+  # TODO  Code comments can be deleted.
   # Associations
   has_many :votes, through: :proposals
   has_many :proposals

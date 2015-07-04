@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   after_filter  :set_csrf_cookie_for_ng
 
   layout :nil
-
+  # TODO  Code comments can be deleted.
   def index
     # render layout: 'application', nothing: true
   end

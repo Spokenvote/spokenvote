@@ -7,7 +7,7 @@ class VotesController < ApplicationController
     #if params[:vote][:comment].match(/\n/)
     #  params[:vote][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
     #end
-
+    # TODO  Code comments can be deleted.
     votes_attributes = {
       ip_address: request.remote_ip,
       comment: params[:vote][:comment],
