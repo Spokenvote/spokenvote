@@ -10,10 +10,13 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
     $scope.proposals.$query
 
   $scope.setFilter = (filterSelected) ->
-    $location.search('filter', filterSelected)
+    $location
+      .search 'filter', filterSelected
 
   $scope.setHub = (hubSelected) ->
-    $location.path('/proposals/').search('hub', hubSelected.id)
+    $location
+      .path '/proposals/'
+      .search 'hub', hubSelected.id
 ]
 
 ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->

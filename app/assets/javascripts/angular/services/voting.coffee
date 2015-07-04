@@ -141,9 +141,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         this.hubStep()
         return
 
-    if not $rootScope.sessionSettings.newProposal.votes_attributes or not $rootScope.sessionSettings.newProposal.votes_attributes.comment
-      $rootScope.sessionSettings.newProposal.votes_attributes =
-        comment: undefined            # Needed for Commentless Voting
+#    if not $rootScope.sessionSettings.newProposal.votes_attributes or not $rootScope.sessionSettings.newProposal.votes_attributes.comment
+#      $rootScope.sessionSettings.newProposal.votes_attributes =
+#        comment: undefined            # Needed for Commentless Voting
 
     newProposal =
       proposal: $rootScope.sessionSettings.newProposal
