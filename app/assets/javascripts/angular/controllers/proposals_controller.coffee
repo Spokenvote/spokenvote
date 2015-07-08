@@ -52,13 +52,13 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Foc
 #      $scope.authService.signinFb($scope).then ->
 #        $scope.votingService.support clicked_proposal
 
-  $scope.improve = ( clicked_proposal ) ->
-    console.log 'clt improve: '
-    if $scope.currentUser.id?
-      $scope.votingService.improve clicked_proposal
-    else
-      $scope.authService.signinFb($scope).then ->
-        $scope.votingService.improve clicked_proposal
+#  $scope.improve = ( clicked_proposal ) ->
+#    console.log 'clt improve: '
+#    if $scope.currentUser.id?
+#      $scope.votingService.improve clicked_proposal
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        $scope.votingService.improve clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     $scope.votingService.edit $scope, clicked_proposal

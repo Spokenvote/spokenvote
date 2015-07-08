@@ -4,7 +4,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}
 
-    startSupport = RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
+    startSupport = ->
+      RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
           if relatedSupport.proposal.id is clicked_proposal.id
             $rootScope.alertService.setInfo 'Good news, it looks as if you have already supported this proposal. Further editing is not allowed at this time.', $rootScope, 'main'
@@ -15,20 +16,18 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         Focus '#new_vote_comment'
 
     if $rootScope.currentUser.id
-      startSupport
+      startSupport()
     else
       $rootScope.authService.signinFb($rootScope).then ->
-        startSupport
+        startSupport()
 #      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
-
 
   improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}
     console.log 'service improve: '
-    if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To improve proposals you need to sign in.', $rootScope, 'main'
-    else
+
+    startImrpove = ->
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
@@ -37,11 +36,18 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.sessionSettings.newProposal =
           parent_id: clicked_proposal.id
           statement: clicked_proposal.statement
-          votes_attributes:
+          votes_attributes:      # TODO Delete once Raisl guard is merged
             comment: undefined
         $rootScope.sessionSettings.actions.improveProposal.propStepText =
           'Edit or start over to make your <strong><i>New</i></strong> proposal.'
         Focus '#new_proposal_statement'
+
+    if $rootScope.currentUser.id
+      startImrpove()
+    else
+      $rootScope.authService.signinFb($rootScope).then ->
+        startImrpove()
+        console.log 'aftere: '  #tests should find this cl
 
   new: ->
     $rootScope.alertService.clearAlerts()
@@ -85,21 +91,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.deleteProposal = false
-
-#  wizard: (scope) ->
-#    if $rootScope.sessionSettings.openModals.getStarted is false
-#      modalInstance = $modal.open
-#        templateUrl: 'shared/_get_started_modal.html'
-#        controller: 'GetStartedCtrl'
-#      modalInstance.opened.then ->
-#        $rootScope.sessionSettings.openModals.getStarted = true
-#      modalInstance.result.finally ->
-#        $rootScope.sessionSettings.openModals.getStarted = false
-
-#  changeHub: (request) ->
-#    if request is true and $rootScope.sessionSettings.actions.changeHub != 'new'
-#      $rootScope.sessionSettings.actions.newProposalHub = null
-#      $rootScope.sessionSettings.actions.changeHub = !$rootScope.sessionSettings.actions.changeHub
 
   commentStep: ->
     console.log 'comment step: '
@@ -149,14 +140,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       proposal: $rootScope.sessionSettings.newProposal
     newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
     newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
-
-#    newProposal =
-#      newProposal:
-#        statement: $rootScope.sessionSettings.newProposal.statement
-#        votes_attributes:
-#          comment: $rootScope.sessionSettings.newProposal.comment
-#        hub_id: $rootScope.sessionSettings.hub_attributes.id
-#        hub_attributes: $rootScope.sessionSettings.hub_attributes
 
     Proposal.save(
       (newProposal

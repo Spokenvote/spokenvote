@@ -67,8 +67,8 @@ describe 'Proposal Show Controller Tests', ->
         .toBeDefined()
 #      expect $scope.support
 #        .toBeDefined()
-      expect $scope.improve
-        .toBeDefined()
+#      expect $scope.improve
+#        .toBeDefined()
       expect $scope.edit
         .toBeDefined()
       expect $scope.delete
@@ -124,22 +124,18 @@ describe 'Proposal Show Controller Tests', ->
 #      expect $rootScope.authService.signinFb.calls.any()
 #        .toBe false
 
-    it 'should invoke signinFb if user tries to IMPROVE a proposal and is not signed in ', ->
-      $rootScope.currentUser = {}
-      $scope.improve clicked_proposal
+#      expect $rootScope.authService.signinFb.calls.count()
+#        .toEqual 1
 
-      expect $rootScope.authService.signinFb.calls.count()
-        .toEqual 1
-
-    it 'should allow signed in Fb user to IMPROVE a proposal', ->
-      $rootScope.currentUser =
-        id: 5
-      $scope.improve clicked_proposal
-
-      expect $rootScope.votingService.improve.calls.count()
-        .toEqual 1
-      expect $rootScope.authService.signinFb.calls.any()
-        .toBe false
+#    it 'should allow signed in Fb user to IMPROVE a proposal', ->
+#      $rootScope.currentUser =
+#        id: 5
+#      $scope.improve clicked_proposal
+#
+#      expect $rootScope.votingService.improve.calls.count()
+#        .toEqual 1
+#      expect $rootScope.authService.signinFb.calls.any()
+#        .toBe false
 
     it 'should allow user to EDIT a proposal', ->
 #      $rootScope.currentUser =                                         # TODO: Add real tests for edit and delete

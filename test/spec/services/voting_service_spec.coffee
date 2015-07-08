@@ -47,7 +47,12 @@ describe 'Voting Service Tests', ->
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
         setJson: jasmine.createSpy 'alertService:setJson'
       promise =
-        then: jasmine.createSpy()
+        then: ->
+#          console.log 'promise: '
+          $rootScope.currentUser =
+            id: 5
+#          console.log 'promose $rootScope.currentUser: ', $rootScope.currentUser.id
+      #        then: jasmine.createSpy().and.callThrough()
       $rootScope.authService =
         signinFb: jasmine.createSpy('authService').and.returnValue promise
       $rootScope.currentUser =
@@ -127,25 +132,24 @@ describe 'Voting Service Tests', ->
       it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
         $rootScope.currentUser = {}
 
+        expect  $rootScope.currentUser
+        .toEqual { }
+
         VotingService.support clicked_proposal
-
-        $httpBackend
-          .expectGET '/proposals/17/related_vote_in_tree'
-          .respond null
-
-        $httpBackend.flush()
+#        console.log 'test $rootScope.currentUser: ',  $rootScope.currentUser
+        #        $httpBackend
+#          .expectGET '/proposals/17/related_vote_in_tree'
+#          .respond null
+#
+#        $httpBackend.flush()
+#        $rootScope.$apply()
+        #TODO Dont think I'm actually testing if things execute after the promise
+        # also true in other places?
 
         expect $rootScope.authService.signinFb.calls.count()
          .toEqual 1
-
-#      it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
-#        $rootScope.currentUser =
-#          id: null
-#
-#        VotingService.support clicked_proposal
-#
-#        expect $rootScope.alertService.setInfo.calls.count()
-#          .toEqual 1
+        expect  $rootScope.currentUser
+         .toEqual id: 5
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
@@ -249,23 +253,48 @@ describe 'Voting Service Tests', ->
         VotingService.improve clicked_proposal
 
         $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond null
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
 
         $httpBackend.flush()
 
         expect $rootScope.sessionSettings.vote.extraTrashObject
           .toBe undefined
 
-      it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
+
+      it 'should allow signed in Fb user to IMPROVE a proposal', ->
         $rootScope.currentUser =
-          id: null
-        $rootScope.sessionSettings.vote.related_existing = null
+          id: 5
 
         VotingService.improve clicked_proposal
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.authService.signinFb.calls.any()
+          .toBe false
+
+
+      it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
+        $rootScope.currentUser = {}
+
+        VotingService.improve clicked_proposal
+
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
+
+#      it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
+#        $rootScope.currentUser =
+#          id: null
+#        $rootScope.sessionSettings.vote.related_existing = null
+#
+#        VotingService.improve clicked_proposal
+#
+#        expect $rootScope.alertService.setInfo.calls.count()
+#          .toEqual 1
 
       it 'should check and NOT find an existing vote from this user on this proposal', ->
 

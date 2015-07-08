@@ -12,5 +12,4 @@ StartController = [ '$scope', 'Focus', ( $scope, Focus ) ->
   else
     Focus '#new_proposal_statement'
 ]
-
 App.controller 'StartController', StartController

@@ -8,7 +8,7 @@
           .big-percent
             | {{ proposal.votes_percentage }}
             span.pct %
-        .fork.box ng-click='improve(proposal)' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right'
+        .fork.box ng-click='votingService.improve(proposal)' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right'
           i.fa.fa-lightbulb-o
 
     .col-xs-10.proposal_statement
@@ -21,7 +21,7 @@
           .form-group
             textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
               ng-minLength='5' ng-maxLength='140' placeholder='What is your proposal?'
-              ng-enter='commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
+              ng-enter='votingService.commentStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
             .next-step ng-show='editProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"' Press <strong><i>Enter</i></strong> to save your changes.
             .length_counter.happy-text( ng-show='editProposalForm.statement.$valid && proposal.statement.length > 120' ) {{ 140 - proposal.statement.length }} characters remaining
             .length_counter.error-text( ng-show="editProposalForm.statement.$error.maxlength" )
