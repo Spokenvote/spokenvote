@@ -25,7 +25,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}     # TODO this needed here?
-    console.log 'service improve: '
+#    console.log 'service improve: '
 
     startImrpove = ->
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
@@ -60,37 +60,37 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #          comment: undefined
      $location.path '/start'
 
-  edit_old: ( scope, clicked_proposal ) ->
-    scope.clicked_proposal = clicked_proposal
-
-    if !scope.currentUser.id?
-      $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
-    else
-      if $rootScope.sessionSettings.openModals.editProposal is false
-        modalInstance = $modal.open
-          templateUrl: 'proposals/_edit_proposal_modal.html'
-          controller: 'EditProposalCtrl'
-          scope: scope      # Optional to pass the scope here?
-        modalInstance.opened.then ->
-          $rootScope.sessionSettings.openModals.editProposal = true
-        modalInstance.result.finally ->
-          $rootScope.sessionSettings.openModals.editProposal = false
+#  edit_old: ( scope, clicked_proposal ) ->
+#    scope.clicked_proposal = clicked_proposal
+#
+#    if !scope.currentUser.id?
+#      $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
+#    else
+#      if $rootScope.sessionSettings.openModals.editProposal is false
+#        modalInstance = $modal.open
+#          templateUrl: 'proposals/_edit_proposal_modal.html'
+#          controller: 'EditProposalCtrl'
+#          scope: scope      # Optional to pass the scope here?
+#        modalInstance.opened.then ->
+#          $rootScope.sessionSettings.openModals.editProposal = true
+#        modalInstance.result.finally ->
+#          $rootScope.sessionSettings.openModals.editProposal = false
 
   edit: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
 #    $rootScope.sessionSettings.vote = {}
-    console.log 'service edit: ', clicked_proposal.statement
+#    console.log 'service edit: ', clicked_proposal
 
     startEdit = ->
       $rootScope.sessionSettings.newProposal =
         id: clicked_proposal.id
-        proposal:
-          statement: clicked_proposal.statement
-          votes_attributes:
-            id: clicked_proposal.votes[0].id
-            comment: clicked_proposal.votes[0].comment
+#        proposal:
+        statement: clicked_proposal.statement
+        votes_attributes:
+          id: clicked_proposal.votes[0].id
+          comment: clicked_proposal.votes[0].comment
       $rootScope.sessionSettings.actions.improveProposal.propStepText =
-        '<strong><i>Editing</i></strong> proposal.'
+        '<strong><i>Editing</i></strong> your main proposal statement.'
       Focus '#new_proposal_statement'
 
     if $rootScope.currentUser.id

@@ -21,12 +21,11 @@ describe 'Voting Service Tests', ->
         comment: 'Why you should vote for this proposal']
     newProposal =
       id: 17
-      proposal:
-        statement: 'My proposal statement'
-        votes_attributes:
-          id: 22
-          comment: 'Why you should vote for this proposal'
-
+#      proposal:
+      statement: 'My proposal statement'
+      votes_attributes:
+        id: 22
+        comment: 'Why you should vote for this proposal'
     relatedSupport =
       id: 122
       comment: 'Have to give reason now ...'

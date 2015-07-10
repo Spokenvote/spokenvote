@@ -1,6 +1,6 @@
 .proposal_container ng-if='proposal.has_support'
 
-  .main-proposal.row id='prop{{ proposal.id }}'
+  .main-proposal.row id='prop{{ proposal.id }}' ng-hide='sessionSettings.newProposal.id === proposal.id'
     .col-xs-2
       .improve_support_buttons
         .votes.box ng-click='votingService.support(proposal)' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
@@ -11,12 +11,23 @@
         .fork.box ng-click='votingService.improve(proposal)' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right'
           i.fa.fa-lightbulb-o
 
+    .improve_support_buttons
+      .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
+        span
+          button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='right'
+            i.fa.fa-pencil.fa-2x
+
+        /span.hidden-xs.hidden-sm
+                button ng-click='delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right'
+                  i.fa.fa-trash-o.fa-2x
+
     .col-xs-10.proposal_statement
-      h3 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
+      /h3 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
+      h3
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
       / Editing Statement
-      form name='editProposalForm' ng-submit='saveNewProposal()'
+      /form name='editProposalForm' ng-submit='saveNewProposal()'
         .proposal-area ng-if='( proposal.is_editable && proposal.user_id == currentUser.id )'
           .form-group
             textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
@@ -29,7 +40,7 @@
               span Too Long
 
   .improve_proposal_container
-    .main-proposal.row ng-if='sessionSettings.newProposal.parent_id == proposal.id'
+    .main-proposal.row ng-if='sessionSettings.newProposal.parent_id === proposal.id || sessionSettings.newProposal.id === proposal.id'
       .proposal-person.col-xs-2
         /.supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
         .supporter-avatar
