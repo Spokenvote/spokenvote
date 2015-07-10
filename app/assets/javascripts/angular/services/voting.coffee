@@ -24,7 +24,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.vote = {}
+    $rootScope.sessionSettings.vote = {}     # TODO this needed here?
     console.log 'service improve: '
 
     startImrpove = ->
@@ -60,7 +60,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #          comment: undefined
      $location.path '/start'
 
-  edit: ( scope, clicked_proposal ) ->
+  edit_old: ( scope, clicked_proposal ) ->
     scope.clicked_proposal = clicked_proposal
 
     if !scope.currentUser.id?
@@ -75,6 +75,29 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.openModals.editProposal = true
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.editProposal = false
+
+  edit: ( clicked_proposal ) ->
+    $rootScope.alertService.clearAlerts()
+#    $rootScope.sessionSettings.vote = {}
+    console.log 'service edit: ', clicked_proposal.statement
+
+    startEdit = ->
+      $rootScope.sessionSettings.newProposal =
+        id: clicked_proposal.id
+        proposal:
+          statement: clicked_proposal.statement
+          votes_attributes:
+            id: clicked_proposal.votes[0].id
+            comment: clicked_proposal.votes[0].comment
+      $rootScope.sessionSettings.actions.improveProposal.propStepText =
+        '<strong><i>Editing</i></strong> proposal.'
+      Focus '#new_proposal_statement'
+
+    if $rootScope.currentUser.id
+      startEdit()
+    else
+      $rootScope.authService.signinFb($rootScope).then ->
+        startEdit()
 
   delete: (scope, clicked_proposal) ->
     scope.clicked_proposal = clicked_proposal

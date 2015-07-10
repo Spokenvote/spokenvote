@@ -52,7 +52,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 
 #EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
 EditProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
-  $scope.clicked_proposal = $scope.clicked_proposal
+#  $scope.clicked_proposal = $scope.clicked_proposal
 
   if $scope.clicked_proposal.votes.length > 1
     $scope.alertService.setCtlResult "We found support from other users on your proposal. You can no longer edit your proposal, but you can Improve it to get a similar result.", $scope

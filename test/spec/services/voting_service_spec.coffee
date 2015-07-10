@@ -14,10 +14,19 @@ describe 'Voting Service Tests', ->
     scope = undefined
     clicked_proposal =
       id: 17
+#      proposal:
+      statement: 'My proposal statement'
+      votes: [
+        id: 22
+        comment: 'Why you should vote for this proposal']
+    newProposal =
+      id: 17
       proposal:
         statement: 'My proposal statement'
         votes_attributes:
+          id: 22
           comment: 'Why you should vote for this proposal'
+
     relatedSupport =
       id: 122
       comment: 'Have to give reason now ...'
@@ -344,45 +353,47 @@ describe 'Voting Service Tests', ->
     describe 'EDIT method should make checks and open EDIT modal', ->
 
       it 'should initialize EDIT method', ->
-        VotingService.edit scope, clicked_proposal
+        VotingService.edit clicked_proposal
 
-        expect scope.clicked_proposal
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal
+          .toEqual newProposal
 
       it 'should invoke sign-in warning if user manages to somehow get here to EDIT a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
         VotingService.edit scope, clicked_proposal
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
+        expect  $rootScope.currentUser
+          .toEqual id: 5
 
-      it 'should open EDIT modal', ->
-
+#      it 'should open EDIT modal', ->
+#
+##        expect $rootScope.sessionSettings.openModals.editProposal
+##          .toEqual false
+#
+#        relatedSupport.proposal.id = 8
+#        VotingService.edit scope, clicked_proposal
+#
+#        openModalArgs =
+#          templateUrl: 'proposals/_edit_proposal_modal.html'
+#          controller: 'EditProposalCtrl'
+#          scope: scope
+#
+#        expect $modal.open
+#          .toHaveBeenCalledWith openModalArgs
+#        expect modalInstance.opened.then
+#          .toHaveBeenCalled
+#        expect modalInstance.result.finally
+#          .toHaveBeenCalled
+#        expect $rootScope.sessionSettings.openModals.editProposal
+#          .toEqual true
+#
+#        modalInstance.result.finallyCallback()
+#
 #        expect $rootScope.sessionSettings.openModals.editProposal
 #          .toEqual false
-
-        relatedSupport.proposal.id = 8
-        VotingService.edit scope, clicked_proposal
-
-        openModalArgs =
-          templateUrl: 'proposals/_edit_proposal_modal.html'
-          controller: 'EditProposalCtrl'
-          scope: scope
-
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.editProposal
-          .toEqual true
-
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.editProposal
-          .toEqual false
 
 
     describe 'DELETE method should make checks and open DELETE modal', ->
@@ -396,7 +407,7 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to DELETE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        VotingService.edit scope, clicked_proposal
+        VotingService.delete scope, clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
