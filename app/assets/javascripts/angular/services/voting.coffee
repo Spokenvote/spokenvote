@@ -138,44 +138,72 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #      $rootScope.$select.activate()
 
   saveNewProposal: ->
-#    console.log 'voting service: saveNewProposal'
     $rootScope.alertService.clearAlerts()
 
-    if not $rootScope.sessionSettings.hub_attributes.id
-      if not $rootScope.sessionSettings.hub_attributes.formatted_location
-        $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
-        this.hubStep()
-        return
-      if not $rootScope.sessionSettings.hub_attributes.group_name
-        $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
-        this.hubStep()
-        return
-      if $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
-        $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
-        this.hubStep()
-        return
+    newProposal =
+      proposal: $rootScope.sessionSettings.newProposal
+    if $rootScope.sessionSettings.newProposal.id
+      newProposal.id = $rootScope.sessionSettings.newProposal.id
+    else
+      newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+      newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+
+#    console.log 'voting service: saveNewProposal', newProposal
+
+    saveSuccess = (response, status, headers, config) ->
+      $rootScope.$broadcast 'event:proposalsChanged'
+#      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update?
+      $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was saved.', $rootScope, 'main'
+      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
+      $rootScope.sessionSettings.actions.offcanvas = false
+      $rootScope.sessionSettings.newProposal = {}
+
+    saveFail = (response, status, headers, config) ->
+      $rootScope.alertService.setCtlResult 'Sorry, your proposal was not saved.', $rootScope, 'modal'
+      $rootScope.alertService.setJson response.data
+
+#    saveProposal = ->
+#      Proposal.save newProposal, saveSuccess, saveFail
+
+    updateProposal = ->
+      console.log 'update hit: '
+      Proposal.update newProposal, saveSuccess, saveFail
+
+#      , (response, status, headers, config) ->
+#        $rootScope.$broadcast 'event:votesChanged'
+#        $rootScope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $rootScope
+#      , (response, status, headers, config) ->
+#        $rootScope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $rootScope
+#        $rootScope.alertService.setJson response.data
+#      )
+
+    if newProposal.proposal.statement and newProposal.proposal.statement.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumProposalLength
+      switch
+        when newProposal.proposal.id
+          updateProposal()
+        when $rootScope.sessionSettings.hub_attributes.id
+          saveProposal()
+        else switch
+          when not $rootScope.sessionSettings.hub_attributes.formatted_location
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
+            this.hubStep()
+            return
+          when not $rootScope.sessionSettings.hub_attributes.group_name
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
+            this.hubStep()
+            return
+          when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
+            this.hubStep()
+            return
+          else
+            saveProposal()
+    else
+      $rootScope.alertService.setCtlResult 'Sorry, No Proposal to save found or your Proposal is too short.', $rootScope, 'main'
 
 #    if not $rootScope.sessionSettings.newProposal.votes_attributes or not $rootScope.sessionSettings.newProposal.votes_attributes.comment
 #      $rootScope.sessionSettings.newProposal.votes_attributes =
 #        comment: undefined            # Needed for Commentless Voting
-
-    newProposal =
-      proposal: $rootScope.sessionSettings.newProposal
-    newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
-    newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
-
-    Proposal.save(
-      (newProposal
-      ), ((response, status, headers, config) ->
-        $rootScope.$broadcast 'event:proposalsChanged'
-        $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was created.', $rootScope, 'main'
-        $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
-        $rootScope.sessionSettings.actions.offcanvas = false
-        $rootScope.sessionSettings.newProposal = {}
-      ),  (response, status, headers, config) ->
-        $rootScope.alertService.setCtlResult 'Sorry, your new proposal was not saved.', $rootScope, 'modal'
-        $rootScope.alertService.setJson response.data
-    )
 
 ]
 

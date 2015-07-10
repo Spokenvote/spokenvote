@@ -69,12 +69,12 @@ EditProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $
     $scope.alertService.clearAlerts()
 
     Proposal.update(
-      ($scope.editProposal
-      ), ((response, status, headers, config) ->
+      $scope.editProposal
+      , (response, status, headers, config) ->
         $rootScope.$broadcast 'event:votesChanged'
         $scope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
 #        $modalInstance.close(response)
-      ), (response, status, headers, config) ->
+      , (response, status, headers, config) ->
         $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
         $scope.alertService.setJson response.data
     )

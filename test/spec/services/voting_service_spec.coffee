@@ -572,8 +572,8 @@ describe 'Voting Service Tests', ->
 #        expect $rootScope.sessionSettings.actions.changeHub
 #          .toEqual true
 
+    describe 'saveNewProposal method should SAVE New Proposal', ->
 #Jul 2, 2015
-#    describe 'saveNewProposal method should SAVE New Proposal', ->
 #
 #      it 'should check for NEW HUB and REJECT an invalid Hub LOCATION if saving a New Hub', ->
 #        $rootScope.sessionSettings.hub_attributes =
@@ -644,7 +644,10 @@ describe 'Voting Service Tests', ->
           group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
 #        $rootScope.sessionSettings.actions.hubCreate = 'New Group Name'
-        $rootScope.sessionSettings.openModals.newProposal = true
+#        $rootScope.sessionSettings.openModals.newProposal = true
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         spyOn Proposal, 'save'
 
@@ -770,6 +773,9 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
 
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
         response =
           id: 2045
           statement: 'An awesome new proposal. Vote for it!'
@@ -799,6 +805,9 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
 
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
         response =
           id: 2045
           statement: 'An awesome new proposal. Vote for it!'
@@ -820,6 +829,9 @@ describe 'Voting Service Tests', ->
       it 'Proposal.save should execute correct FAILURE callback and ALERTS', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         response =
           data: 'There was a server error!'

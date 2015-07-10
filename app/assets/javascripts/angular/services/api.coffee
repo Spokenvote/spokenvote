@@ -3,7 +3,7 @@ CurrentUser = ($resource) ->
   $resource '/currentuser'
 
 Hub = ($resource) ->
-  $resource '/hubs/:id', {id: '@id'}, {update: {method: 'PUT'} }
+  $resource '/hubs/:id', {id: '@id'}, {update: method: 'PUT' }
 
 Vote = ($resource) ->
   $resource '/votes/:id', id: '@id', { update: method: 'PUT' }

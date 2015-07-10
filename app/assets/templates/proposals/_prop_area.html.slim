@@ -2,7 +2,7 @@ form name='newProposalForm' ng-submit='saveNewProposal()'
   .proposal-area
     .form-group
       textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
-        ng-minLength='5' ng-maxLength='140' placeholder='Your proposal?'
+        ng-minLength='sessionSettings.spokenvote_attributes.minimumProposalLength' ng-maxLength='140' placeholder='Your proposal?'
         ng-enter='votingService.hubStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
       .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"'
         div ng-bind-html='sessionSettings.actions.improveProposal.propStepText'
@@ -18,7 +18,7 @@ form name='newProposalForm' ng-submit='saveNewProposal()'
     /.form-group ng-show='sessionSettings.actions.newProposal.comment'
     .form-group ng-show='sessionSettings.actions.focus === "comment"'
       textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.votes_attributes.comment' auto-grow
-        ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
+        ng-minLength='sessionSettings.spokenvote_attributes.minimumCommentLength' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
         ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
       .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your proposal!
       .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newProposal.statement.length > 220' {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
