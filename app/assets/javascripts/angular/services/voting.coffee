@@ -162,8 +162,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.alertService.setCtlResult 'Sorry, your proposal was not saved.', $rootScope, 'modal'
       $rootScope.alertService.setJson response.data
 
-#    saveProposal = ->
-#      Proposal.save newProposal, saveSuccess, saveFail
+    saveProposal = ->
+      Proposal.save newProposal, saveSuccess, saveFail
 
     updateProposal = ->
       console.log 'update hit: '

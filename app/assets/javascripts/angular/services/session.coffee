@@ -1,24 +1,24 @@
 # Miscellaneous
-SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
+SessionService = ($cookieStore, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
 
   signedIn: !!$cookieStore.get '_spokenvote_session'
 
   signedOut: not @signedIn
 
-  userSession: new UserSessionResource
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    remember_me: true
-
   userOmniauth: new UserOmniauthResource
     auth: null
 
-  userRegistration: new UserRegistrationResource
-    name: null
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    password_confirmation: null
+#  userSession: new UserSessionResource            # TODO Planned future use
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    remember_me: true
+
+#  userRegistration: new UserRegistrationResource
+#    name: null
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    password_confirmation: null
 
 AlertService = ($timeout) ->
   callingScope: null
@@ -170,7 +170,8 @@ SpokenvoteCookies = ($cookies) ->
   sessionCookie: $cookies.SpokenvoteSession
 
 # Injects
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
+SessionService.$inject = [ '$cookieStore', 'UserOmniauthResource'  ]
+#SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 AlertService.$inject = [ '$timeout' ]
 errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]

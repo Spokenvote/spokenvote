@@ -14,7 +14,6 @@ describe 'Voting Service Tests', ->
     scope = undefined
     clicked_proposal =
       id: 17
-#      proposal:
       statement: 'My proposal statement'
       votes: [
         id: 22
