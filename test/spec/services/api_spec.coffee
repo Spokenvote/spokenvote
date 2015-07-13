@@ -1,6 +1,5 @@
 describe "API Test", ->
   beforeEach module 'spokenvote'
-#  beforeEach module 'spokenvoteMocks'
   $httpBackend = undefined
   $rootScope = undefined
   $route = undefined
@@ -67,6 +66,17 @@ describe "API Test", ->
     votes: [
       id: 22
       comment: 'Why you should vote for this proposal']
+  returnedProposalResponse =
+    ancestry: null
+    created_at: "2015-07-10T20:56:49.970Z"
+    created_by: null
+    hub_id: 1
+    id: 258
+    statement: "My Proposal"
+    supporting_statement: null
+    updated_at: "2015-07-10T22:46:48.516Z"
+    user_id: 44
+    votes_count: 1
 
 
   describe "Hub should respond to requests", ->
@@ -74,18 +84,6 @@ describe "API Test", ->
 
   describe "Proposal should respond to requests", ->
     Proposal = undefined
-
-    returnedProposalResponse =
-      ancestry: null
-      created_at: "2015-07-10T20:56:49.970Z"
-      created_by: null
-      hub_id: 1
-      id: 258
-      statement: "My Proposal"
-      supporting_statement: null
-      updated_at: "2015-07-10T22:46:48.516Z"
-      user_id: 44
-      votes_count: 1
 
     beforeEach module ($provide) ->
         -> $provide.value '$route',
@@ -227,50 +225,87 @@ describe "API Test", ->
         .toEqual signOutResponse
 
 
-#    it "should SAVE a proposal", ->
-#
-#      newProposal =
-#        proposal:
-#          statement: "My Proposal"
-#          votes_attributes:
-#            comment: "A great comment in support"
-#        hub_id: 1
-#        hub_attributes: {}
-#
-#      $httpBackend.expectPOST '/proposals'
-#        .respond returnedProposalResponse
-#
-#      proposal = Proposal.save newProposal
-#
-#      $httpBackend.flush()
-#
-#      expect proposal instanceof Object
-#        .toBeTruthy()
-#      expect proposal.statement
-#        .toEqual returnedProposalResponse.statement
-#
-#    it "should UPDATE proposal", ->
-#
-#      newProposal =
-#        id: 258
-#        proposal:
-#          statement: "My Proposal"
-#          votes_attributes:
-#            comment: "A great comment in support"
-#        hub_id: 1
-#        hub_attributes: {}
-#
-#      $httpBackend.expectPUT '/proposals/258'
-#        .respond returnedProposalResponse
-#
-#      proposal = Proposal.update newProposal
-#
-#      $httpBackend.flush()
-#
-#      expect proposal instanceof Object
-#        .toBeTruthy()
-#      expect proposal.statement
-#        .toEqual returnedProposalResponse.statement
+  describe "CurrentUserLoader should respond to requests", ->
+    currentUserLoader = undefined
+    CurrentUser = undefined
+    returnedUser =
+      email: "term...mail.com"
+      facebook_auth: "1014514417"
+      first_name: "Kim"
+      gravatar_hash: "bbd5398ccde904d92ba0d5b8fc6c7344"
+      id: 44
+      'is_admin?': false
+      name: "Kim Miller"
+      username: "Kim Miller"
+
+    beforeEach module ($provide) ->
+      -> $provide.value '$route',
+        current:
+          params:
+            hub: 1
+            filter: 'active'
+            user: 42
+
+    beforeEach inject (_$httpBackend_, _$rootScope_, _$route_, _CurrentUserLoader_) ->
+      $httpBackend = _$httpBackend_
+      $rootScope = _$rootScope_
+      $route = _$route_
+      currentUserLoader = _CurrentUserLoader_
+      CurrentUser = -> {}
+
+
+    afterEach ->
+      $httpBackend.verifyNoOutstandingExpectation()
+      $httpBackend.verifyNoOutstandingRequest()
+
+    it "should load the current USER", ->
+      $httpBackend.expectGET '/currentuser'
+        .respond returnedUser
+
+      promise = currentUserLoader()
+      user = undefined
+
+      promise.then (current_user) ->
+        user = current_user
+
+      $httpBackend.flush()
+
+      expect user instanceof Object
+        .toBeTruthy()
+      expect user
+        .toEqual jasmine.objectContaining returnedUser
+
+    it 'should return a promise', ->
+      $httpBackend.expectGET '/currentuser'
+        .respond returnedUser
+
+      promise = currentUserLoader()
+      user = undefined
+
+      promise.then (data) ->
+        user = data
+
+      $httpBackend.flush()
+
+      expect user.$resolved
+        .toEqual true
+
+    it "should reject the promise and respond with error", ->
+      $httpBackend.expectGET '/currentuser'
+        .respond 500
+
+      promise = currentUserLoader()
+      user = undefined
+
+      promise.then (fruits) ->
+        user = fruits
+      , (reason) ->
+        user = reason
+
+      $httpBackend.flush()
+
+      expect user
+        .toContain 'Unable'
 
 
   describe "CurrentHubLoader should respond to requests", ->
@@ -290,11 +325,11 @@ describe "API Test", ->
             filter: 'active'
             user: 42
 
-    beforeEach inject (_$httpBackend_, _$rootScope_, _$route_, CurrentHubLoader) ->
+    beforeEach inject (_$httpBackend_, _$rootScope_, _$route_, _CurrentHubLoader_) ->
       $httpBackend = _$httpBackend_
       $rootScope = _$rootScope_
       $route = _$route_
-      currentHubLoader = CurrentHubLoader
+      currentHubLoader = _CurrentHubLoader_
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -315,18 +350,22 @@ describe "API Test", ->
       expect hub instanceof Object
         .toBeTruthy()
       expect hub
-        .toEqual jasmine.objectContaining {"id":1,"group_name":"Hacker Dojo","description":"Hacker Dojo","created_at":"2013-02-10T00:01:58.914Z","updated_at":"2013-02-10T00:01:58.914Z"}
+        .toEqual jasmine.objectContaining returnedHub
 
     it "should return a promise", ->
       $httpBackend.expectGET '/hubs/1'
-      .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+        .respond returnedHub
 
       promise = currentHubLoader()
+      hub = undefined
 
       promise.then (data) ->
         hub = data
 
       $httpBackend.flush()
+
+      expect hub.$resolved
+        .toEqual true
 
     it "should reject the promise and respond with error", ->
       $httpBackend.expectGET '/hubs/1'
@@ -365,6 +404,16 @@ describe "API Test", ->
   describe "SelectHubLoader should respond to requests", ->
 
     selectHubLoader = undefined
+    returnHubsList = [
+      id: 1
+      group_name: "Hacker Dojo"
+    ,
+      id: 321
+      group_name: "Hacker Doggies"
+    ,
+      id: 676
+      group_name: "Hacker Dummies"
+    ]
 
     beforeEach inject (_$httpBackend_, _$rootScope_, SelectHubLoader) ->
       $httpBackend = _$httpBackend_
@@ -377,7 +426,7 @@ describe "API Test", ->
 
     it "should load the current hub", ->
       $httpBackend.expectGET '/hubs?hub_filter=ha'
-        .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
+        .respond returnHubsList
 
       hub_filter = 'ha'
       promise = selectHubLoader(hub_filter)
@@ -391,19 +440,7 @@ describe "API Test", ->
       expect hub instanceof Object
         .toBeTruthy()
       expect hub
-        .toEqual jasmine.objectContaining [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
-
-    it "should return a promise", ->
-      $httpBackend.expectGET '/hubs?hub_filter=ha'
-        .respond [ {"id":1,"group_name":"Hacker Dojo"}, {"id":321,"group_name":"Hacker Doggies"}, {"id":676,"group_name":"Hacker Dummies"} ]
-
-      hub_filter = 'ha'
-      promise = selectHubLoader(hub_filter)
-
-      promise.then (data) ->
-        hub = data
-
-      $httpBackend.flush()
+        .toEqual jasmine.objectContaining returnHubsList
 
     it "should reject the promise and respond with error", ->
       $httpBackend.expectGET '/hubs?hub_filter=ha'
@@ -458,9 +495,10 @@ describe "API Test", ->
       $httpBackend.verifyNoOutstandingExpectation()
       $httpBackend.verifyNoOutstandingRequest()
 
-    it "should load a proposal", ->
+    it "should have proposalLoader defined", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+        .respond returnedProposalResponse
+
       expect proposalLoader()
         .toBeDefined()
 
@@ -468,18 +506,22 @@ describe "API Test", ->
 
     it "should return a promise", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+        .respond returnedProposalResponse
 
       promise = proposalLoader()
+      proposals = undefined
 
       promise.then (data) ->
         proposals = data
 
       $httpBackend.flush()
 
+      expect proposals.$resolved
+        .toEqual true
+
     it "should return a proposal via promise", ->
       $httpBackend.expectGET '/proposals/23'
-        .respond {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+        .respond returnedProposalResponse
 
       promise = proposalLoader()
 
@@ -492,7 +534,7 @@ describe "API Test", ->
       expect proposal instanceof Object
         .toBeTruthy()
       expect proposal
-        .toEqual jasmine.objectContaining {"id":23,"statement":"Hacker Dojo should organize an annual startup launch event","user_id":43,"created_at":"2013-02-10 05:02:39 UTC"}
+        .toEqual jasmine.objectContaining returnedProposalResponse
 
     it "should reject the promise and respond with error", ->
       $httpBackend.expectGET '/proposals/23'
@@ -671,9 +713,6 @@ describe "API Test", ->
         current:
           params:
             proposalId: 15
-#            hub: 1
-#            filter: 'active'
-#            user: 42
 
     beforeEach inject (_$httpBackend_, _RelatedVoteInTreeLoader_) ->
       $httpBackend = _$httpBackend_
