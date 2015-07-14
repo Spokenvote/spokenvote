@@ -14,12 +14,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
         $rootScope.sessionSettings.vote.target = clicked_proposal
         Focus '#new_vote_comment'
-    startSup = ->
-      {}
     if $rootScope.currentUser.id
       startSupport()
     else
-      startSup()
       $rootScope.authService.signinFb($rootScope).then ->
         startSupport()
 #      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
@@ -49,7 +46,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       $rootScope.authService.signinFb($rootScope).then ->
         startImrpove()
-        console.log 'aftere: '  #tests should find this cl
 
   new: ->
     $rootScope.alertService.clearAlerts()
@@ -118,7 +114,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.openModals.deleteProposal = false
 
   commentStep: ->
-    console.log 'comment step: '
+#    console.log 'comment step: '
 #    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
     $rootScope.sessionSettings.actions.focus = 'comment'
     Focus '#new_vote_comment'

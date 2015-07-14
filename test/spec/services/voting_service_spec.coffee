@@ -10,7 +10,7 @@ describe 'Voting Service Tests', ->
     $location = undefined
     $modal = undefined
     modalInstance = undefined
-    Focus = undefined
+#    Focus = undefined
     scope = undefined
     clicked_proposal =
       id: 17
@@ -38,13 +38,14 @@ describe 'Voting Service Tests', ->
           formatted_location: 'Mountain View, CA'
     testTrash = 'Trash should should get killed'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _Focus_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
-      Focus = jasmine.createSpy 'Focus'
+#      stub.Focus = $injector.get 'Focus'
+#      Focus = jasmine.createSpy 'Focus'
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -55,14 +56,14 @@ describe 'Voting Service Tests', ->
         setJson: jasmine.createSpy 'alertService:setJson'
       promise =
         then: (callback) ->
-          console.log 'promise: '
           $rootScope.currentUser =
             id: 5
           callback()
-#          console.log 'promose $rootScope.currentUser: ', $rootScope.currentUser.id
-      #        then: jasmine.createSpy().and.callThrough()
       $rootScope.authService =
-        signinFb: jasmine.createSpy('authService').and.returnValue promise
+        signinFb:
+          jasmine
+            .createSpy 'authService'
+            .and.returnValue promise
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -77,8 +78,6 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
-
-#      jasmine.createSpy 'Focus'
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -95,10 +94,6 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.new
         .toBeDefined()
-#      expect VotingService.wizard
-#        .toBeDefined()
-#      expect VotingService.changeHub
-#        .toBeDefined()
       expect VotingService.saveNewProposal
         .toBeDefined()
 
@@ -143,26 +138,15 @@ describe 'Voting Service Tests', ->
         expect  $rootScope.currentUser
           .toEqual { }
 
-        startSup = jasmine.createSpy 'startSup'
-          .and.callFake -> {}
-
         VotingService.support clicked_proposal
-#        console.log 'test $rootScope.currentUser: ',  $rootScope.currentUser
         $httpBackend
           .expectGET '/proposals/17/related_vote_in_tree'
           .respond null
-#
+
         $httpBackend.flush()
-#        $rootScope.$apply()
-        #TODO Dont think I'm actually testing if things execute after the promise
-        # also true in other places?
 
         expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
-#        expect startSupport.calls.count()
-#          .toEqual 1
-#        expect startSup
-#          .toHaveBeenCalled()
         expect  $rootScope.currentUser
           .toEqual id: 5
 
@@ -374,7 +358,7 @@ describe 'Voting Service Tests', ->
         $rootScope.currentUser =
           id: null
 
-        VotingService.edit scope, clicked_proposal
+        VotingService.edit clicked_proposal
 
         expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
@@ -531,6 +515,24 @@ describe 'Voting Service Tests', ->
 #        expect $rootScope.sessionSettings.openModals.newProposal
 #          .toEqual false
 
+    describe 'COMMENT-STEP method should perform Comment Steps', ->
+      Focus = jasmine.createSpy('Focus')
+
+      ($provide) ->
+        $provide.service "Focus", ->
+          jasmine.createSpy('Focus').andCallFake () ->
+
+      it 'should set Session Settings and Focus', ->
+
+        VotingService.commentStep()
+
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
+#        console.log 'Focus: ', Focus
+#        expect Focus.calls.count()
+#          .toEqual 1
+#        expect Focus                   # TODO Don't get how to call this guy
+#          .toHaveBeenCalled()
 
     describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
 
