@@ -21,7 +21,6 @@ describe 'Voting Service Tests', ->
         comment: 'Why you should vote for this proposal']
     newProposal =
       id: 17
-#      proposal:
       statement: 'My proposal statement'
       votes_attributes:
         id: 22
@@ -81,6 +80,7 @@ describe 'Voting Service Tests', ->
       spyOn $modal, 'open'
         .and.returnValue modalInstance
       spyOn svUtility, 'focus'
+        .and.callThrough()
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -519,13 +519,6 @@ describe 'Voting Service Tests', ->
 #          .toEqual false
 
     describe 'COMMENT-STEP method should perform Comment Steps', ->
-#      Focus = jasmine.createSpy('Focus')
-#      console.log 'svUtility: ', svUtility
-#      spyOn svUtility, 'focus'
-
-#      ($provide) ->
-#        $provide.service "Focus", ->
-#          jasmine.createSpy('Focus').andCallFake () ->
 
       it 'should set Session Settings and Focus', ->
 
@@ -533,9 +526,97 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.sessionSettings.actions.focus
           .toEqual 'comment'
-#        console.log 'Focus: ', Focus
         expect svUtility.focus.calls.count()
           .toEqual 1
+
+    describe 'HUB-STEP method should perform Hub Steps', ->
+
+      it 'should set Session Settings', ->
+
+        VotingService.hubStep()
+
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+
+      it 'should check for and FIND Hub and newProposal statement', ->
+
+        $rootScope.sessionSettings.hub_attributes =
+          full_hub:'Some great hub'
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 1
+
+      it 'should check for and detect MISSING Hub statement', ->
+
+        $rootScope.sessionSettings.hub_attributes =
+          full_hub:'Some great hub'
+        $rootScope.sessionSettings.newProposal = {}
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+
+      it 'should check for and detect MISSING newProposal statement', ->
+
+        $rootScope.sessionSettings.hub_attributes = null
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+        spyOn $rootScope, '$broadcast'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 0
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'focusHubFilter'
+
+      it 'should set Session Settings and Focus', ->
+
+#        VotingService.hubStep()
+#
+#        expect $rootScope.sessionSettings.actions.focus
+#          .toEqual 'comment'
+#        expect svUtility.focus.calls.count()
+#          .toEqual 1
 
     describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
 
@@ -656,6 +737,26 @@ describe 'Voting Service Tests', ->
 #          .toContain 'name appears to be invalid'
 #        expect Proposal.save
 #          .not.toHaveBeenCalled()
+
+      it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
+
+        $rootScope.sessionSettings.newProposal = newProposal
+
+        newProposalParams =
+          proposal: newProposal
+          id: newProposal.id
+
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        spyOn Proposal, 'update'
+
+        VotingService.saveNewProposal()
+
+        expect Proposal.update
+          .toHaveBeenCalledWith newProposalParams, jasmine.any(Function), jasmine.any(Function)
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -840,9 +941,7 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-#        expect $location.url()                               # TODO bug in Angular 1.29 that should now be fixed with 1.3
-#          .toEqual '/proposals/2045?filter=my'
-        expect $location.url()                               # TODO bug in Angular 1.29 that should now be fixed with 1.3
+        expect $location.url()
           .toEqual '/proposals/2045?filter=my#navigationBar'
 
       it 'Proposal.save should execute correct FAILURE callback and ALERTS', ->

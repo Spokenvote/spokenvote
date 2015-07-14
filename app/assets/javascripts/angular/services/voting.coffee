@@ -115,22 +115,18 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   commentStep: ->
 #    console.log 'comment step: '
-#    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
     $rootScope.sessionSettings.actions.focus = 'comment'
     svUtility.focus '#new_vote_comment'
 
   hubStep: ->
-#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
     $rootScope.sessionSettings.actions.focus = 'hub'
     $rootScope.sessionSettings.actions.hubShow = true
     if $rootScope.sessionSettings.hub_attributes
       if $rootScope.sessionSettings.newProposal.statement
-#        $rootScope.sessionSettings.actions.focus = 'publish'
-#        Focus '#new_vote_comment'
 #        this.commentStep(proposal.id)
         this.commentStep()
       else
-        $rootScope.alertService.setCtlResult 'The proposal is not quite right, too short perhaps?', $rootScope, 'main'
+        $rootScope.alertService.setCtlResult 'Sorry, the proposal is not quite right, too short perhaps?', $rootScope, 'main'
     else
       $rootScope.$broadcast 'focusHubFilter'
 #      $rootScope.$select.activate()
@@ -164,7 +160,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       Proposal.save newProposal, saveSuccess, saveFail
 
     updateProposal = ->
-      console.log 'update hit: '
+#      console.log 'update hit: '
       Proposal.update newProposal, saveSuccess, saveFail
 
 #      , (response, status, headers, config) ->
@@ -174,7 +170,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #        $rootScope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $rootScope
 #        $rootScope.alertService.setJson response.data
 #      )
-
+    console.log 'newProposal: ', newProposal
     if newProposal.proposal.statement and newProposal.proposal.statement.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumProposalLength
       switch
         when newProposal.proposal.id

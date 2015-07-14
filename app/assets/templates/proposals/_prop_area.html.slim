@@ -15,7 +15,6 @@ form name='newProposalForm' ng-submit='saveNewProposal()'
         .fa.fa-warning
         span Too Short
 
-    /.form-group ng-show='sessionSettings.actions.newProposal.comment'
     .form-group ng-show='sessionSettings.actions.focus === "comment"'
       textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newProposal.votes_attributes.comment' auto-grow
         ng-minLength='sessionSettings.spokenvote_attributes.minimumCommentLength' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
