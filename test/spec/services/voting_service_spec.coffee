@@ -45,7 +45,7 @@ describe 'Voting Service Tests', ->
       $location = _$location_
       VotingService = _VotingService_
 #      stub.Focus = $injector.get 'Focus'
-#      Focus = jasmine.createSpy 'Focus'
+      Focus = _Focus_
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -78,6 +78,7 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
+#      spyOn Focus, 'Focus'
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()

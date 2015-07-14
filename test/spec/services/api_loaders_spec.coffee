@@ -1,8 +1,9 @@
-describe "API Test", ->
+describe 'API Loaders Tests', ->
   beforeEach module 'spokenvote'
   $httpBackend = undefined
   $rootScope = undefined
   $route = undefined
+
   returnedProposalList =
     id: 15,
     related_proposals: [
@@ -60,12 +61,14 @@ describe "API Test", ->
         ]
       }
     ]
+
   clicked_proposal =
     id: 17
     statement: 'My proposal statement'
     votes: [
       id: 22
       comment: 'Why you should vote for this proposal']
+
   returnedProposalResponse =
     ancestry: null
     created_at: "2015-07-10T20:56:49.970Z"
@@ -77,152 +80,6 @@ describe "API Test", ->
     updated_at: "2015-07-10T22:46:48.516Z"
     user_id: 44
     votes_count: 1
-
-
-  describe "Hub should respond to requests", ->
-  describe "Vote should respond to requests", ->
-
-  describe "Proposal should respond to requests", ->
-    Proposal = undefined
-
-    beforeEach module ($provide) ->
-        -> $provide.value '$route',
-          current:
-            params:
-              hub: 1
-              filter: 'active'
-              user: 42
-
-    beforeEach inject (_$httpBackend_, _Proposal_) ->
-      $httpBackend = _$httpBackend_
-      Proposal = _Proposal_
-
-    afterEach ->
-      $httpBackend.verifyNoOutstandingExpectation()
-      $httpBackend.verifyNoOutstandingRequest()
-
-    it "should LOAD a proposal", ->
-
-      $httpBackend.expectGET '/proposals/1'
-        .respond returnedProposalResponse
-
-      proposal = Proposal.get id: 1
-
-      $httpBackend.flush()
-
-      expect proposal instanceof Object
-        .toBeTruthy()
-      expect proposal.statement
-        .toEqual returnedProposalResponse.statement
-
-    it "should SAVE a proposal", ->
-
-      newProposal =
-        proposal:
-          statement: "My Proposal"
-          votes_attributes:
-            comment: "A great comment in support"
-        hub_id: 1
-        hub_attributes: {}
-
-      $httpBackend.expectPOST '/proposals'
-        .respond returnedProposalResponse
-
-      proposal = Proposal.save newProposal
-
-      $httpBackend.flush()
-
-      expect proposal instanceof Object
-        .toBeTruthy()
-      expect proposal.statement
-        .toEqual returnedProposalResponse.statement
-
-    it "should UPDATE proposal", ->
-
-      newProposal =
-        id: 258
-        proposal:
-          statement: "My Proposal"
-          votes_attributes:
-            comment: "A great comment in support"
-        hub_id: 1
-        hub_attributes: {}
-
-      $httpBackend.expectPUT '/proposals/258'
-        .respond returnedProposalResponse
-
-      proposal = Proposal.update newProposal
-
-      $httpBackend.flush()
-
-      expect proposal instanceof Object
-        .toBeTruthy()
-      expect proposal.statement
-        .toEqual returnedProposalResponse.statement
-
-
-  describe "UserOmniauthResource should respond to requests", ->
-    UserOmniauthResource = undefined
-
-    signInUser =
-      auth:
-        email: "te...or@gmail.com"
-        expiresIn: 6770
-        name: "Kim Miller"
-        provider: "facebook"
-        token: "CAAKPndevd1ABAL...7LyC0z5Uphqmlu6EMZD"
-        uid: "101...417"
-
-    signOutResponse =
-      status: "You are signed out."
-      success: true
-
-    signInResponse =
-      new_user_saved: true
-      status: "You are signed in."
-      success: true
-
-    beforeEach inject (_$httpBackend_, _UserOmniauthResource_) ->
-      $httpBackend = _$httpBackend_
-      UserOmniauthResource = _UserOmniauthResource_
-
-    afterEach ->
-      $httpBackend.verifyNoOutstandingExpectation()
-      $httpBackend.verifyNoOutstandingRequest()
-
-    it "should SIGN IN a user", ->
-
-      $httpBackend.expectPOST '/authentications'
-        .respond signInResponse
-
-      userOmniauth = new UserOmniauthResource
-        auth: signInUser
-
-      sessionResponse = userOmniauth.$save()
-
-      $httpBackend.flush()
-
-      expect sessionResponse instanceof Object
-        .toBeTruthy()
-      expect sessionResponse.$$state.value.data
-        .toEqual signInResponse
-
-    it "should SIGN OUT a user", ->
-
-      $httpBackend.expectDELETE '/users/logout'
-        .respond signOutResponse
-
-      userOmniauth = new UserOmniauthResource
-        auth: signInUser
-
-      sessionResponse = userOmniauth.$destroy()
-
-      $httpBackend.flush()
-
-      expect sessionResponse instanceof Object
-        .toBeTruthy()
-      expect sessionResponse.$$state.value.data
-        .toEqual signOutResponse
 
 
   describe "CurrentUserLoader should respond to requests", ->
