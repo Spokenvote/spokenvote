@@ -1,4 +1,4 @@
-StartController = [ '$scope', 'Focus', ( $scope, Focus ) ->
+StartController = [ '$scope', 'svUtility', ( $scope, svUtility ) ->
   $scope.alertService.clearAlerts()
   $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.hub_attributes or $scope.sessionSettings.actions.newProposal.started
   $scope.sessionSettings.actions.newProposal.started = true
@@ -8,8 +8,8 @@ StartController = [ '$scope', 'Focus', ( $scope, Focus ) ->
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'comment'
-    Focus '#new_vote_comment'
+    svUtility.focus '#new_vote_comment'
   else
-    Focus '#new_proposal_statement'
+    svUtility.focus '#new_proposal_statement'
 ]
 App.controller 'StartController', StartController

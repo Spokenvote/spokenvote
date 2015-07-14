@@ -1,4 +1,4 @@
-VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'Focus', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, Focus ) ->
+VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'svUtility', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, svUtility ) ->
 
   support: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
@@ -13,7 +13,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
         $rootScope.sessionSettings.vote.target = clicked_proposal
-        Focus '#new_vote_comment'
+        svUtility.focus '#new_vote_comment'
     if $rootScope.currentUser.id
       startSupport()
     else
@@ -39,7 +39,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             comment: undefined
         $rootScope.sessionSettings.actions.improveProposal.propStepText =
           'Edit or start over to make your <strong><i>New</i></strong> proposal.'
-        Focus '#new_proposal_statement'
+        svUtility.focus '#new_proposal_statement'
 
     if $rootScope.currentUser.id
       startImrpove()
@@ -89,7 +89,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           comment: clicked_proposal.votes[0].comment
       $rootScope.sessionSettings.actions.improveProposal.propStepText =
         '<strong><i>Editing</i></strong> your main proposal statement.'
-      Focus '#new_proposal_statement'
+      svUtility.focus '#new_proposal_statement'
 
     if $rootScope.currentUser.id
       startEdit()
@@ -117,7 +117,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #    console.log 'comment step: '
 #    $rootScope.sessionSettings.actions.newProposal.comment = 'active'
     $rootScope.sessionSettings.actions.focus = 'comment'
-    Focus '#new_vote_comment'
+    svUtility.focus '#new_vote_comment'
 
   hubStep: ->
 #    $scope.sessionSettings.actions.newProposal.comment = 'complete'

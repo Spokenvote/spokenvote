@@ -1,5 +1,6 @@
 describe 'API Loaders Tests', ->
   beforeEach module 'spokenvote'
+
   $httpBackend = undefined
   $rootScope = undefined
   $route = undefined

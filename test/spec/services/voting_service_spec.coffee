@@ -11,6 +11,7 @@ describe 'Voting Service Tests', ->
     $modal = undefined
     modalInstance = undefined
 #    Focus = undefined
+    svUtility = undefined
     scope = undefined
     clicked_proposal =
       id: 17
@@ -38,14 +39,15 @@ describe 'Voting Service Tests', ->
           formatted_location: 'Mountain View, CA'
     testTrash = 'Trash should should get killed'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _Focus_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _svUtility_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
 #      stub.Focus = $injector.get 'Focus'
-      Focus = _Focus_
+#      Focus = _Focus_
+      svUtility = _svUtility_
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -78,7 +80,7 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
-#      spyOn Focus, 'Focus'
+      spyOn svUtility, 'focus'
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -517,11 +519,13 @@ describe 'Voting Service Tests', ->
 #          .toEqual false
 
     describe 'COMMENT-STEP method should perform Comment Steps', ->
-      Focus = jasmine.createSpy('Focus')
+#      Focus = jasmine.createSpy('Focus')
+#      console.log 'svUtility: ', svUtility
+#      spyOn svUtility, 'focus'
 
-      ($provide) ->
-        $provide.service "Focus", ->
-          jasmine.createSpy('Focus').andCallFake () ->
+#      ($provide) ->
+#        $provide.service "Focus", ->
+#          jasmine.createSpy('Focus').andCallFake () ->
 
       it 'should set Session Settings and Focus', ->
 
@@ -530,10 +534,8 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.actions.focus
           .toEqual 'comment'
 #        console.log 'Focus: ', Focus
-#        expect Focus.calls.count()
-#          .toEqual 1
-#        expect Focus                   # TODO Don't get how to call this guy
-#          .toHaveBeenCalled()
+        expect svUtility.focus.calls.count()
+          .toEqual 1
 
     describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
 

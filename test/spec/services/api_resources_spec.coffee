@@ -1,10 +1,12 @@
 describe 'API Resources Tests', ->
-  $httpBackend = undefined
   beforeEach module 'spokenvote'
+
+  $httpBackend = undefined
 
   # Test Hub $resource
   describe 'Hub $resource should create, load, update, and delete hubs', ->
     Hub = undefined
+
     beforeEach inject (_$httpBackend_, _Hub_) ->
       Hub = _Hub_
       $httpBackend = _$httpBackend_

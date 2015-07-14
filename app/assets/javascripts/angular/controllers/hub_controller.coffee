@@ -1,4 +1,4 @@
-HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'Focus', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, Focus) ->
+HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader', 'Hub', 'svUtility', ($scope, $rootScope, $location, $http, SelectHubLoader, Hub, svUtility) ->
 
   $scope.disabled = undefined
 
@@ -28,10 +28,10 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
       if not $scope.currentUser.id
         $scope.authService.signinFb($scope).then ->
           $scope.votingService.new()  unless $location.path() == '/start'
-          Focus '#hub_formatted_location'
+          svUtility.focus '#hub_formatted_location'
       else
         $scope.votingService.new()  unless $location.path() is '/start'
-        Focus '#hub_formatted_location'
+        svUtility.focus '#hub_formatted_location'
     else if item.isTag
       $scope.sessionSettings.hub_attributes = null
     else

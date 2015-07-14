@@ -19,7 +19,7 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
       .search 'hub', hubSelected.id
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
+ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'svUtility', ( $scope, $location , proposal, relatedProposals, svUtility) ->
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
