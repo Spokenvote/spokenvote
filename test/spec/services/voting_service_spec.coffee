@@ -10,7 +10,6 @@ describe 'Voting Service Tests', ->
     $location = undefined
     $modal = undefined
     modalInstance = undefined
-#    Focus = undefined
     svUtility = undefined
     scope = undefined
     clicked_proposal =
@@ -44,8 +43,6 @@ describe 'Voting Service Tests', ->
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
-#      stub.Focus = $injector.get 'Focus'
-#      Focus = _Focus_
       svUtility = _svUtility_
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
@@ -80,6 +77,8 @@ describe 'Voting Service Tests', ->
       spyOn $modal, 'open'
         .and.returnValue modalInstance
       spyOn svUtility, 'focus'
+        .and.callThrough()
+      spyOn $rootScope, '$broadcast'
         .and.callThrough()
 
     afterEach ->
@@ -575,8 +574,8 @@ describe 'Voting Service Tests', ->
 
         spyOn VotingService, 'commentStep'
           .and.callThrough()
-        spyOn $rootScope, '$broadcast'
-          .and.callThrough()
+#        spyOn $rootScope, '$broadcast'
+#          .and.callThrough()
 
         VotingService.hubStep()
 
@@ -874,12 +873,19 @@ describe 'Voting Service Tests', ->
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:proposalsChanged'
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:votesChanged'
         expect $rootScope.alertService.setSuccess.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain response.statement
         expect $rootScope.sessionSettings.actions.offcanvas
           .toEqual false
+        expect $rootScope.sessionSettings.newProposal
+          .toEqual {}
+
 
       it 'Proposal.save should save the New Proposal and navigate to the correct LOCATION', ->
         $rootScope.sessionSettings.hub_attributes =

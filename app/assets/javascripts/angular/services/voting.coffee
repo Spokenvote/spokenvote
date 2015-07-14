@@ -142,13 +142,15 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
       newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
 
-#    console.log 'voting service: saveNewProposal', newProposal
-
     saveSuccess = (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
-#      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update?
+      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update
       $rootScope.alertService.setSuccess 'Your new proposal stating: \"' + response.statement + '\" was saved.', $rootScope, 'main'
-      $location.path('/proposals/' + response.id).search('hub', response.hub_id).search('filter', 'my').hash('navigationBar')
+      $location
+        .path '/proposals/' + response.id
+        .search 'hub', response.hub_id
+        .search 'filter', 'my'
+        .hash 'navigationBar'
       $rootScope.sessionSettings.actions.offcanvas = false
       $rootScope.sessionSettings.newProposal = {}
 
