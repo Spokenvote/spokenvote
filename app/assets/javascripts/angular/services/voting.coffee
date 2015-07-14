@@ -160,17 +160,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       Proposal.save newProposal, saveSuccess, saveFail
 
     updateProposal = ->
-#      console.log 'update hit: '
       Proposal.update newProposal, saveSuccess, saveFail
 
-#      , (response, status, headers, config) ->
-#        $rootScope.$broadcast 'event:votesChanged'
-#        $rootScope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $rootScope
-#      , (response, status, headers, config) ->
-#        $rootScope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $rootScope
-#        $rootScope.alertService.setJson response.data
-#      )
-    console.log 'newProposal: ', newProposal
     if newProposal.proposal.statement and newProposal.proposal.statement.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumProposalLength
       switch
         when newProposal.proposal.id
