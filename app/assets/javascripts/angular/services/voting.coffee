@@ -14,10 +14,12 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
         $rootScope.sessionSettings.vote.target = clicked_proposal
         Focus '#new_vote_comment'
-
+    startSup = ->
+      {}
     if $rootScope.currentUser.id
       startSupport()
     else
+      startSup()
       $rootScope.authService.signinFb($rootScope).then ->
         startSupport()
 #      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'

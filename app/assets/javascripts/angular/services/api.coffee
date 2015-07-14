@@ -100,7 +100,7 @@ SelectHubLoader = ($http, $q) ->
 
 #
 #SelectHubLoader = (Hub, $route, $q) ->          # ui-select does not seem to like ngResource
-#  (params) ->
+#  (params) ->                                   # Jul 13, 2015 Believe it's {object} vs [array] returns
 #    delay = $q.defer()
 #    if params
 #      Hub.query(
