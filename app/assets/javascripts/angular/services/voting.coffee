@@ -19,19 +19,16 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       $rootScope.authService.signinFb($rootScope).then ->
         startSupport()
-#      $rootScope.alertService.setInfo 'To support proposals you need to sign in.', $rootScope, 'main'
 
   improve: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.vote = {}     # TODO this needed here?
-#    console.log 'service improve: '
 
     startImrpove = ->
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
         if relatedSupport.id?
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you create a new, improved propsal your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
-#        $rootScope.sessionSettings.vote.parent = clicked_proposal  # TODO Obolete, may be deleted.
         $rootScope.sessionSettings.newProposal =
           parent_id: clicked_proposal.id
           statement: clicked_proposal.statement
@@ -53,31 +50,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
     else
-#      $rootScope.sessionSettings.newProposal =
-#        votes_attributes:    # Needed for Commentless Voting
-#          comment: undefined
      $location.path '/start'
 
-#  edit_old: ( scope, clicked_proposal ) ->
-#    scope.clicked_proposal = clicked_proposal
-#
-#    if !scope.currentUser.id?
-#      $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
-#    else
-#      if $rootScope.sessionSettings.openModals.editProposal is false
-#        modalInstance = $modal.open
-#          templateUrl: 'proposals/_edit_proposal_modal.html'
-#          controller: 'EditProposalCtrl'
-#          scope: scope      # Optional to pass the scope here?
-#        modalInstance.opened.then ->
-#          $rootScope.sessionSettings.openModals.editProposal = true
-#        modalInstance.result.finally ->
-#          $rootScope.sessionSettings.openModals.editProposal = false
 
   edit: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
-#    $rootScope.sessionSettings.vote = {}
-#    console.log 'service edit: ', clicked_proposal
 
     startEdit = ->
       $rootScope.sessionSettings.newProposal =

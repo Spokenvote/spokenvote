@@ -262,7 +262,6 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.vote.extraTrashObject
           .toBe undefined
 
-
       it 'should allow signed in Fb user to IMPROVE a proposal', ->
         $rootScope.currentUser =
           id: 5
@@ -278,7 +277,6 @@ describe 'Voting Service Tests', ->
         expect $rootScope.authService.signinFb.calls.any()
           .toBe false
 
-
       it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
         $rootScope.currentUser = {}
 
@@ -292,16 +290,6 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
-
-#      it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
-#        $rootScope.currentUser =
-#          id: null
-#        $rootScope.sessionSettings.vote.related_existing = null
-#
-#        VotingService.improve clicked_proposal
-#
-#        expect $rootScope.alertService.setInfo.calls.count()
-#          .toEqual 1
 
       it 'should check and NOT find an existing vote from this user on this proposal', ->
 
@@ -367,33 +355,6 @@ describe 'Voting Service Tests', ->
         expect  $rootScope.currentUser
           .toEqual id: 5
 
-#      it 'should open EDIT modal', ->
-#
-##        expect $rootScope.sessionSettings.openModals.editProposal
-##          .toEqual false
-#
-#        relatedSupport.proposal.id = 8
-#        VotingService.edit scope, clicked_proposal
-#
-#        openModalArgs =
-#          templateUrl: 'proposals/_edit_proposal_modal.html'
-#          controller: 'EditProposalCtrl'
-#          scope: scope
-#
-#        expect $modal.open
-#          .toHaveBeenCalledWith openModalArgs
-#        expect modalInstance.opened.then
-#          .toHaveBeenCalled
-#        expect modalInstance.result.finally
-#          .toHaveBeenCalled
-#        expect $rootScope.sessionSettings.openModals.editProposal
-#          .toEqual true
-#
-#        modalInstance.result.finallyCallback()
-#
-#        expect $rootScope.sessionSettings.openModals.editProposal
-#          .toEqual false
-
 
     describe 'DELETE method should make checks and open DELETE modal', ->
 
@@ -438,46 +399,13 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.deleteProposal
           .toEqual false
 
-
-#    describe 'NEW method should make checks and open New Proposal modal', ->
-#
-#      it 'should initialize NEW method by clearing alerts', ->
-#        VotingService.new()
-#
-#        expect $rootScope.alertService.clearAlerts.calls.count()
-#          .toEqual 1
-#
-#      it 'should check for a current HUB and use it if it exists', ->
-#        $rootScope.sessionSettings.hub_attributes =
-#          id: 3
-#          name: 'A sample group'
-#
-#        VotingService.new()
-#
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual false
-
-      it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
+      it 'should check for a current HUB and set to STARTED if it does NOT exists', ->
         $rootScope.sessionSettings.hub_attributes = null
-#        $rootScope.sessionSettings.actions.hubCreate = 'some recent search term'
 
         VotingService.new()
 
         expect $rootScope.sessionSettings.actions.newProposal.started
           .toEqual false
-
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual true
-#        expect $rootScope.sessionSettings.actions.searchTerm
-#          .toEqual null
-
-      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
-#        VotingService.new()
-#
-#        expect $rootScope.alertService.setInfo.calls.count()
-#          .toEqual 1
 
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
         $rootScope.currentUser =
@@ -499,6 +427,7 @@ describe 'Voting Service Tests', ->
         expect $location.url()
           .toEqual '/start'
 
+
     describe 'COMMENT-STEP method should perform Comment Steps', ->
 
       it 'should set Session Settings and Focus', ->
@@ -509,6 +438,7 @@ describe 'Voting Service Tests', ->
           .toEqual 'comment'
         expect svUtility.focus.calls.count()
           .toEqual 1
+
 
     describe 'HUB-STEP method should perform Hub Steps', ->
 
@@ -574,8 +504,6 @@ describe 'Voting Service Tests', ->
 
         spyOn VotingService, 'commentStep'
           .and.callThrough()
-#        spyOn $rootScope, '$broadcast'
-#          .and.callThrough()
 
         VotingService.hubStep()
 
