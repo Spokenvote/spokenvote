@@ -10,14 +10,20 @@ describe 'Voting Service Tests', ->
     $location = undefined
     $modal = undefined
     modalInstance = undefined
-    Focus = undefined
+    svUtility = undefined
     scope = undefined
     clicked_proposal =
       id: 17
-      proposal:
-        statement: 'My proposal statement'
-        votes_attributes:
-          comment: 'Why you should vote for this proposal'
+      statement: 'My proposal statement'
+      votes: [
+        id: 22
+        comment: 'Why you should vote for this proposal']
+    newProposal =
+      id: 17
+      statement: 'My proposal statement'
+      votes_attributes:
+        id: 22
+        comment: 'Why you should vote for this proposal'
     relatedSupport =
       id: 122
       comment: 'Have to give reason now ...'
@@ -31,13 +37,13 @@ describe 'Voting Service Tests', ->
           formatted_location: 'Mountain View, CA'
     testTrash = 'Trash should should get killed'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _svUtility_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
       $location = _$location_
       VotingService = _VotingService_
-      Focus = jasmine.createSpy 'Focus'
+      svUtility = _svUtility_
       Proposal = _Proposal_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
@@ -46,6 +52,16 @@ describe 'Voting Service Tests', ->
         setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
         setSuccess: jasmine.createSpy 'alertService:setSuccess'
         setJson: jasmine.createSpy 'alertService:setJson'
+      promise =
+        then: (callback) ->
+          $rootScope.currentUser =
+            id: 5
+          callback()
+      $rootScope.authService =
+        signinFb:
+          jasmine
+            .createSpy 'authService'
+            .and.returnValue promise
       $rootScope.currentUser =
         id: 5
       scope = $rootScope.$new()
@@ -60,8 +76,10 @@ describe 'Voting Service Tests', ->
 
       spyOn $modal, 'open'
         .and.returnValue modalInstance
-
-#      jasmine.createSpy 'Focus'
+      spyOn svUtility, 'focus'
+        .and.callThrough()
+      spyOn $rootScope, '$broadcast'
+        .and.callThrough()
 
     afterEach ->
       $httpBackend.verifyNoOutstandingExpectation()
@@ -78,10 +96,6 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.new
         .toBeDefined()
-      expect VotingService.wizard
-        .toBeDefined()
-#      expect VotingService.changeHub
-#        .toBeDefined()
       expect VotingService.saveNewProposal
         .toBeDefined()
 
@@ -120,14 +134,23 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.vote.testTrash
           .toBe undefined
 
-      it 'should invoke sign-in warning if user manages to somehow get here to SUPPORT a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
+      it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
+        $rootScope.currentUser = {}
+
+        expect  $rootScope.currentUser
+          .toEqual { }
 
         VotingService.support clicked_proposal
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        $httpBackend.flush()
+
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
+        expect  $rootScope.currentUser
+          .toEqual id: 5
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
@@ -212,13 +235,13 @@ describe 'Voting Service Tests', ->
         VotingService.improve clicked_proposal
 
         $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond null
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.parent
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal.parent_id
+          .toEqual clicked_proposal.id
         expect $rootScope.sessionSettings.vote.related_existing
           .toEqual undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
@@ -231,22 +254,41 @@ describe 'Voting Service Tests', ->
         VotingService.improve clicked_proposal
 
         $httpBackend
-        .expectGET '/proposals/17/related_vote_in_tree'
-        .respond null
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
 
         $httpBackend.flush()
 
         expect $rootScope.sessionSettings.vote.extraTrashObject
           .toBe undefined
 
-      it 'should invoke sign-in warning if user manages to somehow get here to IMPROVE a proposal and is not signed in', ->
+      it 'should allow signed in Fb user to IMPROVE a proposal', ->
         $rootScope.currentUser =
-          id: null
-        $rootScope.sessionSettings.vote.related_existing = null
+          id: 5
 
         VotingService.improve clicked_proposal
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        $httpBackend.flush()
+
+        expect $rootScope.authService.signinFb.calls.any()
+          .toBe false
+
+      it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
+        $rootScope.currentUser = {}
+
+        $httpBackend
+          .expectGET '/proposals/17/related_vote_in_tree'
+          .respond null
+
+        VotingService.improve clicked_proposal
+
+        $httpBackend.flush()
+
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
 
       it 'should check and NOT find an existing vote from this user on this proposal', ->
@@ -288,8 +330,8 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.parent
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal.parent_id
+          .toEqual clicked_proposal.id
         expect $rootScope.sessionSettings.vote.target
           .toEqual undefined
 
@@ -297,45 +339,21 @@ describe 'Voting Service Tests', ->
     describe 'EDIT method should make checks and open EDIT modal', ->
 
       it 'should initialize EDIT method', ->
-        VotingService.edit scope, clicked_proposal
+        VotingService.edit clicked_proposal
 
-        expect scope.clicked_proposal
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newProposal
+          .toEqual newProposal
 
       it 'should invoke sign-in warning if user manages to somehow get here to EDIT a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        VotingService.edit scope, clicked_proposal
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        VotingService.edit clicked_proposal
+
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
-
-      it 'should open EDIT modal', ->
-
-#        expect $rootScope.sessionSettings.openModals.editProposal
-#          .toEqual false
-
-        relatedSupport.proposal.id = 8
-        VotingService.edit scope, clicked_proposal
-
-        openModalArgs =
-          templateUrl: 'proposals/_edit_proposal_modal.html'
-          controller: 'EditProposalCtrl'
-          scope: scope
-
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.editProposal
-          .toEqual true
-
-        modalInstance.result.finallyCallback()
-
-        expect $rootScope.sessionSettings.openModals.editProposal
-          .toEqual false
+        expect  $rootScope.currentUser
+          .toEqual id: 5
 
 
     describe 'DELETE method should make checks and open DELETE modal', ->
@@ -349,7 +367,7 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to DELETE a proposal and is not signed in', ->
         $rootScope.currentUser =
           id: null
-        VotingService.edit scope, clicked_proposal
+        VotingService.delete scope, clicked_proposal
 
         expect $rootScope.alertService.setInfo.calls.count()
           .toEqual 1
@@ -381,46 +399,13 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.deleteProposal
           .toEqual false
 
-
-#    describe 'NEW method should make checks and open New Proposal modal', ->
-#
-#      it 'should initialize NEW method by clearing alerts', ->
-#        VotingService.new()
-#
-#        expect $rootScope.alertService.clearAlerts.calls.count()
-#          .toEqual 1
-#
-#      it 'should check for a current HUB and use it if it exists', ->
-#        $rootScope.sessionSettings.hub_attributes =
-#          id: 3
-#          name: 'A sample group'
-#
-#        VotingService.new()
-#
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual false
-
-      it 'should check for a current HUB and set CHANGE HUB if it does NOT exists', ->
+      it 'should check for a current HUB and set to STARTED if it does NOT exists', ->
         $rootScope.sessionSettings.hub_attributes = null
-#        $rootScope.sessionSettings.actions.hubCreate = 'some recent search term'
 
         VotingService.new()
 
         expect $rootScope.sessionSettings.actions.newProposal.started
           .toEqual false
-
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual true
-#        expect $rootScope.sessionSettings.actions.searchTerm
-#          .toEqual null
-
-      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
-#        VotingService.new()
-#
-#        expect $rootScope.alertService.setInfo.calls.count()
-#          .toEqual 1
 
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
         $rootScope.currentUser =
@@ -433,7 +418,6 @@ describe 'Voting Service Tests', ->
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
         VotingService.new()
 
-#      it 'should open NEW modal', ->
       it 'should go to start NEW Proposal page', ->
         $rootScope.currentUser =
           id: 2
@@ -442,132 +426,136 @@ describe 'Voting Service Tests', ->
 
         expect $location.url()
           .toEqual '/start'
-#        openModalArgs =
-#          templateUrl: 'proposals/_new_proposal_modal.html'
-#          controller: 'NewProposalCtrl'
-
-#        expect $modal.open
-#          .toHaveBeenCalledWith openModalArgs
-#        expect modalInstance.opened.then
-#          .toHaveBeenCalled
-#        expect modalInstance.result.finally
-#          .toHaveBeenCalled
-#        expect $rootScope.sessionSettings.openModals.newProposal
-#          .toEqual true
-#
-#        modalInstance.result.finallyCallback()
-#
-#        expect $rootScope.sessionSettings.openModals.newProposal
-#          .toEqual false
 
 
-    describe 'WIZARD method should make checks and open New Proposal Wizard modal', ->
+    describe 'COMMENT-STEP method should perform Comment Steps', ->
 
-      it 'should open WIZARD modal', ->
+      it 'should set Session Settings and Focus', ->
 
-        expect $rootScope.sessionSettings.openModals.getStarted
-          .toEqual false
+        VotingService.commentStep()
 
-        VotingService.wizard()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
+        expect svUtility.focus.calls.count()
+          .toEqual 1
 
-        openModalArgs =
-          templateUrl: 'shared/_get_started_modal.html'
-          controller: 'GetStartedCtrl'
 
-        expect $modal.open
-          .toHaveBeenCalledWith openModalArgs
-        expect modalInstance.opened.then
-          .toHaveBeenCalled
-        expect modalInstance.result.finally
-          .toHaveBeenCalled
-        expect $rootScope.sessionSettings.openModals.getStarted
+    describe 'HUB-STEP method should perform Hub Steps', ->
+
+      it 'should set Session Settings', ->
+
+        VotingService.hubStep()
+
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
           .toEqual true
 
-        modalInstance.result.finallyCallback()
+      it 'should check for and FIND Hub and newProposal statement', ->
 
-        expect $rootScope.sessionSettings.openModals.getStarted
-          .toEqual false
+        $rootScope.sessionSettings.hub_attributes =
+          full_hub:'Some great hub'
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 1
+
+      it 'should check for and detect MISSING Hub statement', ->
+
+        $rootScope.sessionSettings.hub_attributes =
+          full_hub:'Some great hub'
+        $rootScope.sessionSettings.newProposal = {}
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+
+      it 'should check for and detect MISSING newProposal statement', ->
+
+        $rootScope.sessionSettings.hub_attributes = null
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn VotingService, 'commentStep'
+          .and.callThrough()
+
+        VotingService.hubStep()
+
+        expect VotingService.commentStep
+          .toHaveBeenCalled
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'hub'
+        expect $rootScope.sessionSettings.actions.hubShow
+          .toEqual true
+        expect svUtility.focus.calls.count()
+          .toEqual 0
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'focusHubFilter'
 
 
-
-#    describe 'CHANGHUB method should detect request and change to New Hub mode', ->
-#
-#      it 'should not respond to a request with no args', ->
-#
-#        $rootScope.sessionSettings.actions.newProposalHub = true
-#        $rootScope.sessionSettings.actions.changeHub = false
-#
-#        VotingService.changeHub()
-#
-#        expect $rootScope.sessionSettings.actions.newProposalHub
-#          .toEqual true
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual false
-#
-#      it 'should  respond to a request with "true" arg', ->
-#
-#        $rootScope.sessionSettings.actions.newProposalHub = true
-#        $rootScope.sessionSettings.actions.changeHub = false
-#
-#        VotingService.changeHub true
-#
-#        expect $rootScope.sessionSettings.actions.newProposalHub
-#          .toEqual null
-#        expect $rootScope.sessionSettings.actions.changeHub
-#          .toEqual true
-
-
+    # Test saveNewProposal
     describe 'saveNewProposal method should SAVE New Proposal', ->
 
-      it 'should check for NEW HUB and REJECT an invalid Hub LOCATION if saving a New Hub', ->
+      it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
+
+        $rootScope.sessionSettings.newProposal = newProposal
+
+        newProposalParams =
+          proposal: newProposal
+          id: newProposal.id
+
         $rootScope.sessionSettings.hub_attributes =
           id: null
-          group_name: 'Some Wonderful Hub Name'
-          formatted_location: null
-
-        spyOn Proposal, 'save'
-
-        VotingService.saveNewProposal()
-
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'location appears to be invalid'
-        expect Proposal.save
-          .not.toHaveBeenCalled()
-
-      it 'should check for NEW HUB and REJECT a MISSING Hub NAME if saving a New Hub', ->
-        $rootScope.sessionSettings.hub_attributes =
-          id: null
-          group_name: null
+          group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
 
         spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
 
         VotingService.saveNewProposal()
 
-        expect $rootScope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult.calls.count()
-          .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'name appears to be missing'
+        expect Proposal.update
+          .toHaveBeenCalledWith newProposalParams, jasmine.any(Function), jasmine.any(Function)
         expect Proposal.save
           .not.toHaveBeenCalled()
 
-      it 'should check for NEW HUB and REJECT a TOO-SHORT Hub NAME if saving a New Hub', ->
+      it 'should check for a valid Proposal STATEMENT before proceeding', ->
         $rootScope.sessionSettings.hub_attributes =
           id: null
-          group_name: 'Da'
+          group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
 
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An'
+
         spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
 
         VotingService.saveNewProposal()
 
@@ -575,11 +563,9 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.alertService.setCtlResult.calls.count()
           .toEqual 1
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'name appears to be invalid'
         expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
           .not.toHaveBeenCalled()
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
@@ -587,10 +573,12 @@ describe 'Voting Service Tests', ->
           id: null
           group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
-#        $rootScope.sessionSettings.actions.hubCreate = 'New Group Name'
-        $rootScope.sessionSettings.openModals.newProposal = true
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
 
         VotingService.saveNewProposal()
 
@@ -600,6 +588,83 @@ describe 'Voting Service Tests', ->
           .toEqual 0
         expect Proposal.save
           .toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+
+      it 'should check for NEW HUB and REJECT in invalid Hub Location if saving a New Hub', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: null
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+
+      it 'should check for NEW HUB and REJECT in invalid Group Name if saving a New Hub', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: null
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+
+      it 'should check for NEW HUB and REJECT in Group Name that is TOO SHORT if saving a New Hub', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'ma'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
 
       it 'should check for EXISTING HUB, FIND one, and pass correct args to the SAVE New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -609,7 +674,8 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
-          comment: 'A million reasons to vote for this guy!'
+          votes_attributes:
+            comment: 'A million reasons to vote for this guy!'
 
         expectedProposalSaveArgs =
           proposal:
@@ -624,6 +690,7 @@ describe 'Voting Service Tests', ->
 
         spyOn Proposal, 'save'
           .and.callThrough()
+        spyOn Proposal, 'update'
 
         VotingService.saveNewProposal()
 
@@ -637,6 +704,8 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalled()
         expect Proposal.save.calls.mostRecent().args[0]
           .toEqual expectedProposalSaveArgs
+        expect Proposal.update
+          .not.toHaveBeenCalled()
 
       it 'should check for exiting hub, find one, and POST the New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -681,9 +750,38 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setSuccess.calls.count()
           .toEqual 1
 
+      it 'should allow COMMENTLESS VOTING and save New Proposal with undefined comment', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: 12
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
+          votes_attributes:
+            comment: undefined
+
+        VotingService.saveNewProposal()
+
+        $httpBackend
+          .expectPOST '/proposals'
+          .respond 201
+
+        $httpBackend.flush()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+
       it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         response =
           id: 2045
@@ -703,16 +801,26 @@ describe 'Voting Service Tests', ->
 
         expect Proposal.save
           .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:proposalsChanged'
+        expect $rootScope.$broadcast
+          .toHaveBeenCalledWith 'event:votesChanged'
         expect $rootScope.alertService.setSuccess.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
           .toContain response.statement
         expect $rootScope.sessionSettings.actions.offcanvas
           .toEqual false
+        expect $rootScope.sessionSettings.newProposal
+          .toEqual {}
+
 
       it 'Proposal.save should save the New Proposal and navigate to the correct LOCATION', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         response =
           id: 2045
@@ -727,14 +835,15 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-#        expect $location.url()                               # TODO bug in Angular 1.29 that should now be fixed with 1.3
-#          .toEqual '/proposals/2045?filter=my'
-        expect $location.url()                               # TODO bug in Angular 1.29 that should now be fixed with 1.3
+        expect $location.url()
           .toEqual '/proposals/2045?filter=my#navigationBar'
 
       it 'Proposal.save should execute correct FAILURE callback and ALERTS', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
+
+        $rootScope.sessionSettings.newProposal =
+          statement: 'An awesome new proposal. Vote for it!'
 
         response =
           data: 'There was a server error!'

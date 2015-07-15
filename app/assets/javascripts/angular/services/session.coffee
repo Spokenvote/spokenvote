@@ -1,24 +1,24 @@
 # Miscellaneous
-SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
+SessionService = ($cookieStore, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
 
   signedIn: !!$cookieStore.get '_spokenvote_session'
 
   signedOut: not @signedIn
 
-  userSession: new UserSessionResource
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    remember_me: true
-
   userOmniauth: new UserOmniauthResource
     auth: null
 
-  userRegistration: new UserRegistrationResource
-    name: null
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    password_confirmation: null
+#  userSession: new UserSessionResource            # TODO Planned future use
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    remember_me: true
+
+#  userRegistration: new UserRegistrationResource
+#    name: null
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    password_confirmation: null
 
 AlertService = ($timeout) ->
   callingScope: null
@@ -114,41 +114,33 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-#    changeHub: false
     detailPage: false
     focus: null
-#    hubFilter: 'All Groups'
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     improveProposal:
-      parent: null
+      propStepText: ''
+      commentStepText: ''
     newProposal: {}
     newProposalHub: null
     offcanvas: false
-#    proposal:
-#      id:  null
-#      vote: null
-#    searchTerm: null
     selectHub: false
     userFilter: null
     wizardToGroup: null
   hub_attributes: null
-#  hubFilter: null
   openModals:
-    signIn: false
-    register: false
-    userSettings: false
-    supportProposal: false
-    improveProposal: false
-    newProposal: false
+#    signIn: false
+#    register: false
+#    userSettings: false
+#    supportProposal: false
+#    improveProposal: false
+#    newProposal: false
     editProposal: false
     deleteProposal: false
-    getStarted: false
+#    getStarted: false
   proposal: null
   vote: {}
-#    related_exists: null
-#    target: null
   searchedHub: {}
   routeParams: {}
   newProposal: {}
@@ -165,6 +157,8 @@ SessionSettings = ->
     googleRootUrl: 'https://plus.google.com/share?url='
   spokenvote_attributes:
     minimumHubNameLength: 3
+    minimumProposalLength: 5
+    minimumCommentLength: 5
     defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
       client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'
@@ -176,7 +170,8 @@ SpokenvoteCookies = ($cookies) ->
   sessionCookie: $cookies.SpokenvoteSession
 
 # Injects
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
+SessionService.$inject = [ '$cookieStore', 'UserOmniauthResource'  ]
+#SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 AlertService.$inject = [ '$timeout' ]
 errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]

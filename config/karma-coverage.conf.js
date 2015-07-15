@@ -68,7 +68,7 @@ module.exports = function(config) {
 
     autoWatch: true,
 
-    browsers: ['Chrome', 'PhantomJS']
+    browsers: ['Chrome']
 
   });
 };

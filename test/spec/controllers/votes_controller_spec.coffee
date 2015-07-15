@@ -266,195 +266,169 @@ describe 'Proposal Votes Controllers Tests', ->
 
 
 
-    describe 'ImproveController should perform IMPROVE Controller tasks', ->
-
-      beforeEach inject ( _$controller_, _Proposal_ ) ->
-        $controller = _$controller_
-        Proposal = _Proposal_
-        $scope.sessionSettings.vote =
-          parent: clicked_proposal
-        ctrl = $controller 'ImproveController',
-          $scope: $scope
-
-#      it 'should initialize properly with NO related support', ->
+#    describe 'ImproveController should perform IMPROVE Controller tasks', ->
 #
-#        expect $scope.sessionSettings.vote.related_existing
-#          .toEqual undefined
+#      beforeEach inject ( _$controller_, _Proposal_ ) ->
+#        $controller = _$controller_
+#        Proposal = _Proposal_
+#        $scope.sessionSettings.vote =
+#          parent: clicked_proposal
+#        ctrl = $controller 'ImproveController',
+#          $scope: $scope
+#
+#      it 'should initialize properly reset the improvedProposal object', ->
+#
+#        $scope.improvedProposal = testTrash
+#
+#        ctrl = $controller 'ImproveController',
+#          $scope: $scope
+#
+#        expect $scope.improvedProposal.statement
+#          .toEqual clicked_proposal.statement
+#
+#      it 'should properly initialize and call save on improvedProposal', ->
+#
+#        $rootScope.alertService =
+#          clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
+#          setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
+#          setSuccess: jasmine.createSpy 'alertService:setSuccess'
+#
+#        spyOn $scope, 'saveImprovement'
+#          .and.callThrough()
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_vote, 200
+#
+#        $httpBackend.flush()
+#
 #        expect $scope.alertService.clearAlerts.calls.count()
 #          .toEqual 1
 #        expect $scope.alertService.setCtlResult.calls.count()
 #          .toEqual 0
-#        expect $scope.improvedProposal.statement
-#          .toEqual $scope.sessionSettings.vote.parent.statement
+#        expect $scope.saveImprovement
+#          .toHaveBeenCalled()
 #
-#      it 'should initialize properly WITH related support', ->
+#      it 'should issue POST while saving Support', ->
 #
-#        $rootScope.alertService.clearAlerts = jasmine.createSpy 'alertService:clearAlerts'
-#        $rootScope.alertService.setInfo = jasmine.createSpy 'alertService:setInfo'
-#        $scope.sessionSettings.vote.related_existing = relatedSupport
-#        ctrl = $controller 'ImproveController',
-#          $scope: $scope
+#        $scope.saveImprovement()
 #
-#        expect $scope.sessionSettings.vote.related_existing
-#          .toEqual relatedSupport
-#        expect $scope.alertService.clearAlerts.calls.count()
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_vote, 200
+#
+#        $httpBackend.flush()
+#
+#      it 'should send alert "Proposal Saved" while saving Support', ->
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_proposal, 201
+#
+#        $httpBackend.flush()
+#
+#        expect $rootScope.alertService.setSuccess
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+#          .toContain 'Your improved proposal stating: "' + saved_proposal.statement + '" was created.'
+#
+#      it 'should properly find Improved Proposal text in response after saving Support', ->
+#
+##        $scope.improvedProposal.statement = 'Some crazy new Proposal statement'
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_proposal, 201
+#
+#        $httpBackend.flush()
+#
+#        expect $rootScope.alertService.setSuccess
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+#          .toContain 'Your improved proposal stating: "' + saved_proposal.statement + '" was created.'
+#
+#      it 'should properly find correct Proposal Statement and Vote Comment while saving', ->
+#
+#        spyOn Proposal, 'save'
+#          .and.callThrough()
+#
+#        $scope.improvedProposal.statement = improved_proposal.proposal.statement
+#        $scope.improvedProposal.comment = improved_proposal.proposal.votes_attributes.comment
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_proposal, 201
+#
+#        $httpBackend.flush()
+#
+#        expect Proposal.save.calls.count()
 #          .toEqual 1
-#        expect $scope.alertService.setInfo.calls.count()
-#          .toEqual 1
-
-      it 'should initialize properly reset the improvedProposal object', ->
-
-        $scope.improvedProposal = testTrash
-
-        ctrl = $controller 'ImproveController',
-          $scope: $scope
-
-        expect $scope.improvedProposal.statement
-          .toEqual clicked_proposal.statement
-
-      it 'should properly initialize and call save on improvedProposal', ->
-
-        $rootScope.alertService =
-          clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
-          setCtlResult: jasmine.createSpy 'alertService:setCtlResult'
-          setSuccess: jasmine.createSpy 'alertService:setSuccess'
-
-        spyOn $scope, 'saveImprovement'
-          .and.callThrough()
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_vote, 200
-
-        $httpBackend.flush()
-
-        expect $scope.alertService.clearAlerts.calls.count()
-          .toEqual 1
-        expect $scope.alertService.setCtlResult.calls.count()
-          .toEqual 0
-        expect $scope.saveImprovement
-          .toHaveBeenCalled()
-
-      it 'should issue POST while saving Support', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_vote, 200
-
-        $httpBackend.flush()
-
-      it 'should send alert "Proposal Saved" while saving Support', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_proposal, 201
-
-        $httpBackend.flush()
-
-        expect $rootScope.alertService.setSuccess
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-          .toContain 'Your improved proposal stating: "' + saved_proposal.statement + '" was created.'
-
-      it 'should properly find Improved Proposal text in response after saving Support', ->
-
-#        $scope.improvedProposal.statement = 'Some crazy new Proposal statement'
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_proposal, 201
-
-        $httpBackend.flush()
-
-        expect $rootScope.alertService.setSuccess
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-          .toContain 'Your improved proposal stating: "' + saved_proposal.statement + '" was created.'
-
-      it 'should properly find correct Proposal Statement and Vote Comment while saving', ->
-
-        spyOn Proposal, 'save'
-          .and.callThrough()
-
-        $scope.improvedProposal.statement = improved_proposal.proposal.statement
-        $scope.improvedProposal.comment = improved_proposal.proposal.votes_attributes.comment
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_proposal, 201
-
-        $httpBackend.flush()
-
-        expect Proposal.save.calls.count()
-          .toEqual 1
-        expect Proposal.save.calls.mostRecent().args[0]
-          .toEqual improved_proposal
-
-      it 'should turn off Improve Proposal box while saving Support', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_vote, 201
-
-        $httpBackend.flush()
-
-        expect $scope.sessionSettings.vote
-          .toEqual {}
-
-      it 'should navigate to new Improved Proposal after saving Support', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond saved_vote, 201
-
-        $httpBackend.flush()
-
-        expect $location.url()
-          .toEqual '/proposals/' + saved_vote.id
-
-      it 'should send alert "Sorry, your Proposal was not saved" if saving Support fails', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond 422, failed_vote
-
-        $httpBackend.flush()
-
-        expect $rootScope.alertService.setCtlResult
-          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
-        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
-          .toContain 'Sorry, your improved proposal was not saved.'
-
-      it 'should return JSON data in alert "Sorry, your proposal was not saved" if saving Proposal fails', ->
-
-        $scope.saveImprovement()
-
-        $httpBackend
-          .expectPOST '/proposals'
-          .respond 422, failed_vote
-
-        $httpBackend.flush()
-
-        expect $rootScope.alertService.setJson
-          .toHaveBeenCalledWith jasmine.any(Object)
-        expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
-          .toEqual comment: [ "can't be blank" ]
+#        expect Proposal.save.calls.mostRecent().args[0]
+#          .toEqual improved_proposal
+#
+#      it 'should turn off Improve Proposal box while saving Support', ->
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_vote, 201
+#
+#        $httpBackend.flush()
+#
+#        expect $scope.sessionSettings.vote
+#          .toEqual {}
+#
+#      it 'should navigate to new Improved Proposal after saving Support', ->
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond saved_vote, 201
+#
+#        $httpBackend.flush()
+#
+#        expect $location.url()
+#          .toEqual '/proposals/' + saved_vote.id
+#
+#      it 'should send alert "Sorry, your Proposal was not saved" if saving Support fails', ->
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond 422, failed_vote
+#
+#        $httpBackend.flush()
+#
+#        expect $rootScope.alertService.setCtlResult
+#          .toHaveBeenCalledWith jasmine.any(String), jasmine.any(Object), jasmine.any(String)
+#        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+#          .toContain 'Sorry, your improved proposal was not saved.'
+#
+#      it 'should return JSON data in alert "Sorry, your proposal was not saved" if saving Proposal fails', ->
+#
+#        $scope.saveImprovement()
+#
+#        $httpBackend
+#          .expectPOST '/proposals'
+#          .respond 422, failed_vote
+#
+#        $httpBackend.flush()
+#
+#        expect $rootScope.alertService.setJson
+#          .toHaveBeenCalledWith jasmine.any(Object)
+#        expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
+#          .toEqual comment: [ "can't be blank" ]
 
 
 

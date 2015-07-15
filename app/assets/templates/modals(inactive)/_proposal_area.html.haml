@@ -19,9 +19,9 @@
       %span Too Long
 
   .form-group
-    %textarea( id='vote_comment' name='comment' class='full-width' ng-model='sessionSettings.newProposal.comment' required ng-minLength='7' ng-maxLength='280'
+    %textarea( id='vote_comment' name='comment' class='full-width' ng-model='sessionSettings.newProposal.votes_attributes.comment' required ng-minLength='7' ng-maxLength='280'
     placeholder='Explain why others should support your proposal here.' )
-    .length_counter.happy-text( ng-show='newProposalForm.comment.$valid' ) {{ 280 - sessionSettings.newProposal.comment.length }} characters remaining
+    .length_counter.happy-text( ng-show='newProposalForm.comment.$valid' ) {{ 280 - sessionSettings.newProposal.votes_attributes.comment.length }} characters remaining
     .length_counter.error-text( ng-show='newProposalForm.comment.$invalid && !newProposalForm.comment.$error.minlength && !newProposalForm.comment.$error.maxlength' )
       .fa.fa-warning
       %span  Required

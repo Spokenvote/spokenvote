@@ -10,65 +10,55 @@ ProposalListCtrl = [ '$scope', '$location', 'MultiProposalLoader', 'SpokenvoteCo
     $scope.proposals.$query
 
   $scope.setFilter = (filterSelected) ->
-    $location.search('filter', filterSelected)
+    $location
+      .search 'filter', filterSelected
 
   $scope.setHub = (hubSelected) ->
-    $location.path('/proposals/').search('hub', hubSelected.id)
+    $location
+      .path '/proposals/'
+      .search 'hub', hubSelected.id
 ]
 
-ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'Focus', ( $scope, $location , proposal, relatedProposals, Focus) ->
+ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'svUtility', ( $scope, $location , proposal, relatedProposals, svUtility) ->
   $scope.proposal = proposal
   $scope.relatedProposals = relatedProposals
   $scope.sessionSettings.actions.detailPage = true
-  if proposal.id
-    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
-  else
-    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 
-  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
-  $scope.sessionSettings.actions.newProposal.started = true
+  if not $scope.sessionSettings.hub_attributes
+    $scope.sessionSettings.hub_attributes = proposal.hub
+    $location.search 'hub', proposal.hub.id
+
+  #  if proposal.id
+#    $scope.sessionSettings.actions.hubPlaceholder = 'Find and go to another group ...'
+#  else
+#    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
+#
+#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
+#  $scope.sessionSettings.actions.newProposal.started = true
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()
 
-  $scope.commentStep = ( proposal_id)  ->                             # Refactor Proposal Area Ticket
-#    console.log 'comment step: '
-    $scope.sessionSettings.actions.focus = 'comment'
-    Focus '#new_vote_comment'
-
-#  $scope.hubStep = ->                                                # Why did I put hubStep here?
-#    $scope.sessionSettings.actions.newProposal.comment = 'complete'
-#    $scope.sessionSettings.actions.newProposal.hub = 'active'  unless $scope.sessionSettings.hub_attributes.id
-#    if $scope.newProposalForm.$valid and $scope.sessionSettings.hub_attributes.id
-#      $scope.sessionSettings.actions.focus = 'publish'
-#      Focus 'publish'
-#    else if $scope.sessionSettings.hub_attributes.id
-#      $scope.alertService.setError 'The proposal is not quite right, too short perhaps?', $scope, 'main'
-
-#  $scope.finishProp = ->                                             # Proposal Edit, Improve and New should share a similar final save UX
-#    $scope.sessionSettings.actions.newProposal.hub = 'complete'
-#    $scope.sessionSettings.actions.focus = 'publish'
-#    Focus 'publish'
-
   $scope.setVoter = ( vote ) ->
-    $location.path('/proposals').search('user', vote.user_id)
+    $location
+      .path '/proposals'
+      .search 'user', vote.user_id
     $scope.sessionSettings.actions.userFilter = vote.username
 
-  $scope.support = ( clicked_proposal ) ->
-    if $scope.currentUser.id?
-      $scope.votingService.support clicked_proposal
-    else
-      $scope.authService.signinFb($scope).then ->
-        $scope.votingService.support clicked_proposal
+#  $scope.support = ( clicked_proposal ) ->
+#    if $scope.currentUser.id?
+#      $scope.votingService.support clicked_proposal
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        $scope.votingService.support clicked_proposal
 
-  $scope.improve = ( clicked_proposal ) ->
-    if $scope.currentUser.id?
-      $scope.votingService.improve clicked_proposal
-#      $scope.votingService.improve $scope, clicked_proposal
-    else
-      $scope.authService.signinFb($scope).then ->
-        $scope.votingService.improve clicked_proposal
-#        $scope.votingService.improve $scope, clicked_proposal
+#  $scope.improve = ( clicked_proposal ) ->
+#    console.log 'clt improve: '
+#    if $scope.currentUser.id?
+#      $scope.votingService.improve clicked_proposal
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        $scope.votingService.improve clicked_proposal
 
   $scope.edit = ( clicked_proposal ) ->
     $scope.votingService.edit $scope, clicked_proposal
