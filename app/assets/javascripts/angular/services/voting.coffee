@@ -162,6 +162,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             return
           else
             saveProposal()
+      $rootScope.sessionSettings.actions.focus = null
     else
       $rootScope.alertService.setCtlResult 'Sorry, No Proposal to save found or your Proposal is too short.', $rootScope, 'main'
 

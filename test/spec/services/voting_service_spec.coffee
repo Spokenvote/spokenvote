@@ -535,6 +535,8 @@ describe 'Voting Service Tests', ->
           group_name: 'Some very fine Group Name'
           formatted_location: 'Atlanta, GA'
 
+        $rootScope.sessionSettings.actions.focus = 'comment'
+
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
 
@@ -544,6 +546,8 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith newProposalParams, jasmine.any(Function), jasmine.any(Function)
         expect Proposal.save
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
 
       it 'should check for a valid Proposal STATEMENT before proceeding', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -553,6 +557,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
@@ -567,6 +572,8 @@ describe 'Voting Service Tests', ->
           .not.toHaveBeenCalled()
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
 
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -576,6 +583,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
@@ -590,6 +598,8 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalled()
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
 
       it 'should check for NEW HUB and REJECT in invalid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -599,6 +609,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
@@ -615,6 +626,8 @@ describe 'Voting Service Tests', ->
           .not.toHaveBeenCalled()
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
 
       it 'should check for NEW HUB and REJECT in invalid Group Name if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -624,6 +637,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
@@ -640,6 +654,8 @@ describe 'Voting Service Tests', ->
           .not.toHaveBeenCalled()
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
 
       it 'should check for NEW HUB and REJECT in Group Name that is TOO SHORT if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -649,6 +665,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.newProposal =
           statement: 'An awesome new proposal. Vote for it!'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
@@ -665,6 +682,8 @@ describe 'Voting Service Tests', ->
           .not.toHaveBeenCalled()
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
 
       it 'should check for EXISTING HUB, FIND one, and pass correct args to the SAVE New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
@@ -688,6 +707,8 @@ describe 'Voting Service Tests', ->
               group_name: 'Some very fine Group Name'
               formatted_location: 'Atlanta, GA'
 
+        $rootScope.sessionSettings.actions.focus = 'comment'
+
         spyOn Proposal, 'save'
           .and.callThrough()
         spyOn Proposal, 'update'
@@ -706,6 +727,8 @@ describe 'Voting Service Tests', ->
           .toEqual expectedProposalSaveArgs
         expect Proposal.update
           .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
 
       it 'should check for exiting hub, find one, and POST the New Proposal', ->
         $rootScope.sessionSettings.hub_attributes =
