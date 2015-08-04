@@ -51,34 +51,34 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 #]
 
 #EditProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
-EditProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
-#  $scope.clicked_proposal = $scope.clicked_proposal
-
-  if $scope.clicked_proposal.votes.length > 1
-    $scope.alertService.setCtlResult "We found support from other users on your proposal. You can no longer edit your proposal, but you can Improve it to get a similar result.", $scope
-
-  $scope.editProposal =
-    id: $scope.clicked_proposal.id
-    proposal:
-      statement: $scope.clicked_proposal.statement
-      votes_attributes:
-        comment: $scope.clicked_proposal.votes[0].comment
-        id: $scope.clicked_proposal.votes[0].id
-
-  $scope.saveEdit = ->
-    $scope.alertService.clearAlerts()
-
-    Proposal.update(
-      $scope.editProposal
-      , (response, status, headers, config) ->
-        $rootScope.$broadcast 'event:votesChanged'
-        $scope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
-#        $modalInstance.close(response)
-      , (response, status, headers, config) ->
-        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
-        $scope.alertService.setJson response.data
-    )
-]
+#EditProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
+##  $scope.clicked_proposal = $scope.clicked_proposal
+#
+#  if $scope.clicked_proposal.votes.length > 1
+#    $scope.alertService.setCtlResult "We found support from other users on your proposal. You can no longer edit your proposal, but you can Improve it to get a similar result.", $scope
+#
+#  $scope.editProposal =
+#    id: $scope.clicked_proposal.id
+#    proposal:
+#      statement: $scope.clicked_proposal.statement
+#      votes_attributes:
+#        comment: $scope.clicked_proposal.votes[0].comment
+#        id: $scope.clicked_proposal.votes[0].id
+#
+#  $scope.saveEdit = ->
+#    $scope.alertService.clearAlerts()
+#
+#    Proposal.update(
+#      $scope.editProposal
+#      , (response, status, headers, config) ->
+#        $rootScope.$broadcast 'event:votesChanged'
+#        $scope.alertService.setSuccess 'Your proposal stating: \"' + response.statement + '\" has been saved.', $scope
+##        $modalInstance.close(response)
+#      , (response, status, headers, config) ->
+#        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope
+#        $scope.alertService.setJson response.data
+#    )
+#]
 
 #DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', '$modalInstance', 'Proposal', ($scope, $location, $rootScope, $modalInstance, Proposal) ->
 DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope, $location, $rootScope, Proposal) ->
@@ -103,13 +103,13 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope,
 ]
 
 #NewProposalCtrl = [ '$scope', '$modalInstance', ($scope, $modalInstance ) ->
-NewProposalCtrl = [ '$scope', ($scope ) ->
+#NewProposalCtrl = [ '$scope', ($scope ) ->
 #  $scope.modalInstance = $modalInstance
-]
+#]
 
 # Register
 App.controller 'SupportController', SupportController
 #App.controller 'ImproveController', ImproveController
-App.controller 'EditProposalCtrl', EditProposalCtrl
+#App.controller 'EditProposalCtrl', EditProposalCtrl
 App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
-App.controller 'NewProposalCtrl', NewProposalCtrl
+#App.controller 'NewProposalCtrl', NewProposalCtrl
