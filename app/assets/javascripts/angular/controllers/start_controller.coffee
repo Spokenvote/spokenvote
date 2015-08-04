@@ -7,10 +7,13 @@ StartController = [ '$scope', 'svUtility', ( $scope, svUtility ) ->
   $scope.sessionSettings.actions.improveProposal.propStepText = 'You have 140 characters to state your proposal.'
   $scope.sessionSettings.newProposal = {}
 
-  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
-    $scope.sessionSettings.actions.focus = 'comment'
-    svUtility.focus '#new_vote_comment'
-  else
-    svUtility.focus '#new_proposal_statement'
+# When would I want this? Seems confusing to keep previously authored work around.
+#  if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
+#    $scope.sessionSettings.actions.focus = 'comment'
+#    svUtility.focus '#new_vote_comment'
+#  else
+#    svUtility.focus '#new_proposal_statement'
+
+  svUtility.focus '#new_proposal_statement'
 ]
 App.controller 'StartController', StartController
