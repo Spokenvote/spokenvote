@@ -36,21 +36,34 @@ describe 'StartController Tests', ->
           params:
             hub: '2'
 
-      $controller = _$controller_ 'StartController',
+      $controller = _$controller_
+
+      $controller 'StartController',
         $scope: $scope
 #        Focus: Focus
 
     it 'StartController should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
-#      expect svUtility
-#        .toBeDefined()
+      expect svUtility
+        .toBeDefined()
 #      expect $scope.commentStep
 #        .toBeDefined()
 #      expect $scope.hubStep
 #        .toBeDefined()
 #      expect $scope.finishProp
 #        .toBeDefined()
+      expect $scope.sessionSettings.newProposal
+        .toEqual {}
+
+    it 'sessionSettings.newProposal.parent_id should be undefined', ->
+      $scope.sessionSettings.newProposal.parent_id = 156
+
+      $controller 'StartController',
+        $scope: $scope
+
+      expect $rootScope.sessionSettings.newProposal.parent_id
+        .toBeUndefined()
 
 #    it 'StartController should focus proposal statement', ->
 #      expect Focus

@@ -5,6 +5,7 @@ StartController = [ '$scope', 'svUtility', ( $scope, svUtility ) ->
   $scope.sessionSettings.actions.hubSeekOnSearch = false
   $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
   $scope.sessionSettings.actions.improveProposal.propStepText = 'You have 140 characters to state your proposal.'
+  $scope.sessionSettings.newProposal = {}
 
   if $scope.sessionSettings.newProposal.statement? and $scope.sessionSettings.hub_attributes?
     $scope.sessionSettings.actions.focus = 'comment'
