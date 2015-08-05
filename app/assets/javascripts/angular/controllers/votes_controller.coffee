@@ -90,12 +90,12 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope,
     $scope.alertService.clearAlerts()
 
     Proposal.delete(
-      ($scope.clicked_proposal
-      ), ((response, status, headers, config) ->
+      $scope.clicked_proposal
+      , (response, status, headers, config) ->
         $scope.alertService.setSuccess 'Your proposal stating: \"' + $scope.clicked_proposal.statement + '\" was deleted.', $scope
         $location.path('/proposals').search('hub', $scope.clicked_proposal.hub_id)
 #        $modalInstance.close(response)
-      ), (response, status, headers, config) ->
+      , (response, status, headers, config) ->
         $scope.alertService.setCtlResult 'Sorry, your proposal could not be deleted.', $scope
         $scope.alertService.setJson response.data
     )
