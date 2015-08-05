@@ -94,10 +94,53 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.delete
         .toBeDefined()
-      expect VotingService.new
-        .toBeDefined()
+#      expect VotingService.new
+#        .toBeDefined()
       expect VotingService.saveNewProposal
         .toBeDefined()
+
+
+    describe 'NEW method should make checks and open NEW Proposal area', ->
+
+      it 'should initialize New method', ->
+
+        VotingService.new()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.sessionSettings.actions.newProposal.started
+          .toEqual false
+
+      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
+        $rootScope.currentUser =
+          id: null
+
+        VotingService.new()
+
+        expect $rootScope.alertService.setInfo.calls.count()
+          .toEqual 1
+
+      it 'should see signed-in user and to to Start page', ->
+
+        VotingService.new()
+
+      it 'should go to start NEW Proposal page', ->
+        $rootScope.currentUser =
+          id: 2
+
+        VotingService.new()
+
+        expect $location.url()
+          .toEqual '/start'
+
+#      it 'should set sessionSettings.newProposal.statement object before going to start NEW Proposal page', ->
+#        $rootScope.sessionSettings.newProposal =
+#          statement: 'Old trash statement'
+#
+#        VotingService.new()
+#
+#        expect $rootScope.sessionSettings.newProposal.statement
+#          .toEqual undefined
 
 
     describe 'SUPPORT method should make checks and open SUPPORT area', ->
@@ -399,34 +442,6 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.deleteProposal
           .toEqual false
 
-      it 'should check for a current HUB and set to STARTED if it does NOT exists', ->
-        $rootScope.sessionSettings.hub_attributes = null
-
-        VotingService.new()
-
-        expect $rootScope.sessionSettings.actions.newProposal.started
-          .toEqual false
-
-      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
-        $rootScope.currentUser =
-          id: null
-        VotingService.new()
-
-        expect $rootScope.alertService.setInfo.calls.count()
-          .toEqual 1
-
-      it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
-        VotingService.new()
-
-      it 'should go to start NEW Proposal page', ->
-        $rootScope.currentUser =
-          id: 2
-
-        VotingService.new()
-
-        expect $location.url()
-          .toEqual '/start'
-
 
     describe 'COMMENT-STEP method should perform Comment Steps', ->
 
@@ -519,7 +534,6 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith 'focusHubFilter'
 
 
-    # Test saveNewProposal
     describe 'saveNewProposal method should SAVE New Proposal', ->
 
       it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->

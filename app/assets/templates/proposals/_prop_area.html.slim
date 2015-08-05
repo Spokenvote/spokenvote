@@ -1,6 +1,6 @@
 form name='newProposalForm' ng-submit='saveNewProposal()'
   .proposal-area
-    .form-group
+    .form-group ng-hide='sessionSettings.newProposal.votes_attributes.id'
       textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newProposal.statement' auto-grow required
         ng-minLength='sessionSettings.spokenvote_attributes.minimumProposalLength' ng-maxLength='140' placeholder='Your proposal?'
         ng-enter='votingService.hubStep()' ng-focus='sessionSettings.actions.focus = "prop"' )

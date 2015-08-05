@@ -40,7 +40,7 @@
 
   .improve_proposal_container
     /.main-proposal.row ng-if='sessionSettings.newProposal.parent_id === proposal.id || sessionSettings.newProposal.id === proposal.id'
-    .main-proposal.row ng-if='sessionSettings.newProposal.parent_id === proposal.id || sessionSettings.newProposal.id === proposal.id'
+    .main-proposal.row ng-if='sessionSettings.newProposal.votes_attributes.id === proposal.id || sessionSettings.newProposal.parent_id === proposal.id || sessionSettings.newProposal.id === proposal.id'
       .proposal-person.col-xs-2
         /.supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
         .supporter-avatar

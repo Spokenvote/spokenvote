@@ -1,8 +1,16 @@
 VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader', 'Proposal', 'svUtility', ( $rootScope, $location, $modal, RelatedVoteInTreeLoader, Proposal, svUtility ) ->
 
+  new: ->
+    $rootScope.alertService.clearAlerts()
+    $rootScope.sessionSettings.actions.newProposal.started = false
+    if !$rootScope.currentUser.id?
+      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
+    else
+      $location.path '/start'
+
   support: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.vote = {}
+    $rootScope.sessionSettings.vote = {}      # TODO Remove
 
     startSupport = ->
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
@@ -12,7 +20,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             return
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
-        $rootScope.sessionSettings.vote.target = clicked_proposal
+        $rootScope.sessionSettings.vote.target = clicked_proposal  # TODO Remove
+        $rootScope.sessionSettings.newProposal =                   # TODO Test
+          votes_attributes:
+            id: clicked_proposal.id
+        $rootScope.sessionSettings.actions.focus = 'comment'  # TODO Test
         svUtility.focus '#new_vote_comment'
     if $rootScope.currentUser.id
       startSupport()
@@ -43,14 +55,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     else
       $rootScope.authService.signinFb($rootScope).then ->
         startImrpove()
-
-  new: ->
-    $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.actions.newProposal.started = false
-    if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
-    else
-     $location.path '/start'
 
 
   edit: ( clicked_proposal ) ->
