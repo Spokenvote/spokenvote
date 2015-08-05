@@ -7,8 +7,8 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
     $scope.vote.proposal_id = $scope.sessionSettings.vote.target.id
 
     vote = Vote.save(
-      ($scope.vote
-      ), (( response, status, headers, config ) ->
+      $scope.vote
+      , ( response, status, headers, config ) ->
         $rootScope.$broadcast 'event:votesChanged'
         if response.comment is null
           responseMessage = "Your vote was recorded without a comment"
@@ -17,7 +17,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
         $scope.alertService.setSuccess responseMessage, $scope, 'main'
         $scope.sessionSettings.vote = {}
         $location.path("/proposals/" + response.proposal_id).hash "prop" + response.proposal_id
-      ), ( response, status, headers, config ) ->
+      , ( response, status, headers, config ) ->
         $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'main'
         $scope.alertService.setJson response.data
     )
