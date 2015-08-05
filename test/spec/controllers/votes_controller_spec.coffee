@@ -232,7 +232,7 @@ describe 'Proposal Votes Controllers Tests', ->
         $httpBackend.flush()
 
         expect $location.url()
-          .toEqual '/proposals/6'
+          .toEqual '/proposals/6#prop6'
 
       it 'should send alert "Sorry, your vote was not saved" if saving Support fails', ->
 

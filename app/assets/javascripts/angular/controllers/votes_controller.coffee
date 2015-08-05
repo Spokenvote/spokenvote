@@ -16,8 +16,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
           responseMessage = "Your vote was created with the comment: \"#{response.comment}\""
         $scope.alertService.setSuccess responseMessage, $scope, 'main'
         $scope.sessionSettings.vote = {}
-        $location.path( "/proposals/" + response.proposal_id )    # Angular empty hash bug
-#        $location.path("/proposals/" + response.proposal_id).hash "prop" + $rootScope.sessionSettings.newSupport.vote.proposal_id
+        $location.path("/proposals/" + response.proposal_id).hash "prop" + response.proposal_id
       ), ( response, status, headers, config ) ->
         $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'main'
         $scope.alertService.setJson response.data

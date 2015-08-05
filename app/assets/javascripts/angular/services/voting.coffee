@@ -113,6 +113,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
     newProposal =
       proposal: $rootScope.sessionSettings.newProposal
+
     if $rootScope.sessionSettings.newProposal.id
       newProposal.id = $rootScope.sessionSettings.newProposal.id
     else
