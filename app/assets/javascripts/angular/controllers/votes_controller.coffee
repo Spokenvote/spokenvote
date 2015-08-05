@@ -10,6 +10,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
       $scope.vote
       , ( response, status, headers, config ) ->
         $rootScope.$broadcast 'event:votesChanged'
+        responseMessage = undefined
         if response.comment is null
           responseMessage = "Your vote was recorded without a comment"
         else

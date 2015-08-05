@@ -845,7 +845,7 @@ describe 'Voting Service Tests', ->
         expect $rootScope.alertService.setSuccess.calls.count()
           .toEqual 1
         expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-          .toContain response.statement
+          .toContain 'has been saved'
         expect $rootScope.sessionSettings.actions.offcanvas
           .toEqual false
         expect $rootScope.sessionSettings.newProposal
