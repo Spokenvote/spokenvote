@@ -640,6 +640,66 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.actions.focus
           .toEqual 'comment'
 
+      it 'should check for and find a VALID Vote COMMENT and save vote', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal.votes_attributes =
+          proposal_id: 123
+          comment: 'Nice long vote comment'
+        $rootScope.sessionSettings.actions.focus = 'comment'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+        spyOn Vote, 'save'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+        expect Vote.save
+          .toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
+
+      it 'should check for NO Vote COMMENT and save vote', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal.votes_attributes =
+          proposal_id: 123
+
+        $rootScope.sessionSettings.actions.focus = 'comment'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+        spyOn Vote, 'save'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+        expect Vote.save
+          .toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
+
       it 'should check for NEW HUB and ACCEPT a valid Hub Location if saving a New Hub', ->
         $rootScope.sessionSettings.hub_attributes =
           id: null

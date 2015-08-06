@@ -184,10 +184,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.alertService.setCtlResult 'Sorry, No Proposal to save found or your Proposal is too short.', $rootScope, 'main'
     else if newProposal.proposal_id
 #      console.log 'in votes_attributes '
-      if not newProposal.comment
+      if not newProposal.comment or newProposal.comment.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
         saveVote()
-      else if newProposal.comment.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
-        saveVote()
+        $rootScope.sessionSettings.actions.focus = null
       else
         $rootScope.alertService.setCtlResult 'Sorry, No Vote to save found or your Vote Comment is too short.', $rootScope, 'main'
 
