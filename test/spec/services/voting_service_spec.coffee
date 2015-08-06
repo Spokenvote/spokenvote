@@ -7,6 +7,7 @@ describe 'Voting Service Tests', ->
     $httpBackend = undefined
     VotingService = undefined
     Proposal = undefined
+    Vote = undefined
     $location = undefined
     $modal = undefined
     modalInstance = undefined
@@ -37,7 +38,7 @@ describe 'Voting Service Tests', ->
           formatted_location: 'Mountain View, CA'
     testTrash = 'Trash should should get killed'
 
-    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _svUtility_) ->
+    beforeEach inject (_$rootScope_, _$httpBackend_, _VotingService_, _SessionSettings_, _$modal_, _$location_, _Proposal_, _Vote_, _svUtility_) ->
       $rootScope = _$rootScope_
       $httpBackend = _$httpBackend_
       $modal = _$modal_
@@ -45,6 +46,7 @@ describe 'Voting Service Tests', ->
       VotingService = _VotingService_
       svUtility = _svUtility_
       Proposal = _Proposal_
+      Vote = _Vote_
       $rootScope.sessionSettings = _SessionSettings_
       $rootScope.alertService =
         clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
@@ -86,6 +88,8 @@ describe 'Voting Service Tests', ->
       $httpBackend.verifyNoOutstandingRequest()
 
     it 'should initialize methods', ->
+      expect VotingService.new
+        .toBeDefined()
       expect VotingService.support
         .toBeDefined()
       expect VotingService.improve
@@ -94,8 +98,10 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.delete
         .toBeDefined()
-#      expect VotingService.new
-#        .toBeDefined()
+      expect VotingService.commentStep
+        .toBeDefined()
+      expect VotingService.hubStep
+        .toBeDefined()
       expect VotingService.saveNewProposal
         .toBeDefined()
 
@@ -133,15 +139,6 @@ describe 'Voting Service Tests', ->
         expect $location.url()
           .toEqual '/start'
 
-#      it 'should set sessionSettings.newProposal.statement object before going to start NEW Proposal page', ->
-#        $rootScope.sessionSettings.newProposal =
-#          statement: 'Old trash statement'
-#
-#        VotingService.new()
-#
-#        expect $rootScope.sessionSettings.newProposal.statement
-#          .toEqual undefined
-
 
     describe 'SUPPORT method should make checks and open SUPPORT area', ->
 
@@ -164,7 +161,7 @@ describe 'Voting Service Tests', ->
 
       it 'should initialize support method with clean Session vote object', ->
 
-        $rootScope.sessionSettings.vote.testTrash = 'Trash should should get killed'
+        $rootScope.sessionSettings.newProposal.testTrash = 'Trash should should get killed'
 
         VotingService.support clicked_proposal
 
@@ -174,7 +171,7 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.testTrash
+        expect $rootScope.sessionSettings.newProposal.testTrash
           .toBe undefined
 
       it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
@@ -534,7 +531,25 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith 'focusHubFilter'
 
 
-    describe 'saveNewProposal method should SAVE New Proposal', ->
+    describe 'saveNewProposal method should SAVE New Vote', ->
+
+      it 'should clear alerts', ->
+
+        $rootScope.sessionSettings.newProposal = newProposal
+
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+        spyOn Vote, 'save'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
 
       it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
 
@@ -553,6 +568,7 @@ describe 'Voting Service Tests', ->
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
+        spyOn Vote, 'save'
 
         VotingService.saveNewProposal()
 
@@ -560,10 +576,12 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith newProposalParams, jasmine.any(Function), jasmine.any(Function)
         expect Proposal.save
           .not.toHaveBeenCalled()
+        expect Vote.save
+          .not.toHaveBeenCalled()
         expect $rootScope.sessionSettings.actions.focus
           .toEqual null
 
-      it 'should check for a valid Proposal STATEMENT before proceeding', ->
+      it 'should check for a INVALID Proposal STATEMENT and throw error', ->
         $rootScope.sessionSettings.hub_attributes =
           id: null
           group_name: 'Some very fine Group Name'
@@ -575,6 +593,7 @@ describe 'Voting Service Tests', ->
 
         spyOn Proposal, 'save'
         spyOn Proposal, 'update'
+        spyOn Vote, 'save'
 
         VotingService.saveNewProposal()
 
@@ -585,6 +604,38 @@ describe 'Voting Service Tests', ->
         expect Proposal.save
           .not.toHaveBeenCalled()
         expect Proposal.update
+          .not.toHaveBeenCalled()
+        expect Vote.save
+          .not.toHaveBeenCalled()
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
+
+      it 'should check for a INVALID Vote COMMENT and throw error', ->
+        $rootScope.sessionSettings.hub_attributes =
+          id: null
+          group_name: 'Some very fine Group Name'
+          formatted_location: 'Atlanta, GA'
+
+        $rootScope.sessionSettings.newProposal.votes_attributes =
+          proposal_id: 123
+          comment: 'An'
+        $rootScope.sessionSettings.actions.focus = 'comment'
+
+        spyOn Proposal, 'save'
+        spyOn Proposal, 'update'
+        spyOn Vote, 'save'
+
+        VotingService.saveNewProposal()
+
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect Proposal.save
+          .not.toHaveBeenCalled()
+        expect Proposal.update
+          .not.toHaveBeenCalled()
+        expect Vote.save
           .not.toHaveBeenCalled()
         expect $rootScope.sessionSettings.actions.focus
           .toEqual 'comment'

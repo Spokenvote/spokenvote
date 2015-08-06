@@ -10,7 +10,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   support: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.vote = {}      # TODO Remove
+    $rootScope.sessionSettings.vote = {}      #TODO Remove
 
     startSupport = ->
       RelatedVoteInTreeLoader(clicked_proposal).then (relatedSupport) ->
@@ -20,11 +20,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             return
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.vote.related_existing = relatedSupport
-        $rootScope.sessionSettings.vote.target = clicked_proposal  # TODO Remove
-        $rootScope.sessionSettings.newProposal =                   # TODO Test
+        $rootScope.sessionSettings.vote.target = clicked_proposal  #TODO Remove
+        $rootScope.sessionSettings.newProposal =                   #TODO Test
           votes_attributes:
             proposal_id: clicked_proposal.id
-        $rootScope.sessionSettings.actions.focus = 'comment'  # TODO Test
+        $rootScope.sessionSettings.actions.focus = 'comment'  #TODO Test
         svUtility.focus '#new_vote_comment'
     if $rootScope.currentUser.id
       startSupport()
@@ -134,7 +134,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.alertService.setSuccess 'Your vote has been saved.', $rootScope, 'main'
       $rootScope.sessionSettings.actions.offcanvas = false
       $rootScope.sessionSettings.newProposal = {}
-#      if response.proposal_id
       $location
         .path '/proposals/' +
           if response.proposal_id
@@ -144,13 +143,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         .search 'hub', response.hub_id
         .search 'filter', 'my'
         .hash 'navigationBar'
-#          .hash "prop" + response.proposal_id
-#      else
-#        $location
-#          .path '/proposals/' + response.id
-#          .search 'hub', response.hub_id
-#          .search 'filter', 'my'
-#          .hash 'navigationBar'
 
     saveFail = (response, status, headers, config) ->
       $rootScope.alertService.setCtlResult 'Sorry, your vote was not saved.', $rootScope, 'modal'
@@ -190,8 +182,14 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.sessionSettings.actions.focus = null
       else
         $rootScope.alertService.setCtlResult 'Sorry, No Proposal to save found or your Proposal is too short.', $rootScope, 'main'
-    else
-      saveVote()
+    else if newProposal.proposal_id
+#      console.log 'in votes_attributes '
+      if not newProposal.comment
+        saveVote()
+      else if newProposal.comment.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
+        saveVote()
+      else
+        $rootScope.alertService.setCtlResult 'Sorry, No Vote to save found or your Vote Comment is too short.', $rootScope, 'main'
 
 #    if not $rootScope.sessionSettings.newProposal.votes_attributes or not $rootScope.sessionSettings.newProposal.votes_attributes.comment
 #      $rootScope.sessionSettings.newProposal.votes_attributes =
