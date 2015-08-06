@@ -116,17 +116,17 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     $rootScope.alertService.clearAlerts()
 
     newProposal = undefined
-    if $rootScope.sessionSettings.newProposal.statement
-      newProposal =
-        proposal: $rootScope.sessionSettings.newProposal
-
-      if $rootScope.sessionSettings.newProposal.id
-        newProposal.id = $rootScope.sessionSettings.newProposal.id
-      else
-        newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
-        newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
-    else
-      newProposal = $rootScope.sessionSettings.newProposal.votes_attributes
+#    if $rootScope.sessionSettings.newProposal.statement
+#      newProposal =
+#        proposal: $rootScope.sessionSettings.newProposal
+#
+#      if $rootScope.sessionSettings.newProposal.id
+#        newProposal.id = $rootScope.sessionSettings.newProposal.id
+#      else
+#        newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+#        newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+#    else
+#      newProposal = $rootScope.sessionSettings.newProposal.votes_attributes
 
     saveSuccess = (response, status, headers, config) ->
       $rootScope.$broadcast 'event:proposalsChanged'
@@ -157,32 +157,51 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     saveVote = ->
       Vote.save newProposal, saveSuccess, saveFail
 
-    if newProposal.proposal
-      if newProposal.proposal.statement.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumProposalLength
-        switch
-          when newProposal.proposal.id
-            updateProposal()
-          when $rootScope.sessionSettings.hub_attributes.id
-            saveProposal()
-          else switch
-            when not $rootScope.sessionSettings.hub_attributes.formatted_location
-              $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
-              this.hubStep()
-              return
-            when not $rootScope.sessionSettings.hub_attributes.group_name
-              $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
-              this.hubStep()
-              return
-            when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
-              $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
-              this.hubStep()
-              return
-            else
-              saveProposal()
-        $rootScope.sessionSettings.actions.focus = null
+    if $rootScope.sessionSettings.newProposal.statement
+      if $rootScope.sessionSettings.newProposal.statement.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumProposalLength
+        newProposal =
+          proposal: $rootScope.sessionSettings.newProposal
       else
-        $rootScope.alertService.setCtlResult 'Sorry, No Proposal to save found or your Proposal is too short.', $rootScope, 'main'
-    else if newProposal.proposal_id
+        $rootScope.alertService.setCtlResult 'Sorry, it looks as if your proposal might be too short.', $rootScope, 'main'
+        return
+
+      switch
+        when $rootScope.sessionSettings.newProposal.id                 # edit
+          newProposal.id = $rootScope.sessionSettings.newProposal.id
+        when $rootScope.sessionSettings.newProposal.proposal_id        # forking
+          console.info 'Forking Proposal: ', $rootScope.sessionSettings.newProposal.proposal_id
+          return
+        when $rootScope.sessionSettings.hub_attributes                 # new, create hub
+          newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+          if $rootScope.sessionSettings.hub_attributes.id and not isNaN $rootScope.sessionSettings.hub_attributes.id
+            newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+        else
+          $rootScope.alertService.setCtlResult 'Sorry, tried to save or update proposal but something was missing.', $rootScope, 'main'
+
+      switch
+        when newProposal.proposal.id
+          updateProposal()
+        when $rootScope.sessionSettings.hub_attributes.id
+          saveProposal()
+        else switch
+          when not $rootScope.sessionSettings.hub_attributes.formatted_location
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
+            this.hubStep()
+            return
+          when not $rootScope.sessionSettings.hub_attributes.group_name
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
+            this.hubStep()
+            return
+          when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
+            $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
+            this.hubStep()
+            return
+          else
+            saveProposal()
+      $rootScope.sessionSettings.actions.focus = null
+
+    else if $rootScope.sessionSettings.newProposal.votes_attributes.proposal_id
+      newProposal = $rootScope.sessionSettings.newProposal.votes_attributes
       if not newProposal.comment or newProposal.comment.length >= $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
         saveVote()
         $rootScope.sessionSettings.actions.focus = null

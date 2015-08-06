@@ -799,6 +799,53 @@ describe 'Voting Service Tests', ->
           expect $rootScope.sessionSettings.actions.focus
             .toEqual null
 
+        it 'should check for GOOGLE LOCATION HUB, and pass correct args to the SAVE New Proposal', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 'GL-12'
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              comment: 'A million reasons to vote for this guy!'
+
+          expectedProposalSaveArgs =
+            proposal:
+              statement: 'An awesome new proposal. Vote for it!'
+              votes_attributes:
+                comment: 'A million reasons to vote for this guy!'
+              hub_attributes:
+                id: 'GL-12'
+                group_name: 'Some very fine Group Name'
+                formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+            .and.callThrough()
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond relatedSupport
+
+          $httpBackend.flush()
+
+          expect Proposal.save
+            .toHaveBeenCalled()
+          expect Proposal.save.calls.mostRecent().args[0]
+            .toEqual expectedProposalSaveArgs
+          expect Vote.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual null
+
         it 'should check for exiting hub, find one, and POST the New Proposal', ->
           $rootScope.sessionSettings.hub_attributes =
             id: 12
@@ -931,7 +978,7 @@ describe 'Voting Service Tests', ->
             .toEqual '/proposals/2045?filter=my#navigationBar'
 
 
-      describe 'saveNewProposal method should UPDATE Proposal and Vote', ->
+      describe 'saveNewProposal method should UPDATE PROPOSAL and Vote', ->
 
         it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
 
