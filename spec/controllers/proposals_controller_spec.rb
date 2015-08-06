@@ -267,12 +267,12 @@ describe ProposalsController do
 
         it 'returns all proposals on which the current user voted' do
           get :index, { filter: 'my' }
-          expect(assigns(:proposals)).to match_array([forked_proposal2, proposal1, proposal3])
+          expect(assigns(:proposals)).to match_array([proposal1, proposal2, proposal3])
         end
 
         it 'returns all proposals for a particular hub on which the current user voted' do
           get :index, { filter: 'my', hub: hub1.id }
-          expect(assigns(:proposals)).to match_array([forked_proposal2, proposal1])
+          expect(assigns(:proposals)).to match_array([proposal1, proposal2])
         end
       end
     end

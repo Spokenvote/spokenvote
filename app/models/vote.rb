@@ -19,7 +19,10 @@ class Vote < ActiveRecord::Base
   belongs_to :user
 
   # scopes
-  default_scope { order(:updated_at => :desc) }
+  default_scope { by_last_updated }
+
+  scope :by_last_updated, -> { order(updated_at: :desc) }
+  scope :by_recency, -> { order(created_at: :desc) }
 
   # Validations
   validates :user, :proposal, presence: true
