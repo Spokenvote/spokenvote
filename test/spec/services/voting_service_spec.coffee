@@ -583,7 +583,7 @@ describe 'Voting Service Tests', ->
           .toEqual response
 
 
-      describe 'saveNewProposal method should save NEW PROPOSAL along with vote', ->
+      describe 'should save NEW PROPOSAL along with vote', ->
 
         it 'should check for a INVALID Proposal STATEMENT and throw error', ->
           $rootScope.sessionSettings.hub_attributes =
@@ -667,8 +667,411 @@ describe 'Voting Service Tests', ->
             .toHaveBeenCalled()
           expect Proposal.update
             .not.toHaveBeenCalled()
+#          expect $rootScope.sessionSettings.actions.focus
+#            .toEqual null
+
+        it 'should check for NEW HUB and REJECT in invalid Hub Location if saving a New Hub', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: null
+            group_name: 'Some very fine Group Name'
+            formatted_location: null
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+            .toContain 'Sorry'
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+
+        it 'should check for NEW HUB and REJECT in invalid Group Name if saving a New Hub', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: null
+            group_name: null
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+            .toContain 'Sorry'
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+
+        it 'should check for NEW HUB and REJECT in Group Name that is TOO SHORT if saving a New Hub', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: null
+            group_name: 'ma'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+            .toContain 'Sorry'
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+
+        it 'should check for EXISTING HUB, FIND one, and pass correct args to the SAVE New Proposal', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              comment: 'A million reasons to vote for this guy!'
+
+          expectedProposalSaveArgs =
+            proposal:
+              statement: 'An awesome new proposal. Vote for it!'
+              votes_attributes:
+                comment: 'A million reasons to vote for this guy!'
+              hub_id: 12
+              hub_attributes:
+                id: 12
+                group_name: 'Some very fine Group Name'
+                formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+            .and.callThrough()
+          spyOn Proposal, 'update'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond relatedSupport
+
+          $httpBackend.flush()
+
+          expect Proposal.save
+            .toHaveBeenCalled()
+          expect Proposal.save.calls.mostRecent().args[0]
+            .toEqual expectedProposalSaveArgs
+          expect Proposal.update
+            .not.toHaveBeenCalled()
           expect $rootScope.sessionSettings.actions.focus
             .toEqual null
+
+        it 'should check for GOOGLE LOCATION HUB, and pass correct args to the SAVE New Proposal', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 'GL-12'
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              comment: 'A million reasons to vote for this guy!'
+
+          expectedProposalSaveArgs =
+            proposal:
+              statement: 'An awesome new proposal. Vote for it!'
+              votes_attributes:
+                comment: 'A million reasons to vote for this guy!'
+              hub_attributes:
+                id: 'GL-12'
+                group_name: 'Some very fine Group Name'
+                formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+            .and.callThrough()
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond relatedSupport
+
+          $httpBackend.flush()
+
+          expect Proposal.save
+            .toHaveBeenCalled()
+          expect Proposal.save.calls.mostRecent().args[0]
+            .toEqual expectedProposalSaveArgs
+          expect Vote.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual null
+
+        it 'should check for exiting hub, find one, and POST the New Proposal', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            comment: 'A million reasons to vote for this guy!'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond 201
+
+          $httpBackend.flush()
+
+        it 'should check for exiting hub, find one, save and ALERT the New Proposal was saved', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            comment: 'A million reasons to vote for this guy!'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond 201
+
+          $httpBackend.flush()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 0
+          expect $rootScope.alertService.setSuccess.calls.count()
+            .toEqual 1
+
+        it 'should allow COMMENTLESS VOTING and save New Proposal with undefined comment', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              comment: undefined
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond 201
+
+          $httpBackend.flush()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 0
+          expect $rootScope.alertService.setSuccess.calls.count()
+            .toEqual 1
+
+        it 'Proposal.save should save the New Proposal and execute correct SUCCESS callback', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+
+          response =
+            id: 2045
+            statement: 'An awesome new proposal. Vote for it!'
+            comment: 'A million reasons to vote for this guy!'
+
+          spyOn Proposal, 'save'
+            .and.callThrough()
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond 201, response
+
+          $httpBackend.flush()
+
+          expect Proposal.save
+            .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+          expect $rootScope.$broadcast
+            .toHaveBeenCalledWith 'event:proposalsChanged'
+          expect $rootScope.$broadcast
+            .toHaveBeenCalledWith 'event:votesChanged'
+          expect $rootScope.alertService.setSuccess.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+            .toContain 'has been saved'
+          expect $rootScope.sessionSettings.actions.offcanvas
+            .toEqual false
+          expect $rootScope.sessionSettings.newProposal
+            .toEqual {}
+
+
+        it 'Proposal.save should save the New Proposal and navigate to the correct LOCATION', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: 12
+
+          $rootScope.sessionSettings.newProposal =
+            statement: 'An awesome new proposal. Vote for it!'
+
+          response =
+            id: 2045
+            statement: 'An awesome new proposal. Vote for it!'
+            comment: 'A million reasons to vote for this guy!'
+
+          VotingService.saveNewProposal()
+
+          $httpBackend
+            .expectPOST '/proposals'
+            .respond 201, response
+
+          $httpBackend.flush()
+
+          expect $location.url()
+            .toEqual '/proposals/2045?filter=my#navigationBar'
+
+
+      describe 'should save FORK PROPOSAL along with vote', ->
+
+        it 'should check for a INVALID Proposal STATEMENT and throw error', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: null
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            parent_id: 445
+            statement: 'An'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect Vote.save
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+
+        it 'should check for a INVALID Vote COMMENT and throw error', ->
+          $rootScope.sessionSettings.hub_attributes =
+            id: null
+            group_name: 'Some very fine Group Name'
+            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            parent_id: 445
+            statement: 'An awesome new proposal. Vote for it!'
+            votes_attributes:
+              proposal_id: 123
+              comment: 'An'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect Vote.save
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+
+        it 'should ACCEPT Proposal without a Hub Location when saving a FORK', ->
+          $rootScope.sessionSettings.hub_attributes = null
+#            id: null
+#            group_name: 'Some very fine Group Name'
+#            formatted_location: 'Atlanta, GA'
+
+          $rootScope.sessionSettings.newProposal =
+            parent_id: 445
+            statement: 'An awesome new proposal. Vote for it!'
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+
+          VotingService.saveNewProposal()
+
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 0
+          expect Proposal.save
+            .toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+#          expect $rootScope.sessionSettings.actions.focus
+#            .toEqual null
 
         it 'should check for NEW HUB and REJECT in invalid Hub Location if saving a New Hub', ->
           $rootScope.sessionSettings.hub_attributes =
@@ -984,9 +1387,15 @@ describe 'Voting Service Tests', ->
 
           $rootScope.sessionSettings.newProposal = newProposal
 
+#          $rootScope.sessionSettings.newProposal = newProposal
+#            id: newProposal.id
+#            statement: newProposal.statement
+#            votes_attributes:
+#              comment: newProposal.votes_attributes.comment
+
           newProposalParams =
-            proposal: newProposal
             id: newProposal.id
+            proposal: newProposal
 
           $rootScope.sessionSettings.hub_attributes =
             id: null
@@ -1007,8 +1416,8 @@ describe 'Voting Service Tests', ->
             .not.toHaveBeenCalled()
           expect Vote.save
             .not.toHaveBeenCalled()
-          expect $rootScope.sessionSettings.actions.focus
-            .toEqual null
+#          expect $rootScope.sessionSettings.actions.focus
+#            .toEqual null
 
 
       describe 'saveNewProposal method should save VOTE only to Support a proposal', ->
@@ -1040,34 +1449,34 @@ describe 'Voting Service Tests', ->
             .not.toHaveBeenCalled()
           expect Vote.save
             .toHaveBeenCalled()
-          expect $rootScope.sessionSettings.actions.focus
-            .toEqual null
+#          expect $rootScope.sessionSettings.actions.focus
+#            .toEqual null
 
-          it 'should check for NO Vote COMMENT and save vote', ->
+        it 'should check for NO Vote COMMENT and save vote', ->
 
-            $rootScope.sessionSettings.newProposal.votes_attributes =
-              proposal_id: 123
+          $rootScope.sessionSettings.newProposal.votes_attributes =
+            proposal_id: 123
 
-            $rootScope.sessionSettings.actions.focus = 'comment'
+          $rootScope.sessionSettings.actions.focus = 'comment'
 
-            spyOn Proposal, 'save'
-            spyOn Proposal, 'update'
-            spyOn Vote, 'save'
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
 
-            VotingService.saveNewProposal()
+          VotingService.saveNewProposal()
 
-            expect $rootScope.alertService.clearAlerts.calls.count()
-              .toEqual 1
-            expect $rootScope.alertService.setCtlResult.calls.count()
-              .toEqual 0
-            expect Proposal.save
-              .not.toHaveBeenCalled()
-            expect Proposal.update
-              .not.toHaveBeenCalled()
-            expect Vote.save
-              .toHaveBeenCalled()
-            expect $rootScope.sessionSettings.actions.focus
-              .toEqual null
+          expect $rootScope.alertService.clearAlerts.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 0
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect Vote.save
+            .toHaveBeenCalled()
+#          expect $rootScope.sessionSettings.actions.focus
+#            .toEqual null
 
         it 'should pass correct args to the SAVE New Vote', ->
           $rootScope.sessionSettings.newProposal.votes_attributes =
@@ -1132,6 +1541,8 @@ describe 'Voting Service Tests', ->
             .toEqual 0
           expect $rootScope.alertService.setSuccess.calls.count()
             .toEqual 1
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual null
 
         it 'should allow COMMENTLESS VOTING and save New Vote with undefined comment', ->
           $rootScope.sessionSettings.newProposal.votes_attributes =
@@ -1151,6 +1562,8 @@ describe 'Voting Service Tests', ->
             .toEqual 0
           expect $rootScope.alertService.setSuccess.calls.count()
             .toEqual 1
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual null
 
         it 'save the New Vote and execute correct SUCCESS callback', ->
           $rootScope.sessionSettings.newProposal.votes_attributes =
