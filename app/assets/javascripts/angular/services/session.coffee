@@ -116,20 +116,20 @@ SessionSettings = ->
   actions:
     detailPage: false
     focus: null
+    hub_attributes: null
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
-    improveProposal:
-      propStepText: ''
-      commentStepText: ''
-    newProposal: {}
-    newProposalHub: null
     newVoteDetails: {}
     offcanvas: false
-    selectHub: false
     userFilter: null
-    wizardToGroup: null
-  hub_attributes: null
+#    improveProposal:
+#      propStepText: ''
+#      commentStepText: ''
+#    newProposal: {}
+#    newProposalHub: null
+#    selectHub: false
+#    wizardToGroup: null
   openModals:
 #    signIn: false
 #    register: false
@@ -140,11 +140,9 @@ SessionSettings = ->
 #    editProposal: false
     deleteProposal: false
 #    getStarted: false
-  proposal: null
+#  proposal: null
 #  vote: {}
-  searchedHub: {}
-  routeParams: {}
-  newVote: {}
+#  searchedHub: {}
 #  newSupport:
 #    related: null
 #    target: null
@@ -152,6 +150,8 @@ SessionSettings = ->
   lastLocation:
     location_id: null
     formatted_location: null
+  newVote: {}
+  routeParams: {}
   socialSharing:
     twitterRootUrl: 'http://twitter.com/home?status='
     facebookRootUrl: 'http://www.facebook.com/sharer.php?u='

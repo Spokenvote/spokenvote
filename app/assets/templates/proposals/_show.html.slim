@@ -26,7 +26,7 @@
         a ng-href='#' ng-click='showProposal(proposal)'   {{ proposal.statement }}
 
       / Editing Statement
-      /form name='editProposalForm' ng-submit='saveNewProposal()'
+      /form name='editProposalForm' ng-submit='saveVote()'
         .proposal-area ng-if='( proposal.is_editable && proposal.user_id == currentUser.id )'
           .form-group
             textarea( id='proposal_statement' name='statement' class='full-width proposal-text' ng-model='proposal.statement' auto-grow required
@@ -48,7 +48,7 @@
 
       .proposal_statement.col-xs-10
         ng-include src="'proposals/_prop_area.html'"
-        /form name='newProposalForm' ng-submit='saveNewProposal()'
+        /form name='newProposalForm' ng-submit='saveVote()'
           .proposal-area
             .form-group
               textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newVote.statement' auto-grow required
@@ -66,7 +66,7 @@
             .form-group ng-show='sessionSettings.actions.focus === "comment"'
               textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newVote.votes_attributes.comment' auto-grow
                 ng-minLength='5' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
-                ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
+                ng-enter='votingService.saveVote()' ng-focus='sessionSettings.actions.focus = "comment"' )
               .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your proposal!
               .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newVote.statement.length > 220' {{ 280 - sessionSettings.newVote.votes_attributes.comment.length }} characters remaining
               .length_counter.error-text ng-show="newProposalForm.comment.$error.maxlength"
@@ -106,7 +106,7 @@
               fieldset
                 .control-group
                   .controls
-                    button id='publish' ng-enter='votingService.saveNewProposal()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
+                    button id='publish' ng-enter='votingService.saveVote()' ng-blur='sessionSettings.actions.focus = null' ng-mousedown='votingService.saveVote()' class='btn btn-primary btn-bold' Publish
                     /button id='publish' ng-enter='test()' ng-blur='sessionSettings.actions.focus = null' class='btn btn-primary btn-bold' Publish
                     .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
 

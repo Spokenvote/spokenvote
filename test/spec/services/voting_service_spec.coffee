@@ -102,7 +102,7 @@ describe 'Voting Service Tests', ->
         .toBeDefined()
       expect VotingService.hubStep
         .toBeDefined()
-      expect VotingService.saveNewProposal
+      expect VotingService.saveVote
         .toBeDefined()
 
 
@@ -114,7 +114,7 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
-        expect $rootScope.sessionSettings.actions.newProposal.started
+        expect $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted
           .toEqual false
 
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
@@ -533,7 +533,7 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith 'focusHubFilter'
 
 
-    describe 'saveNewProposal method should SAVE New Vote', ->
+    describe 'saveVote method should SAVE New Vote', ->
 
       it 'should clear alerts', ->
         $rootScope.sessionSettings.newVote = newProposal
@@ -547,7 +547,7 @@ describe 'Voting Service Tests', ->
         spyOn Proposal, 'update'
         spyOn Vote, 'save'
 
-        VotingService.saveNewProposal()
+        VotingService.saveVote()
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
@@ -565,7 +565,7 @@ describe 'Voting Service Tests', ->
         spyOn Proposal, 'save'
           .and.callThrough()
 
-        VotingService.saveNewProposal()
+        VotingService.saveVote()
 
         $httpBackend
           .expectPOST '/proposals'
@@ -601,7 +601,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -631,7 +631,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -659,7 +659,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -685,7 +685,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -713,7 +713,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -741,7 +741,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -784,7 +784,7 @@ describe 'Voting Service Tests', ->
             .and.callThrough()
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -829,7 +829,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -858,7 +858,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -876,7 +876,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -902,7 +902,7 @@ describe 'Voting Service Tests', ->
             votes_attributes:
               comment: undefined
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -932,7 +932,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
             .and.callThrough()
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -968,7 +968,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -998,7 +998,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1032,7 +1032,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1062,7 +1062,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1088,7 +1088,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1116,7 +1116,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1144,7 +1144,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1187,7 +1187,7 @@ describe 'Voting Service Tests', ->
             .and.callThrough()
           spyOn Proposal, 'update'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1232,7 +1232,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1261,7 +1261,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1279,7 +1279,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1305,7 +1305,7 @@ describe 'Voting Service Tests', ->
             votes_attributes:
               comment: undefined
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1335,7 +1335,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'save'
             .and.callThrough()
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1371,7 +1371,7 @@ describe 'Voting Service Tests', ->
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/proposals'
@@ -1383,7 +1383,7 @@ describe 'Voting Service Tests', ->
             .toEqual '/proposals/2045?filter=my#navigationBar'
 
 
-      describe 'saveNewProposal method should UPDATE PROPOSAL and Vote', ->
+      describe 'saveVote method should UPDATE PROPOSAL and Vote', ->
 
         it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
 
@@ -1410,7 +1410,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect Proposal.update
            .toHaveBeenCalledWith newProposalParams, jasmine.any(Function), jasmine.any(Function)
@@ -1422,7 +1422,7 @@ describe 'Voting Service Tests', ->
 #            .toEqual null
 
 
-      describe 'saveNewProposal method should save VOTE only to Support a proposal', ->
+      describe 'saveVote method should save VOTE only to Support a proposal', ->
 
         it 'should check for and find a VALID Vote COMMENT and save vote', ->
           $rootScope.sessionSettings.hub_attributes =
@@ -1439,7 +1439,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1465,7 +1465,7 @@ describe 'Voting Service Tests', ->
           spyOn Proposal, 'update'
           spyOn Vote, 'save'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1494,7 +1494,7 @@ describe 'Voting Service Tests', ->
           expectedProposalSaveArgs =
             proposal_id: 123
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'
@@ -1517,7 +1517,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'
@@ -1529,7 +1529,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'
@@ -1550,7 +1550,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'
@@ -1578,7 +1578,7 @@ describe 'Voting Service Tests', ->
           spyOn Vote, 'save'
             .and.callThrough()
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'
@@ -1609,7 +1609,7 @@ describe 'Voting Service Tests', ->
             proposal_id: 627
             comment: 'A million reasons to vote for this guy!'
 
-          VotingService.saveNewProposal()
+          VotingService.saveVote()
 
           $httpBackend
             .expectPOST '/votes'

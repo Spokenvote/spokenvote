@@ -33,8 +33,8 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'svU
 #  else
 #    $scope.sessionSettings.actions.hubPlaceholder = 'Who should see your proposal? ...'
 #
-#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newProposal.started
-#  $scope.sessionSettings.actions.newProposal.started = true
+#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.routeParams.hub or $scope.sessionSettings.actions.newVoteDetails.proposalStarted
+#  $scope.sessionSettings.actions.newVoteDetails.proposalStarted = true
 
   $scope.$on 'event:votesChanged', ->
     $scope.proposal.$get()

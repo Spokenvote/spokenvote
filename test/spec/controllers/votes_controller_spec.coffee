@@ -481,7 +481,7 @@ describe 'Proposal Votes Controllers Tests', ->
 #            group_name: 'Hacker Dojo'
 #      ).respond id: 2
 #      location.path "test"
-#      $scope.saveNewProposal()
+#      $scope.saveVote()
 #      expect(location.path()).toEqual "/test"
 #      mockBackend.flush()
 #      expect(location.path()).toEqual "/proposals/2"

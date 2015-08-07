@@ -1,11 +1,11 @@
-form name='newProposalForm' ng-submit='saveNewProposal()'
+form name='newProposalForm' ng-submit='saveVote()'
   .proposal-area
     .form-group ng-hide='sessionSettings.newVote.votes_attributes.id'
       textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newVote.statement' auto-grow required
         ng-minLength='sessionSettings.spokenvote_attributes.minimumProposalLength' ng-maxLength='140' placeholder='Your proposal?'
         ng-enter='votingService.hubStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
       .next-step ng-show='newProposalForm.statement.$valid && sessionSettings.actions.focus === "prop"'
-        div ng-bind-html='sessionSettings.actions.improveProposal.propStepText'
+        div ng-bind-html='sessionSettings.actions.newVoteDetails.propStepText'
         div Press <strong><i>Enter</i></strong> to continue ...
       .length_counter.happy-text ng-show='newProposalForm.statement.$valid && sessionSettings.newVote.statement.length > 120' {{ 140 - sessionSettings.newVote.statement.length }} characters remaining
       .length_counter.error-text ng-show="newProposalForm.statement.$error.maxlength"
@@ -18,7 +18,7 @@ form name='newProposalForm' ng-submit='saveNewProposal()'
     .form-group ng-show='sessionSettings.actions.focus === "comment"'
       textarea( id='new_vote_comment' name='comment' class='full-width comment-text' ng-model='sessionSettings.newVote.votes_attributes.comment' auto-grow
         ng-minLength='sessionSettings.spokenvote_attributes.minimumCommentLength' ng-maxLength='280' placeholder='Optionally explain more here, or just ...'
-        ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "comment"' )
+        ng-enter='votingService.saveVote()' ng-focus='sessionSettings.actions.focus = "comment"' )
       .next-step ng-show='sessionSettings.actions.focus === "comment"' Press <strong><i>Enter</i></strong> to publish your vote!
       .length_counter.happy-text ng-show='newProposalForm.comment.$valid && sessionSettings.newVote.statement.length > 220' {{ 280 - sessionSettings.newVote.votes_attributes.comment.length }} characters remaining
       .length_counter.error-text ng-show="newProposalForm.comment.$error.maxlength"
@@ -32,5 +32,5 @@ form name='newProposalForm' ng-submit='saveNewProposal()'
       fieldset
         .control-group
           .controls
-            button id='publish' ng-enter='votingService.saveNewProposal()' ng-focus='sessionSettings.actions.focus = "publish"' ng-mousedown='votingService.saveNewProposal()' class='btn btn-primary btn-bold' Publish
+            button id='publish' ng-enter='votingService.saveVote()' ng-focus='sessionSettings.actions.focus = "publish"' ng-mousedown='votingService.saveVote()' class='btn btn-primary btn-bold' Publish
             .next-step Press <strong><i>Enter</i></strong> to publish your proposal.

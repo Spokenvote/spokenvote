@@ -10,7 +10,7 @@
     a.hub ng-click="hubView()" href='#'
       h2 {{ proposal.hub.group_name }} &ndash; {{ proposal.hub.formatted_location }}
 
-  form name='newProposalForm' ng-submit='saveNewProposal()'
+  form name='newProposalForm' ng-submit='saveVote()'
     ng-include src="'proposals/_show.html'"
 
   .hr

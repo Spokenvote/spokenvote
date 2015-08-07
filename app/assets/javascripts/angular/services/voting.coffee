@@ -2,7 +2,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   new: ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.actions.newProposal.started = false
+    $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted = false
     if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
     else
@@ -42,9 +42,9 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.sessionSettings.newVote =
           parent_id: clicked_proposal.id
           statement: clicked_proposal.statement
-          votes_attributes:      # TODO Delete once Raisl guard is merged
+          votes_attributes:      # TODO Delete once Rails guard is merged
             comment: undefined
-        $rootScope.sessionSettings.actions.improveProposal.propStepText =
+        $rootScope.sessionSettings.actions.newVoteDetails.propStepText =
           'Edit or start over to make your <strong><i>New</i></strong> proposal.'
         svUtility.focus '#new_proposal_statement'
 
@@ -61,12 +61,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     startEdit = ->
       $rootScope.sessionSettings.newVote =
         id: clicked_proposal.id
-#        proposal:
         statement: clicked_proposal.statement
         votes_attributes:
           id: clicked_proposal.votes[0].id
           comment: clicked_proposal.votes[0].comment
-      $rootScope.sessionSettings.actions.improveProposal.propStepText =
+      $rootScope.sessionSettings.actions.newVoteDetails.propStepText =
         '<strong><i>Editing</i></strong> your main proposal statement.'
       svUtility.focus '#new_proposal_statement'
 
@@ -93,7 +92,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.openModals.deleteProposal = false
 
   commentStep: ->
-#    console.log 'comment step: '
     $rootScope.sessionSettings.actions.focus = 'comment'
     svUtility.focus '#new_vote_comment'
 
@@ -102,7 +100,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
     $rootScope.sessionSettings.actions.hubShow = true
     if $rootScope.sessionSettings.hub_attributes
       if $rootScope.sessionSettings.newVote.statement
-#        this.commentStep(proposal.id)
         this.commentStep()
       else
         $rootScope.alertService.setCtlResult 'Sorry, the proposal is not quite right, too short perhaps?', $rootScope, 'main'
@@ -110,7 +107,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.$broadcast 'focusHubFilter'
 #      $rootScope.$select.activate()
 
-  saveNewProposal: ->
+  saveVote: ->
     $rootScope.alertService.clearAlerts()
 
     saveSuccess = (response, status, headers, config) ->
@@ -135,15 +132,15 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.alertService.setJson response.data
 
     saveProposalandVote = ->
-      Proposal.save newProposal, saveSuccess, saveFail
+      Proposal.save newVote, saveSuccess, saveFail
 
     updateProposalandVote = ->
-      Proposal.update newProposal, saveSuccess, saveFail
+      Proposal.update newVote, saveSuccess, saveFail
 
-    saveVote = ->
-      Vote.save newProposal, saveSuccess, saveFail
+    saveVoteOnly = ->
+      Vote.save newVote, saveSuccess, saveFail
 
-    newProposal = undefined
+    newVote = undefined
 
     # proposal & vote
     if $rootScope.sessionSettings.newVote.statement
@@ -156,11 +153,11 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.alertService.setCtlResult 'Sorry, your Vote Comment is too short.', $rootScope, 'main'
 
       else
-        newProposal =
+        newVote =
           proposal: $rootScope.sessionSettings.newVote
 
         if $rootScope.sessionSettings.newVote.id                 # edit
-          newProposal.id = $rootScope.sessionSettings.newVote.id
+          newVote.id = $rootScope.sessionSettings.newVote.id
           updateProposalandVote()
 
         else switch
@@ -168,7 +165,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
             if $rootScope.sessionSettings.hub_attributes.id and      # existing hub
               not isNaN $rootScope.sessionSettings.hub_attributes.id
-                newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+                newVote.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
                 saveProposalandVote()
 
             else switch                                              # create hub
@@ -182,7 +179,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
                 $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
                 this.hubStep()
               else
-                newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+                newVote.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
                 saveProposalandVote()
 
           when $rootScope.sessionSettings.newVote.parent_id      # fork
@@ -193,12 +190,12 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   # vote only
     else if $rootScope.sessionSettings.newVote.votes_attributes.proposal_id
-      newProposal = $rootScope.sessionSettings.newVote.votes_attributes
+      newVote = $rootScope.sessionSettings.newVote.votes_attributes
 
-      if newProposal.comment and newProposal.comment.length < $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
+      if newVote.comment and newVote.comment.length < $rootScope.sessionSettings.spokenvote_attributes.minimumCommentLength
         $rootScope.alertService.setCtlResult 'Sorry, No Vote to save found or your Vote Comment is too short.', $rootScope, 'main'
       else
-        saveVote()
+        saveVoteOnly()
 
     else
       $rootScope.alertService.setCtlResult 'Sorry, something went wrong trying to save your vote.', $rootScope, 'main'
