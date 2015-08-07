@@ -75,17 +75,17 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.authService.signinFb($rootScope).then ->
         startEdit()
 
-  delete: (scope, clicked_proposal) ->
-    scope.clicked_proposal = clicked_proposal
+  delete: (clicked_proposal) ->
+    $rootScope.sessionSettings.deleteVote = clicked_proposal
 
-    if !scope.currentUser.id?
+    if !$rootScope.currentUser.id?
       $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
     else
       if $rootScope.sessionSettings.openModals.deleteProposal is false
         modalInstance = $modal.open
           templateUrl: 'proposals/_delete_proposal_modal.html'
-          controller: 'DeleteProposalCtrl'
-          scope: scope       # Optional to pass the scope here?
+#          controller: 'DeleteProposalCtrl'
+#          scope: $rootScope       # Optional to pass the scope here?
         modalInstance.opened.then ->
           $rootScope.sessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
@@ -163,12 +163,12 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         else switch
           when not $rootScope.sessionSettings.newVote.parent_id  # new
 
-            if $rootScope.sessionSettings.hub_attributes.id and      # existing hub
+            if $rootScope.sessionSettings.hub_attributes.id and  # existing hub
               not isNaN $rootScope.sessionSettings.hub_attributes.id
                 newVote.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
                 saveProposalandVote()
 
-            else switch                                              # create hub
+            else switch                                          # create hub
               when not $rootScope.sessionSettings.hub_attributes.formatted_location
                 $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
                 this.hubStep()
@@ -203,6 +203,32 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #    if not $rootScope.sessionSettings.newVote.votes_attributes or not $rootScope.sessionSettings.newVote.votes_attributes.comment
 #      $rootScope.sessionSettings.newVote.votes_attributes =
 #        comment: undefined            # Needed for Commentless Voting
+
+  deleteVote: ( close )->
+#    $rootScope.sessionSettings.deleteVote = $rootScope.clicked_proposal
+
+    if $rootScope.sessionSettings.deleteVote.votes.length > 1
+      $rootScope.alertService.setCtlResult "We found support from other users on your proposal. You can no longer delete your proposal, but you can Improve it if you'd like to make a different proposal.", $rootScope
+
+    saveSuccess = (response, status, headers, config) ->
+#      $rootScope.$broadcast 'event:proposalsChanged'
+#      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update
+      $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
+      $rootScope.sessionSettings.actions.offcanvas = false
+      $rootScope.sessionSettings.actions.focus = null
+      close(response)
+      $location
+        .path '/proposals'
+        .search 'filter', 'my'
+#        .search 'hub', $rootScope.sessionSettings.deleteVote.hub_id
+#        .hash 'navigationBar'
+      $rootScope.sessionSettings.deleteVote = null
+
+    saveFail = (response, status, headers, config) ->
+      $rootScope.alertService.setCtlResult 'Sorry, your proposal could not be deleted.', $rootScope
+      $rootScope.alertService.setJson response.data
+
+    Proposal.delete $rootScope.sessionSettings.deleteVote, saveSuccess, saveFail
 
 ]
 

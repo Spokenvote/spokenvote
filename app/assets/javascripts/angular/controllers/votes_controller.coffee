@@ -111,5 +111,5 @@ DeleteProposalCtrl = [ '$scope', '$location', '$rootScope', 'Proposal', ($scope,
 #App.controller 'SupportController', SupportController
 #App.controller 'ImproveController', ImproveController
 #App.controller 'EditProposalCtrl', EditProposalCtrl
-App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
+#App.controller 'DeleteProposalCtrl', DeleteProposalCtrl
 #App.controller 'NewProposalCtrl', NewProposalCtrl

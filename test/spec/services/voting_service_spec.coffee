@@ -401,9 +401,9 @@ describe 'Voting Service Tests', ->
     describe 'DELETE method should make checks and open DELETE modal', ->
 
       it 'should initialize EDIT method', ->
-        VotingService.delete scope, clicked_proposal
+        VotingService.delete clicked_proposal
 
-        expect scope.clicked_proposal
+        expect $rootScope.sessionSettings.deleteVote
           .toEqual clicked_proposal
 
       it 'should invoke sign-in warning if user manages to somehow get here to DELETE a proposal and is not signed in', ->
@@ -424,8 +424,8 @@ describe 'Voting Service Tests', ->
 
         openModalArgs =
           templateUrl: 'proposals/_delete_proposal_modal.html'
-          controller: 'DeleteProposalCtrl'
-          scope: scope
+#          controller: 'DeleteProposalCtrl'
+#          scope: scope
 
         expect $modal.open
           .toHaveBeenCalledWith openModalArgs

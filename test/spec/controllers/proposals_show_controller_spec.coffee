@@ -69,10 +69,10 @@ describe 'Proposal Show Controller Tests', ->
 #        .toBeDefined()
 #      expect $scope.improve
 #        .toBeDefined()
-      expect $scope.edit
-        .toBeDefined()
-      expect $scope.delete
-        .toBeDefined()
+#      expect $scope.edit
+#        .toBeDefined()
+#      expect $scope.delete
+#        .toBeDefined()
       expect $scope.tooltips
         .toBeDefined()
       expect $scope.socialSharing
@@ -137,23 +137,23 @@ describe 'Proposal Show Controller Tests', ->
 #      expect $rootScope.authService.signinFb.calls.any()
 #        .toBe false
 
-    it 'should allow user to EDIT a proposal', ->
-#      $rootScope.currentUser =                                         # TODO: Add real tests for edit and delete
-#        id: 5
-      $scope.edit clicked_proposal
-
-      expect $rootScope.votingService.edit.calls.count()
-        .toEqual 1
-#      expect $rootScope.authService.signinFb.calls.any()
-#        .toBe false
-
-    it 'should allow user to DELETE a proposal', ->
-#      $rootScope.currentUser =
-#        id: 5
-      $scope.delete clicked_proposal
-
-      expect $rootScope.votingService.delete.calls.count()
-        .toEqual 1
-#      expect $rootScope.authService.signinFb.calls.any()
-#        .toBe false
+#    it 'should allow user to EDIT a proposal', ->
+##      $rootScope.currentUser =                                         # TODO: Add real tests for edit and delete
+##        id: 5
+#      $scope.edit clicked_proposal
+#
+#      expect $rootScope.votingService.edit.calls.count()
+#        .toEqual 1
+##      expect $rootScope.authService.signinFb.calls.any()
+##        .toBe false
+#
+#    it 'should allow user to DELETE a proposal', ->
+##      $rootScope.currentUser =
+##        id: 5
+#      $scope.delete clicked_proposal
+#
+#      expect $rootScope.votingService.delete.calls.count()
+#        .toEqual 1
+##      expect $rootScope.authService.signinFb.calls.any()
+##        .toBe false
 

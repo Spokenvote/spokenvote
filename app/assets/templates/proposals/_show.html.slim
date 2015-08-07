@@ -17,7 +17,7 @@
           button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='right'
             i.fa.fa-pencil
         span
-          button ng-click='delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right'
+          button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right'
             i.fa.fa-trash-o
 
     .col-xs-10.proposal_statement

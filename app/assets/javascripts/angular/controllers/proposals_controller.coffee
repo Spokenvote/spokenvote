@@ -60,11 +60,11 @@ ProposalShowCtrl = [ '$scope', '$location', 'proposal', 'relatedProposals', 'svU
 #      $scope.authService.signinFb($scope).then ->
 #        $scope.votingService.improve clicked_proposal
 
-  $scope.edit = ( clicked_proposal ) ->
-    $scope.votingService.edit $scope, clicked_proposal
-
-  $scope.delete = ( clicked_proposal ) ->
-    $scope.votingService.delete $scope, clicked_proposal
+#  $scope.edit = ( clicked_proposal ) ->
+#    $scope.votingService.edit $scope, clicked_proposal
+#
+#  $scope.delete = ( clicked_proposal ) ->
+#    $scope.votingService.delete $scope, clicked_proposal
 
   $scope.tooltips =
     support: "<h6><b>Support this proposal</b></h6><b>Supporting:</b> You may support only one proposal on this topic,
