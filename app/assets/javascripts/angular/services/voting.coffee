@@ -178,28 +178,28 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
         else switch
           when not $rootScope.sessionSettings.newProposal.parent_id  # new
+
+            if $rootScope.sessionSettings.hub_attributes.id          # existing hub
+              saveProposal()
+
+
             newProposal.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
             if $rootScope.sessionSettings.hub_attributes.id and not isNaN $rootScope.sessionSettings.hub_attributes.id
               newProposal.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
 
-            switch
-              when not $rootScope.sessionSettings.hub_attributes.id and
-                not $rootScope.sessionSettings.hub_attributes.formatted_location
+            if not $rootScope.sessionSettings.hub_attributes.id      # new hub
+              switch
+                when not $rootScope.sessionSettings.hub_attributes.formatted_location
                   $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
                   this.hubStep()
-                  return
-              when not $rootScope.sessionSettings.hub_attributes.id and
-                not $rootScope.sessionSettings.hub_attributes.group_name
+                when not $rootScope.sessionSettings.hub_attributes.group_name
                   $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
                   this.hubStep()
-                  return
-              when not $rootScope.sessionSettings.hub_attributes.id and
-                $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
+                when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
                   $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
                   this.hubStep()
-                  return
-              else
-                saveProposal()
+                else
+                  saveProposal()
 
           when $rootScope.sessionSettings.newProposal.parent_id      # fork
             saveProposal()
