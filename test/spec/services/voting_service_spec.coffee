@@ -771,10 +771,10 @@ describe 'Voting Service Tests', ->
               votes_attributes:
                 comment: 'A million reasons to vote for this guy!'
               hub_id: 12
-              hub_attributes:
-                id: 12
-                group_name: 'Some very fine Group Name'
-                formatted_location: 'Atlanta, GA'
+#              hub_attributes:
+#                id: 12
+#                group_name: 'Some very fine Group Name'
+#                formatted_location: 'Atlanta, GA'
 
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -1174,10 +1174,10 @@ describe 'Voting Service Tests', ->
               votes_attributes:
                 comment: 'A million reasons to vote for this guy!'
               hub_id: 12
-              hub_attributes:
-                id: 12
-                group_name: 'Some very fine Group Name'
-                formatted_location: 'Atlanta, GA'
+#              hub_attributes:
+#                id: 12
+#                group_name: 'Some very fine Group Name'
+#                formatted_location: 'Atlanta, GA'
 
           $rootScope.sessionSettings.actions.focus = 'comment'
 
