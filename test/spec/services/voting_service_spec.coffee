@@ -152,16 +152,16 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.target
-          .toBe clicked_proposal
-        expect $rootScope.sessionSettings.vote.related_existing
+        expect $rootScope.sessionSettings.newVote.votes_attributes.proposal_id
+          .toBe clicked_proposal.id
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing
           .toBe undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
       it 'should initialize support method with clean Session vote object', ->
 
-        $rootScope.sessionSettings.newProposal.testTrash = 'Trash should should get killed'
+        $rootScope.sessionSettings.newVote.testTrash = 'Trash should should get killed'
 
         VotingService.support clicked_proposal
 
@@ -171,7 +171,7 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newProposal.testTrash
+        expect $rootScope.sessionSettings.newVote.testTrash
           .toBe undefined
 
       it 'should invoke signinFb if user tries to SUPPORT a proposal and is not signed in', ->
@@ -194,7 +194,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND an existing vote from THIS user on THIS proposal', ->
         relatedSupport.proposal.id = 17
-        $rootScope.sessionSettings.vote.related_existing = null
+        $rootScope.sessionSettings.actions.newVoteDetails.related_existing = null
 
         VotingService.support clicked_proposal
 
@@ -213,7 +213,7 @@ describe 'Voting Service Tests', ->
 
       it 'should check and FIND related support, but NOT from this user on THIS proposal, then set values for voting', ->
 
-        expect $rootScope.sessionSettings.vote.related_existing
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing
           .toEqual undefined
 
         relatedSupport.proposal.id = 8
@@ -225,18 +225,18 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.target
-          .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.vote.related_existing.proposal
+        expect $rootScope.sessionSettings.newVote.votes_attributes.proposal_id
+          .toBe clicked_proposal.id
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing.proposal
           .toBeDefined()
-        expect $rootScope.sessionSettings.vote.related_existing.proposal.id
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing.proposal.id
           .toEqual 8
         expect $rootScope.alertService.setInfo.calls.mostRecent().args[0]
           .toContain 'We found support from you on another proposal.'
 
       it 'should check and find NO related support from this user on this proposal, then set values for voting', ->
 
-        expect $rootScope.sessionSettings.vote.related_existing
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing
           .toBeUndefined()
 
         VotingService.support clicked_proposal
@@ -247,9 +247,9 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.target
-          .toEqual clicked_proposal
-        expect $rootScope.sessionSettings.vote.related_existing
+        expect $rootScope.sessionSettings.newVote.votes_attributes.proposal_id
+          .toBe clicked_proposal.id
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing
           .toBeUndefined()
 
       it 'should open Support area', ->
@@ -262,10 +262,12 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.vote.parent
+        expect $rootScope.sessionSettings.actions.newVoteDetails.parent
           .toEqual undefined
-        expect $rootScope.sessionSettings.vote.target
-          .toEqual clicked_proposal
+        expect $rootScope.sessionSettings.newVote.votes_attributes.proposal_id
+          .toBe clicked_proposal.id
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual 'comment'
 
 
     describe 'IMPROVE method should make checks and open IMPROVE area', ->
@@ -280,27 +282,27 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newProposal.parent_id
+        expect $rootScope.sessionSettings.newVote.parent_id
           .toEqual clicked_proposal.id
-        expect $rootScope.sessionSettings.vote.related_existing
+        expect $rootScope.sessionSettings.actions.newVoteDetails.related_existing
           .toEqual undefined
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
 
-      it 'should initialize improve method with clean Session vote object', ->
-
-        $rootScope.sessionSettings.vote.extraTrashObject = testTrash
-
-        VotingService.improve clicked_proposal
-
-        $httpBackend
-          .expectGET '/proposals/17/related_vote_in_tree'
-          .respond null
-
-        $httpBackend.flush()
-
-        expect $rootScope.sessionSettings.vote.extraTrashObject
-          .toBe undefined
+#      it 'should initialize improve method with clean Session vote object', ->
+#
+#        $rootScope.sessionSettings.actions.newVoteDetails.extraTrashObject = testTrash
+#
+#        VotingService.improve clicked_proposal
+#
+#        $httpBackend
+#          .expectGET '/proposals/17/related_vote_in_tree'
+#          .respond null
+#
+#        $httpBackend.flush()
+#
+#        expect $rootScope.sessionSettings.actions.newVoteDetails.extraTrashObject
+#          .toBe undefined
 
       it 'should allow signed in Fb user to IMPROVE a proposal', ->
         $rootScope.currentUser =
@@ -370,9 +372,9 @@ describe 'Voting Service Tests', ->
 
         $httpBackend.flush()
 
-        expect $rootScope.sessionSettings.newProposal.parent_id
+        expect $rootScope.sessionSettings.newVote.parent_id
           .toEqual clicked_proposal.id
-        expect $rootScope.sessionSettings.vote.target
+        expect $rootScope.sessionSettings.actions.newVoteDetails.target
           .toEqual undefined
 
 
@@ -381,7 +383,7 @@ describe 'Voting Service Tests', ->
       it 'should initialize EDIT method', ->
         VotingService.edit clicked_proposal
 
-        expect $rootScope.sessionSettings.newProposal
+        expect $rootScope.sessionSettings.newVote
           .toEqual newProposal
 
       it 'should invoke sign-in warning if user manages to somehow get here to EDIT a proposal and is not signed in', ->
@@ -467,7 +469,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.hub_attributes =
           full_hub:'Some great hub'
-        $rootScope.sessionSettings.newProposal =
+        $rootScope.sessionSettings.newVote =
           statement: 'An awesome new proposal. Vote for it!'
 
         spyOn VotingService, 'commentStep'
@@ -488,7 +490,7 @@ describe 'Voting Service Tests', ->
 
         $rootScope.sessionSettings.hub_attributes =
           full_hub:'Some great hub'
-        $rootScope.sessionSettings.newProposal = {}
+        $rootScope.sessionSettings.newVote = {}
 
         spyOn VotingService, 'commentStep'
           .and.callThrough()
@@ -511,7 +513,7 @@ describe 'Voting Service Tests', ->
       it 'should check for and detect MISSING newProposal statement', ->
 
         $rootScope.sessionSettings.hub_attributes = null
-        $rootScope.sessionSettings.newProposal =
+        $rootScope.sessionSettings.newVote =
           statement: 'An awesome new proposal. Vote for it!'
 
         spyOn VotingService, 'commentStep'
@@ -534,7 +536,7 @@ describe 'Voting Service Tests', ->
     describe 'saveNewProposal method should SAVE New Vote', ->
 
       it 'should clear alerts', ->
-        $rootScope.sessionSettings.newProposal = newProposal
+        $rootScope.sessionSettings.newVote = newProposal
 
         $rootScope.sessionSettings.hub_attributes =
           id: null
@@ -554,7 +556,7 @@ describe 'Voting Service Tests', ->
         $rootScope.sessionSettings.hub_attributes =
           id: 12
 
-        $rootScope.sessionSettings.newProposal =
+        $rootScope.sessionSettings.newVote =
           statement: 'An awesome new proposal. Vote for it!'
 
         response =
@@ -591,7 +593,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -620,7 +622,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
             comment: 'An'
           $rootScope.sessionSettings.actions.focus = 'comment'
@@ -650,7 +652,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -676,7 +678,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: null
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -704,7 +706,7 @@ describe 'Voting Service Tests', ->
             group_name: null
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -732,7 +734,7 @@ describe 'Voting Service Tests', ->
             group_name: 'ma'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -760,7 +762,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: 'A million reasons to vote for this guy!'
@@ -805,7 +807,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: 'A million reasons to vote for this guy!'
@@ -852,7 +854,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
@@ -870,7 +872,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
@@ -895,7 +897,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: undefined
@@ -919,7 +921,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.hub_attributes =
             id: 12
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
 
           response =
@@ -950,7 +952,7 @@ describe 'Voting Service Tests', ->
             .toContain 'has been saved'
           expect $rootScope.sessionSettings.actions.offcanvas
             .toEqual false
-          expect $rootScope.sessionSettings.newProposal
+          expect $rootScope.sessionSettings.newVote
             .toEqual {}
 
 
@@ -958,7 +960,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.hub_attributes =
             id: 12
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
 
           response =
@@ -986,7 +988,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             parent_id: 445
             statement: 'An'
 
@@ -1017,7 +1019,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             parent_id: 445
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
@@ -1051,7 +1053,7 @@ describe 'Voting Service Tests', ->
 #            group_name: 'Some very fine Group Name'
 #            formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             parent_id: 445
             statement: 'An awesome new proposal. Vote for it!'
 
@@ -1079,7 +1081,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: null
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -1107,7 +1109,7 @@ describe 'Voting Service Tests', ->
             group_name: null
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -1135,7 +1137,7 @@ describe 'Voting Service Tests', ->
             group_name: 'ma'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
           $rootScope.sessionSettings.actions.focus = 'comment'
 
@@ -1163,7 +1165,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: 'A million reasons to vote for this guy!'
@@ -1208,7 +1210,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: 'A million reasons to vote for this guy!'
@@ -1255,7 +1257,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
@@ -1273,7 +1275,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             comment: 'A million reasons to vote for this guy!'
 
@@ -1298,7 +1300,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
             votes_attributes:
               comment: undefined
@@ -1322,7 +1324,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.hub_attributes =
             id: 12
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
 
           response =
@@ -1353,7 +1355,7 @@ describe 'Voting Service Tests', ->
             .toContain 'has been saved'
           expect $rootScope.sessionSettings.actions.offcanvas
             .toEqual false
-          expect $rootScope.sessionSettings.newProposal
+          expect $rootScope.sessionSettings.newVote
             .toEqual {}
 
 
@@ -1361,7 +1363,7 @@ describe 'Voting Service Tests', ->
           $rootScope.sessionSettings.hub_attributes =
             id: 12
 
-          $rootScope.sessionSettings.newProposal =
+          $rootScope.sessionSettings.newVote =
             statement: 'An awesome new proposal. Vote for it!'
 
           response =
@@ -1385,9 +1387,9 @@ describe 'Voting Service Tests', ->
 
         it 'should check for Proposal UPDATING and set newProposal.id flag for Update', ->
 
-          $rootScope.sessionSettings.newProposal = newProposal
+          $rootScope.sessionSettings.newVote = newProposal
 
-#          $rootScope.sessionSettings.newProposal = newProposal
+#          $rootScope.sessionSettings.newVote = newProposal
 #            id: newProposal.id
 #            statement: newProposal.statement
 #            votes_attributes:
@@ -1428,7 +1430,7 @@ describe 'Voting Service Tests', ->
             group_name: 'Some very fine Group Name'
             formatted_location: 'Atlanta, GA'
 
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
             comment: 'Nice long vote comment'
           $rootScope.sessionSettings.actions.focus = 'comment'
@@ -1454,7 +1456,7 @@ describe 'Voting Service Tests', ->
 
         it 'should check for NO Vote COMMENT and save vote', ->
 
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           $rootScope.sessionSettings.actions.focus = 'comment'
@@ -1479,7 +1481,7 @@ describe 'Voting Service Tests', ->
 #            .toEqual null
 
         it 'should pass correct args to the SAVE New Vote', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           $rootScope.sessionSettings.actions.focus = 'comment'
@@ -1512,7 +1514,7 @@ describe 'Voting Service Tests', ->
             .toEqual null
 
         it 'should POST and respond with 201', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           VotingService.saveNewProposal()
@@ -1524,7 +1526,7 @@ describe 'Voting Service Tests', ->
           $httpBackend.flush()
 
         it 'ALERT the New Vote was saved', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           VotingService.saveNewProposal()
@@ -1545,7 +1547,7 @@ describe 'Voting Service Tests', ->
             .toEqual null
 
         it 'should allow COMMENTLESS VOTING and save New Vote with undefined comment', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           VotingService.saveNewProposal()
@@ -1566,7 +1568,7 @@ describe 'Voting Service Tests', ->
             .toEqual null
 
         it 'save the New Vote and execute correct SUCCESS callback', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           response =
@@ -1596,11 +1598,11 @@ describe 'Voting Service Tests', ->
             .toContain 'has been saved'
           expect $rootScope.sessionSettings.actions.offcanvas
             .toEqual false
-          expect $rootScope.sessionSettings.newProposal
+          expect $rootScope.sessionSettings.newVote
             .toEqual {}
 
         it 'should save the New Vote and navigate to the correct LOCATION', ->
-          $rootScope.sessionSettings.newProposal.votes_attributes =
+          $rootScope.sessionSettings.newVote.votes_attributes =
             proposal_id: 123
 
           response =

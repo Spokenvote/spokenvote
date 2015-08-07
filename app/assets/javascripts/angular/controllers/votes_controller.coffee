@@ -1,39 +1,39 @@
-SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
-  $scope.alertService.clearAlerts()
-  $scope.vote = {}
-
-  $scope.saveSupport = ->
-    $scope.alertService.clearAlerts()
-    $scope.vote.proposal_id = $scope.sessionSettings.vote.target.id
-
-    vote = Vote.save(
-      $scope.vote
-      , ( response, status, headers, config ) ->
-        $rootScope.$broadcast 'event:votesChanged'
-        responseMessage = undefined
-        if response.comment is null
-          responseMessage = "Your vote was recorded without a comment"
-        else
-          responseMessage = "Your vote was created with the comment: \"#{response.comment}\""
-        $scope.alertService.setSuccess responseMessage, $scope, 'main'
-        $scope.sessionSettings.vote = {}
-        $location.path("/proposals/" + response.proposal_id).hash "prop" + response.proposal_id
-      , ( response, status, headers, config ) ->
-        $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'main'
-        $scope.alertService.setJson response.data
-    )
-]
+#SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $location, $rootScope, Vote ) ->
+#  $scope.alertService.clearAlerts()
+#  $scope.vote = {}
+#
+#  $scope.saveSupport = ->
+#    $scope.alertService.clearAlerts()
+#    $scope.vote.proposal_id = $scope.sessionSettings.actions.newVoteDetails.target.id
+#
+#    vote = Vote.save(
+#      $scope.vote
+#      , ( response, status, headers, config ) ->
+#        $rootScope.$broadcast 'event:votesChanged'
+#        responseMessage = undefined
+#        if response.comment is null
+#          responseMessage = "Your vote was recorded without a comment"
+#        else
+#          responseMessage = "Your vote was created with the comment: \"#{response.comment}\""
+#        $scope.alertService.setSuccess responseMessage, $scope, 'main'
+#        $scope.sessionSettings.actions.newVoteDetails = {}
+#        $location.path("/proposals/" + response.proposal_id).hash "prop" + response.proposal_id
+#      , ( response, status, headers, config ) ->
+#        $scope.alertService.setCtlResult 'Sorry, your vote to support this proposal was not counted.', $scope, 'main'
+#        $scope.alertService.setJson response.data
+#    )
+#]
 
 #ImproveController = [ '$scope', '$location', 'Proposal', ( $scope, $location, Proposal ) ->
 #  $scope.alertService.clearAlerts()
 ##  $scope.improvedProposal =
-##    statement: $scope.sessionSettings.vote.parent.statement  # TODO Obolete, may be deleted.
+##    statement: $scope.sessionSettings.actions.newVoteDetails.parent.statement  # TODO Obolete, may be deleted.
 #
 #  $scope.saveImprovement = ->
 #    $scope.alertService.clearAlerts()
 #    improvedProposal =
 #      proposal:
-#        parent_id: $scope.sessionSettings.vote.parent.id
+#        parent_id: $scope.sessionSettings.actions.newVoteDetails.parent.id
 #        statement: $scope.improvedProposal.statement
 #        votes_attributes:
 #          comment: $scope.improvedProposal.comment
@@ -43,7 +43,7 @@ SupportController = [ '$scope', '$location', '$rootScope', 'Vote', ( $scope, $lo
 #      ),  (( response, status, headers, config ) ->
 #        $location.path( '/proposals/' + response.id )
 #        $scope.alertService.setSuccess 'Your improved proposal stating: \"' + response.statement + '\" was created.', $scope, 'main'
-#        $scope.sessionSettings.vote = {}
+#        $scope.sessionSettings.actions.newVoteDetails = {}
 #      ),  ( response, status, headers, config ) ->
 #        $scope.alertService.setCtlResult 'Sorry, your improved proposal was not saved.', $scope, 'main'
 #        $scope.alertService.setJson response.data

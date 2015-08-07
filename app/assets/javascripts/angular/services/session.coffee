@@ -124,6 +124,7 @@ SessionSettings = ->
       commentStepText: ''
     newProposal: {}
     newProposalHub: null
+    newVoteDetails: {}
     offcanvas: false
     selectHub: false
     userFilter: null
@@ -136,14 +137,14 @@ SessionSettings = ->
 #    supportProposal: false
 #    improveProposal: false
 #    newProposal: false
-    editProposal: false
+#    editProposal: false
     deleteProposal: false
 #    getStarted: false
   proposal: null
-  vote: {}
+#  vote: {}
   searchedHub: {}
   routeParams: {}
-  newProposal: {}
+  newVote: {}
 #  newSupport:
 #    related: null
 #    target: null

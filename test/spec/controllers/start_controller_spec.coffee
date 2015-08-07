@@ -53,16 +53,16 @@ describe 'StartController Tests', ->
 #        .toBeDefined()
 #      expect $scope.finishProp
 #        .toBeDefined()
-      expect $scope.sessionSettings.newProposal
+      expect $scope.sessionSettings.newVote
         .toEqual {}
 
-    it 'sessionSettings.newProposal.parent_id should be undefined', ->
-      $scope.sessionSettings.newProposal.parent_id = 156
+    it 'sessionSettings.newVote.parent_id should be undefined', ->
+      $scope.sessionSettings.newVote.parent_id = 156
 
       $controller 'StartController',
         $scope: $scope
 
-      expect $rootScope.sessionSettings.newProposal.parent_id
+      expect $rootScope.sessionSettings.newVote.parent_id
         .toBeUndefined()
 
 #    it 'StartController should focus proposal statement', ->

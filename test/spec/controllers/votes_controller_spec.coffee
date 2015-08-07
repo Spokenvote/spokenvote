@@ -86,12 +86,12 @@ describe 'Proposal Votes Controllers Tests', ->
 #        ctrl = $controller 'SupportController',
 #          $scope: $scope
 
-        $scope.sessionSettings.vote =
+        $scope.sessionSettings.actions.newVoteDetails =
           target: clicked_proposal
 
 #      it 'should initialize properly', ->
 #
-#        expect $scope.sessionSettings.vote.related_existing
+#        expect $scope.sessionSettings.actions.newVoteDetails.related_existing
 #          .toEqual undefined
 #        expect $scope.alertService.clearAlerts.calls.count()
 #          .toEqual 1
@@ -221,7 +221,7 @@ describe 'Proposal Votes Controllers Tests', ->
 #
 #        $httpBackend.flush()
 #
-#        expect $scope.sessionSettings.vote
+#        expect $scope.sessionSettings.actions.newVoteDetails
 #          .toEqual {}
 #
 #      it 'should navigate to new proposal while saving Support', ->
@@ -274,7 +274,7 @@ describe 'Proposal Votes Controllers Tests', ->
 #      beforeEach inject ( _$controller_, _Proposal_ ) ->
 #        $controller = _$controller_
 #        Proposal = _Proposal_
-#        $scope.sessionSettings.vote =
+#        $scope.sessionSettings.actions.newVoteDetails =
 #          parent: clicked_proposal
 #        ctrl = $controller 'ImproveController',
 #          $scope: $scope
@@ -387,7 +387,7 @@ describe 'Proposal Votes Controllers Tests', ->
 #
 #        $httpBackend.flush()
 #
-#        expect $scope.sessionSettings.vote
+#        expect $scope.sessionSettings.actions.newVoteDetails
 #          .toEqual {}
 #
 #      it 'should navigate to new Improved Proposal after saving Support', ->
