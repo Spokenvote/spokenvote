@@ -204,31 +204,36 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #      $rootScope.sessionSettings.newVote.votes_attributes =
 #        comment: undefined            # Needed for Commentless Voting
 
-  deleteVote: ( close )->
+  deleteVote: ( close ) ->
 #    $rootScope.sessionSettings.deleteVote = $rootScope.clicked_proposal
+    $rootScope.alertService.clearAlerts()
 
     if $rootScope.sessionSettings.deleteVote.votes.length > 1
       $rootScope.alertService.setCtlResult "We found support from other users on your proposal. You can no longer delete your proposal, but you can Improve it if you'd like to make a different proposal.", $rootScope
+    else
 
-    saveSuccess = (response, status, headers, config) ->
-#      $rootScope.$broadcast 'event:proposalsChanged'
-#      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update
-      $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
-      $rootScope.sessionSettings.actions.offcanvas = false
-      $rootScope.sessionSettings.actions.focus = null
-      close(response)
-      $location
-        .path '/proposals'
-        .search 'filter', 'my'
-#        .search 'hub', $rootScope.sessionSettings.deleteVote.hub_id
-#        .hash 'navigationBar'
-      $rootScope.sessionSettings.deleteVote = null
+      deleteVote =
+        id: $rootScope.sessionSettings.deleteVote.id
 
-    saveFail = (response, status, headers, config) ->
-      $rootScope.alertService.setCtlResult 'Sorry, your proposal could not be deleted.', $rootScope
-      $rootScope.alertService.setJson response.data
+      saveSuccess = (response, status, headers, config) ->
+  #      $rootScope.$broadcast 'event:proposalsChanged'
+  #      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update
+        $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
+        $rootScope.sessionSettings.actions.offcanvas = false
+        $rootScope.sessionSettings.actions.focus = null
+#        close(response)
+        $location
+          .path '/proposals'
+          .search 'filter', 'my'
+  #        .search 'hub', $rootScope.sessionSettings.deleteVote.hub_id
+  #        .hash 'navigationBar'
+        $rootScope.sessionSettings.deleteVote = null
 
-    Proposal.delete $rootScope.sessionSettings.deleteVote, saveSuccess, saveFail
+      saveFail = (response, status, headers, config) ->
+        $rootScope.alertService.setCtlResult 'Sorry, your proposal could not be deleted.', $rootScope
+        $rootScope.alertService.setJson response.data
+
+      Proposal.delete deleteVote, saveSuccess, saveFail
 
 ]
 
