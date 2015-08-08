@@ -1651,6 +1651,8 @@ describe 'Voting Service Tests', ->
         it 'should check for OTHER SUPPORTERS and PASS if it finds just the original vote', ->
 
           $rootScope.sessionSettings.deleteVote =
+            id: 73
+            statement: 'An awesome new proposal. Vote for it!'
             votes:
               [{
                 proposal_id: 124
@@ -1676,6 +1678,7 @@ describe 'Voting Service Tests', ->
 
           $rootScope.sessionSettings.deleteVote =
             id: 73
+            statement: 'An awesome new proposal. Vote for it!'
             votes:
               [{
                 proposal_id: 124
@@ -1701,109 +1704,105 @@ describe 'Voting Service Tests', ->
           expect $rootScope.sessionSettings.actions.focus
             .toEqual null
 
-#        it 'should POST and respond with 201', ->
-#          $rootScope.sessionSettings.newVote.votes_attributes =
-#            proposal_id: 123
-#
-#          VotingService.saveVote()
-#
-#          $httpBackend
-#            .expectPOST '/votes'
-#            .respond 201
-#
-#          $httpBackend.flush()
-#
-#        it 'ALERT the New Vote was saved', ->
-#          $rootScope.sessionSettings.newVote.votes_attributes =
-#            proposal_id: 123
-#
-#          VotingService.saveVote()
-#
-#          $httpBackend
-#            .expectPOST '/votes'
-#            .respond 201
-#
-#          $httpBackend.flush()
-#
-#          expect $rootScope.alertService.clearAlerts.calls.count()
-#            .toEqual 1
-#          expect $rootScope.alertService.setCtlResult.calls.count()
-#            .toEqual 0
-#          expect $rootScope.alertService.setSuccess.calls.count()
-#            .toEqual 1
-#          expect $rootScope.sessionSettings.actions.focus
-#            .toEqual null
+        it 'delete the Vote and execute correct SUCCESS callback', ->
 
-#        it 'should allow COMMENTLESS VOTING and save New Vote with undefined comment', ->
-#          $rootScope.sessionSettings.newVote.votes_attributes =
-#            proposal_id: 123
-#
-#          VotingService.saveVote()
-#
-#          $httpBackend
-#            .expectPOST '/votes'
-#            .respond 201
-#
-#          $httpBackend.flush()
-#
-#          expect $rootScope.alertService.clearAlerts.calls.count()
-#            .toEqual 1
-#          expect $rootScope.alertService.setCtlResult.calls.count()
-#            .toEqual 0
-#          expect $rootScope.alertService.setSuccess.calls.count()
-#            .toEqual 1
-#          expect $rootScope.sessionSettings.actions.focus
-#            .toEqual null
-#
-#        it 'save the New Vote and execute correct SUCCESS callback', ->
-#          $rootScope.sessionSettings.newVote.votes_attributes =
-#            proposal_id: 123
-#
-#          response =
-#            proposal_id: 627
-#            comment: 'A million reasons to vote for this guy!'
-#
-#          spyOn Vote, 'save'
-#            .and.callThrough()
-#
-#          VotingService.saveVote()
-#
-#          $httpBackend
-#            .expectPOST '/votes'
-#            .respond 201, response
-#
-#          $httpBackend.flush()
-#
-#          expect Vote.save
-#            .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+          $rootScope.sessionSettings.deleteVote =
+            id: 73
+            statement: 'An awesome new proposal. Vote for it!'
+            votes:
+              [{
+                proposal_id: 124
+                comment: 'Second user vote'
+              }]
+
+          spyOn Proposal, 'delete'
+            .and.callThrough()
+
+          VotingService.deleteVote()
+
+          $httpBackend
+            .expectDELETE '/proposals/73'
+            .respond 200
+
+          $httpBackend.flush()
+
+          expect Proposal.delete
+            .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
 #          expect $rootScope.$broadcast
 #            .toHaveBeenCalledWith 'event:proposalsChanged'
 #          expect $rootScope.$broadcast
 #            .toHaveBeenCalledWith 'event:votesChanged'
-#          expect $rootScope.alertService.setSuccess.calls.count()
-#            .toEqual 1
-#          expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-#            .toContain 'has been saved'
-#          expect $rootScope.sessionSettings.actions.offcanvas
-#            .toEqual false
-#          expect $rootScope.sessionSettings.newVote
-#            .toEqual {}
-#
-#        it 'should save the New Vote and navigate to the correct LOCATION', ->
-#          $rootScope.sessionSettings.newVote.votes_attributes =
-#            proposal_id: 123
-#
-#          response =
-#            proposal_id: 627
-#            comment: 'A million reasons to vote for this guy!'
-#
-#          VotingService.saveVote()
-#
-#          $httpBackend
-#            .expectPOST '/votes'
-#            .respond 201, response
-#
-#          $httpBackend.flush()
-#
-#          expect $location.url()
-#            .toEqual '/proposals/627?filter=my#navigationBar'
+          expect $rootScope.alertService.setSuccess.calls.count()
+            .toEqual 1
+          expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+            .toContain 'Your proposal stating: \"' + 'An awesome new proposal. Vote for it!' + '\" was deleted.'
+          expect $rootScope.sessionSettings.actions.offcanvas
+            .toEqual false
+          expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
+          expect $rootScope.sessionSettings.deleteVote
+          .toEqual null
+
+        it 'delete success callback should change LOCATION', ->
+
+          $rootScope.sessionSettings.deleteVote =
+            id: 73
+            statement: 'An awesome new proposal. Vote for it!'
+            hub_id: 41
+            votes:
+              [{
+                proposal_id: 124
+                comment: 'Second user vote'
+              }]
+
+          spyOn Proposal, 'delete'
+            .and.callThrough()
+
+          VotingService.deleteVote()
+
+          $httpBackend
+            .expectDELETE '/proposals/73'
+            .respond 200
+
+          $httpBackend.flush()
+
+          expect $location.url()
+            .toEqual '/proposals?filter=my&hub=41#navigationBar'
+
+
+      it 'delete the Vote and execute correct FAILURE callback and ALERTS', ->
+
+        $rootScope.sessionSettings.deleteVote =
+          id: 73
+          statement: 'An awesome new proposal. Vote for it!'
+          hub_id: 41
+          votes:
+            [{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
+
+        response =
+          data: 'There was a server error!'
+
+        spyOn Proposal, 'delete'
+          .and.callThrough()
+
+        VotingService.deleteVote()
+
+        $httpBackend
+          .expectDELETE '/proposals/73'
+          .respond 422, response
+
+        $httpBackend.flush()
+
+        expect Proposal.delete
+          .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry'
+        expect $rootScope.alertService.setJson.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setJson.calls.mostRecent().args[0]
+          .toEqual response

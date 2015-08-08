@@ -225,8 +225,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $location
           .path '/proposals'
           .search 'filter', 'my'
-  #        .search 'hub', $rootScope.sessionSettings.deleteVote.hub_id
-  #        .hash 'navigationBar'
+          .search 'hub', $rootScope.sessionSettings.deleteVote.hub_id
+          .hash 'navigationBar'
         $rootScope.sessionSettings.deleteVote = null
 
       saveFail = (response, status, headers, config) ->
