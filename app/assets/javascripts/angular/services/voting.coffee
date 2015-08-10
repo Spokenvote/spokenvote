@@ -221,7 +221,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
         $rootScope.sessionSettings.actions.offcanvas = false
         $rootScope.sessionSettings.actions.focus = null
-        close(response)
+#        close(response)
         $location
           .path( '/proposals' )
           .search( 'filter', 'my' )

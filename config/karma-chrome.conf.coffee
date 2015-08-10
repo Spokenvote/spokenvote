@@ -37,11 +37,6 @@ module.exports = (config) ->
       'test/**/*spec.coffee'
     ]
 
-# list of files to exclude
-    exclude: [
-#      'test/spec/services/voting_service_spec.coffee'
-    ]
-
     coffeePreprocessor:
       options:
         sourceMap: true
@@ -50,17 +45,19 @@ module.exports = (config) ->
       "app/assets/javascripts/angular/**/*.coffee": 'coffee'
       "test/**/*.coffee": 'coffee'
 
-    coverageReporter:
-      type: 'html'
-      dir: 'coverage/'
-      instrumenters:
-        ibrik: require 'ibrik'
-
-      instrumenter:
-        "**/*.coffee": 'ibrik'
+#    coverageReporter:
+#      type: 'html'
+#      dir: 'coverage/'
+#      instrumenters:
+#        ibrik: require 'ibrik'
+#
+#      instrumenter:
+#        "**/*.coffee": 'ibrik'
 
     reporters: [ "progress", "coverage" ]
     colors: true
     logLevel: config.LOG_DEBUG
-#    autoWatch: true
-#    browsers: [ "Chrome" ]
+
+#    port: 9875
+
+    browsers: [ "Chrome" ]

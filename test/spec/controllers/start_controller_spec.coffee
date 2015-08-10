@@ -12,11 +12,13 @@ describe 'StartController Tests', ->
     $rootScope = undefined
     $scope = undefined
     $controller = undefined
+    svUtility = undefined
 #    Focus = undefined
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _svUtility_) ->
       $rootScope = _$rootScope_
       $rootScope.sessionSettings = _SessionSettings_
+      svUtility = _svUtility_
       #      $location = _$location_
       #      VotingService = _VotingService_
       #      Proposal = _Proposal_
