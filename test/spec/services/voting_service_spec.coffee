@@ -1639,7 +1639,7 @@ describe 'Voting Service Tests', ->
 #          spyOn Proposal, 'update'
 #          spyOn Vote, 'save'
 
-          VotingService.deleteVote()
+          VotingService.deleteVote( close )
 
           expect $rootScope.alertService.clearAlerts.calls.count()
             .toEqual 1
@@ -1687,11 +1687,12 @@ describe 'Voting Service Tests', ->
 
           spyOn Proposal, 'delete'
             .and.callThrough()
+          close = jasmine.createSpy 'close'
 
           expectedProposalSaveArgs =
             id: 73
 
-          VotingService.deleteVote()
+          VotingService.deleteVote close
 
           $httpBackend
             .expectDELETE '/proposals/73'
@@ -1717,8 +1718,9 @@ describe 'Voting Service Tests', ->
 
           spyOn Proposal, 'delete'
             .and.callThrough()
+          close = jasmine.createSpy 'close'
 
-          VotingService.deleteVote()
+          VotingService.deleteVote close
 
           $httpBackend
             .expectDELETE '/proposals/73'
@@ -1757,8 +1759,9 @@ describe 'Voting Service Tests', ->
 
           spyOn Proposal, 'delete'
             .and.callThrough()
+          close = jasmine.createSpy 'close'
 
-          VotingService.deleteVote()
+          VotingService.deleteVote close
 
           $httpBackend
             .expectDELETE '/proposals/73'
