@@ -1,13 +1,13 @@
 #deleteProposalModal
   .modal-header
-    /.pull-right class='close' ng-click='$close()'  &times;
-    h3.modal-title Deleting Proposal!
-    /.selectedHub
+    .pull-right class='close' ng-click='$close()'  &times;
+    h2.modal-title Delete Proposal
+    .selectedHub
       span
         .groupName {{ sessionSettings.deleteVote.hub.group_name }}
         .groupLocation {{ sessionSettings.deleteVote.hub.formatted_location }}
 
-  /.modal-body
+  .modal-body
     #alertContainer
       .modalAlert
          alert-bar alertmessageclear='alertService.alertClass' ng-show='alertService.alertDestination=="modal"' alert-bar
@@ -26,5 +26,5 @@
     fieldset
       .form-group
         .controls
-          button ng-click='votingService.deleteVote($close)' class='btn btn-primary btn-sm' Delete
-          button ng-click='$close()' class='btn btn-warning btn-sm' Cancel
+          button ng-click='$close()' class='btn btn-bold'  Cancel
+          button ng-click='votingService.deleteVote($close)' class='btn btn-danger btn-bold'  Delete my proposal

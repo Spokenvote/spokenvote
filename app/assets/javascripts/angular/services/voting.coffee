@@ -82,10 +82,10 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
     else
       if $rootScope.sessionSettings.openModals.deleteProposal is false
+
         modalInstance = $modal.open
           templateUrl: 'proposals/_delete_proposal_modal.html'
-#          controller: 'DeleteProposalCtrl'
-#          scope: $rootScope       # Optional to pass the scope here?
+          size: 'sm'
         modalInstance.opened.then ->
           $rootScope.sessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
@@ -221,7 +221,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
         $rootScope.sessionSettings.actions.offcanvas = false
         $rootScope.sessionSettings.actions.focus = null
-        close(response)
+        close response
         $location
           .path( '/proposals' )
           .search( 'filter', 'my' )

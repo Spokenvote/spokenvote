@@ -1,58 +1,73 @@
 
 // Modal Elements
 
-.dialog-sm {
-  .modal-dialog {
-//    max-width: 200px;
-  }
-}
+//.dialog-sm {
+//  .modal-dialog {
+////    max-width: 200px;
+//  }
+//}
 
-.modal-dialog {
-  @media (max-width: $grid-float-breakpoint-max) {
-    margin: 5px;
-  }
-}
+//.modal-dialog {
 
-.modal-header {
-  @media (max-width: $grid-float-breakpoint-max) {
-    padding-top: 0;
-    .close {
-      padding: 5px 1px;
-    }
-  }
-  h2 {
-    color: $happy-blue;
-    font-size: 2em;
-    font-weight: bold;
-  }
-  .selectedHub {
-    font-family: $logoTypeFace;
-    color: $basic-brown !important;
-    text-align: right;
-    text-decoration: none;
-    margin-top: -10px;
-    @media (max-width: $grid-float-breakpoint-max) {
-      margin-top: -5px;
-    }
-    .groupName {
-      font-size: 27px;
-      margin-right: 3px;
-      i {
-        font-size: 14px;
-      }
-    }
-    .groupLocation {
-      font-size: 14px;
-      margin-top: -4px;
-      margin-bottom: -6px;
-      margin-right: 3px;
-    }
-    :hover {
-      color: $happy-blue;
-      cursor: pointer;
-    }
-  }
-}
+  //@media (max-width: $grid-float-breakpoint-max) {
+  //  margin: 5px;
+  //}
+  //max-width: $mobile-all-setting * .75;
+  //text-align: center;
+  ////margin: 0;
+  ////padding: 20px;
+  ////min-height: 55px;
+  ////.pull-left {
+  ////  text-align: left;
+  ////}
+  //.btn {
+  //  margin: auto 20px;
+  //  @media (max-width: $screen-phone) {
+  //    margin: auto 10px;
+  //  }
+  //}
+//}
+
+//.modal-header {
+//  //@media (max-width: $grid-float-breakpoint-max) {
+//  //  padding-top: 0;
+//  //  .close {
+//  //    padding: 5px 1px;
+//  //  }
+//  //}
+//  h2 {
+//    color: $happy-blue;
+//    font-size: 2em;
+//    font-weight: bold;
+//  }
+  //.selectedHub {
+  //  font-family: $logoTypeFace;
+  //  color: $basic-brown !important;
+  //  text-align: right;
+  //  text-decoration: none;
+  //  margin-top: -10px;
+  //  @media (max-width: $grid-float-breakpoint-max) {
+  //    margin-top: -5px;
+  //  }
+  //  .groupName {
+  //    font-size: 27px;
+  //    margin-right: 3px;
+  //    i {
+  //      font-size: 14px;
+  //    }
+  //  }
+  //  .groupLocation {
+  //    font-size: 14px;
+  //    margin-top: -4px;
+  //    margin-bottom: -6px;
+  //    margin-right: 3px;
+  //  }
+  //  :hover {
+  //    color: $happy-blue;
+  //    cursor: pointer;
+  //  }
+  //}
+//}
 
 .modal-body {
   background-color: $modal-body-off-white;
@@ -79,12 +94,12 @@
 }
 
 .modal-footer {
-  margin: 0;
-  padding: 20px;
-  min-height: 55px;
-  .pull-left {
-    text-align: left;
-  }
+  //margin: 0;
+  //padding: 20px;
+  //min-height: 55px;
+  //.pull-left {
+  //  text-align: left;
+  //}
 }
 
 // Depreciated

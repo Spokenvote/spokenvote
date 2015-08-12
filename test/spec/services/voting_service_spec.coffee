@@ -424,6 +424,7 @@ describe 'Voting Service Tests', ->
 
         openModalArgs =
           templateUrl: 'proposals/_delete_proposal_modal.html'
+          size: 'sm'
 #          controller: 'DeleteProposalCtrl'
 #          scope: scope
 
@@ -1718,7 +1719,7 @@ describe 'Voting Service Tests', ->
 
           spyOn Proposal, 'delete'
             .and.callThrough()
-          close = jasmine.createSpy 'close'
+          close = jasmine.createSpy
 
           VotingService.deleteVote close
 
@@ -1759,7 +1760,7 @@ describe 'Voting Service Tests', ->
 
           spyOn Proposal, 'delete'
             .and.callThrough()
-          close = jasmine.createSpy 'close'
+          jasmine.createSpy 'close'
 
           VotingService.deleteVote close
 

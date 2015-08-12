@@ -3,23 +3,24 @@
   .main-proposal.row id='prop{{ proposal.id }}' ng-hide='sessionSettings.newVote.id === proposal.id'
     .col-xs-2
       .improve_support_buttons
-        .votes.box ng-click='votingService.support(proposal)' tooltip-html-unsafe='{{tooltips.support}}' tooltip-placement='right'
+        /.votes.box ng-click='votingService.support(proposal)' tooltip-html='tooltips.support' tooltip-placement='right'
           i.fa.fa-sort-up
           .big-percent
             | {{ proposal.votes_percentage }}
             span.pct %
-        .fork.box ng-click='votingService.improve(proposal)' tooltip-html-unsafe='{{tooltips.improve}}' tooltip-placement='right'
+        /.fork.box ng-click='votingService.improve(proposal)' tooltip-html='tooltips.improve' tooltip-placement='right'
           i.fa.fa-lightbulb-o
 
     .improve_support_buttons
       .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
         span
-          button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html-unsafe='{{tooltips.edit}}' tooltip-placement='right'
+          /button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html='tooltips.edit' tooltip-placement='right'
             i.fa.fa-pencil
         span
-          button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html-unsafe='{{tooltips.delete}}' tooltip-placement='right'
+          /button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html='htmlTooltip' tooltip-placement='right'
+          button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-placement='right'
             i.fa.fa-trash-o
-
+      /a href="#" tooltip-html="htmlTooltip" Check me out!
     .col-xs-10.proposal_statement
       /h3 ng-show='!currentUser || !proposal.is_editable || proposal.user_id != currentUser.id'
       h3
@@ -43,8 +44,9 @@
     .main-proposal.row ng-if='sessionSettings.newVote.votes_attributes.proposal_id === proposal.id || sessionSettings.newVote.parent_id === proposal.id || sessionSettings.newVote.id === proposal.id'
       .proposal-person.col-xs-2
         /.supporter-avatar ng-hide='sessionSettings.actions.proposal.id'
-        .supporter-avatar
-          ng-include src="'user/_currentuser_avatar.html'"
+        .supporter-avatar ng-init='vote=currentUser'
+          ng-include src="'shared/_avatar.html'"
+          /ng-include src="'user/_currentuser_avatar.html'"
 
       .proposal_statement.col-xs-10
         ng-include src="'proposals/_prop_area.html'"
@@ -156,8 +158,9 @@
     .row.support_row ng-repeat="(key, vote) in proposal.votes"
       .proposal-person.col-xs-2
         .supporter-avatar
-          img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30"
-          img ng-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
+          ng-include src="'shared/_avatar.html'"
+          /img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=30&height=30"
+          /img ng-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
       .support-comment.col-xs-10
         supporter-name
           a ng-href='#' ng-click='setVoter(vote)'   {{ vote.username }}
