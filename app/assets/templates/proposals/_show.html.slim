@@ -1,23 +1,29 @@
 .proposal_container ng-if='proposal.has_support'
   .main-proposal.row id='prop{{ proposal.id }}' ng-hide='sessionSettings.newVote.id === proposal.id'
     .col-xs-2
-      .improve_support_buttons
+      .voting_buttons
         .votes.box ng-click='votingService.support(proposal)' tooltip-html='tooltips.support' tooltip-placement='right'
           i.fa.fa-sort-up
           .big-percent
             | {{ proposal.votes_percentage }}
             span.pct %
         .fork.box ng-click='votingService.improve(proposal)' tooltip-html='tooltips.improve' tooltip-placement='right'
-          i.fa.fa-lightbulb-o
+          i.fa.fa-code-fork
+          /i.fa.fa-lightbulb-o
 
-    .improve_support_buttons
-      .edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
-        span
-          button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html='tooltips.edit' tooltip-placement='right'
+        .editable ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
+          .edit.box ng-click='votingService.edit(proposal)' tooltip-html='tooltips.edit' tooltip-placement='right'
             i.fa.fa-pencil
-        span
-          button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html='tooltips.delete' tooltip-placement='right'
+          .delete.box ng-click='votingService.delete(proposal)' tooltip-html='tooltips.delete' tooltip-placement='right'
             i.fa.fa-trash-o
+        //.edit_buttons
+        /.edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
+        /  span
+        /    button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html='tooltips.edit' tooltip-placement='right'
+        /      i.fa.fa-pencil
+        /  span
+        /    button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html='tooltips.delete' tooltip-placement='right'
+        /      i.fa.fa-trash-o
 
     .col-xs-10.proposal_statement
       h3

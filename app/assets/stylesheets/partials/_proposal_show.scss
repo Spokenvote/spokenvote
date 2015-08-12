@@ -1,7 +1,7 @@
 
-// content_pages elements
+// proposal_page elements
 
-.content_page {
+.proposal_page {
   padding: $narrowGutterWidth / 2;
   font-weight: inherit;
   h2 {
@@ -46,9 +46,6 @@
   }
 }
 
-
-// Proposal Show
-
 .shares {
   a {
     font-size: .5em;
@@ -57,14 +54,6 @@
 
 .main-proposal {
   .stats {
-    //    float: right;                // Feb 9, 2015 show changes
-    //    padding-left: 14px;
-    //    margin-top: -2px;
-    //  width: 30px;
-    //  height: 38px;
-    //  height: 3em;
-    //  margin-right: 12px;
-    //  float: left;
   }
   .box {
     text-align: center;
@@ -80,8 +69,6 @@
     }
   }
   .votes {
-//    color: $soft-grey;
-
     .fa.fa-sort-up {
       font-size: 1.25em;
       padding-top: .1em;
@@ -96,28 +83,21 @@
         vertical-align: super;
         margin-right: -.8em;
       }
-      //      padding-left: .25em;
-      //      text-align: left;
-      //      text-align: right;
-      //      margin: -8px 0 0 0;
-//      font-size: 1.5em;
-//      font-size: 2.2em;
-//      color: $happy-blue;
     }
-//    .shares {                  // Feb 9, 2015 show changes
-//      padding: 0 5px 5px 5px;
-//      a {
-//        font-size: .9em;
-//      }
-//    }
   }
   .fork {
     border: 1px solid $superLightBoxGrey;
-//    border: 1px solid rgba(204, 204, 204, 0.78);
-    .fa.fa-lightbulb-o {
+    //.fa.fa-lightbulb-o {
+    .fa.fa-code-fork {
       font-size: 1.25em;
       padding: 1px;
     }
+  }
+  .edit {
+    padding: 3px;
+  }
+  .delete {
+    padding: 3px;
   }
 }
 
@@ -212,48 +192,48 @@
   }
 }
 
-.improve_support_buttons {
+.voting_buttons {
 //  padding: 5px;
 
-  .btn-support {
-    background-color: hsl(211, 92%, 46%) !important;
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
-    background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
-    background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
-    background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
-    background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
-    background-image: -o-linear-gradient(top, #449bf7, #0971e1);
-    background-image: linear-gradient(#449bf7, #0971e1);
-    border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
-    color: #fff !important;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
-    -webkit-font-smoothing: antialiased;
-  }
-  .btn-improve {
-    //color: white;
-    //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
-    background-color: hsl(121, 53%, 37%) !important;
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c649", endColorstr="#2c902e");
-    background-image: -khtml-gradient(linear, left top, left bottom, from(#47c649), to(#2c902e));
-    background-image: -moz-linear-gradient(top, #47c649, #2c902e);
-    background-image: -ms-linear-gradient(top, #47c649, #2c902e);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #47c649), color-stop(100%, #2c902e));
-    background-image: -webkit-linear-gradient(top, #47c649, #2c902e);
-    background-image: -o-linear-gradient(top, #47c649, #2c902e);
-    background-image: linear-gradient(#47c649, #2c902e);
-    border-color: #2c902e #2c902e hsl(121, 53%, 33%);
-    color: #fff !important;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.26);
-    -webkit-font-smoothing: antialiased;
-  }
+  //.btn-support {
+  //  background-color: hsl(211, 92%, 46%) !important;
+  //  background-repeat: repeat-x;
+  //  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#449bf7", endColorstr="#0971e1");
+  //  background-image: -khtml-gradient(linear, left top, left bottom, from(#449bf7), to(#0971e1));
+  //  background-image: -moz-linear-gradient(top, #449bf7, #0971e1);
+  //  background-image: -ms-linear-gradient(top, #449bf7, #0971e1);
+  //  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #449bf7), color-stop(100%, #0971e1));
+  //  background-image: -webkit-linear-gradient(top, #449bf7, #0971e1);
+  //  background-image: -o-linear-gradient(top, #449bf7, #0971e1);
+  //  background-image: linear-gradient(#449bf7, #0971e1);
+  //  border-color: #0971e1 #0971e1 hsl(211, 92%, 42%);
+  //  color: #fff !important;
+  //  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+  //  -webkit-font-smoothing: antialiased;
+  //}
+  //.btn-improve {
+  //  //color: white;
+  //  //background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(90, 218, 93)), to(rgb(33, 106, 35))) !important;
+  //  background-color: hsl(121, 53%, 37%) !important;
+  //  background-repeat: repeat-x;
+  //  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c649", endColorstr="#2c902e");
+  //  background-image: -khtml-gradient(linear, left top, left bottom, from(#47c649), to(#2c902e));
+  //  background-image: -moz-linear-gradient(top, #47c649, #2c902e);
+  //  background-image: -ms-linear-gradient(top, #47c649, #2c902e);
+  //  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #47c649), color-stop(100%, #2c902e));
+  //  background-image: -webkit-linear-gradient(top, #47c649, #2c902e);
+  //  background-image: -o-linear-gradient(top, #47c649, #2c902e);
+  //  background-image: linear-gradient(#47c649, #2c902e);
+  //  border-color: #2c902e #2c902e hsl(121, 53%, 33%);
+  //  color: #fff !important;
+  //  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.26);
+  //  -webkit-font-smoothing: antialiased;
+  //}
 
-  button {
-    margin-right: 10px;
-//    font-size: 14px;
-  }
+//  button {
+//    margin-right: 10px;
+////    font-size: 14px;
+//  }
 }
 
 .shares  .btn {
@@ -303,44 +283,3 @@
     }
   }
 }
-
-
-// Depreciated
-
-//.supporting_arguments_list {
-//  overflow: hidden;
-//}
-
-//.supporting_statement, .support_comment {
-//  div {
-//    margin-bottom: 10px;
-//  }
-//  div:last-child {
-//    margin-bottom: 0;
-//  }
-//}
-
-//.supporting_statement {
-//  font-size: 16px;
-//}
-
-//.related_supporting {
-//  clear: both;
-//  border-bottom: 1px solid #dddddd;
-//  padding-bottom: 10px;
-//  margin-bottom: 10px;
-//}
-
-//.proposal_fields {
-//  margin-top: 10px;
-//  label {
-//    @include inline-block;
-//    font-size: 16px;
-//    margin-right: 20px;
-//    margin-left: 17px;
-//  }
-//  label.first {
-//    margin-left: 0;
-//    padding-top: 8px;
-//  }
-//}

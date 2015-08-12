@@ -205,7 +205,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 #        comment: undefined            # Needed for Commentless Voting
 
   deleteVote: ( close ) ->
-#    $rootScope.sessionSettings.deleteVote = $rootScope.clicked_proposal
     $rootScope.alertService.clearAlerts()
 
     if $rootScope.sessionSettings.deleteVote.votes.length > 1
@@ -216,8 +215,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
         id: $rootScope.sessionSettings.deleteVote.id
 
       saveSuccess = (response, status, headers, config) ->
-  #      $rootScope.$broadcast 'event:proposalsChanged'
-  #      $rootScope.$broadcast 'event:votesChanged'     # Needed for Update
         $rootScope.alertService.setSuccess 'Your proposal stating: \"' + $rootScope.sessionSettings.deleteVote.statement + '\" was deleted.', $rootScope
         $rootScope.sessionSettings.actions.offcanvas = false
         $rootScope.sessionSettings.actions.focus = null
