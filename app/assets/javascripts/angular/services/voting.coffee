@@ -19,7 +19,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
             return
           $rootScope.alertService.setInfo 'We found support from you on another proposal. If you continue, your previous support will be moved here.', $rootScope, 'main'
           $rootScope.sessionSettings.actions.newVoteDetails.related_existing = relatedSupport
-#        $rootScope.sessionSettings.actions.newVoteDetails.target = clicked_proposal  #TODO Remove
         $rootScope.sessionSettings.newVote =
           votes_attributes:
             proposal_id: clicked_proposal.id
@@ -82,7 +81,6 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
       $rootScope.alertService.setInfo 'To proceed you need to sign in.', $rootScope, 'main'
     else
       if $rootScope.sessionSettings.openModals.deleteProposal is false
-
         modalInstance = $modal.open
           templateUrl: 'proposals/_delete_proposal_modal.html'
           size: 'sm'
@@ -90,6 +88,8 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           $rootScope.sessionSettings.openModals.deleteProposal = true
         modalInstance.result.finally ->
           $rootScope.sessionSettings.openModals.deleteProposal = false
+      else
+        $rootScope.alertService.setCtlResult 'Sorry, something went wrong. Try reloading the page.', $rootScope, 'main'
 
   commentStep: ->
     $rootScope.sessionSettings.actions.focus = 'comment'

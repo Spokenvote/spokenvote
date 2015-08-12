@@ -425,8 +425,6 @@ describe 'Voting Service Tests', ->
         openModalArgs =
           templateUrl: 'proposals/_delete_proposal_modal.html'
           size: 'sm'
-#          controller: 'DeleteProposalCtrl'
-#          scope: scope
 
         expect $modal.open
           .toHaveBeenCalledWith openModalArgs
@@ -437,10 +435,31 @@ describe 'Voting Service Tests', ->
         expect $rootScope.sessionSettings.openModals.deleteProposal
           .toEqual true
 
+      it 'should reset state on Delete modal CLOSE', ->
+
+        expect $rootScope.sessionSettings.openModals.deleteProposal
+          .toEqual false
+
+        VotingService.delete scope, clicked_proposal
+
+        expect $rootScope.sessionSettings.openModals.deleteProposal
+          .toEqual true
+
         modalInstance.result.finallyCallback()
 
         expect $rootScope.sessionSettings.openModals.deleteProposal
           .toEqual false
+
+      it 'should throw error if Delete modal is ALREADY OPEN', ->
+
+        $rootScope.sessionSettings.openModals.deleteProposal = true
+
+        VotingService.delete scope, clicked_proposal
+
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.mostRecent().args[0]
+          .toContain 'Sorry, something went wrong.'
 
 
     describe 'COMMENT-STEP method should perform Comment Steps', ->
