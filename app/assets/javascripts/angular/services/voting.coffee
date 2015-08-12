@@ -160,33 +160,40 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
           newVote.id = $rootScope.sessionSettings.newVote.id
           updateProposalandVote()
 
-        else switch
-          when not $rootScope.sessionSettings.newVote.parent_id  # new
+        else
+#          console.log 'else: 1 '
+          ### istanbul ignore next ###
+          switch
+            when not $rootScope.sessionSettings.newVote.parent_id  # new
 
-            if $rootScope.sessionSettings.hub_attributes.id and  # existing hub
-              not isNaN $rootScope.sessionSettings.hub_attributes.id
-                newVote.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
-                saveProposalandVote()
+              if $rootScope.sessionSettings.hub_attributes.id and  # existing hub
+                not isNaN $rootScope.sessionSettings.hub_attributes.id
+                  newVote.proposal.hub_id = $rootScope.sessionSettings.hub_attributes.id
+                  saveProposalandVote()
 
-            else switch                                          # create hub
-              when not $rootScope.sessionSettings.hub_attributes.formatted_location
-                $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
-                this.hubStep()
-              when not $rootScope.sessionSettings.hub_attributes.group_name
-                $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
-                this.hubStep()
-              when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
-                $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
-                this.hubStep()
+
               else
-                newVote.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
-                saveProposalandVote()
+                ### istanbul ignore next ###
+                switch                                          # create hub
+                  when not $rootScope.sessionSettings.hub_attributes.formatted_location
+#                    console.log 'switch: 1 '
+                    $rootScope.alertService.setCtlResult 'Sorry, your New Group location appears to be invalid.', $rootScope, 'main'
+                    this.hubStep()
+                  when not $rootScope.sessionSettings.hub_attributes.group_name
+                    $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be missing.', $rootScope, 'main'
+                    this.hubStep()
+                  when $rootScope.sessionSettings.hub_attributes.group_name.length < $rootScope.sessionSettings.spokenvote_attributes.minimumHubNameLength
+                    $rootScope.alertService.setCtlResult 'Sorry, your New Group name appears to be invalid, perhaps it\'s too short?', $rootScope, 'main'
+                    this.hubStep()
+                  else
+                    newVote.proposal.hub_attributes = $rootScope.sessionSettings.hub_attributes
+                    saveProposalandVote()
 
-          when $rootScope.sessionSettings.newVote.parent_id      # fork
-            saveProposalandVote()
+            when $rootScope.sessionSettings.newVote.parent_id      # fork
+              saveProposalandVote()
 
-          else
-            $rootScope.alertService.setCtlResult 'Sorry, tried to save a new proposal but something was missing.', $rootScope, 'main'
+            else
+              $rootScope.alertService.setCtlResult 'Sorry, tried to save a new proposal but something was missing.', $rootScope, 'main'
 
   # vote only
     else if $rootScope.sessionSettings.newVote.votes_attributes.proposal_id

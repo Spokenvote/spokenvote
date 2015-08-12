@@ -553,7 +553,7 @@ describe 'Voting Service Tests', ->
           .toHaveBeenCalledWith 'focusHubFilter'
 
 
-    describe 'saveVote method should SAVE New Vote', ->
+    describe 'SAVE-VOTE method should SAVE New Vote', ->
 
       it 'should clear alerts', ->
         $rootScope.sessionSettings.newVote = newProposal
@@ -1409,12 +1409,6 @@ describe 'Voting Service Tests', ->
 
           $rootScope.sessionSettings.newVote = newProposal
 
-#          $rootScope.sessionSettings.newVote = newProposal
-#            id: newProposal.id
-#            statement: newProposal.statement
-#            votes_attributes:
-#              comment: newProposal.votes_attributes.comment
-
           newProposalParams =
             id: newProposal.id
             proposal: newProposal
@@ -1438,8 +1432,8 @@ describe 'Voting Service Tests', ->
             .not.toHaveBeenCalled()
           expect Vote.save
             .not.toHaveBeenCalled()
-#          expect $rootScope.sessionSettings.actions.focus
-#            .toEqual null
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
 
 
       describe 'saveVote method should save VOTE only to Support a proposal', ->
@@ -1471,8 +1465,8 @@ describe 'Voting Service Tests', ->
             .not.toHaveBeenCalled()
           expect Vote.save
             .toHaveBeenCalled()
-#          expect $rootScope.sessionSettings.actions.focus
-#            .toEqual null
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
 
         it 'should check for NO Vote COMMENT and save vote', ->
 
@@ -1497,8 +1491,8 @@ describe 'Voting Service Tests', ->
             .not.toHaveBeenCalled()
           expect Vote.save
             .toHaveBeenCalled()
-#          expect $rootScope.sessionSettings.actions.focus
-#            .toEqual null
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
 
         it 'should pass correct args to the SAVE New Vote', ->
           $rootScope.sessionSettings.newVote.votes_attributes =
@@ -1532,6 +1526,34 @@ describe 'Voting Service Tests', ->
             .toEqual expectedProposalSaveArgs
           expect $rootScope.sessionSettings.actions.focus
             .toEqual null
+
+        it 'should THROW ERROR if it cannot SAVE New Vote', ->
+          $rootScope.sessionSettings.newVote =
+            votes_attributes:
+              proposal_id: null
+
+          $rootScope.sessionSettings.actions.focus = 'comment'
+
+          spyOn Proposal, 'save'
+          spyOn Proposal, 'update'
+          spyOn Vote, 'save'
+            .and.callThrough()
+
+          expectedProposalSaveArgs =
+            proposal_id: 123
+
+          VotingService.saveVote()
+
+          expect Proposal.save
+            .not.toHaveBeenCalled()
+          expect Proposal.update
+            .not.toHaveBeenCalled()
+          expect Vote.save
+            .not.toHaveBeenCalled()
+          expect $rootScope.sessionSettings.actions.focus
+            .toEqual 'comment'
+          expect $rootScope.alertService.setCtlResult.calls.count()
+            .toEqual 1
 
         it 'should POST and respond with 201', ->
           $rootScope.sessionSettings.newVote.votes_attributes =
@@ -1641,156 +1663,156 @@ describe 'Voting Service Tests', ->
             .toEqual '/proposals/627?filter=my#navigationBar'
 
 
-      describe 'deleteVote method should DELETE Proposal only (for now)', ->
+    describe 'DELETE-VOTE method should DELETE Proposal only (for now)', ->
 
-        it 'should check for OTHER SUPPORTERS and throw error if it finds any', ->
+      it 'should check for OTHER SUPPORTERS and throw error if it finds any', ->
 
-          $rootScope.sessionSettings.deleteVote =
-            votes:
-              [{
-                proposal_id: 123
-                comment: 'Original Vote'
-              },{
-                proposal_id: 124
-                comment: 'Second user vote'
-              }]
+        $rootScope.sessionSettings.deleteVote =
+          votes:
+            [{
+              proposal_id: 123
+              comment: 'Original Vote'
+            },{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
 
-          spyOn Proposal, 'delete'
+        spyOn Proposal, 'delete'
 #          spyOn Proposal, 'update'
 #          spyOn Vote, 'save'
 
-          VotingService.deleteVote( close )
+        VotingService.deleteVote( close )
 
-          expect $rootScope.alertService.clearAlerts.calls.count()
-            .toEqual 1
-          expect $rootScope.alertService.setCtlResult.calls.count()
-            .toEqual 1
-          expect Proposal.delete
-            .not.toHaveBeenCalled()
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 1
+        expect Proposal.delete
+          .not.toHaveBeenCalled()
 
-        it 'should check for OTHER SUPPORTERS and PASS if it finds just the original vote', ->
+      it 'should check for OTHER SUPPORTERS and PASS if it finds just the original vote', ->
 
-          $rootScope.sessionSettings.deleteVote =
-            id: 73
-            statement: 'An awesome new proposal. Vote for it!'
-            votes:
-              [{
-                proposal_id: 124
-                comment: 'Second user vote'
-              }]
+        $rootScope.sessionSettings.deleteVote =
+          id: 73
+          statement: 'An awesome new proposal. Vote for it!'
+          votes:
+            [{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
 
-          $rootScope.sessionSettings.actions.focus = 'comment'
+        $rootScope.sessionSettings.actions.focus = 'comment'
 
-          spyOn Proposal, 'delete'
+        spyOn Proposal, 'delete'
 #          spyOn Proposal, 'update'
 #          spyOn Vote, 'save'
 
-          VotingService.deleteVote()
+        VotingService.deleteVote()
 
-          expect $rootScope.alertService.clearAlerts.calls.count()
-            .toEqual 1
-          expect $rootScope.alertService.setCtlResult.calls.count()
-            .toEqual 0
-          expect Proposal.delete
-            .toHaveBeenCalled()
+        expect $rootScope.alertService.clearAlerts.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setCtlResult.calls.count()
+          .toEqual 0
+        expect Proposal.delete
+          .toHaveBeenCalled()
 
-        it 'should pass correct ARGS to the Delete  Vote', ->
+      it 'should pass correct ARGS to the Delete  Vote', ->
 
-          $rootScope.sessionSettings.deleteVote =
-            id: 73
-            statement: 'An awesome new proposal. Vote for it!'
-            votes:
-              [{
-                proposal_id: 124
-                comment: 'Second user vote'
-              }]
+        $rootScope.sessionSettings.deleteVote =
+          id: 73
+          statement: 'An awesome new proposal. Vote for it!'
+          votes:
+            [{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
 
-          spyOn Proposal, 'delete'
-            .and.callThrough()
-          close = jasmine.createSpy 'close'
+        spyOn Proposal, 'delete'
+          .and.callThrough()
+        close = jasmine.createSpy 'close'
 
-          expectedProposalSaveArgs =
-            id: 73
+        expectedProposalSaveArgs =
+          id: 73
 
-          VotingService.deleteVote close
+        VotingService.deleteVote close
 
-          $httpBackend
-            .expectDELETE '/proposals/73'
-            .respond 200
+        $httpBackend
+          .expectDELETE '/proposals/73'
+          .respond 200
 
-          $httpBackend.flush()
+        $httpBackend.flush()
 
-          expect Proposal.delete.calls.mostRecent().args[0]
-            .toEqual expectedProposalSaveArgs
-          expect $rootScope.sessionSettings.actions.focus
-            .toEqual null
+        expect Proposal.delete.calls.mostRecent().args[0]
+          .toEqual expectedProposalSaveArgs
+        expect $rootScope.sessionSettings.actions.focus
+          .toEqual null
 
-        it 'delete the Vote and execute correct SUCCESS callback', ->
+      it 'delete the Vote and execute correct SUCCESS callback', ->
 
-          $rootScope.sessionSettings.deleteVote =
-            id: 73
-            statement: 'An awesome new proposal. Vote for it!'
-            votes:
-              [{
-                proposal_id: 124
-                comment: 'Second user vote'
-              }]
+        $rootScope.sessionSettings.deleteVote =
+          id: 73
+          statement: 'An awesome new proposal. Vote for it!'
+          votes:
+            [{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
 
-          spyOn Proposal, 'delete'
-            .and.callThrough()
-          close = jasmine.createSpy
+        spyOn Proposal, 'delete'
+          .and.callThrough()
+        close = jasmine.createSpy
 
-          VotingService.deleteVote close
+        VotingService.deleteVote close
 
-          $httpBackend
-            .expectDELETE '/proposals/73'
-            .respond 200
+        $httpBackend
+          .expectDELETE '/proposals/73'
+          .respond 200
 
-          $httpBackend.flush()
+        $httpBackend.flush()
 
-          expect Proposal.delete
-            .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
+        expect Proposal.delete
+          .toHaveBeenCalledWith jasmine.any(Object), jasmine.any(Function), jasmine.any(Function)
 #          expect $rootScope.$broadcast
 #            .toHaveBeenCalledWith 'event:proposalsChanged'
 #          expect $rootScope.$broadcast
 #            .toHaveBeenCalledWith 'event:votesChanged'
-          expect $rootScope.alertService.setSuccess.calls.count()
-            .toEqual 1
-          expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
-            .toContain 'Your proposal stating: \"' + 'An awesome new proposal. Vote for it!' + '\" was deleted.'
-          expect $rootScope.sessionSettings.actions.offcanvas
-            .toEqual false
-          expect $rootScope.sessionSettings.actions.focus
-          .toEqual null
-          expect $rootScope.sessionSettings.deleteVote
-          .toEqual null
+        expect $rootScope.alertService.setSuccess.calls.count()
+          .toEqual 1
+        expect $rootScope.alertService.setSuccess.calls.mostRecent().args[0]
+          .toContain 'Your proposal stating: \"' + 'An awesome new proposal. Vote for it!' + '\" was deleted.'
+        expect $rootScope.sessionSettings.actions.offcanvas
+          .toEqual false
+        expect $rootScope.sessionSettings.actions.focus
+        .toEqual null
+        expect $rootScope.sessionSettings.deleteVote
+        .toEqual null
 
-        it 'delete success callback should change LOCATION', ->
+      it 'delete success callback should change LOCATION', ->
 
-          $rootScope.sessionSettings.deleteVote =
-            id: 73
-            statement: 'An awesome new proposal. Vote for it!'
-            hub_id: 41
-            votes:
-              [{
-                proposal_id: 124
-                comment: 'Second user vote'
-              }]
+        $rootScope.sessionSettings.deleteVote =
+          id: 73
+          statement: 'An awesome new proposal. Vote for it!'
+          hub_id: 41
+          votes:
+            [{
+              proposal_id: 124
+              comment: 'Second user vote'
+            }]
 
-          spyOn Proposal, 'delete'
-            .and.callThrough()
-          jasmine.createSpy 'close'
+        spyOn Proposal, 'delete'
+          .and.callThrough()
+        jasmine.createSpy 'close'
 
-          VotingService.deleteVote close
+        VotingService.deleteVote close
 
-          $httpBackend
-            .expectDELETE '/proposals/73'
-            .respond 200
+        $httpBackend
+          .expectDELETE '/proposals/73'
+          .respond 200
 
-          $httpBackend.flush()
+        $httpBackend.flush()
 
-          expect $location.url()
-            .toEqual '/proposals?filter=my&hub=41#navigationBar'
+        expect $location.url()
+          .toEqual '/proposals?filter=my&hub=41#navigationBar'
 
 
       it 'delete the Vote and execute correct FAILURE callback and ALERTS', ->

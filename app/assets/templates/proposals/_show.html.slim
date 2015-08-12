@@ -16,14 +16,6 @@
             i.fa.fa-pencil
           .delete.box ng-click='votingService.delete(proposal)' tooltip-html='tooltips.delete' tooltip-placement='right'
             i.fa.fa-trash-o
-        //.edit_buttons
-        /.edit.btn-group ng-show='currentUser && proposal.is_editable && proposal.user_id == currentUser.id'
-        /  span
-        /    button ng-click='votingService.edit(proposal)' class='btn btn-primary edit' tooltip-html='tooltips.edit' tooltip-placement='right'
-        /      i.fa.fa-pencil
-        /  span
-        /    button ng-click='votingService.delete(proposal)' class='btn btn-danger delete' tooltip-html='tooltips.delete' tooltip-placement='right'
-        /      i.fa.fa-trash-o
 
     .col-xs-10.proposal_statement
       h3
