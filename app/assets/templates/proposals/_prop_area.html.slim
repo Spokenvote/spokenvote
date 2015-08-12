@@ -1,6 +1,6 @@
 form name='newProposalForm' ng-submit='saveVote()'
   .proposal-area
-    .form-group ng-hide='sessionSettings.newVote.votes_attributes.id'
+    .form-group ng-hide='sessionSettings.newVote.votes_attributes.proposal_id'
       textarea( id='new_proposal_statement' name='statement' class='full-width proposal-text' ng-model='sessionSettings.newVote.statement' auto-grow required
         ng-minLength='sessionSettings.spokenvote_attributes.minimumProposalLength' ng-maxLength='140' placeholder='Your proposal?'
         ng-enter='votingService.hubStep()' ng-focus='sessionSettings.actions.focus = "prop"' )
@@ -27,10 +27,3 @@ form name='newProposalForm' ng-submit='saveVote()'
       .length_counter.error-text ng-show='newProposalForm.comment.$error.minlength && sessionSettings.actions.focus != "comment"'
         .fa.fa-warning
         span Too Short
-
-    /.dialog-footer ng-show='newProposalForm.$valid && sessionSettings.actions.focus === "publish"'
-      fieldset
-        .control-group
-          .controls
-            button id='publish' ng-enter='votingService.saveVote()' ng-focus='sessionSettings.actions.focus = "publish"' ng-mousedown='votingService.saveVote()' class='btn btn-primary btn-bold' Publish
-            .next-step Press <strong><i>Enter</i></strong> to publish your proposal.
