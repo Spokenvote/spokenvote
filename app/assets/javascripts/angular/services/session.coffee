@@ -1,24 +1,24 @@
 # Miscellaneous
-SessionService = ($cookieStore, UserSessionResource, UserRegistrationResource, UserOmniauthResource) ->
+SessionService = ($cookieStore, UserOmniauthResource) ->
   currentUser: $cookieStore.get '_spokenvote_session'
 
   signedIn: !!$cookieStore.get '_spokenvote_session'
 
   signedOut: not @signedIn
 
-  userSession: new UserSessionResource
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    remember_me: true
-
   userOmniauth: new UserOmniauthResource
     auth: null
 
-  userRegistration: new UserRegistrationResource
-    name: null
-    email: $cookieStore.get 'spokenvote_email'
-    password: null
-    password_confirmation: null
+#  userSession: new UserSessionResource            # TODO Planned future use
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    remember_me: true
+
+#  userRegistration: new UserRegistrationResource
+#    name: null
+#    email: $cookieStore.get 'spokenvote_email'
+#    password: null
+#    password_confirmation: null
 
 AlertService = ($timeout) ->
   callingScope: null
@@ -73,31 +73,6 @@ AlertService = ($timeout) ->
 
 # Interceptors
 errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
-#  (promise) ->             # old, pre 1.3 logic
-#    promise.then (response) ->
-#      response
-#    , (response) ->
-#      if response.status is 406
-#        AlertService.setError "Please sign in to continue."
-#        $rootScope.$broadcast "event:loginRequired"
-#      else AlertService.setError "The server was unable to process your request."  if response.status >= 400 and response.status < 500
-#      $q.reject response
-
-#  # optional method       # new, 1.3 logic
-#  request: (config) ->
-#    # do something on success
-#    config
-
-#  # optional method
-#  requestError: (rejection) ->
-#    # do something on error
-#    return responseOrNewPromise  if canRecover(rejection)
-#    $q.reject rejection
-
-#  # optional method
-#  response: (response) ->
-#    # do something on success
-#    response
 
   responseError: (rejection) ->
     # do something on error
@@ -105,7 +80,6 @@ errorHttpInterceptor = ($q, $location, $rootScope, AlertService) ->
         AlertService.setError 'Please sign in to continue.'
         $rootScope.$broadcast 'event:loginRequired'
       else AlertService.setError 'The server was unable to process your request.'  if rejection.status >= 400 and rejection.status < 500
-#      return responseOrNewPromise  if canRecover(rejection)
       $q.reject rejection
 
 
@@ -114,44 +88,35 @@ SessionSettings = ->
     auth: {}
     me: {}
   actions:
-#    changeHub: false
     detailPage: false
     focus: null
-#    hubFilter: 'All Groups'
+    hub_attributes: null
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
-    improveProposal:
-      parent: null
-    newProposal: {}
-    newProposalHub: null
+    newVoteDetails: {}
     offcanvas: false
-#    proposal:
-#      id:  null
-#      vote: null
-#    searchTerm: null
-    selectHub: false
     userFilter: null
-    wizardToGroup: null
-  hub_attributes: null
-#  hubFilter: null
+#    improveProposal:
+#      propStepText: ''
+#      commentStepText: ''
+#    newProposal: {}
+#    newProposalHub: null
+#    selectHub: false
+#    wizardToGroup: null
   openModals:
-    signIn: false
-    register: false
-    userSettings: false
-    supportProposal: false
-    improveProposal: false
-    newProposal: false
-    editProposal: false
+#    signIn: false
+#    register: false
+#    userSettings: false
+#    supportProposal: false
+#    improveProposal: false
+#    newProposal: false
+#    editProposal: false
     deleteProposal: false
-    getStarted: false
-  proposal: null
-  vote: {}
-#    related_exists: null
-#    target: null
-  searchedHub: {}
-  routeParams: {}
-  newProposal: {}
+#    getStarted: false
+#  proposal: null
+#  vote: {}
+#  searchedHub: {}
 #  newSupport:
 #    related: null
 #    target: null
@@ -159,13 +124,17 @@ SessionSettings = ->
   lastLocation:
     location_id: null
     formatted_location: null
+  newVote: {}
+  routeParams: {}
   socialSharing:
     twitterRootUrl: 'http://twitter.com/home?status='
     facebookRootUrl: 'http://www.facebook.com/sharer.php?u='
     googleRootUrl: 'https://plus.google.com/share?url='
   spokenvote_attributes:
     minimumHubNameLength: 3
-    defaultGravatar: 'http://www.spokenvote.com/' + 'assets/icons/sv-30.png'
+    minimumProposalLength: 5
+    minimumCommentLength: 5
+    defaultGravatar: 'http://www.spokenvote.org/' + 'assets/icons/sv-30.png'
     googleOauth2Config:
       client_id: '390524033908-kqnb56kof2vfr4gssi2q84nth2n981g5'
       scope: [ 'https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile' ]
@@ -176,7 +145,8 @@ SpokenvoteCookies = ($cookies) ->
   sessionCookie: $cookies.SpokenvoteSession
 
 # Injects
-SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
+SessionService.$inject = [ '$cookieStore', 'UserOmniauthResource'  ]
+#SessionService.$inject = [ '$cookieStore', 'UserSessionResource', 'UserRegistrationResource', 'UserOmniauthResource'  ]
 AlertService.$inject = [ '$timeout' ]
 errorHttpInterceptor.$inject = [ '$q', '$location', '$rootScope', 'AlertService' ]
 SpokenvoteCookies.$inject = [ '$cookies' ]

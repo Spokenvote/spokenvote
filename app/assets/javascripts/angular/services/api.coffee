@@ -3,13 +3,19 @@ CurrentUser = ($resource) ->
   $resource '/currentuser'
 
 Hub = ($resource) ->
-  $resource '/hubs/:id', {id: '@id'}, {update: {method: 'PUT'} }
+  $resource '/hubs/:id',
+    id: '@id',
+    { update: method: 'PUT' }
 
 Vote = ($resource) ->
-  $resource '/votes/:id', id: '@id', { update: method: 'PUT' }
+  $resource '/votes/:id',
+    id: '@id',
+    { update: method: 'PUT' }
 
 Proposal = ($resource) ->
-  $resource '/proposals/:id', id: '@id', { update: method: 'PUT' }
+  $resource '/proposals/:id',
+    id: '@id',
+    { update: method: 'PUT' }
 
 RelatedProposals = ($resource) ->
   $resource '/proposals/:id/related_proposals?related_sort_by=:related_sort_by',
@@ -29,15 +35,15 @@ UserOmniauthResource = ($http) ->
       auth: @auth
 
   UserOmniauth::$destroy = ->
-    $http.delete "/users/logout"
+    $http.delete '/users/logout'
 
   UserOmniauth
 
-UserSessionResource = ($http) ->
-  UserSession = (options) ->
-    angular.extend this, options
+#UserSessionResource = ($http) ->          #not current in use
+#  UserSession = (options) ->
+#    angular.extend this, options
 
-#  UserSession::$save = ->                 #not current in use
+#  UserSession::$save = ->
 #    $http.post "/users/login",
 #      user:
 #        email: @email
@@ -47,21 +53,21 @@ UserSessionResource = ($http) ->
 #  UserSession::$destroy = ->
 #    $http.delete "/users/logout"
 
-  UserSession
+#  UserSession
 
-UserRegistrationResource = ($http) ->
-  UserRegistration = (options) ->
-    angular.extend this, options
-
-  UserRegistration::$save = ->
-    $http.post "/users",
-      user:
-        name: @name
-        email: @email
-        password: @password
-        password_confirmation: @password_confirmation
-
-  UserRegistration
+#UserRegistrationResource = ($http) ->     #not current in use
+#  UserRegistration = (options) ->
+#    angular.extend this, options
+#
+#  UserRegistration::$save = ->
+#    $http.post "/users",
+#      user:
+#        name: @name
+#        email: @email
+#        password: @password
+#        password_confirmation: @password_confirmation
+#
+#  UserRegistration
 
 # Loaders
 CurrentUserLoader = (CurrentUser, $route, $q) ->
@@ -80,21 +86,21 @@ SelectHubLoader = ($http, $q) ->
   (hub_filter) ->
     delay = $q.defer()
     if hub_filter
-      $http.get('/hubs',
+      $http.get '/hubs',
         params:
           hub_filter: hub_filter
-      ).then (hubs) ->
+      .then (hubs) ->
         delay.resolve hubs.data
       , ->
         delay.reject 'Unable to locate a hubs'
 
     else
-      delay.resolve false
+      delay.reject 'No Hub ID found to locate'
     delay.promise
 
 #
 #SelectHubLoader = (Hub, $route, $q) ->          # ui-select does not seem to like ngResource
-#  (params) ->
+#  (params) ->                                   # Jul 13, 2015 Believe it's {object} vs [array] returns
 #    delay = $q.defer()
 #    if params
 #      Hub.query(
@@ -112,20 +118,19 @@ CurrentHubLoader = (Hub, $route, $q) ->
   ->
     delay = $q.defer()
     if $route.current.params.hub
-      Hub.get(
-        (id: $route.current.params.hub
-        ), ((hub) ->
+      Hub.get id: $route.current.params.hub
+        , (hub) ->
           delay.resolve hub
-        ), ->
+        , ->
           delay.reject 'Unable to locate a hub '
-      )
+
     else
-      delay.resolve false
+      delay.reject 'No Hub ID found to locate'
     delay.promise
 
 ProposalLoader = (Proposal, $route, $q) ->
   ->
-    delay = $q.defer()
+    delay = $q.defer()                     # TODO Remove more parens pending minimized JS testing
     Proposal.get(
       (id: $route.current.params.proposalId
       ), ((proposal) ->
@@ -192,8 +197,8 @@ RelatedProposals.$inject = [ '$resource' ]
 RelatedVoteInTree.$inject = [ '$resource' ]
 
 UserOmniauthResource.$inject = [ '$http' ]
-UserSessionResource.$inject = [ '$http' ]
-UserRegistrationResource.$inject = [ '$http' ]
+#UserSessionResource.$inject = [ '$http' ]
+#UserRegistrationResource.$inject = [ '$http' ]
 
 CurrentUserLoader.$inject = [ 'CurrentUser', '$route', '$q' ]
 CurrentHubLoader.$inject = [ 'Hub', '$route', '$q' ]
@@ -215,8 +220,8 @@ App.Services.factory 'RelatedProposals', RelatedProposals
 App.Services.factory 'RelatedVoteInTree', RelatedVoteInTree
 
 App.Services.factory 'UserOmniauthResource', UserOmniauthResource
-App.Services.factory 'UserSessionResource', UserSessionResource
-App.Services.factory 'UserRegistrationResource', UserRegistrationResource
+#App.Services.factory 'UserSessionResource', UserSessionResource
+#App.Services.factory 'UserRegistrationResource', UserRegistrationResource
 
 App.Services.factory 'CurrentUserLoader', CurrentUserLoader
 App.Services.factory 'ProposalLoader', ProposalLoader

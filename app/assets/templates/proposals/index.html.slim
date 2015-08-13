@@ -36,9 +36,10 @@ section
     .tree_container ng-repeat='proposal in proposals | filter:q' ng-click='showProposal(proposal)'
       .topic.row
         .list-avatar.col-xs-1
-          .avatar-sprite ng-repeat="(key, vote) in proposal.votes | slice:0:4"
-            img ng-if='vote.vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.vote.facebook_auth }}/picture?width=20&height=20"
-            img ng-if='!vote.vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
+          .avatar-sprite ng-repeat="(key, vote_vote) in proposal.votes | slice:0:4" ng-init='vote=vote_vote.vote'
+            ng-include src="'shared/_avatar.html'"
+            /img ng-if='vote.facebook_auth' ng-src="http://graph.facebook.com/{{ vote.facebook_auth }}/picture?width=20&height=20"
+            /img ng-if='!vote.facebook_auth' ng-src="http://gravatar.com/avatar/{{ vote.gravatar_hash }}.png?s=30&d={{ sessionSettings.spokenvote_attributes.defaultGravatar }}"
         .topic-and-hub.col-xs-9.col-md-10
           .proposal id='prop{{ proposal.id }}'
             a id='showProposalLink' ng-click='showProposal(proposal)'  {{ proposal.statement }}

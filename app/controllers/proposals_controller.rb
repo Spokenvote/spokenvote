@@ -60,7 +60,8 @@ class ProposalsController < ApplicationController
 
   # POST /proposals.json
   def create
-    votes_attributes = params[:proposal][:votes_attributes].merge(user_id: current_user.id, ip_address: request.remote_ip)
+    attributes_from_params = params[:proposal][:votes_attributes]
+    votes_attributes = (attributes_from_params || {}).merge(user_id: current_user.id, ip_address: request.remote_ip)
     @proposal = current_user.proposals.create(proposal_params)
 
     if @proposal.new_record?
@@ -112,15 +113,15 @@ class ProposalsController < ApplicationController
   private
 
   def find_hub
-    if params[:hub] 
-      if params[:hub].is_a?(String) && params[:hub].starts_with?(GooglePlacesAutocompleteService.prefix)  
+    if params[:hub]
+      if params[:hub].is_a?(String) && params[:hub].starts_with?(GooglePlacesAutocompleteService.prefix)
         proposals = []
         render 'index'
       else
-         @hub = Hub.find(params[:hub]) 
+         @hub = Hub.find(params[:hub])
       end
     end
-  end 
+  end
 
   def find_user
     @user = User.find(params[:user]) if params[:user]
