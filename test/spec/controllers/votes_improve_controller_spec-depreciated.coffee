@@ -46,7 +46,7 @@ describe 'Proposal Improve Controller Tests', ->
       $scope.sessionSettings.current_user_support = null
       $scope.clicked_proposal =
         statement: clicked_proposal.proposal.statement
-      $scope.sessionSettings.vote.parent = clicked_proposal
+      $scope.sessionSettings.actions.newVoteDetails.parent = clicked_proposal
 #        statement: clicked_proposal.proposal.statement
 
       ctrl = $controller 'ImproveController',

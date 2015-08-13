@@ -18,6 +18,8 @@ svUtility = ($timeout) ->
       element = angular.element( document.querySelector id )
 #      console.log 'Focus Utility element: ', element
       element[0].focus()  if element
+    ,
+      10
 
 # Register
 App.Services.factory 'svUtility', svUtility

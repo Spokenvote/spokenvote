@@ -245,8 +245,8 @@ window.App = angular.module('spokenvote', [
     'ngRoute', 'ngAnimate',
     'angular-loading-bar', 'templates',
     'ui.select',
-#    'ui.select2', 'ui.select', 'ui.utils',
-    'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdownToggle', 'ui.bootstrap.tooltip', 'ui.bootstrap.buttons'
+#    'ui.bootstrap.modal', 'ui.bootstrap.transition', 'ui.bootstrap.dropdown', 'ui.bootstrap.tooltip', 'ui.bootstrap.buttons'
+    'ui.bootstrap',
     'spokenvote.services', 'spokenvote.directives',
     'angulartics', 'angulartics.google.analytics'
 ]).config appConfig

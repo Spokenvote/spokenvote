@@ -24,14 +24,18 @@
 // require angular-ui-utils/ui-utils.min    // Removed Mar 18, 2015 believing inflector was all we were using, so capitalize should work in place
 //= require angular-ui-select/dist/select
 
-// require angular-ui    // below replaces this
-//= require angular-ui-bootstrap/src/modal/modal
-//= require angular-ui-bootstrap/src/transition/transition
-//= require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
-//= require angular-ui-bootstrap/src/tooltip/tooltip
-//= require angular-ui-bootstrap/src/bindHtml/bindHtml
-//= require angular-ui-bootstrap/src/position/position
-//= require angular-ui-bootstrap/src/buttons/buttons
+//= require angular-bootstrap/ui-bootstrap-tpls
+// require angular-ui    // below used to replace the above line
+
+// require angular-ui-bootstrap/src/modal/modal
+// require angular-ui-bootstrap/src/transition/transition
+// require angular-ui-bootstrap/src/dropdown/dropdown
+// require angular-ui-bootstrap/src/tooltip/tooltip
+// require angular-ui-bootstrap/src/bindHtml/bindHtml
+// require angular-ui-bootstrap/src/position/position
+// require angular-ui-bootstrap/src/buttons/buttons
+
+// require angular-ui-bootstrap/src/dropdownToggle/dropdownToggle
 // require angular-ui-bootstrap/src/collapse/collapse
 
 //= require angular-rails-templates

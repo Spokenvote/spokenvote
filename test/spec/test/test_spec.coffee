@@ -3,14 +3,15 @@ describe 'Validation Test', ->
 
   describe 'Initial Validation Test', ->
     it 'should match', ->
-      expect('string').toMatch new RegExp('^string$')
+      expect 'string'
+        .toMatch new RegExp '^string$'
 
 
   describe 'plus', ->
 
     it 'should pass', ->
       expect true
-        .toMatch true
+        .toEqual true
 
 #    it 'should work', ->
 #      expect plus(1, 2)

@@ -12,11 +12,13 @@ describe 'StartController Tests', ->
     $rootScope = undefined
     $scope = undefined
     $controller = undefined
+    svUtility = undefined
 #    Focus = undefined
 
-    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_) ->
+    beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _svUtility_) ->
       $rootScope = _$rootScope_
       $rootScope.sessionSettings = _SessionSettings_
+      svUtility = _svUtility_
       #      $location = _$location_
       #      VotingService = _VotingService_
       #      Proposal = _Proposal_
@@ -36,21 +38,34 @@ describe 'StartController Tests', ->
           params:
             hub: '2'
 
-      $controller = _$controller_ 'StartController',
+      $controller = _$controller_
+
+      $controller 'StartController',
         $scope: $scope
 #        Focus: Focus
 
     it 'StartController should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
-#      expect svUtility
-#        .toBeDefined()
+      expect svUtility
+        .toBeDefined()
 #      expect $scope.commentStep
 #        .toBeDefined()
 #      expect $scope.hubStep
 #        .toBeDefined()
 #      expect $scope.finishProp
 #        .toBeDefined()
+      expect $scope.sessionSettings.newVote
+        .toEqual {}
+
+    it 'sessionSettings.newVote.parent_id should be undefined', ->
+      $scope.sessionSettings.newVote.parent_id = 156
+
+      $controller 'StartController',
+        $scope: $scope
+
+      expect $rootScope.sessionSettings.newVote.parent_id
+        .toBeUndefined()
 
 #    it 'StartController should focus proposal statement', ->
 #      expect Focus
