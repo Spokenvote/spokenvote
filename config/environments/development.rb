@@ -39,11 +39,15 @@ Spokenvote::Application.configure do
     # :user_name =>      ENV['MANDRILL_USERNAME'],
     :password =>       ENV['MAIL_PASSWORD'],
     # :password =>       ENV['MANDRILL_APIKEY'],
-    :domain =>         'localhost:3000',
-    :authentication => :plain
+    :domain =>         'spokenvote.dev',   # When using POW rails server
+    # :domain =>         'localhost:3000', # Most dev's will want this one.
+    :authentication => :plain,
+    :enable_starttls_auto => true
+
   }
 
-  Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')
+  Premailer::Rails.config.merge!(base_url: 'http://spokenvote.dev/')      # When using POW rails server
+  # Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')    # Most dev's will want this one.
 
   # Use Pry instead of IRB
   silence_warnings do
