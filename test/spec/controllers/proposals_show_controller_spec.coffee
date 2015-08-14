@@ -138,7 +138,7 @@ describe 'Proposal Show Controller Tests', ->
 #        .toBe false
 
 #    it 'should allow user to EDIT a proposal', ->
-##      $rootScope.currentUser =                                         # TODO: Add real tests for edit and delete
+##      $rootScope.currentUser =
 ##        id: 5
 #      $scope.edit clicked_proposal
 #

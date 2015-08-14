@@ -1,33 +1,33 @@
 class ProposalsController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!, :except => [:show, :index, :related_vote_in_tree, :related_proposals]
-  before_action :find_hub, :find_user, only: :index
 
   # GET /proposals.json
   def index
+    if hub_id_google?(params[:hub])
+      @proposals = []
+      return render 'index'
+    end
 
-    top_voted_proposal_ids = Proposal.top_voted_proposal_in_tree.map(&:id)
-    proposals = Proposal.where(id: top_voted_proposal_ids)
-    proposals = proposals.where(hub_id: @hub.id) if @hub
-    proposals = proposals.where(user_id: @user.id) if @user
-    @proposals = proposals
-    @proposals = proposals.includes(:hub)
+    @hub = Hub.find_by(id: params[:hub])
+    @user = User.find_by(id: params[:user])
 
-    filter = params[:filter] || 'active'
-    if filter == 'active'
-      @proposals.to_a.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
-    elsif filter == 'recent'
-      @proposals = proposals.order('updated_at DESC')
-    elsif current_user
-      user_id = filter == 'my' ? current_user.try(:id) : params[:user_id]
-      user = User.find(user_id) if user_id
+    proposals = Proposal.by_hub(@hub).by_user(@user).includes(:hub)
+
+    unless params[:filter] == 'my'
+      proposals = proposals.where(id: Proposal.top_voted_proposal_in_tree.map(&:id))
+    end
+
+    @proposals = filter_proposals(proposals, params[:filter].presence)
+
+    if provided_user_id.present?
+      user = User.find(provided_user_id)
 
       user_voted_proposal_root_ids = user.voted_proposals.map(&:root_id)
-      @proposals.to_a.delete_if { |proposal| !user_voted_proposal_root_ids.include? proposal.root_id }
-      @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree }
-    else  # Default to 'active' list
-      @proposals.to_a.sort! { |a, b| b.votes_in_tree <=> a.votes_in_tree }
+      @proposals = @proposals.reject { |proposal| !user_voted_proposal_root_ids.include? proposal.root_id }
     end
+
+    @proposals = @proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree }
   end
 
   # GET /proposals/1.json
@@ -76,10 +76,6 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
-    #if params[:proposal][:votes_attributes][:comment].match(/\n/)
-    #  params[:proposal][:votes_attributes][:comment].gsub!(/\n\n/, '<br><br>').gsub!(/\n/, '<br>')
-    #end
-    # TODO  Code comments can be deleted.
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
         format.json { render json: @proposal.to_json(methods: 'supporting_statement'), status: :ok }
@@ -94,7 +90,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
 
-    redirect_to action: :index, status: 200
+    redirect_to action: :index, status: :ok
   end
 
   # GET /proposals/:id/related_proposals.json
@@ -123,13 +119,30 @@ class ProposalsController < ApplicationController
     end
   end
 
-  def find_user
-    @user = User.find(params[:user]) if params[:user]
+  def filter_proposals(proposals, filter = 'active')
+    case filter
+    when 'active'
+      proposals.sort { |a, b| b.votes_in_tree <=> a.votes_in_tree }
+    when 'recent'
+      proposals.by_recency
+    when 'my'
+      proposals.by_voting_user(current_user)
+    else
+      proposals
+    end
+  end
+
+  def hub_id_google?(hub_id)
+    hub_id.try(:starts_with?, GooglePlacesAutocompleteService.prefix) || false
+  end
+
+  def provided_user_id
+    current_user.try(:id) || params[:user_id]
   end
 
   def proposal_params
     if parent_proposal
-      params[:proposal].merge!(parent_id: @parent.id, hub_id: @parent.hub.id)
+      params[:proposal].merge!(parent_id: parent_proposal.id, hub_id: parent_proposal.hub.id)
       params.require(:proposal).permit(:statement, :parent_id, :hub_id)
     else
       if existing_hub
@@ -148,21 +161,11 @@ class ProposalsController < ApplicationController
   end
 
   def existing_hub
-    if params[:proposal][:hub_id].is_a?(String) && params[:proposal][:hub_id].starts_with?(GooglePlacesAutocompleteService.prefix) # no need to hit db if hub doesn't exist in our DB yet
-      nil
-    else
+    if !hub_id_google?(params[:proposal][:hub_id]) # no need to hit db if hub doesn't exist in our DB yet
       @hub ||= Hub.find_by_id(params[:proposal][:hub_id])
+    else
+      nil
     end
   end
-  # TODO  Code comments can be deleted.
-  #def fetch_more(proposal_id, page, offset)
-  #  records_limit = 10
-  #  page_number = (params[:page].presence || 0).to_i
-  #  proposal_id = (params[:proposal_id].presence || params[:id]).to_i
-  #
-  #  if params[:proposal_id].presence
-  #    offset_by = (page_number * records_limit) + 2
-  #  end
-  #end
 
 end

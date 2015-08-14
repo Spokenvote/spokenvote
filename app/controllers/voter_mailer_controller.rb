@@ -4,14 +4,10 @@ class VoterMailerController < ApplicationController
     if organize_test_email
       @recipient = User.find(@user_id)
       @votes = Vote.where(id: @vote_array)
-      prop_array = []
-      hub_array = []
-      @votes.each do |vote|
-        prop_array << vote.proposal.id
-        hub_array << vote.proposal.hub_id
-      end
-      @props = Proposal.where(id: prop_array).order('votes_count DESC')
-      @hubs = Hub.where(id: hub_array)
+      vote_proposals = @votes.map(&:proposal)
+
+      @props = Proposal.where(id: vote_proposals.map(&:id)).order('votes_count DESC')
+      @hubs = Hub.where(id: vote_proposals.map(&:hub_id))
       if Rails.env.development? || Rails.env.staging?
         # render layout: false, json: @props
         render layout: false
@@ -34,7 +30,6 @@ class VoterMailerController < ApplicationController
       end
     else
       @user_id = 44   # Likely need setup for dev's given test data
-      # @vote_array = [74, 7]     # TODO  Code comments can be deleted.
       @vote_array = [74, 7, 12, 10, 11, 57, 54]
     end
   end

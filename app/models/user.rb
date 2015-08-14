@@ -18,10 +18,7 @@
 #  name                   :string(255)
 #
 
-class User < ActiveRecord::Base               # TODO  Code comments can be deleted... all in file
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
@@ -41,7 +38,6 @@ class User < ActiveRecord::Base               # TODO  Code comments can be delet
 
   def password_required?
     super && false
-    #super && provider.blank?
   end
 
   def username

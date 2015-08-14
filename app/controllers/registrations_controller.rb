@@ -26,9 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     successfully_updated = if needs_password?(@user, params)
       @user.update_with_password(params[:user])
-    else     # TODO  Code comments can be deleted.
-      # remove the virtual current_password attribute update_without_password
-      # doesn't know how to ignore it
+    else
       params[:user].delete(:current_password)
 
       @user.update_without_password(params[:user])
@@ -46,9 +44,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  # check if we need password to update user data
-  # ie if password or email was changed
-  # extend this as needed
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       !params[:user][:password].empty?
