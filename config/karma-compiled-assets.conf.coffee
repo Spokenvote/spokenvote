@@ -33,7 +33,6 @@ module.exports = (config) ->
 
 # list of files to exclude
     exclude: [
-#      'test/spec/services/voting_service_spec.coffee'
     ]
 
     coffeePreprocessor:
