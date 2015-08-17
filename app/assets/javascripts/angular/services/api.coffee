@@ -82,7 +82,7 @@ CurrentUserLoader = (CurrentUser, $route, $q) ->
     )
     delay.promise
 
-SelectHubLoader = ($http, $q) ->
+SelectHubLoader = ['$http', '$q', ($http, $q) ->
   (hub_filter) ->
     delay = $q.defer()
     if hub_filter
@@ -97,7 +97,7 @@ SelectHubLoader = ($http, $q) ->
     else
       delay.reject 'No Hub ID found to locate'
     delay.promise
-
+]
 #
 #SelectHubLoader = (Hub, $route, $q) ->          # ui-select does not seem to like ngResource
 #  (params) ->                                   # Jul 13, 2015 Believe it's {object} vs [array] returns
