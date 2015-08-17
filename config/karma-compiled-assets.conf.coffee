@@ -7,7 +7,7 @@ module.exports = (config) ->
     frameworks: [ "jasmine" ]
 
     files: [
-      'vendor/assets/bower_components/underscore/underscore-min.js',
+#      'vendor/assets/bower_components/underscore/underscore-min.js',
 #      'vendor/assets/bower_components/angular/angular.js',
 #      'vendor/assets/bower_components/angular-resource/angular-resource.js',
 #      'vendor/assets/bower_components/angular-route/angular-route.js',
@@ -41,18 +41,19 @@ module.exports = (config) ->
         sourceMap: true
 
     preprocessors:
-      "app/assets/javascripts/angular/**/*.coffee": 'coffee'
+#      "app/assets/javascripts/angular/**/*.coffee": 'coffee'
       "test/**/*.coffee": 'coffee'
 
-    coverageReporter:
-      type: 'html'
-      dir: 'coverage/'
-      instrumenters:
-        ibrik: require 'ibrik'
+#    coverageReporter:
+#      type: 'html'
+#      dir: 'coverage/'
+#      instrumenters:
+#        ibrik: require 'ibrik'
+#
+#      instrumenter:
+#        "**/*.coffee": 'ibrik'
 
-      instrumenter:
-        "**/*.coffee": 'ibrik'
-
-    reporters: [ "progress", "coverage" ]
+    reporters: [ "progress" ]
+#    reporters: [ "progress", "coverage" ]
     colors: true
     logLevel: config.LOG_DEBUG

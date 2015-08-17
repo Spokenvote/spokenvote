@@ -68,6 +68,6 @@ html ng-app='spokenvote'
         .nav_footer role='navigation'
           ng-include src="'shared/_footer.html'"
 
-    = javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js'
+    /= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js'   # Seems we no longer have, e.g. 'else if not _.isEmpty searchedHub' dependency
     = javascript_include_tag '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places'
     = javascript_include_tag 'application'
