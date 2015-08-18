@@ -12,19 +12,20 @@
 #
 
 class Vote < ActiveRecord::Base
-  #attr_accessible :comment, :user, :proposal, :user_id, :proposal_id, :ip_address
 
   # Associations
   belongs_to :proposal, counter_cache: true, touch: true
   belongs_to :user
 
   # scopes
-  default_scope { order(:updated_at => :desc) }
+  default_scope { by_last_updated }
+
+  scope :by_last_updated, -> { order(updated_at: :desc) }
+  scope :by_recency, -> { order(created_at: :desc) }
 
   # Validations
   validates :user, :proposal, presence: true
   validates :user_id, uniqueness: { scope: [:user_id, :proposal_id], message: "You can only vote once on a proposal" }
-  # last argument needs converting to a lamda for Rails4
 
   # Delegations
   delegate :username, :email, :gravatar_hash, :facebook_auth, to: :user

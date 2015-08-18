@@ -28,6 +28,9 @@ Spokenvote::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.test_user_id = 44 # Likely need setup for dev's given test data
+  config.test_vote_ids = [ 74, 7, 12, 10, 11, 57, 54 ]
+
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
     :address =>        ENV['MAIL_ADDRESS'],
@@ -36,11 +39,15 @@ Spokenvote::Application.configure do
     # :user_name =>      ENV['MANDRILL_USERNAME'],
     :password =>       ENV['MAIL_PASSWORD'],
     # :password =>       ENV['MANDRILL_APIKEY'],
-    :domain =>         'localhost:3000',
-    :authentication => :plain
+    :domain =>         'spokenvote.dev',   # When using POW rails server
+    # :domain =>         'localhost:3000', # Most dev's will want this one.
+    :authentication => :plain,
+    :enable_starttls_auto => true
+
   }
 
-  Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')
+  Premailer::Rails.config.merge!(base_url: 'http://spokenvote.dev/')      # When using POW rails server
+  # Premailer::Rails.config.merge!(base_url: 'http://localhost:3000/')    # Most dev's will want this one.
 
   # Use Pry instead of IRB
   silence_warnings do

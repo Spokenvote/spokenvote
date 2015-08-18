@@ -9,24 +9,17 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.nil?
       user = User.new(:email => email)
-      user.authentications.build(:provider => provider, :uid => uid, :token => token)
-      #user.skip_confirmation!
-
+      user.authentications.build(provider: provider, uid: uid, token: token)
       if user.save!
-        user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
+        user.create_avatar(remote_image_url: avatar_url) rescue nil  # Dont fail if we're unable to save avatar
         render json: {success: true, redirect: new_user_registration_url}
-        #flash.notice = 'Thanks for joining Spokenvote!'
-        #custom_sign_in_and_redirect(user)
       else
         session["devise.user_attributes"] = user.attributes
         render json: {success: false, redirect: new_user_registration_url}
-        #redirect_to new_user_registration_url
       end
     else
-      # If we ever use this code we'll want to verify that the authentication record belongs to this user only
 
-      user.authentications.create(:provider => provider, :uid => uid, :token => token) if !authentication # Regular signed up user, allow him this omniauth signup also
-      #flash.notice = 'Signed in successfully!'
+      user.authentications.create(provider: provider, uid: uid, token: token) unless authentication # Regular signed up user, allow him this omniauth signup also
       render json: {success: true, status: 'signed_in'}
       custom_sign_in_and_redirect user
     end
