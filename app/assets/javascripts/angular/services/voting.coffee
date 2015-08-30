@@ -3,10 +3,13 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
   new: ->
     $rootScope.alertService.clearAlerts()
     $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted = false
-    if !$rootScope.currentUser.id?
-      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
-    else
+    if $rootScope.currentUser.id
       $location.path '/start'
+#      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
+    else
+      $rootScope.authService.signinFb($rootScope).then ->
+        $location.path '/start'
+
 
   support: ( clicked_proposal ) ->
     $rootScope.alertService.clearAlerts()

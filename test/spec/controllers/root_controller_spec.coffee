@@ -86,10 +86,10 @@ describe 'Root Controller Test', ->
           .toBeDefined()
         expect $scope.backtoTopics
           .toBeDefined()
-        expect $scope.newTopic
-          .toBeDefined()
-        expect $scope.getStarted
-          .toBeDefined()
+#        expect $scope.newTopic
+#          .toBeDefined()
+#        expect $scope.getStarted
+#          .toBeDefined()
         expect $scope.rootTips
           .toBeDefined()
 

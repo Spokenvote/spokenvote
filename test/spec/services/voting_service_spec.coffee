@@ -116,6 +116,8 @@ describe 'Voting Service Tests', ->
           .toEqual 1
         expect $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted
           .toEqual false
+        expect $rootScope.authService.signinFb.calls.any()
+          .toBe false
 
       it 'should invoke sign-in warning if user manages to somehow get here to NEW a proposal and is not signed in', ->
         $rootScope.currentUser =
@@ -123,8 +125,13 @@ describe 'Voting Service Tests', ->
 
         VotingService.new()
 
-        expect $rootScope.alertService.setInfo.calls.count()
+        expect $rootScope.authService.signinFb.calls.count()
           .toEqual 1
+        expect  $rootScope.currentUser
+          .toEqual id: 5
+
+      #        expect $rootScope.alertService.setInfo.calls.count()
+#          .toEqual 1
 
       it 'should see signed-in user and to to Start page', ->
 

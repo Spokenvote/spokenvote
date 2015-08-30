@@ -78,15 +78,15 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
     $location.path('/proposals')    # Angular empty hash bug
 #    $location.path('/proposals').hash('prop'+$scope.sessionSettings.routeParams.proposalId)
 
-  $scope.newTopic = ->
-    if $scope.currentUser.id?
-      $scope.votingService.new $scope
-    else
-      $scope.authService.signinFb($scope).then ->
-        $scope.votingService.new $scope
+#  $scope.newTopic = ->
+#    if $scope.currentUser.id?
+#      $scope.votingService.new $scope
+#    else
+#      $scope.authService.signinFb($scope).then ->
+#        $scope.votingService.new $scope
 
-  $scope.getStarted = ->
-    $scope.votingService.wizard $scope
+#  $scope.getStarted = ->
+#    $scope.votingService.wizard $scope
 
   $rootScope.rootTips =
     newHub: "You may change the group to which you are directing

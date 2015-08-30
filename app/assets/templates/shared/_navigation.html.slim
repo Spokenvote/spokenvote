@@ -14,7 +14,8 @@
         span.spoken Spoken
         span.vote Vote
 
-      .new-proposal.pull-right ng-hide='location.path() === "/start"' ng-click='newTopic()'
+      /.new-proposal.pull-right ng-hide='location.path() === "/start"' ng-click='newTopic()'
+      .new-proposal.pull-right ng-hide='location.path() === "/start"' ng-click='votingService.new()'
         button.navbar-toggle type='button'
           .fa.fa-pencil-square-o.fa-2x
 

@@ -9,7 +9,8 @@ section( itemscope itemtype='http://schema.org/Organization' )
       span.vote Vote
 
     .start
-      button( ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main'  bs-tooltip='tooltips.newTopic' data-placement='bottom' ) Start
+      /button ng-click='getStarted()' class='btn btn-getStarted btn-bold btn-large main' bs-tooltip='tooltips.newTopic' data-placement='bottom'  Start
+      button ng-click='votingService.new()' class='btn btn-getStarted btn-bold btn-large main' bs-tooltip='tooltips.newTopic' data-placement='bottom'  Start
 
     -#h1
     -#.tag_line Social Sentiment
