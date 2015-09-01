@@ -1,2 +1,4 @@
-# Spokenvote Dev's should set up their own settings here
-rvm ruby-2.1.1@spokenvote    # Trying w/o this setting as of 10/5/14 to see if I really need it.
+# Spokenvote Dev's can set up their own settings here in the event rvm config is different
+rvm ruby-2.2.3    # Make sure ruby version here matches the gemfile
+# rvm ruby-2.1.1@spokenvote
+# rvm ruby-2.1.1

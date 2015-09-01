@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 # source 'https://rails-assets.org'
 
-ruby '2.1.1'
+ruby '2.2.3'    # Make sure ruby version here matches the the .rvmrc file
+# ruby '2.1.1'    # Make sure ruby version here matches the the .rvmrc file
 
 gem 'rails', '~> 4.1'
 
