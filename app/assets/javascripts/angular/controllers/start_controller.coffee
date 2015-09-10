@@ -7,7 +7,6 @@ StartController = [ '$scope', 'svUtility', ( $scope, svUtility ) ->
     $scope.sessionSettings.actions.hubShow = true
   else
     $scope.sessionSettings.actions.hubShow = false
-#  $scope.sessionSettings.actions.hubShow = false  unless $scope.sessionSettings.hub_attributes or $scope.sessionSettings.actions.newVoteDetails.proposalStarted
   $scope.sessionSettings.newVote = {}
   svUtility.focus '#new_proposal_statement'
 ]

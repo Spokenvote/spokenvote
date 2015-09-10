@@ -40,7 +40,7 @@ describe 'StartController Tests', ->
       $controller 'StartController',
         $scope: $scope
 
-    it 'StartController should initialize', ->
+    it 'should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
       expect svUtility
@@ -48,7 +48,36 @@ describe 'StartController Tests', ->
       expect $scope.sessionSettings.newVote
         .toEqual {}
 
-    it 'sessionSettings.newVote.parent_id should be undefined', ->
+    it 'should set initial values', ->
+      expect $scope.sessionSettings.actions.hubSeekOnSearch
+        .toEqual false
+      expect $scope.sessionSettings.actions.hubPlaceholder
+        .toContain 'Who should see'
+      expect $scope.sessionSettings.actions.newVoteDetails.propStepText
+        .toContain 'You have 140 characters'
+
+    it 'should set hub visibility if one is present', ->
+      $scope.sessionSettings.hub_attributes =
+        full_hub:'Some great hub'
+        isTag: false
+
+      $controller 'StartController',
+        $scope: $scope
+
+      expect $scope.sessionSettings.actions.hubShow
+        .toEqual true
+
+
+    it 'should turn off hub visibility if one is NOT present', ->
+      $scope.sessionSettings.hub_attributes = null
+
+      $controller 'StartController',
+        $scope: $scope
+
+      expect $scope.sessionSettings.actions.hubShow
+        .toEqual false
+
+    it 'should set sessionSettings.newVote.parent_id to undefined', ->
       $scope.sessionSettings.newVote.parent_id = 156
 
       $controller 'StartController',
