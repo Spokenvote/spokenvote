@@ -83,7 +83,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def votes_percentage
-    (100.0 * (self.votes.size.to_f / self.votes_in_tree)).round
+    (100.0 * (self.votes.length.to_f / self.votes_in_tree)).round
   end
 
   def editable?(current_user)

@@ -54,9 +54,6 @@ gem 'uglifier', '>= 2.4.0'
 
 # Angular
 gem 'angular-rails-templates', '~> 0.1.3'
-# gem 'rails-assets-angular-loading-bar'    # source 'https://rails-assets.org'
-# gem 'rails-assets-angular-ui-utils'       # source 'https://rails-assets.org'
-# gem 'rails-assets-angular-ui-select2'     # source 'https://rails-assets.org'
 
 group :development do
   gem 'taps', :require => false
