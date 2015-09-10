@@ -91,6 +91,7 @@ SessionSettings = ->
     detailPage: false
     focus: null
 #    hub_attributes: null
+    hintShow: false
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true

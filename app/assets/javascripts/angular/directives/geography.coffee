@@ -1,4 +1,4 @@
-svGooglePlace = ->
+svGooglePlace = (svUtility) ->
   require: "ngModel"
   link: (scope, element, attrs, model) ->
     model.$parsers.unshift ->
@@ -19,5 +19,7 @@ svGooglePlace = ->
       scope.$apply ->
         scope.sessionSettings.hub_attributes.location_id = location.id
         scope.sessionSettings.hub_attributes.formatted_location = location.formatted_address
+        scope.sessionSettings.actions.hintShow = true
+        svUtility.focus '#new_hub_hint'
 
 App.Directives.directive 'svGooglePlace', svGooglePlace

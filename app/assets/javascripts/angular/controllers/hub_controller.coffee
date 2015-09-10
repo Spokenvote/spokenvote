@@ -29,6 +29,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
           svUtility.focus '#hub_formatted_location'
       else
         $scope.votingService.new()  unless $location.path() is '/start'
+        $scope.sessionSettings.actions.hintShow = false
         svUtility.focus '#hub_formatted_location'
     else if item.isTag
       $scope.sessionSettings.hub_attributes = null
@@ -55,6 +56,15 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
       item =
         full_hub: newTag
     item
+
+  $scope.finishProp = ->
+    $scope.sessionSettings.actions.hintShow = false
+    if $scope.sessionSettings.newVote.statement and $scope.sessionSettings.hub_attributes
+      $scope.sessionSettings.actions.focus = 'comment'
+      svUtility.focus '#new_vote_comment'
+    else
+      svUtility.focus '#new_proposal_statement'
+    console.log 'finishProp: '
 ]
 
 App.controller 'HubController', HubController

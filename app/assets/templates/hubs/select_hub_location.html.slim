@@ -3,7 +3,7 @@ form.newHubLocation name='newHubLocationForm' ng-show='sessionSettings.hub_attri
 
     input( name='formatted_location' id='hub_formatted_location' type='text' class='input-xlarge'
       placeholder="Enter the Group's Location" ng-model='sessionSettings.hub_attributes.formatted_location' sv-google-place required
-      ng-enter='finishProp()' ng-focus='sessionSettings.actions.focus = "hub"'  )
+      ng-focus='sessionSettings.actions.focus = "hub"'  )
     .length_counter.error-text ng-hide='newHubLocationForm.formatted_location.$valid'
       span Choose a valid location from list. &nbsp
       .fa.fa-warning
@@ -12,9 +12,13 @@ form.newHubLocation name='newHubLocationForm' ng-show='sessionSettings.hub_attri
       span Group Location Valid
       /a.link ng-click='sessionSettings.actions.changeHub = false' href='#' Group Location Valid
 
-  .hint-text
+  .hint-text ng-show='sessionSettings.actions.hintShow'
     h3 You are about to create a new group.
     h5
       .fa.fa-lightbulb-o
       span-red &nbsp Hint! &nbsp
       span Double-check to make sure your group does not already exist by trying alternate spellings above.
+    /fieldset
+      .form-group
+        .controls
+    button id='new_hub_hint' ng-click='finishProp()' class='btn btn-primary btn-sm' Ok, got it!
