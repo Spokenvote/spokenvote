@@ -34,6 +34,7 @@ appConfig = ['$routeProvider', '$locationProvider', '$httpProvider', '$modalProv
       title: 'Group Consensus Voting Tool'
       templateUrl: 'proposals/get_started.html'
       controller: 'StartController'
+      reloadOnSearch: false
       callToAction: 'Start Making Group Decisions'
       resolve:
         proposal: -> []

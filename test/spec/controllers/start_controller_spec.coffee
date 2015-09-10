@@ -13,15 +13,11 @@ describe 'StartController Tests', ->
     $scope = undefined
     $controller = undefined
     svUtility = undefined
-#    Focus = undefined
 
     beforeEach inject (_$rootScope_, _$controller_, _$httpBackend_, _SessionSettings_, _svUtility_) ->
       $rootScope = _$rootScope_
       $rootScope.sessionSettings = _SessionSettings_
       svUtility = _svUtility_
-      #      $location = _$location_
-      #      VotingService = _VotingService_
-      #      Proposal = _Proposal_
       $rootScope.alertService =
         clearAlerts: jasmine.createSpy 'alertService:clearAlerts'
         setInfo: jasmine.createSpy 'alertService:setInfo'
@@ -31,7 +27,8 @@ describe 'StartController Tests', ->
       $rootScope.currentUser =
         id: 5
       $scope = $rootScope.$new()
-#      Focus = jasmine.createSpy 'Focus'
+      spyOn svUtility, 'focus'
+        .and.callThrough()
 
       $provide.value '$route',
         current:
@@ -42,19 +39,12 @@ describe 'StartController Tests', ->
 
       $controller 'StartController',
         $scope: $scope
-#        Focus: Focus
 
     it 'StartController should initialize', ->
       expect $rootScope.alertService.clearAlerts.calls.count()
         .toEqual 1
       expect svUtility
         .toBeDefined()
-#      expect $scope.commentStep
-#        .toBeDefined()
-#      expect $scope.hubStep
-#        .toBeDefined()
-#      expect $scope.finishProp
-#        .toBeDefined()
       expect $scope.sessionSettings.newVote
         .toEqual {}
 
@@ -67,8 +57,8 @@ describe 'StartController Tests', ->
       expect $rootScope.sessionSettings.newVote.parent_id
         .toBeUndefined()
 
-#    it 'StartController should focus proposal statement', ->
-#      expect Focus
-#        .toHaveBeenCalledWith '#proposal_statement'
-#      expect Focus.calls.count()
-#        .toEqual 1
+    it 'StartController should focus proposal statement', ->
+      expect svUtility.focus
+        .toHaveBeenCalledWith '#new_proposal_statement'
+      expect svUtility.focus.calls.count()
+        .toEqual 1
