@@ -9,6 +9,12 @@ SessionService = ($cookieStore, UserOmniauthResource) ->
   userOmniauth: new UserOmniauthResource
     auth: null
 
+#  loadHub: ($rootScope, CurrentHubLoader) ->
+#    CurrentHubLoader().then (paramHub) ->
+#      $rootScope.sessionSettings.hub_attributes = paramHub
+#      $rootScope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Supports cold start on existing GL location
+#      $rootScope.sessionSettings.actions.hubShow = true
+
 #  userSession: new UserSessionResource            # TODO Planned future use
 #    email: $cookieStore.get 'spokenvote_email'
 #    password: null

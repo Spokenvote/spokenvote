@@ -27,7 +27,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
 #      console.log 'isTag: $scope.sessionSettings.hub_attributes', $scope.sessionSettings.hub_attributes
       if not $scope.currentUser.id
         $scope.authService.signinFb($scope).then ->
-          $scope.votingService.new()  unless $location.path() == '/start'
+          $scope.votingService.new()  unless $location.path() is '/start'
           svUtility.focus '#hub_formatted_location'
       else
         $scope.votingService.new()  unless $location.path() is '/start'
@@ -36,9 +36,9 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
       $scope.sessionSettings.hub_attributes = null
     else
       item.id = item.select_id
-      $location.search('hub', item.id)
+      $location.search 'hub', item.id
       if $scope.sessionSettings.actions.hubSeekOnSearch is true
-        $location.path('/proposals')
+        $location.path '/proposals'
       else
         $scope.votingService.commentStep()
 

@@ -2,6 +2,8 @@ RootCtrl = ['$scope', '$rootScope', '$route', '$timeout', 'AlertService', '$loca
   $rootScope.alertService = AlertService
   $rootScope.authService = Auth
   $rootScope.sessionSettings = SessionSettings
+  $rootScope.sessionService = SessionService
+  $rootScope.route = $route
   $rootScope.votingService = VotingService
   CurrentUserLoader().then (current_user) ->
     $rootScope.currentUser = current_user
