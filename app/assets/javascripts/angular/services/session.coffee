@@ -9,12 +9,6 @@ SessionService = ($cookieStore, UserOmniauthResource) ->
   userOmniauth: new UserOmniauthResource
     auth: null
 
-#  loadHub: ($rootScope, CurrentHubLoader) ->
-#    CurrentHubLoader().then (paramHub) ->
-#      $rootScope.sessionSettings.hub_attributes = paramHub
-#      $rootScope.sessionSettings.hub_attributes.id = $scope.sessionSettings.hub_attributes.select_id     # Supports cold start on existing GL location
-#      $rootScope.sessionSettings.actions.hubShow = true
-
 #  userSession: new UserSessionResource            # TODO Planned future use
 #    email: $cookieStore.get 'spokenvote_email'
 #    password: null
@@ -96,37 +90,15 @@ SessionSettings = ->
   actions:
     detailPage: false
     focus: null
-    hub_attributes: null
+#    hub_attributes: null
     hubSeekOnSearch: true
     hubPlaceholder: 'Search to find your Group ...'
     hubShow: true
     newVoteDetails: {}
     offcanvas: false
     userFilter: null
-#    improveProposal:
-#      propStepText: ''
-#      commentStepText: ''
-#    newProposal: {}
-#    newProposalHub: null
-#    selectHub: false
-#    wizardToGroup: null
   openModals:
-#    signIn: false
-#    register: false
-#    userSettings: false
-#    supportProposal: false
-#    improveProposal: false
-#    newProposal: false
-#    editProposal: false
     deleteProposal: false
-#    getStarted: false
-#  proposal: null
-#  vote: {}
-#  searchedHub: {}
-#  newSupport:
-#    related: null
-#    target: null
-#    vote: null
   lastLocation:
     location_id: null
     formatted_location: null

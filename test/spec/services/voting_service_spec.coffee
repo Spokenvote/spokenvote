@@ -114,8 +114,8 @@ describe 'Voting Service Tests', ->
 
         expect $rootScope.alertService.clearAlerts.calls.count()
           .toEqual 1
-        expect $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted
-          .toEqual false
+#        expect $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted
+#          .toEqual false
         expect $rootScope.authService.signinFb.calls.any()
           .toBe false
 

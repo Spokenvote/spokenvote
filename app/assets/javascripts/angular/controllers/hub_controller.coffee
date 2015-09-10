@@ -22,9 +22,7 @@ HubController = ['$scope', '$rootScope', '$location', '$http', 'SelectHubLoader'
         $scope.hubs = response
 
   $rootScope.setHub = (item, model) ->
-#    console.log '$scope.sessionSettings.hub_attributes: ', $scope.sessionSettings.hub_attributes
     if item.isTag and item.full_hub.length >= $scope.sessionSettings.spokenvote_attributes.minimumHubNameLength
-#      console.log 'isTag: $scope.sessionSettings.hub_attributes', $scope.sessionSettings.hub_attributes
       if not $scope.currentUser.id
         $scope.authService.signinFb($scope).then ->
           $scope.votingService.new()  unless $location.path() is '/start'

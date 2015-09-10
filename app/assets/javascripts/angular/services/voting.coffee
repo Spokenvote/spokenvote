@@ -2,7 +2,7 @@ VotingService = [ '$rootScope', '$location', '$modal', 'RelatedVoteInTreeLoader'
 
   new: ->
     $rootScope.alertService.clearAlerts()
-    $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted = false
+#    $rootScope.sessionSettings.actions.newVoteDetails.proposalStarted = false
     if $rootScope.currentUser.id
       $location.path '/start'
 #      $rootScope.alertService.setInfo 'To create proposals you need to sign in.', $rootScope, 'main'
