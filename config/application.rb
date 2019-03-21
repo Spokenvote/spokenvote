@@ -5,7 +5,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 #require "active_resource/railtie"
 require "sprockets/railtie"
-require 'google_places_autocomplete'
+# require 'google_places_autocomplete'
 require 'haml'
 
 # Rails 4 Upgrade removes below code

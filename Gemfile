@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 # source 'https://rails-assets.org'
 
-ruby '2.2.3'    # Make sure ruby version here matches the the .rvmrc file
+# ruby '2.4.5'
+ruby '2.3.1'
+# ruby '2.2.3'
 # ruby '2.1.1'    # Make sure ruby version here matches the the .rvmrc file
 
 gem 'rails', '~> 4.1'
@@ -16,6 +18,7 @@ gem 'puma'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
+# gem 'nokogiri', '1.9.1'   # remove after ruby 2.3
 #gem 'thin'
 
 # Javascript
@@ -29,7 +32,8 @@ gem 'slim', '~> 2.0.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', '1.0.0.pre1'
+# gem 'activeadmin', github: 'gregbell/active_admin'
 #gem 'activeadmin', '~> 0.6.3'    # Not compatible with Rails 4
 
 # Authentication
@@ -65,7 +69,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'lol_dba'
-  gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  # gem 'web-console', '~> 2.0'       # rails 4.2 upgrade guide
   #gem 'debugger'
 end
 
