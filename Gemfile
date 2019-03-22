@@ -4,16 +4,15 @@ source 'https://rubygems.org'
 # ruby '2.4.5'
 ruby '2.3.1'
 # ruby '2.2.3'
-# ruby '2.1.1'    # Make sure ruby version here matches the the .rvmrc file
 
-gem 'rails', '~> 4.1'
+gem 'rails', '~> 4.2'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 # gem 'protected_attributes', '1.0.7'       # Remove "config.active_record.whitelist_attributes = false" when done
 # gem 'strong_parameters'
 
 # Infrastructure
-gem 'devise', "~> 3.2.3"
+gem 'devise', "~> 3.4.1"
 gem 'pg'
 gem 'puma'
 gem 'memcachier'
@@ -23,20 +22,14 @@ gem 'rack-cache'
 # gem 'nokogiri', '1.9.1'   # remove after ruby 2.3
 #gem 'thin'
 
-# Javascript
-# gem 'jquery-rails', '< 3.0.0'
-# gem 'jquery-ui-rails'
-# gem 'jquery-tokeninput-rails'
-
 # UI/Forms
-gem 'haml-rails'
+# gem 'haml-rails'
 gem 'slim', '~> 2.0.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
-gem 'activeadmin', '1.0.0.pre1'
+gem 'activeadmin', '1.0.0.pre5'
 # gem 'activeadmin', github: 'gregbell/active_admin'
-#gem 'activeadmin', '~> 0.6.3'    # Not compatible with Rails 4
 
 # Authentication
 gem 'omniauth'
@@ -46,9 +39,9 @@ gem 'omniauth-google-oauth2'
 # Other
 gem 'ancestry'
 gem 'version_fu'
-# gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
 gem 'sitemap_generator'
+# gem 'activerecord-reputation-system', require: 'reputation_system'
 # gem 'google_places_autocomplete'
 # gem 'places'
 # gem 'mandrill-api'
@@ -71,8 +64,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'lol_dba'
-  # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
   gem 'web-console', '~> 2.0'       # rails 4.2 upgrade guide
+  # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
   #gem 'debugger'
 end
 

@@ -15,7 +15,7 @@ Spokenvote::Application.configure do
   #config.threadsafe!
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching
@@ -35,4 +35,7 @@ Spokenvote::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # per https://carreno.me/articles/how-to-upgrade-to-strong-parameters-in-rails  TODO: turn and debug tests
+  # config.action_controller.action_on_unpermitted_parameters = :raise
 end

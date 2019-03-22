@@ -14,8 +14,6 @@
 #
 
 class Proposal < ActiveRecord::Base
-  # include ActiveModel::ForbiddenAttributesProtection
-
   # Associations
   belongs_to :user
   belongs_to :hub

@@ -3,10 +3,10 @@ require File.expand_path('../boot', __FILE__)
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-#require "active_resource/railtie"
 require "sprockets/railtie"
+#require "active_resource/railtie"
 # require 'google_places_autocomplete'
-require 'haml'
+# require 'haml'
 
 # Rails 4 Upgrade removes below code
 #if defined?(Bundler)
