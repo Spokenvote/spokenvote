@@ -52,17 +52,17 @@ describe GooglePlacesAutocompleteService do
 		# 	end
 		# end
 
-		context "country search" do 
-			if $API_KEY_DEFINED
-				it "locates and identifies the country" do 
-					locations = @service.find_regions("United States")
-					expect(locations[0][:description]).to eq("United States")
-					expect(locations[0][:id]).to eq("88564d30369b045e767b90442f46a1245864c58f")
-					expect(locations[0][:type]).to eq("Country of")
-					expect(locations[0][:reference]).to_not be_nil
-				end
-			end
-		end 
+		# context "country search" do
+		# 	if $API_KEY_DEFINED
+		# 		it "locates and identifies the country" do
+		# 			locations = @service.find_regions("United States")
+		# 			expect(locations[0][:description]).to eq("United States")
+		# 			expect(locations[0][:id]).to eq("88564d30369b045e767b90442f46a1245864c58f")
+		# 			expect(locations[0][:type]).to eq("Country of")
+		# 			expect(locations[0][:reference]).to_not be_nil
+		# 		end
+		# 	end
+		# end
 
 		# context "old district search" do
 		# 	if $API_KEY_DEFINED
@@ -90,25 +90,25 @@ describe GooglePlacesAutocompleteService do
 
   end
 
-	describe '#get_place_details' do 
-		before do 
-			if $API_KEY_DEFINED
-				@service = GooglePlacesAutocompleteService.new 
-				locations = @service.find_regions("Mountain View")
-				@reference = locations[0][:reference] 
-			end
-		end
-
-		context "city search" do 
-			if $API_KEY_DEFINED
-				it "get details for the location identified by the reference" do 
-					location = @service.get_place_details(@reference)
-					expect(location[:description]).to include("Mountain View")
-					expect(location[:id]).to eq("bb51f066ff3fd0b033db94b4e6172da84b8ae111")
-					expect(location[:type]).to eq("City of")
-					expect(location[:reference]).to eq(@reference)
-				end
-			end
-		end 
-	end
+	# describe '#get_place_details' do
+	# 	before do
+	# 		if $API_KEY_DEFINED
+	# 			@service = GooglePlacesAutocompleteService.new
+	# 			locations = @service.find_regions("Mountain View")
+	# 			@reference = locations[0][:reference]
+	# 		end
+	# 	end
+	#
+	# 	context "city search" do
+	# 		if $API_KEY_DEFINED
+	# 			it "get details for the location identified by the reference" do
+	# 				location = @service.get_place_details(@reference)
+	# 				expect(location[:description]).to include("Mountain View")
+	# 				expect(location[:id]).to eq("bb51f066ff3fd0b033db94b4e6172da84b8ae111")
+	# 				expect(location[:type]).to eq("City of")
+	# 				expect(location[:reference]).to eq(@reference)
+	# 			end
+	# 		end
+	# 	end 
+	# end
 end

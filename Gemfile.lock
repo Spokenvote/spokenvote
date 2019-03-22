@@ -34,7 +34,6 @@ GEM
       activemodel (= 4.1.0)
       activesupport (= 4.1.0)
       arel (~> 5.0.0)
-    activerecord-reputation-system (2.0.2)
     activesupport (4.1.0)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -144,9 +143,6 @@ GEM
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
     fssm (0.2.10)
-    google_places_autocomplete (0.0.2)
-      hashie
-      httparty
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -161,9 +157,6 @@ GEM
     hike (1.2.3)
     hirb (0.7.1)
     htmlentities (4.3.4)
-    httparty (0.13.1)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     inherited_resources (1.7.2)
@@ -232,10 +225,6 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.18.1)
-    places (0.0.1)
-      hashie
-      httparty
-      json
     polyglot (0.3.5)
     populator (1.0.0)
     premailer (1.11.1)
@@ -380,7 +369,6 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (= 1.0.0.pre1)
-  activerecord-reputation-system
   add-to-homescreen-rails
   airbrake
   ancestry
@@ -400,7 +388,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog
-  google_places_autocomplete
   haml-rails
   hirb
   lol_dba
@@ -413,7 +400,6 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   pg
-  places
   populator
   premailer-rails (~> 1.9.0)
   prerender_rails
