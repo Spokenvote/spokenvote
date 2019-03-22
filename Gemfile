@@ -9,7 +9,8 @@ ruby '2.3.1'
 gem 'rails', '~> 4.1'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
-gem 'protected_attributes'       # Remove "config.active_record.whitelist_attributes = false" when done
+# gem 'protected_attributes', '1.0.7'       # Remove "config.active_record.whitelist_attributes = false" when done
+# gem 'strong_parameters'
 
 # Infrastructure
 gem 'devise', "~> 3.2.3"
@@ -18,6 +19,7 @@ gem 'puma'
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
+# gem 'responders', '~> 2.0'
 # gem 'nokogiri', '1.9.1'   # remove after ruby 2.3
 #gem 'thin'
 
@@ -44,13 +46,13 @@ gem 'omniauth-google-oauth2'
 # Other
 gem 'ancestry'
 gem 'version_fu'
-gem 'activerecord-reputation-system', require: 'reputation_system'
+# gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'rabl'
 gem 'sitemap_generator'
 gem 'google_places_autocomplete'
 gem 'places'
 # gem 'mandrill-api'
-gem 'premailer-rails' #silent dependency on Nokogiri
+gem 'premailer-rails', '~> 1.9.0' #silent dependency on Nokogiri
 gem 'add-to-homescreen-rails'
 gem 'sass-rails',   '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'
@@ -70,13 +72,13 @@ group :development do
   gem 'meta_request'
   gem 'lol_dba'
   # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
-  # gem 'web-console', '~> 2.0'       # rails 4.2 upgrade guide
+  gem 'web-console', '~> 2.0'       # rails 4.2 upgrade guide
   #gem 'debugger'
 end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'rspec-activemodel-mocks'
+  gem 'rspec-activemodel-mocks', '~> 1.0.3'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'populator'

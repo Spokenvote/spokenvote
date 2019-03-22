@@ -84,7 +84,7 @@ module Spokenvote
     # parameters by using an attr_accessible or attr_protected declaration.
 
     # Temp setting while transtioning to Rails 4
-    config.active_record.whitelist_attributes = false
+    # config.active_record.whitelist_attributes = false
     #config.action_controller.action_on_unpermitted_parameters = :raise
 
     # Enable the asset pipeline

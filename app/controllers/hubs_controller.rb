@@ -11,19 +11,19 @@ class HubsController < ApplicationController
     found_hubs = @hubs.map(&:attributes).map { |h| h.slice(:group_name, :formatted_location) }
 
     # Add google place matches to list of hubs if they dont already exist in our DB
-    if hub_filter.present?
-      begin
-        GooglePlacesAutocompleteService.new.find_regions(hub_filter).each do |l|
-          unless found_hubs.include?(group_name: l[:type], formatted_location: l[:description])
-            new_hub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description], description: l[:reference])
-            new_hub.id = 0
-            @hubs << new_hub
-          end
-        end
-      rescue ArgumentError => e
-        Rails.logger.error "WARNING: Could not use google service to find hubs. Error: #{e.message}"
-      end
-    end
+    # if hub_filter.present?
+    #   begin
+    #     GooglePlacesAutocompleteService.new.find_regions(hub_filter).each do |l|
+    #       unless found_hubs.include?(group_name: l[:type], formatted_location: l[:description])
+    #         new_hub = Hub.new(group_name: l[:type], location_id: l[:id], formatted_location: l[:description], description: l[:reference])
+    #         new_hub.id = 0
+    #         @hubs << new_hub
+    #       end
+    #     end
+    #   rescue ArgumentError => e
+    #     Rails.logger.error "WARNING: Could not use google service to find hubs. Error: #{e.message}"
+    #   end
+    # end
 
     respond_to do |format|
       format.html # index.html.erb

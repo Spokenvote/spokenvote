@@ -38,13 +38,13 @@ describe HubsController do
 					expect(assigns(:hubs).first).to eq(hub)
 				end
 
-				it "should find location from google places api" do
-					if $API_KEY_DEFINED
-						found_hub = assigns(:hubs).second
-						expect(found_hub.group_name).to eq("City of")
-						expect(found_hub.formatted_location).to include(hub.formatted_location)
-					end
-				end
+				# it "should find location from google places api" do
+				# 	if $API_KEY_DEFINED
+				# 		found_hub = assigns(:hubs).second
+				# 		expect(found_hub.group_name).to eq("City of")
+				# 		expect(found_hub.formatted_location).to include(hub.formatted_location)
+				# 	end
+				# end
 
 			end
 		end
@@ -68,13 +68,13 @@ describe HubsController do
 					get :index, hub_filter: search_string
 				end
 
-				it "should find location from google places api" do
-					if $API_KEY_DEFINED
-						found_hub = assigns(:hubs).first
-						expect(found_hub.group_name).to eq("City of")
-						expect(found_hub.formatted_location).to include(search_string)
-					end
-				end
+				# it "should find location from google places api" do
+				# 	if $API_KEY_DEFINED
+				# 		found_hub = assigns(:hubs).first
+				# 		expect(found_hub.group_name).to eq("City of")
+				# 		expect(found_hub.formatted_location).to include(search_string)
+				# 	end
+				# end
 
 			end
 		end

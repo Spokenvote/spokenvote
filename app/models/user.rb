@@ -19,12 +19,13 @@
 #
 
 class User < ActiveRecord::Base
+  # include ActiveModel::ForbiddenAttributesProtection
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   # Setup accessible (or protected) attributes for your model        # TODO  This todo worth a quick fix now?
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
-  # attr_accessible :title, :body
+  # attr_accessible :email, :password, :password_confirmation, :remember_me, :name
 
   # Associations
   has_many :authentications, dependent: :destroy
