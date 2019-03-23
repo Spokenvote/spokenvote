@@ -73,9 +73,9 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.5)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.3)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -128,6 +128,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    ffi (1.10.0)
     fog (1.22.0)
       fog-brightbox
       fog-core (~> 1.21, >= 1.21.1)
@@ -333,6 +334,9 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
     shoulda-matchers (2.6.0)
       activesupport (>= 3.0.0)
     sitemap_generator (5.0.2)
@@ -383,7 +387,7 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
-  bootstrap-sass
+  bootstrap-sass (~> 3.4.1)
   capybara
   coffee-rails (~> 4.0.1)
   compass
@@ -428,7 +432,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.17.3
