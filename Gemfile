@@ -27,7 +27,8 @@ gem 'rack-cache'
 # UI/Forms
 # gem 'haml-rails'
 gem 'slim', '~> 2.0.2'
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-sass'
+# gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
 gem 'activeadmin', '1.4.3'
@@ -58,7 +59,7 @@ gem 'uglifier', '>= 2.4.0'
 gem 'angular-rails-templates', '~> 0.1.3'
 
 group :development do
-  gem 'taps', :require => false
+  # gem 'taps', :require => false       # disabled  Mar 23, 2019 due to gem "rest-client", ">= 1.8.0" security issue
   gem 'hirb'
   gem 'annotate'
   gem 'pry-rails'
