@@ -5,14 +5,16 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 # ruby '2.2.3'
 
-gem 'rails', '~> 4.2'
+# gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.11.1'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 # gem 'protected_attributes', '1.0.7'       # Remove "config.active_record.whitelist_attributes = false" when done
 # gem 'strong_parameters'
 
 # Infrastructure
-gem 'devise', "~> 3.4.1"
+gem 'devise', '~> 4.6.0'
+# gem 'devise', "~> 3.4.1"
 gem 'pg'
 gem 'puma'
 gem 'memcachier'
@@ -28,7 +30,8 @@ gem 'slim', '~> 2.0.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
-gem 'activeadmin', '1.0.0.pre5'
+gem 'activeadmin', '1.4.3'
+# gem 'activeadmin', '1.0.0.pre5'
 # gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Authentication
@@ -94,5 +97,5 @@ group :production, :staging do
   gem 'airbrake'
   gem 'prerender_rails'
   gem 'fog'
-  gem 'ngmin-rails', '~> 0.4.0'
+  # gem 'ngmin-rails', '~> 0.4.0'
 end

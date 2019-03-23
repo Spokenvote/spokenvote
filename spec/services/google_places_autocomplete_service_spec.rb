@@ -4,7 +4,7 @@ describe GooglePlacesAutocompleteService do
 
 	if ENV["GOOGLE_API_KEY"] == nil 
 		$API_KEY_DEFINED = false
-		pp "GOOGLE_API_KEY not defined. So testing involving the google api service will be skipped"
+		p "GOOGLE_API_KEY not defined. So testing involving the google api service will be skipped"
 	else 
 		$API_KEY_DEFINED = true 
 	end
