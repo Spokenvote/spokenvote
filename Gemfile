@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 # source 'https://rails-assets.org'
 
 # ruby '2.4.5'
-ruby '2.3.1'
+ruby '2.3.3'
+# ruby '2.3.1'
 # ruby '2.2.3'
 
 # gem 'rails', '~> 4.2'
@@ -27,7 +28,7 @@ gem 'rack-cache'
 # UI/Forms
 # gem 'haml-rails'
 gem 'slim', '~> 2.0.2'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.4.1'
 # gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
 gem 'compass'
