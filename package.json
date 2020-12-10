@@ -6,12 +6,10 @@
     "scripts": {
         "test": "./node_modules/.bin/karma start ./config/karma.conf.js --single-run --browsers PhantomJS"
     },
-
     "repository": {
         "type": "git",
         "url": "http://github.com/spokenvote/spokenvote.git"
     },
-
     "keywords": [
         "angular",
         "concensus",
@@ -24,30 +22,27 @@
         "email": "termmonitor@gmail.com"
     },
     "license": "MIT",
-
     "dependencies": {},
-
     "devDependencies": {
-        "karma": "~0.12",
-        "karma-jasmine": "~0.2",
-        "karma-coverage": "~0.2.6",
-        "karma-phantomjs-launcher": "~0.1.4",
-        "karma-coffee-preprocessor": "~0.2.1"
+        "coffeescript": "^2.5.1",
+        "ibrik": "^2.0.0",
+        "jasmine-core": "^3.6.0",
+        "karma": "^5.2.3",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-coffee-preprocessor": "^1.0.1",
+        "karma-coverage": "^2.0.3",
+        "karma-jasmine": "^4.0.1",
+        "karma-phantomjs-launcher": "^1.0.4"
     },
-
     "bugs": {
         "url": "https://github.com/spokenvote/spokenvote/issues"
     },
-
     "homepage": "http://www.spokenvote.org",
-
     "maintainers": [
         {
             "name": "Kim Miller",
             "email": "termmonitor@gmail.com"
         }
     ],
-
     "directories": {}
-
 }

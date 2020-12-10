@@ -91,6 +91,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'email_spec'
+  gem 'simplecov'
 end
 
 group :production, :staging do
