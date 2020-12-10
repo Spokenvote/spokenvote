@@ -262,7 +262,7 @@ GEM
     puma (3.12.6)
     rabl (0.9.3)
       activesupport (>= 2.3.14)
-    rack (1.6.11)
+    rack (1.6.13)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-contrib (1.1.0)
