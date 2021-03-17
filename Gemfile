@@ -15,7 +15,6 @@ gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
 # gem 'responders', '~> 2.0'
-# gem 'nokogiri', '1.9.1'   # remove after ruby 2.3
 gem 'nokogiri', '>= 1.11.0'   # per github dependbot alert Mar 17, 2021
 #gem 'thin'
 
