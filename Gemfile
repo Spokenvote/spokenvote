@@ -4,17 +4,15 @@ source 'https://rubygems.org'
 # ruby '2.4.5'
 ruby '2.3.3'
 # ruby '2.3.1'
-# ruby '2.2.3'
 
-# gem 'rails', '~> 4.2'
-gem 'rails', '~> 4.2.11.1'
+gem 'rails', '~> 4.2.11.3'
 
 # Temp gems in place to enable Rails 4 upgrade, consider removing
 # gem 'protected_attributes', '1.0.7'       # Remove "config.active_record.whitelist_attributes = false" when done
 # gem 'strong_parameters'
 
 # Infrastructure
-gem 'devise', '~> 4.6.0'
+gem 'devise', '~> 4.7.1'
 # gem 'devise', "~> 3.4.1"
 gem 'pg'
 gem 'puma'
