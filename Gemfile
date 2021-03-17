@@ -15,7 +15,7 @@ gem 'rails', '~> 4.2.11.3'
 gem 'devise', '~> 4.7.1'
 # gem 'devise', "~> 3.4.1"
 gem 'pg'
-gem 'puma'
+gem 'puma', ">= 3.12.6"
 gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'

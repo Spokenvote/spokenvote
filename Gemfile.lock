@@ -217,6 +217,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
     newrelic_rpm (3.5.5.38)
+    nio4r (2.5.7)
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -260,7 +261,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     public_suffix (3.0.3)
-    puma (3.11.4)
+    puma (5.2.2)
+      nio4r (~> 2.0)
     rabl (0.9.3)
       activesupport (>= 2.3.14)
     racc (1.5.2)
@@ -423,7 +425,7 @@ DEPENDENCIES
   prerender_rails
   pry-doc
   pry-rails
-  puma
+  puma (>= 3.12.6)
   rabl
   rack-cache
   railroady
