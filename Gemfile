@@ -2,14 +2,9 @@ source 'https://rubygems.org'
 # source 'https://rails-assets.org'
 
 ruby '2.5.0'
-# ruby '2.4.5'
 # ruby '2.3.3'
 
 gem 'rails', '~> 4.2.11.3'
-
-# Temp gems in place to enable Rails 4 upgrade, consider removing
-# gem 'protected_attributes', '1.0.7'       # Remove "config.active_record.whitelist_attributes = false" when done
-# gem 'strong_parameters'
 
 # Infrastructure
 gem 'devise', '~> 4.7.1'
