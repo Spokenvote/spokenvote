@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 # source 'https://rails-assets.org'
 
+ruby '2.5.0'
 # ruby '2.4.5'
-ruby '2.3.3'
-# ruby '2.3.1'
+# ruby '2.3.3'
 
 gem 'rails', '~> 4.2.11.3'
 
@@ -21,6 +21,7 @@ gem 'dalli'
 gem 'rack-cache'
 # gem 'responders', '~> 2.0'
 # gem 'nokogiri', '1.9.1'   # remove after ruby 2.3
+gem 'nokogiri', '>= 1.11.0'   # per github dependbot alert Mar 17, 2021
 #gem 'thin'
 
 # UI/Forms
