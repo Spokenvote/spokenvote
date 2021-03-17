@@ -12,7 +12,7 @@ gem 'rails', '~> 4.2.11.3'
 # gem 'strong_parameters'
 
 # Infrastructure
-gem 'devise', '~> 4.6.0'
+gem 'devise', '~> 4.7.1'
 # gem 'devise', "~> 3.4.1"
 gem 'pg'
 gem 'puma'
