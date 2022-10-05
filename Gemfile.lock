@@ -48,8 +48,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     add-to-homescreen-rails (2.0.11)
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     airbrake (3.1.16)
       builder
       multi_json
@@ -260,7 +260,7 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    public_suffix (3.0.3)
+    public_suffix (4.0.7)
     puma (5.2.2)
       nio4r (~> 2.0)
     rabl (0.9.3)
